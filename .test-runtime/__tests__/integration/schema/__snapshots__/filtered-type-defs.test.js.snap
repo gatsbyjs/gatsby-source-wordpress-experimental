@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[gatsby-source-wordpress-experimental] filtered type definitions Date field resolver is working 1`] = `
+Object {
+  "data": Object {
+    "wpPage": Object {
+      "date": "2020-03-19T01:41:08",
+      "dayOfMonth": "19",
+      "dayOfWeekName": "Thursday",
+      "dayOfWeekNumber": "4",
+      "month": "March",
+      "year": "2020",
+    },
+  },
+}
+`;
