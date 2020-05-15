@@ -13,3 +13,5 @@ yarn.lock
 .DS_Store
 yarn-error.log
 .vscode
+
+node_modules
