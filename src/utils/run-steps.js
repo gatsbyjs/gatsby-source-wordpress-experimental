@@ -1,17 +1,29 @@
-const runSteps = async (steps, helpers, pluginOptions) => {
+import { formatLogMessage } from "~/utils/format-log-message"
+
+const runSteps = async (steps, helpers, pluginOptions, apiName) => {
   for (const step of steps) {
-    await step(helpers, pluginOptions)
+    try {
+      await step(helpers, pluginOptions)
+    } catch (e) {
+      helpers.reporter.error(e)
+      helpers.reporter.panic(
+        formatLogMessage(
+          `\n\n\tEncountered a critical error when running the ${apiName}.${step.name} build step.\n\tSee above for more information.`,
+          { useVerboseStyle: true }
+        )
+      )
+    }
   }
 }
 
-const runApiSteps = steps => async (helpers, pluginOptions) =>
-  runSteps(steps, helpers, pluginOptions)
+const runApiSteps = (steps, apiName) => async (helpers, pluginOptions) =>
+  runSteps(steps, helpers, pluginOptions, apiName)
 
-const runApisInSteps = nodeApis =>
+const runApisInSteps = (nodeApis) =>
   Object.entries(nodeApis).reduce(
     (gatsbyNodeExportObject, [apiName, apiSteps]) => ({
       ...gatsbyNodeExportObject,
-      [apiName]: runApiSteps(apiSteps),
+      [apiName]: runApiSteps(apiSteps, apiName),
     }),
     {}
   )
