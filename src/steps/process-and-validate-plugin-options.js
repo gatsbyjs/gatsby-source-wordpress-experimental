@@ -5,11 +5,11 @@ import isInteger from "lodash/isInteger"
 const optionsProcessors = [
   {
     name: `excludeFields-renamed-to-excludeFieldNames`,
-    test: ({ pluginOptions }) =>
-      pluginOptions?.excludeFields?.length ||
-      pluginOptions?.excludeFieldName?.length,
-    processor: ({ helpers, pluginOptions }) => {
-      if (pluginOptions?.excludeFields?.length) {
+    test: ({ userPluginOptions }) =>
+      userPluginOptions?.excludeFields?.length ||
+      userPluginOptions?.excludeFieldNames?.length,
+    processor: ({ helpers, userPluginOptions }) => {
+      if (userPluginOptions?.excludeFields?.length) {
         helpers.reporter.log(``)
         helpers.reporter.warn(
           formatLogMessage(
@@ -19,23 +19,19 @@ const optionsProcessors = [
         )
       }
 
-      if (
-        pluginOptions?.excludeFieldNames?.length ||
-        // @todo remove excludeFields option in beta release since it's been renamed to excludeFieldNames
-        pluginOptions?.excludeFields?.length
-      ) {
-        store.dispatch.remoteSchema.addFieldsToBlackList(
-          pluginOptions.excludeFieldNames || pluginOptions.excludeFields
-        )
-      }
+      store.dispatch.remoteSchema.addFieldsToBlackList(
+        userPluginOptions.excludeFieldNames || userPluginOptions.excludeFields
+      )
+
+      return userPluginOptions
     },
   },
   {
     name: `queryDepth-is-not-a-positive-int`,
-    test: ({ pluginOptions }) =>
-      !isInteger(pluginOptions.schema.queryDepth) ||
-      pluginOptions.schema.queryDepth <= 0,
-    processor: ({ helpers, pluginOptions }) => {
+    test: ({ userPluginOptions }) =>
+      !isInteger(userPluginOptions.schema.queryDepth) ||
+      userPluginOptions.schema.queryDepth <= 0,
+    processor: ({ helpers, userPluginOptions }) => {
       helpers.reporter.log(``)
       helpers.reporter.warn(
         formatLogMessage(
@@ -44,26 +40,44 @@ const optionsProcessors = [
         )
       )
 
-      delete pluginOptions.schema.queryDepth
+      delete userPluginOptions.schema.queryDepth
 
-      return pluginOptions
+      return userPluginOptions
     },
   },
 ]
 
 export const processAndValidatePluginOptions = (helpers, pluginOptions) => {
-  let pluginOptionsCopy = {
+  let userPluginOptions = {
     ...pluginOptions,
   }
 
-  optionsProcessors.forEach(({ test, processor }) => {
-    if (test({ helpers, pluginOptions: pluginOptionsCopy })) {
-      pluginOptionsCopy = processor({
+  optionsProcessors.forEach(({ test, processor, name }) => {
+    if (!name) {
+      helpers.reporter.panic(
+        formatLogMessage(
+          `Plugin option filter is unnamed\n\n${test.toString()}\n\n${processor.toString()}`
+        )
+      )
+    }
+
+    if (test({ helpers, userPluginOptions })) {
+      const filteredUserPluginOptions = processor({
         helpers,
-        pluginOptions: pluginOptionsCopy,
+        userPluginOptions,
       })
+
+      if (filteredUserPluginOptions) {
+        userPluginOptions = filteredUserPluginOptions
+      } else {
+        helpers.reporter.panic(
+          formatLogMessage(
+            `Plugin option filter ${name} didn't return a filtered options object`
+          )
+        )
+      }
     }
   })
 
-  return pluginOptionsCopy
+  return userPluginOptions
 }
