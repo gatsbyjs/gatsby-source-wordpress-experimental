@@ -2601,6 +2601,68 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 "
 `;
 
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] RootQuery node node query hasn't changed 1`] = `
+"query NON_NODE_QUERY {
+  allSettings {
+    discussionSettingsDefaultCommentStatus
+    discussionSettingsDefaultPingStatus
+    generalSettingsDateFormat
+    generalSettingsDescription
+    generalSettingsLanguage
+    generalSettingsStartOfWeek
+    generalSettingsTimeFormat
+    generalSettingsTimezone
+    generalSettingsTitle
+    generalSettingsUrl
+    readingSettingsPostsPerPage
+    writingSettingsDefaultCategory
+    writingSettingsDefaultPostFormat
+    writingSettingsUseSmilies
+  }
+
+  defaultLanguage {
+    id
+    locale
+    name
+    slug
+  }
+
+  discussionSettings {
+    defaultCommentStatus
+    defaultPingStatus
+  }
+
+  generalSettings {
+    dateFormat
+    description
+    language
+    startOfWeek
+    timeFormat
+    timezone
+    title
+    url
+  }
+
+  languages {
+    id
+    locale
+    name
+    slug
+  }
+
+  readingSettings {
+    postsPerPage
+  }
+
+  writingSettings {
+    defaultCategory
+    defaultPostFormat
+    useSmilies
+  }
+}
+"
+`;
+
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Tag node list query hasn't changed 1`] = `
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
   tags(first: $first, after: $after, where: { parent: null }) {
