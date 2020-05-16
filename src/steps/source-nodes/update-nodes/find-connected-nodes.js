@@ -21,7 +21,7 @@ const recursivelySearchForIds = ([key, value]) => {
     dump(key)
     // loop through each value of the array. If it's an object recurse on it's fields
     // if it's anything else skip it.
-    value.map(innerValue => {
+    value.map((innerValue) => {
       if (innerValue === null) {
         return null
       }
@@ -44,11 +44,11 @@ const recursivelySearchForIds = ([key, value]) => {
   return null
 }
 
-export const findConnectedNodeIds = node => {
+export const findConnectedNodeIds = (node) => {
   const childNodeIds = [
     ...new Set(
       flattenDeep(Object.entries(node).map(recursivelySearchForIds)).filter(
-        id => id !== node.id && !!id
+        (id) => id !== node.id && !!id
       )
     ),
   ]

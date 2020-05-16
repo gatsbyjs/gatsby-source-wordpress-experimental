@@ -164,8 +164,9 @@ const handleFetchErrors = async ({
     reporter.error(e)
     reporter.panic(
       formatLogMessage(
-        `It took too long for ${url} to respond (longer than ${timeout /
-          1000} seconds). Either your URL is wrong, you need to increase server resources, or you need to increase your timeout in the gatsby-source-wordpress options. \n${genericError(
+        `It took too long for ${url} to respond (longer than ${
+          timeout / 1000
+        } seconds). Either your URL is wrong, you need to increase server resources, or you need to increase your timeout in the gatsby-source-wordpress options. \n${genericError(
           { url }
         )}`,
         { useVerboseStyle: true }
@@ -246,7 +247,7 @@ const fetchGraphql = async ({
 
   if (!reporter || typeof reporter === `undefined`) {
     reporter = {
-      panic: message => {
+      panic: (message) => {
         throw new Error(message)
       },
       error: console.error,
@@ -302,7 +303,7 @@ const fetchGraphql = async ({
 
   if (throwGqlErrors && response.data.errors) {
     const stringifiedErrors = response.data.errors
-      .map(error => error.message)
+      .map((error) => error.message)
       .join(`\n\n`)
 
     throw new Error(stringifiedErrors)

@@ -51,7 +51,7 @@ export const categoryBeforeChangeNode = async ({
   const additionalNodeIds = remoteChildCategoryNodes.map(({ id } = {}) => id)
 
   await Promise.all(
-    remoteChildCategoryNodes.map(async remoteCategoryNode => {
+    remoteChildCategoryNodes.map(async (remoteCategoryNode) => {
       if (remoteCategoryNode?.wpChildren?.nodes?.length) {
         // recursively fetch child category items
         const {
@@ -66,7 +66,7 @@ export const categoryBeforeChangeNode = async ({
           buildTypeName,
         })
 
-        childNodeIds.forEach(id => additionalNodeIds.push(id))
+        childNodeIds.forEach((id) => additionalNodeIds.push(id))
       }
 
       const type = buildTypeName(`Category`)

@@ -37,7 +37,7 @@ const pushPromiseOntoRetryQueue = ({
 
     if (timesRetried >= 2) {
       // if we've retried this more than once, pause for a sec.
-      await new Promise(resolve =>
+      await new Promise((resolve) =>
         setTimeout(() => resolve(), timesRetried * 500)
       )
     }
@@ -138,12 +138,7 @@ export default async function fetchReferencedMediaItemsAndCreateNodes({
         // where 89381 is the id we want for our query
         // so we split on the : and get the last item in the array, which is the id
         // once we can get a list of media items by relay id's, we can remove atob
-        const ids = relayIds.map(
-          id =>
-            atob(id)
-              .split(`:`)
-              .slice(-1)[0]
-        )
+        const ids = relayIds.map((id) => atob(id).split(`:`).slice(-1)[0])
 
         const query = `
           query MEDIA_ITEMS($in: [ID]) {
@@ -168,7 +163,7 @@ export default async function fetchReferencedMediaItemsAndCreateNodes({
           throwFetchErrors: true,
         })
 
-        allNodesOfContentType.forEach(node => {
+        allNodesOfContentType.forEach((node) => {
           allMediaItemNodes.push(node)
 
           pushPromiseOntoRetryQueue({

@@ -30,7 +30,7 @@ export const transformListOfGatsbyNodes = ({ field, fieldName }) => {
       }
 
       return context.nodeModel.getNodesByIds({
-        ids: nodes.map(node => node.id),
+        ids: nodes.map((node) => node.id),
         type: typeName,
       })
     },

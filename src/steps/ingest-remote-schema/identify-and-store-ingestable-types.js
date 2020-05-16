@@ -3,7 +3,7 @@ import { typeIsExcluded } from "~/steps/ingest-remote-schema/is-excluded"
 import { typeIsABuiltInScalar } from "../create-schema-customization/helpers"
 
 const identifyAndStoreIngestableFieldsAndTypes = async () => {
-  const nodeListFilter = field => field.name === `nodes`
+  const nodeListFilter = (field) => field.name === `nodes`
 
   const state = store.getState()
   const { introspectionData, fieldBlacklist, typeMap } = state.remoteSchema
@@ -34,7 +34,7 @@ const identifyAndStoreIngestableFieldsAndTypes = async () => {
   }
 
   const interfaces = introspectionData.__schema.types.filter(
-    type => type.kind === `INTERFACE`
+    (type) => type.kind === `INTERFACE`
   )
 
   for (const interfaceType of interfaces) {
@@ -61,7 +61,7 @@ const identifyAndStoreIngestableFieldsAndTypes = async () => {
 
   for (const field of rootFields) {
     const fieldHasNonNullArgs = field.args.some(
-      arg => arg.type.kind === `NON_NULL`
+      (arg) => arg.type.kind === `NON_NULL`
     )
 
     if (fieldHasNonNullArgs) {
@@ -110,7 +110,7 @@ const identifyAndStoreIngestableFieldsAndTypes = async () => {
       continue
     }
 
-    const takesIDinput = field?.args?.find(arg => arg.type.name === `ID`)
+    const takesIDinput = field?.args?.find((arg) => arg.type.name === `ID`)
 
     // if a non-node root field takes an id input, we 99% likely can't use it.
     // so don't fetch it and don't add it to the schema.
@@ -121,7 +121,7 @@ const identifyAndStoreIngestableFieldsAndTypes = async () => {
     if (
       // if this type is excluded on the RootQuery, skip it
       pluginOptions.type.RootQuery?.excludeFieldNames?.find(
-        excludedFieldName => excludedFieldName === field.name
+        (excludedFieldName) => excludedFieldName === field.name
       )
     ) {
       continue
@@ -135,9 +135,9 @@ const identifyAndStoreIngestableFieldsAndTypes = async () => {
     nonNodeRootFields.push(field)
   }
 
-  const nodeListFieldNames = nodeListRootFields.map(field => field.name)
+  const nodeListFieldNames = nodeListRootFields.map((field) => field.name)
 
-  const nodeListTypeNames = nodeListRootFields.map(field => {
+  const nodeListTypeNames = nodeListRootFields.map((field) => {
     const connectionType = typeMap.get(field.type.name)
 
     const nodesField = connectionType.fields.find(nodeListFilter)

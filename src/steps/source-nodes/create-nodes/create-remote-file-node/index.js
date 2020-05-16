@@ -14,7 +14,7 @@ const {
   getRemoteFileName,
   createFilePath,
 } = require(`gatsby-source-filesystem/utils`)
-const cacheId = url => `create-remote-file-node-${url}`
+const cacheId = (url) => `create-remote-file-node-${url}`
 
 let bar
 // Keep track of the total number of jobs we push in the queue
@@ -171,7 +171,7 @@ const requestRemoteNode = (
     responseStream.pipe(fsWriteStream)
 
     // If there's a 400/500 response or other error.
-    responseStream.on(`error`, error => {
+    responseStream.on(`error`, (error) => {
       if (timeout) {
         clearTimeout(timeout)
       }
@@ -184,7 +184,7 @@ const requestRemoteNode = (
       reject(error)
     })
 
-    fsWriteStream.on(`error`, error => {
+    fsWriteStream.on(`error`, (error) => {
       if (timeout) {
         clearTimeout(timeout)
       }
@@ -196,7 +196,7 @@ const requestRemoteNode = (
       reject(error)
     })
 
-    responseStream.on(`response`, response => {
+    responseStream.on(`response`, (response) => {
       resetTimeout()
 
       fsWriteStream.on(`finish`, () => {
@@ -320,14 +320,14 @@ const processingCache = {}
  * @param {CreateRemoteFileNodePayload} task
  * @return {Promise<Object>}
  */
-const pushTask = task =>
+const pushTask = (task) =>
   new Promise((resolve, reject) => {
     queue
       .push(task)
-      .on(`finish`, task => {
+      .on(`finish`, (task) => {
         resolve(task)
       })
-      .on(`failed`, err => {
+      .on(`failed`, (err) => {
         reject(`failed to process ${task.url}\n${err}`)
       })
   })
@@ -418,7 +418,7 @@ module.exports = ({
     fixedBarTotal,
   })
 
-  processingCache[url] = fileDownloadPromise.then(node => {
+  processingCache[url] = fileDownloadPromise.then((node) => {
     bar.tick()
 
     return node

@@ -14,10 +14,7 @@ import {
   getTypeSettingsByType,
 } from "~/steps/create-schema-customization/helpers"
 
-const getDbIdFromRelayId = relayId =>
-  atob(relayId)
-    .split(`:`)
-    .reverse()[0]
+const getDbIdFromRelayId = (relayId) => atob(relayId).split(`:`).reverse()[0]
 
 const normalizeUri = ({ uri, id, singleName }) => {
   // if this is a draft url which could look like
@@ -259,7 +256,7 @@ export const createSingleNode = async ({
     cachedNodeIds.push(remoteNode.id)
 
     if (additionalNodeIds && additionalNodeIds.length) {
-      additionalNodeIds.forEach(id => cachedNodeIds.push(id))
+      additionalNodeIds.forEach((id) => cachedNodeIds.push(id))
     }
 
     await helpers.cache.set(CREATED_NODE_IDS, cachedNodeIds)
@@ -306,7 +303,7 @@ const wpActionUPDATE = async ({
   if (wpAction.referencedNodeStatus !== `publish`) {
     // if the post status isn't publish anymore, we need to remove the node
     // by removing it from cached nodes so it's garbage collected by Gatsby
-    const validNodeIds = cachedNodeIds.filter(cachedId => cachedId !== nodeId)
+    const validNodeIds = cachedNodeIds.filter((cachedId) => cachedId !== nodeId)
 
     await cache.set(CREATED_NODE_IDS, validNodeIds)
 

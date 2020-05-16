@@ -8,7 +8,7 @@ const remoteSchema = {
     introspectionData: null,
     schemaWasChanged: null,
     typeMap: null,
-    nodeListFilter: field => field.name === `nodes`,
+    nodeListFilter: (field) => field.name === `nodes`,
     ingestibles: {
       nodeListRootFields: null,
       nodeInterfaceTypes: null,

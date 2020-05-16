@@ -13,7 +13,7 @@ import { getGatsbyApi } from "~/utils/get-gatsby-api"
 import urlToPath from "~/utils/url-to-path"
 import { formatLogMessage } from "~/utils/format-log-message"
 
-export const getFileNodeMetaBySourceUrl = sourceUrl => {
+export const getFileNodeMetaBySourceUrl = (sourceUrl) => {
   const fileNodesMetaByUrls = store.getState().imageNodes.nodeMetaByUrl
 
   return fileNodesMetaByUrls[sourceUrl]
@@ -148,7 +148,8 @@ export const createRemoteMediaItemNode = async ({
       retries: 3,
       factor: 1.1,
       minTimeout: 5000,
-      onRetry: error => errorPanicker({ error, reporter, node: mediaItemNode }),
+      onRetry: (error) =>
+        errorPanicker({ error, reporter, node: mediaItemNode }),
     }
   )
 

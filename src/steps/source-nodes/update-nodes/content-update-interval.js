@@ -2,7 +2,7 @@ import fetchAndApplyNodeUpdates from "./fetch-node-updates"
 import { formatLogMessage } from "~/utils/format-log-message"
 import store from "~/store"
 
-const refetcher = async msRefetchInterval => {
+const refetcher = async (msRefetchInterval) => {
   await fetchAndApplyNodeUpdates({
     intervalRefetching: true,
   })

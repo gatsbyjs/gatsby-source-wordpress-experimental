@@ -4,7 +4,7 @@ import { createRemoteMediaItemNode } from "~/steps/source-nodes/create-nodes/cre
 export const typeDefinitionFilters = [
   {
     typeName: `__all`,
-    typeDef: typeDef => {
+    typeDef: (typeDef) => {
       if (typeDef?.fields?.date) {
         const dateField = {
           ...typeDef.fields.date,

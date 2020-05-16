@@ -5,7 +5,7 @@ const menuItemFetchQueue = new PQueue({
   carryoverConcurrencyCount: true,
 })
 
-const fetchChildMenuItems = api => async () => {
+const fetchChildMenuItems = (api) => async () => {
   const {
     remoteNode,
     wpStore,
@@ -52,7 +52,7 @@ const fetchChildMenuItems = api => async () => {
   )
 
   await Promise.all(
-    remoteChildMenuItemNodes.map(async remoteMenuItemNode => {
+    remoteChildMenuItemNodes.map(async (remoteMenuItemNode) => {
       // recursively fetch child menu items
       menuItemFetchQueue.add(
         fetchChildMenuItems({
@@ -77,7 +77,7 @@ const fetchChildMenuItems = api => async () => {
   )
 }
 
-export const menuBeforeChangeNode = async api => {
+export const menuBeforeChangeNode = async (api) => {
   if (
     api.actionType !== `UPDATE` &&
     api.actionType !== `CREATE_ALL` &&

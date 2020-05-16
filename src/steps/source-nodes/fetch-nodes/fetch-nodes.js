@@ -77,7 +77,7 @@ export const getContentTypeQueryInfos = () => {
 }
 
 export const getGatsbyNodeTypeNames = () =>
-  getContentTypeQueryInfos().map(query => query.typeInfo.nodesTypeName)
+  getContentTypeQueryInfos().map((query) => query.typeInfo.nodesTypeName)
 
 /**
  * fetchWPGQLContentNodesByContentType
@@ -96,7 +96,7 @@ export const fetchWPGQLContentNodesByContentType = async () => {
 
   for (const queries of chunkedQueries) {
     await Promise.all(
-      queries.map(async queryInfo => {
+      queries.map(async (queryInfo) => {
         if (
           // if the type settings call for lazyNodes, don't fetch them upfront here
           queryInfo.settings.lazyNodes ||

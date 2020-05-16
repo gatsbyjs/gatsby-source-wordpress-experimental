@@ -55,11 +55,11 @@ const createNodeWithSideEffects = ({
     if (!pluginOptions.type.MediaItem.lazyNodes) {
       // get an array of all referenced media file ID's
       const matchedIds = execall(/"id":"([^"]*)","sourceUrl"/gm, nodeString)
-        .map(match => match.subMatches[0])
-        .filter(id => id !== node.id)
+        .map((match) => match.subMatches[0])
+        .filter((id) => id !== node.id)
 
       if (matchedIds.length) {
-        matchedIds.forEach(id => referencedMediaItemNodeIds.add(id))
+        matchedIds.forEach((id) => referencedMediaItemNodeIds.add(id))
       }
     }
   }
@@ -94,13 +94,14 @@ const createNodeWithSideEffects = ({
 
     if (additionalNodeIds?.length) {
       additionalNodeIds.forEach(
-        id => createdNodeIds.push(id) && totalSideEffectNodes.push(id)
+        (id) => createdNodeIds.push(id) && totalSideEffectNodes.push(id)
       )
     }
 
     createNodesActivity.setStatus(
-      `awaiting async side effects - ${totalSideEffectNodes?.length ??
-        0} additional nodes fetched`
+      `awaiting async side effects - ${
+        totalSideEffectNodes?.length ?? 0
+      } additional nodes fetched`
     )
   }
 
