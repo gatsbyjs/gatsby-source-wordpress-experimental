@@ -17,8 +17,8 @@ You can find the changelog [here](https://github.com/TylerBarnes/gatsby/blob/fea
 - Install Gatsby and gatsby-cli
 - Set up this starter locally `gatsby new wordpress-v4 https://github.com/TylerBarnes/using-gatsby-source-wordpress-experimental`
 - In the `WordPress/plugins/` directory of [this starter](https://github.com/TylerBarnes/using-gatsby-source-wordpress-experimental/tree/master/WordPress/plugins) there are two plugins which both need to be installed into a live WordPress instance
-  - WPGraphQL v0.8.2 - this adds GraphQL to our WordPress server
-  - WPGatsby v0.2.3 - this modifies the WPGQL schema and records when user actions have happened to allow us to do selective cache invalidation in Gatsby (to speed up builds).
+  - WPGraphQL - this adds GraphQL to our WordPress server
+  - WPGatsby - this modifies the WPGQL schema and records when user actions have happened to allow us to do selective cache invalidation in Gatsby (to speed up builds).
 
 ## Getting started
 

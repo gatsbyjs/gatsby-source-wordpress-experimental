@@ -6,6 +6,12 @@
 
 - Inline links in any node content (custom fields or in post_content) will be replaced with local relative links. https://your-beautiful-wp-site.com/page-2 will become /page-2 so that Gatsby can make sense of it.
 
+## 0.4.0
+
+### Breaking Changes
+
+- The minimum WPGatsby version has been increased to 0.2.5. This is because earlier versions were recording up to 4 duplicate content saves per content change in WordPress. This is the minimum version now because earlier versions may bloat your DB. WPGatsby does garbage collection, so any duplicate actions will be automatically removed.
+
 ## 0.3.2
 
 ### New Features
