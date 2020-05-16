@@ -83,7 +83,7 @@ export const buildNodesQueryOnFieldName = ({
     })
   )
 
-const buildVariables = variables =>
+const buildVariables = (variables) =>
   variables && typeof variables === `string` ? `(${variables})` : ``
 
 const buildInlineFragment = ({ name, fields, fragments }) => `
@@ -97,7 +97,7 @@ const buildInlineFragments = (inlineFragments, { fragments = {} } = {}) =>
     ? `
       __typename
       ${inlineFragments
-        .map(inlineFragment =>
+        .map((inlineFragment) =>
           buildInlineFragment({ ...inlineFragment, fragments })
         )
         .join(` `)}
@@ -114,7 +114,7 @@ export const buildSelectionSet = (fields, { fragments = {} } = {}) => {
   } = store.getState()
 
   const selectionSet = fields
-    .map(field => {
+    .map((field) => {
       if (typeof field === `string`) {
         return field
       }
@@ -135,7 +135,7 @@ export const buildSelectionSet = (fields, { fragments = {} } = {}) => {
 
       if (
         (!variables || variables === ``) &&
-        fields?.find(field => field.fieldName === `nodes`)
+        fields?.find((field) => field.fieldName === `nodes`)
       ) {
         // @todo instead of checking for a nodes field, include the field type here
         // and check for input args instead. Maybe some kind of input args API or something would be helpful

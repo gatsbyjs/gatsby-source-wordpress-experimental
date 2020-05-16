@@ -8,7 +8,7 @@ export const touchValidNodes = async () => {
   const { cache, actions } = helpers
 
   let validNodeIds = await cache.get(CREATED_NODE_IDS)
-  validNodeIds.forEach(nodeId => actions.touchNode({ nodeId }))
+  validNodeIds.forEach((nodeId) => actions.touchNode({ nodeId }))
 }
 
 /**

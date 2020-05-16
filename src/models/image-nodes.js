@@ -32,8 +32,8 @@ const imageNodes = {
     },
 
     addImgMatches(state, matches) {
-      matches.forEach(match =>
-        match.subMatches.forEach(subMatch => state.urls.add(subMatch))
+      matches.forEach((match) =>
+        match.subMatches.forEach((subMatch) => state.urls.add(subMatch))
       )
 
       return state

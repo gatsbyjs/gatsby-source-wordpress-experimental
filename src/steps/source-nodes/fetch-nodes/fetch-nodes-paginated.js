@@ -70,7 +70,7 @@ const paginatedWpNodeFetch = async ({
   nodes = nodes.filter(Boolean)
 
   if (nodes && nodes.length) {
-    nodes.forEach(async node => {
+    nodes.forEach(async (node) => {
       node.type = nodeTypeName
       // this is used to filter node interfaces by content types
       node.nodeType = nodeTypeName

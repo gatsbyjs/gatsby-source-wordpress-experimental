@@ -38,7 +38,7 @@ export const transformListOfUnions = ({ field, fieldName }) => {
         return null
       }
 
-      return resolvedField.map(item => {
+      return resolvedField.map((item) => {
         // @todo use our list of Gatsby node types to do a more performant check
         // on wether this is a Gatsby node or not.
         const node = context.nodeModel.getNodeById({

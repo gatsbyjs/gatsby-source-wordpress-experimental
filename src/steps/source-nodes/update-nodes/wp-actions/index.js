@@ -56,12 +56,12 @@ export const getWpActions = async ({ variables, helpers }) => {
   // Since we receive the actions in order from newest to oldest, we
   // can prefer actions at the top of the list.
   const actionabledIds = []
-  const actions = actionsSinceLastUpdate.filter(action => {
+  const actions = actionsSinceLastUpdate.filter((action) => {
     const id = action.referencedNodeGlobalRelayID
 
     // check if an action with the same id exists
     const actionExists = actionabledIds.find(
-      actionableId => actionableId === id
+      (actionableId) => actionableId === id
     )
 
     // if there isn't one, record the id of this one to filter
@@ -81,7 +81,7 @@ export const getWpActions = async ({ variables, helpers }) => {
  * Acts on changes in WordPress to call functions that sync Gatsby with
  * the latest WP changes
  */
-export const handleWpActions = async api => {
+export const handleWpActions = async (api) => {
   let { cachedNodeIds } = api
 
   switch (api.wpAction.actionType) {

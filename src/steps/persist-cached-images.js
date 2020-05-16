@@ -10,7 +10,7 @@ const persistPreviouslyCachedImages = async () => {
   // if they exist,
   if (imageNodeIds && imageNodeIds.length) {
     // touch them all so they don't get garbage collected by Gatsby
-    imageNodeIds.forEach(nodeId =>
+    imageNodeIds.forEach((nodeId) =>
       helpers.actions.touchNode({
         nodeId,
       })

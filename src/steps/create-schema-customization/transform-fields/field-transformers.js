@@ -8,7 +8,7 @@ import { typeIsABuiltInScalar } from "~/steps/create-schema-customization/helper
 export const fieldTransformers = [
   {
     // non null scalars
-    test: field =>
+    test: (field) =>
       field.type.kind === `NON_NULL` && field.type.ofType.kind === `SCALAR`,
 
     transform: ({ field }) => {
@@ -22,7 +22,7 @@ export const fieldTransformers = [
 
   {
     // non null lists
-    test: field =>
+    test: (field) =>
       field.type.kind === `NON_NULL` &&
       field.type.ofType.kind === `LIST` &&
       (field.type.ofType.name || field.type.ofType?.ofType?.name),
@@ -39,7 +39,7 @@ export const fieldTransformers = [
 
   {
     // non null lists of non null types
-    test: field =>
+    test: (field) =>
       field.type.kind === `NON_NULL` &&
       field.type.ofType.kind === `LIST` &&
       field.type.ofType?.ofType?.kind === `NON_NULL`,
@@ -55,7 +55,7 @@ export const fieldTransformers = [
 
       return {
         type: `[${normalizedType}!]!`,
-        resolve: source => {
+        resolve: (source) => {
           const resolvedField = source[fieldName]
 
           if (typeof resolvedField !== `undefined`) {
@@ -74,7 +74,7 @@ export const fieldTransformers = [
 
   {
     // lists of non null builtin types
-    test: field =>
+    test: (field) =>
       field.type.kind === `LIST` &&
       field.type.ofType.kind === `NON_NULL` &&
       (field.type.ofType.name ?? field.type.ofType?.ofType?.name) &&
@@ -85,7 +85,7 @@ export const fieldTransformers = [
 
   {
     // lists of non null types
-    test: field =>
+    test: (field) =>
       field.type.kind === `LIST` &&
       field.type.ofType.kind === `NON_NULL` &&
       (field.type.ofType.name ?? field.type.ofType?.ofType?.name),
@@ -95,7 +95,7 @@ export const fieldTransformers = [
 
   {
     // scalars
-    test: field => field.type.kind === `SCALAR`,
+    test: (field) => field.type.kind === `SCALAR`,
     transform: ({ field }) => {
       if (typeIsABuiltInScalar(field.type)) {
         return field.type.name
@@ -110,7 +110,7 @@ export const fieldTransformers = [
 
   {
     // Gatsby node Objects
-    test: field => {
+    test: (field) => {
       const gatsbyNodeTypes = getGatsbyNodeTypeNames()
 
       return (
@@ -124,7 +124,7 @@ export const fieldTransformers = [
 
   {
     // lists of gatsby-node objects
-    test: field => {
+    test: (field) => {
       const gatsbyNodeTypes = getGatsbyNodeTypeNames()
 
       return (
@@ -139,13 +139,13 @@ export const fieldTransformers = [
 
   {
     // non-gatsby-node objects
-    test: field => field.type.kind === `OBJECT`,
+    test: (field) => field.type.kind === `OBJECT`,
     transform: ({ field }) => buildTypeName(field.type.name),
   },
 
   {
     // lists of non-gatsby-node objects
-    test: field =>
+    test: (field) =>
       field.type.kind === `LIST` && field.type.ofType.kind === `OBJECT`,
 
     transform: ({ field }) => `[${buildTypeName(field.type.ofType.name)}]`,
@@ -153,7 +153,7 @@ export const fieldTransformers = [
 
   {
     // lists of unions
-    test: field =>
+    test: (field) =>
       field.type.kind === `LIST` && field.type.ofType.kind === `UNION`,
 
     transform: transformListOfUnions,
@@ -161,7 +161,7 @@ export const fieldTransformers = [
 
   {
     // list of scalars
-    test: field =>
+    test: (field) =>
       field.type.kind === `LIST` && field.type.ofType.kind === `SCALAR`,
 
     transform: ({ field }) => {
@@ -175,7 +175,7 @@ export const fieldTransformers = [
 
   {
     // lists of interfaces
-    test: field =>
+    test: (field) =>
       field.type.kind === `LIST` && field.type.ofType.kind === `INTERFACE`,
 
     transform: ({ field }) => `[${buildTypeName(field.type.ofType.name)}]`,
@@ -183,18 +183,18 @@ export const fieldTransformers = [
 
   {
     // unions
-    test: field => field.type.kind === `UNION`,
+    test: (field) => field.type.kind === `UNION`,
     transform: transformUnion,
   },
 
   {
     // interfaces
-    test: field => field.type.kind === `INTERFACE`,
+    test: (field) => field.type.kind === `INTERFACE`,
     transform: ({ field }) => buildTypeName(field.type.name),
   },
 
   {
-    test: field =>
+    test: (field) =>
       findTypeKind(field.type) !== `LIST` && field.type.kind === `NON_NULL`,
     transform: ({ field }) => `${buildTypeName(findTypeName(field.type))}!`,
   },

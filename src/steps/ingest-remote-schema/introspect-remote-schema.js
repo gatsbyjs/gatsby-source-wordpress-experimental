@@ -22,7 +22,7 @@ const introspectAndStoreRemoteSchema = async () => {
   }
 
   const typeMap = new Map(
-    introspectionData.__schema.types.map(type => [type.name, type])
+    introspectionData.__schema.types.map((type) => [type.name, type])
   )
 
   store.dispatch.remoteSchema.setState({ introspectionData, typeMap })
