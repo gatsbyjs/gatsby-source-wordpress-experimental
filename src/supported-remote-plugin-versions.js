@@ -3,7 +3,7 @@ const supportedWpPluginVersions = {
     version: `~0.8.2`,
   },
   WPGatsby: {
-    version: `~0.2.3`,
+    version: `~0.2.5`,
   },
 }
 
