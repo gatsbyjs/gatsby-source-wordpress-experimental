@@ -3,6 +3,20 @@ import { formatLogMessage } from "~/utils/format-log-message"
 const runSteps = async (steps, helpers, pluginOptions, apiName) => {
   for (const step of steps) {
     try {
+      if (pluginOptions.debug.timeBuildSteps) {
+        const activity = helpers.reporter.activityTimer(
+          formatLogMessage(`step -${!apiName ? `-` : ``}> ${step.name}`, {
+            useVerboseStyle: true,
+          })
+        )
+        activity.start()
+
+        await step(helpers, pluginOptions)
+
+        activity.end()
+        continue
+      }
+
       await step(helpers, pluginOptions)
     } catch (e) {
       helpers.reporter.error(e)

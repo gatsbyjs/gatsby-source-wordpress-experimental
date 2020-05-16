@@ -16,6 +16,7 @@ const defaultPluginOptions = {
       copyNodeSourcingQueryAndExit: false,
       writeQueriesToDisk: false,
     },
+    timeBuildSteps: false,
     disableCompatibilityCheck: false,
   },
   develop: {
