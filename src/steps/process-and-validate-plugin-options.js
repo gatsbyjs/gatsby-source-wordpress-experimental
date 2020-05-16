@@ -5,15 +5,19 @@ import isInteger from "lodash/isInteger"
 const optionsProcessors = [
   {
     name: `excludeFields-renamed-to-excludeFieldNames`,
-    test: ({ pluginOptions }) => pluginOptions?.excludeFields?.length,
+    test: ({ pluginOptions }) =>
+      pluginOptions?.excludeFields?.length ||
+      pluginOptions?.excludeFieldName?.length,
     processor: ({ helpers, pluginOptions }) => {
-      helpers.reporter.log(``)
-      helpers.reporter.warn(
-        formatLogMessage(
-          // @todo
-          `\n\nPlugin options excludeFields has been renamed to excludeFieldNames.\nBoth options work for now, but excludeFields will be removed in a future version\n(likely when we get to beta) in favour of excludeFieldNames.\n\n`
+      if (pluginOptions?.excludeFields?.length) {
+        helpers.reporter.log(``)
+        helpers.reporter.warn(
+          formatLogMessage(
+            // @todo
+            `\n\nPlugin options excludeFields has been renamed to excludeFieldNames.\nBoth options work for now, but excludeFields will be removed in a future version\n(likely when we get to beta) in favour of excludeFieldNames.\n\n`
+          )
         )
-      )
+      }
 
       if (
         pluginOptions?.excludeFieldNames?.length ||
