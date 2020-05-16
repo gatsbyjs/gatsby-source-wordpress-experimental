@@ -6,6 +6,12 @@
 
 - Inline links in any node content (custom fields or in post_content) will be replaced with local relative links. https://your-beautiful-wp-site.com/page-2 will become /page-2 so that Gatsby can make sense of it.
 
+## 0.3.2
+
+### New Features
+
+- When in verbose mode, content diffs are displayed in the terminal output when content changes. When the field contained a lot of data this was really noisy. Now field values that return more than 250 characters aren't shown - instead, the field key is simply printed as `[gatsby-source-wordpress] fieldKey updated`
+
 ## 0.3.1
 
 ### New Features
