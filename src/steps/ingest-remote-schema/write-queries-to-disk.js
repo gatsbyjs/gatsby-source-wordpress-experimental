@@ -21,15 +21,15 @@ export const writeQueriesToDisk = async ({ reporter }, pluginOptions) => {
   )
 
   activity.start()
+  const wordPressGraphQLDirectory = `${process.cwd()}/WordPress/GraphQL`
+
   for (const {
     nodeListQueries,
     nodeQuery,
     previewQuery,
     typeInfo,
   } of Object.values(remoteSchema.nodeQueries)) {
-    const directory = `${process.cwd()}/WordPress/GraphQL/${
-      typeInfo.nodesTypeName
-    }`
+    const directory = `${wordPressGraphQLDirectory}/${typeInfo.nodesTypeName}`
 
     await fs.ensureDir(directory)
 
@@ -51,6 +51,15 @@ export const writeQueriesToDisk = async ({ reporter }, pluginOptions) => {
       `utf8`
     )
   }
+
+  const directory = `${wordPressGraphQLDirectory}/RootQuery`
+
+  await fs.ensureDir(directory)
+
+  await fs.writeFile(
+    `${directory}/non-node-root-query.graphql`,
+    prettier.format(remoteSchema.nonNodeQuery, { parser: `graphql` })
+  )
 
   activity.end()
 }
