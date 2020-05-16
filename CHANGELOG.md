@@ -6,6 +6,18 @@
 
 - Inline links in any node content (custom fields or in post_content) will be replaced with local relative links. https://your-beautiful-wp-site.com/page-2 will become /page-2 so that Gatsby can make sense of it.
 
+## 0.3.1
+
+### New Features
+
+- The generated RootQuery GraphQL query is now written to disk when using the `debug.graphql.writeQueriesToDisk` option.
+- Better error handling by printing out which step of the build caused an uncaught error below the stacktrace.
+- Added an internal plugin options filter/validator and enforced that the `schema.queryDepth` option is a positive integer.
+
+### Bug Fixes
+
+- Previously `schema.queryDepth` didn't work when set to 1. Now you can do that if you're so clean that you only need the top level of WPGQL fields!
+
 ## 0.3.0
 
 ### New Features
