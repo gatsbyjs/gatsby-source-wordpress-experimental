@@ -87,6 +87,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         id
       }
       uri
+      __typename
     }
     pageInfo {
       hasNextPage
@@ -183,6 +184,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       id
     }
     uri
+    __typename
   }
 }
 "
@@ -274,6 +276,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       id
     }
     uri
+    __typename
   }
 }
 "
@@ -345,6 +348,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         id
       }
       type
+      __typename
     }
     pageInfo {
       hasNextPage
@@ -420,6 +424,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       id
     }
     type
+    __typename
   }
 }
 "
@@ -490,6 +495,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       id
     }
     type
+    __typename
   }
 }
 "
@@ -552,6 +558,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       showInNavMenus
       showInRest
       showUi
+      __typename
     }
     pageInfo {
       hasNextPage
@@ -618,6 +625,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     showInNavMenus
     showInRest
     showUi
+    __typename
   }
 }
 "
@@ -679,6 +687,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     showInNavMenus
     showInRest
     showUi
+    __typename
   }
 }
 "
@@ -840,6 +849,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         sourceUrl
       }
       uri
+      __typename
     }
     pageInfo {
       hasNextPage
@@ -1005,6 +1015,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       sourceUrl
     }
     uri
+    __typename
   }
 }
 "
@@ -1165,6 +1176,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       sourceUrl
     }
     uri
+    __typename
   }
 }
 "
@@ -1190,6 +1202,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
       name
       slug
+      __typename
     }
     pageInfo {
       hasNextPage
@@ -1219,6 +1232,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     name
     slug
+    __typename
   }
 }
 "
@@ -1243,6 +1257,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     name
     slug
+    __typename
   }
 }
 "
@@ -1305,6 +1320,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       target
       title
       url
+      __typename
     }
     pageInfo {
       hasNextPage
@@ -1371,6 +1387,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     target
     title
     url
+    __typename
   }
 }
 "
@@ -1432,6 +1449,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     target
     title
     url
+    __typename
   }
 }
 "
@@ -1601,6 +1619,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         id
       }
       uri
+      __typename
     }
     pageInfo {
       hasNextPage
@@ -1774,6 +1793,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       id
     }
     uri
+    __typename
   }
 }
 "
@@ -1942,6 +1962,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       id
     }
     uri
+    __typename
   }
 }
 "
@@ -2079,6 +2100,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         id
       }
       uri
+      __typename
     }
     pageInfo {
       hasNextPage
@@ -2220,6 +2242,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       id
     }
     uri
+    __typename
   }
 }
 "
@@ -2356,6 +2379,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       id
     }
     uri
+    __typename
   }
 }
 "
@@ -2435,6 +2459,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
       title
       uri
+      __typename
     }
     pageInfo {
       hasNextPage
@@ -2518,6 +2543,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     title
     uri
+    __typename
   }
 }
 "
@@ -2596,6 +2622,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     title
     uri
+    __typename
   }
 }
 "
@@ -2733,6 +2760,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         id
       }
       uri
+      __typename
     }
     pageInfo {
       hasNextPage
@@ -2812,6 +2840,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       id
     }
     uri
+    __typename
   }
 }
 "
@@ -2886,6 +2915,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       id
     }
     uri
+    __typename
   }
 }
 "
@@ -2917,6 +2947,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       showInQuickEdit
       showInRest
       showUi
+      __typename
     }
     pageInfo {
       hasNextPage
@@ -2952,6 +2983,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     showInQuickEdit
     showInRest
     showUi
+    __typename
   }
 }
 "
@@ -2982,6 +3014,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     showInQuickEdit
     showInRest
     showUi
+    __typename
   }
 }
 "
@@ -3136,6 +3169,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       toPing
       uri
+      __typename
     }
     pageInfo {
       hasNextPage
@@ -3294,6 +3328,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     title
     toPing
     uri
+    __typename
   }
 }
 "
@@ -3447,6 +3482,70 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     title
     toPing
     uri
+    __typename
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] TermNode node list query hasn't changed 1`] = `
+"query NODE_LIST_QUERY($first: Int!, $after: String) {
+  terms(first: $first, after: $after, where: { parent: null }) {
+    nodes {
+      count
+      databaseId
+      description
+      id
+      link
+      name
+      slug
+      termGroupId
+      termTaxonomyId
+      uri
+      __typename
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] TermNode node preview query hasn't changed 1`] = `
+"query PREVIEW_QUERY($id: ID!) {
+  termNode(id: $id, idType: DATABASE_ID) {
+    count
+    databaseId
+    description
+    id
+    link
+    name
+    slug
+    termGroupId
+    termTaxonomyId
+    uri
+    __typename
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] TermNode node single query hasn't changed 1`] = `
+"query SINGLE_CONTENT_QUERY($id: ID!) {
+  termNode(id: $id) {
+    count
+    databaseId
+    description
+    id
+    link
+    name
+    slug
+    termGroupId
+    termTaxonomyId
+    uri
+    __typename
   }
 }
 "
@@ -3538,6 +3637,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         id
       }
       uri
+      __typename
     }
     pageInfo {
       hasNextPage
@@ -3629,6 +3729,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       id
     }
     uri
+    __typename
   }
 }
 "
@@ -3715,6 +3816,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       id
     }
     uri
+    __typename
   }
 }
 "
@@ -3782,6 +3884,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
       title
       uri
+      __typename
     }
     pageInfo {
       hasNextPage
@@ -3853,6 +3956,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     title
     uri
+    __typename
   }
 }
 "
@@ -3919,6 +4023,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     title
     uri
+    __typename
   }
 }
 "
@@ -3986,6 +4091,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
       title
       uri
+      __typename
     }
     pageInfo {
       hasNextPage
@@ -4057,6 +4163,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     title
     uri
+    __typename
   }
 }
 "
@@ -4123,6 +4230,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     title
     uri
+    __typename
   }
 }
 "
@@ -4263,6 +4371,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       url
       userId
       username
+      __typename
     }
     pageInfo {
       hasNextPage
@@ -4407,6 +4516,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     url
     userId
     username
+    __typename
   }
 }
 "
@@ -4546,6 +4656,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     url
     userId
     username
+    __typename
   }
 }
 "
