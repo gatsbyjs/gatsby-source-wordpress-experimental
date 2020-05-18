@@ -118,9 +118,18 @@ const handleGraphQLErrors = async ({
     } else {
       reporter.error(
         formatLogMessage(
-          `${error.message} (${
-            error.category
-          }) \n\n If you haven't already, try adding ${chalk.bold(
+          `(${error.category}) ${
+            error?.locations?.length
+              ? error.locations
+                  .map(
+                    (location) =>
+                      `location: line ${location.line}, column: ${location.column}`
+                  )
+                  ?.join(`. `)
+              : ``
+          } \n\t ${
+            error.message
+          }  \n\n If you haven't already, try adding ${chalk.bold(
             `define( 'GRAPHQL_DEBUG', true );`
           )} to your wp-config.php for more detailed error messages.`
         )
