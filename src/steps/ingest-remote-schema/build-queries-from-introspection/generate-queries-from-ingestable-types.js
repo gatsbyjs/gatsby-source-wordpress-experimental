@@ -206,6 +206,9 @@ const generateNodeQueriesFromIngestibleFields = async () => {
       parentType: type,
     })
 
+    // we need this for node interface types on the WPGQL side
+    transformedFields.push(`__typename`)
+
     // mutates the fragments..
     aliasConflictingFragmentFields({ fragments })
 

@@ -1,6 +1,7 @@
 import store from "~/store"
 import { typeIsExcluded } from "~/steps/ingest-remote-schema/is-excluded"
 import { typeIsABuiltInScalar } from "../create-schema-customization/helpers"
+import { findTypeName } from "~/steps/create-schema-customization/helpers"
 
 const identifyAndStoreIngestableFieldsAndTypes = async () => {
   const nodeListFilter = (field) => field.name === `nodes`
@@ -58,6 +59,7 @@ const identifyAndStoreIngestableFieldsAndTypes = async () => {
   const nodeInterfaceTypes = []
   const nodeListRootFields = []
   const nonNodeRootFields = []
+  const nodeInterfacePossibleTypeNames = []
 
   for (const field of rootFields) {
     const fieldHasNonNullArgs = field.args.some(
@@ -90,6 +92,29 @@ const identifyAndStoreIngestableFieldsAndTypes = async () => {
 
           for (const innerField of nodeListFieldType.fields) {
             store.dispatch.remoteSchema.addFetchedType(innerField.type)
+          }
+
+          if (
+            // if we haven't marked this as a nodeInterface type then push this to root fields to fetch it
+            // nodeInterface is different than a node which is an interface type.
+            // In Gatsby nodeInterface means the node data is pulled from a different type. On the WP side we can also have nodes that are of an interface type, but we only pull them from a single root field
+            // the problem is that if we don't mark them as a node list root field
+            // we don't know to identify them later as being a node type that will have been fetched and we also wont try to fetch this type during node sourcing.
+            !pluginOptions?.type?.[nodeListField.type.ofType.name]
+              ?.nodeInterface
+          ) {
+            const nodeInterfaceType = typeMap.get(
+              findTypeName(nodeListField.type)
+            )
+
+            // we need to mark all the possible types as being fetched
+            // and also need to record the possible type as a node type
+            nodeInterfaceType?.possibleTypes?.forEach((type) => {
+              nodeInterfacePossibleTypeNames.push(type.name)
+              store.dispatch.remoteSchema.addFetchedType(type)
+            })
+
+            nodeListRootFields.push(field)
           }
 
           continue
@@ -137,12 +162,15 @@ const identifyAndStoreIngestableFieldsAndTypes = async () => {
 
   const nodeListFieldNames = nodeListRootFields.map((field) => field.name)
 
-  const nodeListTypeNames = nodeListRootFields.map((field) => {
-    const connectionType = typeMap.get(field.type.name)
+  const nodeListTypeNames = [
+    ...nodeInterfacePossibleTypeNames,
+    ...nodeListRootFields.map((field) => {
+      const connectionType = typeMap.get(field.type.name)
 
-    const nodesField = connectionType.fields.find(nodeListFilter)
-    return nodesField.type.ofType.name
-  })
+      const nodesField = connectionType.fields.find(nodeListFilter)
+      return nodesField.type.ofType.name
+    }),
+  ]
 
   const gatsbyNodesInfo = {
     fieldNames: nodeListFieldNames,
