@@ -6,6 +6,12 @@
 
 - Inline links in any node content (custom fields or in post_content) will be replaced with local relative links. https://your-beautiful-wp-site.com/page-2 will become /page-2 so that Gatsby can make sense of it.
 
+## 0.4.3
+
+### Bug Fixes
+
+- The message `pluginOptions.schema.queryDepth is not a positive integer. Using default value in place of provided value.` was being displayed when no plugin option for queryDepth was added. This release prevents that as we only want to display a warning if a value is provided.
+
 ## 0.4.2
 
 ### New Features
