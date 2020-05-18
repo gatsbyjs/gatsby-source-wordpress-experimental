@@ -6,9 +6,15 @@
 
 - Inline links in any node content (custom fields or in post_content) will be replaced with local relative links. https://your-beautiful-wp-site.com/page-2 will become /page-2 so that Gatsby can make sense of it.
 
+## 0.4.2
+
+### New Features
+
+- Added additional error context for GraphQL request errors to print out which node type was being sourced when the error occurred.
+
 ## 0.4.1
 
-## New Features
+### New Features
 
 - Added plugin option `debug.timeBuildSteps` to add an activity timer to all the internal build steps the plugin goes through.
 
