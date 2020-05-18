@@ -6,6 +6,12 @@
 
 - Inline links in any node content (custom fields or in post_content) will be replaced with local relative links. https://your-beautiful-wp-site.com/page-2 will become /page-2 so that Gatsby can make sense of it.
 
+## 0.4.4
+
+### Bug Fixes
+
+- We were trying to fetch connections to WPGQL node interface types that don't have an id field by id. The schema should provide an id here, otherwise there's no way to id the connected node, but now that's protected against by checking if the field has an id before trying to fetch the id.
+
 ## 0.4.3
 
 ### Bug Fixes

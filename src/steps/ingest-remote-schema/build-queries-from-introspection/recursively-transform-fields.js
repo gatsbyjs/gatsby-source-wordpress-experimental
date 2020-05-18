@@ -187,8 +187,8 @@ function transformField({
     return false
   }
 
-  const fieldType = field.type || {}
-  const ofType = fieldType.ofType || {}
+  const fieldType = typeMap.get(findTypeName(field.type)) || {}
+  const ofType = typeMap.get(findTypeName(fieldType.ofType)) || {}
 
   if (
     fieldType.kind === `SCALAR` ||
@@ -206,13 +206,20 @@ function transformField({
 
   const isListOfMediaItems = ofType && typeName === `MediaItem`
 
-  if (fieldType.kind === `LIST` && isListOfGatsbyNodes && !isListOfMediaItems) {
+  const hasIdField = fieldType?.fields?.find(({ name }) => name === `id`)
+
+  if (
+    fieldType.kind === `LIST` &&
+    isListOfGatsbyNodes &&
+    !isListOfMediaItems &&
+    hasIdField
+  ) {
     return {
       fieldName: fieldName,
       fields: [`id`],
       fieldType,
     }
-  } else if (fieldType.kind === `LIST` && isListOfMediaItems) {
+  } else if (fieldType.kind === `LIST` && isListOfMediaItems && hasIdField) {
     return {
       fieldName: fieldName,
       fields: [`id`, `sourceUrl`],
@@ -262,13 +269,13 @@ function transformField({
   const isAMediaItemNode = isAGatsbyNode && typeName === `MediaItem`
 
   // pull the id and sourceUrl for connections to media item gatsby nodes
-  if (isAMediaItemNode) {
+  if (isAMediaItemNode && hasIdField) {
     return {
       fieldName: fieldName,
       fields: [`id`, `sourceUrl`],
       fieldType,
     }
-  } else if (isAGatsbyNode) {
+  } else if (isAGatsbyNode && hasIdField) {
     // just pull the id for connections to other gatsby nodes
     return {
       fieldName: fieldName,
