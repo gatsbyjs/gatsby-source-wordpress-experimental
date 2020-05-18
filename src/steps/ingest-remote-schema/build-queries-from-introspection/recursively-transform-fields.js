@@ -242,6 +242,7 @@ function transformField({
       ancestorTypeNames,
       fragments,
       circularQueryLimit,
+      buildingFragment,
     })
 
     if (!transformedFields?.length && !transformedInlineFragments?.length) {
@@ -294,6 +295,7 @@ function transformField({
       ancestorTypeNames,
       fragments,
       circularQueryLimit,
+      buildingFragment,
     })
   }
 
@@ -345,6 +347,7 @@ function transformField({
       parentField: field,
       fragments,
       circularQueryLimit,
+      buildingFragment,
     })
 
     return {
@@ -434,7 +437,7 @@ const createFragment = ({
         circularQueryLimit: 1,
         ancestorTypeNames,
         fragments,
-        buildingFragment: true,
+        buildingFragment: typeName,
       })
     : null
 
@@ -502,7 +505,7 @@ const transformFields = ({
       // @todo add any adjacent fields and inline fragments directly to the stored fragment object so this logic can be changed to if (fragment) useTheFragment()
       // once that's done it can be added above and below transformField() above ☝️
       // and potentially short circuit expensive work that will be thrown away anyway
-      if (fragment && transformedField) {
+      if (fragment && transformedField && buildingFragment !== typeName) {
         // if (fragment && buildingFragment !== typeName && transformedField) {
         // remove fields from this query that already exist in the fragment
         if (transformedField?.fields?.length) {
