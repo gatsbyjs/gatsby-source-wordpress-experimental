@@ -12,9 +12,10 @@
 
 - Added additional error context for GraphQL request errors to print out which node type was being sourced when the error occurred.
 
-### Bug Fies
+### Bug Fixes
 
 - Node interface types on the WPGQL side weren't being properly recognized, this release fixes that by using the \_\_typename field to identify which type node interface types should be stored as during node sourcing
+- Reusable fragments were sometimes being nested inside themselves which would throw an error. This is now fixed.
 
 ## 0.4.1
 
