@@ -17,6 +17,7 @@ const handleErrors = async ({
   responseJSON,
   query,
   panicOnError,
+  errorContext,
 }) => {
   if (
     variables &&
@@ -56,7 +57,9 @@ const handleErrors = async ({
     pluginOptions.debug.graphql.panicOnError
   ) {
     reporter.panic(
-      formatLogMessage(`Encountered errors. See above for details.`)
+      formatLogMessage(
+        errorContext || `Encountered errors. See above for details.`
+      )
     )
   }
 }
@@ -68,6 +71,7 @@ const handleGraphQLErrors = async ({
   errorMap,
   panicOnError,
   reporter,
+  errorContext,
 }) => {
   const pluginOptions = getPluginOptions()
 
@@ -131,6 +135,7 @@ const handleGraphQLErrors = async ({
     reporter,
     query,
     panicOnError,
+    errorContext,
   })
 }
 
@@ -151,6 +156,7 @@ const handleFetchErrors = async ({
   pluginOptions,
   query,
   response,
+  errorContext,
 }) => {
   await handleErrors({
     panicOnError: false,
@@ -158,6 +164,7 @@ const handleFetchErrors = async ({
     variables,
     pluginOptions,
     query,
+    errorContext,
   })
 
   if (e.message.includes(`timeout of ${timeout}ms exceeded`)) {
@@ -239,6 +246,7 @@ const fetchGraphql = async ({
   url = false,
   variables = {},
   headers = {},
+  errorContext = false,
 }) => {
   const { helpers, pluginOptions } = store.getState().gatsbyApi
 
@@ -298,6 +306,7 @@ const fetchGraphql = async ({
       pluginOptions,
       query,
       response,
+      errorContext,
     })
   }
 
@@ -319,6 +328,7 @@ const fetchGraphql = async ({
       reporter,
       url,
       timeout,
+      errorContext,
     })
   }
 

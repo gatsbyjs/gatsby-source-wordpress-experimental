@@ -53,6 +53,7 @@ const paginatedWpNodeFetch = async ({
       ...variables,
       after,
     },
+    errorContext: `Error occured while fetching nodes of the "${nodeTypeName}" type.`,
   })
 
   const { data } = response
