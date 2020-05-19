@@ -37,6 +37,7 @@ const defaultPluginOptions = {
     circularQueryLimit: 5,
     typePrefix: `Wp`,
     timeout: 30 * 1000, // 30 seconds
+    perPage: 100,
   },
   excludeFieldNames: [],
   type: {

@@ -14,7 +14,11 @@ import chunk from "lodash/chunk"
 export const fetchWPGQLContentNodes = async ({ queryInfo }) => {
   const { pluginOptions, helpers } = store.getState().gatsbyApi
   const { reporter } = helpers
-  const { url, verbose } = pluginOptions
+  const {
+    url,
+    verbose,
+    schema: { perPage },
+  } = pluginOptions
 
   const { nodeListQueries, typeInfo, settings } = queryInfo
 
@@ -31,7 +35,7 @@ export const fetchWPGQLContentNodes = async ({ queryInfo }) => {
   // there's normally just one query here, but more can be added using the settings.nodeListQueries api
   for (const nodeListQuery of nodeListQueries) {
     let contentNodes = await paginatedWpNodeFetch({
-      first: 100,
+      first: perPage,
       after: null,
       contentTypePlural: typeInfo.pluralName,
       nodeTypeName: typeInfo.nodesTypeName,
