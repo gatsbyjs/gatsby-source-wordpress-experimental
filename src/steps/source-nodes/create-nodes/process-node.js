@@ -6,10 +6,11 @@ const imgSrcRemoteFileRegex = /(?:src=\\")((?:(?:https?|ftp|file):\/\/|www\.|ftp
 
 const imgTagRegex = /<img([\w\W]+?)[\/]?>/gim
 
-const findAndStoreReferencedImageNodeIds = ({
+const findReferencedImageNodeIds = ({
   nodeString,
   pluginOptions,
   referencedMediaItemNodeIds,
+  node,
 }) => {
   // if the lazyNodes plugin option is set we don't need to find
   // image node id's because those nodes will be fetched lazily in resolvers
@@ -22,13 +23,15 @@ const findAndStoreReferencedImageNodeIds = ({
     .map((match) => match.subMatches[0])
     .filter((id) => id !== node.id)
 
-  // push them to our store of referenced id's
-  if (matchedIds.length) {
-    matchedIds.forEach((id) => referencedMediaItemNodeIds.add(id))
-  }
+  return matchedIds
 }
 
-const fetchNodeHtmlImageMediaItemNodes = async () => {}
+const fetchNodeHtmlImageMediaItemNodes = async ({ cheerioImages }) => {
+  // check if we have any of these nodes locally already
+  // build a query to fetch all media items that we don't already have
+  // fetch them
+  // return media item nodes
+}
 
 const getCheerioImgFromMatch = ({ match }) => {
   const parsedMatch = JSON.parse(`"${match}"`)
@@ -55,11 +58,15 @@ const replaceNodeHtmlImages = async ({ nodeString, pluginOptions }) => {
   const imgTagMatches = execall(imgTagRegex, nodeString)
 
   if (imageUrlMatches.length) {
-    const images = imgTagMatches.map(getCheerioImgFromMatch).filter()
+    const cheerioImages = imgTagMatches.map(getCheerioImgFromMatch).filter()
 
-    const mediaItemNodes = await fetchNodeHtmlImageMediaItemNodes({ images })
+    const mediaItemNodes = await fetchNodeHtmlImageMediaItemNodes({
+      cheerioImages,
+    })
 
-    // find/replace mutate nodeString
+    // generate gatsby images for each cheerioImage
+
+    // find/replace mutate nodeString to replace matched images with rendered gatsby images
 
     store.dispatch.imageNodes.addImgMatches(imageUrlMatches)
   }
@@ -97,11 +104,21 @@ const processNode = ({
 
   const nodeString = stringify(node)
 
-  findAndStoreReferencedImageNodeIds({
+  // find referenced node ids
+  const nodeMediaItemIdReferences = findReferencedImageNodeIds({
     nodeString,
     pluginOptions,
-    referencedMediaItemNodeIds,
+    node,
   })
+
+  // push them to our store of referenced id's
+  if (nodeMediaItemIdReferences.length) {
+    nodeMediaItemIdReferences.forEach((id) =>
+      referencedMediaItemNodeIds.add(id)
+    )
+  }
+
+  return node
 
   const processedNodeString = processNodeString({
     nodeString,
