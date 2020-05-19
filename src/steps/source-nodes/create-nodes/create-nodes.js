@@ -42,11 +42,12 @@ const createNodeWithSideEffects = ({
   // this is important not only for downloading only used images
   // but also for downloading images in post content
   if (wpgqlNodesGroup.plural !== `mediaItems`) {
-    node = processNode({
+    node = await processNode({
       node,
       pluginOptions,
       referencedMediaItemNodeIds,
       wpUrl,
+      helpers,
     })
   }
 
