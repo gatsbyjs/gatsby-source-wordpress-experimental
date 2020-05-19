@@ -6,6 +6,7 @@ import { createRemoteMediaItemNode } from "../create-nodes/create-remote-media-i
 import { formatLogMessage } from "~/utils/format-log-message"
 import { paginatedWpNodeFetch } from "./fetch-nodes-paginated"
 import { buildTypeName } from "~/steps/create-schema-customization/helpers"
+import fetchGraphql from "~/utils/fetch-graphql"
 
 const nodeFetchConcurrency = 2
 
@@ -164,18 +165,66 @@ const fetchMediaItemsBySourceUrl = async ({
   actions,
   helpers,
   typeInfo,
+  allMediaItemNodes = [],
 }) => {
   const perPage = 100
   const mediaItemUrlsPages = chunk(mediaItemUrls, perPage)
 
-  for (const [index, sourceUrls] of mediaItemUrlsPages) {
+  for (const [index, sourceUrls] of mediaItemUrlsPages.entries()) {
     pushPromiseOntoRetryQueue({
       helpers,
       createContentDigest,
       actions,
       queue: mediaNodeFetchQueue,
       retryKey: `Media Item by sourceUrl query #${index}`,
-      retryPromise: async () => {},
+      retryPromise: async () => {
+        const query = /* GraphQL */ `
+          fragment MediaItemFragment on MediaItem {
+            ${selectionSet}
+          }
+
+          query MEDIA_ITEMS {
+            ${sourceUrls
+              .map(
+                (sourceUrl, index) => /* GraphQL */ `
+              mediaItem__index_${index}: mediaItem(id: "${sourceUrl}", idType: SOURCE_URL) {
+                ...MediaItemFragment
+              }
+            `
+              )
+              .join(` `)}
+          }
+        `
+
+        const { data } = await fetchGraphql({
+          query,
+          variables: {
+            first: perPage,
+            after: null,
+          },
+          errorContext: `Error occured while fetching "MediaItem" nodes in inline html.`,
+        })
+
+        const thisPagesNodes = Object.values(data).filter(Boolean)
+
+        clipboardy.writeSync(query)
+        dd(query)
+        dd(data)
+
+        thisPagesNodes.forEach(
+          (node) =>
+            dd(node) &&
+            createMediaItemNode({
+              node,
+              helpers,
+              createContentDigest,
+              actions,
+              allMediaItemNodes,
+            })
+        )
+
+        activity?.setStatus(`fetched ${allMediaItemNodes.length}`)
+      },
     })
   }
 
