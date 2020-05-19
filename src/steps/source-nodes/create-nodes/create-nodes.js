@@ -98,7 +98,10 @@ const createNodeWithSideEffects = ({
       )
     }
 
-    if (typeof totalSideEffectNodes?.length === `number`) {
+    if (
+      typeof totalSideEffectNodes?.length === `number` &&
+      totalSideEffectNodes.length > 0
+    ) {
       createNodesActivity.setStatus(
         `awaiting async side effects - ${totalSideEffectNodes.length} additional nodes fetched`
       )

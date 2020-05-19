@@ -6,6 +6,17 @@
 
 - Inline links in any node content (custom fields or in post_content) will be replaced with local relative links. https://your-beautiful-wp-site.com/page-2 will become /page-2 so that Gatsby can make sense of it.
 
+## 0.4.5
+
+### New Features
+
+- `pluginOptions.schema.perPage` was added to control how many nodes are fetched per-page during node sourcing. This is helpful for sites with gigantic schemas that generate very large queries. In the future queries will automatically be split into multiple queries to mitigate this automatically but for now this option will do 👍
+- Error context is now displayed when fetch errors occur, not just for GraphQL errors. Error context is something like "Error occurred while fetching the "Product" node type.
+
+### Bug Fixes
+
+- The `awaiting async side effects` reporter status is now only shown once some async side effects have occurred.
+
 ## 0.4.4
 
 ### Bug Fixes
