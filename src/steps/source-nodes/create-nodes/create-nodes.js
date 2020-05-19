@@ -98,11 +98,11 @@ const createNodeWithSideEffects = ({
       )
     }
 
-    createNodesActivity.setStatus(
-      `awaiting async side effects - ${
-        totalSideEffectNodes?.length ?? 0
-      } additional nodes fetched`
-    )
+    if (typeof totalSideEffectNodes?.length === `number`) {
+      createNodesActivity.setStatus(
+        `awaiting async side effects - ${totalSideEffectNodes.length} additional nodes fetched`
+      )
+    }
   }
 
   await actions.createNode(remoteNode)
