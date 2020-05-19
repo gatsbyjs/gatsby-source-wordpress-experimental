@@ -239,9 +239,14 @@ const handleFetchErrors = async ({
   }
 
   reporter.panic(
-    formatLogMessage(`${e.message} \n\n${genericError({ url })}`, {
-      useVerboseStyle: true,
-    })
+    formatLogMessage(
+      `${e.message} ${
+        errorContext ? `\n\n` + errorContext : ``
+      }\n\n${genericError({ url })}`,
+      {
+        useVerboseStyle: true,
+      }
+    )
   )
 }
 
