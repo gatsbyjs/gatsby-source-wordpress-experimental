@@ -94,35 +94,112 @@ const pushPromiseOntoRetryQueue = ({
   })
 }
 
-export default async function fetchReferencedMediaItemsAndCreateNodes({
+const createMediaItemNode = async ({
+  node,
+  helpers,
+  createContentDigest,
+  actions,
   referencedMediaItemNodeIds,
-}) {
-  const state = store.getState()
-  const queryInfo = state.remoteSchema.nodeQueries.mediaItems
+  allMediaItemNodes = [],
+}) => {
+  allMediaItemNodes.push(node)
 
-  const { helpers, pluginOptions } = state.gatsbyApi
-  const { createContentDigest, actions } = helpers
-  const { reporter } = helpers
-  const { url, verbose } = pluginOptions
-  const { typeInfo, settings, selectionSet } = queryInfo
+  pushPromiseOntoRetryQueue({
+    node,
+    helpers,
+    createContentDigest,
+    actions,
+    queue: mediaFileFetchQueue,
+    retryKey: node.mediaItemUrl,
+    retryPromise: async ({
+      createContentDigest,
+      actions,
+      helpers,
+      node,
+      retryKey,
+      timesRetried,
+    }) => {
+      let localFileNode = await createRemoteMediaItemNode({
+        mediaItemNode: node,
+        fixedBarTotal: referencedMediaItemNodeIds?.length,
+        helpers,
+      })
 
-  if (settings.limit && settings.limit < referencedMediaItemNodeIds.length) {
-    referencedMediaItemNodeIds = referencedMediaItemNodeIds.slice(
-      0,
-      settings.limit
-    )
+      if (timesRetried > 1) {
+        helpers.reporter.info(
+          `Successfully fetched ${retryKey} after retrying ${timesRetried} times`
+        )
+      }
+
+      if (!localFileNode) {
+        return
+      }
+
+      node = {
+        ...node,
+        remoteFile: {
+          id: localFileNode.id,
+        },
+        localFile: {
+          id: localFileNode.id,
+        },
+        parent: null,
+        internal: {
+          contentDigest: createContentDigest(node),
+          type: buildTypeName(`MediaItem`),
+        },
+      }
+
+      await actions.createNode(node)
+    },
+  })
+}
+
+const fetchMediaItemsBySourceUrl = async ({
+  mediaItemUrls,
+  settings,
+  url,
+  selectionSet,
+  createContentDigest,
+  actions,
+  helpers,
+  typeInfo,
+}) => {
+  const perPage = 100
+  const mediaItemUrlsPages = chunk(mediaItemUrls, perPage)
+
+  for (const [index, sourceUrls] of mediaItemUrlsPages) {
+    pushPromiseOntoRetryQueue({
+      helpers,
+      createContentDigest,
+      actions,
+      queue: mediaNodeFetchQueue,
+      retryKey: `Media Item by sourceUrl query #${index}`,
+      retryPromise: async () => {},
+    })
+  }
+
+  await mediaNodeFetchQueue.onIdle()
+  await mediaFileFetchQueue.onIdle()
+}
+
+const fetchMediaItemsById = async ({
+  mediaItemIds,
+  settings,
+  url,
+  selectionSet,
+  createContentDigest,
+  actions,
+  helpers,
+  typeInfo,
+  activity,
+}) => {
+  if (settings.limit && settings.limit < mediaItemIds.length) {
+    mediaItemIds = mediaItemIds.slice(0, settings.limit)
   }
 
   const nodesPerFetch = 100
-  const chunkedIds = chunk(referencedMediaItemNodeIds, nodesPerFetch)
-
-  const activity = reporter.activityTimer(
-    formatLogMessage(typeInfo.nodesTypeName)
-  )
-
-  if (verbose) {
-    activity.start()
-  }
+  const chunkedIds = chunk(mediaItemIds, nodesPerFetch)
 
   let allMediaItemNodes = []
 
@@ -163,61 +240,18 @@ export default async function fetchReferencedMediaItemsAndCreateNodes({
           throwFetchErrors: true,
         })
 
-        allNodesOfContentType.forEach((node) => {
-          allMediaItemNodes.push(node)
-
-          pushPromiseOntoRetryQueue({
+        allNodesOfContentType.forEach((node) =>
+          createMediaItemNode({
             node,
             helpers,
             createContentDigest,
             actions,
-            queue: mediaFileFetchQueue,
-            retryKey: node.mediaItemUrl,
-            retryPromise: async ({
-              createContentDigest,
-              actions,
-              helpers,
-              node,
-              retryKey,
-              timesRetried,
-            }) => {
-              let localFileNode = await createRemoteMediaItemNode({
-                mediaItemNode: node,
-                fixedBarTotal: referencedMediaItemNodeIds.length,
-                helpers,
-              })
-
-              if (timesRetried > 1) {
-                helpers.reporter.info(
-                  `Successfully fetched ${retryKey} after retrying ${timesRetried} times`
-                )
-              }
-
-              if (!localFileNode) {
-                return
-              }
-
-              node = {
-                ...node,
-                remoteFile: {
-                  id: localFileNode.id,
-                },
-                localFile: {
-                  id: localFileNode.id,
-                },
-                parent: null,
-                internal: {
-                  contentDigest: createContentDigest(node),
-                  type: buildTypeName(`MediaItem`),
-                },
-              }
-
-              await actions.createNode(node)
-            },
+            allMediaItemNodes,
+            referencedMediaItemNodeIds: mediaItemIds,
           })
-        })
+        )
 
-        activity.setStatus(`fetched ${allMediaItemNodes.length}`)
+        activity?.setStatus(`fetched ${allMediaItemNodes.length}`)
       },
     })
   }
@@ -227,6 +261,56 @@ export default async function fetchReferencedMediaItemsAndCreateNodes({
 
   if (!allMediaItemNodes || !allMediaItemNodes.length) {
     return
+  }
+}
+
+export default async function fetchReferencedMediaItemsAndCreateNodes({
+  referencedMediaItemNodeIds,
+  mediaItemUrls,
+}) {
+  const state = store.getState()
+  const queryInfo = state.remoteSchema.nodeQueries.mediaItems
+
+  const { helpers, pluginOptions } = state.gatsbyApi
+  const { createContentDigest, actions } = helpers
+  const { reporter } = helpers
+  const { url, verbose } = pluginOptions
+  const { typeInfo, settings, selectionSet } = queryInfo
+
+  const activity = reporter.activityTimer(
+    formatLogMessage(typeInfo.nodesTypeName)
+  )
+
+  if (verbose) {
+    activity.start()
+  }
+
+  if (referencedMediaItemNodeIds) {
+    await fetchMediaItemsById({
+      mediaItemIds: referencedMediaItemNodeIds,
+      settings,
+      url,
+      selectionSet,
+      createContentDigest,
+      actions,
+      helpers,
+      typeInfo,
+      activity,
+    })
+  }
+
+  if (mediaItemUrls) {
+    await fetchMediaItemsBySourceUrl({
+      mediaItemUrls,
+      settings,
+      url,
+      selectionSet,
+      createContentDigest,
+      actions,
+      helpers,
+      typeInfo,
+      activity,
+    })
   }
 
   if (verbose) {
