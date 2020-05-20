@@ -32,6 +32,14 @@ Array [
   },
   Object {
     "fields": null,
+    "name": "WpUserToEnqueuedScriptConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpUserToEnqueuedStylesheetConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
     "name": "WpUserToMediaItemConnectionFilterInput",
   },
   Object {
@@ -56,6 +64,10 @@ Array [
   },
   Object {
     "fields": null,
+    "name": "WpContentTypeToTaxonomyConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
     "name": "WpTaxonomyFilterListInput",
   },
   Object {
@@ -69,6 +81,14 @@ Array [
   Object {
     "fields": null,
     "name": "WpPostTypeLabelDetailsFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpContentNodeToEnqueuedScriptConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpContentNodeToEnqueuedStylesheetConnectionFilterInput",
   },
   Object {
     "fields": null,
@@ -149,6 +169,14 @@ Array [
   Object {
     "fields": null,
     "name": "WpCategoryToCategoryConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpTermNodeToEnqueuedScriptConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpTermNodeToEnqueuedStylesheetConnectionFilterInput",
   },
   Object {
     "fields": null,
@@ -312,6 +340,8 @@ Array [
       "date",
       "desiredSlug",
       "editLast",
+      "enqueuedScripts",
+      "enqueuedStylesheets",
       "guid",
       "id",
       "link",
@@ -331,6 +361,8 @@ Array [
       "comments",
       "databaseId",
       "description",
+      "enqueuedScripts",
+      "enqueuedStylesheets",
       "firstName",
       "id",
       "lastName",
@@ -466,6 +498,8 @@ Array [
       "desiredSlug",
       "editLast",
       "enclosure",
+      "enqueuedScripts",
+      "enqueuedStylesheets",
       "excerpt",
       "featuredImage",
       "guid",
@@ -535,6 +569,8 @@ Array [
       "desiredSlug",
       "editLast",
       "enclosure",
+      "enqueuedScripts",
+      "enqueuedStylesheets",
       "guid",
       "id",
       "language",
@@ -546,6 +582,8 @@ Array [
       "modified",
       "modifiedGmt",
       "wpParent",
+      "parentDatabaseId",
+      "parentId",
       "seo",
       "sizes",
       "slug",
@@ -576,6 +614,8 @@ Array [
   Object {
     "fields": Array [
       "wpParent",
+      "parentDatabaseId",
+      "parentId",
     ],
     "name": "WpHierarchicalContentNode",
   },
@@ -596,7 +636,6 @@ Array [
     "fields": Array [
       "canExport",
       "connectedTaxonomies",
-      "connectedTaxonomyNames",
       "deleteWithUser",
       "description",
       "excludeFromSearch",
@@ -626,6 +665,13 @@ Array [
       "internal",
     ],
     "name": "WpContentType",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "WpContentTypeToTaxonomyConnection",
   },
   Object {
     "fields": Array [
@@ -684,6 +730,18 @@ Array [
       "viewItems",
     ],
     "name": "WpPostTypeLabelDetails",
+  },
+  Object {
+    "fields": Array [
+      "pageInfo",
+    ],
+    "name": "WpContentNodeToEnqueuedScriptConnection",
+  },
+  Object {
+    "fields": Array [
+      "pageInfo",
+    ],
+    "name": "WpContentNodeToEnqueuedStylesheetConnection",
   },
   Object {
     "fields": Array [
@@ -788,6 +846,8 @@ Array [
       "count",
       "databaseId",
       "description",
+      "enqueuedScripts",
+      "enqueuedStylesheets",
       "id",
       "language",
       "link",
@@ -814,6 +874,8 @@ Array [
       "count",
       "databaseId",
       "description",
+      "enqueuedScripts",
+      "enqueuedStylesheets",
       "id",
       "link",
       "name",
@@ -824,6 +886,18 @@ Array [
       "nodeType",
     ],
     "name": "WpTermNode",
+  },
+  Object {
+    "fields": Array [
+      "pageInfo",
+    ],
+    "name": "WpTermNodeToEnqueuedScriptConnection",
+  },
+  Object {
+    "fields": Array [
+      "pageInfo",
+    ],
+    "name": "WpTermNodeToEnqueuedStylesheetConnection",
   },
   Object {
     "fields": Array [
@@ -866,6 +940,8 @@ Array [
       "desiredSlug",
       "editLast",
       "enclosure",
+      "enqueuedScripts",
+      "enqueuedStylesheets",
       "excerpt",
       "featuredImage",
       "guid",
@@ -948,6 +1024,8 @@ Array [
       "desiredSlug",
       "editLast",
       "enclosure",
+      "enqueuedScripts",
+      "enqueuedStylesheets",
       "featuredImage",
       "guid",
       "id",
@@ -1027,6 +1105,8 @@ Array [
       "count",
       "databaseId",
       "description",
+      "enqueuedScripts",
+      "enqueuedStylesheets",
       "id",
       "language",
       "link",
@@ -1113,6 +1193,8 @@ Array [
       "date",
       "desiredSlug",
       "editLast",
+      "enqueuedScripts",
+      "enqueuedStylesheets",
       "featuredImage",
       "guid",
       "id",
@@ -1124,6 +1206,8 @@ Array [
       "modified",
       "modifiedGmt",
       "wpParent",
+      "parentDatabaseId",
+      "parentId",
       "seo",
       "slug",
       "status",
@@ -1207,6 +1291,8 @@ Array [
       "desiredSlug",
       "editLast",
       "enclosure",
+      "enqueuedScripts",
+      "enqueuedStylesheets",
       "featuredImage",
       "guid",
       "id",
@@ -1241,6 +1327,8 @@ Array [
       "desiredSlug",
       "editLast",
       "enclosure",
+      "enqueuedScripts",
+      "enqueuedStylesheets",
       "featuredImage",
       "guid",
       "id",
@@ -1275,6 +1363,8 @@ Array [
       "desiredSlug",
       "editLast",
       "enclosure",
+      "enqueuedScripts",
+      "enqueuedStylesheets",
       "featuredImage",
       "guid",
       "id",
@@ -1304,6 +1394,18 @@ Array [
       "node",
     ],
     "name": "WpTranslationFilterTestToContentTypeConnection",
+  },
+  Object {
+    "fields": Array [
+      "pageInfo",
+    ],
+    "name": "WpUserToEnqueuedScriptConnection",
+  },
+  Object {
+    "fields": Array [
+      "pageInfo",
+    ],
+    "name": "WpUserToEnqueuedStylesheetConnection",
   },
   Object {
     "fields": Array [
@@ -2311,10 +2413,21 @@ Array [
     ],
     "name": "WpEditLock",
   },
+  Object {
+    "fields": Array [
+      "args",
+      "extra",
+      "handle",
+      "id",
+      "src",
+      "version",
+    ],
+    "name": "WpEnqueuedAsset",
+  },
 ]
 `;
 
-exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the local Gatsby schema 2`] = `"4b0db7033caf09cab46e8b7259b6e6db"`;
+exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the local Gatsby schema 2`] = `"43cb5ad909c64a77b5d7c6b6982a2953"`;
 
 exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the remote WPGraphQL schema 1`] = `
 Array [
@@ -2355,6 +2468,8 @@ Array [
       "project",
       "projects",
       "readingSettings",
+      "registeredScripts",
+      "registeredStylesheets",
       "revisions",
       "schemaMd5",
       "tag",
@@ -2403,6 +2518,8 @@ Array [
       "editLast",
       "editLock",
       "enclosure",
+      "enqueuedScripts",
+      "enqueuedStylesheets",
       "guid",
       "id",
       "isRestricted",
@@ -2438,6 +2555,8 @@ Array [
       "editLast",
       "editLock",
       "enclosure",
+      "enqueuedScripts",
+      "enqueuedStylesheets",
       "guid",
       "id",
       "isRestricted",
@@ -2468,6 +2587,8 @@ Array [
       "databaseId",
       "description",
       "email",
+      "enqueuedScripts",
+      "enqueuedStylesheets",
       "extraCapabilities",
       "firstName",
       "id",
@@ -2692,6 +2813,8 @@ Array [
       "editLast",
       "editLock",
       "enclosure",
+      "enqueuedScripts",
+      "enqueuedStylesheets",
       "excerpt",
       "featuredImage",
       "guid",
@@ -2768,6 +2891,8 @@ Array [
       "editLast",
       "editLock",
       "enclosure",
+      "enqueuedScripts",
+      "enqueuedStylesheets",
       "guid",
       "id",
       "isRestricted",
@@ -2780,6 +2905,8 @@ Array [
       "modified",
       "modifiedGmt",
       "parent",
+      "parentDatabaseId",
+      "parentId",
       "seo",
       "sizes",
       "slug",
@@ -2807,6 +2934,8 @@ Array [
   Object {
     "fields": Array [
       "parent",
+      "parentDatabaseId",
+      "parentId",
     ],
     "name": "HierarchicalContentNode",
   },
@@ -2839,7 +2968,6 @@ Array [
     "fields": Array [
       "canExport",
       "connectedTaxonomies",
-      "connectedTaxonomyNames",
       "deleteWithUser",
       "description",
       "excludeFromSearch",
@@ -2868,8 +2996,19 @@ Array [
     "name": "ContentType",
   },
   Object {
-    "fields": null,
-    "name": "TaxonomyEnum",
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "ContentTypeToTaxonomyConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "ContentTypeToTaxonomyConnectionEdge",
   },
   Object {
     "fields": Array [
@@ -2933,6 +3072,72 @@ Array [
       "user",
     ],
     "name": "EditLock",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "ContentNodeToEnqueuedScriptConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "ContentNodeToEnqueuedScriptConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "args",
+      "dependencies",
+      "extra",
+      "handle",
+      "id",
+      "src",
+      "version",
+    ],
+    "name": "EnqueuedScript",
+  },
+  Object {
+    "fields": Array [
+      "args",
+      "dependencies",
+      "extra",
+      "handle",
+      "id",
+      "src",
+      "version",
+    ],
+    "name": "EnqueuedAsset",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "ContentNodeToEnqueuedStylesheetConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "ContentNodeToEnqueuedStylesheetConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "args",
+      "dependencies",
+      "extra",
+      "handle",
+      "id",
+      "src",
+      "version",
+    ],
+    "name": "EnqueuedStylesheet",
   },
   Object {
     "fields": Array [
@@ -3041,6 +3246,10 @@ Array [
   },
   Object {
     "fields": null,
+    "name": "TaxonomyEnum",
+  },
+  Object {
+    "fields": null,
     "name": "TermObjectUnion",
   },
   Object {
@@ -3050,6 +3259,8 @@ Array [
       "count",
       "databaseId",
       "description",
+      "enqueuedScripts",
+      "enqueuedStylesheets",
       "id",
       "isRestricted",
       "language",
@@ -3074,6 +3285,8 @@ Array [
       "count",
       "databaseId",
       "description",
+      "enqueuedScripts",
+      "enqueuedStylesheets",
       "id",
       "isRestricted",
       "link",
@@ -3084,6 +3297,36 @@ Array [
       "uri",
     ],
     "name": "TermNode",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "TermNodeToEnqueuedScriptConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "TermNodeToEnqueuedScriptConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "TermNodeToEnqueuedStylesheetConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "TermNodeToEnqueuedStylesheetConnectionEdge",
   },
   Object {
     "fields": null,
@@ -3169,6 +3412,8 @@ Array [
       "editLast",
       "editLock",
       "enclosure",
+      "enqueuedScripts",
+      "enqueuedStylesheets",
       "excerpt",
       "featuredImage",
       "guid",
@@ -3253,6 +3498,8 @@ Array [
       "editLast",
       "editLock",
       "enclosure",
+      "enqueuedScripts",
+      "enqueuedStylesheets",
       "featuredImage",
       "guid",
       "id",
@@ -3359,6 +3606,8 @@ Array [
       "count",
       "databaseId",
       "description",
+      "enqueuedScripts",
+      "enqueuedStylesheets",
       "id",
       "isRestricted",
       "link",
@@ -3461,6 +3710,8 @@ Array [
       "count",
       "databaseId",
       "description",
+      "enqueuedScripts",
+      "enqueuedStylesheets",
       "id",
       "isRestricted",
       "language",
@@ -3641,6 +3892,8 @@ Array [
       "editLast",
       "editLock",
       "enclosure",
+      "enqueuedScripts",
+      "enqueuedStylesheets",
       "featuredImage",
       "guid",
       "id",
@@ -3653,6 +3906,8 @@ Array [
       "modified",
       "modifiedGmt",
       "parent",
+      "parentDatabaseId",
+      "parentId",
       "revisionOf",
       "revisions",
       "seo",
@@ -3780,6 +4035,8 @@ Array [
       "editLast",
       "editLock",
       "enclosure",
+      "enqueuedScripts",
+      "enqueuedStylesheets",
       "featuredImage",
       "guid",
       "id",
@@ -3813,6 +4070,8 @@ Array [
       "editLast",
       "editLock",
       "enclosure",
+      "enqueuedScripts",
+      "enqueuedStylesheets",
       "featuredImage",
       "guid",
       "id",
@@ -3846,6 +4105,8 @@ Array [
       "editLast",
       "editLock",
       "enclosure",
+      "enqueuedScripts",
+      "enqueuedStylesheets",
       "featuredImage",
       "guid",
       "id",
@@ -3873,6 +4134,36 @@ Array [
       "node",
     ],
     "name": "TranslationFilterTestToContentTypeConnection",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "UserToEnqueuedScriptConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "UserToEnqueuedScriptConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "UserToEnqueuedStylesheetConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "UserToEnqueuedStylesheetConnectionEdge",
   },
   Object {
     "fields": null,
@@ -4395,6 +4686,7 @@ Array [
       "id",
       "isRestricted",
       "name",
+      "path",
       "pluginUri",
       "version",
     ],
@@ -4489,6 +4781,36 @@ Array [
       "postsPerPage",
     ],
     "name": "ReadingSettings",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "RootQueryToEnqueuedScriptConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "RootQueryToEnqueuedScriptConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "RootQueryToEnqueuedStylesheetConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "RootQueryToEnqueuedStylesheetConnectionEdge",
   },
   Object {
     "fields": null,
@@ -5484,4 +5806,4 @@ Array [
 ]
 `;
 
-exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the remote WPGraphQL schema 2`] = `"32e7691fe39528a81f5cdf0d0c5c5bec"`;
+exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the remote WPGraphQL schema 2`] = `"53f4e149f18af53d6fae2cd7f9061c45"`;
