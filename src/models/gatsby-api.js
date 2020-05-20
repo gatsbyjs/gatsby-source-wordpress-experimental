@@ -175,6 +175,13 @@ const defaultPluginOptions = {
       //   return queries
       // },
     },
+    // the next two types can't be sourced in Gatsby properly yet
+    EnqueuedScript: {
+      exclude: true,
+    },
+    EnqueuedStylesheet: {
+      exclude: true,
+    },
   },
 }
 
