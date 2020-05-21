@@ -254,6 +254,17 @@ const fetchMediaItemsBySourceUrl = async ({
 
         const thisPagesNodes = Object.values(data).filter(Boolean)
 
+        // if (
+        //   sourceUrls.find((sourceUrl) =>
+        //     sourceUrl.includes(`placeholderImage_40020`)
+        //   )
+        // ) {
+        //   dump(sourceUrls)
+        //   dump(Object.values(data).length)
+        //   dump(thisPagesNodes.length)
+        //   dd(thisPagesNodes.map((node) => node.sourceUrl))
+        // }
+
         const nodes = await Promise.all(
           thisPagesNodes.map((node) =>
             createMediaItemNode({
@@ -299,6 +310,11 @@ const fetchMediaItemsById = async ({
   const nodesPerFetch = 100
   const chunkedIds = chunk(mediaItemIds, nodesPerFetch)
 
+  let resolveFutureNodes
+  let futureNodes = new Promise((resolve) => {
+    resolveFutureNodes = resolve
+  })
+
   let allMediaItemNodes = []
 
   for (const [index, relayIds] of chunkedIds.entries()) {
@@ -338,18 +354,21 @@ const fetchMediaItemsById = async ({
           throwFetchErrors: true,
         })
 
-        allNodesOfContentType.forEach((node) =>
-          createMediaItemNode({
-            node,
-            helpers,
-            createContentDigest,
-            actions,
-            allMediaItemNodes,
-            referencedMediaItemNodeIds: mediaItemIds,
-          })
+        const nodes = await Promise.all(
+          allNodesOfContentType.map((node) =>
+            createMediaItemNode({
+              node,
+              helpers,
+              createContentDigest,
+              actions,
+              allMediaItemNodes,
+              referencedMediaItemNodeIds: mediaItemIds,
+            })
+          )
         )
 
         activity?.setStatus(`fetched ${allMediaItemNodes.length}`)
+        resolveFutureNodes(nodes)
       },
     })
   }
@@ -357,9 +376,7 @@ const fetchMediaItemsById = async ({
   await mediaNodeFetchQueue.onIdle()
   await mediaFileFetchQueue.onIdle()
 
-  if (!allMediaItemNodes || !allMediaItemNodes.length) {
-    return
-  }
+  return futureNodes
 }
 
 export default async function fetchReferencedMediaItemsAndCreateNodes({
@@ -383,10 +400,10 @@ export default async function fetchReferencedMediaItemsAndCreateNodes({
     activity.start()
   }
 
-  let createdNodes
+  let createdNodes = []
 
-  if (referencedMediaItemNodeIds) {
-    await fetchMediaItemsById({
+  if (referencedMediaItemNodeIds?.length) {
+    const nodesSourcedById = await fetchMediaItemsById({
       mediaItemIds: referencedMediaItemNodeIds,
       settings,
       url,
@@ -397,10 +414,12 @@ export default async function fetchReferencedMediaItemsAndCreateNodes({
       typeInfo,
       activity,
     })
+
+    createdNodes = nodesSourcedById
   }
 
-  if (mediaItemUrls) {
-    createdNodes = await fetchMediaItemsBySourceUrl({
+  if (mediaItemUrls?.length) {
+    const nodesSourcedByUrl = await fetchMediaItemsBySourceUrl({
       mediaItemUrls,
       settings,
       url,
@@ -411,6 +430,8 @@ export default async function fetchReferencedMediaItemsAndCreateNodes({
       typeInfo,
       activity,
     })
+
+    createdNodes = [...createdNodes, ...nodesSourcedByUrl]
   }
 
   if (verbose) {
