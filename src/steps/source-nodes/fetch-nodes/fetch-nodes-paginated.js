@@ -1,6 +1,16 @@
 import fetchGraphql from "~/utils/fetch-graphql"
 import store from "~/store"
 
+export const normalizeNode = (node) => {
+  const normalizedNodeTypeName = node.__typename || nodeTypeName
+  // @todo is node.type used anywhere??
+  node.type = normalizedNodeTypeName
+  // this is used to filter node interfaces by content types
+  node.nodeType = normalizedNodeTypeName
+
+  return node
+}
+
 /**
  * paginatedWpNodeFetch
  *
@@ -71,11 +81,8 @@ const paginatedWpNodeFetch = async ({
   nodes = nodes.filter(Boolean)
 
   if (nodes && nodes.length) {
-    nodes.forEach(async (node) => {
-      const normalizedNodeTypeName = node.__typename || nodeTypeName
-      node.type = normalizedNodeTypeName
-      // this is used to filter node interfaces by content types
-      node.nodeType = normalizedNodeTypeName
+    nodes.forEach((node) => {
+      node = normalizeNode(node)
       allContentNodes.push(node)
     })
 

@@ -4,7 +4,7 @@ import atob from "atob"
 import PQueue from "p-queue"
 import { createRemoteMediaItemNode } from "../create-nodes/create-remote-media-item-node"
 import { formatLogMessage } from "~/utils/format-log-message"
-import { paginatedWpNodeFetch } from "./fetch-nodes-paginated"
+import { paginatedWpNodeFetch, normalizeNode } from "./fetch-nodes-paginated"
 import { buildTypeName } from "~/steps/create-schema-customization/helpers"
 import fetchGraphql from "~/utils/fetch-graphql"
 
@@ -105,6 +105,11 @@ const createMediaItemNode = async ({
 }) => {
   allMediaItemNodes.push(node)
 
+  let resolveFutureNode
+  let futureNode = new Promise((resolve) => {
+    resolveFutureNode = resolve
+  })
+
   pushPromiseOntoRetryQueue({
     node,
     helpers,
@@ -151,10 +156,45 @@ const createMediaItemNode = async ({
         },
       }
 
-      await actions.createNode(node)
+      const normalizedNode = normalizeNode(node)
+
+      await actions.createNode(normalizedNode)
+      resolveFutureNode(node)
     },
   })
+
+  return futureNode
 }
+
+export const stripImageSizesFromUrl = (url) => {
+  const imageSizesPattern = new RegExp("(?:[-_]([0-9]+)x([0-9]+))")
+  const urlWithoutSizes = url.replace(imageSizesPattern, "")
+
+  return urlWithoutSizes
+}
+
+// takes an array of image urls and returns them + additional urls if
+// any of the provided image urls contain what appears to be an image resize signifier
+// for ex https://site.com/wp-content/uploads/01/your-image-500x1000.jpeg
+// that will add https://site.com/wp-content/uploads/01/your-image.jpeg to the array
+// this is necessary because we can only get image nodes by the full source url.
+// simply removing image resize signifiers from all urls would be a mistake since
+// someone could upload a full-size image that contains that pattern - so the full
+// size url would have 500x1000 in it, and removing it would make it so we can never
+// fetch this image node.
+const processImageUrls = (urls) =>
+  urls.reduce((accumulator, url) => {
+    const strippedUrl = stripImageSizesFromUrl(url)
+
+    // if the url had no image sizes, don't do anything special
+    if (strippedUrl === url) {
+      return accumulator
+    }
+
+    accumulator.push(strippedUrl)
+
+    return accumulator
+  }, urls)
 
 const fetchMediaItemsBySourceUrl = async ({
   mediaItemUrls,
@@ -165,10 +205,17 @@ const fetchMediaItemsBySourceUrl = async ({
   actions,
   helpers,
   typeInfo,
+  activity,
   allMediaItemNodes = [],
 }) => {
   const perPage = 100
-  const mediaItemUrlsPages = chunk(mediaItemUrls, perPage)
+  const processedMediaItemUrls = processImageUrls(mediaItemUrls)
+  const mediaItemUrlsPages = chunk(processedMediaItemUrls, perPage)
+
+  let resolveFutureNodes
+  let futureNodes = new Promise((resolve) => {
+    resolveFutureNodes = resolve
+  })
 
   for (const [index, sourceUrls] of mediaItemUrlsPages.entries()) {
     pushPromiseOntoRetryQueue({
@@ -179,10 +226,6 @@ const fetchMediaItemsBySourceUrl = async ({
       retryKey: `Media Item by sourceUrl query #${index}`,
       retryPromise: async () => {
         const query = /* GraphQL */ `
-          fragment MediaItemFragment on MediaItem {
-            ${selectionSet}
-          }
-
           query MEDIA_ITEMS {
             ${sourceUrls
               .map(
@@ -193,6 +236,10 @@ const fetchMediaItemsBySourceUrl = async ({
             `
               )
               .join(` `)}
+          }
+
+          fragment MediaItemFragment on MediaItem {
+            ${selectionSet}
           }
         `
 
@@ -207,13 +254,8 @@ const fetchMediaItemsBySourceUrl = async ({
 
         const thisPagesNodes = Object.values(data).filter(Boolean)
 
-        clipboardy.writeSync(query)
-        dd(query)
-        dd(data)
-
-        thisPagesNodes.forEach(
-          (node) =>
-            dd(node) &&
+        const nodes = await Promise.all(
+          thisPagesNodes.map((node) =>
             createMediaItemNode({
               node,
               helpers,
@@ -221,15 +263,22 @@ const fetchMediaItemsBySourceUrl = async ({
               actions,
               allMediaItemNodes,
             })
+          )
         )
 
-        activity?.setStatus(`fetched ${allMediaItemNodes.length}`)
+        if (activity) {
+          activity?.setStatus(`fetched ${allMediaItemNodes.length}`)
+        }
+
+        resolveFutureNodes(nodes)
       },
     })
   }
 
   await mediaNodeFetchQueue.onIdle()
   await mediaFileFetchQueue.onIdle()
+
+  return futureNodes
 }
 
 const fetchMediaItemsById = async ({
@@ -334,6 +383,8 @@ export default async function fetchReferencedMediaItemsAndCreateNodes({
     activity.start()
   }
 
+  let createdNodes
+
   if (referencedMediaItemNodeIds) {
     await fetchMediaItemsById({
       mediaItemIds: referencedMediaItemNodeIds,
@@ -349,7 +400,7 @@ export default async function fetchReferencedMediaItemsAndCreateNodes({
   }
 
   if (mediaItemUrls) {
-    await fetchMediaItemsBySourceUrl({
+    createdNodes = await fetchMediaItemsBySourceUrl({
       mediaItemUrls,
       settings,
       url,
@@ -365,4 +416,6 @@ export default async function fetchReferencedMediaItemsAndCreateNodes({
   if (verbose) {
     activity.end()
   }
+
+  return createdNodes
 }
