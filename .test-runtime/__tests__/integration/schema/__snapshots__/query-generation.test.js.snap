@@ -21,6 +21,22 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       count
       databaseId
       description
+      enqueuedScripts {
+        pageInfo {
+          endCursor
+          hasNextPage
+          hasPreviousPage
+          startCursor
+        }
+      }
+      enqueuedStylesheets {
+        pageInfo {
+          endCursor
+          hasNextPage
+          hasPreviousPage
+          startCursor
+        }
+      }
       id
       language {
         id
@@ -118,6 +134,22 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     count
     databaseId
     description
+    enqueuedScripts {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
+    enqueuedStylesheets {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
     id
     language {
       id
@@ -210,6 +242,22 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     count
     databaseId
     description
+    enqueuedScripts {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
+    enqueuedStylesheets {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
     id
     language {
       id
@@ -506,10 +554,17 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
   contentTypes(first: $first, after: $after) {
     nodes {
       canExport
-      connectedTaxonomies {
-        id
+      connectedTaxonomies(first: 100) {
+        nodes {
+          id
+        }
+        pageInfo {
+          endCursor
+          hasNextPage
+          hasPreviousPage
+          startCursor
+        }
       }
-      connectedTaxonomyNames
       deleteWithUser
       description
       excludeFromSearch
@@ -573,10 +628,17 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 "query PREVIEW_QUERY($id: ID!) {
   contentType(id: $id, idType: DATABASE_ID) {
     canExport
-    connectedTaxonomies {
-      id
+    connectedTaxonomies(first: 100) {
+      nodes {
+        id
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
     }
-    connectedTaxonomyNames
     deleteWithUser
     description
     excludeFromSearch
@@ -635,10 +697,17 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 "query SINGLE_CONTENT_QUERY($id: ID!) {
   contentType(id: $id) {
     canExport
-    connectedTaxonomies {
-      id
+    connectedTaxonomies(first: 100) {
+      nodes {
+        id
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
     }
-    connectedTaxonomyNames
     deleteWithUser
     description
     excludeFromSearch
@@ -727,6 +796,22 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         id
       }
       enclosure
+      enqueuedScripts {
+        pageInfo {
+          endCursor
+          hasNextPage
+          hasPreviousPage
+          startCursor
+        }
+      }
+      enqueuedStylesheets {
+        pageInfo {
+          endCursor
+          hasNextPage
+          hasPreviousPage
+          startCursor
+        }
+      }
       guid
       id
       language {
@@ -795,6 +880,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
           id
         }
       }
+      parentDatabaseId
+      parentId
       seo {
         focuskw
         metaDesc
@@ -893,6 +980,22 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       id
     }
     enclosure
+    enqueuedScripts {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
+    enqueuedStylesheets {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
     guid
     id
     language {
@@ -961,6 +1064,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         id
       }
     }
+    parentDatabaseId
+    parentId
     seo {
       focuskw
       metaDesc
@@ -1054,6 +1159,22 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       id
     }
     enclosure
+    enqueuedScripts {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
+    enqueuedStylesheets {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
     guid
     id
     language {
@@ -1122,6 +1243,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         id
       }
     }
+    parentDatabaseId
+    parentId
     seo {
       focuskw
       metaDesc
@@ -1524,6 +1647,22 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         id
       }
       enclosure
+      enqueuedScripts {
+        pageInfo {
+          endCursor
+          hasNextPage
+          hasPreviousPage
+          startCursor
+        }
+      }
+      enqueuedStylesheets {
+        pageInfo {
+          endCursor
+          hasNextPage
+          hasPreviousPage
+          startCursor
+        }
+      }
       featuredImage {
         id
         sourceUrl
@@ -1569,6 +1708,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
           id
         }
       }
+      parentDatabaseId
+      parentId
       seo {
         focuskw
         metaDesc
@@ -1698,6 +1839,22 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       id
     }
     enclosure
+    enqueuedScripts {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
+    enqueuedStylesheets {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
     featuredImage {
       id
       sourceUrl
@@ -1743,6 +1900,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         id
       }
     }
+    parentDatabaseId
+    parentId
     seo {
       focuskw
       metaDesc
@@ -1867,6 +2026,22 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       id
     }
     enclosure
+    enqueuedScripts {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
+    enqueuedStylesheets {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
     featuredImage {
       id
       sourceUrl
@@ -1912,6 +2087,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         id
       }
     }
+    parentDatabaseId
+    parentId
     seo {
       focuskw
       metaDesc
@@ -2011,6 +2188,22 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         id
       }
       enclosure
+      enqueuedScripts {
+        pageInfo {
+          endCursor
+          hasNextPage
+          hasPreviousPage
+          startCursor
+        }
+      }
+      enqueuedStylesheets {
+        pageInfo {
+          endCursor
+          hasNextPage
+          hasPreviousPage
+          startCursor
+        }
+      }
       excerpt
       featuredImage {
         id
@@ -2153,6 +2346,22 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       id
     }
     enclosure
+    enqueuedScripts {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
+    enqueuedStylesheets {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
     excerpt
     featuredImage {
       id
@@ -2290,6 +2499,22 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       id
     }
     enclosure
+    enqueuedScripts {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
+    enqueuedStylesheets {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
     excerpt
     featuredImage {
       id
@@ -2414,6 +2639,22 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         id
       }
       enclosure
+      enqueuedScripts {
+        pageInfo {
+          endCursor
+          hasNextPage
+          hasPreviousPage
+          startCursor
+        }
+      }
+      enqueuedStylesheets {
+        pageInfo {
+          endCursor
+          hasNextPage
+          hasPreviousPage
+          startCursor
+        }
+      }
       featuredImage {
         id
         sourceUrl
@@ -2498,6 +2739,22 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       id
     }
     enclosure
+    enqueuedScripts {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
+    enqueuedStylesheets {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
     featuredImage {
       id
       sourceUrl
@@ -2577,6 +2834,22 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       id
     }
     enclosure
+    enqueuedScripts {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
+    enqueuedStylesheets {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
     featuredImage {
       id
       sourceUrl
@@ -2697,6 +2970,22 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       count
       databaseId
       description
+      enqueuedScripts {
+        pageInfo {
+          endCursor
+          hasNextPage
+          hasPreviousPage
+          startCursor
+        }
+      }
+      enqueuedStylesheets {
+        pageInfo {
+          endCursor
+          hasNextPage
+          hasPreviousPage
+          startCursor
+        }
+      }
       id
       language {
         id
@@ -2777,6 +3066,22 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     count
     databaseId
     description
+    enqueuedScripts {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
+    enqueuedStylesheets {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
     id
     language {
       id
@@ -2852,6 +3157,22 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     count
     databaseId
     description
+    enqueuedScripts {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
+    enqueuedStylesheets {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
     id
     language {
       id
@@ -3088,6 +3409,22 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         id
       }
       enclosure
+      enqueuedScripts {
+        pageInfo {
+          endCursor
+          hasNextPage
+          hasPreviousPage
+          startCursor
+        }
+      }
+      enqueuedStylesheets {
+        pageInfo {
+          endCursor
+          hasNextPage
+          hasPreviousPage
+          startCursor
+        }
+      }
       excerpt
       featuredImage {
         id
@@ -3247,6 +3584,22 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       id
     }
     enclosure
+    enqueuedScripts {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
+    enqueuedStylesheets {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
     excerpt
     featuredImage {
       id
@@ -3401,6 +3754,22 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       id
     }
     enclosure
+    enqueuedScripts {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
+    enqueuedStylesheets {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
     excerpt
     featuredImage {
       id
@@ -3495,6 +3864,22 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       count
       databaseId
       description
+      enqueuedScripts {
+        pageInfo {
+          endCursor
+          hasNextPage
+          hasPreviousPage
+          startCursor
+        }
+      }
+      enqueuedStylesheets {
+        pageInfo {
+          endCursor
+          hasNextPage
+          hasPreviousPage
+          startCursor
+        }
+      }
       id
       link
       name
@@ -3519,6 +3904,22 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     count
     databaseId
     description
+    enqueuedScripts {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
+    enqueuedStylesheets {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
     id
     link
     name
@@ -3538,6 +3939,22 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     count
     databaseId
     description
+    enqueuedScripts {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
+    enqueuedStylesheets {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
     id
     link
     name
@@ -3572,6 +3989,22 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         id
       }
       enclosure
+      enqueuedScripts {
+        pageInfo {
+          endCursor
+          hasNextPage
+          hasPreviousPage
+          startCursor
+        }
+      }
+      enqueuedStylesheets {
+        pageInfo {
+          endCursor
+          hasNextPage
+          hasPreviousPage
+          startCursor
+        }
+      }
       featuredImage {
         id
         sourceUrl
@@ -3664,6 +4097,22 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       id
     }
     enclosure
+    enqueuedScripts {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
+    enqueuedStylesheets {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
     featuredImage {
       id
       sourceUrl
@@ -3751,6 +4200,22 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       id
     }
     enclosure
+    enqueuedScripts {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
+    enqueuedStylesheets {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
     featuredImage {
       id
       sourceUrl
@@ -3839,6 +4304,22 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         id
       }
       enclosure
+      enqueuedScripts {
+        pageInfo {
+          endCursor
+          hasNextPage
+          hasPreviousPage
+          startCursor
+        }
+      }
+      enqueuedStylesheets {
+        pageInfo {
+          endCursor
+          hasNextPage
+          hasPreviousPage
+          startCursor
+        }
+      }
       featuredImage {
         id
         sourceUrl
@@ -3911,6 +4392,22 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       id
     }
     enclosure
+    enqueuedScripts {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
+    enqueuedStylesheets {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
     featuredImage {
       id
       sourceUrl
@@ -3978,6 +4475,22 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       id
     }
     enclosure
+    enqueuedScripts {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
+    enqueuedStylesheets {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
     featuredImage {
       id
       sourceUrl
@@ -4046,6 +4559,22 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         id
       }
       enclosure
+      enqueuedScripts {
+        pageInfo {
+          endCursor
+          hasNextPage
+          hasPreviousPage
+          startCursor
+        }
+      }
+      enqueuedStylesheets {
+        pageInfo {
+          endCursor
+          hasNextPage
+          hasPreviousPage
+          startCursor
+        }
+      }
       featuredImage {
         id
         sourceUrl
@@ -4118,6 +4647,22 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       id
     }
     enclosure
+    enqueuedScripts {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
+    enqueuedStylesheets {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
     featuredImage {
       id
       sourceUrl
@@ -4185,6 +4730,22 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       id
     }
     enclosure
+    enqueuedScripts {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
+    enqueuedStylesheets {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
     featuredImage {
       id
       sourceUrl
@@ -4268,6 +4829,22 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       databaseId
       description
       email
+      enqueuedScripts {
+        pageInfo {
+          endCursor
+          hasNextPage
+          hasPreviousPage
+          startCursor
+        }
+      }
+      enqueuedStylesheets {
+        pageInfo {
+          endCursor
+          hasNextPage
+          hasPreviousPage
+          startCursor
+        }
+      }
       extraCapabilities
       firstName
       id
@@ -4413,6 +4990,22 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     databaseId
     description
     email
+    enqueuedScripts {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
+    enqueuedStylesheets {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
     extraCapabilities
     firstName
     id
@@ -4553,6 +5146,22 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     databaseId
     description
     email
+    enqueuedScripts {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
+    enqueuedStylesheets {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
     extraCapabilities
     firstName
     id
