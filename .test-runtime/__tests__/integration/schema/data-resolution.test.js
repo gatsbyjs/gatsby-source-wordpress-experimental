@@ -63,7 +63,7 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
       url: `http://localhost:8000/___graphql`,
       query: /* GraphQL */ `
         {
-          testPage: wpPage(id: { eq: "cGFnZToy" }) {
+          testPage: wpPage(id: { eq: "cG9zdDoy" }) {
             title
           }
 

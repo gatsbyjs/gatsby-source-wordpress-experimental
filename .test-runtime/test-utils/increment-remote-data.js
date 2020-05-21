@@ -6,7 +6,7 @@ export const resetSchema = async () => {
     mutation {
       updatePage(
         input: {
-          id: "cGFnZToy"
+          id: "cG9zdDoy"
           title: "Sample Page"
           clientMutationId: "de-increment-test"
         }
@@ -42,7 +42,7 @@ export const mutateSchema = async () => {
     mutation {
       updatePage(
         input: {
-          id: "cGFnZToy"
+          id: "cG9zdDoy"
           title: "Sample Page DELTA SYNC"
           clientMutationId: "increment-test"
         }
