@@ -1,4 +1,4 @@
-import { queueImageResizing, setBoundActionCreators } from "gatsby-plugin-sharp"
+import { fluid } from "gatsby-plugin-sharp"
 import Img from "gatsby-image"
 import React from "react"
 
@@ -106,7 +106,6 @@ const replaceNodeHtmlImages = async ({
   pluginOptions,
   helpers,
 }) => {
-  setBoundActionCreators(helpers.boundActionCreators)
   const imageUrlMatches = execall(imgSrcRemoteFileRegex, nodeString)
   const imgTagMatches = execall(imgTagRegex, nodeString)
 
@@ -127,7 +126,7 @@ const replaceNodeHtmlImages = async ({
 
         dump(`fluid result coming up`)
 
-        const fluidResult = await queueImageResizing({
+        const fluidResult = await fluid({
           file: fileNode,
           args: {
             maxWidth: 800,
