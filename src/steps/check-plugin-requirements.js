@@ -56,6 +56,27 @@ const areRemotePluginVersionsSatisfied = async ({ helpers }) => {
     }
   }
 
+  // a message explaining why these are the minimum versions
+  const reasons = `${
+    supportedWpPluginVersions.WPGraphQL.reason ||
+    supportedWpPluginVersions.WPGatsby.reason
+      ? `\n\nReasons:\n\n`
+      : ``
+  }${
+    supportedWpPluginVersions.WPGraphQL.reason
+      ? `- ${supportedWpPluginVersions.WPGraphQL.reason}`
+      : ``
+  }${
+    supportedWpPluginVersions.WPGraphQL.reason &&
+    supportedWpPluginVersions.WPGatsby.reason
+      ? `\n\n`
+      : ``
+  }${
+    supportedWpPluginVersions.WPGatsby.reason
+      ? `- ${supportedWpPluginVersions.WPGatsby.reason}`
+      : ``
+  }`
+
   let message
 
   if (!wpgqlIsSatisfied && wpGatsbyIsSatisfied) {
@@ -64,18 +85,21 @@ const areRemotePluginVersionsSatisfied = async ({ helpers }) => {
 \tDownload v ${supportedWpPluginVersions.WPGraphQL.version} at https://github.com/wp-graphql/wp-graphql/releases
 
 \tIf you're upgrading from an earlier version, read the release notes for each version between your old and new versions to determine which breaking changes you might encounter based on your use of the schema.
+${reasons}
 `
   }
 
   if (!wpGatsbyIsSatisfied) {
     message = `Your remote version of WPGatsby is not within the accepted range (${supportedWpPluginVersions.WPGatsby.version})
 
-\tDownload v ${supportedWpPluginVersions.WPGatsby.version} at https://github.com/TylerBarnes/using-gatsby-source-wordpress-experimental/tree/master/WordPress/plugins`
+\tDownload v ${supportedWpPluginVersions.WPGatsby.version} at https://github.com/TylerBarnes/using-gatsby-source-wordpress-experimental/tree/master/WordPress/plugins
+${reasons}`
   }
 
   if (!wpGatsbyIsSatisfied && !wpgqlIsSatisfied) {
     message = `WPGatsby and WPGraphQL are both outside the accepted version ranges.
-visit https://github.com/TylerBarnes/using-gatsby-source-wordpress-experimental/tree/master/WordPress/plugins to download the latest versions.`
+visit https://github.com/TylerBarnes/using-gatsby-source-wordpress-experimental/tree/master/WordPress/plugins to download the latest versions.
+${reasons}`
   }
 
   if (message) {
