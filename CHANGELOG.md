@@ -6,6 +6,22 @@
 
 - Inline links in any node content (custom fields or in post_content) will be replaced with local relative links. https://your-beautiful-wp-site.com/page-2 will become /page-2 so that Gatsby can make sense of it.
 
+## 0.6.0
+
+### Breaking Changes
+
+- WPGraphQL and WPGatsby minimum versions have been bumped to 0.9.1 and 0.4.0 due to an oversight in how Menu Relay id's were constructed. Using WPGQL 0.9.0 and WPGatsby 0.4.0 would lead to inconsistent caching behaviour for menus.
+
+### New Features
+
+- Added a minimum version "reason" field to supported plugin versions to add an explanation for the minimum versions.
+
+## 0.5.0
+
+### Breaking Changes
+
+- WPGraphQL and WPGatsby minimum versions have been bumped to 0.9.0 and 0.3.0 due to the structure of Relay id's changing in WPGraphQL. This is breaking for us because id's changing will result in inconsistent cache behavior.
+
 ## 0.4.5
 
 ### New Features
