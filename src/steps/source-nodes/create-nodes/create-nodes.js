@@ -1,7 +1,6 @@
 import PQueue from "p-queue"
 import fetchReferencedMediaItemsAndCreateNodes from "../fetch-nodes/fetch-referenced-media-items"
 import urlToPath from "~/utils/url-to-path"
-import { getGatsbyApi } from "~/utils/get-gatsby-api"
 import store from "~/store"
 import fetchGraphql from "~/utils/fetch-graphql"
 
@@ -104,21 +103,9 @@ export const createGatsbyNodesFromWPGQLContentNodes = async ({
   wpgqlNodesByContentType,
   createNodesActivity,
 }) => {
-  const { helpers, pluginOptions } = getGatsbyApi()
-
-  const {
-    data: {
-      generalSettings: { url: wpUrl },
-    },
-  } = await fetchGraphql({
-    query: /* GraphQL */ `
-      query {
-        generalSettings {
-          url
-        }
-      }
-    `,
-  })
+  const state = store.getState()
+  const { wpUrl } = state.remoteSchema
+  const { helpers, pluginOptions } = state.gatsbyApi
 
   // wp supports these file extensions
   // jpeg|jpg|png|gif|ico|pdf|doc|docx|ppt|pptx|pps|ppsx|odt|xls|psd|mp3|m4a|ogg|wav|mp4|m4v|mov|wmv|avi|mpg|ogv|3gp|3g2|svg|bmp|tif|tiff|asf|asx|wm|wmx|divx|flv|qt|mpe|webm|mkv|txt|asc|c|cc|h|csv|tsv|ics|rtx|css|htm|html|m4b|ra|ram|mid|midi|wax|mka|rtf|js|swf|class|tar|zip|gz|gzip|rar|7z|exe|pot|wri|xla|xlt|xlw|mdb|mpp|docm|dotx|dotm|xlsm|xlsb|xltx|xltm|xlam|pptm|ppsm|potx|potm|ppam|sldx|sldm|onetoc|onetoc2|onetmp|onepkg|odp|ods|odg|odc|odb|odf|wp|wpd|key|numbers|pages

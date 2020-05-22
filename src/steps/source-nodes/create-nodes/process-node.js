@@ -14,7 +14,7 @@ import store from "~/store"
 import btoa from "btoa"
 
 // @todo this doesn't make sense because these aren't all images
-const imgSrcRemoteFileRegex = /(?:src=\\")((?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[A-Z0-9+&@#/%=~_|$])\.(?:xjpeg|jpg|png|gif|ico|pdf|doc|docx|ppt|pptx|pps|ppsx|odt|xls|psd|mp3|m4a|ogg|wav|mp4|m4v|mov|wmv|avi|mpg|ogv|3gp|3g2|svg|bmp|tif|tiff|asf|asx|wm|wmx|divx|flv|qt|mpe|webm|mkv|tt|asc|c|cc|h|csv|tsv|ics|rtx|css|htm|html|m4b|ra|ram|mid|midi|wax|mka|rtf|js|swf|class|tar|zip|gz|gzip|rar|7z|exe|pot|wri|xla|xlt|xlw|mdb|mpp|docm|dotx|dotm|xlsm|xlsb|xltx|xltm|xlam|pptm|ppsm|potx|potm|ppam|sldx|sldm|onetoc|onetoc2|onetmp|onepkg|odp|ods|odg|odc|odb|odf|wp|wpd|key|numbers|pages))(?=\\"| |\.)/gim
+const imgSrcRemoteFileRegex = /(?:src=\\")((?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[A-Z0-9+&@#/%=~_|$])\.(?:jpeg|jpg|png|gif|ico|pdf|doc|docx|ppt|pptx|pps|ppsx|odt|xls|psd|mp3|m4a|ogg|wav|mp4|m4v|mov|wmv|avi|mpg|ogv|3gp|3g2|svg|bmp|tif|tiff|asf|asx|wm|wmx|divx|flv|qt|mpe|webm|mkv|tt|asc|c|cc|h|csv|tsv|ics|rtx|css|htm|html|m4b|ra|ram|mid|midi|wax|mka|rtf|js|swf|class|tar|zip|gz|gzip|rar|7z|exe|pot|wri|xla|xlt|xlw|mdb|mpp|docm|dotx|dotm|xlsm|xlsb|xltx|xltm|xlam|pptm|ppsm|potx|potm|ppam|sldx|sldm|onetoc|onetoc2|onetmp|onepkg|odp|ods|odg|odc|odb|odf|wp|wpd|key|numbers|pages))(?=\\"| |\.)/gim
 
 const imgTagRegex = /<img([\w\W]+?)[\/]?>/gim
 
@@ -81,12 +81,12 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
   node,
   helpers,
 }) => {
-  // check if we have any of these nodes locally already
-  // build a query to fetch all media items that we don't already have
+  // @todo check if we have any of these nodes locally already
   const mediaItemUrls = cheerioImages.map(
     ({ cheerioImg }) => cheerioImg.attribs.src
   )
 
+  // build a query to fetch all media items that we don't already have
   const mediaItemNodesBySourceUrl = await fetchReferencedMediaItemsAndCreateNodes(
     {
       mediaItemUrls,
@@ -238,14 +238,22 @@ const replaceNodeHtmlImages = async ({
   node,
   helpers,
   wpUrl,
-  // pluginOptions,
+  pluginOptions,
 }) => {
+  // this prevents fetching inline html images
+  if (!pluginOptions?.html?.useGatsbyImage) {
+    return nodeString
+  }
+
   const imageUrlMatches = execall(imgSrcRemoteFileRegex, nodeString)
-  const imgTagMatches = execall(imgTagRegex, nodeString).filter(({ match }) =>
+
+  const imgTagMatches = execall(imgTagRegex, nodeString).filter(({ match }) => {
     // @todo make it a plugin option to fetch non-wp images
     // here we're filtering out image tags that don't contain our site url
-    match.includes(wpUrl)
-  )
+    const isHostedInWp = match.includes(wpUrl)
+
+    return isHostedInWp
+  })
 
   if (imageUrlMatches.length) {
     const cheerioImages = imgTagMatches.map(getCheerioImgFromMatch)
@@ -281,24 +289,55 @@ const replaceNodeHtmlImages = async ({
               helpers.getNode(imageNode.localFile.id)
 
         const imgTagMaxWidth = findImgTagMaxWidthFromCheerioImg(cheerioImg)
+
         const mediaItemNodeWidth = isMediaItemNode
           ? imageNode?.mediaDetails?.width
           : null
 
+        // if a max width can't be inferred from html, this value will be passed to Sharp
+        let fallbackImageMaxWidth = pluginOptions?.html?.fallbackImageMaxWidth
+
+        if (
+          // if the image is smaller than the fallback max width,
+          // the images width will be used instead if we have a media item node
+          fallbackImageMaxWidth > mediaItemNodeWidth &&
+          // of course that means we have to have a media item node
+          // and a media item node max width
+          mediaItemNodeWidth &&
+          typeof mediaItemNodeWidth === `number` &&
+          mediaItemNodeWidth > 0
+        ) {
+          fallbackImageMaxWidth = mediaItemNodeWidth
+        }
+
         const maxWidth =
-          (mediaItemNodeWidth && mediaItemNodeWidth < imgTagMaxWidth
-            ? mediaItemNodeWidth
-            : // @todo add plugin option to configure default maxWidth
-              imgTagMaxWidth) ?? 800
+          // if we inferred a maxwidth from html
+          (imgTagMaxWidth &&
+          // and we have a media item node to know it's full size max width
+          mediaItemNodeWidth &&
+          // and the media item node max width is smaller than what we inferred
+          // from html
+          mediaItemNodeWidth < imgTagMaxWidth
+            ? // use the media item node width
+              mediaItemNodeWidth
+            : // otherwise use the width inferred from html
+              imgTagMaxWidth) ??
+          // if we don't have a media item node and we inferred no width
+          // from html, then use the fallback max width from plugin options
+          fallbackImageMaxWidth
+
+        const quality = pluginOptions?.html?.imageQuality
+
+        const { reporter, cache } = helpers
 
         const fluidResult = await fluid({
           file: fileNode,
           args: {
             maxWidth,
-            // @todo add plugin option to control quality
+            quality,
           },
-          reporter: helpers.reporter,
-          cache: helpers.cache,
+          reporter,
+          cache,
         })
 
         return {
@@ -322,14 +361,13 @@ const replaceNodeHtmlImages = async ({
         style: {
           maxWidth: "100%",
         },
-        // // Force show full image instantly
-        // // critical: true, // depricated
-        // loading: "eager",
+        // Force show full image instantly
+        loading: "eager",
         // alt: formattedImgTag.alt,
         // // fadeIn: true,
-        // imgStyle: {
-        //   opacity: 1,
-        // },
+        imgStyle: {
+          opacity: 1,
+        },
       }
 
       const ReactGatsbyImage = React.createElement(Img, imgOptions, null)
@@ -385,9 +423,9 @@ const processNodeString = async ({
 const processNode = async ({
   node,
   pluginOptions,
-  referencedMediaItemNodeIds,
   wpUrl,
   helpers,
+  referencedMediaItemNodeIds,
 }) => {
   const anchorTagRegex = new RegExp(
     // eslint-disable-next-line no-useless-escape
@@ -405,7 +443,7 @@ const processNode = async ({
   })
 
   // push them to our store of referenced id's
-  if (nodeMediaItemIdReferences.length) {
+  if (nodeMediaItemIdReferences.length && referencedMediaItemNodeIds) {
     nodeMediaItemIdReferences.forEach((id) =>
       referencedMediaItemNodeIds.add(id)
     )
@@ -421,12 +459,7 @@ const processNode = async ({
 
   // only parse if the nodeString has changed
   if (processedNodeString !== nodeString) {
-    try {
-      return JSON.parse(processedNodeString)
-    } catch (e) {
-      dump(processedNodeString)
-      helpers.reporter.panic(e)
-    }
+    return JSON.parse(processedNodeString)
   } else {
     return node
   }

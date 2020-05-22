@@ -2,7 +2,7 @@ import { findTypeName } from "~/steps/create-schema-customization/helpers"
 
 const remoteSchema = {
   state: {
-    // @todo rename queries to nodeQueries
+    wpUrl: null,
     nodeQueries: {},
     nonNodeQuery: null,
     introspectionData: null,
