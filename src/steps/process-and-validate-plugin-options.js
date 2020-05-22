@@ -29,9 +29,9 @@ const optionsProcessors = [
   {
     name: `queryDepth-is-not-a-positive-int`,
     test: ({ userPluginOptions }) =>
-      typeof userPluginOptions.schema.queryDepth !== `undefined` &&
-      (!isInteger(userPluginOptions.schema.queryDepth) ||
-        userPluginOptions.schema.queryDepth <= 0),
+      typeof userPluginOptions?.schema?.queryDepth !== `undefined` &&
+      (!isInteger(userPluginOptions?.schema?.queryDepth) ||
+        userPluginOptions?.schema?.queryDepth <= 0),
     processor: ({ helpers, userPluginOptions }) => {
       helpers.reporter.log(``)
       helpers.reporter.warn(
