@@ -7,6 +7,7 @@ import { formatLogMessage } from "~/utils/format-log-message"
 import { paginatedWpNodeFetch, normalizeNode } from "./fetch-nodes-paginated"
 import { buildTypeName } from "~/steps/create-schema-customization/helpers"
 import fetchGraphql from "~/utils/fetch-graphql"
+import { getFileNodeMetaBySourceUrl } from "~/steps/source-nodes/create-nodes/create-remote-media-item-node"
 
 const nodeFetchConcurrency = 2
 
@@ -156,7 +157,7 @@ const createMediaItemNode = async ({
         },
       }
 
-      const normalizedNode = normalizeNode(node)
+      const normalizedNode = normalizeNode({ node, nodeTypeName: `MediaItem` })
 
       await actions.createNode(normalizedNode)
       resolveFutureNode(node)
@@ -210,12 +211,43 @@ const fetchMediaItemsBySourceUrl = async ({
 }) => {
   const perPage = 100
   const processedMediaItemUrls = processImageUrls(mediaItemUrls)
-  const mediaItemUrlsPages = chunk(processedMediaItemUrls, perPage)
+
+  const {
+    cachedMediaItemNodeIds,
+    uncachedMediaItemUrls,
+  } = processedMediaItemUrls.reduce(
+    (accumulator, url) => {
+      const { id } = getFileNodeMetaBySourceUrl(url) || {}
+
+      if (id) {
+        accumulator.cachedMediaItemNodeIds.push(id)
+      } else {
+        accumulator.uncachedMediaItemUrls.push(url)
+      }
+
+      return accumulator
+    },
+    { cachedMediaItemNodeIds: [], uncachedMediaItemUrls: [] }
+  )
+
+  const previouslyCachedMediaItemNodes = await Promise.all(
+    cachedMediaItemNodeIds.map(async (nodeId) => helpers.getNode(nodeId))
+  )
+
+  const mediaItemUrlsPages = chunk(uncachedMediaItemUrls, perPage)
 
   let resolveFutureNodes
   let futureNodes = new Promise((resolve) => {
-    resolveFutureNodes = resolve
+    resolveFutureNodes = (nodes = []) =>
+      resolve([...nodes, ...previouslyCachedMediaItemNodes])
   })
+
+  // we have no media items to fetch,
+  // so we need to resolve this promise
+  // otherwise it will never resolve below.
+  if (!mediaItemUrlsPages.length) {
+    resolveFutureNodes()
+  }
 
   for (const [index, sourceUrls] of mediaItemUrlsPages.entries()) {
     pushPromiseOntoRetryQueue({
@@ -254,17 +286,6 @@ const fetchMediaItemsBySourceUrl = async ({
 
         const thisPagesNodes = Object.values(data).filter(Boolean)
 
-        // if (
-        //   sourceUrls.find((sourceUrl) =>
-        //     sourceUrl.includes(`placeholderImage_40020`)
-        //   )
-        // ) {
-        //   dump(sourceUrls)
-        //   dump(Object.values(data).length)
-        //   dump(thisPagesNodes.length)
-        //   dd(thisPagesNodes.map((node) => node.sourceUrl))
-        // }
-
         const nodes = await Promise.all(
           thisPagesNodes.map((node) =>
             createMediaItemNode({
@@ -276,6 +297,14 @@ const fetchMediaItemsBySourceUrl = async ({
             })
           )
         )
+
+        nodes.forEach((node, index) => {
+          store.dispatch.imageNodes.pushNodeMeta({
+            id: node.id,
+            sourceUrl: sourceUrls[index],
+            modifiedGmt: node.modifiedGmt,
+          })
+        })
 
         if (activity) {
           activity?.setStatus(`fetched ${allMediaItemNodes.length}`)

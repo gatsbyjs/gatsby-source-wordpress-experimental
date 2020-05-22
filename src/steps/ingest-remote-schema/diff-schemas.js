@@ -27,11 +27,19 @@ const checkIfSchemaHasChanged = async (_, pluginOptions) => {
     query: gql`
       {
         schemaMd5
+        # also get the wpUrl to save on # of requests
+        # @todo maybe there's a better place for this
+        generalSettings {
+          url
+        }
       }
     `,
   })
 
-  const { schemaMd5 } = data
+  const {
+    schemaMd5,
+    generalSettings: { url: wpUrl },
+  } = data
 
   const cachedSchemaMd5 = await helpers.cache.get(MD5_CACHE_KEY)
 
@@ -66,7 +74,8 @@ const checkIfSchemaHasChanged = async (_, pluginOptions) => {
   }
 
   // record wether the schema changed so other logic can beware
-  store.dispatch.remoteSchema.setSchemaWasChanged(schemaWasChanged)
+  // as well as the wpUrl because we need this sometimes :p
+  store.dispatch.remoteSchema.setState({ schemaWasChanged, wpUrl })
 
   if (pluginOptions.verbose && lastCompletedSourceTime) {
     activity.end()

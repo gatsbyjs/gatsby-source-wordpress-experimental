@@ -1,7 +1,7 @@
 import fetchGraphql from "~/utils/fetch-graphql"
 import store from "~/store"
 
-export const normalizeNode = (node) => {
+export const normalizeNode = ({ node, nodeTypeName }) => {
   const normalizedNodeTypeName = node.__typename || nodeTypeName
   // @todo is node.type used anywhere??
   node.type = normalizedNodeTypeName
@@ -82,7 +82,7 @@ const paginatedWpNodeFetch = async ({
 
   if (nodes && nodes.length) {
     nodes.forEach((node) => {
-      node = normalizeNode(node)
+      node = normalizeNode({ node, nodeTypeName })
       allContentNodes.push(node)
     })
 
