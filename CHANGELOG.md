@@ -6,6 +6,12 @@
 
 - Inline links in any node content (custom fields or in post_content) will be replaced with local relative links. https://your-beautiful-wp-site.com/page-2 will become /page-2 so that Gatsby can make sense of it.
 
+## 0.6.1
+
+### Bug Fixes
+
+- Before plugin options were being merged into default plugin options (so no fallbacks for nested options), we were trying to access nested properties on undefined which was causing errors. This release fixes that and adds an integration test for this.
+
 ## 0.6.0
 
 ### Breaking Changes

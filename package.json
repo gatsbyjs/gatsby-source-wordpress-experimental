@@ -1,7 +1,7 @@
 {
   "name": "gatsby-source-wordpress-experimental",
   "description": "Source data from WPGraphQL in an efficient and scalable way.",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "author": "Tyler Barnes <tylerdbarnes@gmail.com>",
   "bugs": {
     "url": "https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/issues"
@@ -75,7 +75,8 @@
     "serve-test-runtime": "cd .test-runtime && yarn serve",
     "test-schema": "yarn clean-test-runtime && WPGRAPHQL_INCREMENT=false START_SERVER=true jest ./.test-runtime/__tests__/integration/schema && WPGQL_INCREMENT=true START_SERVER=true jest ./.test-runtime/__tests__/integration/schema",
     "test-build": "yarn clean-test-runtime && WPGRAPHQL_INCREMENT=false jest ./.test-runtime/__tests__/integration/build && WPGQL_INCREMENT=true jest ./.test-runtime/__tests__/integration/build",
-    "test": "yarn prepare && yarn test-schema && yarn test-build",
+    "test-build-default-options": "yarn clean-test-runtime && WPGRAPHQL_INCREMENT=false DEFAULT_PLUGIN_OPTIONS=true jest ./.test-runtime/__tests__/integration/build && WPGQL_INCREMENT=true DEFAULT_PLUGIN_OPTIONS=true jest ./.test-runtime/__tests__/integration/build",
+    "test": "yarn prepare && yarn test-schema && yarn test-build && yarn test-build-default-options",
     "test-schema-watch": "SHOW_GATSBY_PROCESS_STDOUT=true START_SERVER=true jest --watch ./.test-runtime/__tests__/integration/schema",
     "test-build-watch": "SHOW_GATSBY_PROCESS_STDOUT=true jest --watch ./.test-runtime/__tests__/integration/build"
   },
