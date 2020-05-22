@@ -1,10 +1,12 @@
 import { fluid } from "gatsby-plugin-sharp"
 import Img from "gatsby-image"
 import React from "react"
-
+import ReactDOMServer from "react-dom/server"
 import stringify from "fast-json-stable-stringify"
 import execall from "execall"
 import cheerio from "cheerio"
+
+import createRemoteFileNode from "./create-remote-file-node/index"
 import fetchReferencedMediaItemsAndCreateNodes, {
   stripImageSizesFromUrl,
 } from "../fetch-nodes/fetch-referenced-media-items"
@@ -36,14 +38,49 @@ const findReferencedImageNodeIds = ({
   return matchedIds
 }
 
-const getCheerioImgDataId = (cheerioImg) => {
-  if (!cheerioImg.attribs) {
-    dd(cheerioImg)
+const getCheerioImgDbId = (cheerioImg) => {
+  // try to get the db id from data attributes
+  const dataAttributeId =
+    cheerioImg.attribs[`data-id`] || cheerioImg.attribs[`data-image-id`]
+
+  if (dataAttributeId) {
+    return dataAttributeId
   }
-  return cheerioImg.attribs[`data-id`] || cheerioImg.attribs[`data-image-id`]
+
+  if (!cheerioImg.attribs.class) {
+    return null
+  }
+
+  // try to get the db id from the wp-image-id classname
+  // const wpImageClass = cheerioImg.attribs.class
+  //   .split(` `)
+  //   .find((className) => className.includes(`wp-image-`))
+
+  // if (wpImageClass) {
+  //   const wpImageClassDashArray = wpImageClass.split(`-`)
+  //   const wpImageClassId = Number(
+  //     wpImageClassDashArray[wpImageClassDashArray.length - 1]
+  //   )
+
+  //   if (wpImageClassId) {
+  //     return wpImageClassId
+  //   }
+  // }
+
+  return null
 }
 
-const fetchNodeHtmlImageMediaItemNodes = async ({ cheerioImages }) => {
+const dbIdToMediaItemRelayId = (dbId) => (dbId ? btoa(`post:${dbId}`) : null)
+
+const getCheerioImgRelayId = (cheerioImg) =>
+  dbIdToMediaItemRelayId(getCheerioImgDbId(cheerioImg))
+
+const fetchNodeHtmlImageMediaItemNodes = async ({
+  cheerioImages,
+  nodeString,
+  node,
+  helpers,
+}) => {
   // check if we have any of these nodes locally already
   // build a query to fetch all media items that we don't already have
   const mediaItemUrls = cheerioImages.map(
@@ -62,15 +99,15 @@ const fetchNodeHtmlImageMediaItemNodes = async ({ cheerioImages }) => {
   // we can try to use those to fetch media item nodes as well
   // this will keep us from missing nodes
   const mediaItemDbIds = cheerioImages
-    .map(({ cheerioImg }) => getCheerioImgDataId(cheerioImg))
+    .map(({ cheerioImg }) => getCheerioImgDbId(cheerioImg))
     .filter(Boolean)
 
   // media items are of the post type
   const mediaItemRelayIds = mediaItemDbIds
-    .map((dbId) => btoa(`post:${dbId}`))
-    // filter out any media item ids we already fetched
+    .map((dbId) => dbIdToMediaItemRelayId(dbId))
     .filter(
-      (relayId) => !mediaItemNodesBySourceUrl.find((id) => id !== relayId)
+      // filter out any media item ids we already fetched
+      (relayId) => !mediaItemNodesBySourceUrl.find(({ id }) => id === relayId)
     )
 
   const mediaItemNodesById = await fetchReferencedMediaItemsAndCreateNodes({
@@ -79,42 +116,43 @@ const fetchNodeHtmlImageMediaItemNodes = async ({ cheerioImages }) => {
 
   const mediaItemNodes = [...mediaItemNodesById, ...mediaItemNodesBySourceUrl]
 
-  if (mediaItemRelayIds.length) {
-    dump(mediaItemNodesById.map((node) => node.id))
-    dd(mediaItemNodesBySourceUrl.map((node) => node.id))
-  }
+  const htmlMatchesToMediaItemNodesMap = new Map()
+  for (const { cheerioImg, match } of cheerioImages) {
+    const htmlImgSrc = cheerioImg.attribs.src
 
-  const htmlMatchesToMediaItemNodesMap = cheerioImages.reduce(
-    (accumulator, { cheerioImg, match }) => {
-      const possibleHtmlSrcs = [
-        // try to match the media item source url by original html src
-        cheerioImg.attribs.src,
-        // or by the src minus any image sizes string
-        stripImageSizesFromUrl(cheerioImg.attribs.src),
-      ]
+    const possibleHtmlSrcs = [
+      // try to match the media item source url by original html src
+      htmlImgSrc,
+      // or by the src minus any image sizes string
+      stripImageSizesFromUrl(htmlImgSrc),
+    ]
 
-      const mediaItemNode = mediaItemNodes.find(
-        (mediaItemNode) =>
-          possibleHtmlSrcs.includes(mediaItemNode.sourceUrl) ||
-          getCheerioImgDataId(cheerioImg) === mediaItemNode.id
-      )
+    let imageNode = mediaItemNodes.find(
+      (mediaItemNode) =>
+        // either find our node by the source url
+        possibleHtmlSrcs.includes(mediaItemNode.sourceUrl) ||
+        // or by id for cases where the src url didn't return a node
+        getCheerioImgRelayId(cheerioImg) === mediaItemNode.id
+    )
 
-      if (!mediaItemNode) {
-        dump(`no html image found for node:`)
-        dump(match)
-        dump(possibleHtmlSrcs)
-        dump(mediaItemUrls)
-        dump(cheerioImg)
-        dd(mediaItemNodes.map(({ sourceUrl }) => sourceUrl))
-      }
+    if (!imageNode && htmlImgSrc) {
+      // if we didn't get a media item node for this image,
+      // we need to fetch it and create a file node for it with no
+      // media item node.
+      imageNode = await createRemoteFileNode({
+        url: htmlImgSrc,
+        // fixedBarTotal,
+        parentNodeId: node.id,
+        ...helpers,
+        createNode: helpers.actions.createNode,
+      })
+    }
 
+    if (imageNode) {
       // match is the html string of the img tag
-      accumulator.set(match, mediaItemNode)
-
-      return accumulator
-    },
-    new Map()
-  )
+      htmlMatchesToMediaItemNodesMap.set(match, { imageNode, cheerioImg })
+    }
+  }
 
   return htmlMatchesToMediaItemNodesMap
 }
@@ -147,13 +185,67 @@ const getCheerioImgFromMatch = ({ match }) => {
   }
 }
 
+const getLargestSizeFromSizesAttribute = (sizesString) => {
+  const sizesStringsArray = sizesString.split(`,`)
+
+  return sizesStringsArray.reduce((largest, currentSizeString) => {
+    const maxWidth = currentSizeString
+      .substring(
+        currentSizeString.indexOf(`max-width: `) + 1,
+        currentSizeString.indexOf(`px`)
+      )
+      .trim()
+
+    const maxWidthNumber = Number(maxWidth)
+    const noLargestAndMaxWidthIsANumber = !largest && !isNaN(maxWidthNumber)
+    const maxWidthIsALargerNumberThanLargest =
+      largest && !isNaN(maxWidthNumber) && maxWidthNumber > largest
+
+    if (noLargestAndMaxWidthIsANumber || maxWidthIsALargerNumberThanLargest) {
+      largest = maxWidthNumber
+    }
+
+    return largest
+  }, null)
+}
+
+const findImgTagMaxWidthFromCheerioImg = (cheerioImg) => {
+  const {
+    attribs: { width, sizes },
+  } = cheerioImg || { attribs: { width: null, sizes: null } }
+
+  if (width) {
+    const widthNumber = Number(width)
+
+    if (!isNaN(widthNumber)) {
+      return width
+    }
+  }
+
+  if (sizes) {
+    const largestSize = getLargestSizeFromSizesAttribute(sizes)
+
+    if (largestSize && !isNaN(largestSize)) {
+      return largestSize
+    }
+  }
+
+  return null
+}
+
 const replaceNodeHtmlImages = async ({
   nodeString,
-  pluginOptions,
+  node,
   helpers,
+  wpUrl,
+  // pluginOptions,
 }) => {
   const imageUrlMatches = execall(imgSrcRemoteFileRegex, nodeString)
-  const imgTagMatches = execall(imgTagRegex, nodeString)
+  const imgTagMatches = execall(imgTagRegex, nodeString).filter(({ match }) =>
+    // @todo make it a plugin option to fetch non-wp images
+    // here we're filtering out image tags that don't contain our site url
+    match.includes(wpUrl)
+  )
 
   if (imageUrlMatches.length) {
     const cheerioImages = imgTagMatches.map(getCheerioImgFromMatch)
@@ -161,35 +253,100 @@ const replaceNodeHtmlImages = async ({
     const htmlMatchesToMediaItemNodesMap = await fetchNodeHtmlImageMediaItemNodes(
       {
         cheerioImages,
+        nodeString,
+        node,
+        helpers,
       }
     )
 
     // generate gatsby images for each cheerioImage
-    const htmlMatchesToGatsbyImgStringMap = await Promise.all(
+    const htmlMatchesWithImageResizes = await Promise.all(
       imgTagMatches.map(async ({ match }) => {
-        const mediaItemNode = htmlMatchesToMediaItemNodesMap.get(match)
-        if (!mediaItemNode) {
-          dd(Array.from(htmlMatchesToMediaItemNodesMap.entries()))
+        const { imageNode, cheerioImg } = htmlMatchesToMediaItemNodesMap.get(
+          match
+        )
+
+        const isMediaItemNode = imageNode.__typename === `MediaItem`
+
+        if (!imageNode) {
+          return null
         }
 
-        const fileNode = helpers.getNode(mediaItemNode.remoteFile.id)
+        const fileNode =
+          // if we couldn't get a MediaItem node for this image in WPGQL
+          !isMediaItemNode
+            ? // this will already be a file node
+              imageNode
+            : // otherwise grab the file node
+              helpers.getNode(imageNode.localFile.id)
 
-        dump(`fluid result coming up`)
+        const imgTagMaxWidth = findImgTagMaxWidthFromCheerioImg(cheerioImg)
+        const mediaItemNodeWidth = isMediaItemNode
+          ? imageNode?.mediaDetails?.width
+          : null
+
+        const maxWidth =
+          (mediaItemNodeWidth && mediaItemNodeWidth < imgTagMaxWidth
+            ? mediaItemNodeWidth
+            : // @todo add plugin option to configure default maxWidth
+              imgTagMaxWidth) ?? 800
 
         const fluidResult = await fluid({
           file: fileNode,
           args: {
-            maxWidth: 800,
+            maxWidth,
+            // @todo add plugin option to control quality
           },
           reporter: helpers.reporter,
           cache: helpers.cache,
         })
 
-        dump(fluidResult)
+        return {
+          match,
+          cheerioImg,
+          fileNode,
+          imageResize: fluidResult,
+        }
       })
     )
 
     // find/replace mutate nodeString to replace matched images with rendered gatsby images
+    for (const {
+      match,
+      imageResize,
+      cheerioImg,
+    } of htmlMatchesWithImageResizes) {
+      // @todo retain img tag classes and attributes from cheerioImg
+      const imgOptions = {
+        fluid: imageResize,
+        style: {
+          maxWidth: "100%",
+        },
+        // // Force show full image instantly
+        // // critical: true, // depricated
+        // loading: "eager",
+        // alt: formattedImgTag.alt,
+        // // fadeIn: true,
+        // imgStyle: {
+        //   opacity: 1,
+        // },
+      }
+
+      const ReactGatsbyImage = React.createElement(Img, imgOptions, null)
+      const gatsbyImageStringJSON = JSON.stringify(
+        ReactDOMServer.renderToString(ReactGatsbyImage)
+      )
+
+      // need to remove the JSON stringify quotes around our image since we're
+      // threading this JSON string back into a larger JSON object string
+      const gatsbyImageString = gatsbyImageStringJSON.substring(
+        1,
+        gatsbyImageStringJSON.length - 1
+      )
+
+      // replace match with react string in nodeString
+      nodeString = nodeString.replace(match, gatsbyImageString)
+    }
 
     store.dispatch.imageNodes.addImgMatches(imageUrlMatches)
   }
@@ -197,12 +354,20 @@ const replaceNodeHtmlImages = async ({
   return nodeString
 }
 
-const processNodeString = async ({ nodeString, pluginOptions, helpers }) => {
+const processNodeString = async ({
+  nodeString,
+  node,
+  pluginOptions,
+  helpers,
+  wpUrl,
+}) => {
   // const nodeStringFilters = [replaceNodeHtmlImages,]
   const nodeStringWithGatsbyImages = replaceNodeHtmlImages({
     nodeString,
+    node,
     pluginOptions,
     helpers,
+    wpUrl,
   })
 
   // const mediaItemNodes = await helpers.getNodesByType(`WpMediaItem`)
@@ -248,14 +413,20 @@ const processNode = async ({
 
   const processedNodeString = await processNodeString({
     nodeString,
+    node,
     pluginOptions,
     helpers,
+    wpUrl,
   })
 
   // only parse if the nodeString has changed
   if (processedNodeString !== nodeString) {
-    dd(processedNodeString)
-    return JSON.parse(processedNodeString)
+    try {
+      return JSON.parse(processedNodeString)
+    } catch (e) {
+      dump(processedNodeString)
+      helpers.reporter.panic(e)
+    }
   } else {
     return node
   }
