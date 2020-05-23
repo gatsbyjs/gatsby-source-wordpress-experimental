@@ -21,7 +21,7 @@ Object {
                 "nodeType": "MenuItem",
                 "target": null,
                 "title": null,
-                "url": "https://dev-automated-testing-gatsby-source-wordpress-wpgraphql.pantheonsite.io/activity/",
+                "url": "/activity/",
               },
               Object {
                 "childItems": Object {
@@ -55,7 +55,7 @@ Object {
                 "nodeType": "MenuItem",
                 "target": null,
                 "title": null,
-                "url": "https://dev-automated-testing-gatsby-source-wordpress-wpgraphql.pantheonsite.io/sample-page/",
+                "url": "/sample-page/",
               },
             ],
           },
@@ -88,7 +88,7 @@ Object {
                 "nodeType": "MenuItem",
                 "target": null,
                 "title": null,
-                "url": "https://dev-automated-testing-gatsby-source-wordpress-wpgraphql.pantheonsite.io/activity/",
+                "url": "/activity/",
               },
               Object {
                 "childItems": Object {
@@ -122,7 +122,7 @@ Object {
                 "nodeType": "MenuItem",
                 "target": null,
                 "title": null,
-                "url": "https://dev-automated-testing-gatsby-source-wordpress-wpgraphql.pantheonsite.io/sample-page/",
+                "url": "/sample-page/",
               },
             ],
           },
@@ -201,7 +201,7 @@ Object {
                         "excerpt": "<p>Creator and maintainer of&nbsp;WPGraphQL&nbsp;(GraphQL for WordPress). Occasional conference speaker.</p>
 ",
                         "id": "cG9zdDo5OA==",
-                        "link": "https://dev-automated-testing-gatsby-source-wordpress-wpgraphql.pantheonsite.io/team_member/jason-bahl/",
+                        "link": "/team_member/jason-bahl/",
                         "menuOrder": null,
                         "pingStatus": "open",
                         "seo": Object {
@@ -316,7 +316,7 @@ Object {
                         "excerpt": "<p>Creator and maintainer of&nbsp;WPGraphQL&nbsp;(GraphQL for WordPress). Occasional conference speaker.</p>
 ",
                         "id": "cG9zdDo5OA==",
-                        "link": "https://dev-automated-testing-gatsby-source-wordpress-wpgraphql.pantheonsite.io/team_member/jason-bahl/",
+                        "link": "/team_member/jason-bahl/",
                         "menuOrder": null,
                         "pingStatus": "open",
                         "seo": Object {
@@ -464,7 +464,7 @@ Object {
                         "excerpt": "<p>Creator and maintainer of&nbsp;WPGraphQL&nbsp;(GraphQL for WordPress). Occasional conference speaker.</p>
 ",
                         "id": "cG9zdDo5OA==",
-                        "link": "https://dev-automated-testing-gatsby-source-wordpress-wpgraphql.pantheonsite.io/team_member/jason-bahl/",
+                        "link": "/team_member/jason-bahl/",
                         "menuOrder": null,
                         "pingStatus": "open",
                         "seo": Object {
@@ -579,7 +579,7 @@ Object {
                         "excerpt": "<p>Creator and maintainer of&nbsp;WPGraphQL&nbsp;(GraphQL for WordPress). Occasional conference speaker.</p>
 ",
                         "id": "cG9zdDo5OA==",
-                        "link": "https://dev-automated-testing-gatsby-source-wordpress-wpgraphql.pantheonsite.io/team_member/jason-bahl/",
+                        "link": "/team_member/jason-bahl/",
                         "menuOrder": null,
                         "pingStatus": "open",
                         "seo": Object {
