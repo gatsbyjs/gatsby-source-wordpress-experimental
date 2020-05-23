@@ -5,18 +5,26 @@ import ReactDOMServer from "react-dom/server"
 import stringify from "fast-json-stable-stringify"
 import execall from "execall"
 import cheerio from "cheerio"
+import url from "url"
 
+import { formatLogMessage } from "~/utils/format-log-message"
 import createRemoteFileNode from "./create-remote-file-node/index"
 import fetchReferencedMediaItemsAndCreateNodes, {
   stripImageSizesFromUrl,
 } from "../fetch-nodes/fetch-referenced-media-items"
-import store from "~/store"
 import btoa from "btoa"
 
 // @todo this doesn't make sense because these aren't all images
 const imgSrcRemoteFileRegex = /(?:src=\\")((?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[A-Z0-9+&@#/%=~_|$])\.(?:jpeg|jpg|png|gif|ico|pdf|doc|docx|ppt|pptx|pps|ppsx|odt|xls|psd|mp3|m4a|ogg|wav|mp4|m4v|mov|wmv|avi|mpg|ogv|3gp|3g2|svg|bmp|tif|tiff|asf|asx|wm|wmx|divx|flv|qt|mpe|webm|mkv|tt|asc|c|cc|h|csv|tsv|ics|rtx|css|htm|html|m4b|ra|ram|mid|midi|wax|mka|rtf|js|swf|class|tar|zip|gz|gzip|rar|7z|exe|pot|wri|xla|xlt|xlw|mdb|mpp|docm|dotx|dotm|xlsm|xlsb|xltx|xltm|xlam|pptm|ppsm|potx|potm|ppam|sldx|sldm|onetoc|onetoc2|onetmp|onepkg|odp|ods|odg|odc|odb|odf|wp|wpd|key|numbers|pages))(?=\\"| |\.)/gim
 
 const imgTagRegex = /<img([\w\W]+?)[\/]?>/gim
+
+const getNodeEditLink = (node) => {
+  const { protocol, hostname } = url.parse(node.link)
+  const editUrl = `${protocol}//${hostname}/wp-admin/post.php?post=${node.databaseId}&action=edit`
+
+  return editUrl
+}
 
 const findReferencedImageNodeIds = ({
   nodeString,
@@ -139,13 +147,36 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
       // if we didn't get a media item node for this image,
       // we need to fetch it and create a file node for it with no
       // media item node.
-      imageNode = await createRemoteFileNode({
-        url: htmlImgSrc,
-        // fixedBarTotal,
-        parentNodeId: node.id,
-        ...helpers,
-        createNode: helpers.actions.createNode,
-      })
+      try {
+        imageNode = await createRemoteFileNode({
+          url: htmlImgSrc,
+          // fixedBarTotal,
+          parentNodeId: node.id,
+          ...helpers,
+          createNode: helpers.actions.createNode,
+        })
+      } catch (e) {
+        if (e.includes(`404`)) {
+          const nodeEditLink = getNodeEditLink(node)
+          helpers.reporter.log(``)
+          helpers.reporter.warn(
+            formatLogMessage(
+              `\n\nReceived a 404 when trying to fetch\n${htmlImgSrc}\nfrom ${
+                node.__typename
+              } #${node.databaseId} "${
+                node.title ?? node.id
+              }"\n\nMost likely this image was uploaded to this ${
+                node.__typename
+              } and then deleted from the media library.\nYou'll need to fix this and re-save this ${
+                node.__typename
+              } to remove this warning at\n${nodeEditLink}.\n\n`
+            )
+          )
+          imageNode = null
+        } else {
+          helpers.reporter.panic(formatLogMessage(e))
+        }
+      }
     }
 
     if (imageNode) {
@@ -270,9 +301,13 @@ const replaceNodeHtmlImages = async ({
     // generate gatsby images for each cheerioImage
     const htmlMatchesWithImageResizes = await Promise.all(
       imgTagMatches.map(async ({ match }) => {
-        const { imageNode, cheerioImg } = htmlMatchesToMediaItemNodesMap.get(
-          match
-        )
+        const matchInfo = htmlMatchesToMediaItemNodesMap.get(match)
+
+        if (!matchInfo) {
+          return null
+        }
+
+        const { imageNode, cheerioImg } = matchInfo
 
         const isMediaItemNode = imageNode.__typename === `MediaItem`
 
