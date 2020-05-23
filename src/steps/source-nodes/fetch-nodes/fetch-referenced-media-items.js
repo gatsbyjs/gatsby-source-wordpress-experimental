@@ -219,9 +219,12 @@ const fetchMediaItemsBySourceUrl = async ({
     (accumulator, url) => {
       const { id } = getFileNodeMetaBySourceUrl(url) || {}
 
-      if (id) {
+      // if we have a cached image and we haven't already recorded this cached image
+      if (id && !accumulator.cachedMediaItemNodeIds.includes(id)) {
+        // save it
         accumulator.cachedMediaItemNodeIds.push(id)
-      } else {
+      } else if (!id) {
+        // otherwise we need to fetch this media item by url
         accumulator.uncachedMediaItemUrls.push(url)
       }
 
@@ -230,12 +233,17 @@ const fetchMediaItemsBySourceUrl = async ({
     { cachedMediaItemNodeIds: [], uncachedMediaItemUrls: [] }
   )
 
+  // take our previously cached id's and get nodes for them
   const previouslyCachedMediaItemNodes = await Promise.all(
     cachedMediaItemNodeIds.map(async (nodeId) => helpers.getNode(nodeId))
   )
 
+  // chunk up all our uncached media items
   const mediaItemUrlsPages = chunk(uncachedMediaItemUrls, perPage)
 
+  // since we're using an async queue, we need a way to know when it's finished
+  // we pass this resolve function into the queue function so it can let us
+  // know when it's finished
   let resolveFutureNodes
   let futureNodes = new Promise((resolve) => {
     resolveFutureNodes = (nodes = []) =>
@@ -249,6 +257,7 @@ const fetchMediaItemsBySourceUrl = async ({
     resolveFutureNodes()
   }
 
+  // for all the images we don't have cached, loop through and get them all
   for (const [index, sourceUrls] of mediaItemUrlsPages.entries()) {
     pushPromiseOntoRetryQueue({
       helpers,
@@ -284,6 +293,11 @@ const fetchMediaItemsBySourceUrl = async ({
           errorContext: `Error occured while fetching "MediaItem" nodes in inline html.`,
         })
 
+        // since we're getting each media item on it's single node root field
+        // we just needs the values of each property in the response
+        // anything that returns null is because we tried to get the source url
+        // plus the source url minus resize patterns. So there will be nulls
+        // since only the full source url will return data
         const thisPagesNodes = Object.values(data).filter(Boolean)
 
         const nodes = await Promise.all(
@@ -299,6 +313,7 @@ const fetchMediaItemsBySourceUrl = async ({
         )
 
         nodes.forEach((node, index) => {
+          // this is how we're caching nodes we've previously fetched.
           store.dispatch.imageNodes.pushNodeMeta({
             id: node.localFile.id,
             sourceUrl: sourceUrls[index],
