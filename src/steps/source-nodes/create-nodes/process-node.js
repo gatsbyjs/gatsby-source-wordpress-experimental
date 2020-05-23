@@ -412,6 +412,42 @@ const replaceNodeHtmlImages = async ({
   return nodeString
 }
 
+// replaces any url which is a front-end WP url with a relative path
+const replaceNodeHtmlLinks = ({ wpUrl, nodeString, node }) => {
+  const wpLinkRegex = new RegExp(
+    `["']${wpUrl}(?!/wp-content|/wp-admin|/wp-includes)(/[^'"]+)["']`,
+    `gim`
+  )
+
+  const linkMatches = execall(wpLinkRegex, nodeString)
+
+  if (linkMatches.length) {
+    linkMatches.forEach(({ match, subMatches: [path] }) => {
+      if (path) {
+        try {
+          // remove \, " and ' characters from match
+          const normalizedMatch = match.replace(/['"\\]/g, ``)
+
+          const normalizedPath = path.replace(/\\/g, ``)
+
+          // replace normalized match with relative path
+          const thisMatchRegex = new RegExp(normalizedMatch, `g`)
+          nodeString = nodeString.replace(thisMatchRegex, normalizedPath)
+        } catch (e) {
+          console.error(e)
+          console.warning(
+            formatLogMessage(
+              `Failed to process inline html links in ${node.__typename} ${node.id}`
+            )
+          )
+        }
+      }
+    })
+  }
+
+  return nodeString
+}
+
 const processNodeString = async ({
   nodeString,
   node,
@@ -419,25 +455,19 @@ const processNodeString = async ({
   helpers,
   wpUrl,
 }) => {
-  // const nodeStringFilters = [replaceNodeHtmlImages,]
-  const nodeStringWithGatsbyImages = replaceNodeHtmlImages({
-    nodeString,
-    node,
-    pluginOptions,
-    helpers,
-    wpUrl,
-  })
+  const nodeStringFilters = [replaceNodeHtmlImages, replaceNodeHtmlLinks]
 
-  // const mediaItemNodes = await helpers.getNodesByType(`WpMediaItem`)
-  // dd(mediaItemNodes)
+  for (const nodeStringFilter of nodeStringFilters) {
+    nodeString = await nodeStringFilter({
+      nodeString,
+      node,
+      pluginOptions,
+      helpers,
+      wpUrl,
+    })
+  }
 
-  // const nodeStringWithGatsbyImagesAndRelativeLinks = replaceNodeHtmlLinks({
-  //   nodeString,
-  //   pluginOptions,
-  // })
-  // return nodeStringWithGatsbyImagesAndRelativeLinks
-
-  return nodeStringWithGatsbyImages
+  return nodeString
 }
 
 const processNode = async ({
@@ -447,12 +477,6 @@ const processNode = async ({
   helpers,
   referencedMediaItemNodeIds,
 }) => {
-  const anchorTagRegex = new RegExp(
-    // eslint-disable-next-line no-useless-escape
-    `<a[\\\s]+[^>]*?href[\\\s]?=["'\\\\]*(${wpUrl}.*?)["'\\\\]*.*?>([^<]+|.*?)?<\/a>`,
-    `gim`
-  )
-
   const nodeString = stringify(node)
 
   // find referenced node ids
