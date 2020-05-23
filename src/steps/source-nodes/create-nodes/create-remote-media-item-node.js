@@ -12,11 +12,12 @@ import store from "~/store"
 import { getGatsbyApi } from "~/utils/get-gatsby-api"
 import urlToPath from "~/utils/url-to-path"
 import { formatLogMessage } from "~/utils/format-log-message"
+import { stripImageSizesFromUrl } from "~/steps/source-nodes/fetch-nodes/fetch-referenced-media-items"
 
 export const getFileNodeMetaBySourceUrl = (sourceUrl) => {
   const fileNodesMetaByUrls = store.getState().imageNodes.nodeMetaByUrl
 
-  return fileNodesMetaByUrls[sourceUrl]
+  return fileNodesMetaByUrls[stripImageSizesFromUrl(sourceUrl)]
 }
 
 export const errorPanicker = ({ error, reporter, node }) => {

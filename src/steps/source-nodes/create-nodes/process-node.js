@@ -405,8 +405,6 @@ const replaceNodeHtmlImages = async ({
       // replace match with react string in nodeString
       nodeString = nodeString.replace(match, gatsbyImageString)
     }
-
-    store.dispatch.imageNodes.addImgMatches(imageUrlMatches)
   }
 
   return nodeString
