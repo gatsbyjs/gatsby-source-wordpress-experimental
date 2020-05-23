@@ -52,20 +52,20 @@ const getCheerioImgDbId = (cheerioImg) => {
   }
 
   // try to get the db id from the wp-image-id classname
-  // const wpImageClass = cheerioImg.attribs.class
-  //   .split(` `)
-  //   .find((className) => className.includes(`wp-image-`))
+  const wpImageClass = cheerioImg.attribs.class
+    .split(` `)
+    .find((className) => className.includes(`wp-image-`))
 
-  // if (wpImageClass) {
-  //   const wpImageClassDashArray = wpImageClass.split(`-`)
-  //   const wpImageClassId = Number(
-  //     wpImageClassDashArray[wpImageClassDashArray.length - 1]
-  //   )
+  if (wpImageClass) {
+    const wpImageClassDashArray = wpImageClass.split(`-`)
+    const wpImageClassId = Number(
+      wpImageClassDashArray[wpImageClassDashArray.length - 1]
+    )
 
-  //   if (wpImageClassId) {
-  //     return wpImageClassId
-  //   }
-  // }
+    if (wpImageClassId) {
+      return wpImageClassId
+    }
+  }
 
   return null
 }
