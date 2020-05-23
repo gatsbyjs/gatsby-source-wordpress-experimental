@@ -45,7 +45,9 @@ const logger = {
       const typeActivityTimer = {
         count: 0,
         activity: reporter.activityTimer(
-          formatLogMessage(typeName, { useVerboseStyle: pluginOptions.verbose })
+          formatLogMessage(typeName, {
+            useVerboseStyle: pluginOptions.verbose,
+          })
         ),
       }
 

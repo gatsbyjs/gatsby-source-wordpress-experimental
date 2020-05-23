@@ -1,10 +1,10 @@
 import chalk from "chalk"
 import store from "~/store"
 
-const formatLogMessage = (input, { useVerboseStyle = false } = {}) => {
+const formatLogMessage = (input, { useVerboseStyle } = {}) => {
   let verbose = false
 
-  if (!useVerboseStyle) {
+  if (typeof useVerboseStyle === `undefined`) {
     verbose = store.getState().gatsbyApi.pluginOptions.verbose
   }
 
