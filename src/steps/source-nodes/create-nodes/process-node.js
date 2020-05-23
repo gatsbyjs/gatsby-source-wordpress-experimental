@@ -330,41 +330,61 @@ const replaceNodeHtmlImages = async ({
 
         const { reporter, cache } = helpers
 
-        const fluidResult = await fluid({
-          file: fileNode,
-          args: {
-            maxWidth,
-            quality,
-          },
-          reporter,
-          cache,
-        })
+        let fluidResult
+
+        try {
+          fluidResult = await fluid({
+            file: fileNode,
+            args: {
+              maxWidth,
+              quality,
+            },
+            reporter,
+            cache,
+          })
+        } catch (e) {
+          reporter.error(e)
+          reporter.warn(
+            formatLogMessage(
+              `${node.__typename} ${node.id} couldn't process inline html image ${fileNode.url}`
+            )
+          )
+          return null
+        }
 
         return {
           match,
           cheerioImg,
           fileNode,
           imageResize: fluidResult,
+          maxWidth,
         }
       })
     )
 
     // find/replace mutate nodeString to replace matched images with rendered gatsby images
-    for (const {
-      match,
-      imageResize,
-      cheerioImg,
-    } of htmlMatchesWithImageResizes) {
+    for (const matchResize of htmlMatchesWithImageResizes) {
+      if (!matchResize) {
+        continue
+      }
+
+      const { match, imageResize, cheerioImg, maxWidth } = matchResize
+
       // @todo retain img tag classes and attributes from cheerioImg
       const imgOptions = {
         fluid: imageResize,
         style: {
+          // these styles make it so that the image wont be stretched
+          // beyond it's max width, but it also wont exceed the width
+          // of it's parent element
           maxWidth: "100%",
+          width: `${maxWidth}px`,
         },
+        className: cheerioImg?.attribs?.class,
         // Force show full image instantly
         loading: "eager",
-        // alt: formattedImgTag.alt,
-        // // fadeIn: true,
+        alt: cheerioImg?.attribs?.alt,
+        fadeIn: true,
         imgStyle: {
           opacity: 1,
         },
@@ -436,6 +456,11 @@ const processNode = async ({
   const nodeString = stringify(node)
 
   // find referenced node ids
+  // here we're searching for node id strings in our node
+  // we use this to download only the media items
+  // that are being used in posts
+  // this is important for downloading images nodes that are connected somewhere
+  // in the simport { formatLogMessage } from '~/utils/format-log-message';
   const nodeMediaItemIdReferences = findReferencedImageNodeIds({
     nodeString,
     pluginOptions,
