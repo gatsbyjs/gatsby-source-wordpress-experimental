@@ -31,15 +31,11 @@ const createNodeWithSideEffects = ({
   wpUrl,
 }) => async () => {
   if (node.link) {
+    // @todo is this still necessary? I don't think it is but double check
     // create a pathname for the node using the WP permalink
     node.path = urlToPath(node.link)
   }
 
-  // here we're searching for file strings in our node
-  // we use this to download only the media items
-  // that are being used in posts
-  // this is important not only for downloading only used images
-  // but also for downloading images in post content
   if (wpgqlNodesGroup.plural !== `mediaItems`) {
     node = await processNode({
       node,
