@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.7.1
+
+### New Features
+
+- In the event that the remote schema has broken pagination which causes infinite looping between pages of remote data, there are now some safeguards to protect against this. In a way this is a bug fix, but I'm listing it as a feature because the bug is on the remote server instead of within the source plugin.
+
 ## 0.7.0
 
 ### New Features
