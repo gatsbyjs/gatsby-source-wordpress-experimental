@@ -1,6 +1,16 @@
 import fetchGraphql from "~/utils/fetch-graphql"
 import store from "~/store"
 
+export const normalizeNode = ({ node, nodeTypeName }) => {
+  const normalizedNodeTypeName = node.__typename || nodeTypeName
+  // @todo is node.type used anywhere??
+  node.type = normalizedNodeTypeName
+  // this is used to filter node interfaces by content types
+  node.nodeType = normalizedNodeTypeName
+
+  return node
+}
+
 /**
  * paginatedWpNodeFetch
  *
@@ -10,7 +20,6 @@ const paginatedWpNodeFetch = async ({
   contentTypePlural,
   query,
   nodeTypeName,
-  activity,
   helpers,
   throwFetchErrors = false,
   allContentNodes = [],
@@ -44,8 +53,6 @@ const paginatedWpNodeFetch = async ({
     variables.first = settings.limit
   }
 
-  const typeCount = store.getState().logger.typeCount[nodeTypeName] || 0
-
   const response = await fetchGraphql({
     query,
     throwFetchErrors,
@@ -71,24 +78,18 @@ const paginatedWpNodeFetch = async ({
   nodes = nodes.filter(Boolean)
 
   if (nodes && nodes.length) {
-    nodes.forEach(async (node) => {
-      const normalizedNodeTypeName = node.__typename || nodeTypeName
-      node.type = normalizedNodeTypeName
-      // this is used to filter node interfaces by content types
-      node.nodeType = normalizedNodeTypeName
+    nodes.forEach((node) => {
+      node = normalizeNode({ node, nodeTypeName })
       allContentNodes.push(node)
     })
 
-    const updatedTypeCount = typeCount + nodes.length
-
-    if (activity) {
-      activity.setStatus(`fetched ${updatedTypeCount}`)
+    // MediaItem type is incremented in createMediaItemNode
+    if (nodeTypeName !== `MediaItem`) {
+      store.dispatch.logger.incrementActivityTimer({
+        typeName: nodeTypeName,
+        by: nodes.length,
+      })
     }
-
-    store.dispatch.logger.incrementTypeBy({
-      count: nodes.length,
-      type: nodeTypeName,
-    })
   }
 
   if (
@@ -101,7 +102,6 @@ const paginatedWpNodeFetch = async ({
       nodeTypeName,
       query,
       allContentNodes,
-      activity,
       helpers,
       settings,
       after: endCursor,

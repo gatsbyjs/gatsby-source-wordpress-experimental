@@ -12,11 +12,19 @@ import store from "~/store"
 import { getGatsbyApi } from "~/utils/get-gatsby-api"
 import urlToPath from "~/utils/url-to-path"
 import { formatLogMessage } from "~/utils/format-log-message"
+import { stripImageSizesFromUrl } from "~/steps/source-nodes/fetch-nodes/fetch-referenced-media-items"
 
 export const getFileNodeMetaBySourceUrl = (sourceUrl) => {
   const fileNodesMetaByUrls = store.getState().imageNodes.nodeMetaByUrl
 
-  return fileNodesMetaByUrls[sourceUrl]
+  return fileNodesMetaByUrls[stripImageSizesFromUrl(sourceUrl)]
+}
+
+export const getMediaItemEditLink = (node) => {
+  const { protocol, hostname } = url.parse(node.link)
+  const editUrl = `${protocol}//${hostname}/wp-admin/upload.php?item=${node.databaseId}`
+
+  return editUrl
 }
 
 export const errorPanicker = ({ error, reporter, node }) => {
@@ -28,8 +36,7 @@ export const errorPanicker = ({ error, reporter, node }) => {
     error.includes(`Response code 505`) ||
     error.includes(`Response code 501`)
   ) {
-    const { protocol, hostname } = url.parse(node.link)
-    const editUrl = `${protocol}//${hostname}/wp-admin/upload.php?item=${node.databaseId}`
+    const editUrl = getMediaItemEditLink(node)
 
     reporter.log(``)
     reporter.info(

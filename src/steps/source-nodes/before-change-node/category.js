@@ -1,3 +1,5 @@
+import { processNode } from "~/steps/source-nodes/create-nodes/process-node"
+
 export const categoryBeforeChangeNode = async ({
   remoteNode,
   actionType,
@@ -24,9 +26,11 @@ export const categoryBeforeChangeNode = async ({
     return null
   }
 
-  const {
-    selectionSet,
-  } = wpStore.getState().remoteSchema.nodeQueries.categories
+  const state = wpStore.getState()
+
+  const { selectionSet } = state.remoteSchema.nodeQueries.categories
+  const { wpUrl } = state.remoteSchema
+  const { pluginOptions } = state.gatsbyApi
 
   const query = `
         fragment CATEGORY_FIELDS on Category {
@@ -71,8 +75,15 @@ export const categoryBeforeChangeNode = async ({
 
       const type = buildTypeName(`Category`)
 
+      const processedNode = await processNode({
+        node: remoteCategoryNode,
+        pluginOptions,
+        wpUrl,
+        helpers,
+      })
+
       await actions.createNode({
-        ...remoteCategoryNode,
+        ...processedNode,
         nodeType: `Category`,
         type: `Category`,
         parent: null,

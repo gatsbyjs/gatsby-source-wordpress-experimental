@@ -1,6 +1,7 @@
+import { stripImageSizesFromUrl } from "~/steps/source-nodes/fetch-nodes/fetch-referenced-media-items"
+
 const imageNodes = {
   state: {
-    urls: new Set(),
     nodeMetaByUrl: {},
     nodeIds: [],
   },
@@ -23,18 +24,10 @@ const imageNodes = {
 
     pushNodeMeta(state, { id, sourceUrl, modifiedGmt }) {
       state.nodeIds.push(id)
-      state.nodeMetaByUrl[sourceUrl] = {
+      state.nodeMetaByUrl[stripImageSizesFromUrl(sourceUrl)] = {
         id,
         modifiedGmt,
       }
-
-      return state
-    },
-
-    addImgMatches(state, matches) {
-      matches.forEach((match) =>
-        match.subMatches.forEach((subMatch) => state.urls.add(subMatch))
-      )
 
       return state
     },

@@ -1,10 +1,29 @@
 # Change Log
 
-## Upcoming
+## 0.7.0
 
 ### New Features
 
 - Inline links in any node content (custom fields or in post_content) will be replaced with local relative links. https://your-beautiful-wp-site.com/page-2 will become /page-2 so that Gatsby can make sense of it.
+- gatsby-plugin-catch-links is automatically installed as part of this plugin so that inline-html links work as gatsby-links out of the box.
+- Inline html images anywhere in your node data are now gatsby-images. These are processed as fluid Sharp images, the media item node from WPGraphQL is fetched and added to your cache, the maxWidth of the fluid resize is inferred from html (if the img tag either has a sizes or width attribute, those are used) otherwise it falls back to a default plugin option:
+
+```js
+  html: {
+    // this causes the source plugin to find/replace images in html
+    useGatsbyImage: true,
+    // this adds a limit to the max width an image can be
+    // if the image selected in WP is smaller, or the image is smaller than this
+    // those values will be used instead.
+    imageMaxWidth: null,
+    // if a max width can't be inferred from html, this value will be passed to Sharp
+    // if the image is smaller than this, the images width will be used instead
+    fallbackImageMaxWidth: 100,
+    imageQuality: 90,
+  },
+```
+
+If you delete an image in the media library which was uploaded to posts, you'll get a handy console warning telling you which post has the deleted image along with an edit url you can click to fix the problem.
 
 ## 0.6.1
 
