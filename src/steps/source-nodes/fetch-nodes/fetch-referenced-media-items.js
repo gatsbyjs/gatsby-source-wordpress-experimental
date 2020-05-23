@@ -104,6 +104,17 @@ const createMediaItemNode = async ({
   referencedMediaItemNodeIds,
   allMediaItemNodes = [],
 }) => {
+  const existingNode = await helpers.getNode(node.id)
+
+  if (existingNode) {
+    return existingNode
+  }
+
+  store.dispatch.logger.incrementActivityTimer({
+    typeName: `MediaItem`,
+    by: 1,
+  })
+
   allMediaItemNodes.push(node)
 
   let resolveFutureNode
@@ -199,14 +210,10 @@ const processImageUrls = (urls) =>
 
 const fetchMediaItemsBySourceUrl = async ({
   mediaItemUrls,
-  settings,
-  url,
   selectionSet,
   createContentDigest,
   actions,
   helpers,
-  typeInfo,
-  activity,
   allMediaItemNodes = [],
 }) => {
   const perPage = 100
@@ -323,10 +330,6 @@ const fetchMediaItemsBySourceUrl = async ({
           })
         })
 
-        if (activity) {
-          activity?.setStatus(`fetched ${allMediaItemNodes.length}`)
-        }
-
         resolveFutureNodes(nodes)
       },
     })
@@ -347,7 +350,6 @@ const fetchMediaItemsById = async ({
   actions,
   helpers,
   typeInfo,
-  activity,
 }) => {
   if (settings.limit && settings.limit < mediaItemIds.length) {
     mediaItemIds = mediaItemIds.slice(0, settings.limit)
@@ -413,7 +415,6 @@ const fetchMediaItemsById = async ({
           )
         )
 
-        activity?.setStatus(`fetched ${allMediaItemNodes.length}`)
         resolveFutureNodes(nodes)
       },
     })
@@ -434,17 +435,8 @@ export default async function fetchReferencedMediaItemsAndCreateNodes({
 
   const { helpers, pluginOptions } = state.gatsbyApi
   const { createContentDigest, actions } = helpers
-  const { reporter } = helpers
   const { url, verbose } = pluginOptions
   const { typeInfo, settings, selectionSet } = queryInfo
-
-  const activity = reporter.activityTimer(
-    formatLogMessage(typeInfo.nodesTypeName)
-  )
-
-  if (verbose) {
-    activity.start()
-  }
 
   let createdNodes = []
 
@@ -458,7 +450,6 @@ export default async function fetchReferencedMediaItemsAndCreateNodes({
       actions,
       helpers,
       typeInfo,
-      activity,
     })
 
     createdNodes = nodesSourcedById
@@ -474,14 +465,9 @@ export default async function fetchReferencedMediaItemsAndCreateNodes({
       actions,
       helpers,
       typeInfo,
-      activity,
     })
 
     createdNodes = [...createdNodes, ...nodesSourcedByUrl]
-  }
-
-  if (verbose) {
-    activity.end()
   }
 
   return createdNodes
