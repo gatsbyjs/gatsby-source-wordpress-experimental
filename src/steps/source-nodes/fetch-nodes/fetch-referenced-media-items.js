@@ -4,8 +4,10 @@ import atob from "atob"
 import PQueue from "p-queue"
 import { createRemoteMediaItemNode } from "../create-nodes/create-remote-media-item-node"
 import { formatLogMessage } from "~/utils/format-log-message"
-import { paginatedWpNodeFetch } from "./fetch-nodes-paginated"
+import { paginatedWpNodeFetch, normalizeNode } from "./fetch-nodes-paginated"
 import { buildTypeName } from "~/steps/create-schema-customization/helpers"
+import fetchGraphql from "~/utils/fetch-graphql"
+import { getFileNodeMetaBySourceUrl } from "~/steps/source-nodes/create-nodes/create-remote-media-item-node"
 
 const nodeFetchConcurrency = 2
 
@@ -94,35 +96,272 @@ const pushPromiseOntoRetryQueue = ({
   })
 }
 
-export default async function fetchReferencedMediaItemsAndCreateNodes({
+const createMediaItemNode = async ({
+  node,
+  helpers,
+  createContentDigest,
+  actions,
   referencedMediaItemNodeIds,
-}) {
-  const state = store.getState()
-  const queryInfo = state.remoteSchema.nodeQueries.mediaItems
+  allMediaItemNodes = [],
+}) => {
+  const existingNode = await helpers.getNode(node.id)
 
-  const { helpers, pluginOptions } = state.gatsbyApi
-  const { createContentDigest, actions } = helpers
-  const { reporter } = helpers
-  const { url, verbose } = pluginOptions
-  const { typeInfo, settings, selectionSet } = queryInfo
+  if (existingNode) {
+    return existingNode
+  }
 
-  if (settings.limit && settings.limit < referencedMediaItemNodeIds.length) {
-    referencedMediaItemNodeIds = referencedMediaItemNodeIds.slice(
-      0,
-      settings.limit
-    )
+  store.dispatch.logger.incrementActivityTimer({
+    typeName: `MediaItem`,
+    by: 1,
+  })
+
+  allMediaItemNodes.push(node)
+
+  let resolveFutureNode
+  let futureNode = new Promise((resolve) => {
+    resolveFutureNode = resolve
+  })
+
+  pushPromiseOntoRetryQueue({
+    node,
+    helpers,
+    createContentDigest,
+    actions,
+    queue: mediaFileFetchQueue,
+    retryKey: node.mediaItemUrl,
+    retryPromise: async ({
+      createContentDigest,
+      actions,
+      helpers,
+      node,
+      retryKey,
+      timesRetried,
+    }) => {
+      let localFileNode = await createRemoteMediaItemNode({
+        mediaItemNode: node,
+        fixedBarTotal: referencedMediaItemNodeIds?.length,
+        helpers,
+      })
+
+      if (timesRetried > 1) {
+        helpers.reporter.info(
+          `Successfully fetched ${retryKey} after retrying ${timesRetried} times`
+        )
+      }
+
+      if (!localFileNode) {
+        return
+      }
+
+      node = {
+        ...node,
+        remoteFile: {
+          id: localFileNode.id,
+        },
+        localFile: {
+          id: localFileNode.id,
+        },
+        parent: null,
+        internal: {
+          contentDigest: createContentDigest(node),
+          type: buildTypeName(`MediaItem`),
+        },
+      }
+
+      const normalizedNode = normalizeNode({ node, nodeTypeName: `MediaItem` })
+
+      await actions.createNode(normalizedNode)
+      resolveFutureNode(node)
+    },
+  })
+
+  return futureNode
+}
+
+export const stripImageSizesFromUrl = (url) => {
+  const imageSizesPattern = new RegExp("(?:[-_]([0-9]+)x([0-9]+))")
+  const urlWithoutSizes = url.replace(imageSizesPattern, "")
+
+  return urlWithoutSizes
+}
+
+// takes an array of image urls and returns them + additional urls if
+// any of the provided image urls contain what appears to be an image resize signifier
+// for ex https://site.com/wp-content/uploads/01/your-image-500x1000.jpeg
+// that will add https://site.com/wp-content/uploads/01/your-image.jpeg to the array
+// this is necessary because we can only get image nodes by the full source url.
+// simply removing image resize signifiers from all urls would be a mistake since
+// someone could upload a full-size image that contains that pattern - so the full
+// size url would have 500x1000 in it, and removing it would make it so we can never
+// fetch this image node.
+const processImageUrls = (urls) =>
+  urls.reduce((accumulator, url) => {
+    const strippedUrl = stripImageSizesFromUrl(url)
+
+    // if the url had no image sizes, don't do anything special
+    if (strippedUrl === url) {
+      return accumulator
+    }
+
+    accumulator.push(strippedUrl)
+
+    return accumulator
+  }, urls)
+
+const fetchMediaItemsBySourceUrl = async ({
+  mediaItemUrls,
+  selectionSet,
+  createContentDigest,
+  actions,
+  helpers,
+  allMediaItemNodes = [],
+}) => {
+  const perPage = 100
+  const processedMediaItemUrls = processImageUrls(mediaItemUrls)
+
+  const {
+    cachedMediaItemNodeIds,
+    uncachedMediaItemUrls,
+  } = processedMediaItemUrls.reduce(
+    (accumulator, url) => {
+      const { id } = getFileNodeMetaBySourceUrl(url) || {}
+
+      // if we have a cached image and we haven't already recorded this cached image
+      if (id && !accumulator.cachedMediaItemNodeIds.includes(id)) {
+        // save it
+        accumulator.cachedMediaItemNodeIds.push(id)
+      } else if (!id) {
+        // otherwise we need to fetch this media item by url
+        accumulator.uncachedMediaItemUrls.push(url)
+      }
+
+      return accumulator
+    },
+    { cachedMediaItemNodeIds: [], uncachedMediaItemUrls: [] }
+  )
+
+  // take our previously cached id's and get nodes for them
+  const previouslyCachedMediaItemNodes = await Promise.all(
+    cachedMediaItemNodeIds.map(async (nodeId) => helpers.getNode(nodeId))
+  )
+
+  // chunk up all our uncached media items
+  const mediaItemUrlsPages = chunk(uncachedMediaItemUrls, perPage)
+
+  // since we're using an async queue, we need a way to know when it's finished
+  // we pass this resolve function into the queue function so it can let us
+  // know when it's finished
+  let resolveFutureNodes
+  let futureNodes = new Promise((resolve) => {
+    resolveFutureNodes = (nodes = []) =>
+      // combine our resolved nodes we fetched with our cached nodes
+      resolve([...nodes, ...previouslyCachedMediaItemNodes])
+  })
+
+  // we have no media items to fetch,
+  // so we need to resolve this promise
+  // otherwise it will never resolve below.
+  if (!mediaItemUrlsPages.length) {
+    resolveFutureNodes()
+  }
+
+  // for all the images we don't have cached, loop through and get them all
+  for (const [index, sourceUrls] of mediaItemUrlsPages.entries()) {
+    pushPromiseOntoRetryQueue({
+      helpers,
+      createContentDigest,
+      actions,
+      queue: mediaNodeFetchQueue,
+      retryKey: `Media Item by sourceUrl query #${index}`,
+      retryPromise: async () => {
+        const query = /* GraphQL */ `
+          query MEDIA_ITEMS {
+            ${sourceUrls
+              .map(
+                (sourceUrl, index) => /* GraphQL */ `
+              mediaItem__index_${index}: mediaItem(id: "${sourceUrl}", idType: SOURCE_URL) {
+                ...MediaItemFragment
+              }
+            `
+              )
+              .join(` `)}
+          }
+
+          fragment MediaItemFragment on MediaItem {
+            ${selectionSet}
+          }
+        `
+
+        const { data } = await fetchGraphql({
+          query,
+          variables: {
+            first: perPage,
+            after: null,
+          },
+          errorContext: `Error occured while fetching "MediaItem" nodes in inline html.`,
+        })
+
+        // since we're getting each media item on it's single node root field
+        // we just needs the values of each property in the response
+        // anything that returns null is because we tried to get the source url
+        // plus the source url minus resize patterns. So there will be nulls
+        // since only the full source url will return data
+        const thisPagesNodes = Object.values(data).filter(Boolean)
+
+        // take the WPGraphQL nodes we received and create Gatsby nodes out of them
+        const nodes = await Promise.all(
+          thisPagesNodes.map((node) =>
+            createMediaItemNode({
+              node,
+              helpers,
+              createContentDigest,
+              actions,
+              allMediaItemNodes,
+            })
+          )
+        )
+
+        nodes.forEach((node, index) => {
+          // this is how we're caching nodes we've previously fetched.
+          store.dispatch.imageNodes.pushNodeMeta({
+            id: node.localFile.id,
+            sourceUrl: sourceUrls[index],
+            modifiedGmt: node.modifiedGmt,
+          })
+        })
+
+        resolveFutureNodes(nodes)
+      },
+    })
+  }
+
+  await mediaNodeFetchQueue.onIdle()
+  await mediaFileFetchQueue.onIdle()
+
+  return futureNodes
+}
+
+const fetchMediaItemsById = async ({
+  mediaItemIds,
+  settings,
+  url,
+  selectionSet,
+  createContentDigest,
+  actions,
+  helpers,
+  typeInfo,
+}) => {
+  if (settings.limit && settings.limit < mediaItemIds.length) {
+    mediaItemIds = mediaItemIds.slice(0, settings.limit)
   }
 
   const nodesPerFetch = 100
-  const chunkedIds = chunk(referencedMediaItemNodeIds, nodesPerFetch)
+  const chunkedIds = chunk(mediaItemIds, nodesPerFetch)
 
-  const activity = reporter.activityTimer(
-    formatLogMessage(typeInfo.nodesTypeName)
-  )
-
-  if (verbose) {
-    activity.start()
-  }
+  let resolveFutureNodes
+  let futureNodes = new Promise((resolve) => {
+    resolveFutureNodes = resolve
+  })
 
   let allMediaItemNodes = []
 
@@ -163,61 +402,20 @@ export default async function fetchReferencedMediaItemsAndCreateNodes({
           throwFetchErrors: true,
         })
 
-        allNodesOfContentType.forEach((node) => {
-          allMediaItemNodes.push(node)
-
-          pushPromiseOntoRetryQueue({
-            node,
-            helpers,
-            createContentDigest,
-            actions,
-            queue: mediaFileFetchQueue,
-            retryKey: node.mediaItemUrl,
-            retryPromise: async ({
+        const nodes = await Promise.all(
+          allNodesOfContentType.map((node) =>
+            createMediaItemNode({
+              node,
+              helpers,
               createContentDigest,
               actions,
-              helpers,
-              node,
-              retryKey,
-              timesRetried,
-            }) => {
-              let localFileNode = await createRemoteMediaItemNode({
-                mediaItemNode: node,
-                fixedBarTotal: referencedMediaItemNodeIds.length,
-                helpers,
-              })
+              allMediaItemNodes,
+              referencedMediaItemNodeIds: mediaItemIds,
+            })
+          )
+        )
 
-              if (timesRetried > 1) {
-                helpers.reporter.info(
-                  `Successfully fetched ${retryKey} after retrying ${timesRetried} times`
-                )
-              }
-
-              if (!localFileNode) {
-                return
-              }
-
-              node = {
-                ...node,
-                remoteFile: {
-                  id: localFileNode.id,
-                },
-                localFile: {
-                  id: localFileNode.id,
-                },
-                parent: null,
-                internal: {
-                  contentDigest: createContentDigest(node),
-                  type: buildTypeName(`MediaItem`),
-                },
-              }
-
-              await actions.createNode(node)
-            },
-          })
-        })
-
-        activity.setStatus(`fetched ${allMediaItemNodes.length}`)
+        resolveFutureNodes(nodes)
       },
     })
   }
@@ -225,11 +423,52 @@ export default async function fetchReferencedMediaItemsAndCreateNodes({
   await mediaNodeFetchQueue.onIdle()
   await mediaFileFetchQueue.onIdle()
 
-  if (!allMediaItemNodes || !allMediaItemNodes.length) {
-    return
+  return futureNodes
+}
+
+export default async function fetchReferencedMediaItemsAndCreateNodes({
+  referencedMediaItemNodeIds,
+  mediaItemUrls,
+}) {
+  const state = store.getState()
+  const queryInfo = state.remoteSchema.nodeQueries.mediaItems
+
+  const { helpers, pluginOptions } = state.gatsbyApi
+  const { createContentDigest, actions } = helpers
+  const { url, verbose } = pluginOptions
+  const { typeInfo, settings, selectionSet } = queryInfo
+
+  let createdNodes = []
+
+  if (referencedMediaItemNodeIds?.length) {
+    const nodesSourcedById = await fetchMediaItemsById({
+      mediaItemIds: referencedMediaItemNodeIds,
+      settings,
+      url,
+      selectionSet,
+      createContentDigest,
+      actions,
+      helpers,
+      typeInfo,
+    })
+
+    createdNodes = nodesSourcedById
   }
 
-  if (verbose) {
-    activity.end()
+  if (mediaItemUrls?.length) {
+    const nodesSourcedByUrl = await fetchMediaItemsBySourceUrl({
+      mediaItemUrls,
+      settings,
+      url,
+      selectionSet,
+      createContentDigest,
+      actions,
+      helpers,
+      typeInfo,
+    })
+
+    createdNodes = [...createdNodes, ...nodesSourcedByUrl]
   }
+
+  return createdNodes
 }

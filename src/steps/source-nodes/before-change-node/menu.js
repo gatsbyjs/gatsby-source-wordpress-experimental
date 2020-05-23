@@ -1,4 +1,5 @@
 import PQueue from "p-queue"
+import { processNode } from "~/steps/source-nodes/create-nodes/process-node"
 
 const menuItemFetchQueue = new PQueue({
   concurrency: Number(process.env.GATSBY_CONCURRENT_DOWNLOAD ?? 200),
@@ -24,8 +25,11 @@ const fetchChildMenuItems = (api) => async () => {
     return
   }
 
-  const selectionSet = wpStore.getState().remoteSchema.nodeQueries.menuItems
-    .selectionSet
+  const state = wpStore.getState()
+
+  const { selectionSet } = state.remoteSchema.nodeQueries.menuItems
+  const { wpUrl } = state.remoteSchema
+  const { pluginOptions } = state.gatsbyApi
 
   const query = /* GraphQL */ `
     fragment MENU_ITEM_FIELDS on MenuItem {
@@ -63,8 +67,15 @@ const fetchChildMenuItems = (api) => async () => {
 
       const type = buildTypeName(`MenuItem`)
 
+      const processedNode = await processNode({
+        node: remoteMenuItemNode,
+        pluginOptions,
+        wpUrl,
+        helpers,
+      })
+
       await actions.createNode({
-        ...remoteMenuItemNode,
+        ...processedNode,
         nodeType: `MenuItem`,
         type: `MenuItem`,
         parent: null,

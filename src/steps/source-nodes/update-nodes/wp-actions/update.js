@@ -13,6 +13,7 @@ import {
   buildTypeName,
   getTypeSettingsByType,
 } from "~/steps/create-schema-customization/helpers"
+import { processNode } from "~/steps/source-nodes/create-nodes/process-node"
 
 const getDbIdFromRelayId = (relayId) => atob(relayId).split(`:`).reverse()[0]
 
@@ -161,7 +162,10 @@ export const createSingleNode = async ({
   data,
   cachedNodeIds,
 }) => {
-  const { helpers } = getGatsbyApi()
+  const state = store.getState()
+  const { helpers, pluginOptions } = state.gatsbyApi
+  const { wpUrl } = state.remoteSchema
+
   const { typeInfo } = getQueryInfoBySingleFieldName(singleName)
 
   if (!cachedNodeIds) {
@@ -174,12 +178,20 @@ export const createSingleNode = async ({
     type: typeInfo.nodesTypeName,
   }
 
+  const processedNode = await processNode({
+    node: updatedNodeContent,
+    pluginOptions,
+    wpUrl,
+    helpers,
+    test: true,
+  })
+
   const { actions } = helpers
 
   const { createContentDigest } = helpers
 
   let remoteNode = {
-    ...updatedNodeContent,
+    ...processedNode,
     id: id,
     parent: null,
     internal: {

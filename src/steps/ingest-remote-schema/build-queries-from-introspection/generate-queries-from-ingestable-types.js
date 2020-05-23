@@ -103,28 +103,6 @@ const aliasConflictingFragmentFields = ({ fragments }) => {
   }
 }
 
-const timeFunction = async ({ label, fn, args = {}, disableTimer = false }) => {
-  const {
-    gatsbyApi: {
-      helpers: { reporter },
-    },
-  } = store.getState()
-
-  const activity = reporter.activityTimer(label)
-
-  if (!disableTimer) {
-    activity.start()
-  }
-
-  const result = await fn(args)
-
-  if (!disableTimer) {
-    activity.end()
-  }
-
-  return result
-}
-
 /**
  * generateNodeQueriesFromIngestibleFields
  *

@@ -40,6 +40,18 @@ const defaultPluginOptions = {
     perPage: 100,
   },
   excludeFieldNames: [],
+  html: {
+    // this causes the source plugin to find/replace images in html
+    useGatsbyImage: true,
+    // this adds a limit to the max width an image can be
+    // if the image selected in WP is smaller, or the image is smaller than this
+    // those values will be used instead.
+    imageMaxWidth: null,
+    // if a max width can't be inferred from html, this value will be passed to Sharp
+    // if the image is smaller than this, the images width will be used instead
+    fallbackImageMaxWidth: 100,
+    imageQuality: 90,
+  },
   type: {
     __all: {
       dateFields: [`date`],
