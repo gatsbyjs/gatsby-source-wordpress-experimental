@@ -300,7 +300,7 @@ const fetchMediaItemsBySourceUrl = async ({
 
         nodes.forEach((node, index) => {
           store.dispatch.imageNodes.pushNodeMeta({
-            id: node.id,
+            id: node.localFile.id,
             sourceUrl: sourceUrls[index],
             modifiedGmt: node.modifiedGmt,
           })
