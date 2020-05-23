@@ -1,18 +1,59 @@
+import { formatLogMessage } from "~/utils/format-log-message"
+
 const logger = {
   state: {
     entityCount: 0,
     typeCount: {},
+    activityTimers: {},
   },
 
   reducers: {
-    incrementTypeBy(state, payload) {
-      const { type, count } = payload
+    incrementActivityTimer(state, { typeName, by }) {
+      const logger = state.activityTimers[typeName]
 
-      state.entityCount = state.entityCount + count
+      if (!logger) {
+        return state
+      }
 
-      const currentTypeCount = state.typeCount[type] || 0
+      if (typeof by === `number`) {
+        logger.count += by
+        state.entityCount += by
+      }
 
-      state.typeCount[type] = currentTypeCount + count
+      logger.activity.setStatus(`fetched ${logger.count}`)
+
+      return state
+    },
+
+    stopActivityTimer(state, { typeName }) {
+      const logger = state.activityTimers[typeName]
+
+      if (logger.count === 0) {
+        logger.activity.setStatus(`fetched 0`)
+      }
+
+      logger.activity.end()
+
+      return state
+    },
+
+    createActivityTimer(state, { typeName, reporter, pluginOptions }) {
+      if (state.activityTimers[typeName]) {
+        return state
+      }
+
+      const typeActivityTimer = {
+        count: 0,
+        activity: reporter.activityTimer(
+          formatLogMessage(typeName, { useVerboseStyle: pluginOptions.verbose })
+        ),
+      }
+
+      if (pluginOptions.verbose) {
+        typeActivityTimer.activity.start()
+      }
+
+      state.activityTimers[typeName] = typeActivityTimer
 
       return state
     },

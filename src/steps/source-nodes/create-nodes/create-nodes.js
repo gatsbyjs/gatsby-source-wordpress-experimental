@@ -109,7 +109,13 @@ export const createGatsbyNodesFromWPGQLContentNodes = async ({
   // gatsby-image supports these file types
   // const imgSrcRemoteFileRegex = /<img.*?src=\\"(.*?jpeg|jpg|png|webp|tif|tiff$)\\"[^>]+>/gim
 
-  const { actions, createContentDigest } = helpers
+  const { actions, createContentDigest, reporter } = helpers
+
+  store.dispatch.logger.createActivityTimer({
+    typeName: `MediaItem`,
+    pluginOptions,
+    reporter,
+  })
 
   const createdNodeIds = []
   const totalSideEffectNodes = []
@@ -153,8 +159,16 @@ export const createGatsbyNodesFromWPGQLContentNodes = async ({
       referencedMediaItemNodeIds: referencedMediaItemNodeIdsArray,
     })
 
+    store.dispatch.logger.stopActivityTimer({
+      typeName: `MediaItem`,
+    })
+
     return [...createdNodeIds, ...referencedMediaItemNodeIdsArray]
   }
+
+  store.dispatch.logger.stopActivityTimer({
+    typeName: `MediaItem`,
+  })
 
   return createdNodeIds
 }

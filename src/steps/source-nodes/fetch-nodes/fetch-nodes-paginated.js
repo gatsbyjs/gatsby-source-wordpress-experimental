@@ -20,7 +20,6 @@ const paginatedWpNodeFetch = async ({
   contentTypePlural,
   query,
   nodeTypeName,
-  activity,
   helpers,
   throwFetchErrors = false,
   allContentNodes = [],
@@ -54,8 +53,6 @@ const paginatedWpNodeFetch = async ({
     variables.first = settings.limit
   }
 
-  const typeCount = store.getState().logger.typeCount[nodeTypeName] || 0
-
   const response = await fetchGraphql({
     query,
     throwFetchErrors,
@@ -86,16 +83,13 @@ const paginatedWpNodeFetch = async ({
       allContentNodes.push(node)
     })
 
-    const updatedTypeCount = typeCount + nodes.length
-
-    if (activity) {
-      activity.setStatus(`fetched ${updatedTypeCount}`)
+    // MediaItem type is incremented in createMediaItemNode
+    if (nodeTypeName !== `MediaItem`) {
+      store.dispatch.logger.incrementActivityTimer({
+        typeName: nodeTypeName,
+        by: nodes.length,
+      })
     }
-
-    store.dispatch.logger.incrementTypeBy({
-      count: nodes.length,
-      type: nodeTypeName,
-    })
   }
 
   if (
@@ -108,7 +102,6 @@ const paginatedWpNodeFetch = async ({
       nodeTypeName,
       query,
       allContentNodes,
-      activity,
       helpers,
       settings,
       after: endCursor,

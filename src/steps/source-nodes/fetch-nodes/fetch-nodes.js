@@ -22,13 +22,13 @@ export const fetchWPGQLContentNodes = async ({ queryInfo }) => {
 
   const { nodeListQueries, typeInfo, settings } = queryInfo
 
-  const activity = reporter.activityTimer(
-    formatLogMessage(typeInfo.nodesTypeName)
-  )
+  const typeName = typeInfo.nodesTypeName
 
-  if (verbose) {
-    activity.start()
-  }
+  store.dispatch.logger.createActivityTimer({
+    typeName,
+    pluginOptions,
+    reporter,
+  })
 
   let allNodesOfContentType = []
 
@@ -41,7 +41,6 @@ export const fetchWPGQLContentNodes = async ({ queryInfo }) => {
       nodeTypeName: typeInfo.nodesTypeName,
       query: nodeListQuery,
       url,
-      activity,
       settings,
       helpers,
     })
@@ -49,9 +48,7 @@ export const fetchWPGQLContentNodes = async ({ queryInfo }) => {
     allNodesOfContentType = [...allNodesOfContentType, ...contentNodes]
   }
 
-  if (verbose) {
-    activity.end()
-  }
+  store.dispatch.logger.stopActivityTimer({ typeName })
 
   if (allNodesOfContentType && allNodesOfContentType.length) {
     return {
