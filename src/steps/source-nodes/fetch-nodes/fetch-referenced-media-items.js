@@ -301,6 +301,7 @@ const fetchMediaItemsBySourceUrl = async ({
         // since only the full source url will return data
         const thisPagesNodes = Object.values(data).filter(Boolean)
 
+        // take the WPGraphQL nodes we received and create Gatsby nodes out of them
         const nodes = await Promise.all(
           thisPagesNodes.map((node) =>
             createMediaItemNode({
