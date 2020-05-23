@@ -247,6 +247,7 @@ const fetchMediaItemsBySourceUrl = async ({
   let resolveFutureNodes
   let futureNodes = new Promise((resolve) => {
     resolveFutureNodes = (nodes = []) =>
+      // combine our resolved nodes we fetched with our cached nodes
       resolve([...nodes, ...previouslyCachedMediaItemNodes])
   })
 
