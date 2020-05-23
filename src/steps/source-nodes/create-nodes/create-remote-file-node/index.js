@@ -76,12 +76,19 @@ const queue = new Queue(pushToQueue, {
   concurrent: process.env.GATSBY_CONCURRENT_DOWNLOAD || 200,
 })
 
+let doneQueueTimeout
+
 // when the queue is empty we stop the progressbar
 queue.on(`drain`, () => {
   if (bar) {
-    bar.done()
+    // this is to give us a little time to wait and see if there
+    // will be more jobs added with a break between
+    // sometimes the queue empties but then is recreated within 2 secs
+    doneQueueTimeout = setTimeout(() => {
+      bar.done()
+      totalJobs = 0
+    }, 2000)
   }
-  totalJobs = 0
 })
 
 /**
@@ -361,6 +368,11 @@ module.exports = ({
   name = null,
   reporter,
 }) => {
+  if (doneQueueTimeout) {
+    // this is to give the bar a little time to wait when there are pauses
+    // between file downloads.
+    clearTimeout(doneQueueTimeout)
+  }
   // validation of the input
   // without this it's notoriously easy to pass in the wrong `createNodeId`
   // see gatsbyjs/gatsby#6643
