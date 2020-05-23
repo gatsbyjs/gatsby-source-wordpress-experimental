@@ -20,6 +20,13 @@ export const getFileNodeMetaBySourceUrl = (sourceUrl) => {
   return fileNodesMetaByUrls[stripImageSizesFromUrl(sourceUrl)]
 }
 
+export const getMediaItemEditLink = (node) => {
+  const { protocol, hostname } = url.parse(node.link)
+  const editUrl = `${protocol}//${hostname}/wp-admin/upload.php?item=${node.databaseId}`
+
+  return editUrl
+}
+
 export const errorPanicker = ({ error, reporter, node }) => {
   if (
     error.includes(`Response code 4`) ||
@@ -29,8 +36,7 @@ export const errorPanicker = ({ error, reporter, node }) => {
     error.includes(`Response code 505`) ||
     error.includes(`Response code 501`)
   ) {
-    const { protocol, hostname } = url.parse(node.link)
-    const editUrl = `${protocol}//${hostname}/wp-admin/upload.php?item=${node.databaseId}`
+    const editUrl = getMediaItemEditLink(node)
 
     reporter.log(``)
     reporter.info(
