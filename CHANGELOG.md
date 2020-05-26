@@ -1,5 +1,12 @@
 # Change Log
 
+## Upcoming
+
+### 0.7.3
+
+- Sometimes at the bottom of our query depth limit, fields which require a selection set were being queried without.
+- Fixed an error for non-image media items where the build would fail since 0.7.1. The problem was that we were trying to access the media item by `sourceUrl` but non-image media items only have a `mediaItemUrl`
+
 ## 0.7.2
 
 ### Bug Fixes
