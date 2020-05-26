@@ -2,6 +2,7 @@ import store from "~/store"
 import {
   getTypeSettingsByType,
   findTypeName,
+  findTypeKind,
 } from "~/steps/create-schema-customization/helpers"
 import { fieldIsExcludedOnParentType } from "~/steps/ingest-remote-schema/is-excluded"
 import { returnAliasedFieldName } from "~/steps/create-schema-customization/transform-fields"
@@ -549,6 +550,27 @@ const transformFields = ({
       }
 
       if (field.fields && !transformedField) {
+        return null
+      }
+
+      const fieldTypeKind = findTypeKind(field.type)
+      const fieldOfTypeKind = findTypeKind(field.type.ofType)
+      const typeKindsRequiringSelectionSets = [`OBJECT`, `UNION`, `INTERFACE`]
+      const fieldNeedsSelectionSet =
+        typeKindsRequiringSelectionSets.includes(fieldTypeKind) ||
+        typeKindsRequiringSelectionSets.includes(fieldOfTypeKind)
+
+      if (
+        // if our field needs a selectionset
+        fieldNeedsSelectionSet &&
+        // but we have no fields
+        !transformedField.fields &&
+        // and no inline fragments
+        !transformedField.inlineFragments
+      ) {
+        // we need to discard this field to prevent GraphQL errors
+        // we're likely at the very bottom of the query depth
+        // so that this fields children were omitted
         return null
       }
 
