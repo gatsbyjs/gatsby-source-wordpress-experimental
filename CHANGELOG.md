@@ -1,6 +1,14 @@
 # Change Log
 
+## 0.7.4
+
+### Bug Fixes
+
+- Automatically excluded EnqueuedAsset, ContentNodeToEnqueuedScriptConnection, ContentNodeToEnqueuedStylesheetConnection, TermNodeToEnqueuedScriptConnection, TermNodeToEnqueuedStylesheetConnection, UserToEnqueuedScriptConnection, UserToEnqueuedStylesheetConnection types because these types can't be properly utilized yet without causing errors.
+
 ## 0.7.3
+
+### Bug Fixes
 
 - Sometimes at the bottom of our query depth limit, fields which require a selection set were being queried without.
 - Fixed an error for non-image media items where the build would fail since 0.7.1. The problem was that we were trying to access the media item by `sourceUrl` but non-image media items only have a `mediaItemUrl`

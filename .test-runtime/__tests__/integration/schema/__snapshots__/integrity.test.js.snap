@@ -32,14 +32,6 @@ Array [
   },
   Object {
     "fields": null,
-    "name": "WpUserToEnqueuedScriptConnectionFilterInput",
-  },
-  Object {
-    "fields": null,
-    "name": "WpUserToEnqueuedStylesheetConnectionFilterInput",
-  },
-  Object {
-    "fields": null,
     "name": "WpUserToMediaItemConnectionFilterInput",
   },
   Object {
@@ -81,14 +73,6 @@ Array [
   Object {
     "fields": null,
     "name": "WpPostTypeLabelDetailsFilterInput",
-  },
-  Object {
-    "fields": null,
-    "name": "WpContentNodeToEnqueuedScriptConnectionFilterInput",
-  },
-  Object {
-    "fields": null,
-    "name": "WpContentNodeToEnqueuedStylesheetConnectionFilterInput",
   },
   Object {
     "fields": null,
@@ -169,14 +153,6 @@ Array [
   Object {
     "fields": null,
     "name": "WpCategoryToCategoryConnectionFilterInput",
-  },
-  Object {
-    "fields": null,
-    "name": "WpTermNodeToEnqueuedScriptConnectionFilterInput",
-  },
-  Object {
-    "fields": null,
-    "name": "WpTermNodeToEnqueuedStylesheetConnectionFilterInput",
   },
   Object {
     "fields": null,
@@ -340,8 +316,6 @@ Array [
       "date",
       "desiredSlug",
       "editLast",
-      "enqueuedScripts",
-      "enqueuedStylesheets",
       "guid",
       "id",
       "link",
@@ -361,8 +335,6 @@ Array [
       "comments",
       "databaseId",
       "description",
-      "enqueuedScripts",
-      "enqueuedStylesheets",
       "firstName",
       "id",
       "lastName",
@@ -498,8 +470,6 @@ Array [
       "desiredSlug",
       "editLast",
       "enclosure",
-      "enqueuedScripts",
-      "enqueuedStylesheets",
       "excerpt",
       "featuredImage",
       "guid",
@@ -569,8 +539,6 @@ Array [
       "desiredSlug",
       "editLast",
       "enclosure",
-      "enqueuedScripts",
-      "enqueuedStylesheets",
       "guid",
       "id",
       "language",
@@ -733,18 +701,6 @@ Array [
   },
   Object {
     "fields": Array [
-      "pageInfo",
-    ],
-    "name": "WpContentNodeToEnqueuedScriptConnection",
-  },
-  Object {
-    "fields": Array [
-      "pageInfo",
-    ],
-    "name": "WpContentNodeToEnqueuedStylesheetConnection",
-  },
-  Object {
-    "fields": Array [
       "id",
       "locale",
       "name",
@@ -846,8 +802,6 @@ Array [
       "count",
       "databaseId",
       "description",
-      "enqueuedScripts",
-      "enqueuedStylesheets",
       "id",
       "language",
       "link",
@@ -874,8 +828,6 @@ Array [
       "count",
       "databaseId",
       "description",
-      "enqueuedScripts",
-      "enqueuedStylesheets",
       "id",
       "link",
       "name",
@@ -886,18 +838,6 @@ Array [
       "nodeType",
     ],
     "name": "WpTermNode",
-  },
-  Object {
-    "fields": Array [
-      "pageInfo",
-    ],
-    "name": "WpTermNodeToEnqueuedScriptConnection",
-  },
-  Object {
-    "fields": Array [
-      "pageInfo",
-    ],
-    "name": "WpTermNodeToEnqueuedStylesheetConnection",
   },
   Object {
     "fields": Array [
@@ -940,8 +880,6 @@ Array [
       "desiredSlug",
       "editLast",
       "enclosure",
-      "enqueuedScripts",
-      "enqueuedStylesheets",
       "excerpt",
       "featuredImage",
       "guid",
@@ -1024,8 +962,6 @@ Array [
       "desiredSlug",
       "editLast",
       "enclosure",
-      "enqueuedScripts",
-      "enqueuedStylesheets",
       "featuredImage",
       "guid",
       "id",
@@ -1105,8 +1041,6 @@ Array [
       "count",
       "databaseId",
       "description",
-      "enqueuedScripts",
-      "enqueuedStylesheets",
       "id",
       "language",
       "link",
@@ -1193,8 +1127,6 @@ Array [
       "date",
       "desiredSlug",
       "editLast",
-      "enqueuedScripts",
-      "enqueuedStylesheets",
       "featuredImage",
       "guid",
       "id",
@@ -1291,8 +1223,6 @@ Array [
       "desiredSlug",
       "editLast",
       "enclosure",
-      "enqueuedScripts",
-      "enqueuedStylesheets",
       "featuredImage",
       "guid",
       "id",
@@ -1327,8 +1257,6 @@ Array [
       "desiredSlug",
       "editLast",
       "enclosure",
-      "enqueuedScripts",
-      "enqueuedStylesheets",
       "featuredImage",
       "guid",
       "id",
@@ -1363,8 +1291,6 @@ Array [
       "desiredSlug",
       "editLast",
       "enclosure",
-      "enqueuedScripts",
-      "enqueuedStylesheets",
       "featuredImage",
       "guid",
       "id",
@@ -1394,18 +1320,6 @@ Array [
       "node",
     ],
     "name": "WpTranslationFilterTestToContentTypeConnection",
-  },
-  Object {
-    "fields": Array [
-      "pageInfo",
-    ],
-    "name": "WpUserToEnqueuedScriptConnection",
-  },
-  Object {
-    "fields": Array [
-      "pageInfo",
-    ],
-    "name": "WpUserToEnqueuedStylesheetConnection",
   },
   Object {
     "fields": Array [
@@ -2413,21 +2327,10 @@ Array [
     ],
     "name": "WpEditLock",
   },
-  Object {
-    "fields": Array [
-      "args",
-      "extra",
-      "handle",
-      "id",
-      "src",
-      "version",
-    ],
-    "name": "WpEnqueuedAsset",
-  },
 ]
 `;
 
-exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the local Gatsby schema 2`] = `"43cb5ad909c64a77b5d7c6b6982a2953"`;
+exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the local Gatsby schema 2`] = `"1f62e486febd671d8fe8868d36c2d88e"`;
 
 exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the remote WPGraphQL schema 1`] = `
 Array [
