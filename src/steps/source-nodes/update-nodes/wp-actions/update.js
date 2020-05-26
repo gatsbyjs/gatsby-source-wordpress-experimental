@@ -341,11 +341,11 @@ const wpActionUPDATE = async ({
     if (verbose) {
       const nodeEntries = existingNode ? Object.entries(existingNode) : null
 
-      if (nodeEntries && nodeEntries.length) {
+      if (nodeEntries?.length) {
         nodeEntries
           .filter(([key]) => !key.includes(`modifiedGmt`) && key !== `modified`)
-          .forEach(([key, value]) => {
-            if (!node || !node[key]) {
+          ?.forEach(([key, value]) => {
+            if (!node || !node[key] || !value) {
               return
             }
 
