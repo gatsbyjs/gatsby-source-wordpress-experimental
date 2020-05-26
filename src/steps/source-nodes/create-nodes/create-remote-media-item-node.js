@@ -52,9 +52,18 @@ export const getFileNodeByMediaItemNode = async ({
   mediaItemNode,
   helpers,
 }) => {
-  const { sourceUrl, modifiedGmt } = mediaItemNode
+  const { sourceUrl, modifiedGmt, mediaItemUrl, databaseId } = mediaItemNode
 
-  const existingNodeMeta = getFileNodeMetaBySourceUrl(sourceUrl)
+  const fileUrl = sourceUrl || mediaItemUrl
+
+  if (!fileUrl) {
+    helpers.reporter.warn(
+      formatLogMessage(`Couldn't find source url for media item #${databaseId}`)
+    )
+    return null
+  }
+
+  const existingNodeMeta = getFileNodeMetaBySourceUrl(fileUrl)
 
   if (
     // if we already have this image
