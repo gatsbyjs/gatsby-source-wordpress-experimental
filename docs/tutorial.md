@@ -6,21 +6,15 @@ title: "WordPress Source Plugin Tutorial"
 
 ### What this tutorial covers:
 
-In this tutorial, you will install the `gatsby-source-wordpress` plugin in order to pull blog and image data from a WordPress install into your Gatsby site and render that data. This [Gatsby + WordPress demo site](https://github.com/gatsbyjs/gatsby/tree/master/examples/using-wordpress) shows you the source code for an example site similar to what you’re going to be building in this tutorial, although it’s missing the cool images you’ll be adding in the next part of this tutorial, [Adding Images to a WordPress Site](/tutorial/wordpress-image-tutorial/). :D
-
-#### But do you prefer GraphQL?
-
-If you prefer using GraphQL, there's a [wp-graphql](https://github.com/wp-graphql/wp-graphql) plugin to easily expose both default and custom data in WordPress.
-
-The same authentication schemes supported by the WP-API are supported in wp-graphql, which can be used with the [gatsby-source-graphql](/packages/gatsby-source-graphql/) plugin.
+In this tutorial, you will install the `gatsby-source-wordpress-experimental` plugin in order to pull blog and image data from a WordPress install into your Gatsby site and render that data. This [Gatsby + WordPress starter](https://github.com/henrikwirth/gatsby-starter-wordpress-twenty-twenty) shows you the source code for an example site similar to what you’re going to be building in this tutorial.
 
 ## Why go through this tutorial?
 
 While each source plugin may operate differently from others, it’s worth going through this tutorial because you will almost definitely be using a source plugin in most Gatsby sites you build. This tutorial will walk you through the basics of connecting your Gatsby site to a CMS, pulling in data, and using React to render that data in beautiful ways on your site.
 
-If you’d like to look at the growing number of source plugins available to you, search for “source” in the [Gatsby plugin library](/plugins/?=source).
+If you’d like to look at the growing number of source plugins available to you, search for “source” in the [Gatsby plugin library](https://www.gatsbyjs.org/plugins/?=source).
 
-### Creating a site with the `gatsby-source-wordpress` plugin
+### Creating a site with the `gatsby-source-wordpress-experimental` plugin
 
 Create a new Gatsby project and change directories into the new project you just created:
 
@@ -29,13 +23,13 @@ Create a new Gatsby project and change directories into the new project you just
 cd wordpress-tutorial-site
 ```
 
-Install the `gatsby-source-wordpress` plugin. For extra reading on the plugin’s features and examples of GraphQL queries not included in this tutorial, see the [`gatsby-source-wordpress` plugin’s README file](/packages/gatsby-source-wordpress/?=wordpress).
+Install the `gatsby-source-wordpress-experimental` plugin. For extra reading on the plugin’s features and examples of GraphQL queries not included in this tutorial, see the [`gatsby-source-wordpress-experimental` plugin’s README file](https://www.gatsbyjs.org/packages/gatsby-source-wordpress-experimental).
 
 ```shell
-npm install gatsby-source-wordpress
+npm install gatsby-source-wordpress-experimental
 ```
 
-Add the `gatsby-source-wordpress` plugin to `gatsby-config.js` using the following code, which you can also find in the [demo site’s source code](https://github.com/gatsbyjs/gatsby/blob/master/examples/using-wordpress/gatsby-config.js).
+Add the `gatsby-source-wordpress-experimental` plugin to `gatsby-config.js` using the following code, which you can also find in this [starter’s source code](https://github.com/henrikwirth/gatsby-starter-wordpress-twenty-twenty/blob/master/gatsby-config.js#L29).
 
 ```js:title=gatsby-config.js
 module.exports = {
@@ -52,23 +46,13 @@ module.exports = {
      */
     // highlight-start
     {
-      resolve: `gatsby-source-wordpress`,
+      resolve: `gatsby-source-wordpress-experimental`,
       options: {
         /*
-         * The base URL of the WordPress site without the trailingslash and the protocol. This is required.
-         * Example : 'demo.wp-api.org' or 'www.example-site.com'
+         * The full URL of the WordPress site's gql API.
+         * Example : 'https://www.example-site.com/graphql'
          */
-        baseUrl: `live-gatbsyjswp.pantheonsite.io`,
-        // The protocol. This can be http or https.
-        protocol: `https`,
-        // Indicates whether the site is hosted on wordpress.com.
-        // If false, then the assumption is made that the site is self hosted.
-        // If true, then the plugin will source its content on wordpress.com using the JSON REST API V2.
-        // If your site is hosted on wordpress.org, then set this to false.
-        hostingWPCOM: false,
-        // If useACF is true, then the source plugin will try to import the WordPress ACF Plugin contents.
-        // This feature is untested for sites hosted on WordPress.com
-        useACF: true,
+        url: `https://live-gatbsyjswp.pantheonsite.io/graphql`,
       },
     },
     // highlight-end
@@ -118,17 +102,15 @@ As an exercise, try re-creating the following queries in your GraphiQL explorer.
 
 ```graphql
 query {
-  allWordpressPage {
-    edges {
-      node {
-        id
-        title
-        excerpt
-        slug
-        date(formatString: "MMMM DD, YYYY")
-      }
+    allWpPage {
+        nodes {
+            id
+            title
+            excerpt
+            slug
+            date(formatString: "MMMM DD, YYYY")
+        }
     }
-  }
 }
 ```
 
@@ -136,15 +118,13 @@ This next query will pull in a sorted list of the blog posts:
 
 ```graphql
 {
-  allWordpressPost(sort: { fields: [date] }) {
-    edges {
-      node {
-        title
-        excerpt
-        slug
-      }
+    allWpPost(sort: { fields: [date] }) {
+        nodes {
+            title
+            excerpt
+            slug
+        }
     }
-  }
 }
 ```
 
@@ -162,34 +142,32 @@ export default function Home({ data }) {
   //highlight-line
   return (
     <Layout>
-      <SEO title="home" />
-      //highlight-start
-      <h1>My WordPress Blog</h1>
-      <h4>Posts</h4>
-      {data.allWordpressPost.edges.map(({ node }) => (
-        <div>
-          <p>{node.title}</p>
-          <div dangerouslySetInnerHTML={{ __html: node.excerpt }} />
-        </div>
-      ))}
-      //highlight-end
+        <SEO title="home" />
+        //highlight-start
+        <h1>My WordPress Blog</h1>
+        <h4>Posts</h4>
+        {data.allWpPost.nodes.map((node) => (
+            <div>
+            <p>{node.title}</p>
+            <div dangerouslySetInnerHTML={{ __html: node.excerpt }} />
+            </div>
+        ))}
+        //highlight-end
     </Layout>
   )
 }
 
 //highlight-start
 export const pageQuery = graphql`
-  query {
-    allWordpressPost(sort: { fields: [date] }) {
-      edges {
-        node {
-          title
-          excerpt
-          slug
+    query {
+        allWpPost(sort: { fields: [date] }) {
+            nodes {
+                title
+                excerpt
+                slug
+            }
         }
-      }
     }
-  }
 `
 //highlight-end
 ```
@@ -209,7 +187,7 @@ To do this, you need to:
 1. Create pages for each blog post
 2. Link up the title on the index page with the post page.
 
-If you haven't already, please read through [Part 7](/tutorial/part-seven/) of the foundational tutorial, as it goes through the concept and examples of this process with Markdown instead of WordPress.
+If you haven't already, please read through [Part 7](https://www.gatsbyjs.org/tutorial/part-seven/) of the foundational tutorial, as it goes through the concept and examples of this process with Markdown instead of WordPress.
 
 ### Creating pages for each blog post
 
@@ -224,14 +202,12 @@ exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
   return graphql(`
     {
-      allWordpressPost(sort: { fields: [date] }) {
-        edges {
-          node {
+      allWpPost(sort: { fields: [date] }) {
+        nodes {
             title
             excerpt
             content
             slug
-          }
         }
       }
     }
@@ -257,7 +233,7 @@ import Layout from "../components/layout"
 import { graphql } from "gatsby"
 
 export default function BlogPost({ data }) {
-  const post = data.allWordpressPost.edges[0].node
+  const post = data.allWpPost.nodes[0]
   console.log(post)
   return (
     <Layout>
@@ -270,13 +246,11 @@ export default function BlogPost({ data }) {
 }
 export const query = graphql`
   query($slug: String!) {
-    allWordpressPost(filter: { slug: { eq: $slug } }) {
-      edges {
-        node {
+    allWpPost(filter: { slug: { eq: $slug } }) {
+        nodes {
           title
           content
         }
-      }
     }
   }
 `
@@ -293,20 +267,18 @@ exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
   return graphql(`
     {
-      allWordpressPost(sort: { fields: [date] }) {
-        edges {
-          node {
+      allWpPost(sort: { fields: [date] }) {
+        nodes {
             title
             excerpt
             content
             slug
-          }
         }
       }
     }
   `).then(result => {
     //highlight-start
-    result.data.allWordpressPost.edges.forEach(({ node }) => {
+    result.data.allWpPost.nodes.forEach((node) => {
       createPage({
         path: node.slug,
         component: path.resolve(`./src/templates/blog-post.js`),
@@ -346,7 +318,7 @@ export default function Home({ data }) {
       <SEO title="home" />
       <h1>My WordPress Blog</h1>
       <h4>Posts</h4>
-      {data.allWordpressPost.edges.map(({ node }) => (
+      {data.allWpPost.nodes.map((node) => (
         <div key={node.slug}>
           //highlight-start
           <Link to={node.slug}>
@@ -362,14 +334,12 @@ export default function Home({ data }) {
 
 export const pageQuery = graphql`
   query {
-    allWordpressPost(sort: { fields: [date] }) {
-      edges {
-        node {
-          title
-          excerpt
-          slug
+    allWpPost(sort: { fields: [date] }) {
+        nodes {
+            title
+            excerpt
+            slug
         }
-      }
     }
   }
 `
