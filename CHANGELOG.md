@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.7.2
+
+### Bug Fixes
+
+- fixed an issue where incremental data fetching could error when some fields don't exist
+
 ## 0.7.1
 
 ### New Features
