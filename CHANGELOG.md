@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.7.5
+
+### Bug Fixes
+
+- Url's needed to be encoded in createRemoteFileNode() to account for filenames with special characters
+
 ## 0.7.4
 
 ### Bug Fixes
