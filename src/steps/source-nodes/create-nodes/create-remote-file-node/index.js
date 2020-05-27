@@ -373,6 +373,10 @@ module.exports = ({
     // between file downloads.
     clearTimeout(doneQueueTimeout)
   }
+
+  // this accounts for special characters in filenames
+  url = encodeURI(url)
+
   // validation of the input
   // without this it's notoriously easy to pass in the wrong `createNodeId`
   // see gatsbyjs/gatsby#6643
