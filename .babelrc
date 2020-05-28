@@ -15,6 +15,12 @@
       }
     ],
     [
+      "@babel/plugin-proposal-private-methods",
+      {
+        "loose": false
+      }
+    ],
+    [
       "import-globals",
       {
         "dd": {
