@@ -373,6 +373,7 @@ const replaceNodeHtmlImages = async ({
             args: {
               maxWidth,
               quality,
+              pathPrefix: pluginOptions.pathPrefix,
             },
             reporter,
             cache,

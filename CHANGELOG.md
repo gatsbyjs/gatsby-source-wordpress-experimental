@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.7.6
+
+### Bug Fixes
+
+- pathPrefix option wasn't being used for inline images in html
+
 ## 0.7.5
 
 ### Bug Fixes
