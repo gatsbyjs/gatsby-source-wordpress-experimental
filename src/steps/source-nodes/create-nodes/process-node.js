@@ -363,7 +363,7 @@ const replaceNodeHtmlImages = async ({
 
         const quality = pluginOptions?.html?.imageQuality
 
-        const { reporter, cache } = helpers
+        const { reporter, cache, pathPrefix } = helpers
 
         let fluidResult
 
@@ -373,7 +373,7 @@ const replaceNodeHtmlImages = async ({
             args: {
               maxWidth,
               quality,
-              pathPrefix: pluginOptions.pathPrefix,
+              pathPrefix,
             },
             reporter,
             cache,
