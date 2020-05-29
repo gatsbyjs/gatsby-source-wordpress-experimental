@@ -52,3 +52,9 @@ You can also host your own preview server or test it out locally by running `ENA
   - Saving any WP options
   - Saving ACF options
   - ?
+
+## Up Next
+
+- [Plugin options](./plugin-options.md)
+- [Debugging and troubleshooting](./debugging-and-troubleshooting.md)
+- [Back to README.md](../README.md)

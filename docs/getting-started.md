@@ -23,3 +23,9 @@ This plugin modifies the WPGraphQL schema and records when user actions have hap
 
 - [Github](https://github.com/gatsbyjs/wp-gatsby)
 
+## Up Next
+
+- [Notable features](./features.md)
+- [Plugin options](./plugin-options.md)
+- [Debugging and troubleshooting](./debugging-and-troubleshooting.md)
+- [Back to README.md for more](../README.md)
