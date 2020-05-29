@@ -1,6 +1,6 @@
 ## Installation / Getting Started
 
-- [Install, node, npm/yarn, Gatsby, and gatsby-cli](https://www.gatsbyjs.org/docs/)
+- [Install Node, Gatsby, and gatsby-cli](https://www.gatsbyjs.org/docs/)
 - Set up the starter locally `gatsby new wordpress-gatsby https://github.com/TylerBarnes/using-gatsby-source-wordpress-experimental`
 - In the `WordPress/plugins/` directory of [the starter](https://github.com/TylerBarnes/using-gatsby-source-wordpress-experimental/tree/master/WordPress/plugins) there are two plugins which both need to be installed into a live WordPress instance
   - [WPGraphQL](https://github.com/wp-graphql/wp-graphql)
