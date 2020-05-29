@@ -54,7 +54,9 @@ const defaultPluginOptions = {
   },
   type: {
     __all: {
-      dateFields: [`date`],
+      // @todo make dateFields into a plugin option?? It's not currently
+      // this may not be needed since WPGraphQL will be getting a Date type soon
+      // dateFields: [`date`],
     },
     RootQuery: {
       excludeFieldNames: [`viewer`, `node`, `schemaMd5`],
