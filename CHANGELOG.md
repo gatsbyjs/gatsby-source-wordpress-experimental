@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.7.7
+
+### Bug Fixes
+
+- pathPrefix wasn't set up properly in 0.7.6. This releases fixes that. Thanks @trevorblades!
+
 ## 0.7.6
 
 ### Bug Fixes
