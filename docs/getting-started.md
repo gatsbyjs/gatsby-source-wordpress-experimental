@@ -29,3 +29,4 @@ This plugin modifies the WPGraphQL schema and records when user actions have hap
 - [Plugin options](./plugin-options.md)
 - [Debugging and troubleshooting](./debugging-and-troubleshooting.md)
 - [Back to README.md for more](../README.md)
+
