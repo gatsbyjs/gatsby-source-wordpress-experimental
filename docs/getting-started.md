@@ -39,7 +39,7 @@ This plugin modifies the WPGraphQL schema in Gatsby-specific ways and also keeps
 # Up Next :point_right:
 
 - :school: [Tutorials](./tutorials/index.md)
-- :feet: [Notable features](./features.md)
+- :feet: [Notable features](./features/index.md)
 - :electric_plug: [Plugin options](./plugin-options.md)
 - :boat: [Migrating from other WP source plugins](./migrating-from-other-wp-source-plugins.md)
 - :house: [Hosting](./hosting.md)
