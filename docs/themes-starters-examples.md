@@ -12,13 +12,24 @@
 
 
 
-# In the Wild
+# WP/Gatsby In the Wild
 
-Apollo Blog [source](https://github.com/apollographql/blog) [link](https://github.com/apollographql/blog)
+[Apollo Blog](https://github.com/apollographql/blog) [[source]](https://github.com/apollographql/blog)
 
-Gatsby News [source](https://github.com/DSchau/gatsby-news)
+[Gatsby News](https://gatsby-news2.netlify.app/) [[source]](https://github.com/DSchau/gatsby-news)
 
-moonmeister.net [source](https://github.com/moonmeister/moonmeister.net) [link](https://moonmeister.net/)
+[moonmeister.net](https://moonmeister.net/) [[source]](https://github.com/moonmeister/moonmeister.net)
 
-muhammadmuhsin.com [source](https://github.com/m-muhsin/muhammadmuhsin.com) 
+muhammadmuhsin.com [[source]](https://github.com/m-muhsin/muhammadmuhsin.com) 
 
+Add your project to this list!
+
+
+
+# Up Next :point_right:
+
+-  :medal_sports: [Usage with popular WPGraphQL extensions](./usage-with-popular-wp-graphql-extensions.md)
+- :gear: [How does this plugin work?](./how-does-this-plugin-work.md)
+- :hammer_and_wrench: [Debugging and troubleshooting](./debugging-and-troubleshooting.md)
+- :national_park: [Community and Support](./community-and-support.md)
+- :point_left: [Back to README.md](../README.md)

@@ -63,6 +63,9 @@ If you're getting errors while the nodes are being sourced, you can see which qu
 
 The terminal output will log which type returned the error during node sourcing. You can then look in `./your-project/WordPress/GraphQL/*.gql` to find the corresponding gql file, and manually make that query in something like GraphQL Playground or Graphiql to help troubleshoot what's going wrong. This is also very helpful debugging information when opening and issue to get help or report a bug.
 
-## Up Next
 
-- [Back to README.md](../README.md)
+
+# Up Next :point_right:
+
+- :national_park: [Community and Support](./community-and-support.md)
+- :point_left: [Back to README.md](../README.md)
