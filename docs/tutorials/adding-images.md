@@ -1,10 +1,10 @@
----
-title: "Adding Images to a WordPress Site"
----
+# What this tutorial covers:
 
-## What this tutorial covers:
+
 
 In this tutorial, you will install the several image plugins and components in order to pull image data from a WordPress account into your Gatsby site and render that data. This [Gatsby + WordPress demo site](https://using-wordpress.gatsbyjs.org/) shows you a sample of what you’re going to be building in this tutorial, although in this tutorial you’ll just focus on adding images.
+
+
 
 ## Why go through this tutorial?
 
@@ -12,61 +12,15 @@ Images are one of the most beautiful and striking ways to communicate to people,
 
 The Gatsby Way™ of creating images describes a set of best practices that help you optimize performance and responsiveness of images so that you can get the benefits of awesome images that don't slow down your site. This [Gatsbygram site](https://gatsbygram.gatsbyjs.org/) (an Instagram feed fed through Gatsby) shows off the svg image tracing effect. Here’s an [image processing demo site](https://image-processing.gatsbyjs.org/) exploring how to have fun with images in your Gatsby site.
 
-## Installing the `gatsby-source-wordpress` plugin
 
-First you’ll need to install the `gatsby-source-wordpress` plugin that has images ready for you to pull into your site.
 
-Create a new Gatsby project and change directories into the new project you just created:
+## Installing the `gatsby-source-wordpress-experimental` plugin
 
-```shell
-gatsby new images-tutorial-site
-cd images-tutorial-site
-```
+First you’ll need to install the `gatsby-source-wordpress-experimental` plugin that has images ready for you to pull into your site.
 
-Install the `gatsby-source-wordpress` plugin. For extra reading on the plugin’s features and examples of GraphQL queries not included in this tutorial, see the [`gatsby-source-wordpress` plugin’s README file](/packages/gatsby-source-wordpress/?=wordpress).
+Follow the [Building a new app/site tutorial](./creating-an-app-or-site.md) before you continue.
 
-```shell
-npm install --save gatsby-source-wordpress
-```
 
-Add the `gatsby-source-wordpress` plugin to `gatsby-config.js` using the following code, which you can also find in the [demo site’s source code](https://github.com/gatsbyjs/gatsby/blob/master/examples/using-wordpress/gatsby-config.js).
-
-```javascript:title=gatsby-config.js
-module.exports = {
-  siteMetadata: {
-    title: "Gatsby WordPress Tutorial",
-  },
-  plugins: [
-    // https://public-api.wordpress.com/wp/v2/sites/gatsbyjsexamplewordpress.wordpress.com/pages/
-    /*
-     * Gatsby's data processing layer begins with “source”
-     * plugins. Here the site sources its data from WordPress.
-     */
-    // highlight-start
-    {
-      resolve: `gatsby-source-wordpress`,
-      options: {
-        /*
-         * The base URL of the WordPress site without the trailingslash and the protocol. This is required.
-         * Example : 'dev-gatbsyjswp.pantheonsite.io' or 'www.example-site.com'
-         */
-        baseUrl: `dev-gatbsyjswp.pantheonsite.io`,
-        // The protocol. This can be http or https.
-        protocol: `http`,
-        // Indicates whether the site is hosted on wordpress.com.
-        // If false, then the assumption is made that the site is self hosted.
-        // If true, then the plugin will source its content on wordpress.com using the JSON REST API V2.
-        // If your site is hosted on wordpress.com, then set this to true.
-        hostingWPCOM: false,
-        // If useACF is true, then the source plugin will try to import the WordPress ACF Plugin contents.
-        // This feature is untested for sites hosted on WordPress.com
-        useACF: true,
-      },
-    },
-    // highlight-end
-  ],
-}
-```
 
 ## Installing plugins to help with images
 
@@ -78,37 +32,50 @@ First, you’ll need to install a few plugins and their dependencies:
 npm install --save gatsby-transformer-sharp gatsby-plugin-sharp gatsby-image
 ```
 
-Place these plugins in your `gatsby-config.js` like this:
+Place these plugins at the end of your plugins array in your `gatsby-config.js` like so:
 
 ```javascript:title=gatsby-config.js
 module.exports = {
   siteMetadata: {
-    title: "Gatsby WordPress Tutorial",
+    title: `Gatsby WordPress Tutorial`,
+    description: `An example to learn how to source data from WordPress.`,
+    author: `@gatsbyjs`,
   },
   plugins: [
-    // https://public-api.wordpress.com/wp/v2/sites/gatsbyjsexamplewordpress.wordpress.com/pages/
     /*
      * Gatsby's data processing layer begins with “source”
      * plugins. Here the site sources its data from WordPress.
      */
     {
-      resolve: `gatsby-source-wordpress`,
+      resolve: `gatsby-source-wordpress-experimental`,
       options: {
         /*
-         * The base URL of the WordPress site without the trailing slash and the protocol. This is required.
-         * Example : 'dev-gatbsyjswp.pantheonsite.io' or 'www.example-site.com'
+         * The full URL of the WordPress site's GraphQL API.
+         * Example : 'https://www.example-site.com/graphql'
          */
-        baseUrl: `dev-gatbsyjswp.pantheonsite.io`,
-        // The protocol. This can be http or https.
-        protocol: `http`,
-        // Indicates whether the site is hosted on wordpress.com.
-        // If false, then the assumption is made that the site is self hosted.
-        // If true, then the plugin will source its content on wordpress.com using the JSON REST API V2.
-        // If your site is hosted on wordpress.org, then set this to false.
-        hostingWPCOM: false,
-        // If useACF is true, then the source plugin will try to import the WordPress ACF Plugin contents.
-        // This feature is untested for sites hosted on WordPress.com
-        useACF: true,
+        url: `https://live-gatbsyjswp.pantheonsite.io/graphql`,
+      },
+    },
+    `gatsby-plugin-react-helmet`,
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `images`,
+        path: `${__dirname}/src/images`,
+      },
+    },
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `gatsby-starter-default`,
+        short_name: `starter`,
+        start_url: `/`,
+        background_color: `#663399`,
+        theme_color: `#663399`,
+        display: `minimal-ui`,
+        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
     // highlight-start
@@ -118,6 +85,8 @@ module.exports = {
   ],
 }
 ```
+
+
 
 ## Creating GraphQL queries that pull in images from WordPress
 
