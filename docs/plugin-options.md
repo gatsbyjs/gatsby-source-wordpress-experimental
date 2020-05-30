@@ -1,222 +1,426 @@
-- The `nodeUpdateInterval` option specifies in milliseconds how often Gatsby will ask WP what data has changed during development. If you want to see data update in near-realtime while you're developing, set this low. Your server may have trouble responding to too many requests over a long period of time and in that case, set this high. Setting it higher saves electricity too ⚡️🌲
+# Plugin Options
+
+## Table of Contents
+
+- [url](#url-string)
+
+- [verbose](#verbose-boolean)
+
+- [debug](#debug-object)
+
+  - [debug.graphql](#debug-graphql-object)
+    - [debug.graphql.showQueryVarsOnError](#debug-graphql-show-query-vars-on-error-boolean)
+    - [debug.graphql.panicOnError](#)
+    - [debug.graphql.onlyReportCriticalErrors](#)
+    - [debug.graphql.writeQueriesToDisk](#)
+
+- [develop](#)
+- [develop.nodeUpdateInterval](#)
+  - [develop.hardCacheMediaFiles](#)
+  
+- [auth](#)
+
+  - [auth.htaccess](#)
+    - [auth.htaccess.username](#)
+    - [password](#)
+
+- [schema](#)
+
+  - [schema.typePrefix](#)
+  - [schema.timeout](#)
+  - [schema.perPage](#)
+
+- [excludeFieldNames](#)
+
+- [html](#)
+
+  - [html.useGatsbyImage](#)
+  - [html.imageMaxWidth](#)
+  - [html.fallbackImageMaxWidth](#)
+  - [html.imageQuality](#)
+
+- [type](#)
+
+  - [type[TypeName].exclude](#)
+
+  - [type[TypeName].excludeFieldNames](#)
+
+  - [type.\_\_all](#)
+
+  - [type.RootQuery](#)
+
+  - [type.MediaItem.lazyNodes](#)
+
+## url: String
+
+This is the only plugin option which is required for the plugin to work properly.
+
+This should be the full url of your GraphQL endpoint.
 
 ```js
 {
-  url: null,
-  verbose: false,
-  debug: {
-    graphql: {
-      showQueryVarsOnError: false,
-      panicOnError: false,
-      onlyReportCriticalErrors: true,
-      writeQueriesToDisk: false,
-    },
+  resolve: `gatsby-source-wordpress-experimental`,
+	options: {
+    url: `https://yoursite.com/graphql`
   },
-  develop: {
-    nodeUpdateInterval: 300,
-    hardCacheMediaFiles: false,
-  },
-  auth: {
-    htaccess: {
-      username: null,
-      password: null,
-    },
-  },
-  schema: {
-    typePrefix: `Wp`,
-    timeout: 30 * 1000, // 30 seconds
-    perPage: 100,
-  },
-  excludeFieldNames: [],
-  html: {
-    // this causes the source plugin to find/replace images in html
-    useGatsbyImage: true,
-    // this adds a limit to the max width an image can be
-    // if the image selected in WP is smaller, or the image is smaller than this
-    // those values will be used instead.
-    imageMaxWidth: null,
-    // if a max width can't be inferred from html, this value will be passed to Sharp
-    // if the image is smaller than this, the images width will be used instead
-    fallbackImageMaxWidth: 100,
-    imageQuality: 90,
-  },
-  type: {
-    __all: {},
-    RootQuery: {
-      excludeFieldNames: [`viewer`, `node`, `schemaMd5`],
-    },
-    Settings: {
-      excludeFieldNames: [`generalSettingsEmail`],
-    },
-    GeneralSettings: {
-      excludeFieldNames: [`email`],
-    },
-    ActionMonitorAction: {
-      exclude: true,
-    },
-    UserToActionMonitorActionConnection: {
-      exclude: true,
-    },
-    Plugin: {
-      exclude: true,
-    },
-    PostFormat: {
-      exclude: true,
-    },
-    Theme: {
-      exclude: true,
-    },
-    UserRole: {
-      exclude: true,
-    },
-    UserToUserRoleConnection: {
-      exclude: true,
-    },
-    Page: {
-      excludeFieldNames: [`enclosure`],
-    },
-    User: {
-      excludeFieldNames: [
-        `extraCapabilities`,
-        `capKey`,
-        `email`,
-        `registeredDate`,
-      ],
-    },
-    MediaItem: {
-      lazyNodes: false,
-      beforeChangeNode: async ({ remoteNode, actionType, typeSettings }) => {
-        // we fetch lazy nodes files in resolvers, no need to fetch them here.
-        if (typeSettings.lazyNodes) {
-          return {
-            remoteNode,
-          }
-        }
-
-        if (actionType === `CREATE` || actionType === `UPDATE`) {
-          const createdMediaItem = await createRemoteMediaItemNode({
-            mediaItemNode: remoteNode,
-          })
-
-          if (createdMediaItem) {
-            remoteNode.remoteFile = {
-              id: createdMediaItem.id,
-            }
-            remoteNode.localFile = {
-              id: createdMediaItem.id,
-            }
-
-            return {
-              remoteNode,
-            }
-          }
-        }
-
-        return {
-          remoteNode,
-        }
-      },
-    },
-    ContentNode: {
-      nodeInterface: true,
-    },
-    Category: {
-      // @todo remove this when categories are a flat list in WPGQL
-      beforeChangeNode: categoryBeforeChangeNode,
-    },
-    Menu: {
-      /**
-       * This is used to fetch child menu items
-       * on Menus as it's problematic to fetch them otherwise
-       * in WPGQL currently
-       *
-       * So after a Menu Node is fetched and processed, this function runs
-       * It loops through the child menu items, generates a query for them,
-       * fetches them, and creates nodes out of them.
-       *
-       * This runs when initially fetching all nodes, and after an incremental
-       * fetch happens
-       *
-       * When we can get a list of all menu items regardless of location in WPGQL, this can be removed.
-       */
-      // @todo remove this when menus are a flat list in WPGQL
-      beforeChangeNode: menuBeforeChangeNode,
-    },
-    MenuItem: {
-      /**
-       * This was my previous attempt at fetching problematic menuItems
-       * I temporarily solved this above, but I'm leaving this here as
-       * a reminder of the nodeListQueries API
-       *
-       * this worked to pull all menus in the initial fetch, but menus had to be assigned to a location
-       * that was problematic because saving a menu would then fetch those menu items using the incremental fetching logic in this plugin. So menu items that previously existed in WP wouldn't show up initially if they had no location set, then as menus were saved they would show up.
-       */
-      // nodeListQueries: ({
-      //   name,
-      //   store,
-      //   transformedFields,
-      //   helpers: { buildNodesQueryOnFieldName },
-      // }) => {
-      //   const menuLocationEnumValues = store
-      //     .getState()
-      //     .remoteSchema.introspectionData.__schema.types.find(
-      //       type => type.name === `MenuLocationEnum`
-      //     )
-      //     .enumValues.map(value => value.name)
-      //   const queries = menuLocationEnumValues.map(enumValue =>
-      //     buildNodesQueryOnFieldName({
-      //       fields: transformedFields,
-      //       fieldName: name,
-      //       fieldVariables: `where: { location: ${enumValue} }`,
-      //     })
-      //   )
-      //   return queries
-      // },
-    },
-    // the next two types can't be sourced in Gatsby properly yet
-    // @todo instead of excluding these manually, auto exclude them
-    // based on how they behave (no single node query available)
-    EnqueuedScript: {
-      exclude: true,
-    },
-    EnqueuedStylesheet: {
-      exclude: true,
-    },
-    EnqueuedAsset: {
-      exclude: true,
-    },
-    ContentNodeToEnqueuedScriptConnection: {
-      exclude: true,
-    },
-    ContentNodeToEnqueuedStylesheetConnection: {
-      exclude: true,
-    },
-    TermNodeToEnqueuedScriptConnection: {
-      exclude: true,
-    },
-    TermNodeToEnqueuedStylesheetConnection: {
-      exclude: true,
-    },
-    UserToEnqueuedScriptConnection: {
-      exclude: true,
-    },
-    UserToEnqueuedStylesheetConnection: {
-      exclude: true,
-    },
-  },
-}
+},
 ```
 
+## verbose: Boolean
 
+Wether there will be verbose output in the terminal. Set true for verbose. Default is `false`.
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+	options: {
+		verbose: true,
+  },
+},
+```
+
+## debug: Object
+
+An object which contains options related to debugging. See below for options.
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+	options: {
+  	debug: {
+			// debugging settings
+    }
+  },
+},
+```
+
+### debug.graphql: Object
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+	options: {
+
+  },
+},
+```
+
+#### debug.graphql.showQueryVarsOnError: Boolean
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+	options: {
+
+  },
+},
+```
+
+#### debug.graphql.panicOnError: Boolean
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+	options: {
+
+  },
+},
+```
+
+#### debug.graphql.onlyReportCriticalErrors: Boolean
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+	options: {
+
+  },
+},
+```
+
+#### debug.graphql.writeQueriesToDisk: Boolean
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+	options: {
+
+  },
+},
+```
+
+## develop: Object
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+	options: {
+
+  },
+},
+```
+
+### develop.nodeUpdateInterval: Int
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+	options: {
+
+  },
+},
+```
+
+Specifies in milliseconds how often Gatsby will ask WP what data has changed during development. If you want to see data update in near-realtime while you're developing, set this low. Your server may have trouble responding to too many requests over a long period of time and in that case, set this high. Setting it higher saves electricity too ⚡️🌲
+
+### develop.hardCacheMediaFiles: Boolean
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+	options: {
+
+  },
+},
+```
+
+## auth: Object
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+	options: {
+
+  },
+},
+```
+
+### auth.htaccess: Object
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+	options: {
+
+  },
+},
+```
+
+#### auth.htaccess.username: String
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+	options: {
+
+  },
+},
+```
+
+#### auth.htaccess.password: String
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+	options: {
+
+  },
+},
+```
+
+## schema: Object
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+	options: {
+
+  },
+},
+```
+
+### schema.typePrefix: String
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+	options: {
+
+  },
+},
+```
+
+### schema.timeout: Int
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+	options: {
+
+  },
+},
+```
+
+### schema.perPage: Int
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+	options: {
+
+  },
+},
+```
+
+## excludeFieldNames: Array
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+	options: {
+
+  },
+},
+```
+
+## html: Object
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+	options: {
+
+  },
+},
+```
+
+### html.useGatsbyImage: true
+
+this causes the source plugin to find/replace images in html
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+	options: {
+
+  },
+},
+```
+
+### html.imageMaxWidth: Boolean
+
+this adds a limit to the max width an image can be
+if the image selected in WP is smaller or the image is smaller than this
+those values will be used instead.
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+	options: {
+
+  },
+},
+```
+
+### html.fallbackImageMaxWidth: Int
+
+if a max width can't be inferred from html this value will be passed to Sharp
+
+if the image is smaller than this the images width will be used instead
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+	options: {
+
+  },
+},
+```
+
+### html.imageQuality: Int
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+	options: {
+
+  },
+},
+```
+
+## type: Object
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+	options: {
+
+  },
+},
+```
+
+### type[TypeName].exclude: Boolean
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+	options: {
+
+  },
+},
+```
+
+### type[TypeName].excludeFieldNames: Array
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+	options: {
+
+  },
+},
+```
+
+### type.\_\_all: Object
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+	options: {
+
+  },
+},
+```
+
+### type.RootQuery: Object
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+	options: {
+
+  },
+},
+```
+
+### type.MediaItem.lazyNodes: Boolean
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+	options: {
+
+  },
+},
+```
 
 # Up Next :point_right:
 
 - :boat: [Migrating from other WP source plugins](./migrating-from-other-wp-source-plugins.md)
 - :house: [Hosting](./hosting.md)
 - :athletic_shoe: [Themes, Starters, and Examples](./themes-starters-examples.md)
--  :medal_sports: [Usage with popular WPGraphQL extensions](./usage-with-popular-wp-graphql-extensions.md)
+- :medal_sports: [Usage with popular WPGraphQL extensions](./usage-with-popular-wp-graphql-extensions.md)
 - :gear: [How does this plugin work?](./how-does-this-plugin-work.md)
 - :hammer_and_wrench: [Debugging and troubleshooting](./debugging-and-troubleshooting.md)
 - :national_park: [Community and Support](./community-and-support.md)
 - :point_left: [Back to README.md](../README.md)
-
