@@ -1,6 +1,6 @@
 # Tutorials
 
-1. [Building a new app/site](./creating-an-app-or-site.md)
+1. [Building a new app/site with WordPress and gatsby](./creating-an-app-or-site.md)
 2. [Adding images](./adding-images.md)
 
 
