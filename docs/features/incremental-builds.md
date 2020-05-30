@@ -1,10 +1,10 @@
 # Incremental Builds
 
-Incremental builds mean that only changed posts are rebuilt on content changes from WordPress.
+"Incremental builds" means that only changed posts are rebuilt after content changes from WordPress.
 
 When you're using [Gatsby Cloud](https://www.gatsbyjs.com/), inc-builds will work by default! :zap:
 
-There are no other other services which can provide incremental builds, wether they claim to or not.
+There are no other other services which can provide incremental builds, wether they claim to or not. If your inc-builds take longer than a minute, consider switching to [Gatsby Cloud](https://www.gatsbyjs.com/) :smile_cat:
 
 You can expect inc-build times between 4 - 12 seconds depending on your setup.
 

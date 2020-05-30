@@ -20,6 +20,8 @@ If you've had previous experience with Gatsby or you like to move fast, you can 
 
 ## Required Dependencies
 
+
+
 ### WPGraphQL
 
 This plugin turns your WordPress instance into a GraphQL server.
@@ -27,6 +29,8 @@ This plugin turns your WordPress instance into a GraphQL server.
 - [Source code](https://github.com/wp-graphql/wp-graphql)
 - [Docs](https://docs.wpgraphql.com/)
 - [Website](https://www.wpgraphql.com/)
+
+
 
 ### WPGatsby
 
@@ -39,7 +43,7 @@ This plugin modifies the WPGraphQL schema in Gatsby-specific ways and also keeps
 # Up Next :point_right:
 
 - :school: [Tutorials](./tutorials/index.md)
-- :feet: [Notable features](./features/index.md)
+- :feet: [Features](./features/index.md)
 - :electric_plug: [Plugin options](./plugin-options.md)
 - :boat: [Migrating from other WP source plugins](./migrating-from-other-wp-source-plugins.md)
 - :house: [Hosting](./hosting.md)
