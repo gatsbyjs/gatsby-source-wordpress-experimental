@@ -1,9 +1,6 @@
-# gatsby-source-wordpress-experimental
 
-This plugin is the beta release of `gatsby-source-wordpress@v4`. It is rewritten from the ground up using WPGraphQL for data sourcing.
-This is the officially recommended way to use WordPress with Gatsby. It is currently being published on a separate package to make migrating from `gatsby-source-wordpress@v3` easier. This allows you to activate this new version of the plugin alongside `gatsby-source-wordpress` and migrate your codebase one piece at a time.
 
-This plugin works by merging the [WPGraphQL schema / data](https://docs.wpgraphql.com/guides/about-wpgraphql/) with the [Gatsby schema / Node model](https://www.gatsbyjs.org/docs/node-model/) which allows us to efficiently cache WP data in Gatsby. This makes incremental builds and Preview work and provides an improved developer experience over previous ways of using Gatsby and WP together.
+![Wapuu hugging a ball with the Gatsby logo on it](./docs/assets/gatsby-wapuus.png)
 
 
 
@@ -28,23 +25,43 @@ This plugin works by merging the [WPGraphQL schema / data](https://docs.wpgraphq
   </a>
 </p>
 
-# Docs
 
-- [Why use this plugin?](./docs/why-use-this-plugin.md)
-- [Installation & getting started](./docs/getting-started.md)
-- [Notable features](./docs/features.md)
-- @todo Tutorials
-- [Plugin options](./docs/plugin-options.md)
-- @todo Migrating from other WP source plugins
-- @todo Hosting
-- [Themes, Starters, and Examples](./docs/themes-starters-examples.md)
-- @todo Usage with popular WPGraphQL extensions
-- @todo How does this plugin work?
-- [Debugging and troubleshooting](./docs/debugging-and-troubleshooting.md)
+# gatsby-source-wordpress@v4 BETA
 
-## Relevant Links
+This plugin is the official recommended way to use WordPress with Gatsby. We're currently publishing on a separate package to make migrating from `gatsby-source-wordpress@v3` easier. This allows you to activate the new version of the integration alongside `gatsby-source-wordpress` and migrate your codebase one piece at a time if you're coming from `v3` :star:
+
+
+
+## Overview :sun_with_face:
+
+This plugin works by merging the [WPGraphQL schema & data](https://docs.wpgraphql.com/guides/about-wpgraphql/) with the [Gatsby schema & Node model](https://www.gatsbyjs.org/docs/node-model/) which allows us to efficiently cache WP data in Gatsby. What this means is that incremental builds, fast builds, and previews work beautifully! :rocket: :nail_care:
+
+Developer & Content Creator experience are some of our main focuses with this integration. Please send us your feedback! :eyes: :mag_right: :pencil2: :page_facing_up:
+
+
+
+# Docs :book:
+
+- :woman_singer:  [Why use this plugin?](./docs/why-use-this-plugin.md) 
+- :runner: [Installation & Getting started](./docs/getting-started.md)
+- :school: [Tutorials](./docs/tutorials/index.md)
+- :feet: [Notable features](./docs/features.md)
+- :electric_plug: [Plugin options](./docs/plugin-options.md)
+- :boat: [Migrating from other WP source plugins](./docs/migrating-from-other-wp-source-plugins.md)
+- :house: [Hosting](./docs/hosting.md)
+- :athletic_shoe: [Themes, Starters, and Examples](./docs/themes-starters-examples.md)
+-  :medal_sports: [Usage with popular WPGraphQL extensions](./docs/usage-with-popular-wp-graphql-extensions.md)
+- :gear: [How does this plugin work?](./docs/how-does-this-plugin-work.md)
+- :hammer_and_wrench: [Debugging and troubleshooting](./docs/debugging-and-troubleshooting.md)
+- :national_park: [Community and Support](./docs/community-and-support.md)
+
+
+
+## Relevant Links :link:
 
 - [Changelog](./CHANGELOG.md)
+
+- [License](./LICENSE)
 
 - [WPGatsby](https://github.com/gatsbyjs/wp-gatsby)
 
