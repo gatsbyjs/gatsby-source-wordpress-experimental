@@ -5,49 +5,44 @@
 - [verbose](#verbose-boolean)
 
 - [debug](#debug-object)
-
-  - [debug.graphql](#debug-graphql-object)
-    - [debug.graphql.showQueryVarsOnError](#debug-graphql-show-query-vars-on-error-boolean)
-    - [debug.graphql.panicOnError](#)
-    - [debug.graphql.onlyReportCriticalErrors](#)
-    - [debug.graphql.writeQueriesToDisk](#)
-
-- [develop](#)
-- [develop.nodeUpdateInterval](#)
-  - [develop.hardCacheMediaFiles](#)
+- [debug.graphql](#debug.graphql-object)
+    - [debug.graphql.showQueryVarsOnError](#debug.graphql.showqueryvarsonerror-boolean)
+    - [debug.graphql.panicOnError](#debug.graphql.paniconerror-boolean)
+    - [debug.graphql.onlyReportCriticalErrors](#debug.graphql.onlyreportcriticalerrors-boolean)
+    - [debug.graphql.writeQueriesToDisk](#debug.graphql.writequeriestodisk-boolean)
   
-- [auth](#)
+- [develop](#develop-object)
+- [develop.nodeUpdateInterval](#develop.nodeupdateinterval-int)
+  - [develop.hardCacheMediaFiles](#develop.hardcachemediafiles-boolean)
+  
+- [auth](#auth-object)
+- [auth.htaccess](#auth.htaccess-object)
+    - [auth.htaccess.username](#auth.htaccess.username-string)
+    - [auth.htaccess.password](#auth.htaccess.password-string)
+  
+- [schema](#schema-object)
+- [schema.typePrefix](#schema.typeprefix-string)
+  - [schema.timeout](#schema.timeout-int)
+  - [schema.perPage](#schema.perpage-int)
+  
+- [excludeFieldNames](#excludefieldnames-array)
 
-  - [auth.htaccess](#)
-    - [auth.htaccess.username](#)
-    - [password](#)
-
-- [schema](#)
-
-  - [schema.typePrefix](#)
-  - [schema.timeout](#)
-  - [schema.perPage](#)
-
-- [excludeFieldNames](#)
-
-- [html](#)
-
-  - [html.useGatsbyImage](#)
-  - [html.imageMaxWidth](#)
-  - [html.fallbackImageMaxWidth](#)
-  - [html.imageQuality](#)
-
-- [type](#)
-
-  - [type[TypeName].exclude](#)
-
-  - [type[TypeName].excludeFieldNames](#)
-
-  - [type.\_\_all](#)
-
-  - [type.RootQuery](#)
-
-  - [type.MediaItem.lazyNodes](#)
+- [html](#html-object)
+- [html.useGatsbyImage](#html.usegatsbyimage-boolean)
+  - [html.imageMaxWidth](#html.imagemaxwidth-int)
+  - [html.fallbackImageMaxWidth](#html.fallbackimagemaxwidth-int)
+  - [html.imageQuality](#html.imagequality-int)
+  
+- [type](#type-object)
+- [type[TypeName].exclude](#typetypename.exclude-boolean)
+  
+- [type[TypeName].excludeFieldNames](#typetypename.excludefieldnames-array)
+  
+- [type.\_\_all](#type.__all-object)
+  
+- [type.RootQuery](#type.rootquery-object)
+  
+- [type.MediaItem.lazyNodes](#type.mediaitem.lazynodes-boolean)
 
 
 
@@ -92,8 +87,8 @@ An object which contains options related to debugging. See below for options.
   resolve: `gatsby-source-wordpress-experimental`,
 	options: {
   	debug: {
-			// debugging settings
-    }
+
+    },
   },
 },
 ```
@@ -102,11 +97,17 @@ An object which contains options related to debugging. See below for options.
 
 ### debug.graphql: Object
 
+An object which contains GraphQL debugging options. See below for options.
+
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
 	options: {
+		debug: {
+      graphql: {
 
+      },
+    },
   },
 },
 ```
@@ -115,11 +116,17 @@ An object which contains options related to debugging. See below for options.
 
 #### debug.graphql.showQueryVarsOnError: Boolean
 
+When a GraphQL error is returned and the process exits, this plugin option determines wether or not to log out the query vars that were used in the query that returned GraphQL errors. Default is false.
+
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
 	options: {
-
+		debug: {
+      graphql: {
+      	showQueryVarsOnError: true,
+      },
+    },
   },
 },
 ```
@@ -128,11 +135,19 @@ An object which contains options related to debugging. See below for options.
 
 #### debug.graphql.panicOnError: Boolean
 
+Determines wether or not to panic when any GraphQL error is returned.
+
+Default is false because sometimes non-critical errors are returned alongside valid data.
+
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
 	options: {
-
+		debug: {
+      graphql: {
+      	panicOnError: false,
+      },
+    },
   },
 },
 ```
@@ -141,11 +156,17 @@ An object which contains options related to debugging. See below for options.
 
 #### debug.graphql.onlyReportCriticalErrors: Boolean
 
+Determines wether or not to log non-critical errors. A non-critical error is any error which is returned alongside valid data. In previous versions of WPGraphQL this was very noisy because trying to access an entity that was private returned errors. Default is true.
+
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
 	options: {
-
+		debug: {
+      graphql: {
+      	onlyReportCriticalErrors: true,
+      },
+    },
   },
 },
 ```
@@ -154,11 +175,17 @@ An object which contains options related to debugging. See below for options.
 
 #### debug.graphql.writeQueriesToDisk: Boolean
 
+When true, all internal GraphQL queries generated during node sourcing will be written out to `./WordPress/GraphQL/[TypeName]/*.graphql` for every type that is sourced. This is very useful for debugging GraphQL errors. Default is false.
+
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
 	options: {
-
+		debug: {
+      graphql: {
+      	writeQueriesToDisk: true,
+      },
+    },
   },
 },
 ```
@@ -167,11 +194,15 @@ An object which contains options related to debugging. See below for options.
 
 ## develop: Object
 
+Options related to the `gatsby develop` process.
+
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
 	options: {
-
+		develop: {
+      // options related to `gatsby develop`
+    },
   },
 },
 ```
@@ -180,13 +211,17 @@ An object which contains options related to debugging. See below for options.
 
 ### develop.nodeUpdateInterval: Int
 
-Specifies in milliseconds how often Gatsby will ask WP what data has changed during development. If you want to see data update in near-realtime while you're developing, set this low. Your server may have trouble responding to too many requests over a long period of time and in that case, set this high. Setting it higher saves electricity too ⚡️🌲
+Specifies in milliseconds how often Gatsby will ask WP if data has changed during development. If you want to see data update in near-realtime while you're developing, set this low. Your server may have trouble responding to too many requests over a long period of time and in that case, set this high. Setting it higher saves electricity too ⚡️🌲
+
+Default is `300`.
 
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
 	options: {
-
+		develop: {
+      nodeUpdateInterval: 300
+    },
   },
 },
 ```
@@ -195,11 +230,17 @@ Specifies in milliseconds how often Gatsby will ask WP what data has changed dur
 
 ### develop.hardCacheMediaFiles: Boolean
 
+When true, media files will be hard-cached outside the Gatsby cache in a `./.wordpress-cache/path/to/media/file.jpeg` . This is useful for preventing media files from being re-downloaded when the Gatsby cache automatically clears.
+
+Default is false.
+
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
 	options: {
-
+		develop: {
+      hardCacheMediaFiles: true,
+    },
   },
 },
 ```
@@ -208,11 +249,15 @@ Specifies in milliseconds how often Gatsby will ask WP what data has changed dur
 
 ## auth: Object
 
+Options related to authentication. See below for options.
+
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
 	options: {
+		auth: {
 
+    },
   },
 },
 ```
@@ -221,11 +266,17 @@ Specifies in milliseconds how often Gatsby will ask WP what data has changed dur
 
 ### auth.htaccess: Object
 
+Options related to  htaccess authentication. See below for options.
+
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
 	options: {
+		auth: {
+      htaccess: {
 
+      },
+    },
   },
 },
 ```
@@ -234,11 +285,19 @@ Specifies in milliseconds how often Gatsby will ask WP what data has changed dur
 
 #### auth.htaccess.username: String
 
+The username for your .htpassword protected site.
+
+Default is `null`
+
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
 	options: {
-
+		auth: {
+      htaccess: {
+        username: `admin`,
+      },
+    },
   },
 },
 ```
@@ -247,11 +306,19 @@ Specifies in milliseconds how often Gatsby will ask WP what data has changed dur
 
 #### auth.htaccess.password: String
 
+The password for your .htpassword protected site.
+
+Default is `null`
+
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
 	options: {
-
+		auth: {
+      htaccess: {
+        password: `1234strong_password`,
+      },
+    },
   },
 },
 ```
@@ -260,11 +327,15 @@ Specifies in milliseconds how often Gatsby will ask WP what data has changed dur
 
 ## schema: Object
 
+Options related to fetching and ingesting the remote schema. See below for options.
+
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
 	options: {
+		schema: {
 
+    },
   },
 },
 ```
@@ -273,11 +344,17 @@ Specifies in milliseconds how often Gatsby will ask WP what data has changed dur
 
 ### schema.typePrefix: String
 
+The prefix for all ingested types from the remote schema. For example `Post` becomes `WpPost`.
+
+Default is `Wp` .
+
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
 	options: {
-
+		schema: {
+      typePrefix: `Wp`,
+    },
   },
 },
 ```
@@ -286,11 +363,17 @@ Specifies in milliseconds how often Gatsby will ask WP what data has changed dur
 
 ### schema.timeout: Int
 
+The amount of time in ms before GraphQL requests will time out.
+
+Default is `30 * 1000 // 30 seconds`
+
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
 	options: {
-
+		schema: {
+      timeout: 30000,
+    },
   },
 },
 ```
@@ -299,11 +382,17 @@ Specifies in milliseconds how often Gatsby will ask WP what data has changed dur
 
 ### schema.perPage: Int
 
+The number of nodes to fetch per page during node sourcing.
+
+Default is `100`.
+
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
 	options: {
-
+		schema: {
+      perPage: 100,
+    },
   },
 },
 ```
@@ -312,11 +401,15 @@ Specifies in milliseconds how often Gatsby will ask WP what data has changed dur
 
 ## excludeFieldNames: Array
 
+A list of field names to globally exclude from the ingested schema.
+
+Default is `[]`.
+
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
 	options: {
-
+		excludeFieldNames: [`viewer`],
   },
 },
 ```
@@ -325,43 +418,55 @@ Specifies in milliseconds how often Gatsby will ask WP what data has changed dur
 
 ## html: Object
 
+Options related to html field processing. See below for options.
+
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
 	options: {
+		html: {
 
+    },
   },
 },
 ```
 
 
 
-### html.useGatsbyImage: true
+### html.useGatsbyImage: Boolean
 
-this causes the source plugin to find/replace images in html
+Causes the source plugin to find/replace images in html with Gatsby images.
+
+Default is `true`.
 
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
 	options: {
-
+		html: {
+      useGatsbyImage: true,
+    },
   },
 },
 ```
 
 
 
-### html.imageMaxWidth: Boolean
+### html.imageMaxWidth: Int
 
-this adds a limit to the max width an image can be
-if the image selected in WP is smaller or the image is smaller than this
+Adds a limit to the max width an image can be.
+If the image size selected in WP is smaller or the image file width is smaller than this
 those values will be used instead.
 
+Default is `null`.
+
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
 	options: {
-
+		html: {
+      imageMaxWidth: 1024,
+    },
   },
 },
 ```
@@ -370,15 +475,19 @@ those values will be used instead.
 
 ### html.fallbackImageMaxWidth: Int
 
-if a max width can't be inferred from html this value will be passed to Sharp
+If a max width can't be inferred from html this value will be passed to Sharp.
 
-if the image is smaller than this the images width will be used instead
+If the image is smaller than this, the image file's width will be used instead.
+
+Default is `100`. @todo this is too low..
 
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
 	options: {
-
+		html: {
+      fallbackImageMaxWidth: 800,
+    },
   },
 },
 ```
@@ -387,11 +496,17 @@ if the image is smaller than this the images width will be used instead
 
 ### html.imageQuality: Int
 
+Determines the image quality that Sharp will use when generating inline html image thumbnails.
+
+Default is `90`.
+
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
 	options: {
-
+		html: {
+      imageQuality: 90,
+    },
   },
 },
 ```
@@ -400,11 +515,15 @@ if the image is smaller than this the images width will be used instead
 
 ## type: Object
 
+Options related to specific types in the remote schema. See below for options.
+
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
 	options: {
+		type: {
 
+    },
   },
 },
 ```
@@ -413,11 +532,19 @@ if the image is smaller than this the images width will be used instead
 
 ### type[TypeName].exclude: Boolean
 
+Completely excludes a type from node sourcing and from the ingested schema.
+
+Default is `undefined`.
+
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
 	options: {
-
+		type: {
+      Page: {
+        exclude: true,
+      },
+    },
   },
 },
 ```
@@ -426,11 +553,17 @@ if the image is smaller than this the images width will be used instead
 
 ### type[TypeName].excludeFieldNames: Array
 
+Excludes fields on a type by field name. Default is `undefined`.
+
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
 	options: {
-
+		type: {
+      Page: {
+        excludeFieldNames: [`dateGmt`, `parent`],
+      },
+    },
   },
 },
 ```
@@ -439,11 +572,19 @@ if the image is smaller than this the images width will be used instead
 
 ### type.\_\_all: Object
 
+A special type setting which is applied to all types in the ingested schema. It can take the same options as regular types.
+
+Default is `undefined`.
+
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
 	options: {
-
+		type: {
+      __all: {
+        limit: 10,
+      },
+    },
   },
 },
 ```
@@ -452,11 +593,19 @@ if the image is smaller than this the images width will be used instead
 
 ### type.RootQuery: Object
 
+A special type which is applied to any non-node root fields that are ingested and stored under the root `wp` field. It accepts the same options as other types.
+
+Default is `{ excludeFieldNames: ['viewer', 'node', 'schemaMd5'], },`
+
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
 	options: {
-
+		type: {
+      RootQuery: {
+        excludeFieldNames: [`viewer`]
+      },
+    },
   },
 },
 ```
@@ -465,11 +614,19 @@ if the image is smaller than this the images width will be used instead
 
 ### type.MediaItem.lazyNodes: Boolean
 
+Enables a different media item sourcing strategy. Instead of fetching Media Items that are referenced by other nodes, Media Items will be fetched in connection resolvers from other nodes. This may be desireable if you're not using all of the connected images in your WP instance. This is not currently recommended because it messes up cli output and can be slow due to query running concurrency.
+
+Default is `false`.
+
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
 	options: {
-
+		type: {
+      MediaItem: {
+        lazyNodes: true,
+      },
+    },
   },
 },
 ```
