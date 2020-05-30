@@ -14,7 +14,7 @@ Some of the highlights are
 
 Additionally, this plugin is a great reason to use Gatsby with WordPress. Many of the complex and difficult aspects of going decoupled with WordPress have been abstracted for you behind the scenes, so you can work on building awesome apps and sites instead of reinventing the wheel to get decoupled WordPress working in your project.
 
-Check out this page on [convincing developers why Gatsby is awesome](https://www.gatsbyjs.org/winning-over-developers/#specific-benefits). It's meant for developers convincing their coworkers about Gatsby, but it actually does a great job of describing directly to you the main reasons why using Gatsby is a great idea :)
+Check out this page on [convincing developers why Gatsby is awesome](https://www.gatsbyjs.org/docs/winning-over-developers/#specific-benefits). It's meant for developers who want to convince their coworkers to use Gatsby, but it actually does a great job of describing directly to you the main reasons why using Gatsby is a great idea :)
 
 
 
