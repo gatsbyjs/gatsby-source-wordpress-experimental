@@ -1,4 +1,4 @@
-### Problems with `gatsby-source-graphql`
+# Problems with `gatsby-source-graphql` :broken_heart:
 
 `gatsby-source-graphql` skips the Gatsby Node model altogether, and allows you to directly pull data from WPGraphQL. At first this seems really attractive as things just work, but as your site grows beyond a handful of pages, a few problems arise.
 
@@ -8,11 +8,11 @@
 
 
 
-All of the above issues are fixed by using this plugin! :)
+All of the above issues are fixed by using this plugin! :smile_cat:
 
 
 
-## Up Next :point_right:
+# Up Next :point_right:
 
 - :runner: [Installation & Getting started](./getting-started.md)
 - :school: [Tutorials](./tutorials/index.md)
