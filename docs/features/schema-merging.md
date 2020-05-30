@@ -17,7 +17,7 @@ This means you will have the power of both systems! But data is coming from the 
 
 ## Caveats
 
-Note that currently WPGraphQL input arguments are not supported in this integration
+WPGraphQL field input arguments are currently not supported.
 
 
 
