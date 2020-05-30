@@ -355,7 +355,6 @@ You can apply the same procedure to calling and creating pages, custom post type
 
 # Up Next :point_right:
 
-- :camera: [_Tutorial_: Adding images](./adding-images.md)
 - :boat: [Migrating from other WP source plugins](./migrating-from-other-wp-source-plugins.md)
 - :house: [Hosting](./hosting.md)
 - :athletic_shoe: [Themes, Starters, and Examples](./themes-starters-examples.md)
