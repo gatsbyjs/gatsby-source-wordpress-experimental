@@ -1,25 +1,19 @@
----
-title: "WordPress Source Plugin Tutorial"
----
+## Creating a new Gatsby/WordPress site
 
-## How to create a site with data pulled from WordPress
+
 
 ### What this tutorial covers:
 
 In this tutorial, you will install the `gatsby-source-wordpress-experimental` plugin in order to pull blog and image data from a WordPress install into your Gatsby site and render that data. This [Gatsby + WordPress starter](https://github.com/henrikwirth/gatsby-starter-wordpress-twenty-twenty) shows you the source code for an example site similar to what you’re going to be building in this tutorial.
 
-## Why go through this tutorial?
 
-While each source plugin may operate differently from others, it’s worth going through this tutorial because you will almost definitely be using a source plugin in most Gatsby sites you build. This tutorial will walk you through the basics of connecting your Gatsby site to a CMS, pulling in data, and using React to render that data in beautiful ways on your site.
-
-If you’d like to look at the growing number of source plugins available to you, search for “source” in the [Gatsby plugin library](https://www.gatsbyjs.org/plugins/?=source).
 
 ### Creating a site with the `gatsby-source-wordpress-experimental` plugin
 
 Create a new Gatsby project and change directories into the new project you just created:
 
 ```shell
- gatsby new wordpress-tutorial-site
+gatsby new wordpress-tutorial-site
 cd wordpress-tutorial-site
 ```
 
@@ -39,7 +33,6 @@ module.exports = {
     author: `@gatsbyjs`,
   },
   plugins: [
-    // https://public-api.wordpress.com/wp/v2/sites/gatsbyjsexamplewordpress.wordpress.com/pages/
     /*
      * Gatsby's data processing layer begins with “source”
      * plugins. Here the site sources its data from WordPress.
@@ -49,7 +42,7 @@ module.exports = {
       resolve: `gatsby-source-wordpress-experimental`,
       options: {
         /*
-         * The full URL of the WordPress site's gql API.
+         * The full URL of the WordPress site's GraphQL API.
          * Example : 'https://www.example-site.com/graphql'
          */
         url: `https://live-gatbsyjswp.pantheonsite.io/graphql`,
@@ -96,9 +89,13 @@ Run:
 gatsby develop
 ```
 
-In your browser, open `http://localhost:8000` to see your site, and open `http://localhost:8000/___graphql` so that you can create your GraphQL queries.
+In your browser, open `http://localhost:8000` to see your site, and `http://localhost:8000/___graphql` to see Graphiql. You can use Graphiql to create your GraphQL queries.
 
-As an exercise, try re-creating the following queries in your GraphiQL explorer. This first query will pull in the blogpost content from WordPress:
+As an exercise, try re-creating the following queries in your GraphiQL explorer. 
+
+Tip: If you've never used Graphiql before, try pressing `shift+space` to be given a list of available fields you can query for. Press up and down on your keyboard to select a field and press enter to write it to your query. Alternatively you can use the explorer pane to the left side of the page. If your explorer pane isn't open, you can open it by clicking "Explorer" at the top of the screen.
+
+This first query will pull in the blogpost content from WordPress:
 
 ```graphql
 query {
@@ -174,9 +171,7 @@ export const pageQuery = graphql`
 
 Save these changes and look at `http://localhost:8000` to see your new homepage with a list of sorted blog posts!
 
-![WordPress home after query](./images/wordpress-source-plugin-home.jpg)
 
-> **NOTE:** to future editors: it would be useful to also have examples of how to load blog posts to their own individual pages. And helpful to insert a screenshot of the final result here
 
 ## Create pages for each blog post and link to them
 
@@ -188,6 +183,8 @@ To do this, you need to:
 2. Link up the title on the index page with the post page.
 
 If you haven't already, please read through [Part 7](https://www.gatsbyjs.org/tutorial/part-seven/) of the foundational tutorial, as it goes through the concept and examples of this process with Markdown instead of WordPress.
+
+
 
 ### Creating pages for each blog post
 
@@ -213,13 +210,12 @@ exports.createPages = ({ graphql, actions }) => {
     }
   `).then(result => {
     console.log(JSON.stringify(result, null, 4))
+    process.exit()
   })
 }
 ```
 
-Next, [stop and restart](https://www.gatsbyjs.org/tutorial/part-zero/#view-your-site-locally) the `gatsby develop` environment. As you watch the terminal you should see two Post objects log to the terminal:
-
-![Two posts logged to the terminal](./images/wordpress-source-plugin-log.jpg)
+Next, [stop and restart](https://www.gatsbyjs.org/tutorial/part-zero/#view-your-site-locally) the `gatsby develop` environment. As you watch the terminal you should see two Post objects log to the terminal.
 
 Excellent! As explained in Part 7 of the tutorial, this `createPages` export is one of the Gatsby "workhorses" and allows us to create your blog posts (or pages, or custom post types, etc.) from your WordPress install.
 
@@ -300,6 +296,8 @@ You will need to stop and start your environment again using `gatsby develop`. W
 
 But nobody likes to go to a 404 page to find a blog post! So, let's link these up from the home page.
 
+
+
 ### Linking to posts from the homepage
 
 Since you already have your structure and query done for the `index.js` page, all you need to do is use the `Link` component to wrap your titles and you should be good to go.
@@ -345,10 +343,24 @@ export const pageQuery = graphql`
 `
 ```
 
-And that's it! When you wrap the title in the `Link` component and reference the slug of the post, Gatsby will add some magic to the link, preload it, and make the transition between pages incredibly fast:
+And that's it! When you wrap the title in the `Link` component and reference the slug of the post, Gatsby will add some magic to the link, preload it, and make the transition between pages incredibly fast
 
-![Final product with links from the home page to the blog posts](./images/wordpress-source-plugin-home-to-post-links.gif)
+
 
 ### Wrapping up
 
 You can apply the same procedure to calling and creating pages, custom post types, custom fields, taxonomies, and all the fun and flexible content WordPress is known for. This can be as simple or as complex as you would like it to be, so explore and have fun with it!
+
+
+
+# Up Next :point_right:
+
+- :camera: [_Tutorial_: Adding images](./adding-images.md)
+- :boat: [Migrating from other WP source plugins](./migrating-from-other-wp-source-plugins.md)
+- :house: [Hosting](./hosting.md)
+- :athletic_shoe: [Themes, Starters, and Examples](./themes-starters-examples.md)
+-  :medal_sports: [Usage with popular WPGraphQL extensions](./usage-with-popular-wp-graphql-extensions.md)
+- :gear: [How does this plugin work?](./how-does-this-plugin-work.md)
+- :hammer_and_wrench: [Debugging and troubleshooting](./debugging-and-troubleshooting.md)
+- :national_park: [Community and Support](./community-and-support.md)
+- :point_left: [Back to README.md](../README.md)
