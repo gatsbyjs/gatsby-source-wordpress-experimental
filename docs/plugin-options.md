@@ -1,7 +1,5 @@
 # Plugin Options
 
-## Table of Contents
-
 - [url](#url-string)
 
 - [verbose](#verbose-boolean)
@@ -51,6 +49,8 @@
 
   - [type.MediaItem.lazyNodes](#)
 
+
+
 ## url: String
 
 This is the only plugin option which is required for the plugin to work properly.
@@ -66,6 +66,8 @@ This should be the full url of your GraphQL endpoint.
 },
 ```
 
+
+
 ## verbose: Boolean
 
 Wether there will be verbose output in the terminal. Set true for verbose. Default is `false`.
@@ -78,6 +80,8 @@ Wether there will be verbose output in the terminal. Set true for verbose. Defau
   },
 },
 ```
+
+
 
 ## debug: Object
 
@@ -94,6 +98,8 @@ An object which contains options related to debugging. See below for options.
 },
 ```
 
+
+
 ### debug.graphql: Object
 
 ```js
@@ -104,6 +110,8 @@ An object which contains options related to debugging. See below for options.
   },
 },
 ```
+
+
 
 #### debug.graphql.showQueryVarsOnError: Boolean
 
@@ -116,6 +124,8 @@ An object which contains options related to debugging. See below for options.
 },
 ```
 
+
+
 #### debug.graphql.panicOnError: Boolean
 
 ```js
@@ -126,6 +136,8 @@ An object which contains options related to debugging. See below for options.
   },
 },
 ```
+
+
 
 #### debug.graphql.onlyReportCriticalErrors: Boolean
 
@@ -138,6 +150,8 @@ An object which contains options related to debugging. See below for options.
 },
 ```
 
+
+
 #### debug.graphql.writeQueriesToDisk: Boolean
 
 ```js
@@ -148,6 +162,8 @@ An object which contains options related to debugging. See below for options.
   },
 },
 ```
+
+
 
 ## develop: Object
 
@@ -160,7 +176,11 @@ An object which contains options related to debugging. See below for options.
 },
 ```
 
+
+
 ### develop.nodeUpdateInterval: Int
+
+Specifies in milliseconds how often Gatsby will ask WP what data has changed during development. If you want to see data update in near-realtime while you're developing, set this low. Your server may have trouble responding to too many requests over a long period of time and in that case, set this high. Setting it higher saves electricity too ⚡️🌲
 
 ```js
 {
@@ -171,7 +191,7 @@ An object which contains options related to debugging. See below for options.
 },
 ```
 
-Specifies in milliseconds how often Gatsby will ask WP what data has changed during development. If you want to see data update in near-realtime while you're developing, set this low. Your server may have trouble responding to too many requests over a long period of time and in that case, set this high. Setting it higher saves electricity too ⚡️🌲
+
 
 ### develop.hardCacheMediaFiles: Boolean
 
@@ -184,6 +204,8 @@ Specifies in milliseconds how often Gatsby will ask WP what data has changed dur
 },
 ```
 
+
+
 ## auth: Object
 
 ```js
@@ -194,6 +216,8 @@ Specifies in milliseconds how often Gatsby will ask WP what data has changed dur
   },
 },
 ```
+
+
 
 ### auth.htaccess: Object
 
@@ -206,6 +230,8 @@ Specifies in milliseconds how often Gatsby will ask WP what data has changed dur
 },
 ```
 
+
+
 #### auth.htaccess.username: String
 
 ```js
@@ -216,6 +242,8 @@ Specifies in milliseconds how often Gatsby will ask WP what data has changed dur
   },
 },
 ```
+
+
 
 #### auth.htaccess.password: String
 
@@ -228,6 +256,8 @@ Specifies in milliseconds how often Gatsby will ask WP what data has changed dur
 },
 ```
 
+
+
 ## schema: Object
 
 ```js
@@ -238,6 +268,8 @@ Specifies in milliseconds how often Gatsby will ask WP what data has changed dur
   },
 },
 ```
+
+
 
 ### schema.typePrefix: String
 
@@ -250,6 +282,8 @@ Specifies in milliseconds how often Gatsby will ask WP what data has changed dur
 },
 ```
 
+
+
 ### schema.timeout: Int
 
 ```js
@@ -260,6 +294,8 @@ Specifies in milliseconds how often Gatsby will ask WP what data has changed dur
   },
 },
 ```
+
+
 
 ### schema.perPage: Int
 
@@ -272,6 +308,8 @@ Specifies in milliseconds how often Gatsby will ask WP what data has changed dur
 },
 ```
 
+
+
 ## excludeFieldNames: Array
 
 ```js
@@ -283,6 +321,8 @@ Specifies in milliseconds how often Gatsby will ask WP what data has changed dur
 },
 ```
 
+
+
 ## html: Object
 
 ```js
@@ -293,6 +333,8 @@ Specifies in milliseconds how often Gatsby will ask WP what data has changed dur
   },
 },
 ```
+
+
 
 ### html.useGatsbyImage: true
 
@@ -306,6 +348,8 @@ this causes the source plugin to find/replace images in html
   },
 },
 ```
+
+
 
 ### html.imageMaxWidth: Boolean
 
@@ -322,6 +366,8 @@ those values will be used instead.
 },
 ```
 
+
+
 ### html.fallbackImageMaxWidth: Int
 
 if a max width can't be inferred from html this value will be passed to Sharp
@@ -337,6 +383,8 @@ if the image is smaller than this the images width will be used instead
 },
 ```
 
+
+
 ### html.imageQuality: Int
 
 ```js
@@ -347,6 +395,8 @@ if the image is smaller than this the images width will be used instead
   },
 },
 ```
+
+
 
 ## type: Object
 
@@ -359,6 +409,8 @@ if the image is smaller than this the images width will be used instead
 },
 ```
 
+
+
 ### type[TypeName].exclude: Boolean
 
 ```js
@@ -369,6 +421,8 @@ if the image is smaller than this the images width will be used instead
   },
 },
 ```
+
+
 
 ### type[TypeName].excludeFieldNames: Array
 
@@ -381,6 +435,8 @@ if the image is smaller than this the images width will be used instead
 },
 ```
 
+
+
 ### type.\_\_all: Object
 
 ```js
@@ -391,6 +447,8 @@ if the image is smaller than this the images width will be used instead
   },
 },
 ```
+
+
 
 ### type.RootQuery: Object
 
@@ -403,6 +461,8 @@ if the image is smaller than this the images width will be used instead
 },
 ```
 
+
+
 ### type.MediaItem.lazyNodes: Boolean
 
 ```js
@@ -413,6 +473,10 @@ if the image is smaller than this the images width will be used instead
   },
 },
 ```
+
+
+
+
 
 # Up Next :point_right:
 
