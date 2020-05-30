@@ -12,9 +12,9 @@ If you've had previous experience with Gatsby or you like to move fast, you can 
   - [WPGraphQL](https://github.com/wp-graphql/wp-graphql)
   - [WPGatsby](https://github.com/gatsbyjs/wp-gatsby)
 4. In the `gatsby-config.js` of the starter you just set up, update the plugin options for `gatsby-source-wordpress-experimental`. Change the `url` option so that it points to your WordPress instance GraphQL url. This should be the full url of your GraphQL endpoint. Eg `https://yoursite.com/graphql`
-5. Run `gatsby develop` and experience the magic
-6. Develop your beautiful and accessible app
-7. Build with [Gatsby Cloud](https://www.gatsbyjs.com/) & deploy to [Netlify](https://www.gatsbyjs.com/guides/netlify/) for a wonderful _and_ affordable CI/CD experience
+5. Run `gatsby develop` and experience the magic :star2:
+6. Develop your beautiful and accessible app :nail_care:
+7. Build with [Gatsby Cloud](https://www.gatsbyjs.com/) & deploy to [Netlify](https://www.gatsbyjs.com/guides/netlify/) for a fast, wonderful, _and_ affordable CI/CD experience :boom: :rocket:
 
 
 
