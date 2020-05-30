@@ -49,7 +49,7 @@ const defaultPluginOptions = {
     imageMaxWidth: null,
     // if a max width can't be inferred from html, this value will be passed to Sharp
     // if the image is smaller than this, the images width will be used instead
-    fallbackImageMaxWidth: 100,
+    fallbackImageMaxWidth: 100, // @todo this value is too low of a default
     imageQuality: 90,
   },
   type: {
