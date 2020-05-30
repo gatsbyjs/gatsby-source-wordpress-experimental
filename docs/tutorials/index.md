@@ -9,7 +9,7 @@
 
 # Up Next :point_right:
 
-- :feet: [Notable features](../features/index.md)
+- :feet: [Features](../features/index.md)
 - :electric_plug: [Plugin options](../plugin-options.md)
 - :boat: [Migrating from other WP source plugins](../migrating-from-other-wp-source-plugins.md)
 - :house: [Hosting](../hosting.md)

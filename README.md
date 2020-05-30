@@ -45,7 +45,7 @@ Developer & Content Creator experience are some of our main focuses with this in
 - :woman_singer:  [Why use this plugin?](./docs/why-use-this-plugin.md) 
 - :runner: [Installation & Getting started](./docs/getting-started.md)
 - :school: [Tutorials](./docs/tutorials/index.md)
-- :feet: [Notable features](./docs/features.md)
+- :feet: [Features](./docs/features/index.md)
 - :electric_plug: [Plugin options](./docs/plugin-options.md)
 - :boat: [Migrating from other WP source plugins](./docs/migrating-from-other-wp-source-plugins.md)
 - :house: [Hosting](./docs/hosting.md)

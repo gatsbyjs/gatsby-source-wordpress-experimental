@@ -22,7 +22,7 @@ All of the above points are fixed by using this plugin and WPGraphQL :smile_cat:
 
 - :runner: [Installation & Getting started](./getting-started.md)
 - :school: [Tutorials](./tutorials/index.md)
-- :feet: [Notable features](./features/index.md)
+- :feet: [Features](./features/index.md)
 - :electric_plug: [Plugin options](./plugin-options.md)
 - :boat: [Migrating from other WP source plugins](./migrating-from-other-wp-source-plugins.md)
 - :house: [Hosting](./hosting.md)
