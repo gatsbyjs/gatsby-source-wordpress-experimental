@@ -1,6 +1,6 @@
-### Problems with Gatsby Source WordPress v3
+# Problems with Gatsby Source WordPress v3 :broken_heart:
 
-V3, the last major version of this plugin, utilized the [WP REST API](https://developer.wordpress.org/rest-api/) for sourcing WP data into Gatsby. This worked but was problematic for a few reasons.
+`gatsby-source-wordpress@v3`, the last major version of this plugin, utilized the [WP REST API](https://developer.wordpress.org/rest-api/) for sourcing WP data into Gatsby. This worked but was problematic for a few reasons.
 
 - The inflexibility and lack of an enforced schema for this API made proper node caching technically possible but functionally impossible.
 - The REST API is largely untyped, and REST does not enforce typing even if it was.
@@ -14,11 +14,11 @@ V3, the last major version of this plugin, utilized the [WP REST API](https://de
 
 
 
-All of the above points are fixed by using this plugin!
+All of the above points are fixed by using this plugin and WPGraphQL :smile_cat:
 
 
 
-## Up Next :point_right:
+# Up Next :point_right:
 
 - :runner: [Installation & Getting started](./getting-started.md)
 - :school: [Tutorials](./tutorials/index.md)
