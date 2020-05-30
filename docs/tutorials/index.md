@@ -1,6 +1,9 @@
 # Tutorials
 
 1. [Building a new app/site with WordPress and gatsby](./creating-an-app-or-site.md)
+2. @todo Configuring WPGatsby
+3. @todo Setting up Previews on Gatsby Cloud
+4. @todo Setting up Previews on your own computer for debugging
 
 
 
