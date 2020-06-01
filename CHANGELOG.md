@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.7.8
+
+### Bug Fixes
+
+- In some instances, using the `MediaItem.lazyNodes` option in combination with `html.useGatsbyImage` would cause build errors.
+
 ## 0.7.7
 
 ### Bug Fixes
