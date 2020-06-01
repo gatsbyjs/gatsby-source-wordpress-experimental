@@ -5,7 +5,7 @@
 3. :eyes: [Preview](./preview.md)
 4. :spider_web: [Schema Merging](./schema-merging.md)
 5. :camera: [Media Item processing](./media-item-processing.md)
-6. :computer: [HTML Processing](./html-processing.md)
+6. :computer: [HTML Processing (gatsby-image & gatsby-link)](./html-processing.md)
 7. :100: [Limit nodes during development](./limit-nodes-during-development.md)
 8. :ballot_box: [Caching](./caching.md)
 
