@@ -518,7 +518,7 @@ const processNode = async ({
   // we use this to download only the media items
   // that are being used in posts
   // this is important for downloading images nodes that are connected somewhere
-  // in the simport { formatLogMessage } from '~/utils/format-log-message';
+  // on a node field
   const nodeMediaItemIdReferences = findReferencedImageNodeIds({
     nodeString,
     pluginOptions,
