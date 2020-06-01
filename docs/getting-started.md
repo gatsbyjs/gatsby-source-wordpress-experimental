@@ -18,6 +18,12 @@ If you've had previous experience with Gatsby or you like to move fast, you can 
 
 
 
+### Hot tip
+
+For a fast, easy, and reliable WordPress local dev server, use [Local by Flywheel](https://localwp.com/). This will save you time setting up WordPress on your computer and you can easily push and pull to and from WPEngine and Flywheel hosting!
+
+
+
 ## Required Dependencies
 
 
