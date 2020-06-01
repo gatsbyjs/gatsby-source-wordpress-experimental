@@ -1,8 +1,8 @@
 # Why use Gatsby instead of WordPress PHP templates?
 
-Well for starters you can keep using WordPress as the fantastic CMS it is, and use React and modern tooling for your front-end!
+For starters you can keep using WordPress as the fantastic CMS it is, and use React and modern tooling for your front-end!
 
-Some of the highlights are
+Some highlights:
 
 - Increased security and performance due to the static rendering of Gatsby
 - A componentized architecture for your front-end code with React (better maintainability)
