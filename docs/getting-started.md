@@ -24,7 +24,9 @@ For a fast, easy, and reliable WordPress local dev server, use [Local by Flywhee
 
 
 
-## Required Dependencies
+## Required WordPress Dependencies
+
+In addition to WordPress, there are 2 other required plugins on the PHP side of things. If you're on the latest version of the source plugin and these plugins, everything will work great. If there is a version mismatch, you'll be notified and provided a download link for the correct versions in your terminal via our [compatibility API](./features/compatibility-api.md) when you run a build  :smile:
 
 
 
@@ -43,6 +45,16 @@ This plugin turns your WordPress instance into a GraphQL server.
 This plugin modifies the WPGraphQL schema in Gatsby-specific ways and also keeps a record of when user actions happened. This allows us to do selective cache invalidation in Gatsby (to speed up builds) and add Preview support.
 
 - [Source code](https://github.com/gatsbyjs/wp-gatsby)
+
+
+
+### WordPress
+
+Please note that we only officially support the latest version of WordPress. However, WordPress is great at keeping backwards compatibility and older versions may work.
+
+- [Source code](https://wordpress.org/download/source/)
+- [Docs](https://codex.wordpress.org/)
+- [Website](https://wordpress.org)
 
 
 
