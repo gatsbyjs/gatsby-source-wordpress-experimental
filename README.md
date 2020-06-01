@@ -28,15 +28,15 @@
 
 # gatsby-source-wordpress@v4 BETA
 
-This plugin is the official recommended way to use WordPress with Gatsby. We're currently publishing on a separate package to make migrating from `gatsby-source-wordpress@v3` easier. This allows you to activate the new version of the integration alongside `gatsby-source-wordpress` and migrate your codebase one piece at a time if you're coming from `v3` :star:
+This plugin is the official recommended way to use WordPress with Gatsby. We're currently publishing on a separate package to make migrating from `gatsby-source-wordpress@v3` easier. If you're coming from `v3`  ​this allows you to activate the new version of the plugin alongside `gatsby-source-wordpress` and migrate your codebase one piece at a time :star:
 
 
 
 ## Overview :sun_with_face:
 
-This plugin works by merging the [WPGraphQL schema & data](https://docs.wpgraphql.com/guides/about-wpgraphql/) with the [Gatsby schema & Node model](https://www.gatsbyjs.org/docs/node-model/) which allows us to efficiently cache WP data in Gatsby. What this means is that incremental builds, fast builds, and previews work beautifully! :rocket: :nail_care:
+This plugin works by merging the [WPGraphQL schema & data](https://docs.wpgraphql.com/guides/about-wpgraphql/) with the [Gatsby schema & Node model](https://www.gatsbyjs.org/docs/node-model/) which allows us to efficiently cache WP data in Gatsby. What this means is that incremental builds, fast builds, and previews work beautifully!  :nail_care:
 
-Developer & Content Creator experience are some of our main focuses with this integration. Please send us your feedback! :eyes: :mag_right: :pencil2: :page_facing_up:
+Developer & Content Creator experience are some of our main focuses with this integration. Please send us your feedback! :gear: :mag_right: :eyes: :point_right: :pencil2: :page_facing_up: 
 
 
 
