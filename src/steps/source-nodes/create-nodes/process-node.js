@@ -521,7 +521,7 @@ const processNode = async ({
   })
 
   // push them to our store of referenced id's
-  if (nodeMediaItemIdReferences.length && referencedMediaItemNodeIds) {
+  if (nodeMediaItemIdReferences?.length && referencedMediaItemNodeIds) {
     nodeMediaItemIdReferences.forEach((id) =>
       referencedMediaItemNodeIds.add(id)
     )
