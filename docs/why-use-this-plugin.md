@@ -1,4 +1,11 @@
-# Why use Gatsby instead of WordPress PHP templates?
+# Why use this plugin?
+
+- [Instead of WordPress PHP templates](#why-use-gatsby-instead-of-wordpress-php-templates)
+- [Instead of other WordPress source plugins](#why-use-this-plugin-instead-of-x-source-plugin)
+
+
+
+## Why use Gatsby instead of WordPress PHP templates?
 
 For starters you can keep using WordPress as the fantastic CMS it is, and use React and modern tooling for your front-end!
 
