@@ -1,10 +1,10 @@
 # Incremental Builds
 
-"Incremental builds" means that only changed data is pulled and only pages using that data are rebuilt when content changes in WordPress.
+"Incremental builds" means that only changed data is pulled from WordPress and only pages using that data are rebuilt when content changes in WordPress.
 
 When you're using [Gatsby Cloud](https://www.gatsbyjs.com/), inc-builds will work by default! :zap:
 
-There are no other other services which can provide incremental builds, wether they claim to or not. If your "inc-builds" take longer than a minute, consider switching to [Gatsby Cloud](https://www.gatsbyjs.com/) :smile_cat:
+There are no other other services which can provide true incremental builds wether they claim they can or not. If your "inc-builds" take longer than a minute, consider switching to [Gatsby Cloud](https://www.gatsbyjs.com/) :smile_cat:
 
 You can expect proper inc-build times to be between 4 - 12 seconds depending on your setup.
 
