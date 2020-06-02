@@ -1,4 +1,4 @@
-# Fast Builds
+# Fast Builds :running_woman:
 
 Due to our [WPGatsby](https://github.com/gatsbyjs/wp-gatsby) WordPress plugin, we can do very aggressive caching. This means that even without [incremental builds](./incremental-builds.md) your build times will be mighty fast!
 
