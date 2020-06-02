@@ -1,7 +1,7 @@
 # Features
 
-1. :zap: [Fast Builds](./fast-builds.md)
-2. :triangular_ruler: [Incremental Builds](./incremental-builds.md)
+1.  :running_woman: [Fast Builds](./fast-builds.md) 
+2. :zap: [Incremental Builds](./incremental-builds.md)
 3. :eyes: [Preview](./preview.md)
 4. :spider_web: [Schema Merging](./schema-merging.md)
 5. :camera: [Media Item processing](./media-item-processing.md)
