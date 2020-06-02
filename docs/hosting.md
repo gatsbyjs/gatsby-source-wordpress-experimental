@@ -1,4 +1,12 @@
-# Hosting
+# Hosting WordPress :house:
+
+Any mid-to-high performance WordPress host should work great. You may also have success on low performance WordPress hosts for smaller sites, but a better server is recommended.
+
+A great Gatsby/WordPress workflow is to use [Local by Flywheel](https://localwp.com/) for hosting your local WordPress server, and pushing/pulling from there to Flywheel or WPEngine hosting for your live/staging WordPress servers.
+
+If you have a very large site (with a lot of images), you may need to ask your hosting provider to remove IP rate limiting for your IP addresses.
+
+If your server becomes overwhelmed by the number of requests being made from Gatsby to WP during an uncached build, your build may fail. You can fix this by lowering the `GATSBY_CONCURRENT_DOWNLOAD` env var. It is set to 200 by default and a good server can handle this. Some servers may require this to be set as low as 5 or 10. Try a few different settings to determine how many concurrent requests your server can handle. The higher this number can be set, the faster your uncached builds will become.
 
 
 
