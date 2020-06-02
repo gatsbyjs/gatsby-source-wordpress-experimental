@@ -16,5 +16,11 @@ You can find our tutorial on setting up WPGatsby [here](../tutorials/configuring
 
 
 
+## Will it Build
+
+See [Willit.build](https://willit.build/details/type/blog/source/wordpress/page-count/8192) for historical incremental, cached, and uncached build time benchmarking data! We have test data ranging from 512 pages to 8192 pages (and counting).
+
+
+
 :point_left: [Back to Features](./index.md)
 
