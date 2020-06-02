@@ -1,4 +1,4 @@
-# Incremental Builds
+# Incremental Builds :triangular_ruler:
 
 "Incremental builds" means that only changed data is pulled from WordPress and only pages using that data are rebuilt when content changes in WordPress.
 
