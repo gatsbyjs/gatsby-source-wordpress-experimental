@@ -42,7 +42,7 @@ Developer & Content Creator experience are some of our main focuses with this in
 
 # Docs :book:
 
-- :woman_singer:  [Why use this plugin?](./docs/why-use-this-plugin.md) 
+- :woman_singer:  [Why use this plugin?](./docs/why-use-this-plugin.md)
 - :runner: [Installation & Getting started](./docs/getting-started.md)
 - :school: [Tutorials](./docs/tutorials/index.md)
 - :feet: [Features](./docs/features/index.md)
@@ -51,7 +51,6 @@ Developer & Content Creator experience are some of our main focuses with this in
 - :house: [Hosting WordPress](./docs/hosting.md)
 - :athletic_shoe: [Themes, Starters, and Examples](./docs/themes-starters-examples.md)
 -  :medal_sports: [Usage with popular WPGraphQL extensions](./docs/usage-with-popular-wp-graphql-extensions.md)
-- :gear: [How does this plugin work?](./docs/how-does-this-plugin-work.md)
 - :hammer_and_wrench: [Debugging and troubleshooting](./docs/debugging-and-troubleshooting.md)
 - :national_park: [Community and Support](./docs/community-and-support.md)
 
