@@ -1,6 +1,6 @@
 # Limit nodes during development
 
-For very large sites it may take quite a while to start `gatsby develop` when you start working on a project. To mitigate this annoyance, we've added a plugin option to limit the number of nodes that can be pulled on any type.
+For very large sites it may take quite a while to start `gatsby develop` when you start working on a project. To mitigate this annoyance, we've added a plugin option to limit the number of nodes that will be pulled on any type.
 
 
 
@@ -22,7 +22,7 @@ module.exports = {
             limit:
               process.env.NODE_ENV === `development`
                 ? // Lets just pull 50 posts in development to make it easy on ourselves.
-                  35
+                  50
                 : // And all posts in production
                   null,
           },
