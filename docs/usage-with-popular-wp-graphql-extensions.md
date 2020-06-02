@@ -1,5 +1,29 @@
 # Usage with popular WPGraphQL extensions
 
+An ideal for this source plugin is for any WPGraphQL extension to become a Gatsby plugin. In practise we haven't yet had time to thoroughly test that all extensions work.
+
+Below is a list of "Confirmed" and "Unconfirmed" extensions. 
+
+Confirmed simply means we've installed it and tried sourcing the data and it worked! All of the confirmed extensions are being used in this source plugin in production sites. The unconfirmed extensions simply haven't been fully tested and may or may not work.
+
+If you find a bug when using an extension please open an issue and let us know.
+
+
+
+## Confirmed Extensions
+
+- [WPGraphQL for Advanced Custom Fields](https://www.wpgraphql.com/acf/)
+- [WPGraphQL Gutenberg](https://wp-graphql-gutenberg.netlify.app/)
+- [WPGraphQL Yoast SEO](https://github.com/ashhitch/wp-graphql-yoast-seo)
+- [WPGraphQL Polylang](https://github.com/valu-digital/wp-graphql-polylang)
+- Add yours to this list!
+
+
+
+## Unconfirmed Extensions (might still work)
+
+- [WPGraphQL WooCommerce](https://woographql.com/)
+
 
 
 # Up Next :point_right:
