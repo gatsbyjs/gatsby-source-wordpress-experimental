@@ -1,4 +1,4 @@
-## Creating a new Gatsby/WordPress site
+## Creating a new site from scratch
 
 
 
@@ -79,6 +79,8 @@ module.exports = {
 }
 ```
 
+
+
 ### Creating GraphQL queries that pull data from WordPress
 
 Now you are ready to create a GraphQL query to pull in some data from the WordPress site. You will create a query that pulls in the title of the blog posts, date they were posted, and blogpost content.
@@ -124,6 +126,8 @@ This next query will pull in a sorted list of the blog posts:
     }
 }
 ```
+
+
 
 ## Rendering the blog posts to `index.js`
 
@@ -290,9 +294,7 @@ exports.createPages = ({ graphql, actions }) => {
 }
 ```
 
-You will need to stop and start your environment again using `gatsby develop`. When you do, you will not see a change on the index page of the site, but if you navigate to a 404 page, like `http://localhost:8000/asdf`, you should see the two sample posts created and be able to click on them to go to the sample posts:
-
-![Sample post links](./images/wordpress-source-plugin-sample-post-links.gif)
+You will need to stop and start your environment again using `gatsby develop`. When you do, you will not see a change on the index page of the site, but if you navigate to a 404 page, like `http://localhost:8000/asdf`, you should see the two sample posts created and be able to click on them to go to the sample posts.
 
 But nobody likes to go to a 404 page to find a blog post! So, let's link these up from the home page.
 
