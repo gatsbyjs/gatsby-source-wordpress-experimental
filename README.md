@@ -48,7 +48,7 @@ Developer & Content Creator experience are some of our main focuses with this in
 - :feet: [Features](./docs/features/index.md)
 - :electric_plug: [Plugin options](./docs/plugin-options.md)
 - :boat: [Migrating from other WP source plugins](./docs/migrating-from-other-wp-source-plugins.md)
-- :house: [Hosting](./docs/hosting.md)
+- :house: [Hosting WordPress](./docs/hosting.md)
 - :athletic_shoe: [Themes, Starters, and Examples](./docs/themes-starters-examples.md)
 -  :medal_sports: [Usage with popular WPGraphQL extensions](./docs/usage-with-popular-wp-graphql-extensions.md)
 - :gear: [How does this plugin work?](./docs/how-does-this-plugin-work.md)
