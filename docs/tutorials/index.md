@@ -1,10 +1,11 @@
 # Tutorials
 
-1. [Building a new site with WordPress and gatsby](./building-a-new-site-wordpress-and-gatsby.md)
-2. [Configuring WPGatsby for Fast/Incremental Builds, and Preview](./configuring-wp-gatsby.md)
-3. @todo Querying data
-4. @todo Working with Menus
-5. @todo Working with large WordPress sites
+1. @todo Building a new site using a starter
+2. [Creating a new site from scratch](./building-a-new-site-wordpress-and-gatsby.md)
+3. [Configuring WPGatsby for Fast/Incremental Builds, and Preview](./configuring-wp-gatsby.md)
+4. @todo Querying data
+5. @todo Working with Menus
+6. @todo Working with large WordPress sites
 
 
 
