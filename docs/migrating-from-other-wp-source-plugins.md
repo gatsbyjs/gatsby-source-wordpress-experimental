@@ -10,7 +10,7 @@ From what we've seen migrating is a fairly painless process as the GraphQL schem
 
 Any node list queries such as `allWordpressPage { nodes { title } }` will need to be updated to match the new WordPress types in the Gatsby schema. The new pattern for type names is `Wp` and then the capitalized type such as `Page`. So to replace the node list query above, you would write `allWpPage { nodes { title } }`.
 
-Since `v3` used the WP REST API, and `v4` uses WPGraphQL, the data shape and available fields for each type will vary. For example `featured_image` in `v3` becomes `featuredImage` in `v4`. Many of the core WordPress data fields remain the same, but if you're using any custom data, or fields added by extensions to access additional data (like ACF fields), you will need to use Graphiql to determine what the new data shape will be. If you find you're missing data, you may need to install a [WPGraphQL extension](https://docs.wpgraphql.com/extensions/wpgraphql-advanced-custom-fields/) to add that data to the schema. In most cases you will find that you have access to more data than before! But commonly, the [WPGraphQL ACF extension](https://docs.wpgraphql.com/extensions/wpgraphql-advanced-custom-fields/) will need to be installed.
+Since `v3` used the WP REST API and `v4` uses WPGraphQL, the data shape and available fields for each type will vary. For example `featured_image` in `v3` becomes `featuredImage` in `v4`. Many of the core WordPress data fields remain the same, but if you're using any custom data, or fields added by extensions to access additional data (like ACF fields), you will need to use Graphiql to determine what the new data shape will be. If you find you're missing data, you may need to install a [WPGraphQL extension](https://docs.wpgraphql.com/extensions/wpgraphql-advanced-custom-fields/) to add that data to the schema. In most cases you will find that you have access to more data than before! But commonly, the [WPGraphQL ACF extension](https://docs.wpgraphql.com/extensions/wpgraphql-advanced-custom-fields/) will need to be installed.
 
 If you have any custom code which you've added to make connections between nodes work in `v3`, you will get to delete that code (yay!) because WPGraphQL has excellent support built in for connection fields between nodes (for example `Page.author` or `User.pages`).
 
@@ -20,7 +20,7 @@ If you have any custom code which you've added to make connections between nodes
 
 You're in luck! :four_leaf_clover: This will likely be a very easy migration!
 
-`gatsby-source-graphql` does a similar thing to what this plugin does, but it's lacking the ability to cache WPGraphQL data in Gatsby. What that means is your GraphQL queries will be nearly identical.
+`gatsby-source-graphql` works in a very similar way to this plugin. What that means is your GraphQL queries will be nearly identical.
 
 You will need to remove the `wp` root field which wraps around your `gatsby-source-graphql` queries. You will also need to modify the names of fields you're querying to get access to WordPress nodes.
 
@@ -56,7 +56,7 @@ So your query would change to look like this:
 
 ### `gatsby-source-graphql` and inline fragments
 
-Any inline fragments will need to be updated as the names of types have changed. Use Gatsby's [Graphiql](https://www.gatsbyjs.org/docs/running-queries-with-graphiql/) at `http://localhost:8000/___graphiql` with `gatsby develop` running to determine how your inline fragment typenames should be modified.
+Any inline fragments will need to be updated since type names have changed. Use Gatsby's [Graphiql](https://www.gatsbyjs.org/docs/running-queries-with-graphiql/) at `http://localhost:8000/___graphiql` with `gatsby develop` running to determine how your inline fragment typenames should be modified.
 
 
 
