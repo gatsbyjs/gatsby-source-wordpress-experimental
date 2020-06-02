@@ -10,5 +10,11 @@ Any CI/CD service will work to build your Gatsby site but [Gatsby Cloud](https:/
 
 
 
+## Setting up Fast Builds
+
+You can find our tutorial on setting up WPGatsby [here](../tutorials/configuring-wp-gatsby.md#setting-up-preview). Part-way down the page there are instructions you can follow on setting up Builds. If you're using Gatsby Cloud, setting up your Builds webhook will automatically enable Fast Builds after your first successful uncached build has completed. If you're using other CI providers than Gatsby Cloud, you will need to enable a caching mechanism to persist the Gatsby `.cache` and `public` directories between builds.
+
+
+
 :point_left: [Back to Features](./index.md)
 
