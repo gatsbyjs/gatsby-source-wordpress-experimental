@@ -1,49 +1,36 @@
 # Plugin Options
 
 - [url](#url-string)
-
 - [verbose](#verbose-boolean)
-
 - [debug](#debug-object)
 - [debug.graphql](#debug.graphql-object)
     - [debug.graphql.showQueryVarsOnError](#debug.graphql.showqueryvarsonerror-boolean)
     - [debug.graphql.panicOnError](#debug.graphql.paniconerror-boolean)
     - [debug.graphql.onlyReportCriticalErrors](#debug.graphql.onlyreportcriticalerrors-boolean)
     - [debug.graphql.writeQueriesToDisk](#debug.graphql.writequeriestodisk-boolean)
-  
 - [develop](#develop-object)
 - [develop.nodeUpdateInterval](#develop.nodeupdateinterval-int)
   - [develop.hardCacheMediaFiles](#develop.hardcachemediafiles-boolean)
-  
 - [auth](#auth-object)
 - [auth.htaccess](#auth.htaccess-object)
     - [auth.htaccess.username](#auth.htaccess.username-string)
     - [auth.htaccess.password](#auth.htaccess.password-string)
-  
 - [schema](#schema-object)
 - [schema.typePrefix](#schema.typeprefix-string)
   - [schema.timeout](#schema.timeout-int)
   - [schema.perPage](#schema.perpage-int)
-  
 - [excludeFieldNames](#excludefieldnames-array)
-
 - [html](#html-object)
 - [html.useGatsbyImage](#html.usegatsbyimage-boolean)
   - [html.imageMaxWidth](#html.imagemaxwidth-int)
   - [html.fallbackImageMaxWidth](#html.fallbackimagemaxwidth-int)
   - [html.imageQuality](#html.imagequality-int)
-  
 - [type](#type-object)
 - [type[TypeName].exclude](#typetypename.exclude-boolean)
-  
 - [type[TypeName].excludeFieldNames](#typetypename.excludefieldnames-array)
-  
 - [type.\_\_all](#type.__all-object)
-  
 - [type.RootQuery](#type.rootquery-object)
-  
 - [type.MediaItem.lazyNodes](#type.mediaitem.lazynodes-boolean)
-
 
 
 ## url: String
