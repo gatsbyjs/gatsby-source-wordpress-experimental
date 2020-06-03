@@ -61,15 +61,10 @@ Developer & Content Creator experience are some of our main focuses with this in
 ## Relevant Links :link:
 
 - [Changelog](./CHANGELOG.md)
-
 - [License](./LICENSE)
-
 - [WPGatsby](https://github.com/gatsbyjs/wp-gatsby)
-
 - [WPGraphQL](https://github.com/wp-graphql/wp-graphql)
-
 - [Gatsby](https://www.gatsbyjs.org/)
-
 - [WordPress](https://wordpress.org/)
 
   
