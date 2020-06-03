@@ -42,7 +42,6 @@ Before `gatsby-source-wordpress-experimental` (soon to be `gatsby-source-wordpre
 Both of these worked but each had it's own pitfalls and problems.
 
 - [Problems with gatsby-source-wordpress@v3](./problems-with-v3.md)
-
 - [Problems with gatsby-source-graphql](./problems-with-gatsby-source-graphql.md)
 
 
