@@ -28,7 +28,7 @@
 </p>
 
 
-# gatsby-source-wordpress@v4 BETA
+# gatsby-source-wordpress@v4 ALPHA
 
 This plugin is the official recommended way to use WordPress with Gatsby. We're currently publishing on a separate package to make migrating from `gatsby-source-wordpress@v3` easier. If you're coming from `v3`  ​this allows you to activate the new version of the plugin alongside `gatsby-source-wordpress` and migrate your codebase one piece at a time :star:
 
