@@ -232,7 +232,7 @@ const handleFetchErrors = async ({
   if (forbidden) {
     reporter.panic(
       formatLogMessage(
-        `${e.message}\n\nThe GraphQL request was forbidden.\nIf you are using a security plugin like WordFence or a server firewall you may need to whitelist your IP address or adjust your firewall settings for your GraphQL endpoint.`
+        `${e.message}\n\nThe GraphQL request was forbidden.\nIf you are using a security plugin like WordFence or a server firewall you may need to whitelist your IP address or adjust your firewall settings for your GraphQL endpoint.\n\n${errorContext}`
       )
     )
   }
