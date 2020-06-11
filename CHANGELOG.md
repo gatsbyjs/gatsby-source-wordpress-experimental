@@ -1,5 +1,11 @@
 # Change Log
 
+## Upcoming
+
+### New Features
+
+- Added a clearer error message about firewalls and firewall plugins when 403 errors are returned when making GraphQL requests.
+
 ## 0.7.8
 
 ### Bug Fixes
