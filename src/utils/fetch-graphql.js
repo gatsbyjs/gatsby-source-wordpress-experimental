@@ -227,6 +227,16 @@ const handleFetchErrors = async ({
     )
   }
 
+  const forbidden = e.message.includes(`Request failed with status code 403`)
+
+  if (forbidden) {
+    reporter.panic(
+      formatLogMessage(
+        `${e.message}\n\nThe GraphQL request was forbidden.\nIf you are using a security plugin like WordFence or a server firewall you may need to whitelist your IP address or adjust your firewall settings for your GraphQL endpoint.\n\n${errorContext}`
+      )
+    )
+  }
+
   if (response?.headers[`content-type`].includes(`text/html;`)) {
     reporter.panic(
       formatLogMessage(

@@ -1,10 +1,6 @@
-
-
 <div align="center" style="margin-bottom: 20px;">
 <img src="docs/assets/gatsby-wapuus.png" alt="Wapuu hugging a ball with the Gatsby logo on it" />
 </div>
-
-
 
 <p align="center">
   <a href="https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/LICENSE">
@@ -27,24 +23,19 @@
   </a>
 </p>
 
-
 # gatsby-source-wordpress@v4 ALPHA
 
-This plugin is the official recommended way to use WordPress with Gatsby. We're currently publishing on a separate package to make migrating from `gatsby-source-wordpress@v3` easier. If you're coming from `v3`  ​this allows you to activate the new version of the plugin alongside `gatsby-source-wordpress` and migrate your codebase one piece at a time :star:
-
-
+This plugin is the official recommended way to use WordPress with Gatsby. We're currently publishing on a separate package to make migrating from `gatsby-source-wordpress@v3` easier. If you're coming from `v3` ​this allows you to activate the new version of the plugin alongside `gatsby-source-wordpress` and migrate your codebase one piece at a time :star:
 
 ## Overview :sun_with_face:
 
-This plugin works by merging the [WPGraphQL schema & data](https://docs.wpgraphql.com/guides/about-wpgraphql/) with the [Gatsby schema & Node model](https://www.gatsbyjs.org/docs/node-model/) which allows us to efficiently cache WP data in Gatsby. What this means is that incremental builds, fast builds, and previews work beautifully!  :nail_care:
+This plugin works by merging the [WPGraphQL schema & data](https://docs.wpgraphql.com/guides/about-wpgraphql/) with the [Gatsby schema & Node model](https://www.gatsbyjs.org/docs/node-model/) which allows us to efficiently cache WP data in Gatsby. What this means is that incremental builds, fast builds, and previews work beautifully! :nail_care:
 
-Developer & Content Creator experience are some of our main focuses with this integration. Please send us your feedback! :gear: :mag_right: :eyes: :point_right: :pencil2: :page_facing_up: 
-
-
+Developer & Content Creator experience are some of our main focuses with this integration. Please send us your feedback! :gear: :mag_right: :eyes: :point_right: :pencil2: :page_facing_up:
 
 # Docs :book:
 
-- :woman_singer:  [Why use this plugin?](./docs/why-use-this-plugin.md)
+- :woman_singer: [Why use this plugin?](./docs/why-use-this-plugin.md)
 - :runner: [Installation & Getting started](./docs/getting-started.md)
 - :school: [Tutorials](./docs/tutorials/index.md)
 - :feet: [Features](./docs/features/index.md)
@@ -52,11 +43,9 @@ Developer & Content Creator experience are some of our main focuses with this in
 - :boat: [Migrating from other WP source plugins](./docs/migrating-from-other-wp-source-plugins.md)
 - :house: [Hosting WordPress](./docs/hosting.md)
 - :athletic_shoe: [Themes, Starters, and Examples](./docs/themes-starters-examples.md)
--  :medal_sports: [Usage with popular WPGraphQL extensions](./docs/usage-with-popular-wp-graphql-extensions.md)
+- :medal_sports: [Usage with popular WPGraphQL extensions](./docs/usage-with-popular-wp-graphql-extensions.md)
 - :hammer_and_wrench: [Debugging and troubleshooting](./docs/debugging-and-troubleshooting.md)
 - :national_park: [Community and Support](./docs/community-and-support.md)
-
-
 
 ## Relevant Links :link:
 
@@ -66,6 +55,3 @@ Developer & Content Creator experience are some of our main focuses with this in
 - [WPGraphQL](https://github.com/wp-graphql/wp-graphql)
 - [Gatsby](https://www.gatsbyjs.org/)
 - [WordPress](https://wordpress.org/)
-
-  
-
