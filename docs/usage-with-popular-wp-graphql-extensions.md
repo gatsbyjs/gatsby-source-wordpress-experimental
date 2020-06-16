@@ -16,7 +16,7 @@ If you find a bug when using an extension please open an issue and let us know.
 - [WPGraphQL Gutenberg](https://wp-graphql-gutenberg.netlify.app/)
 - [WPGraphQL Yoast SEO](https://github.com/ashhitch/wp-graphql-yoast-seo)
 - [WPGraphQL Polylang](https://github.com/valu-digital/wp-graphql-polylang)
-- Add yours to this list!
+- [Add yours to this list!](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/edit/master/docs/usage-with-popular-wp-graphql-extensions.md)
 
 
 
