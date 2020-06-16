@@ -31,7 +31,9 @@ This plugin is the official recommended way to use WordPress with Gatsby. We're 
 
 This plugin works by merging the [WPGraphQL schema & data](https://docs.wpgraphql.com/guides/about-wpgraphql/) with the [Gatsby schema & Node model](https://www.gatsbyjs.org/docs/node-model/) which allows us to efficiently cache WP data in Gatsby. What this means is that incremental builds, fast builds, and previews work beautifully! :nail_care:
 
-Developer & Content Creator experience are some of our main focuses with this integration. Please send us your feedback! :gear: :mag_right: :eyes: :point_right: :pencil2: :page_facing_up:
+Developer & Content Creator experience are some of our main focuses with this integration. Please send us your feedback!
+
+:gear: :mag_right: :eyes: :point_right: :pencil2: :page_facing_up:
 
 # Docs :book:
 
