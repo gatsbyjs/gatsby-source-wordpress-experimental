@@ -136,6 +136,9 @@ const defaultPluginOptions = {
     ContentNode: {
       nodeInterface: true,
     },
+    TermNode: {
+      nodeInterface: true,
+    },
     Category: {
       // @todo remove this when categories are a flat list in WPGQL
       beforeChangeNode: categoryBeforeChangeNode,
