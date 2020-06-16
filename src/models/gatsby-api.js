@@ -49,12 +49,14 @@ const defaultPluginOptions = {
     imageMaxWidth: null,
     // if a max width can't be inferred from html, this value will be passed to Sharp
     // if the image is smaller than this, the images width will be used instead
-    fallbackImageMaxWidth: 100,
+    fallbackImageMaxWidth: 100, // @todo this value is too low of a default
     imageQuality: 90,
   },
   type: {
     __all: {
-      dateFields: [`date`],
+      // @todo make dateFields into a plugin option?? It's not currently
+      // this may not be needed since WPGraphQL will be getting a Date type soon
+      // dateFields: [`date`],
     },
     RootQuery: {
       excludeFieldNames: [`viewer`, `node`, `schemaMd5`],
