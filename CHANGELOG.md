@@ -1,10 +1,14 @@
 # Change Log
 
-## Upcoming
+## 0.7.9
 
 ### New Features
 
 - Added a clearer error message about firewalls and firewall plugins when 403 errors are returned when making GraphQL requests.
+
+### Bug Fixes
+
+- The TermNode type was not being properly recognized as a Node Interface type. Because of this, terms were being double fetched and then nodes were being created twice. The second time the node was created it would be missing data because it was fetched on the term interface the second time. This release marks TermNode as a Node Interface similar to ContentNode, and that fixes this issue.
 
 ## 0.7.8
 
