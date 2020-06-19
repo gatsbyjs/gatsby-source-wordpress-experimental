@@ -66,6 +66,9 @@ const defaultPluginOptions = {
     GeneralSettings: {
       excludeFieldNames: [`email`],
     },
+    WpContentNodeToEditLockConnectionEdge: {
+      exclude: true,
+    },
     WPPageInfo: {
       exclude: true,
     },
