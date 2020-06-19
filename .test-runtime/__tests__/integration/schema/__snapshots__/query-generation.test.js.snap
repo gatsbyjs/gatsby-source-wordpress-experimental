@@ -11,12 +11,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         nodes {
           id
         }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
-        }
       }
       count
       databaseId
@@ -36,12 +30,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       posts(first: 100) {
         nodes {
           id
-        }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
         }
       }
       seo {
@@ -74,12 +62,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         nodes {
           id
         }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
-        }
       }
       termGroupId
       termTaxonomyId
@@ -108,12 +90,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     count
     databaseId
@@ -133,12 +109,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     posts(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     seo {
@@ -170,12 +140,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     teamMembers(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     termGroupId
@@ -200,12 +164,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     count
     databaseId
@@ -225,12 +183,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     posts(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     seo {
@@ -262,12 +214,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     teamMembers(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     termGroupId
@@ -304,12 +250,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       wpChildren: children(first: 100) {
         nodes {
           id
-        }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
         }
       }
       commentId
@@ -381,12 +321,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     commentId
     commentedOn {
@@ -452,12 +386,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     commentId
     commentedOn {
@@ -509,12 +437,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       connectedTaxonomies(first: 100) {
         nodes {
           id
-        }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
         }
       }
       deleteWithUser
@@ -584,12 +506,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     deleteWithUser
     description
@@ -652,12 +568,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     connectedTaxonomies(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     deleteWithUser
@@ -727,12 +637,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       comments(first: 100) {
         nodes {
           id
-        }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
         }
       }
       contentType {
@@ -896,12 +800,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     contentType {
       node {
@@ -1059,12 +957,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     contentType {
       node {
@@ -1220,12 +1112,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         nodes {
           id
         }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
-        }
       }
       name
       slug
@@ -1250,12 +1136,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     name
     slug
@@ -1275,12 +1155,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     name
     slug
@@ -1297,12 +1171,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       childItems(first: 100) {
         nodes {
           id
-        }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
         }
       }
       connectedObject {
@@ -1365,12 +1233,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     connectedObject {
       __typename
@@ -1426,12 +1288,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     childItems(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     connectedObject {
@@ -1519,23 +1375,11 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         nodes {
           id
         }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
-        }
       }
       commentStatus
       comments(first: 100) {
         nodes {
           id
-        }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
         }
       }
       content
@@ -1695,23 +1539,11 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     commentStatus
     comments(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     content
@@ -1866,23 +1698,11 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     commentStatus
     comments(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     content
@@ -2012,23 +1832,11 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         nodes {
           id
         }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
-        }
       }
       commentStatus
       comments(first: 100) {
         nodes {
           id
-        }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
         }
       }
       content
@@ -2063,14 +1871,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       modifiedGmt
       pingStatus
       pinged
-      postFormats {
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
-        }
-      }
       seo {
         focuskw
         metaDesc
@@ -2096,12 +1896,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       tags(first: 100) {
         nodes {
           id
-        }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
         }
       }
       template {
@@ -2154,23 +1948,11 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     commentStatus
     comments(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     content
@@ -2205,14 +1987,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     modifiedGmt
     pingStatus
     pinged
-    postFormats {
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
-    }
     seo {
       focuskw
       metaDesc
@@ -2238,12 +2012,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     tags(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     template {
@@ -2291,23 +2059,11 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     commentStatus
     comments(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     content
@@ -2342,14 +2098,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     modifiedGmt
     pingStatus
     pinged
-    postFormats {
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
-    }
     seo {
       focuskw
       metaDesc
@@ -2375,12 +2123,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     tags(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     template {
@@ -2743,12 +2485,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         nodes {
           id
         }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
-        }
       }
       seo {
         focuskw
@@ -2779,12 +2515,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       teamMembers(first: 100) {
         nodes {
           id
-        }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
         }
       }
       termGroupId
@@ -2823,12 +2553,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     seo {
       focuskw
@@ -2859,12 +2583,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     teamMembers(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     termGroupId
@@ -2898,12 +2616,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     seo {
       focuskw
@@ -2934,12 +2646,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     teamMembers(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     termGroupId
@@ -3089,23 +2795,11 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         nodes {
           id
         }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
-        }
       }
       commentStatus
       comments(first: 100) {
         nodes {
           id
-        }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
         }
       }
       content
@@ -3135,14 +2829,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       modifiedGmt
       pingStatus
       pinged
-      postFormats {
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
-        }
-      }
       seo {
         focuskw
         metaDesc
@@ -3168,12 +2854,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       tags(first: 100) {
         nodes {
           id
-        }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
         }
       }
       template {
@@ -3248,23 +2928,11 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     commentStatus
     comments(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     content
@@ -3294,14 +2962,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     modifiedGmt
     pingStatus
     pinged
-    postFormats {
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
-    }
     seo {
       focuskw
       metaDesc
@@ -3327,12 +2987,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     tags(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     template {
@@ -3402,23 +3056,11 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     commentStatus
     comments(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     content
@@ -3448,14 +3090,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     modifiedGmt
     pingStatus
     pinged
-    postFormats {
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
-    }
     seo {
       focuskw
       metaDesc
@@ -3481,12 +3115,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     tags(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     template {
@@ -4291,12 +3919,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         nodes {
           id
         }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
-        }
       }
       databaseId
       description
@@ -4311,12 +3933,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
           id
           sourceUrl
         }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
-        }
       }
       name
       nicename
@@ -4325,33 +3941,15 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         nodes {
           id
         }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
-        }
       }
       posts(first: 100) {
         nodes {
           id
         }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
-        }
       }
       projects(first: 100) {
         nodes {
           id
-        }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
         }
       }
       registeredDate
@@ -4360,44 +3958,20 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         nodes {
           id
         }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
-        }
       }
       translationFilterTests(first: 100) {
         nodes {
           id
-        }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
         }
       }
       typeLimit0Tests(first: 100) {
         nodes {
           id
         }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
-        }
       }
       typeLimitTests(first: 100) {
         nodes {
           id
-        }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
         }
       }
       uri
@@ -4436,12 +4010,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     databaseId
     description
@@ -4456,12 +4024,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         id
         sourceUrl
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     name
     nicename
@@ -4470,33 +4032,15 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     posts(first: 100) {
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     projects(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     registeredDate
@@ -4505,44 +4049,20 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     translationFilterTests(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     typeLimit0Tests(first: 100) {
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     typeLimitTests(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     uri
@@ -4576,12 +4096,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     databaseId
     description
@@ -4596,12 +4110,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         id
         sourceUrl
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     name
     nicename
@@ -4610,33 +4118,15 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     posts(first: 100) {
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     projects(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     registeredDate
@@ -4645,44 +4135,20 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     translationFilterTests(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     typeLimit0Tests(first: 100) {
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     typeLimitTests(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     uri

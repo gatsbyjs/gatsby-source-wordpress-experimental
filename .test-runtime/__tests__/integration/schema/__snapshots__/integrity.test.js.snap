@@ -28,10 +28,6 @@ Array [
   },
   Object {
     "fields": null,
-    "name": "WpWPPageInfoFilterInput",
-  },
-  Object {
-    "fields": null,
     "name": "WpUserToMediaItemConnectionFilterInput",
   },
   Object {
@@ -196,10 +192,6 @@ Array [
   },
   Object {
     "fields": null,
-    "name": "WpTeamMemberToPostFormatConnectionFilterInput",
-  },
-  Object {
-    "fields": null,
     "name": "WpTeamMemberToTagConnectionFilterInput",
   },
   Object {
@@ -229,10 +221,6 @@ Array [
   Object {
     "fields": null,
     "name": "WpPostToContentTypeConnectionFilterInput",
-  },
-  Object {
-    "fields": null,
-    "name": "WpPostToPostFormatConnectionFilterInput",
   },
   Object {
     "fields": null,
@@ -394,7 +382,6 @@ Array [
   Object {
     "fields": Array [
       "nodes",
-      "pageInfo",
     ],
     "name": "WpUserToCommentConnection",
   },
@@ -440,18 +427,8 @@ Array [
   Object {
     "fields": Array [
       "nodes",
-      "pageInfo",
     ],
     "name": "WpCommentToCommentConnection",
-  },
-  Object {
-    "fields": Array [
-      "endCursor",
-      "hasNextPage",
-      "hasPreviousPage",
-      "startCursor",
-    ],
-    "name": "WpWPPageInfo",
   },
   Object {
     "fields": null,
@@ -481,7 +458,6 @@ Array [
       "modifiedGmt",
       "pingStatus",
       "pinged",
-      "postFormats",
       "seo",
       "slug",
       "status",
@@ -590,7 +566,6 @@ Array [
   Object {
     "fields": Array [
       "nodes",
-      "pageInfo",
     ],
     "name": "WpMediaItemToCommentConnection",
   },
@@ -637,7 +612,6 @@ Array [
   Object {
     "fields": Array [
       "nodes",
-      "pageInfo",
     ],
     "name": "WpContentTypeToTaxonomyConnection",
   },
@@ -842,14 +816,12 @@ Array [
   Object {
     "fields": Array [
       "nodes",
-      "pageInfo",
     ],
     "name": "WpCategoryToCategoryConnection",
   },
   Object {
     "fields": Array [
       "nodes",
-      "pageInfo",
     ],
     "name": "WpCategoryToPostConnection",
   },
@@ -862,7 +834,6 @@ Array [
   Object {
     "fields": Array [
       "nodes",
-      "pageInfo",
     ],
     "name": "WpCategoryToTeamMemberConnection",
   },
@@ -891,7 +862,6 @@ Array [
       "modifiedGmt",
       "pingStatus",
       "pinged",
-      "postFormats",
       "seo",
       "slug",
       "status",
@@ -1006,14 +976,12 @@ Array [
   Object {
     "fields": Array [
       "nodes",
-      "pageInfo",
     ],
     "name": "WpTeamMemberToCategoryConnection",
   },
   Object {
     "fields": Array [
       "nodes",
-      "pageInfo",
     ],
     "name": "WpTeamMemberToCommentConnection",
   },
@@ -1025,14 +993,7 @@ Array [
   },
   Object {
     "fields": Array [
-      "pageInfo",
-    ],
-    "name": "WpTeamMemberToPostFormatConnection",
-  },
-  Object {
-    "fields": Array [
       "nodes",
-      "pageInfo",
     ],
     "name": "WpTeamMemberToTagConnection",
   },
@@ -1064,7 +1025,6 @@ Array [
   Object {
     "fields": Array [
       "nodes",
-      "pageInfo",
     ],
     "name": "WpTagToPostConnection",
   },
@@ -1077,21 +1037,18 @@ Array [
   Object {
     "fields": Array [
       "nodes",
-      "pageInfo",
     ],
     "name": "WpTagToTeamMemberConnection",
   },
   Object {
     "fields": Array [
       "nodes",
-      "pageInfo",
     ],
     "name": "WpPostToCategoryConnection",
   },
   Object {
     "fields": Array [
       "nodes",
-      "pageInfo",
     ],
     "name": "WpPostToCommentConnection",
   },
@@ -1103,14 +1060,7 @@ Array [
   },
   Object {
     "fields": Array [
-      "pageInfo",
-    ],
-    "name": "WpPostToPostFormatConnection",
-  },
-  Object {
-    "fields": Array [
       "nodes",
-      "pageInfo",
     ],
     "name": "WpPostToTagConnection",
   },
@@ -1197,14 +1147,12 @@ Array [
   Object {
     "fields": Array [
       "nodes",
-      "pageInfo",
     ],
     "name": "WpPageToPageConnection",
   },
   Object {
     "fields": Array [
       "nodes",
-      "pageInfo",
     ],
     "name": "WpPageToCommentConnection",
   },
@@ -1324,56 +1272,48 @@ Array [
   Object {
     "fields": Array [
       "nodes",
-      "pageInfo",
     ],
     "name": "WpUserToMediaItemConnection",
   },
   Object {
     "fields": Array [
       "nodes",
-      "pageInfo",
     ],
     "name": "WpUserToPageConnection",
   },
   Object {
     "fields": Array [
       "nodes",
-      "pageInfo",
     ],
     "name": "WpUserToPostConnection",
   },
   Object {
     "fields": Array [
       "nodes",
-      "pageInfo",
     ],
     "name": "WpUserToProjectConnection",
   },
   Object {
     "fields": Array [
       "nodes",
-      "pageInfo",
     ],
     "name": "WpUserToTeamMemberConnection",
   },
   Object {
     "fields": Array [
       "nodes",
-      "pageInfo",
     ],
     "name": "WpUserToTranslationFilterTestConnection",
   },
   Object {
     "fields": Array [
       "nodes",
-      "pageInfo",
     ],
     "name": "WpUserToTypeLimit0TestConnection",
   },
   Object {
     "fields": Array [
       "nodes",
-      "pageInfo",
     ],
     "name": "WpUserToTypeLimitTestConnection",
   },
@@ -2069,7 +2009,6 @@ Array [
   Object {
     "fields": Array [
       "nodes",
-      "pageInfo",
     ],
     "name": "WpMenuToMenuItemConnection",
   },
@@ -2096,7 +2035,6 @@ Array [
   Object {
     "fields": Array [
       "nodes",
-      "pageInfo",
     ],
     "name": "WpMenuItemToMenuItemConnection",
   },
@@ -2330,7 +2268,7 @@ Array [
 ]
 `;
 
-exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the local Gatsby schema 2`] = `"1f62e486febd671d8fe8868d36c2d88e"`;
+exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the local Gatsby schema 2`] = `"f14b3aa0f0b29f7ec2a4a2625fbc0555"`;
 
 exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the remote WPGraphQL schema 1`] = `
 Array [
