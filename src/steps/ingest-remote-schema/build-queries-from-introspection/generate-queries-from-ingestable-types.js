@@ -182,6 +182,7 @@ const generateNodeQueriesFromIngestibleFields = async () => {
       fields,
       fragments,
       parentType: type,
+      mainType: type,
     })
 
     // we need this for node interface types on the WPGQL side
