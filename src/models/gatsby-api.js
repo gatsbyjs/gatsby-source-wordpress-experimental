@@ -1,6 +1,7 @@
 import merge from "lodash/merge"
 import { createRemoteMediaItemNode } from "~/steps/source-nodes/create-nodes/create-remote-media-item-node"
 import { menuBeforeChangeNode } from "~/steps/source-nodes/before-change-node/menu"
+import { categoryBeforeChangeNode } from "~/steps/source-nodes/before-change-node/category"
 
 const defaultPluginOptions = {
   url: null,
@@ -146,7 +147,7 @@ const defaultPluginOptions = {
     },
     Category: {
       // @todo remove this when categories are a flat list in WPGQL
-      // beforeChangeNode: categoryBeforeChangeNode,
+      beforeChangeNode: categoryBeforeChangeNode,
     },
     Menu: {
       /**
