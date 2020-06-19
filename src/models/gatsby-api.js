@@ -67,6 +67,9 @@ const defaultPluginOptions = {
     GeneralSettings: {
       excludeFieldNames: [`email`],
     },
+    WPPageInfo: {
+      exclude: true,
+    },
     ActionMonitorAction: {
       exclude: true,
     },
