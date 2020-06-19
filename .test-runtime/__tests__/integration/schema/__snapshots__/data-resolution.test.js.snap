@@ -15,9 +15,9 @@ Object {
                 "childItems": Object {
                   "nodes": Array [],
                 },
+                "databaseId": 564,
                 "id": "bmF2X21lbnVfaXRlbTo1NjQ=",
                 "label": "Activity",
-                "menuItemId": 564,
                 "nodeType": "MenuItem",
                 "target": null,
                 "title": null,
@@ -38,24 +38,62 @@ Object {
                       "connectedObject": Object {
                         "__typename": "WpPost",
                         "featuredImage": Object {
-                          "title": "84-1000&#215;1000",
+                          "node": Object {
+                            "title": "84-1000×1000",
+                          },
                         },
                         "title": "Hello world!",
                         "uri": "/2020/02/25/hello-world/",
                       },
+                      "databaseId": 566,
                       "id": "bmF2X21lbnVfaXRlbTo1NjY=",
                       "label": "Hello world!",
-                      "menuItemId": 566,
                     },
                   ],
                 },
+                "databaseId": 565,
                 "id": "bmF2X21lbnVfaXRlbTo1NjU=",
                 "label": "Sample Page",
-                "menuItemId": 565,
                 "nodeType": "MenuItem",
                 "target": null,
                 "title": null,
                 "url": "/sample-page/",
+              },
+              Object {
+                "childItems": Object {
+                  "nodes": Array [
+                    Object {
+                      "childItems": Object {
+                        "nodes": Array [],
+                      },
+                      "connectedObject": Object {
+                        "__typename": "WpMenuItem",
+                      },
+                      "databaseId": 567,
+                      "id": "bmF2X21lbnVfaXRlbTo1Njc=",
+                      "label": "test custom link",
+                    },
+                  ],
+                },
+                "databaseId": 566,
+                "id": "bmF2X21lbnVfaXRlbTo1NjY=",
+                "label": "Hello world!",
+                "nodeType": "MenuItem",
+                "target": null,
+                "title": null,
+                "url": "/2020/02/25/hello-world/",
+              },
+              Object {
+                "childItems": Object {
+                  "nodes": Array [],
+                },
+                "databaseId": 567,
+                "id": "bmF2X21lbnVfaXRlbTo1Njc=",
+                "label": "test custom link",
+                "nodeType": "MenuItem",
+                "target": null,
+                "title": null,
+                "url": "https://google.com",
               },
             ],
           },
@@ -82,9 +120,9 @@ Object {
                 "childItems": Object {
                   "nodes": Array [],
                 },
+                "databaseId": 564,
                 "id": "bmF2X21lbnVfaXRlbTo1NjQ=",
                 "label": "Activity",
-                "menuItemId": 564,
                 "nodeType": "MenuItem",
                 "target": null,
                 "title": null,
@@ -105,24 +143,62 @@ Object {
                       "connectedObject": Object {
                         "__typename": "WpPost",
                         "featuredImage": Object {
-                          "title": "84-1000&#215;1000",
+                          "node": Object {
+                            "title": "84-1000×1000",
+                          },
                         },
                         "title": "Hello world! DELTA SYNC",
                         "uri": "/2020/02/25/hello-world/",
                       },
+                      "databaseId": 566,
                       "id": "bmF2X21lbnVfaXRlbTo1NjY=",
                       "label": "Hello world!",
-                      "menuItemId": 566,
                     },
                   ],
                 },
+                "databaseId": 565,
                 "id": "bmF2X21lbnVfaXRlbTo1NjU=",
                 "label": "Sample Page",
-                "menuItemId": 565,
                 "nodeType": "MenuItem",
                 "target": null,
                 "title": null,
                 "url": "/sample-page/",
+              },
+              Object {
+                "childItems": Object {
+                  "nodes": Array [
+                    Object {
+                      "childItems": Object {
+                        "nodes": Array [],
+                      },
+                      "connectedObject": Object {
+                        "__typename": "WpMenuItem",
+                      },
+                      "databaseId": 567,
+                      "id": "bmF2X21lbnVfaXRlbTo1Njc=",
+                      "label": "test custom link",
+                    },
+                  ],
+                },
+                "databaseId": 566,
+                "id": "bmF2X21lbnVfaXRlbTo1NjY=",
+                "label": "Hello world!",
+                "nodeType": "MenuItem",
+                "target": null,
+                "title": null,
+                "url": "/2020/02/25/hello-world/",
+              },
+              Object {
+                "childItems": Object {
+                  "nodes": Array [],
+                },
+                "databaseId": 567,
+                "id": "bmF2X21lbnVfaXRlbTo1Njc=",
+                "label": "test custom link",
+                "nodeType": "MenuItem",
+                "target": null,
+                "title": null,
+                "url": "https://google.com",
               },
             ],
           },
@@ -192,13 +268,13 @@ Object {
                           },
                         },
                         "content": "
-<p>Creator and maintainer of&nbsp;<a href=\\"https://www.wpgraphql.com/\\">WPGraphQL</a>&nbsp;(GraphQL for WordPress). Occasional conference speaker.</p>
+<p>Creator and maintainer of <a href=\\"https://www.wpgraphql.com/\\">WPGraphQL</a> (GraphQL for WordPress). Occasional conference speaker.</p>
 ",
                         "databaseId": 98,
                         "date": "2020-03-02T20:59:13",
                         "desiredSlug": null,
                         "enclosure": null,
-                        "excerpt": "<p>Creator and maintainer of&nbsp;WPGraphQL&nbsp;(GraphQL for WordPress). Occasional conference speaker.</p>
+                        "excerpt": "<p>Creator and maintainer of WPGraphQL (GraphQL for WordPress). Occasional conference speaker.</p>
 ",
                         "id": "cG9zdDo5OA==",
                         "link": "/team_member/jason-bahl/",
@@ -213,8 +289,7 @@ Object {
                         },
                         "slug": "jason-bahl",
                         "status": "publish",
-                        "termNames": null,
-                        "termSlugs": null,
+                        "terms": null,
                         "title": "Jason Bahl",
                         "toPing": null,
                         "uri": "/team_member/jason-bahl/",
@@ -226,10 +301,9 @@ Object {
             ],
           },
           "author": Object {
-            "name": "Tyler",
-          },
-          "childPages": Object {
-            "nodes": Array [],
+            "node": Object {
+              "name": "Tyler",
+            },
           },
           "title": "French home page",
           "translations": Array [
@@ -238,6 +312,9 @@ Object {
             },
           ],
           "uri": "/fr/french-home-page/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
         },
         Object {
           "acfPageFields": Object {
@@ -245,14 +322,16 @@ Object {
             "flex": null,
           },
           "author": Object {
-            "name": "Tyler",
-          },
-          "childPages": Object {
-            "nodes": Array [],
+            "node": Object {
+              "name": "Tyler",
+            },
           },
           "title": "Child page",
           "translations": Array [],
           "uri": "/sample-page/child-page/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
         },
         Object {
           "acfPageFields": Object {
@@ -307,13 +386,13 @@ Object {
                           },
                         },
                         "content": "
-<p>Creator and maintainer of&nbsp;<a href=\\"https://www.wpgraphql.com/\\">WPGraphQL</a>&nbsp;(GraphQL for WordPress). Occasional conference speaker.</p>
+<p>Creator and maintainer of <a href=\\"https://www.wpgraphql.com/\\">WPGraphQL</a> (GraphQL for WordPress). Occasional conference speaker.</p>
 ",
                         "databaseId": 98,
                         "date": "2020-03-02T20:59:13",
                         "desiredSlug": null,
                         "enclosure": null,
-                        "excerpt": "<p>Creator and maintainer of&nbsp;WPGraphQL&nbsp;(GraphQL for WordPress). Occasional conference speaker.</p>
+                        "excerpt": "<p>Creator and maintainer of WPGraphQL (GraphQL for WordPress). Occasional conference speaker.</p>
 ",
                         "id": "cG9zdDo5OA==",
                         "link": "/team_member/jason-bahl/",
@@ -328,8 +407,7 @@ Object {
                         },
                         "slug": "jason-bahl",
                         "status": "publish",
-                        "termNames": null,
-                        "termSlugs": null,
+                        "terms": null,
                         "title": "Jason Bahl",
                         "toPing": null,
                         "uri": "/team_member/jason-bahl/",
@@ -341,10 +419,9 @@ Object {
             ],
           },
           "author": Object {
-            "name": "Tyler",
-          },
-          "childPages": Object {
-            "nodes": Array [],
+            "node": Object {
+              "name": "Tyler",
+            },
           },
           "title": "Members",
           "translations": Array [
@@ -353,6 +430,9 @@ Object {
             },
           ],
           "uri": "/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
         },
         Object {
           "acfPageFields": Object {
@@ -360,14 +440,16 @@ Object {
             "flex": null,
           },
           "author": Object {
-            "name": "Tyler",
-          },
-          "childPages": Object {
-            "nodes": Array [],
+            "node": Object {
+              "name": "Tyler",
+            },
           },
           "title": "Activity",
           "translations": Array [],
           "uri": "/activity/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
         },
         Object {
           "acfPageFields": Object {
@@ -375,18 +457,20 @@ Object {
             "flex": null,
           },
           "author": Object {
-            "name": "Tyler",
+            "node": Object {
+              "name": "Tyler",
+            },
           },
-          "childPages": Object {
+          "title": "Sample Page",
+          "translations": Array [],
+          "uri": "/sample-page/",
+          "wpChildren": Object {
             "nodes": Array [
               Object {
                 "title": "Child page",
               },
             ],
           },
-          "title": "Sample Page",
-          "translations": Array [],
-          "uri": "/sample-page/",
         },
       ],
     },
@@ -455,13 +539,13 @@ Object {
                           },
                         },
                         "content": "
-<p>Creator and maintainer of&nbsp;<a href=\\"https://www.wpgraphql.com/\\">WPGraphQL</a>&nbsp;(GraphQL for WordPress). Occasional conference speaker.</p>
+<p>Creator and maintainer of <a href=\\"https://www.wpgraphql.com/\\">WPGraphQL</a> (GraphQL for WordPress). Occasional conference speaker.</p>
 ",
                         "databaseId": 98,
                         "date": "2020-03-02T20:59:13",
                         "desiredSlug": null,
                         "enclosure": null,
-                        "excerpt": "<p>Creator and maintainer of&nbsp;WPGraphQL&nbsp;(GraphQL for WordPress). Occasional conference speaker.</p>
+                        "excerpt": "<p>Creator and maintainer of WPGraphQL (GraphQL for WordPress). Occasional conference speaker.</p>
 ",
                         "id": "cG9zdDo5OA==",
                         "link": "/team_member/jason-bahl/",
@@ -476,8 +560,7 @@ Object {
                         },
                         "slug": "jason-bahl",
                         "status": "publish",
-                        "termNames": null,
-                        "termSlugs": null,
+                        "terms": null,
                         "title": "Jason Bahl",
                         "toPing": null,
                         "uri": "/team_member/jason-bahl/",
@@ -489,10 +572,9 @@ Object {
             ],
           },
           "author": Object {
-            "name": "Tyler",
-          },
-          "childPages": Object {
-            "nodes": Array [],
+            "node": Object {
+              "name": "Tyler",
+            },
           },
           "title": "French home page",
           "translations": Array [
@@ -501,6 +583,9 @@ Object {
             },
           ],
           "uri": "/fr/french-home-page/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
         },
         Object {
           "acfPageFields": Object {
@@ -508,14 +593,16 @@ Object {
             "flex": null,
           },
           "author": Object {
-            "name": "Tyler",
-          },
-          "childPages": Object {
-            "nodes": Array [],
+            "node": Object {
+              "name": "Tyler",
+            },
           },
           "title": "Child page",
           "translations": Array [],
           "uri": "/sample-page/child-page/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
         },
         Object {
           "acfPageFields": Object {
@@ -570,13 +657,13 @@ Object {
                           },
                         },
                         "content": "
-<p>Creator and maintainer of&nbsp;<a href=\\"https://www.wpgraphql.com/\\">WPGraphQL</a>&nbsp;(GraphQL for WordPress). Occasional conference speaker.</p>
+<p>Creator and maintainer of <a href=\\"https://www.wpgraphql.com/\\">WPGraphQL</a> (GraphQL for WordPress). Occasional conference speaker.</p>
 ",
                         "databaseId": 98,
                         "date": "2020-03-02T20:59:13",
                         "desiredSlug": null,
                         "enclosure": null,
-                        "excerpt": "<p>Creator and maintainer of&nbsp;WPGraphQL&nbsp;(GraphQL for WordPress). Occasional conference speaker.</p>
+                        "excerpt": "<p>Creator and maintainer of WPGraphQL (GraphQL for WordPress). Occasional conference speaker.</p>
 ",
                         "id": "cG9zdDo5OA==",
                         "link": "/team_member/jason-bahl/",
@@ -591,8 +678,7 @@ Object {
                         },
                         "slug": "jason-bahl",
                         "status": "publish",
-                        "termNames": null,
-                        "termSlugs": null,
+                        "terms": null,
                         "title": "Jason Bahl",
                         "toPing": null,
                         "uri": "/team_member/jason-bahl/",
@@ -604,10 +690,9 @@ Object {
             ],
           },
           "author": Object {
-            "name": "Tyler",
-          },
-          "childPages": Object {
-            "nodes": Array [],
+            "node": Object {
+              "name": "Tyler",
+            },
           },
           "title": "Members",
           "translations": Array [
@@ -616,6 +701,9 @@ Object {
             },
           ],
           "uri": "/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
         },
         Object {
           "acfPageFields": Object {
@@ -623,14 +711,16 @@ Object {
             "flex": null,
           },
           "author": Object {
-            "name": "Tyler",
-          },
-          "childPages": Object {
-            "nodes": Array [],
+            "node": Object {
+              "name": "Tyler",
+            },
           },
           "title": "Activity",
           "translations": Array [],
           "uri": "/activity/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
         },
         Object {
           "acfPageFields": Object {
@@ -638,18 +728,20 @@ Object {
             "flex": null,
           },
           "author": Object {
-            "name": "Tyler",
+            "node": Object {
+              "name": "Tyler",
+            },
           },
-          "childPages": Object {
+          "title": "Sample Page DELTA SYNC",
+          "translations": Array [],
+          "uri": "/sample-page/",
+          "wpChildren": Object {
             "nodes": Array [
               Object {
                 "title": "Child page",
               },
             ],
           },
-          "title": "Sample Page DELTA SYNC",
-          "translations": Array [],
-          "uri": "/sample-page/",
         },
       ],
     },
@@ -667,16 +759,20 @@ Object {
       "nodes": Array [
         Object {
           "author": Object {
-            "avatar": Object {
-              "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
-            },
-            "comments": Object {
-              "nodes": Array [],
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
             },
           },
           "featuredImage": Object {
-            "altText": "",
-            "sourceUrl": "https://dev-automated-testing-gatsby-source-wordpress-wpgraphql.pantheonsite.io/wp-content/uploads/2020/03/84-1000x1000-1.jpg",
+            "node": Object {
+              "altText": "",
+              "sourceUrl": "https://dev-automated-testing-gatsby-source-wordpress-wpgraphql.pantheonsite.io/wp-content/uploads/2020/03/84-1000x1000-1.jpg",
+            },
           },
           "title": "Hello world!",
         },
@@ -696,16 +792,20 @@ Object {
       "nodes": Array [
         Object {
           "author": Object {
-            "avatar": Object {
-              "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
-            },
-            "comments": Object {
-              "nodes": Array [],
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
             },
           },
           "featuredImage": Object {
-            "altText": "",
-            "sourceUrl": "https://dev-automated-testing-gatsby-source-wordpress-wpgraphql.pantheonsite.io/wp-content/uploads/2020/03/84-1000x1000-1.jpg",
+            "node": Object {
+              "altText": "",
+              "sourceUrl": "https://dev-automated-testing-gatsby-source-wordpress-wpgraphql.pantheonsite.io/wp-content/uploads/2020/03/84-1000x1000-1.jpg",
+            },
           },
           "title": "Hello world! DELTA SYNC",
         },
@@ -794,6 +894,9 @@ Object {
                 "title": "French home page",
               },
               Object {
+                "title": "Child page",
+              },
+              Object {
                 "title": "Members",
               },
               Object {
@@ -833,6 +936,9 @@ Object {
             "nodes": Array [
               Object {
                 "title": "French home page",
+              },
+              Object {
+                "title": "Child page",
               },
               Object {
                 "title": "Members",
