@@ -10,20 +10,22 @@ export const query = graphql`
       title
       content
       featuredImage {
-        remoteFile {
-          ...HeroImage
+        node {
+          remoteFile {
+            ...HeroImage
+          }
         }
       }
     }
 
     nextPage: wpPage(id: { eq: $nextPage }) {
       title
-      link
+      uri
     }
 
     previousPage: wpPage(id: { eq: $previousPage }) {
       title
-      link
+      uri
     }
   }
 `
