@@ -130,7 +130,7 @@ function transformField({
 
   const typeSettings = getTypeSettingsByType(field.type)
 
-  if (typeSettings.exclude || typeSettings.nodeInterface) {
+  if (typeSettings.exclude) {
     return false
   }
 
@@ -266,7 +266,16 @@ function transformField({
     }
   }
 
-  const isAGatsbyNode = gatsbyNodesInfo.typeNames.includes(typeName)
+  const isAGatsbyNode =
+    // if this is a gatsby node type
+    gatsbyNodesInfo.typeNames.includes(typeName) ||
+    // or this type has a possible type which is a gatsby node type
+    typeMap
+      .get(typeName)
+      ?.possibleTypes?.find((possibleType) =>
+        gatsbyNodesInfo.typeNames.includes(possibleType.name)
+      )
+
   const isAMediaItemNode = isAGatsbyNode && typeName === `MediaItem`
 
   // pull the id and sourceUrl for connections to media item gatsby nodes
