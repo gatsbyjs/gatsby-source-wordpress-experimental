@@ -26,6 +26,13 @@ const defaultPluginOptions = {
   production: {
     hardCacheMediaFiles: false,
   },
+  // temporary settings that will dissapear without notice
+  // used to fix a temporary bug in WPGraphQL.
+  temp: {
+    // https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/issues/23
+    // https://github.com/wp-graphql/wp-graphql/issues/1334
+    generalSettingsUrl__TEMP_FIX: null,
+  },
   auth: {
     htaccess: {
       username: null,

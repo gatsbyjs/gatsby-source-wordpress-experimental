@@ -23,18 +23,36 @@ const checkIfSchemaHasChanged = async (_, pluginOptions) => {
 
   const MD5_CACHE_KEY = `introspection-node-query-md5`
 
-  const { data } = await fetchGraphql({
-    query: gql`
-      {
-        schemaMd5
-        # also get the wpUrl to save on # of requests
-        # @todo maybe there's a better place for this
-        generalSettings {
-          url
-        }
+  const fullQuery = gql`
+    {
+      schemaMd5
+      # also get the wpUrl to save on # of requests
+      # @todo maybe there's a better place for this
+      generalSettings {
+        url
       }
-    `,
+    }
+  `
+
+  // https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/issues/23
+  // https://github.com/wp-graphql/wp-graphql/issues/1334
+  // see gatsby-api.js temp: { generalSettingsUrl__TEMP_FIX: null }
+  const tempFixQuery = gql`
+    {
+      schemaMd5
+    }
+  `
+
+  const tempFixGeneralSettingsUrl =
+    pluginOptions.temp.generalSettingsUrl__TEMP_FIX
+
+  const { data } = await fetchGraphql({
+    query: tempFixGeneralSettingsUrl ? tempFixQuery : fullQuery,
   })
+
+  if (tempFixGeneralSettingsUrl) {
+    data.generalSettings.url = tempFixGeneralSettingsUrl
+  }
 
   const {
     schemaMd5,
