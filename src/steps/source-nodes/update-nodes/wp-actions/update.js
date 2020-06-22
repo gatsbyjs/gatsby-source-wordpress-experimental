@@ -18,16 +18,25 @@ import { processNode } from "~/steps/source-nodes/create-nodes/process-node"
 const getDbIdFromRelayId = (relayId) => atob(relayId).split(`:`).reverse()[0]
 
 const normalizeUri = ({ uri, id, singleName }) => {
+  // remove the preview query params as they're not relevant in Gatsby
+  uri = uri?.replace(`preview=true`, ``)
+
+  // if removing the preview string leaves us with either of these
+  // characters at the end, trim em off!
+  if (uri?.endsWith(`?`) || uri?.endsWith(`&`)) {
+    uri = uri.slice(0, -1)
+  }
+
   // if this is a draft url which could look like
-  // /?p=543534 or /?page=4324
-  // so we will create a proper path that Gatsby can handle
-  // /post_graphql_name/post_db_id
+  // /?p=543534 or /?page=4324 or /?something=yep&page=543543 or /?p=4534&what=yes
+  // we will create a proper path that Gatsby can handle
+  // /post_graphql_name/post_db_id/
   // this same logic is on the WP side in the preview template
   // to account for this situation.
-  if (uri?.includes(`?`)) {
+  if (uri?.startsWith(`/?`)) {
     const dbId = getDbIdFromRelayId(id)
 
-    return `/${singleName}/${dbId}`
+    return `/${singleName}/${dbId}/`
   }
 
   return uri
@@ -45,10 +54,14 @@ export const fetchAndCreateSingleNode = async ({
   const { nodeQuery, previewQuery } =
     getQueryInfoBySingleFieldName(singleName) || {}
 
-  const query = previewId ? previewQuery : nodeQuery
+  // if this is a preview use the preview query
+  // if it's a preview but it's the initial blank node
+  // then use the regular node query as the preview query wont
+  // return anything
+  const query = previewId && !isNewPostDraft ? previewQuery : nodeQuery
 
   const {
-    helpers: { reporter, getNode },
+    helpers: { reporter },
   } = getGatsbyApi()
 
   if (!query) {
@@ -63,8 +76,6 @@ export const fetchAndCreateSingleNode = async ({
     return { node: null }
   }
 
-  const queryId = previewId ?? id
-
   const headers = token
     ? {
         // don't change this header..
@@ -78,43 +89,37 @@ export const fetchAndCreateSingleNode = async ({
     headers,
     query,
     variables: {
-      id: queryId,
+      id,
     },
   })
 
   let remoteNode = data[singleName]
 
+  if (remoteNode?.title === `Auto Draft` && isNewPostDraft) {
+    // for UX reasons we don't want to display Auto Draft as a title
+    // in the preview window for new draft posts
+    remoteNode.title = ``
+  }
+
+  if (previewId) {
+    console.log(remoteNode)
+  }
+
   // if we ask for a node that doesn't exist
-  if (!data || (data && remoteNode === null)) {
+  // and this isn't the initial blank node sent over when a new post
+  // is created in a preview instance
+  if (!data || (data && remoteNode === null && !isNewPostDraft)) {
+    clipboardy.writeSync(JSON.stringify({ id, query }, null, 2))
+    dd({ id, query })
     reporter.log(``)
     reporter.warn(
       formatLogMessage(
-        `${queryId} ${singleName} was updated, but no data was returned for this node.`
+        `${id} ${singleName} was updated, but no data was returned for this node.`
       )
     )
     reporter.log(``)
 
     return { node: null }
-  }
-
-  const existingNode = await getNode(id)
-
-  if (previewId && existingNode) {
-    const originalFieldsToRetain = {
-      uri: existingNode.uri,
-      link: existingNode.link,
-      status: existingNode.status,
-      slug: existingNode.slug,
-      parent: existingNode.parent,
-      databaseId: existingNode.databaseId,
-      guid: existingNode.guid,
-      id,
-    }
-
-    remoteNode = {
-      ...remoteNode,
-      ...originalFieldsToRetain,
-    }
   }
 
   remoteNode.uri = normalizeUri({

@@ -217,7 +217,7 @@ const generateNodeQueriesFromIngestibleFields = async () => {
     const previewQuery = buildNodeQueryOnFieldName({
       fields: transformedFields,
       fieldName: singleFieldName,
-      fieldInputArguments: `id: $id, idType: DATABASE_ID`,
+      fieldInputArguments: `id: $id, idType: ID, asPreview: true`,
       queryName: `PREVIEW_QUERY`,
       settings,
       builtFragments,
