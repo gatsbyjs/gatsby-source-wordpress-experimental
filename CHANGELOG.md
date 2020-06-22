@@ -1,5 +1,13 @@
 # Change Log
 
+## 0.7.10
+
+### Temporary New Features
+
+In order to work around a WPGraphQL bug a temporary plugin option `pluginOptions.temp.generalSettingsUrl__TEMP_FIX` was added.
+https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/issues/23
+https://github.com/wp-graphql/wp-graphql/issues/1334
+
 ## 0.7.9
 
 ### New Features
