@@ -109,8 +109,6 @@ export const fetchAndCreateSingleNode = async ({
   // and this isn't the initial blank node sent over when a new post
   // is created in a preview instance
   if (!data || (data && remoteNode === null && !isNewPostDraft)) {
-    clipboardy.writeSync(JSON.stringify({ id, query }, null, 2))
-    dd({ id, query })
     reporter.log(``)
     reporter.warn(
       formatLogMessage(
