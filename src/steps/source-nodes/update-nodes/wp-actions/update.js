@@ -28,7 +28,7 @@ const normalizeUri = ({ uri, id, singleName }) => {
   }
 
   // if this is a draft url which could look like
-  // /?p=543534 or /?page=4324 or /?something=yep&page=543543 or /?p=4534&what=yes
+  // this /?p=543534 or /?page=4324 or /?something=yep&page=543543 or /?p=4534&what=yes
   // we will create a proper path that Gatsby can handle
   // /post_graphql_name/post_db_id/
   // this same logic is on the WP side in the preview template
