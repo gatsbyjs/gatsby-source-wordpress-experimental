@@ -201,7 +201,11 @@ function transformField({
   if (
     fieldType.kind === `SCALAR` ||
     (fieldType.kind === `NON_NULL` && ofType.kind === `SCALAR`) ||
-    (fieldType.kind === `LIST` && fieldType.ofType.kind === `SCALAR`)
+    (fieldType.kind === `LIST` && fieldType.ofType.kind === `SCALAR`) ||
+    // a list of enums has no type name, so findTypeName above finds the enum type
+    // instead of the field type. Need to explicitly check here
+    // instead of using helpers
+    (field.type.kind === `LIST` && field.type?.ofType?.kind === `ENUM`)
   ) {
     return {
       fieldName,

@@ -172,4 +172,18 @@ const objectType = (typeBuilderApi) => {
   typeDefs.push(schema.buildObjectType(objectType))
 }
 
-export default { unionType, interfaceType, objectType }
+const enumType = ({ typeDefs, schema, type }) => {
+  typeDefs.push(
+    schema.buildEnumType({
+      name: buildTypeName(type.name),
+      values: type.enumValues.reduce((accumulator, { name }) => {
+        accumulator[name] = { name }
+
+        return accumulator
+      }, {}),
+      description: type.description,
+    })
+  )
+}
+
+export default { unionType, interfaceType, objectType, enumType }

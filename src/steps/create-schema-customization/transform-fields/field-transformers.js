@@ -160,7 +160,9 @@ export const fieldTransformers = [
   {
     // lists of non-gatsby-node objects
     test: (field) =>
-      field.type.kind === `LIST` && field.type.ofType.kind === `OBJECT`,
+      field.type.kind === `LIST` &&
+      (field.type.ofType.kind === `OBJECT` ||
+        field.type.ofType.kind === `ENUM`),
 
     transform: ({ field }) => `[${buildTypeName(field.type.ofType.name)}]`,
   },
