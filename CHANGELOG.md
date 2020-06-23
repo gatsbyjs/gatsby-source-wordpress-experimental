@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.7.11
+
+### Bug Fixes
+
+- Changed relative docs links to full URL's in the main README to work better with Gatsbyjs.org and npmjs.com
+
 ## 0.7.10
 
 ### Bug Fixes
