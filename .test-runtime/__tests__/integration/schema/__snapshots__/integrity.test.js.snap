@@ -955,6 +955,7 @@ Array [
   Object {
     "fields": Array [
       "acfProject",
+      "author",
       "content",
       "contentType",
       "databaseId",
@@ -1216,6 +1217,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "author",
       "content",
       "contentType",
       "databaseId",
@@ -1250,6 +1252,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "author",
       "content",
       "contentType",
       "databaseId",
@@ -1284,6 +1287,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "author",
       "content",
       "contentType",
       "databaseId",
@@ -2330,7 +2334,7 @@ Array [
 ]
 `;
 
-exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the local Gatsby schema 2`] = `"1f62e486febd671d8fe8868d36c2d88e"`;
+exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the local Gatsby schema 2`] = `"6cf0d6d795c84cfae545e1660645f176"`;
 
 exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the remote WPGraphQL schema 1`] = `
 Array [
@@ -3392,6 +3396,7 @@ Array [
   Object {
     "fields": Array [
       "acfProject",
+      "author",
       "content",
       "contentType",
       "databaseId",
@@ -3929,6 +3934,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "author",
       "content",
       "contentType",
       "databaseId",
@@ -3964,6 +3970,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "author",
       "content",
       "contentType",
       "databaseId",
@@ -3999,6 +4006,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "author",
       "content",
       "contentType",
       "databaseId",
@@ -5709,4 +5717,4 @@ Array [
 ]
 `;
 
-exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the remote WPGraphQL schema 2`] = `"53f4e149f18af53d6fae2cd7f9061c45"`;
+exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the remote WPGraphQL schema 2`] = `"7ef1b3d6c21b0a4f3fdbb89adbb13aa1"`;
