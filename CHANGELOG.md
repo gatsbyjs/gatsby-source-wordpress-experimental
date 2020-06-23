@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.7.10
+
+### Bug Fixes
+
+- Removed Gatsby, gatsby-source-filesystem, and gatsby-transformer-sharp from dependencies list. These were causing yarn to error complaining about yarn link when installing this package. This may also have been causing OOM issues when installing.
+
 ## 0.7.9
 
 ### New Features
