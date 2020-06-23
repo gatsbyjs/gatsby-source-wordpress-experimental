@@ -2434,6 +2434,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
           url
         }
       }
+      author {
+        id
+      }
       content
       contentType {
         node {
@@ -2518,6 +2521,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         url
       }
     }
+    author {
+      id
+    }
     content
     contentType {
       node {
@@ -2596,6 +2602,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         title
         url
       }
+    }
+    author {
+      id
     }
     content
     contentType {
@@ -3592,6 +3601,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     where: { parent: null, language: FR }
   ) {
     nodes {
+      author {
+        id
+      }
       content
       contentType {
         node {
@@ -3684,6 +3696,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] TranslationFilterTest node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
   translationFilterTest(id: $id, idType: DATABASE_ID) {
+    author {
+      id
+    }
     content
     contentType {
       node {
@@ -3771,6 +3786,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] TranslationFilterTest node single query hasn't changed 1`] = `
 "query SINGLE_CONTENT_QUERY($id: ID!) {
   translationFilterTest(id: $id) {
+    author {
+      id
+    }
     content
     contentType {
       node {
@@ -3859,6 +3877,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
   typeLimit0Tests(first: $first, after: $after, where: { parent: null }) {
     nodes {
+      author {
+        id
+      }
       content
       contentType {
         node {
@@ -3931,6 +3952,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] TypeLimit0Test node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
   typeLimit0Test(id: $id, idType: DATABASE_ID) {
+    author {
+      id
+    }
     content
     contentType {
       node {
@@ -3998,6 +4022,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] TypeLimit0Test node single query hasn't changed 1`] = `
 "query SINGLE_CONTENT_QUERY($id: ID!) {
   typeLimit0Test(id: $id) {
+    author {
+      id
+    }
     content
     contentType {
       node {
@@ -4066,6 +4093,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
   typeLimitTests(first: $first, after: $after, where: { parent: null }) {
     nodes {
+      author {
+        id
+      }
       content
       contentType {
         node {
@@ -4138,6 +4168,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] TypeLimitTest node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
   typeLimitTest(id: $id, idType: DATABASE_ID) {
+    author {
+      id
+    }
     content
     contentType {
       node {
@@ -4205,6 +4238,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] TypeLimitTest node single query hasn't changed 1`] = `
 "query SINGLE_CONTENT_QUERY($id: ID!) {
   typeLimitTest(id: $id) {
+    author {
+      id
+    }
     content
     contentType {
       node {
