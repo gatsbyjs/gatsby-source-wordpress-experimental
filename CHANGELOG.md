@@ -1,5 +1,15 @@
 # Change Log
 
+## 0.7.12
+
+### Bug Fixes
+
+- `pluginOptions.html.useGatsbyImage: false` wasn't preventing files from being downloaded in all cases.
+
+### New Features
+
+- Added an option, `pluginOptions.type.MediaItem.localFile.excludeByMimeTypes` to disable fetching files associated with MediaItem nodes by mime type.
+
 ## 0.7.11
 
 ### Bug Fixes
