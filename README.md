@@ -1,5 +1,5 @@
 <div align="center" style="margin-bottom: 20px;">
-<img src="docs/assets/gatsby-wapuus.png" alt="Wapuu hugging a ball with the Gatsby logo on it" />
+<img src="https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/raw/master/docs/assets/gatsby-wapuus.png" alt="Wapuu hugging a ball with the Gatsby logo on it" />
 </div>
 
 <p align="center">
@@ -37,22 +37,22 @@ Developer & Content Creator experience are some of our main focuses with this in
 
 # Docs :book:
 
-- :woman_singer: [Why use this plugin?](./docs/why-use-this-plugin.md)
-- :runner: [Installation & Getting started](./docs/getting-started.md)
-- :school: [Tutorials](./docs/tutorials/index.md)
-- :feet: [Features](./docs/features/index.md)
-- :electric_plug: [Plugin options](./docs/plugin-options.md)
-- :boat: [Migrating from other WP source plugins](./docs/migrating-from-other-wp-source-plugins.md)
-- :house: [Hosting WordPress](./docs/hosting.md)
-- :athletic_shoe: [Themes, Starters, and Examples](./docs/themes-starters-examples.md)
-- :medal_sports: [Usage with popular WPGraphQL extensions](./docs/usage-with-popular-wp-graphql-extensions.md)
-- :hammer_and_wrench: [Debugging and troubleshooting](./docs/debugging-and-troubleshooting.md)
-- :national_park: [Community and Support](./docs/community-and-support.md)
+- :woman_singer:  [Why use this plugin?](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/why-use-this-plugin.md)
+- :runner: [Installation & Getting started](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/getting-started.md)
+- :school: [Tutorials](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/tutorials/index.md)
+- :feet: [Features](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/features/index.md)
+- :electric_plug: [Plugin options](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/plugin-options.md)
+- :boat: [Migrating from other WP source plugins](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/migrating-from-other-wp-source-plugins.md)
+- :house: [Hosting WordPress](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/hosting.md)
+- :athletic_shoe: [Themes, Starters, and Examples](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/themes-starters-examples.md)
+- :medal_sports: [Usage with popular WPGraphQL extensions](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/usage-with-popular-wp-graphql-extensions.md)
+- :hammer_and_wrench: [Debugging and troubleshooting](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/debugging-and-troubleshooting.md)
+- :national_park: [Community and Support](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/community-and-support.md)
 
 ## Relevant Links :link:
 
-- [Changelog](./CHANGELOG.md)
-- [License](./LICENSE)
+- [Changelog](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/CHANGELOG.md)
+- [License](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/LICENSE)
 - [WPGatsby](https://github.com/gatsbyjs/wp-gatsby)
 - [WPGraphQL](https://github.com/wp-graphql/wp-graphql)
 - [Gatsby](https://www.gatsbyjs.org/)
