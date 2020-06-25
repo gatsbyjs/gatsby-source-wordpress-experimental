@@ -102,9 +102,16 @@ export const createRemoteMediaItemNode = async ({
     actions: { createNode },
   } = helpers
 
-  const { mediaItemUrl, modifiedGmt } = mediaItemNode
+  const { mediaItemUrl, modifiedGmt, mimeType } = mediaItemNode
 
   if (!mediaItemUrl) {
+    return null
+  }
+
+  const { excludeByMimeTypes } = pluginOptions.type?.MediaItem?.localFile
+
+  // if this type of file is excluded, don't fetch the remote file
+  if (excludeByMimeTypes.includes(mimeType)) {
     return null
   }
 
