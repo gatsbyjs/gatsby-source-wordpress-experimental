@@ -353,6 +353,7 @@ const fetchMediaItemsById = async ({
   settings,
   url,
   selectionSet,
+  builtFragments,
   createContentDigest,
   actions,
   helpers,
@@ -394,6 +395,8 @@ const fetchMediaItemsById = async ({
               }
             }
           }
+
+          ${builtFragments || ``}
         `
 
         const allNodesOfContentType = await paginatedWpNodeFetch({
@@ -453,6 +456,7 @@ export default async function fetchReferencedMediaItemsAndCreateNodes({
       settings,
       url,
       selectionSet,
+      builtFragments,
       createContentDigest,
       actions,
       helpers,
