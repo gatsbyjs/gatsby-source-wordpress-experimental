@@ -1,5 +1,5 @@
 <div align="center" style="margin-bottom: 20px;">
-<img src="docs/assets/gatsby-wapuus.png" alt="Wapuu hugging a ball with the Gatsby logo on it" />
+<img src="https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/raw/master/docs/assets/gatsby-wapuus.png" alt="Wapuu hugging a ball with the Gatsby logo on it" />
 </div>
 
 <p align="center">
