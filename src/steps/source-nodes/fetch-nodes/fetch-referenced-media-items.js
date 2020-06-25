@@ -150,7 +150,7 @@ const createMediaItemNode = async ({
       }
 
       if (!localFileNode) {
-        return
+        return resolveFutureNode(null)
       }
 
       node = {
@@ -322,6 +322,10 @@ const fetchMediaItemsBySourceUrl = async ({
         )
 
         nodes.forEach((node, index) => {
+          if (!node) {
+            return
+          }
+
           // this is how we're caching nodes we've previously fetched.
           store.dispatch.imageNodes.pushNodeMeta({
             id: node.localFile.id,
