@@ -1,5 +1,12 @@
 # Change Log
 
+## 0.7.13
+
+### Bug Fixes
+
+- The non-node root query was ignoring GraphQL errors
+- Referenced MediaItem node queries were missing any generated fragments
+
 ## 0.7.12
 
 ### Bug Fixes
