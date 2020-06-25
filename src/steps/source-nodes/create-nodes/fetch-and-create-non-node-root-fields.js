@@ -17,7 +17,6 @@ const fetchAndCreateNonNodeRootFields = async () => {
 
   const { data } = await fetchGraphql({
     query: nonNodeQuery,
-    ignoreGraphQLErrors: true,
   })
 
   await helpers.actions.createNode({
