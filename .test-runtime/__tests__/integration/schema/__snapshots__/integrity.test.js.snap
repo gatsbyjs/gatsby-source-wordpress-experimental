@@ -314,6 +314,7 @@ Array [
     "fields": Array [
       "databaseId",
       "date",
+      "dateGmt",
       "desiredSlug",
       "editLast",
       "guid",
@@ -409,6 +410,7 @@ Array [
       "commentedOn",
       "content",
       "date",
+      "dateGmt",
       "id",
       "karma",
       "wpParent",
@@ -467,6 +469,7 @@ Array [
       "contentType",
       "databaseId",
       "date",
+      "dateGmt",
       "desiredSlug",
       "editLast",
       "enclosure",
@@ -535,6 +538,7 @@ Array [
       "contentType",
       "databaseId",
       "date",
+      "dateGmt",
       "description",
       "desiredSlug",
       "editLast",
@@ -877,6 +881,7 @@ Array [
       "contentType",
       "databaseId",
       "date",
+      "dateGmt",
       "desiredSlug",
       "editLast",
       "enclosure",
@@ -960,6 +965,7 @@ Array [
       "contentType",
       "databaseId",
       "date",
+      "dateGmt",
       "desiredSlug",
       "editLast",
       "enclosure",
@@ -1126,6 +1132,7 @@ Array [
       "contentType",
       "databaseId",
       "date",
+      "dateGmt",
       "desiredSlug",
       "editLast",
       "featuredImage",
@@ -1222,6 +1229,7 @@ Array [
       "contentType",
       "databaseId",
       "date",
+      "dateGmt",
       "desiredSlug",
       "editLast",
       "enclosure",
@@ -1257,6 +1265,7 @@ Array [
       "contentType",
       "databaseId",
       "date",
+      "dateGmt",
       "desiredSlug",
       "editLast",
       "enclosure",
@@ -1292,6 +1301,7 @@ Array [
       "contentType",
       "databaseId",
       "date",
+      "dateGmt",
       "desiredSlug",
       "editLast",
       "enclosure",
@@ -2334,7 +2344,7 @@ Array [
 ]
 `;
 
-exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the local Gatsby schema 2`] = `"8761ffeda7d6b563e8f60b27a4eb0ce7"`;
+exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the local Gatsby schema 2`] = `"20f926fe852d0d0eec6f21cd658975fc"`;
 
 exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the remote WPGraphQL schema 1`] = `
 Array [
