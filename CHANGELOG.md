@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.7.14
+
+### Bug Fixes
+
+The `dateGmt` field which was previously mistakenly removed has been added back.
+
 ## 0.7.13
 
 ### Bug Fixes

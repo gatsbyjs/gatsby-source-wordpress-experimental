@@ -16,7 +16,6 @@ const remoteSchema = {
     },
     fetchedTypes: new Map(),
     fieldBlacklist: [
-      `dateGmt`,
       `isWpGatsby`,
       `edges`,
       // these aren't useful without authentication
