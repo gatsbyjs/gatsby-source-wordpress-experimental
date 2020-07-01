@@ -150,7 +150,7 @@ const createMediaItemNode = async ({
       }
 
       if (!localFileNode) {
-        return
+        return resolveFutureNode(null)
       }
 
       node = {
@@ -211,6 +211,7 @@ const processImageUrls = (urls) =>
 const fetchMediaItemsBySourceUrl = async ({
   mediaItemUrls,
   selectionSet,
+  builtFragments,
   createContentDigest,
   actions,
   helpers,
@@ -290,6 +291,8 @@ const fetchMediaItemsBySourceUrl = async ({
           fragment MediaItemFragment on MediaItem {
             ${selectionSet}
           }
+
+          ${builtFragments || ``}
         `
 
         const { data } = await fetchGraphql({
@@ -322,6 +325,10 @@ const fetchMediaItemsBySourceUrl = async ({
         )
 
         nodes.forEach((node, index) => {
+          if (!node) {
+            return
+          }
+
           // this is how we're caching nodes we've previously fetched.
           store.dispatch.imageNodes.pushNodeMeta({
             id: node.localFile.id,
@@ -346,6 +353,7 @@ const fetchMediaItemsById = async ({
   settings,
   url,
   selectionSet,
+  builtFragments,
   createContentDigest,
   actions,
   helpers,
@@ -387,6 +395,8 @@ const fetchMediaItemsById = async ({
               }
             }
           }
+
+          ${builtFragments || ``}
         `
 
         const allNodesOfContentType = await paginatedWpNodeFetch({
@@ -436,7 +446,7 @@ export default async function fetchReferencedMediaItemsAndCreateNodes({
   const { helpers, pluginOptions } = state.gatsbyApi
   const { createContentDigest, actions } = helpers
   const { url, verbose } = pluginOptions
-  const { typeInfo, settings, selectionSet } = queryInfo
+  const { typeInfo, settings, selectionSet, builtFragments } = queryInfo
 
   let createdNodes = []
 
@@ -446,6 +456,7 @@ export default async function fetchReferencedMediaItemsAndCreateNodes({
       settings,
       url,
       selectionSet,
+      builtFragments,
       createContentDigest,
       actions,
       helpers,
@@ -461,6 +472,7 @@ export default async function fetchReferencedMediaItemsAndCreateNodes({
       settings,
       url,
       selectionSet,
+      builtFragments,
       createContentDigest,
       actions,
       helpers,

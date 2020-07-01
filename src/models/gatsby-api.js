@@ -107,6 +107,9 @@ const defaultPluginOptions = {
     },
     MediaItem: {
       lazyNodes: false,
+      localFile: {
+        excludeByMimeTypes: [],
+      },
       beforeChangeNode: async ({ remoteNode, actionType, typeSettings }) => {
         // we fetch lazy nodes files in resolvers, no need to fetch them here.
         if (typeSettings.lazyNodes) {

@@ -1,37 +1,39 @@
 # Plugin Options
 
-- [url](#url-string)
-- [verbose](#verbose-boolean)
-- [debug](#debug-object)
-- [debug.graphql](#debug.graphql-object)
-    - [debug.graphql.showQueryVarsOnError](#debug.graphql.showqueryvarsonerror-boolean)
-    - [debug.graphql.panicOnError](#debug.graphql.paniconerror-boolean)
-    - [debug.graphql.onlyReportCriticalErrors](#debug.graphql.onlyreportcriticalerrors-boolean)
-    - [debug.graphql.writeQueriesToDisk](#debug.graphql.writequeriestodisk-boolean)
-- [develop](#develop-object)
-- [develop.nodeUpdateInterval](#develop.nodeupdateinterval-int)
-  - [develop.hardCacheMediaFiles](#develop.hardcachemediafiles-boolean)
-- [auth](#auth-object)
-- [auth.htaccess](#auth.htaccess-object)
-    - [auth.htaccess.username](#auth.htaccess.username-string)
-    - [auth.htaccess.password](#auth.htaccess.password-string)
-- [schema](#schema-object)
-- [schema.typePrefix](#schema.typeprefix-string)
-  - [schema.timeout](#schema.timeout-int)
-  - [schema.perPage](#schema.perpage-int)
-- [excludeFieldNames](#excludefieldnames-array)
-- [html](#html-object)
-- [html.useGatsbyImage](#html.usegatsbyimage-boolean)
-  - [html.imageMaxWidth](#html.imagemaxwidth-int)
-  - [html.fallbackImageMaxWidth](#html.fallbackimagemaxwidth-int)
-  - [html.imageQuality](#html.imagequality-int)
-- [type](#type-object)
-- [type[TypeName].exclude](#typetypename.exclude-boolean)
-- [type[TypeName].excludeFieldNames](#typetypename.excludefieldnames-array)
-- [type.\_\_all](#type.__all-object)
-- [type.RootQuery](#type.rootquery-object)
-- [type.MediaItem.lazyNodes](#type.mediaitem.lazynodes-boolean)
-
+- [Plugin Options](#plugin-options)
+  - [url: String](#url-string)
+  - [verbose: Boolean](#verbose-boolean)
+  - [debug: Object](#debug-object)
+    - [debug.graphql: Object](#debuggraphql-object)
+      - [debug.graphql.showQueryVarsOnError: Boolean](#debuggraphqlshowqueryvarsonerror-boolean)
+      - [debug.graphql.panicOnError: Boolean](#debuggraphqlpaniconerror-boolean)
+      - [debug.graphql.onlyReportCriticalErrors: Boolean](#debuggraphqlonlyreportcriticalerrors-boolean)
+      - [debug.graphql.writeQueriesToDisk: Boolean](#debuggraphqlwritequeriestodisk-boolean)
+  - [develop: Object](#develop-object)
+    - [develop.nodeUpdateInterval: Int](#developnodeupdateinterval-int)
+    - [develop.hardCacheMediaFiles: Boolean](#develophardcachemediafiles-boolean)
+  - [auth: Object](#auth-object)
+    - [auth.htaccess: Object](#authhtaccess-object)
+      - [auth.htaccess.username: String](#authhtaccessusername-string)
+      - [auth.htaccess.password: String](#authhtaccesspassword-string)
+  - [schema: Object](#schema-object)
+    - [schema.typePrefix: String](#schematypeprefix-string)
+    - [schema.timeout: Int](#schematimeout-int)
+    - [schema.perPage: Int](#schemaperpage-int)
+  - [excludeFieldNames: Array](#excludefieldnames-array)
+  - [html: Object](#html-object)
+    - [html.useGatsbyImage: Boolean](#htmlusegatsbyimage-boolean)
+    - [html.imageMaxWidth: Int](#htmlimagemaxwidth-int)
+    - [html.fallbackImageMaxWidth: Int](#htmlfallbackimagemaxwidth-int)
+    - [html.imageQuality: Int](#htmlimagequality-int)
+  - [type: Object](#type-object)
+    - [type[TypeName].exclude: Boolean](#typetypenameexclude-boolean)
+    - [type[TypeName].excludeFieldNames: Array](#typetypenameexcludefieldnames-array)
+    - [type.\_\_all: Object](#type__all-object)
+    - [type.RootQuery: Object](#typerootquery-object)
+    - [type.MediaItem.lazyNodes: Boolean](#typemediaitemlazynodes-boolean)
+    - [type.MediaItem.localFile.excludeByMimeTypes: Array](#typemediaitemlocalfileexcludebymimetypes-array)
+- [Up Next :point_right:](#up-next-point_right)
 
 ## url: String
 
@@ -48,8 +50,6 @@ This should be the full url of your GraphQL endpoint.
 },
 ```
 
-
-
 ## verbose: Boolean
 
 Wether there will be verbose output in the terminal. Set true for verbose. Default is `false`.
@@ -62,8 +62,6 @@ Wether there will be verbose output in the terminal. Set true for verbose. Defau
   },
 },
 ```
-
-
 
 ## debug: Object
 
@@ -79,8 +77,6 @@ An object which contains options related to debugging. See below for options.
   },
 },
 ```
-
-
 
 ### debug.graphql: Object
 
@@ -99,8 +95,6 @@ An object which contains GraphQL debugging options. See below for options.
 },
 ```
 
-
-
 #### debug.graphql.showQueryVarsOnError: Boolean
 
 When a GraphQL error is returned and the process exits, this plugin option determines wether or not to log out the query vars that were used in the query that returned GraphQL errors. Default is false.
@@ -117,8 +111,6 @@ When a GraphQL error is returned and the process exits, this plugin option deter
   },
 },
 ```
-
-
 
 #### debug.graphql.panicOnError: Boolean
 
@@ -139,8 +131,6 @@ Default is false because sometimes non-critical errors are returned alongside va
 },
 ```
 
-
-
 #### debug.graphql.onlyReportCriticalErrors: Boolean
 
 Determines wether or not to log non-critical errors. A non-critical error is any error which is returned alongside valid data. In previous versions of WPGraphQL this was very noisy because trying to access an entity that was private returned errors. Default is true.
@@ -157,8 +147,6 @@ Determines wether or not to log non-critical errors. A non-critical error is any
   },
 },
 ```
-
-
 
 #### debug.graphql.writeQueriesToDisk: Boolean
 
@@ -177,8 +165,6 @@ When true, all internal GraphQL queries generated during node sourcing will be w
 },
 ```
 
-
-
 ## develop: Object
 
 Options related to the `gatsby develop` process.
@@ -193,8 +179,6 @@ Options related to the `gatsby develop` process.
   },
 },
 ```
-
-
 
 ### develop.nodeUpdateInterval: Int
 
@@ -213,8 +197,6 @@ Default is `300`.
 },
 ```
 
-
-
 ### develop.hardCacheMediaFiles: Boolean
 
 When true, media files will be hard-cached outside the Gatsby cache in a `./.wordpress-cache/path/to/media/file.jpeg` . This is useful for preventing media files from being re-downloaded when the Gatsby cache automatically clears.
@@ -232,8 +214,6 @@ Default is false.
 },
 ```
 
-
-
 ## auth: Object
 
 Options related to authentication. See below for options.
@@ -249,11 +229,9 @@ Options related to authentication. See below for options.
 },
 ```
 
-
-
 ### auth.htaccess: Object
 
-Options related to  htaccess authentication. See below for options.
+Options related to htaccess authentication. See below for options.
 
 ```js
 {
@@ -267,8 +245,6 @@ Options related to  htaccess authentication. See below for options.
   },
 },
 ```
-
-
 
 #### auth.htaccess.username: String
 
@@ -289,8 +265,6 @@ Default is `null`
 },
 ```
 
-
-
 #### auth.htaccess.password: String
 
 The password for your .htpassword protected site.
@@ -310,8 +284,6 @@ Default is `null`
 },
 ```
 
-
-
 ## schema: Object
 
 Options related to fetching and ingesting the remote schema. See below for options.
@@ -326,8 +298,6 @@ Options related to fetching and ingesting the remote schema. See below for optio
   },
 },
 ```
-
-
 
 ### schema.typePrefix: String
 
@@ -346,8 +316,6 @@ Default is `Wp` .
 },
 ```
 
-
-
 ### schema.timeout: Int
 
 The amount of time in ms before GraphQL requests will time out.
@@ -364,8 +332,6 @@ Default is `30 * 1000 // 30 seconds`
   },
 },
 ```
-
-
 
 ### schema.perPage: Int
 
@@ -384,8 +350,6 @@ Default is `100`.
 },
 ```
 
-
-
 ## excludeFieldNames: Array
 
 A list of field names to globally exclude from the ingested schema.
@@ -401,8 +365,6 @@ Default is `[]`.
 },
 ```
 
-
-
 ## html: Object
 
 Options related to html field processing. See below for options.
@@ -417,8 +379,6 @@ Options related to html field processing. See below for options.
   },
 },
 ```
-
-
 
 ### html.useGatsbyImage: Boolean
 
@@ -436,8 +396,6 @@ Default is `true`.
   },
 },
 ```
-
-
 
 ### html.imageMaxWidth: Int
 
@@ -458,8 +416,6 @@ Default is `null`.
 },
 ```
 
-
-
 ### html.fallbackImageMaxWidth: Int
 
 If a max width can't be inferred from html this value will be passed to Sharp.
@@ -479,8 +435,6 @@ Default is `100`. @todo this is too low..
 },
 ```
 
-
-
 ### html.imageQuality: Int
 
 Determines the image quality that Sharp will use when generating inline html image thumbnails.
@@ -498,8 +452,6 @@ Default is `90`.
 },
 ```
 
-
-
 ## type: Object
 
 Options related to specific types in the remote schema. See below for options.
@@ -514,8 +466,6 @@ Options related to specific types in the remote schema. See below for options.
   },
 },
 ```
-
-
 
 ### type[TypeName].exclude: Boolean
 
@@ -536,8 +486,6 @@ Default is `undefined`.
 },
 ```
 
-
-
 ### type[TypeName].excludeFieldNames: Array
 
 Excludes fields on a type by field name. Default is `undefined`.
@@ -554,8 +502,6 @@ Excludes fields on a type by field name. Default is `undefined`.
   },
 },
 ```
-
-
 
 ### type.\_\_all: Object
 
@@ -576,8 +522,6 @@ Default is `undefined`.
 },
 ```
 
-
-
 ### type.RootQuery: Object
 
 A special type which is applied to any non-node root fields that are ingested and stored under the root `wp` field. It accepts the same options as other types.
@@ -596,8 +540,6 @@ Default is `{ excludeFieldNames: ['viewer', 'node', 'schemaMd5'], },`
   },
 },
 ```
-
-
 
 ### type.MediaItem.lazyNodes: Boolean
 
@@ -618,9 +560,26 @@ Default is `false`.
 },
 ```
 
+### type.MediaItem.localFile.excludeByMimeTypes: Array
 
+Allows preventing the download of files associated with MediaItem nodes by their mime types.
 
+Default is `[]`.
 
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+	options: {
+		type: {
+      MediaItem: {
+        localFile: {
+          excludeByMimeTypes: [`video/mp4`]
+        },
+      },
+    },
+  },
+},
+```
 
 # Up Next :point_right:
 

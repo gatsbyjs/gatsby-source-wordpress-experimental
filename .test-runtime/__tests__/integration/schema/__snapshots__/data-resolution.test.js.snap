@@ -7,8 +7,8 @@ Object {
       "nodes": Array [
         Object {
           "count": 4,
-          "id": "bmF2X21lbnU6MTc=",
-          "menuId": 17,
+          "databaseId": 17,
+          "id": "dGVybToxNw==",
           "menuItems": Object {
             "nodes": Array [
               Object {
@@ -112,8 +112,8 @@ Object {
       "nodes": Array [
         Object {
           "count": 4,
-          "id": "bmF2X21lbnU6MTc=",
-          "menuId": 17,
+          "databaseId": 17,
+          "id": "dGVybToxNw==",
           "menuItems": Object {
             "nodes": Array [
               Object {
