@@ -14,7 +14,7 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
               name
               count
               id
-              menuId
+              databaseId
               menuItems {
                 nodes {
                   id

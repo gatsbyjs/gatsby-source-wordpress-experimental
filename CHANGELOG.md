@@ -1,5 +1,40 @@
 # Change Log
 
+## 0.7.14
+
+### Bug Fixes
+
+The `dateGmt` field which was previously mistakenly removed has been added back.
+
+## 0.7.13
+
+### Bug Fixes
+
+- The non-node root query was ignoring GraphQL errors
+- Referenced MediaItem node queries were missing any generated fragments
+
+## 0.7.12
+
+### Bug Fixes
+
+- `pluginOptions.html.useGatsbyImage: false` wasn't preventing files from being downloaded in all cases.
+
+### New Features
+
+- Added an option, `pluginOptions.type.MediaItem.localFile.excludeByMimeTypes` to disable fetching files associated with MediaItem nodes by mime type.
+
+## 0.7.11
+
+### Bug Fixes
+
+- Changed relative docs links to full URL's in the main README to work better with Gatsbyjs.org and npmjs.com
+
+## 0.7.10
+
+### Bug Fixes
+
+- Removed Gatsby, gatsby-source-filesystem, and gatsby-transformer-sharp from dependencies list. These were causing yarn to error complaining about yarn link when installing this package. This may also have been causing OOM issues when installing.
+
 ## 0.7.9
 
 ### New Features

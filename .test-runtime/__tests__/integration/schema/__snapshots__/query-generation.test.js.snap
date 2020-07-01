@@ -4,8 +4,10 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
   categories(first: $first, after: $after, where: { parent: null }) {
     nodes {
-      ancestors {
-        id
+      ancestors(first: 100) {
+        nodes {
+          id
+        }
       }
       wpChildren: children(first: 100) {
         nodes {
@@ -25,15 +27,12 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       link
       name
       wpParent: parent {
-        id
-      }
-      parentDatabaseId
-      parentId
-      parentNode {
         node {
           id
         }
       }
+      parentDatabaseId
+      parentId
       posts(first: 100) {
         nodes {
           id
@@ -89,9 +88,11 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Category node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
-  category(id: $id, idType: DATABASE_ID) {
-    ancestors {
-      id
+  category(id: $id, idType: ID, asPreview: true) {
+    ancestors(first: 100) {
+      nodes {
+        id
+      }
     }
     wpChildren: children(first: 100) {
       nodes {
@@ -111,15 +112,12 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     link
     name
     wpParent: parent {
-      id
-    }
-    parentDatabaseId
-    parentId
-    parentNode {
       node {
         id
       }
     }
+    parentDatabaseId
+    parentId
     posts(first: 100) {
       nodes {
         id
@@ -171,8 +169,10 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Category node single query hasn't changed 1`] = `
 "query SINGLE_CONTENT_QUERY($id: ID!) {
   category(id: $id) {
-    ancestors {
-      id
+    ancestors(first: 100) {
+      nodes {
+        id
+      }
     }
     wpChildren: children(first: 100) {
       nodes {
@@ -192,15 +192,12 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     link
     name
     wpParent: parent {
-      id
-    }
-    parentDatabaseId
-    parentId
-    parentNode {
       node {
         id
       }
     }
+    parentDatabaseId
+    parentId
     posts(first: 100) {
       nodes {
         id
@@ -269,6 +266,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       content
       databaseId
       date
+      dateGmt
       id
       karma
       wpParent: parent {
@@ -295,7 +293,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Comment node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
-  comment(id: $id, idType: DATABASE_ID) {
+  comment(id: $id, idType: ID, asPreview: true) {
     agent
     approved
     author {
@@ -312,6 +310,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     content
     databaseId
     date
+    dateGmt
     id
     karma
     wpParent: parent {
@@ -350,6 +349,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     content
     databaseId
     date
+    dateGmt
     id
     karma
     wpParent: parent {
@@ -445,7 +445,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] ContentType node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
-  contentType(id: $id, idType: DATABASE_ID) {
+  contentType(id: $id, idType: ID, asPreview: true) {
     canExport
     connectedTaxonomies(first: 100) {
       nodes {
@@ -615,6 +615,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
       databaseId
       date
+      dateGmt
       description
       desiredSlug
       enclosure
@@ -732,7 +733,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] MediaItem node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
-  mediaItem(id: $id, idType: DATABASE_ID) {
+  mediaItem(id: $id, idType: ID, asPreview: true) {
     altText
     ancestors(first: 100) {
       nodes {
@@ -765,6 +766,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     databaseId
     date
+    dateGmt
     description
     desiredSlug
     enclosure
@@ -910,6 +912,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     databaseId
     date
+    dateGmt
     description
     desiredSlug
     enclosure
@@ -1025,8 +1028,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
   menus(first: $first, after: $after) {
     nodes {
       count
+      databaseId
       id
-      menuId
+      locations
       menuItems(first: 100) {
         nodes {
           id
@@ -1047,10 +1051,11 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Menu node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
-  menu(id: $id, idType: DATABASE_ID) {
+  menu(id: $id, idType: ID, asPreview: true) {
     count
+    databaseId
     id
-    menuId
+    locations
     menuItems(first: 100) {
       nodes {
         id
@@ -1068,8 +1073,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 "query SINGLE_CONTENT_QUERY($id: ID!) {
   menu(id: $id) {
     count
+    databaseId
     id
-    menuId
+    locations
     menuItems(first: 100) {
       nodes {
         id
@@ -1131,9 +1137,16 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       id
       label
       linkRelationship
+      locations
+      menu {
+        node {
+          id
+        }
+      }
       order
       parentDatabaseId
       parentId
+      path
       target
       title
       url
@@ -1150,7 +1163,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] MenuItem node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
-  menuItem(id: $id, idType: DATABASE_ID) {
+  menuItem(id: $id, idType: ID, asPreview: true) {
     childItems(first: 100) {
       nodes {
         id
@@ -1195,9 +1208,16 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     id
     label
     linkRelationship
+    locations
+    menu {
+      node {
+        id
+      }
+    }
     order
     parentDatabaseId
     parentId
+    path
     target
     title
     url
@@ -1254,9 +1274,16 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     id
     label
     linkRelationship
+    locations
+    menu {
+      node {
+        id
+      }
+    }
     order
     parentDatabaseId
     parentId
+    path
     target
     title
     url
@@ -1327,6 +1354,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
       databaseId
       date
+      dateGmt
       desiredSlug
       enclosure
       featuredImage {
@@ -1420,7 +1448,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Page node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
-  page(id: $id, idType: DATABASE_ID) {
+  page(id: $id, idType: ID, asPreview: true) {
     acfPageFields {
       fieldGroupName
       flex {
@@ -1478,6 +1506,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     databaseId
     date
+    dateGmt
     desiredSlug
     enclosure
     featuredImage {
@@ -1624,6 +1653,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     databaseId
     date
+    dateGmt
     desiredSlug
     enclosure
     featuredImage {
@@ -1740,6 +1770,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
       databaseId
       date
+      dateGmt
       desiredSlug
       enclosure
       excerpt
@@ -1833,7 +1864,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Post node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
-  post(id: $id, idType: DATABASE_ID) {
+  post(id: $id, idType: ID, asPreview: true) {
     author {
       node {
         id
@@ -1860,6 +1891,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     databaseId
     date
+    dateGmt
     desiredSlug
     enclosure
     excerpt
@@ -1975,6 +2007,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     databaseId
     date
+    dateGmt
     desiredSlug
     enclosure
     excerpt
@@ -2092,6 +2125,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
       databaseId
       date
+      dateGmt
       desiredSlug
       enclosure
       featuredImage {
@@ -2166,7 +2200,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Project node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
-  project(id: $id, idType: DATABASE_ID) {
+  project(id: $id, idType: ID, asPreview: true) {
     acfProject {
       fieldGroupName
       image {
@@ -2194,6 +2228,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     databaseId
     date
+    dateGmt
     desiredSlug
     enclosure
     featuredImage {
@@ -2291,6 +2326,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     databaseId
     date
+    dateGmt
     desiredSlug
     enclosure
     featuredImage {
@@ -2491,7 +2527,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Tag node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
-  tag(id: $id, idType: DATABASE_ID) {
+  tag(id: $id, idType: ID, asPreview: true) {
     count
     databaseId
     description
@@ -2655,7 +2691,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Taxonomy node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
-  taxonomy(id: $id, idType: DATABASE_ID) {
+  taxonomy(id: $id, idType: ID, asPreview: true) {
     connectedContentTypes(first: 100) {
       nodes {
         id
@@ -2772,6 +2808,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
       databaseId
       date
+      dateGmt
       desiredSlug
       enclosure
       excerpt
@@ -2857,7 +2894,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] TeamMember node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
-  teamMember(id: $id, idType: DATABASE_ID) {
+  teamMember(id: $id, idType: ID, asPreview: true) {
     acfData {
       fieldGroupName
       name
@@ -2909,6 +2946,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     databaseId
     date
+    dateGmt
     desiredSlug
     enclosure
     excerpt
@@ -3041,6 +3079,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     databaseId
     date
+    dateGmt
     desiredSlug
     enclosure
     excerpt
@@ -3205,6 +3244,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
       databaseId
       date
+      dateGmt
       desiredSlug
       enclosure
       featuredImage {
@@ -3288,7 +3328,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] TranslationFilterTest node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
-  translationFilterTest(id: $id, idType: DATABASE_ID) {
+  translationFilterTest(id: $id, idType: ID, asPreview: true) {
     author {
       node {
         id
@@ -3304,6 +3344,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     databaseId
     date
+    dateGmt
     desiredSlug
     enclosure
     featuredImage {
@@ -3398,6 +3439,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     databaseId
     date
+    dateGmt
     desiredSlug
     enclosure
     featuredImage {
@@ -3493,6 +3535,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
       databaseId
       date
+      dateGmt
       desiredSlug
       enclosure
       featuredImage {
@@ -3567,7 +3610,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] TypeLimit0Test node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
-  typeLimit0Test(id: $id, idType: DATABASE_ID) {
+  typeLimit0Test(id: $id, idType: ID, asPreview: true) {
     author {
       node {
         id
@@ -3583,6 +3626,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     databaseId
     date
+    dateGmt
     desiredSlug
     enclosure
     featuredImage {
@@ -3668,6 +3712,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     databaseId
     date
+    dateGmt
     desiredSlug
     enclosure
     featuredImage {
@@ -3754,6 +3799,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
       databaseId
       date
+      dateGmt
       desiredSlug
       enclosure
       featuredImage {
@@ -3828,7 +3874,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] TypeLimitTest node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
-  typeLimitTest(id: $id, idType: DATABASE_ID) {
+  typeLimitTest(id: $id, idType: ID, asPreview: true) {
     author {
       node {
         id
@@ -3844,6 +3890,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     databaseId
     date
+    dateGmt
     desiredSlug
     enclosure
     featuredImage {
@@ -3929,6 +3976,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     databaseId
     date
+    dateGmt
     desiredSlug
     enclosure
     featuredImage {
@@ -4089,7 +4137,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] User node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
-  user(id: $id, idType: DATABASE_ID) {
+  user(id: $id, idType: ID, asPreview: true) {
     avatar {
       default
       extraAttr

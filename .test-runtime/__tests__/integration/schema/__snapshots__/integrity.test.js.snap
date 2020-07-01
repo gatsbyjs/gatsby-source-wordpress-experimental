@@ -208,6 +208,10 @@ Array [
   },
   Object {
     "fields": null,
+    "name": "WpCategoryToAncestorsCategoryConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
     "name": "WpCategoryToCategoryConnectionFilterInput",
   },
   Object {
@@ -366,6 +370,7 @@ Array [
     "fields": Array [
       "databaseId",
       "date",
+      "dateGmt",
       "desiredSlug",
       "guid",
       "id",
@@ -474,6 +479,7 @@ Array [
       "content",
       "databaseId",
       "date",
+      "dateGmt",
       "id",
       "karma",
       "wpParent",
@@ -530,6 +536,7 @@ Array [
       "contentType",
       "databaseId",
       "date",
+      "dateGmt",
       "description",
       "desiredSlug",
       "enclosure",
@@ -870,6 +877,7 @@ Array [
       "contentType",
       "databaseId",
       "date",
+      "dateGmt",
       "desiredSlug",
       "featuredImage",
       "featuredImageDatabaseId",
@@ -984,6 +992,7 @@ Array [
       "contentType",
       "databaseId",
       "date",
+      "dateGmt",
       "desiredSlug",
       "enclosure",
       "excerpt",
@@ -1056,6 +1065,7 @@ Array [
       "contentType",
       "databaseId",
       "date",
+      "dateGmt",
       "desiredSlug",
       "enclosure",
       "featuredImage",
@@ -1123,7 +1133,6 @@ Array [
       "wpParent",
       "parentDatabaseId",
       "parentId",
-      "parentNode",
       "posts",
       "seo",
       "slug",
@@ -1146,6 +1155,12 @@ Array [
       "parentId",
     ],
     "name": "WpHierarchicalTermNode",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpCategoryToAncestorsCategoryConnection",
   },
   Object {
     "fields": Array [
@@ -1177,6 +1192,7 @@ Array [
       "contentType",
       "databaseId",
       "date",
+      "dateGmt",
       "desiredSlug",
       "enclosure",
       "excerpt",
@@ -1352,6 +1368,7 @@ Array [
       "contentType",
       "databaseId",
       "date",
+      "dateGmt",
       "desiredSlug",
       "enclosure",
       "featuredImage",
@@ -1400,6 +1417,7 @@ Array [
       "contentType",
       "databaseId",
       "date",
+      "dateGmt",
       "desiredSlug",
       "enclosure",
       "featuredImage",
@@ -1446,6 +1464,7 @@ Array [
       "contentType",
       "databaseId",
       "date",
+      "dateGmt",
       "desiredSlug",
       "enclosure",
       "featuredImage",
@@ -2087,6 +2106,14 @@ Array [
   },
   Object {
     "fields": null,
+    "name": "WpMenuLocationEnumQueryOperatorInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpMenuLocationEnum",
+  },
+  Object {
+    "fields": null,
     "name": "WpMenuToMenuItemConnectionFilterInput",
   },
   Object {
@@ -2102,10 +2129,19 @@ Array [
     "name": "WpMenuItemToMenuItemConnectionFilterInput",
   },
   Object {
+    "fields": null,
+    "name": "WpMenuItemToMenuConnectionEdgeFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpMenuFilterInput",
+  },
+  Object {
     "fields": Array [
       "count",
+      "databaseId",
       "id",
-      "menuId",
+      "locations",
       "menuItems",
       "name",
       "slug",
@@ -2132,9 +2168,12 @@ Array [
       "id",
       "label",
       "linkRelationship",
+      "locations",
+      "menu",
       "order",
       "parentDatabaseId",
       "parentId",
+      "path",
       "target",
       "title",
       "url",
@@ -2156,8 +2195,10 @@ Array [
     "name": "WpMenuItemObjectUnion",
   },
   Object {
-    "fields": null,
-    "name": "WpMenuFilterInput",
+    "fields": Array [
+      "node",
+    ],
+    "name": "WpMenuItemToMenuConnectionEdge",
   },
   Object {
     "fields": null,
@@ -2387,7 +2428,7 @@ Array [
 ]
 `;
 
-exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the local Gatsby schema 2`] = `"cd349b41fddd6f048a64045a7d9c4091"`;
+exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the local Gatsby schema 2`] = `"9cbbd0efd3e3ad987386cbc7fa129fa2"`;
 
 exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the remote WPGraphQL schema 1`] = `
 Array [
@@ -3678,7 +3719,6 @@ Array [
       "parent",
       "parentDatabaseId",
       "parentId",
-      "parentNode",
       "posts",
       "seo",
       "slug",
@@ -3698,6 +3738,21 @@ Array [
       "parentId",
     ],
     "name": "HierarchicalTermNode",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "CategoryToAncestorsCategoryConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "CategoryToAncestorsCategoryConnectionEdge",
   },
   Object {
     "fields": null,
@@ -4705,11 +4760,16 @@ Array [
     "name": "RootQueryToMediaItemConnectionEdge",
   },
   Object {
+    "fields": null,
+    "name": "MenuNodeIdTypeEnum",
+  },
+  Object {
     "fields": Array [
       "count",
+      "databaseId",
       "id",
       "isRestricted",
-      "menuId",
+      "locations",
       "menuItems",
       "name",
       "slug",
@@ -4718,11 +4778,11 @@ Array [
   },
   Object {
     "fields": null,
-    "name": "MenuToMenuItemConnectionWhereArgs",
+    "name": "MenuLocationEnum",
   },
   Object {
     "fields": null,
-    "name": "MenuLocationEnum",
+    "name": "MenuToMenuItemConnectionWhereArgs",
   },
   Object {
     "fields": Array [
@@ -4750,9 +4810,12 @@ Array [
       "isRestricted",
       "label",
       "linkRelationship",
+      "locations",
+      "menu",
       "order",
       "parentDatabaseId",
       "parentId",
+      "path",
       "target",
       "title",
       "url",
@@ -4781,6 +4844,16 @@ Array [
   Object {
     "fields": null,
     "name": "MenuItemObjectUnion",
+  },
+  Object {
+    "fields": Array [
+      "node",
+    ],
+    "name": "MenuItemToMenuConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "MenuItemNodeIdTypeEnum",
   },
   Object {
     "fields": null,
@@ -5971,4 +6044,4 @@ Array [
 ]
 `;
 
-exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the remote WPGraphQL schema 2`] = `"b49dafff3c9580ccd27843e7470939a3"`;
+exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the remote WPGraphQL schema 2`] = `"22acb93119ed7e9b1dc66bccad2631ce"`;
