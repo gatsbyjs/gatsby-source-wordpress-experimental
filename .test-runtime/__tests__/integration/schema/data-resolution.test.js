@@ -14,12 +14,12 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
               name
               count
               id
-              menuId
+              databaseId
               menuItems {
                 nodes {
                   id
                   label
-                  menuItemId
+                  databaseId
                   nodeType
                   target
                   title
@@ -28,14 +28,16 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
                     nodes {
                       label
                       id
-                      menuItemId
+                      databaseId
                       connectedObject {
                         __typename
                         ... on WpPost {
                           title
                           uri
                           featuredImage {
-                            title
+                            node {
+                              title
+                            }
                           }
                         }
                       }
@@ -66,18 +68,21 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
           testPage: wpPage(id: { eq: "cG9zdDoy" }) {
             title
           }
-
           allWpPage {
             nodes {
               uri
               title
-              childPages {
+              wpChildren {
                 nodes {
-                  title
+                  ... on WpNodeWithTitle {
+                    title
+                  }
                 }
               }
               author {
-                name
+                node {
+                  name
+                }
               }
               translations {
                 title
@@ -149,8 +154,12 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
                           }
                           slug
                           status
-                          termNames
-                          termSlugs
+                          terms {
+                            nodes {
+                              name
+                              slug
+                            }
+                          }
                           title
                           toPing
                           uri
@@ -186,16 +195,20 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
             nodes {
               title
               featuredImage {
-                altText
-                sourceUrl
+                node {
+                  altText
+                  sourceUrl
+                }
               }
               author {
-                avatar {
-                  url
-                }
-                comments {
-                  nodes {
-                    content
+                node {
+                  avatar {
+                    url
+                  }
+                  comments {
+                    nodes {
+                      content
+                    }
                   }
                 }
               }

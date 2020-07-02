@@ -89,15 +89,9 @@ const fetchChildMenuItems = (api) => async () => {
 }
 
 export const menuBeforeChangeNode = async (api) => {
-  if (
-    api.actionType !== `UPDATE` &&
-    api.actionType !== `CREATE_ALL` &&
-    api.actionType !== `CREATE`
-  ) {
+  if (api.actionType !== `UPDATE` && api.actionType !== `CREATE`) {
     // no need to update child MenuItems if we're not updating an existing menu
     // if we're creating a new menu it will be empty initially.
-    // so we run this function when updating nodes or when initially
-    // creating all nodes
     return null
   }
 

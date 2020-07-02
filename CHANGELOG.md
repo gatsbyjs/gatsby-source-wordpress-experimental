@@ -1,5 +1,22 @@
 # Change Log
 
+## 0.8.0
+
+Updated plugin to work with WPGraphQL 0.10.0 which provides better menu and preview support. This is listed as a minor because supported min version has been bumped and WPGraphQL has a lot of breaking changes for this release. Head to https://github.com/wp-graphql/wp-graphql/releases/tag/v0.10.0 for more information on updating.
+
+## 0.7.14
+
+### Bug Fixes
+
+The `dateGmt` field which was previously mistakenly removed has been added back.
+
+## 0.7.13
+
+### Bug Fixes
+
+- The non-node root query was ignoring GraphQL errors
+- Referenced MediaItem node queries were missing any generated fragments
+
 ## 0.7.12
 
 ### Bug Fixes

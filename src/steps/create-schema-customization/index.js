@@ -52,6 +52,9 @@ const customizeSchema = async ({ actions, schema }) => {
         case `OBJECT`:
           buildType.objectType({ ...typeBuilderApi, type })
           break
+        case `ENUM`:
+          buildType.enumType({ ...typeBuilderApi, type })
+          break
         case `SCALAR`:
           /**
            * custom scalar types aren't imlemented currently.

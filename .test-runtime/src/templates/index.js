@@ -106,8 +106,10 @@ export const query = graphql`
         uri
         title
         featuredImage {
-          remoteFile {
-            ...Thumbnail
+          node {
+            remoteFile {
+              ...Thumbnail
+            }
           }
         }
       }

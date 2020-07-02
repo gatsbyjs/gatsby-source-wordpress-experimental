@@ -67,6 +67,12 @@ const defaultPluginOptions = {
     GeneralSettings: {
       excludeFieldNames: [`email`],
     },
+    WpContentNodeToEditLockConnectionEdge: {
+      exclude: true,
+    },
+    WPPageInfo: {
+      exclude: true,
+    },
     ActionMonitorAction: {
       exclude: true,
     },
@@ -161,7 +167,6 @@ const defaultPluginOptions = {
        *
        * When we can get a list of all menu items regardless of location in WPGQL, this can be removed.
        */
-      // @todo remove this when menus are a flat list in WPGQL
       beforeChangeNode: menuBeforeChangeNode,
     },
     MenuItem: {

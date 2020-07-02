@@ -182,6 +182,7 @@ const generateNodeQueriesFromIngestibleFields = async () => {
       fields,
       fragments,
       parentType: type,
+      mainType: type,
     })
 
     // we need this for node interface types on the WPGQL side
@@ -216,7 +217,7 @@ const generateNodeQueriesFromIngestibleFields = async () => {
     const previewQuery = buildNodeQueryOnFieldName({
       fields: transformedFields,
       fieldName: singleFieldName,
-      fieldInputArguments: `id: $id, idType: DATABASE_ID`,
+      fieldInputArguments: `id: $id, idType: ID, asPreview: true`,
       queryName: `PREVIEW_QUERY`,
       settings,
       builtFragments,

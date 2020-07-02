@@ -14,6 +14,7 @@ const transformInlineFragments = ({
   depth,
   maxDepth,
   parentType,
+  mainType,
   parentField,
   fragments,
   circularQueryLimit,
@@ -77,6 +78,8 @@ const transformInlineFragments = ({
               fragments,
               buildingFragment,
               circularQueryLimit,
+              mainType,
+              parentField,
             })
 
             if (!fields || !fields.length) {
@@ -113,8 +116,11 @@ function transformField({
   circularQueryLimit,
   fragments,
   buildingFragment,
+  mainType,
+  parentField,
 } = {}) {
   const ancestorTypeNames = [...parentAncestorTypeNames]
+
   // we're potentially infinitely recursing when fields are connected to other types that have fields that are connections to other types
   //  so we need a maximum limit for that
   if (depth > maxDepth) {
@@ -130,7 +136,7 @@ function transformField({
 
   const typeSettings = getTypeSettingsByType(field.type)
 
-  if (typeSettings.exclude || typeSettings.nodeInterface) {
+  if (typeSettings.exclude) {
     return false
   }
 
@@ -160,6 +166,7 @@ function transformField({
       circularQueryLimit,
       queryDepth: maxDepth,
       buildingFragment,
+      mainType,
     })
   }
 
@@ -194,7 +201,11 @@ function transformField({
   if (
     fieldType.kind === `SCALAR` ||
     (fieldType.kind === `NON_NULL` && ofType.kind === `SCALAR`) ||
-    (fieldType.kind === `LIST` && fieldType.ofType.kind === `SCALAR`)
+    (fieldType.kind === `LIST` && fieldType.ofType.kind === `SCALAR`) ||
+    // a list of enums has no type name, so findTypeName above finds the enum type
+    // instead of the field type. Need to explicitly check here
+    // instead of using helpers
+    (field.type.kind === `LIST` && field.type?.ofType?.kind === `ENUM`)
   ) {
     return {
       fieldName,
@@ -237,12 +248,14 @@ function transformField({
       fragments,
       circularQueryLimit,
       buildingFragment,
+      mainType,
     })
 
     const transformedInlineFragments = transformInlineFragments({
       possibleTypes: listOfType.possibleTypes,
       parentType: listOfType || fieldType,
       parentField: field,
+      mainType,
       gatsbyNodesInfo,
       typeMap,
       depth,
@@ -266,7 +279,16 @@ function transformField({
     }
   }
 
-  const isAGatsbyNode = gatsbyNodesInfo.typeNames.includes(typeName)
+  const isAGatsbyNode =
+    // if this is a gatsby node type
+    gatsbyNodesInfo.typeNames.includes(typeName) ||
+    // or this type has a possible type which is a gatsby node type
+    typeMap
+      .get(typeName)
+      ?.possibleTypes?.find((possibleType) =>
+        gatsbyNodesInfo.typeNames.includes(possibleType.name)
+      )
+
   const isAMediaItemNode = isAGatsbyNode && typeName === `MediaItem`
 
   // pull the id and sourceUrl for connections to media item gatsby nodes
@@ -296,6 +318,7 @@ function transformField({
       possibleTypes: typeInfo.possibleTypes,
       parentType: typeInfo,
       parentField: field,
+      mainType,
       gatsbyNodesInfo,
       typeMap,
       depth,
@@ -311,6 +334,7 @@ function transformField({
     const transformedFields = recursivelyTransformFields({
       parentType: typeInfo,
       parentFieldName: field.name,
+      mainType,
       fields,
       depth,
       ancestorTypeNames,
@@ -338,6 +362,7 @@ function transformField({
     const transformedFields = recursivelyTransformFields({
       fields: typeInfo.fields,
       parentType: fieldType,
+      mainType,
       depth,
       ancestorTypeNames,
       fragments,
@@ -349,6 +374,7 @@ function transformField({
       possibleTypes: typeInfo.possibleTypes,
       gatsbyNodesInfo,
       typeMap,
+      mainType,
       depth,
       maxDepth,
       ancestorTypeNames,
@@ -380,6 +406,7 @@ const createFragment = ({
   gatsbyNodesInfo,
   queryDepth,
   ancestorTypeNames,
+  mainType,
   buildingFragment = false,
 }) => {
   const typeName = findTypeName(type)
@@ -419,6 +446,7 @@ const createFragment = ({
       fieldBlacklist,
       fieldAliases,
       ancestorTypeNames,
+      mainType,
       circularQueryLimit: 1,
       fragments,
       buildingFragment: typeName,
@@ -438,6 +466,7 @@ const createFragment = ({
         possibleTypes: queryType.possibleTypes,
         parentType: queryType,
         parentField: field,
+        mainType,
         gatsbyNodesInfo,
         typeMap,
         depth: 0,
@@ -464,6 +493,7 @@ const createFragment = ({
 const transformFields = ({
   fields,
   parentType,
+  mainType,
   fragments,
   parentField,
   ancestorTypeNames,
@@ -484,6 +514,7 @@ const transformFields = ({
           pluginOptions,
           field,
           parentType,
+          mainType,
           parentField,
         })
     )
@@ -500,6 +531,8 @@ const transformFields = ({
         circularQueryLimit,
         fragments,
         buildingFragment,
+        mainType,
+        parentField,
       })
 
       if (transformedField) {
@@ -581,8 +614,9 @@ const transformFields = ({
 const recursivelyTransformFields = ({
   fields,
   parentType,
+  mainType,
   fragments,
-  parentField = {},
+  parentField,
   ancestorTypeNames: parentAncestorTypeNames,
   depth = 0,
   buildingFragment = false,
@@ -634,29 +668,6 @@ const recursivelyTransformFields = ({
     ancestorTypeNames,
   })
 
-  // this appears to not be needed here but @todo investigate if that's always true
-  // it's also being used in transformField()
-  // if (typeIncarnationCount > 0) {
-  //   // this type is nested within itself atleast once
-  //   // create a fragment here that can be reused
-  //   createFragment({
-  //     fields,
-  //     type: parentType,
-  //     fragments,
-  //     field: parentField,
-  //     ancestorTypeNames: parentAncestorTypeNames,
-  //     depth,
-  //     fieldBlacklist,
-  //     fieldAliases,
-  //     typeMap,
-  //     gatsbyNodesInfo,
-  //     queryDepth,
-  //     circularQueryLimit,
-  //     pluginOptions,
-  //     buildingFragment,
-  //   })
-  // }
-
   if (typeIncarnationCount >= circularQueryLimit) {
     return null
   }
@@ -666,6 +677,7 @@ const recursivelyTransformFields = ({
   let recursivelyTransformedFields = transformFields({
     fields,
     parentType,
+    mainType,
     fragments,
     parentField,
     ancestorTypeNames: parentAncestorTypeNames,
