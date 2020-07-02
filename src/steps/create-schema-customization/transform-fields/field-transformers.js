@@ -4,6 +4,7 @@ import { transformGatsbyNodeObject } from "~/steps/create-schema-customization/t
 import { transformListOfGatsbyNodes } from "./transform-object"
 import { getGatsbyNodeTypeNames } from "~/steps/source-nodes/fetch-nodes/fetch-nodes"
 import { typeIsABuiltInScalar } from "~/steps/create-schema-customization/helpers"
+import store from "~/store"
 
 export const fieldTransformers = [
   {
@@ -127,10 +128,23 @@ export const fieldTransformers = [
     test: (field) => {
       const gatsbyNodeTypes = getGatsbyNodeTypeNames()
 
+      const {
+        remoteSchema: { typeMap },
+      } = store.getState()
+
       return (
-        field.type.kind === `LIST` &&
-        field.type.ofType.kind === `OBJECT` &&
-        gatsbyNodeTypes.includes(field.type.ofType.name)
+        // this is a list of Gatsby nodes
+        (field.type.kind === `LIST` &&
+          field.type.ofType.kind === `OBJECT` &&
+          gatsbyNodeTypes.includes(field.type.ofType.name)) ||
+        // or it's a list of an interface type which Gatsby nodes implement
+        (field.type.kind === `LIST` &&
+          field.type.ofType.kind === `INTERFACE` &&
+          typeMap
+            .get(field.type.ofType.name)
+            ?.possibleTypes?.find((possibleType) =>
+              gatsbyNodeTypes.includes(possibleType.name)
+            ))
       )
     },
 
@@ -146,7 +160,9 @@ export const fieldTransformers = [
   {
     // lists of non-gatsby-node objects
     test: (field) =>
-      field.type.kind === `LIST` && field.type.ofType.kind === `OBJECT`,
+      field.type.kind === `LIST` &&
+      (field.type.ofType.kind === `OBJECT` ||
+        field.type.ofType.kind === `ENUM`),
 
     transform: ({ field }) => `[${buildTypeName(field.type.ofType.name)}]`,
   },

@@ -16,7 +16,6 @@ const remoteSchema = {
     },
     fetchedTypes: new Map(),
     fieldBlacklist: [
-      `dateGmt`,
       `isWpGatsby`,
       `edges`,
       // these aren't useful without authentication
@@ -29,6 +28,11 @@ const remoteSchema = {
       `jwtUserSecret`,
       `editLock`,
       `revisionOf`,
+      `preview`,
+      `isPreview`,
+      `previewRevisionDatabaseId`,
+      `previewRevisionId`,
+      `editingLockedBy`,
     ],
     // @todo make this a plugin option
     fieldAliases: {

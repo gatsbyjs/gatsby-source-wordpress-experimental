@@ -2,12 +2,12 @@
 // it indicates which versions we will actually support AND which versions work.
 const supportedWpPluginVersions = {
   WPGraphQL: {
-    version: `~0.9.1`,
-    reason: `WPGraphQL 0.9.0 isn't supported because menu item relay id's changed from nav_menu:id to term:id in 0.9.1.\nUsing WPGatsby 0.4.0 and WPGraphQL 0.9.0 would lead to inconsistent cache invalidation for menus.\nThis doesn't mean you're on WPGraphQL 0.9.0, but explains why the minimum version is 0.9.1`,
+    version: `~0.10.0`,
+    reason: `WPGraphQL 0.10.0 introduced a large number of changes that required internal source plugin code changes. A big feature is improved support for WordPress previews and improvements to how Menus are handled. Head to https://github.com/wp-graphql/wp-graphql/releases/tag/v0.10.0 for more information on upgrading.`,
   },
   WPGatsby: {
     version: `~0.4.0`,
-    reason: `WPGatsby 0.4.0 supports WPGraphQL 0.9.1`,
+    reason: `WPGatsby 0.4.0 supports WPGraphQL 0.10.0`,
   },
 }
 

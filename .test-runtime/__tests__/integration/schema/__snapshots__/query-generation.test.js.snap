@@ -4,18 +4,14 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
   categories(first: $first, after: $after, where: { parent: null }) {
     nodes {
-      ancestors {
-        id
+      ancestors(first: 100) {
+        nodes {
+          id
+        }
       }
       wpChildren: children(first: 100) {
         nodes {
           id
-        }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
         }
       }
       count
@@ -31,17 +27,15 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       link
       name
       wpParent: parent {
-        id
+        node {
+          id
+        }
       }
+      parentDatabaseId
+      parentId
       posts(first: 100) {
         nodes {
           id
-        }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
         }
       }
       seo {
@@ -74,12 +68,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         nodes {
           id
         }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
-        }
       }
       termGroupId
       termTaxonomyId
@@ -100,19 +88,15 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Category node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
-  category(id: $id, idType: DATABASE_ID) {
-    ancestors {
-      id
+  category(id: $id, idType: ID, asPreview: true) {
+    ancestors(first: 100) {
+      nodes {
+        id
+      }
     }
     wpChildren: children(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     count
@@ -128,17 +112,15 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     link
     name
     wpParent: parent {
-      id
+      node {
+        id
+      }
     }
+    parentDatabaseId
+    parentId
     posts(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     seo {
@@ -170,12 +152,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     teamMembers(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     termGroupId
@@ -193,18 +169,14 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Category node single query hasn't changed 1`] = `
 "query SINGLE_CONTENT_QUERY($id: ID!) {
   category(id: $id) {
-    ancestors {
-      id
+    ancestors(first: 100) {
+      nodes {
+        id
+      }
     }
     wpChildren: children(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     count
@@ -220,17 +192,15 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     link
     name
     wpParent: parent {
-      id
+      node {
+        id
+      }
     }
+    parentDatabaseId
+    parentId
     posts(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     seo {
@@ -262,12 +232,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     teamMembers(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     termGroupId
@@ -289,63 +253,31 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       agent
       approved
       author {
-        __typename
-        ... on User {
+        node {
           id
-        }
-        ... on CommentAuthor {
-          email
-          id
-          name
-          url
         }
       }
       authorIp
-      wpChildren: children(first: 100) {
-        nodes {
-          id
-        }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
-        }
-      }
-      commentId
       commentedOn {
-        __typename
-        ... on Post {
-          id
-        }
-        ... on Page {
-          id
-        }
-        ... on MediaItem {
-          id
-        }
-        ... on TeamMember {
-          id
-        }
-        ... on Project {
-          id
-        }
-        ... on TypeLimitTest {
-          id
-        }
-        ... on TypeLimit0Test {
-          id
-        }
-        ... on TranslationFilterTest {
+        node {
           id
         }
       }
       content
+      databaseId
       date
+      dateGmt
       id
       karma
       wpParent: parent {
-        id
+        node {
+          id
+        }
+      }
+      replies(first: 100) {
+        nodes {
+          id
+        }
       }
       type
       __typename
@@ -361,67 +293,35 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Comment node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
-  comment(id: $id, idType: DATABASE_ID) {
+  comment(id: $id, idType: ID, asPreview: true) {
     agent
     approved
     author {
-      __typename
-      ... on User {
+      node {
         id
-      }
-      ... on CommentAuthor {
-        email
-        id
-        name
-        url
       }
     }
     authorIp
-    wpChildren: children(first: 100) {
-      nodes {
-        id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
-    }
-    commentId
     commentedOn {
-      __typename
-      ... on Post {
-        id
-      }
-      ... on Page {
-        id
-      }
-      ... on MediaItem {
-        id
-      }
-      ... on TeamMember {
-        id
-      }
-      ... on Project {
-        id
-      }
-      ... on TypeLimitTest {
-        id
-      }
-      ... on TypeLimit0Test {
-        id
-      }
-      ... on TranslationFilterTest {
+      node {
         id
       }
     }
     content
+    databaseId
     date
+    dateGmt
     id
     karma
     wpParent: parent {
-      id
+      node {
+        id
+      }
+    }
+    replies(first: 100) {
+      nodes {
+        id
+      }
     }
     type
     __typename
@@ -436,63 +336,31 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     agent
     approved
     author {
-      __typename
-      ... on User {
+      node {
         id
-      }
-      ... on CommentAuthor {
-        email
-        id
-        name
-        url
       }
     }
     authorIp
-    wpChildren: children(first: 100) {
-      nodes {
-        id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
-    }
-    commentId
     commentedOn {
-      __typename
-      ... on Post {
-        id
-      }
-      ... on Page {
-        id
-      }
-      ... on MediaItem {
-        id
-      }
-      ... on TeamMember {
-        id
-      }
-      ... on Project {
-        id
-      }
-      ... on TypeLimitTest {
-        id
-      }
-      ... on TypeLimit0Test {
-        id
-      }
-      ... on TranslationFilterTest {
+      node {
         id
       }
     }
     content
+    databaseId
     date
+    dateGmt
     id
     karma
     wpParent: parent {
-      id
+      node {
+        id
+      }
+    }
+    replies(first: 100) {
+      nodes {
+        id
+      }
     }
     type
     __typename
@@ -510,11 +378,10 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         nodes {
           id
         }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
+      }
+      contentNodes(first: 100) {
+        nodes {
+          id
         }
       }
       deleteWithUser
@@ -578,17 +445,16 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] ContentType node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
-  contentType(id: $id, idType: DATABASE_ID) {
+  contentType(id: $id, idType: ID, asPreview: true) {
     canExport
     connectedTaxonomies(first: 100) {
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
+    }
+    contentNodes(first: 100) {
+      nodes {
+        id
       }
     }
     deleteWithUser
@@ -653,11 +519,10 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
+    }
+    contentNodes(first: 100) {
+      nodes {
+        id
       }
     }
     deleteWithUser
@@ -719,20 +584,28 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
   mediaItems(first: $first, after: $after, where: { parent: null }) {
     nodes {
       altText
-      author {
-        id
+      ancestors(first: 100) {
+        nodes {
+          id
+        }
       }
+      author {
+        node {
+          id
+        }
+      }
+      authorDatabaseId
+      authorId
       caption
+      wpChildren: children(first: 100) {
+        nodes {
+          id
+        }
+      }
       commentStatus
       comments(first: 100) {
         nodes {
           id
-        }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
         }
       }
       contentType {
@@ -742,11 +615,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
       databaseId
       date
+      dateGmt
       description
       desiredSlug
-      editLast {
-        id
-      }
       enclosure
       guid
       id
@@ -755,6 +626,11 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         locale
         name
         slug
+      }
+      lastEditedBy {
+        node {
+          id
+        }
       }
       link
       mediaDetails {
@@ -790,29 +666,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       modified
       modifiedGmt
       wpParent: parent {
-        __typename
-        ... on Post {
-          id
-        }
-        ... on Page {
-          id
-        }
-        ... on MediaItem {
-          id
-        }
-        ... on TeamMember {
-          id
-        }
-        ... on Project {
-          id
-        }
-        ... on TypeLimitTest {
-          id
-        }
-        ... on TypeLimit0Test {
-          id
-        }
-        ... on TranslationFilterTest {
+        node {
           id
         }
       }
@@ -855,14 +709,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
           templateName
         }
       }
-      termNames
-      termSlugs
-      terms {
-        __typename
-        ... on Category {
-          id
-        }
-        ... on Tag {
+      terms(first: 100) {
+        nodes {
           id
         }
       }
@@ -885,22 +733,30 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] MediaItem node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
-  mediaItem(id: $id, idType: DATABASE_ID) {
+  mediaItem(id: $id, idType: ID, asPreview: true) {
     altText
-    author {
-      id
+    ancestors(first: 100) {
+      nodes {
+        id
+      }
     }
+    author {
+      node {
+        id
+      }
+    }
+    authorDatabaseId
+    authorId
     caption
+    wpChildren: children(first: 100) {
+      nodes {
+        id
+      }
+    }
     commentStatus
     comments(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     contentType {
@@ -910,11 +766,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     databaseId
     date
+    dateGmt
     description
     desiredSlug
-    editLast {
-      id
-    }
     enclosure
     guid
     id
@@ -923,6 +777,11 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       locale
       name
       slug
+    }
+    lastEditedBy {
+      node {
+        id
+      }
     }
     link
     mediaDetails {
@@ -958,29 +817,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     modified
     modifiedGmt
     wpParent: parent {
-      __typename
-      ... on Post {
-        id
-      }
-      ... on Page {
-        id
-      }
-      ... on MediaItem {
-        id
-      }
-      ... on TeamMember {
-        id
-      }
-      ... on Project {
-        id
-      }
-      ... on TypeLimitTest {
-        id
-      }
-      ... on TypeLimit0Test {
-        id
-      }
-      ... on TranslationFilterTest {
+      node {
         id
       }
     }
@@ -1023,14 +860,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         templateName
       }
     }
-    termNames
-    termSlugs
-    terms {
-      __typename
-      ... on Category {
-        id
-      }
-      ... on Tag {
+    terms(first: 100) {
+      nodes {
         id
       }
     }
@@ -1050,20 +881,28 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 "query SINGLE_CONTENT_QUERY($id: ID!) {
   mediaItem(id: $id) {
     altText
-    author {
-      id
+    ancestors(first: 100) {
+      nodes {
+        id
+      }
     }
+    author {
+      node {
+        id
+      }
+    }
+    authorDatabaseId
+    authorId
     caption
+    wpChildren: children(first: 100) {
+      nodes {
+        id
+      }
+    }
     commentStatus
     comments(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     contentType {
@@ -1073,11 +912,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     databaseId
     date
+    dateGmt
     description
     desiredSlug
-    editLast {
-      id
-    }
     enclosure
     guid
     id
@@ -1086,6 +923,11 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       locale
       name
       slug
+    }
+    lastEditedBy {
+      node {
+        id
+      }
     }
     link
     mediaDetails {
@@ -1121,29 +963,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     modified
     modifiedGmt
     wpParent: parent {
-      __typename
-      ... on Post {
-        id
-      }
-      ... on Page {
-        id
-      }
-      ... on MediaItem {
-        id
-      }
-      ... on TeamMember {
-        id
-      }
-      ... on Project {
-        id
-      }
-      ... on TypeLimitTest {
-        id
-      }
-      ... on TypeLimit0Test {
-        id
-      }
-      ... on TranslationFilterTest {
+      node {
         id
       }
     }
@@ -1186,14 +1006,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         templateName
       }
     }
-    termNames
-    termSlugs
-    terms {
-      __typename
-      ... on Category {
-        id
-      }
-      ... on Tag {
+    terms(first: 100) {
+      nodes {
         id
       }
     }
@@ -1214,17 +1028,12 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
   menus(first: $first, after: $after) {
     nodes {
       count
+      databaseId
       id
-      menuId
+      locations
       menuItems(first: 100) {
         nodes {
           id
-        }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
         }
       }
       name
@@ -1242,19 +1051,14 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Menu node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
-  menu(id: $id, idType: DATABASE_ID) {
+  menu(id: $id, idType: ID, asPreview: true) {
     count
+    databaseId
     id
-    menuId
+    locations
     menuItems(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     name
@@ -1269,17 +1073,12 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 "query SINGLE_CONTENT_QUERY($id: ID!) {
   menu(id: $id) {
     count
+    databaseId
     id
-    menuId
+    locations
     menuItems(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     name
@@ -1297,12 +1096,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       childItems(first: 100) {
         nodes {
           id
-        }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
         }
       }
       connectedObject {
@@ -1339,11 +1132,21 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         }
       }
       cssClasses
+      databaseId
       description
       id
       label
       linkRelationship
-      menuItemId
+      locations
+      menu {
+        node {
+          id
+        }
+      }
+      order
+      parentDatabaseId
+      parentId
+      path
       target
       title
       url
@@ -1360,16 +1163,10 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] MenuItem node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
-  menuItem(id: $id, idType: DATABASE_ID) {
+  menuItem(id: $id, idType: ID, asPreview: true) {
     childItems(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     connectedObject {
@@ -1406,11 +1203,21 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
     }
     cssClasses
+    databaseId
     description
     id
     label
     linkRelationship
-    menuItemId
+    locations
+    menu {
+      node {
+        id
+      }
+    }
+    order
+    parentDatabaseId
+    parentId
+    path
     target
     title
     url
@@ -1427,12 +1234,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     connectedObject {
       __typename
@@ -1468,11 +1269,21 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
     }
     cssClasses
+    databaseId
     description
     id
     label
     linkRelationship
-    menuItemId
+    locations
+    menu {
+      node {
+        id
+      }
+    }
+    order
+    parentDatabaseId
+    parentId
+    path
     target
     title
     url
@@ -1512,30 +1323,27 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
           sourceUrl
         }
       }
-      author {
-        id
-      }
-      childPages(first: 100) {
+      ancestors(first: 100) {
         nodes {
           id
         }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
+      }
+      author {
+        node {
+          id
+        }
+      }
+      authorDatabaseId
+      authorId
+      wpChildren: children(first: 100) {
+        nodes {
+          id
         }
       }
       commentStatus
       comments(first: 100) {
         nodes {
           id
-        }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
         }
       }
       content
@@ -1546,15 +1354,17 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
       databaseId
       date
+      dateGmt
       desiredSlug
-      editLast {
-        id
-      }
       enclosure
       featuredImage {
-        id
-        sourceUrl
+        node {
+          id
+          sourceUrl
+        }
       }
+      featuredImageDatabaseId
+      featuredImageId
       guid
       id
       isFrontPage
@@ -1565,34 +1375,17 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         name
         slug
       }
+      lastEditedBy {
+        node {
+          id
+        }
+      }
       link
       menuOrder
       modified
       modifiedGmt
       wpParent: parent {
-        __typename
-        ... on Post {
-          id
-        }
-        ... on Page {
-          id
-        }
-        ... on MediaItem {
-          id
-        }
-        ... on TeamMember {
-          id
-        }
-        ... on Project {
-          id
-        }
-        ... on TypeLimitTest {
-          id
-        }
-        ... on TypeLimit0Test {
-          id
-        }
-        ... on TranslationFilterTest {
+        node {
           id
         }
       }
@@ -1632,14 +1425,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
           templateName
         }
       }
-      termNames
-      termSlugs
-      terms {
-        __typename
-        ... on Category {
-          id
-        }
-        ... on Tag {
+      terms(first: 100) {
+        nodes {
           id
         }
       }
@@ -1661,7 +1448,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Page node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
-  page(id: $id, idType: DATABASE_ID) {
+  page(id: $id, idType: ID, asPreview: true) {
     acfPageFields {
       fieldGroupName
       flex {
@@ -1688,30 +1475,27 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         sourceUrl
       }
     }
-    author {
-      id
-    }
-    childPages(first: 100) {
+    ancestors(first: 100) {
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
+    }
+    author {
+      node {
+        id
+      }
+    }
+    authorDatabaseId
+    authorId
+    wpChildren: children(first: 100) {
+      nodes {
+        id
       }
     }
     commentStatus
     comments(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     content
@@ -1722,15 +1506,17 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     databaseId
     date
+    dateGmt
     desiredSlug
-    editLast {
-      id
-    }
     enclosure
     featuredImage {
-      id
-      sourceUrl
+      node {
+        id
+        sourceUrl
+      }
     }
+    featuredImageDatabaseId
+    featuredImageId
     guid
     id
     isFrontPage
@@ -1741,34 +1527,17 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       name
       slug
     }
+    lastEditedBy {
+      node {
+        id
+      }
+    }
     link
     menuOrder
     modified
     modifiedGmt
     wpParent: parent {
-      __typename
-      ... on Post {
-        id
-      }
-      ... on Page {
-        id
-      }
-      ... on MediaItem {
-        id
-      }
-      ... on TeamMember {
-        id
-      }
-      ... on Project {
-        id
-      }
-      ... on TypeLimitTest {
-        id
-      }
-      ... on TypeLimit0Test {
-        id
-      }
-      ... on TranslationFilterTest {
+      node {
         id
       }
     }
@@ -1808,14 +1577,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         templateName
       }
     }
-    termNames
-    termSlugs
-    terms {
-      __typename
-      ... on Category {
-        id
-      }
-      ... on Tag {
+    terms(first: 100) {
+      nodes {
         id
       }
     }
@@ -1859,30 +1622,27 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         sourceUrl
       }
     }
-    author {
-      id
-    }
-    childPages(first: 100) {
+    ancestors(first: 100) {
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
+    }
+    author {
+      node {
+        id
+      }
+    }
+    authorDatabaseId
+    authorId
+    wpChildren: children(first: 100) {
+      nodes {
+        id
       }
     }
     commentStatus
     comments(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     content
@@ -1893,15 +1653,17 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     databaseId
     date
+    dateGmt
     desiredSlug
-    editLast {
-      id
-    }
     enclosure
     featuredImage {
-      id
-      sourceUrl
+      node {
+        id
+        sourceUrl
+      }
     }
+    featuredImageDatabaseId
+    featuredImageId
     guid
     id
     isFrontPage
@@ -1912,34 +1674,17 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       name
       slug
     }
+    lastEditedBy {
+      node {
+        id
+      }
+    }
     link
     menuOrder
     modified
     modifiedGmt
     wpParent: parent {
-      __typename
-      ... on Post {
-        id
-      }
-      ... on Page {
-        id
-      }
-      ... on MediaItem {
-        id
-      }
-      ... on TeamMember {
-        id
-      }
-      ... on Project {
-        id
-      }
-      ... on TypeLimitTest {
-        id
-      }
-      ... on TypeLimit0Test {
-        id
-      }
-      ... on TranslationFilterTest {
+      node {
         id
       }
     }
@@ -1979,14 +1724,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         templateName
       }
     }
-    termNames
-    termSlugs
-    terms {
-      __typename
-      ... on Category {
-        id
-      }
-      ... on Tag {
+    terms(first: 100) {
+      nodes {
         id
       }
     }
@@ -2006,29 +1745,21 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
   posts(first: $first, after: $after, where: { parent: null }) {
     nodes {
       author {
-        id
+        node {
+          id
+        }
       }
+      authorDatabaseId
+      authorId
       categories(first: 100) {
         nodes {
           id
-        }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
         }
       }
       commentStatus
       comments(first: 100) {
         nodes {
           id
-        }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
         }
       }
       content
@@ -2039,16 +1770,18 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
       databaseId
       date
+      dateGmt
       desiredSlug
-      editLast {
-        id
-      }
       enclosure
       excerpt
       featuredImage {
-        id
-        sourceUrl
+        node {
+          id
+          sourceUrl
+        }
       }
+      featuredImageDatabaseId
+      featuredImageId
       guid
       id
       isRevision
@@ -2058,19 +1791,16 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         name
         slug
       }
+      lastEditedBy {
+        node {
+          id
+        }
+      }
       link
       modified
       modifiedGmt
       pingStatus
       pinged
-      postFormats {
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
-        }
-      }
       seo {
         focuskw
         metaDesc
@@ -2097,12 +1827,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         nodes {
           id
         }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
-        }
       }
       template {
         __typename
@@ -2116,14 +1840,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
           templateName
         }
       }
-      termNames
-      termSlugs
-      terms {
-        __typename
-        ... on Category {
-          id
-        }
-        ... on Tag {
+      terms(first: 100) {
+        nodes {
           id
         }
       }
@@ -2146,31 +1864,23 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Post node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
-  post(id: $id, idType: DATABASE_ID) {
+  post(id: $id, idType: ID, asPreview: true) {
     author {
-      id
+      node {
+        id
+      }
     }
+    authorDatabaseId
+    authorId
     categories(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     commentStatus
     comments(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     content
@@ -2181,16 +1891,18 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     databaseId
     date
+    dateGmt
     desiredSlug
-    editLast {
-      id
-    }
     enclosure
     excerpt
     featuredImage {
-      id
-      sourceUrl
+      node {
+        id
+        sourceUrl
+      }
     }
+    featuredImageDatabaseId
+    featuredImageId
     guid
     id
     isRevision
@@ -2200,19 +1912,16 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       name
       slug
     }
+    lastEditedBy {
+      node {
+        id
+      }
+    }
     link
     modified
     modifiedGmt
     pingStatus
     pinged
-    postFormats {
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
-    }
     seo {
       focuskw
       metaDesc
@@ -2239,12 +1948,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     template {
       __typename
@@ -2258,14 +1961,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         templateName
       }
     }
-    termNames
-    termSlugs
-    terms {
-      __typename
-      ... on Category {
-        id
-      }
-      ... on Tag {
+    terms(first: 100) {
+      nodes {
         id
       }
     }
@@ -2285,29 +1982,21 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 "query SINGLE_CONTENT_QUERY($id: ID!) {
   post(id: $id) {
     author {
-      id
+      node {
+        id
+      }
     }
+    authorDatabaseId
+    authorId
     categories(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     commentStatus
     comments(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     content
@@ -2318,16 +2007,18 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     databaseId
     date
+    dateGmt
     desiredSlug
-    editLast {
-      id
-    }
     enclosure
     excerpt
     featuredImage {
-      id
-      sourceUrl
+      node {
+        id
+        sourceUrl
+      }
     }
+    featuredImageDatabaseId
+    featuredImageId
     guid
     id
     isRevision
@@ -2337,19 +2028,16 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       name
       slug
     }
+    lastEditedBy {
+      node {
+        id
+      }
+    }
     link
     modified
     modifiedGmt
     pingStatus
     pinged
-    postFormats {
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
-    }
     seo {
       focuskw
       metaDesc
@@ -2376,12 +2064,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     template {
       __typename
@@ -2395,14 +2077,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         templateName
       }
     }
-    termNames
-    termSlugs
-    terms {
-      __typename
-      ... on Category {
-        id
-      }
-      ... on Tag {
+    terms(first: 100) {
+      nodes {
         id
       }
     }
@@ -2435,8 +2111,12 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         }
       }
       author {
-        id
+        node {
+          id
+        }
       }
+      authorDatabaseId
+      authorId
       content
       contentType {
         node {
@@ -2445,17 +2125,24 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
       databaseId
       date
+      dateGmt
       desiredSlug
-      editLast {
-        id
-      }
       enclosure
       featuredImage {
-        id
-        sourceUrl
+        node {
+          id
+          sourceUrl
+        }
       }
+      featuredImageDatabaseId
+      featuredImageId
       guid
       id
+      lastEditedBy {
+        node {
+          id
+        }
+      }
       link
       modified
       modifiedGmt
@@ -2493,6 +2180,11 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
           templateName
         }
       }
+      terms(first: 100) {
+        nodes {
+          id
+        }
+      }
       title
       uri
       __typename
@@ -2508,7 +2200,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Project node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
-  project(id: $id, idType: DATABASE_ID) {
+  project(id: $id, idType: ID, asPreview: true) {
     acfProject {
       fieldGroupName
       image {
@@ -2522,8 +2214,12 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
     }
     author {
-      id
+      node {
+        id
+      }
     }
+    authorDatabaseId
+    authorId
     content
     contentType {
       node {
@@ -2532,17 +2228,24 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     databaseId
     date
+    dateGmt
     desiredSlug
-    editLast {
-      id
-    }
     enclosure
     featuredImage {
-      id
-      sourceUrl
+      node {
+        id
+        sourceUrl
+      }
     }
+    featuredImageDatabaseId
+    featuredImageId
     guid
     id
+    lastEditedBy {
+      node {
+        id
+      }
+    }
     link
     modified
     modifiedGmt
@@ -2578,6 +2281,11 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
       ... on FullWidthTemplateTemplate {
         templateName
+      }
+    }
+    terms(first: 100) {
+      nodes {
+        id
       }
     }
     title
@@ -2604,8 +2312,12 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
     }
     author {
-      id
+      node {
+        id
+      }
     }
+    authorDatabaseId
+    authorId
     content
     contentType {
       node {
@@ -2614,17 +2326,24 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     databaseId
     date
+    dateGmt
     desiredSlug
-    editLast {
-      id
-    }
     enclosure
     featuredImage {
-      id
-      sourceUrl
+      node {
+        id
+        sourceUrl
+      }
     }
+    featuredImageDatabaseId
+    featuredImageId
     guid
     id
+    lastEditedBy {
+      node {
+        id
+      }
+    }
     link
     modified
     modifiedGmt
@@ -2660,6 +2379,11 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
       ... on FullWidthTemplateTemplate {
         templateName
+      }
+    }
+    terms(first: 100) {
+      nodes {
+        id
       }
     }
     title
@@ -2752,12 +2476,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         nodes {
           id
         }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
-        }
       }
       seo {
         focuskw
@@ -2789,12 +2507,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         nodes {
           id
         }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
-        }
       }
       termGroupId
       termTaxonomyId
@@ -2815,7 +2527,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Tag node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
-  tag(id: $id, idType: DATABASE_ID) {
+  tag(id: $id, idType: ID, asPreview: true) {
     count
     databaseId
     description
@@ -2831,12 +2543,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     posts(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     seo {
@@ -2868,12 +2574,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     teamMembers(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     termGroupId
@@ -2907,12 +2607,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     seo {
       focuskw
@@ -2944,12 +2638,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     termGroupId
     termTaxonomyId
@@ -2967,9 +2655,10 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
   taxonomies(first: $first, after: $after) {
     nodes {
-      connectedPostTypeNames
-      connectedPostTypes {
-        id
+      connectedContentTypes(first: 100) {
+        nodes {
+          id
+        }
       }
       description
       graphqlPluralName
@@ -3002,10 +2691,11 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Taxonomy node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
-  taxonomy(id: $id, idType: DATABASE_ID) {
-    connectedPostTypeNames
-    connectedPostTypes {
-      id
+  taxonomy(id: $id, idType: ID, asPreview: true) {
+    connectedContentTypes(first: 100) {
+      nodes {
+        id
+      }
     }
     description
     graphqlPluralName
@@ -3034,9 +2724,10 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Taxonomy node single query hasn't changed 1`] = `
 "query SINGLE_CONTENT_QUERY($id: ID!) {
   taxonomy(id: $id) {
-    connectedPostTypeNames
-    connectedPostTypes {
-      id
+    connectedContentTypes(first: 100) {
+      nodes {
+        id
+      }
     }
     description
     graphqlPluralName
@@ -3092,29 +2783,21 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         }
       }
       author {
-        id
+        node {
+          id
+        }
       }
+      authorDatabaseId
+      authorId
       categories(first: 100) {
         nodes {
           id
-        }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
         }
       }
       commentStatus
       comments(first: 100) {
         nodes {
           id
-        }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
         }
       }
       content
@@ -3125,33 +2808,32 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
       databaseId
       date
+      dateGmt
       desiredSlug
-      editLast {
-        id
-      }
       enclosure
       excerpt
       featuredImage {
-        id
-        sourceUrl
+        node {
+          id
+          sourceUrl
+        }
       }
+      featuredImageDatabaseId
+      featuredImageId
       guid
       id
       isRevision
+      lastEditedBy {
+        node {
+          id
+        }
+      }
       link
       menuOrder
       modified
       modifiedGmt
       pingStatus
       pinged
-      postFormats {
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
-        }
-      }
       seo {
         focuskw
         metaDesc
@@ -3178,12 +2860,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         nodes {
           id
         }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
-        }
       }
       template {
         __typename
@@ -3197,14 +2873,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
           templateName
         }
       }
-      termNames
-      termSlugs
-      terms {
-        __typename
-        ... on Category {
-          id
-        }
-        ... on Tag {
+      terms(first: 100) {
+        nodes {
           id
         }
       }
@@ -3224,7 +2894,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] TeamMember node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
-  teamMember(id: $id, idType: DATABASE_ID) {
+  teamMember(id: $id, idType: ID, asPreview: true) {
     acfData {
       fieldGroupName
       name
@@ -3251,29 +2921,21 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
     }
     author {
-      id
+      node {
+        id
+      }
     }
+    authorDatabaseId
+    authorId
     categories(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     commentStatus
     comments(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     content
@@ -3284,33 +2946,32 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     databaseId
     date
+    dateGmt
     desiredSlug
-    editLast {
-      id
-    }
     enclosure
     excerpt
     featuredImage {
-      id
-      sourceUrl
+      node {
+        id
+        sourceUrl
+      }
     }
+    featuredImageDatabaseId
+    featuredImageId
     guid
     id
     isRevision
+    lastEditedBy {
+      node {
+        id
+      }
+    }
     link
     menuOrder
     modified
     modifiedGmt
     pingStatus
     pinged
-    postFormats {
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
-    }
     seo {
       focuskw
       metaDesc
@@ -3337,12 +2998,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     template {
       __typename
@@ -3356,14 +3011,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         templateName
       }
     }
-    termNames
-    termSlugs
-    terms {
-      __typename
-      ... on Category {
-        id
-      }
-      ... on Tag {
+    terms(first: 100) {
+      nodes {
         id
       }
     }
@@ -3405,29 +3054,21 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
     }
     author {
-      id
+      node {
+        id
+      }
     }
+    authorDatabaseId
+    authorId
     categories(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     commentStatus
     comments(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     content
@@ -3438,33 +3079,32 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     databaseId
     date
+    dateGmt
     desiredSlug
-    editLast {
-      id
-    }
     enclosure
     excerpt
     featuredImage {
-      id
-      sourceUrl
+      node {
+        id
+        sourceUrl
+      }
     }
+    featuredImageDatabaseId
+    featuredImageId
     guid
     id
     isRevision
+    lastEditedBy {
+      node {
+        id
+      }
+    }
     link
     menuOrder
     modified
     modifiedGmt
     pingStatus
     pinged
-    postFormats {
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
-    }
     seo {
       focuskw
       metaDesc
@@ -3491,12 +3131,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     template {
       __typename
@@ -3510,14 +3144,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         templateName
       }
     }
-    termNames
-    termSlugs
-    terms {
-      __typename
-      ... on Category {
-        id
-      }
-      ... on Tag {
+    terms(first: 100) {
+      nodes {
         id
       }
     }
@@ -3602,8 +3230,12 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
   ) {
     nodes {
       author {
-        id
+        node {
+          id
+        }
       }
+      authorDatabaseId
+      authorId
       content
       contentType {
         node {
@@ -3612,15 +3244,17 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
       databaseId
       date
+      dateGmt
       desiredSlug
-      editLast {
-        id
-      }
       enclosure
       featuredImage {
-        id
-        sourceUrl
+        node {
+          id
+          sourceUrl
+        }
       }
+      featuredImageDatabaseId
+      featuredImageId
       guid
       id
       language {
@@ -3628,6 +3262,11 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         locale
         name
         slug
+      }
+      lastEditedBy {
+        node {
+          id
+        }
       }
       link
       modified
@@ -3666,14 +3305,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
           templateName
         }
       }
-      termNames
-      termSlugs
-      terms {
-        __typename
-        ... on Category {
-          id
-        }
-        ... on Tag {
+      terms(first: 100) {
+        nodes {
           id
         }
       }
@@ -3695,10 +3328,14 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] TranslationFilterTest node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
-  translationFilterTest(id: $id, idType: DATABASE_ID) {
+  translationFilterTest(id: $id, idType: ID, asPreview: true) {
     author {
-      id
+      node {
+        id
+      }
     }
+    authorDatabaseId
+    authorId
     content
     contentType {
       node {
@@ -3707,15 +3344,17 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     databaseId
     date
+    dateGmt
     desiredSlug
-    editLast {
-      id
-    }
     enclosure
     featuredImage {
-      id
-      sourceUrl
+      node {
+        id
+        sourceUrl
+      }
     }
+    featuredImageDatabaseId
+    featuredImageId
     guid
     id
     language {
@@ -3723,6 +3362,11 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       locale
       name
       slug
+    }
+    lastEditedBy {
+      node {
+        id
+      }
     }
     link
     modified
@@ -3761,14 +3405,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         templateName
       }
     }
-    termNames
-    termSlugs
-    terms {
-      __typename
-      ... on Category {
-        id
-      }
-      ... on Tag {
+    terms(first: 100) {
+      nodes {
         id
       }
     }
@@ -3787,8 +3425,12 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 "query SINGLE_CONTENT_QUERY($id: ID!) {
   translationFilterTest(id: $id) {
     author {
-      id
+      node {
+        id
+      }
     }
+    authorDatabaseId
+    authorId
     content
     contentType {
       node {
@@ -3797,15 +3439,17 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     databaseId
     date
+    dateGmt
     desiredSlug
-    editLast {
-      id
-    }
     enclosure
     featuredImage {
-      id
-      sourceUrl
+      node {
+        id
+        sourceUrl
+      }
     }
+    featuredImageDatabaseId
+    featuredImageId
     guid
     id
     language {
@@ -3813,6 +3457,11 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       locale
       name
       slug
+    }
+    lastEditedBy {
+      node {
+        id
+      }
     }
     link
     modified
@@ -3851,14 +3500,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         templateName
       }
     }
-    termNames
-    termSlugs
-    terms {
-      __typename
-      ... on Category {
-        id
-      }
-      ... on Tag {
+    terms(first: 100) {
+      nodes {
         id
       }
     }
@@ -3878,8 +3521,12 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
   typeLimit0Tests(first: $first, after: $after, where: { parent: null }) {
     nodes {
       author {
-        id
+        node {
+          id
+        }
       }
+      authorDatabaseId
+      authorId
       content
       contentType {
         node {
@@ -3888,17 +3535,24 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
       databaseId
       date
+      dateGmt
       desiredSlug
-      editLast {
-        id
-      }
       enclosure
       featuredImage {
-        id
-        sourceUrl
+        node {
+          id
+          sourceUrl
+        }
       }
+      featuredImageDatabaseId
+      featuredImageId
       guid
       id
+      lastEditedBy {
+        node {
+          id
+        }
+      }
       link
       modified
       modifiedGmt
@@ -3934,6 +3588,11 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         }
         ... on FullWidthTemplateTemplate {
           templateName
+        }
+      }
+      terms(first: 100) {
+        nodes {
+          id
         }
       }
       title
@@ -3951,10 +3610,14 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] TypeLimit0Test node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
-  typeLimit0Test(id: $id, idType: DATABASE_ID) {
+  typeLimit0Test(id: $id, idType: ID, asPreview: true) {
     author {
-      id
+      node {
+        id
+      }
     }
+    authorDatabaseId
+    authorId
     content
     contentType {
       node {
@@ -3963,17 +3626,24 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     databaseId
     date
+    dateGmt
     desiredSlug
-    editLast {
-      id
-    }
     enclosure
     featuredImage {
-      id
-      sourceUrl
+      node {
+        id
+        sourceUrl
+      }
     }
+    featuredImageDatabaseId
+    featuredImageId
     guid
     id
+    lastEditedBy {
+      node {
+        id
+      }
+    }
     link
     modified
     modifiedGmt
@@ -4009,6 +3679,11 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
       ... on FullWidthTemplateTemplate {
         templateName
+      }
+    }
+    terms(first: 100) {
+      nodes {
+        id
       }
     }
     title
@@ -4023,8 +3698,12 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 "query SINGLE_CONTENT_QUERY($id: ID!) {
   typeLimit0Test(id: $id) {
     author {
-      id
+      node {
+        id
+      }
     }
+    authorDatabaseId
+    authorId
     content
     contentType {
       node {
@@ -4033,17 +3712,24 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     databaseId
     date
+    dateGmt
     desiredSlug
-    editLast {
-      id
-    }
     enclosure
     featuredImage {
-      id
-      sourceUrl
+      node {
+        id
+        sourceUrl
+      }
     }
+    featuredImageDatabaseId
+    featuredImageId
     guid
     id
+    lastEditedBy {
+      node {
+        id
+      }
+    }
     link
     modified
     modifiedGmt
@@ -4079,6 +3765,11 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
       ... on FullWidthTemplateTemplate {
         templateName
+      }
+    }
+    terms(first: 100) {
+      nodes {
+        id
       }
     }
     title
@@ -4094,8 +3785,12 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
   typeLimitTests(first: $first, after: $after, where: { parent: null }) {
     nodes {
       author {
-        id
+        node {
+          id
+        }
       }
+      authorDatabaseId
+      authorId
       content
       contentType {
         node {
@@ -4104,17 +3799,24 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
       databaseId
       date
+      dateGmt
       desiredSlug
-      editLast {
-        id
-      }
       enclosure
       featuredImage {
-        id
-        sourceUrl
+        node {
+          id
+          sourceUrl
+        }
       }
+      featuredImageDatabaseId
+      featuredImageId
       guid
       id
+      lastEditedBy {
+        node {
+          id
+        }
+      }
       link
       modified
       modifiedGmt
@@ -4152,6 +3854,11 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
           templateName
         }
       }
+      terms(first: 100) {
+        nodes {
+          id
+        }
+      }
       title
       uri
       __typename
@@ -4167,10 +3874,14 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] TypeLimitTest node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
-  typeLimitTest(id: $id, idType: DATABASE_ID) {
+  typeLimitTest(id: $id, idType: ID, asPreview: true) {
     author {
-      id
+      node {
+        id
+      }
     }
+    authorDatabaseId
+    authorId
     content
     contentType {
       node {
@@ -4179,17 +3890,24 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     databaseId
     date
+    dateGmt
     desiredSlug
-    editLast {
-      id
-    }
     enclosure
     featuredImage {
-      id
-      sourceUrl
+      node {
+        id
+        sourceUrl
+      }
     }
+    featuredImageDatabaseId
+    featuredImageId
     guid
     id
+    lastEditedBy {
+      node {
+        id
+      }
+    }
     link
     modified
     modifiedGmt
@@ -4225,6 +3943,11 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
       ... on FullWidthTemplateTemplate {
         templateName
+      }
+    }
+    terms(first: 100) {
+      nodes {
+        id
       }
     }
     title
@@ -4239,8 +3962,12 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 "query SINGLE_CONTENT_QUERY($id: ID!) {
   typeLimitTest(id: $id) {
     author {
-      id
+      node {
+        id
+      }
     }
+    authorDatabaseId
+    authorId
     content
     contentType {
       node {
@@ -4249,17 +3976,24 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     databaseId
     date
+    dateGmt
     desiredSlug
-    editLast {
-      id
-    }
     enclosure
     featuredImage {
-      id
-      sourceUrl
+      node {
+        id
+        sourceUrl
+      }
     }
+    featuredImageDatabaseId
+    featuredImageId
     guid
     id
+    lastEditedBy {
+      node {
+        id
+      }
+    }
     link
     modified
     modifiedGmt
@@ -4295,6 +4029,11 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
       ... on FullWidthTemplateTemplate {
         templateName
+      }
+    }
+    terms(first: 100) {
+      nodes {
+        id
       }
     }
     title
@@ -4327,12 +4066,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         nodes {
           id
         }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
-        }
       }
       databaseId
       description
@@ -4347,12 +4080,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
           id
           sourceUrl
         }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
-        }
       }
       name
       nicename
@@ -4361,33 +4088,15 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         nodes {
           id
         }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
-        }
       }
       posts(first: 100) {
         nodes {
           id
         }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
-        }
       }
       projects(first: 100) {
         nodes {
           id
-        }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
         }
       }
       registeredDate
@@ -4396,49 +4105,24 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         nodes {
           id
         }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
-        }
       }
       translationFilterTests(first: 100) {
         nodes {
           id
-        }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
         }
       }
       typeLimit0Tests(first: 100) {
         nodes {
           id
         }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
-        }
       }
       typeLimitTests(first: 100) {
         nodes {
           id
         }
-        pageInfo {
-          endCursor
-          hasNextPage
-          hasPreviousPage
-          startCursor
-        }
       }
       uri
       url
-      userId
       username
       __typename
     }
@@ -4453,7 +4137,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] User node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
-  user(id: $id, idType: DATABASE_ID) {
+  user(id: $id, idType: ID, asPreview: true) {
     avatar {
       default
       extraAttr
@@ -4472,12 +4156,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     databaseId
     description
@@ -4492,12 +4170,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         id
         sourceUrl
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     name
     nicename
@@ -4506,33 +4178,15 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     posts(first: 100) {
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     projects(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     registeredDate
@@ -4541,49 +4195,24 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     translationFilterTests(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     typeLimit0Tests(first: 100) {
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     typeLimitTests(first: 100) {
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     uri
     url
-    userId
     username
     __typename
   }
@@ -4612,12 +4241,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     databaseId
     description
@@ -4632,12 +4255,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         id
         sourceUrl
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     name
     nicename
@@ -4646,33 +4263,15 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     posts(first: 100) {
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     projects(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     registeredDate
@@ -4681,49 +4280,24 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     translationFilterTests(first: 100) {
       nodes {
         id
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
       }
     }
     typeLimit0Tests(first: 100) {
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     typeLimitTests(first: 100) {
       nodes {
         id
       }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
     }
     uri
     url
-    userId
     username
     __typename
   }

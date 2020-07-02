@@ -67,8 +67,6 @@ const excludeField = ({
     )) ||
   // the type of this field was excluded via plugin options
   thisTypeSettings.exclude ||
-  // node interface types are created elsewhere
-  thisTypeSettings.nodeInterface ||
   // field is blacklisted
   fieldBlacklist.includes(fieldName) ||
   // this field has required input args
