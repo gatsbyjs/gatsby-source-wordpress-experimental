@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.8.0
+
+Updated plugin to work with WPGraphQL 0.10.0 which provides better menu and preview support. This is listed as a minor because supported min version has been bumped and WPGraphQL has a lot of breaking changes for this release. Head to https://github.com/wp-graphql/wp-graphql/releases/tag/v0.10.0 for more information on updating.
+
 ## 0.7.14
 
 ### Bug Fixes
