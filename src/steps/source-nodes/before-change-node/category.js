@@ -48,6 +48,7 @@ export const categoryBeforeChangeNode = async ({
 
   const { data } = await fetchGraphql({
     query,
+    errorContext: `Error occured while recursively fetching "Category" nodes in beforeChangeNode API.`,
   })
 
   const remoteChildCategoryNodes = Object.values(data)

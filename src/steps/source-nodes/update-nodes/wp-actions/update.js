@@ -91,6 +91,7 @@ export const fetchAndCreateSingleNode = async ({
     variables: {
       id,
     },
+    errorContext: `Error occured while updating a single "${singleName}" node.`,
   })
 
   let remoteNode = data[singleName]
