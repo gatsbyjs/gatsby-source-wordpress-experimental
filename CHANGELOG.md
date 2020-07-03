@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.8.4
+
+Changed `verbose` plugin option to be true by default. This is a smarter default as it's more useful to see what the plugin is doing when you're first using it. If you don't want to see all the output it's easy to turn it off.
+
 ## 0.8.3
 
 ### Bug Fixes
