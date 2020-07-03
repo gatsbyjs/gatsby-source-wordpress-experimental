@@ -17,6 +17,7 @@ const fetchAndCreateNonNodeRootFields = async () => {
 
   const { data } = await fetchGraphql({
     query: nonNodeQuery,
+    errorContext: `Error occured while fetching non-Node root fields.`,
   })
 
   await helpers.actions.createNode({

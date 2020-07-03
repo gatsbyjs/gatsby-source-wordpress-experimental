@@ -5,6 +5,7 @@
 ### Bug Fixes
 
 - Referenced MediaItem nodes were being incorrectly ignored when `html.useGatsbyImage` was set to `false`. This led to tons of images being fetched in resolvers instead of after node sourcing is complete which is problematic for some servers and causes the build to fail.
+- Added error context messages to every instance of `fetchGraphQL()` to help give context on when a gql error occurred during the build.
 
 ## 0.8.0
 
