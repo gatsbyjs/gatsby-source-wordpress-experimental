@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.8.3
+
+### Bug Fixes
+
+- htaccess password and username were not being passed into the `createRemoteFileNode` helper which meant builds would fail if these files were protected.
+
 ## 0.8.2
 
 ### Bug Fixes
