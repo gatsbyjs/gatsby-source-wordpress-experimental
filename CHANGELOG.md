@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.8.1
+
+### Bug Fixes
+
+- Referenced MediaItem nodes were being incorrectly ignored when `html.useGatsbyImage` was set to `false`. This led to tons of images being fetched in resolvers instead of after node sourcing is complete which is problematic for some servers and causes the build to fail.
+
 ## 0.8.0
 
 Updated plugin to work with WPGraphQL 0.10.0 which provides better menu and preview support. This is listed as a minor because supported min version has been bumped and WPGraphQL has a lot of breaking changes for this release. Head to https://github.com/wp-graphql/wp-graphql/releases/tag/v0.10.0 for more information on updating.
