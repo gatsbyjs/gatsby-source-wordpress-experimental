@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.8.2
+
+### Bug Fixes
+
+- GATSBY_CONCURRENT_DOWNLOAD couldn't be set lower than 3 without erroring.
+
 ## 0.8.1
 
 ### Bug Fixes
