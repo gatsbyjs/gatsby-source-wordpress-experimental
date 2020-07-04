@@ -102,7 +102,7 @@ export const createRemoteMediaItemNode = async ({
     actions: { createNode },
   } = helpers
 
-  const { mediaItemUrl, modifiedGmt, mimeType } = mediaItemNode
+  const { mediaItemUrl, modifiedGmt, mimeType, title } = mediaItemNode
 
   if (!mediaItemUrl) {
     return null
@@ -149,6 +149,8 @@ export const createRemoteMediaItemNode = async ({
           const buffer = await fs.readFile(hardCachedFilePath)
           const node = await createFileNodeFromBuffer({
             buffer,
+            name: title,
+            ext: path.extname(mediaItemUrl),
             ...createFileNodeRequirements,
           })
 
