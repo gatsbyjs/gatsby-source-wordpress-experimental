@@ -1,5 +1,13 @@
 # Change Log
 
+## 0.8.5
+
+### Bug Fixes
+
+- Images that weren't transformable by Sharp were still being transformed which was causing problems
+- When using the hardCacheMediaFiles option, file names were sometimes undefined or the extension wasn't properly handled
+- Html image widths weren't being properly inferred in all cases due to a problem where a variable wasn't properly cast as a Number
+
 ## 0.8.4
 
 Changed `verbose` plugin option to be true by default. This is a smarter default as it's more useful to see what the plugin is doing when you're first using it. If you don't want to see all the output it's easy to turn it off.
