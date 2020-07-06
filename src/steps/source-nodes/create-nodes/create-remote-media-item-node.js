@@ -102,7 +102,7 @@ export const createRemoteMediaItemNode = async ({
     actions: { createNode },
   } = helpers
 
-  const { mediaItemUrl, modifiedGmt, mimeType } = mediaItemNode
+  const { mediaItemUrl, modifiedGmt, mimeType, title } = mediaItemNode
 
   if (!mediaItemUrl) {
     return null
@@ -127,6 +127,8 @@ export const createRemoteMediaItemNode = async ({
     (process.env.NODE_ENV === `production` &&
       pluginOptions.production.hardCacheMediaFiles)
 
+  const htaccessCredentials = pluginOptions.auth.htaccess
+
   // Otherwise we need to download it
   const remoteFileNode = await retry(
     async () => {
@@ -147,6 +149,8 @@ export const createRemoteMediaItemNode = async ({
           const buffer = await fs.readFile(hardCachedFilePath)
           const node = await createFileNodeFromBuffer({
             buffer,
+            name: title,
+            ext: path.extname(mediaItemUrl),
             ...createFileNodeRequirements,
           })
 
@@ -162,6 +166,12 @@ export const createRemoteMediaItemNode = async ({
       const node = await createRemoteFileNode({
         url: mediaItemUrl,
         fixedBarTotal,
+        auth: htaccessCredentials
+          ? {
+              htaccess_pass: htaccessCredentials?.password,
+              htaccess_user: htaccessCredentials?.username,
+            }
+          : null,
         ...createFileNodeRequirements,
       })
 

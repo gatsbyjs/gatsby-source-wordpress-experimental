@@ -5,7 +5,7 @@ import { categoryBeforeChangeNode } from "~/steps/source-nodes/before-change-nod
 
 const defaultPluginOptions = {
   url: null,
-  verbose: false,
+  verbose: true,
   debug: {
     graphql: {
       showQueryOnError: false,

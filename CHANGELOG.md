@@ -1,5 +1,42 @@
 # Change Log
 
+## 0.8.6
+
+### Bug Fixes
+
+- Gatsby images in html do not currently lazy load properly. This will be fixed in a later release but for now this means we need to hide the placeholder on load using an inline css style.
+
+## 0.8.5
+
+### Bug Fixes
+
+- Images that weren't transformable by Sharp were still being transformed which was causing problems
+- When using the hardCacheMediaFiles option, file names were sometimes undefined or the extension wasn't properly handled
+- Html image widths weren't being properly inferred in all cases due to a problem where a variable wasn't properly cast as a Number
+
+## 0.8.4
+
+Changed `verbose` plugin option to be true by default. This is a smarter default as it's more useful to see what the plugin is doing when you're first using it. If you don't want to see all the output it's easy to turn it off.
+
+## 0.8.3
+
+### Bug Fixes
+
+- htaccess password and username were not being passed into the `createRemoteFileNode` helper which meant builds would fail if these files were protected.
+
+## 0.8.2
+
+### Bug Fixes
+
+- GATSBY_CONCURRENT_DOWNLOAD couldn't be set lower than 3 without erroring.
+
+## 0.8.1
+
+### Bug Fixes
+
+- Referenced MediaItem nodes were being incorrectly ignored when `html.useGatsbyImage` was set to `false`. This led to tons of images being fetched in resolvers instead of after node sourcing is complete which is problematic for some servers and causes the build to fail.
+- Added error context messages to every instance of `fetchGraphQL()` to help give context on when a gql error occurred during the build.
+
 ## 0.8.0
 
 Updated plugin to work with WPGraphQL 0.10.0 which provides better menu and preview support. This is listed as a minor because supported min version has been bumped and WPGraphQL has a lot of breaking changes for this release. Head to https://github.com/wp-graphql/wp-graphql/releases/tag/v0.10.0 for more information on updating.

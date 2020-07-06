@@ -52,7 +52,7 @@ This should be the full url of your GraphQL endpoint.
 
 ## verbose: Boolean
 
-Wether there will be verbose output in the terminal. Set true for verbose. Default is `false`.
+Wether there will be verbose output in the terminal. Set to `false` to turn off. Default is `true`.
 
 ```js
 {
