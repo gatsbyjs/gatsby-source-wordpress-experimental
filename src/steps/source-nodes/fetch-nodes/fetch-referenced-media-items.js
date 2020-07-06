@@ -3,7 +3,6 @@ import store from "~/store"
 import atob from "atob"
 import PQueue from "p-queue"
 import { createRemoteMediaItemNode } from "../create-nodes/create-remote-media-item-node"
-import { formatLogMessage } from "~/utils/format-log-message"
 import { paginatedWpNodeFetch, normalizeNode } from "./fetch-nodes-paginated"
 import { buildTypeName } from "~/steps/create-schema-customization/helpers"
 import fetchGraphql from "~/utils/fetch-graphql"
@@ -11,10 +10,15 @@ import { getFileNodeMetaBySourceUrl } from "~/steps/source-nodes/create-nodes/cr
 
 const nodeFetchConcurrency = 2
 
+const concurrency = Number(process.env.GATSBY_CONCURRENT_DOWNLOAD ?? 200)
+const adjustedConcurrency = Number(concurrency ?? 200) - nodeFetchConcurrency
+const normalizedConcurrency =
+  adjustedConcurrency <= nodeFetchConcurrency
+    ? concurrency
+    : adjustedConcurrency
+
 const mediaFileFetchQueue = new PQueue({
-  concurrency:
-    Number(process.env.GATSBY_CONCURRENT_DOWNLOAD ?? 200) -
-    nodeFetchConcurrency,
+  concurrency: normalizedConcurrency,
   carryoverConcurrencyCount: true,
 })
 

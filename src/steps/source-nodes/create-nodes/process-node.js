@@ -6,6 +6,9 @@ import stringify from "fast-json-stable-stringify"
 import execall from "execall"
 import cheerio from "cheerio"
 import url from "url"
+import path from "path"
+import fs from "fs-extra"
+import { supportedExtensions } from "gatsby-transformer-sharp/supported-extensions"
 
 import { formatLogMessage } from "~/utils/format-log-message"
 import createRemoteFileNode from "./create-remote-file-node/index"
@@ -29,10 +32,7 @@ const getNodeEditLink = (node) => {
 const findReferencedImageNodeIds = ({ nodeString, pluginOptions, node }) => {
   // if the lazyNodes plugin option is set we don't need to find
   // image node id's because those nodes will be fetched lazily in resolvers
-  if (
-    pluginOptions.type.MediaItem.lazyNodes ||
-    !pluginOptions?.html?.useGatsbyImage
-  ) {
+  if (pluginOptions.type.MediaItem.lazyNodes) {
     return []
   }
 
@@ -247,7 +247,7 @@ const findImgTagMaxWidthFromCheerioImg = (cheerioImg) => {
     const widthNumber = Number(width)
 
     if (!isNaN(widthNumber)) {
-      return width
+      return widthNumber
     }
   }
 
@@ -348,6 +348,8 @@ const replaceNodeHtmlImages = async ({
           (imgTagMaxWidth &&
           // and we have a media item node to know it's full size max width
           mediaItemNodeWidth &&
+          // and this isn't an svg which has no maximum width
+          fileNode.extension !== `svg` &&
           // and the media item node max width is smaller than what we inferred
           // from html
           mediaItemNodeWidth < imgTagMaxWidth
@@ -363,27 +365,32 @@ const replaceNodeHtmlImages = async ({
 
         const { reporter, cache, pathPrefix } = helpers
 
-        let fluidResult
+        const gatsbyTransformerSharpSupportsThisFileType =
+          supportedExtensions[fileNode?.extension]
 
-        try {
-          fluidResult = await fluid({
-            file: fileNode,
-            args: {
-              maxWidth,
-              quality,
-              pathPrefix,
-            },
-            reporter,
-            cache,
-          })
-        } catch (e) {
-          reporter.error(e)
-          reporter.warn(
-            formatLogMessage(
-              `${node.__typename} ${node.id} couldn't process inline html image ${fileNode.url}`
+        let fluidResult = null
+
+        if (gatsbyTransformerSharpSupportsThisFileType) {
+          try {
+            fluidResult = await fluid({
+              file: fileNode,
+              args: {
+                maxWidth,
+                quality,
+                pathPrefix,
+              },
+              reporter,
+              cache,
+            })
+          } catch (e) {
+            reporter.error(e)
+            reporter.warn(
+              formatLogMessage(
+                `${node.__typename} ${node.id} couldn't process inline html image ${fileNode.url}`
+              )
             )
-          )
-          return null
+            return null
+          }
         }
 
         return {
@@ -406,13 +413,15 @@ const replaceNodeHtmlImages = async ({
 
       // @todo retain img tag classes and attributes from cheerioImg
       const imgOptions = {
-        fluid: imageResize,
         style: {
           // these styles make it so that the image wont be stretched
           // beyond it's max width, but it also wont exceed the width
           // of it's parent element
           maxWidth: "100%",
           width: `${maxWidth}px`,
+        },
+        placeholderStyle: {
+          opacity: 0,
         },
         className: cheerioImg?.attribs?.class,
         // Force show full image instantly
@@ -424,7 +433,50 @@ const replaceNodeHtmlImages = async ({
         },
       }
 
-      const ReactGatsbyImage = React.createElement(Img, imgOptions, null)
+      let ReactGatsbyImage
+
+      if (imageResize) {
+        imgOptions.fluid = imageResize
+        ReactGatsbyImage = React.createElement(Img, imgOptions, null)
+      } else {
+        const { fileNode } = matchResize
+
+        const fileName = `${fileNode.internal.contentDigest}/${fileNode.base}`
+
+        const publicPath = path.join(
+          process.cwd(),
+          `public`,
+          `static`,
+          fileName
+        )
+
+        if (!fs.existsSync(publicPath)) {
+          await fs.copy(
+            fileNode.absolutePath,
+            publicPath,
+            { dereference: true },
+            (err) => {
+              if (err) {
+                console.error(
+                  `error copying file from ${fileNode.absolutePath} to ${publicPath}`,
+                  err
+                )
+              }
+            }
+          )
+        }
+
+        const relativeUrl = `${helpers.pathPrefix ?? ``}/static/${fileName}`
+
+        imgOptions.src = relativeUrl
+
+        delete imgOptions.imgStyle
+        delete imgOptions.fadeIn
+        delete imgOptions.placeholderStyle
+
+        ReactGatsbyImage = React.createElement(`img`, imgOptions, null)
+      }
+
       const gatsbyImageStringJSON = JSON.stringify(
         ReactDOMServer.renderToString(ReactGatsbyImage)
       )
