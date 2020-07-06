@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.8.6
+
+### Bug Fixes
+
+- Gatsby images in html do not currently lazy load properly. This will be fixed in a later release but for now this means we need to hide the placeholder on load using an inline css style.
+
 ## 0.8.5
 
 ### Bug Fixes
