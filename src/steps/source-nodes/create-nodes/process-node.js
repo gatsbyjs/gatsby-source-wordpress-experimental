@@ -420,6 +420,9 @@ const replaceNodeHtmlImages = async ({
           maxWidth: "100%",
           width: `${maxWidth}px`,
         },
+        placeholderStyle: {
+          opacity: 0,
+        },
         className: cheerioImg?.attribs?.class,
         // Force show full image instantly
         loading: "eager",
@@ -469,6 +472,7 @@ const replaceNodeHtmlImages = async ({
 
         delete imgOptions.imgStyle
         delete imgOptions.fadeIn
+        delete imgOptions.placeholderStyle
 
         ReactGatsbyImage = React.createElement(`img`, imgOptions, null)
       }
