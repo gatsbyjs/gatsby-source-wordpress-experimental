@@ -109,10 +109,34 @@ const handleGraphQLErrors = async ({
       reporter.error(formatLogMessage(errorMap.to))
     }
 
+    // convert the error path array into a string like "mediaItems.nodes[55].mediaDetails.meta.focalLength"
+    let errorPath = error?.path
+      ?.map((field, index) => {
+        // if this is a number it's the index of a node
+        if (typeof field === `number`) {
+          return `[${field}].`
+        } else if (
+          // otherwise if the next field isn't a number
+          typeof error.path[index + 1] !== `number`
+        ) {
+          // add dot notation
+          return `${field}.`
+        }
+
+        // or just return the field
+        return field
+      })
+      ?.join(``)
+
+    if (errorPath.endsWith(`.`)) {
+      // trim "." off the end of the errorPath
+      errorPath = errorPath.slice(0, -1)
+    }
+
     if (error.debugMessage) {
       reporter.error(
         formatLogMessage(
-          `Error category: ${error.category} \n\nError: \n  ${error.message} \n\n Debug message: \n  ${error.debugMessage}`
+          `Error category: ${error.category} \n\nError: \n  ${error.message} \n\n Debug message: \n  ${error.debugMessage} \n\n Error path: ${errorPath}`
         )
       )
     } else {
@@ -129,7 +153,7 @@ const handleGraphQLErrors = async ({
               : ``
           } \n\t ${
             error.message
-          }  \n\n If you haven't already, try adding ${chalk.bold(
+          }  \n\n Error path: ${errorPath} \n\n If you haven't already, try adding ${chalk.bold(
             `define( 'GRAPHQL_DEBUG', true );`
           )} to your wp-config.php for more detailed error messages.`
         )
