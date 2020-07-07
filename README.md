@@ -23,7 +23,7 @@
   </a>
 </p>
 
-# gatsby-source-wordpress@v4 ALPHA
+# gatsby-source-wordpress@v4 BETA
 
 This plugin is the official recommended way to use WordPress with Gatsby. We're currently publishing on a separate package to make migrating from `gatsby-source-wordpress@v3` easier. If you're coming from `v3` ​this allows you to activate the new version of the plugin alongside `gatsby-source-wordpress` and migrate your codebase one piece at a time :star:
 
@@ -37,7 +37,7 @@ Developer & Content Creator experience are some of our main focuses with this in
 
 # Docs :book:
 
-- :woman_singer:  [Why use this plugin?](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/why-use-this-plugin.md)
+- :woman_singer: [Why use this plugin?](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/why-use-this-plugin.md)
 - :runner: [Installation & Getting started](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/getting-started.md)
 - :school: [Tutorials](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/tutorials/index.md)
 - :feet: [Features](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/features/index.md)

@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.0.0
+
+This release adds no changes! This is the point at which we've decided to move this project into beta. `1.0.0` signifies this.
+
 ## 0.8.7
 
 ### New Features
