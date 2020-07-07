@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.8.7
+
+### New Features
+
+Added a new api `addNodeFilter` and `applyNodeFilter` which work similarly to filters in vanilla WP. It allows any plugin to add a function to filter some data and then any other plugin to apply all registered filters. This is currently undocumented because it's not a finished or tested API.
+
 ## 0.8.6
 
 ### Bug Fixes
