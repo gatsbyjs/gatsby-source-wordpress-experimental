@@ -1,5 +1,12 @@
 # Change Log
 
+## 1.0.1
+
+### New Features
+
+- Added the error path from GraphQL errors to error output.
+  For example: "Error path: mediaItems.nodes[77].mediaDetails.meta.focalLength"
+
 ## 1.0.0
 
 This release adds no changes! This is the point at which we've decided to move this project into beta. `1.0.0` signifies this.
