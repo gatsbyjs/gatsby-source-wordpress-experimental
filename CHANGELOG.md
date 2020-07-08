@@ -1,5 +1,12 @@
 # Change Log
 
+## 1.0.2
+
+### Bug Fixes
+
+- Lists of connect Gatsby nodes resolvers weren't properly returning empty arrays and instead would return `null` even if the remote schema returned an empty Array.
+- Literal `null`s in arrays of connected nodes were failing the build
+
 ## 1.0.1
 
 ### New Features

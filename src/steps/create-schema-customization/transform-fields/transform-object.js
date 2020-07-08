@@ -8,20 +8,14 @@ export const transformListOfGatsbyNodes = ({ field, fieldName }) => {
 
   return {
     type: `[${typeName}]`,
-    resolve: (source, _, context) => {
+    resolve: (source, args, context, info) => {
       let nodes = null
 
       const field = source[fieldName]
 
       if (field && Array.isArray(field)) {
         nodes = field
-
-        // @todo determine if this else if is necessary
-        // I think it isn't. The test for this in field-transformers.js line 48
-        // is checking if this is a list of Gatsby nodes which means it should be
-        // an array, not an object type with nodes as a field.
-        // leaving this for now as I have no automated tests yet :scream:
-      } else if (source && source.nodes && source.nodes.length) {
+      } else if (Array.isArray(source?.nodes)) {
         nodes = source.nodes
       }
 
@@ -30,7 +24,7 @@ export const transformListOfGatsbyNodes = ({ field, fieldName }) => {
       }
 
       return context.nodeModel.getNodesByIds({
-        ids: nodes.map((node) => node.id),
+        ids: nodes.map((node) => node?.id),
         type: typeName,
       })
     },
