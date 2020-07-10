@@ -13,7 +13,7 @@ export const sourcePreviews = async ({ webhookBody, reporter }, { url }) => {
     return
   }
 
-  if (url !== webhookBody.remoteUrl) {
+  if (url.split(`//`)[1] !== webhookBody.remoteUrl.split(`//`)[1]) {
     reporter.panic(
       formatLogMessage(
         `Received preview data from a different remote URL than the one specified in plugin options. \n\n ${chalk.bold(
