@@ -128,7 +128,7 @@ const handleGraphQLErrors = async ({
       })
       ?.join(``)
 
-    if (errorPath.endsWith(`.`)) {
+    if (errorPath?.endsWith(`.`)) {
       // trim "." off the end of the errorPath
       errorPath = errorPath.slice(0, -1)
     }

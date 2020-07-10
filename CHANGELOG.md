@@ -1,5 +1,12 @@
 # Change Log
 
+## 1.0.3
+
+### Bug Fixes
+
+- New post draft previews and draft previews weren't working anymore. Minimum WPGatsby version has been increased in order to fix this.
+- When an error path didn't exist in a GraphQL error, a property on undefined was being accessed which threw an unrelated error.
+
 ## 1.0.2
 
 ### Bug Fixes

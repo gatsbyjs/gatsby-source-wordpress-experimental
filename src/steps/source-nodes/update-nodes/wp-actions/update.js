@@ -48,6 +48,7 @@ export const fetchAndCreateSingleNode = async ({
   actionType,
   cachedNodeIds,
   isNewPostDraft,
+  isDraft,
   previewId = null,
   token = null,
 }) => {
@@ -58,7 +59,8 @@ export const fetchAndCreateSingleNode = async ({
   // if it's a preview but it's the initial blank node
   // then use the regular node query as the preview query wont
   // return anything
-  const query = previewId && !isNewPostDraft ? previewQuery : nodeQuery
+  const query =
+    previewId && !isNewPostDraft && !isDraft ? previewQuery : nodeQuery
 
   const {
     helpers: { reporter },
@@ -100,10 +102,6 @@ export const fetchAndCreateSingleNode = async ({
     // for UX reasons we don't want to display Auto Draft as a title
     // in the preview window for new draft posts
     remoteNode.title = ``
-  }
-
-  if (previewId) {
-    console.log(remoteNode)
   }
 
   // if we ask for a node that doesn't exist
