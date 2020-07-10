@@ -6,8 +6,8 @@ const supportedWpPluginVersions = {
     reason: `WPGraphQL 0.10.0 introduced a large number of changes that required internal source plugin code changes. A big feature is improved support for WordPress previews and improvements to how Menus are handled. Head to https://github.com/wp-graphql/wp-graphql/releases/tag/v0.10.0 for more information on upgrading.`,
   },
   WPGatsby: {
-    version: `~0.4.0`,
-    reason: `WPGatsby 0.4.0 supports WPGraphQL 0.10.0`,
+    version: `~0.4.1`,
+    reason: `WPGatsby 0.4.1 supports WPGraphQL 0.10.0`,
   },
 }
 
