@@ -1,10 +1,11 @@
 import { fieldTransformers } from "./field-transformers"
+import store from "~/store"
 import {
   fieldOfTypeWasFetched,
   typeIsASupportedScalar,
   getTypeSettingsByType,
   findTypeName,
-} from "../helpers"
+} from "~/steps/create-schema-customization/helpers"
 
 const handleCustomScalars = (field) => {
   const fieldTypeIsACustomScalar =
@@ -119,6 +120,32 @@ export const transformFields = ({
         parentInterfacesImplementingTypeSettings,
       })
     ) {
+      return fieldsObject
+    }
+
+    const { typeMap } = store.getState().remoteSchema
+
+    const type = typeMap.get(findTypeName(field.type))
+
+    const includedChildFields = type?.fields?.filter((field) => {
+      const childFieldTypeSettings = getTypeSettingsByType(field.type)
+      const fieldName = getAliasedFieldName({ fieldAliases, field })
+      return !excludeField({
+        field,
+        fieldName,
+        thisTypeSettings: childFieldTypeSettings,
+        fieldBlacklist,
+        parentTypeSettings: thisTypeSettings,
+        parentInterfacesImplementingTypeSettings,
+      })
+    })
+
+    // if the child fields of this field are all excluded,
+    // we shouldn't add this field
+    // @todo move this to a central location.
+    // if a type is missing all it's child fields due to exclusion
+    // it should be globally excluded automatically.
+    if (Array.isArray(includedChildFields) && !includedChildFields.length) {
       return fieldsObject
     }
 

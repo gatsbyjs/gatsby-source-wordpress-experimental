@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.0.4
+
+### Bug Fixes
+
+- If all of a types child fields were excluded, that type wouldn't also be excluded
+
 ## 1.0.3
 
 ### Bug Fixes
