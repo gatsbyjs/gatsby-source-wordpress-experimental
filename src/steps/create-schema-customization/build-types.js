@@ -125,15 +125,22 @@ const objectType = (typeBuilderApi) => {
     isAGatsbyNode,
   } = typeBuilderApi
 
+  const transformedFields = transformFields({
+    fields: type.fields,
+    parentType: type,
+    gatsbyNodeTypes,
+    fieldAliases,
+    fieldBlacklist,
+  })
+
+  // if all child fields are excluded, this type shouldn't exist.
+  if (!Object.keys(transformedFields).length) {
+    return
+  }
+
   let objectType = {
     name: buildTypeName(type.name),
-    fields: transformFields({
-      fields: type.fields,
-      parentType: type,
-      gatsbyNodeTypes,
-      fieldAliases,
-      fieldBlacklist,
-    }),
+    fields: transformedFields,
     extensions: {
       infer: false,
     },
