@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.0.6
+
+Bumped minimum WPGQL version to `0.10.3` to prevent folks from running into a WPGQL resolver regression that caused some builds to fail.
+
 ## 1.0.5
 
 ### Bug Fixes
