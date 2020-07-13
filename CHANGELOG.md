@@ -1,5 +1,12 @@
 # Change Log
 
+## 1.0.5
+
+### Bug Fixes
+
+- Images fetched from HTML which had no corresponding WPGQL MediaItem and were just fetched as regular Gatsby File nodes weren't always being properly cached.
+- Images fetched from HTML didn't have htaccess creds passed onto them, resulting in 401 errors.
+
 ## 1.0.4
 
 ### Bug Fixes
