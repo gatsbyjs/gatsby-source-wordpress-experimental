@@ -4,11 +4,13 @@ exports[`[gatsby-source-wordpress-experimental] filtered type definitions Date f
 Object {
   "data": Object {
     "wpPage": Object {
-      "date": "2020-03-19T01:41:08",
-      "dayOfMonth": "19",
-      "dayOfWeekName": "Thursday",
-      "dayOfWeekNumber": "4",
-      "month": "March",
+      "databaseId": 2,
+      "date": "2020-02-25T17:54:21",
+      "dayOfMonth": "25",
+      "dayOfWeekName": "Tuesday",
+      "dayOfWeekNumber": "2",
+      "id": "cG9zdDoy",
+      "month": "February",
       "year": "2020",
     },
   },

@@ -68,7 +68,7 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
           testPage: wpPage(id: { eq: "cG9zdDoy" }) {
             title
           }
-          allWpPage {
+          allWpPage(sort: { fields: date }) {
             nodes {
               uri
               title
@@ -191,7 +191,7 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
           testPost: wpPost(id: { eq: "cG9zdDox" }) {
             title
           }
-          allWpPost {
+          allWpPost(sort: { fields: date }) {
             nodes {
               title
               featuredImage {
