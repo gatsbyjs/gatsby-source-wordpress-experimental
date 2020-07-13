@@ -16,6 +16,7 @@ import fetchReferencedMediaItemsAndCreateNodes, {
   stripImageSizesFromUrl,
 } from "../fetch-nodes/fetch-referenced-media-items"
 import btoa from "btoa"
+import store from "~/store"
 
 // @todo this doesn't make sense because these aren't all images
 const imgSrcRemoteFileRegex = /(?:src=\\")((?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[A-Z0-9+&@#/%=~_|$])\.(?:jpeg|jpg|png|gif|ico|pdf|doc|docx|ppt|pptx|pps|ppsx|odt|xls|psd|mp3|m4a|ogg|wav|mp4|m4v|mov|wmv|avi|mpg|ogv|3gp|3g2|svg|bmp|tif|tiff|asf|asx|wm|wmx|divx|flv|qt|mpe|webm|mkv|tt|asc|c|cc|h|csv|tsv|ics|rtx|css|htm|html|m4b|ra|ram|mid|midi|wax|mka|rtf|js|swf|class|tar|zip|gz|gzip|rar|7z|exe|pot|wri|xla|xlt|xlw|mdb|mpp|docm|dotx|dotm|xlsm|xlsb|xltx|xltm|xlam|pptm|ppsm|potx|potm|ppam|sldx|sldm|onetoc|onetoc2|onetmp|onepkg|odp|ods|odg|odc|odb|odf|wp|wpd|key|numbers|pages))(?=\\"| |\.)/gim
@@ -86,6 +87,7 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
   nodeString,
   node,
   helpers,
+  pluginOptions,
 }) => {
   // @todo check if we have any of these nodes locally already
   const mediaItemUrls = cheerioImages.map(
@@ -120,7 +122,20 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
     referencedMediaItemNodeIds: mediaItemRelayIds,
   })
 
-  const mediaItemNodes = [...mediaItemNodesById, ...mediaItemNodesBySourceUrl]
+  // get all the image nodes we've cached from elsewhere
+  const { nodeMetaByUrl } = store.getState().imageNodes
+  const previouslyCachedNodesByUrl = await Promise.all(
+    Object.entries(nodeMetaByUrl).map(([sourceUrl, { id }]) => ({
+      sourceUrl,
+      ...(helpers.getNode(id) ?? {}),
+    }))
+  )
+
+  const mediaItemNodes = [
+    ...mediaItemNodesById,
+    ...mediaItemNodesBySourceUrl,
+    ...previouslyCachedNodesByUrl,
+  ]
 
   const htmlMatchesToMediaItemNodesMap = new Map()
   for (const { cheerioImg, match } of cheerioImages) {
@@ -146,15 +161,23 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
       // we need to fetch it and create a file node for it with no
       // media item node.
       try {
+        const htaccessCredentials = pluginOptions.auth.htaccess
+
         imageNode = await createRemoteFileNode({
           url: htmlImgSrc,
           // fixedBarTotal,
           parentNodeId: node.id,
+          auth: htaccessCredentials
+            ? {
+                htaccess_pass: htaccessCredentials?.password,
+                htaccess_user: htaccessCredentials?.username,
+              }
+            : null,
           ...helpers,
           createNode: helpers.actions.createNode,
         })
       } catch (e) {
-        if (e.includes(`404`)) {
+        if (typeof e === `string` && e.includes(`404`)) {
           const nodeEditLink = getNodeEditLink(node)
           helpers.reporter.log(``)
           helpers.reporter.warn(
@@ -175,6 +198,13 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
           helpers.reporter.panic(formatLogMessage(e))
         }
       }
+
+      // save any fetched media items in our global media item cache
+      store.dispatch.imageNodes.pushNodeMeta({
+        sourceUrl: htmlImgSrc,
+        id: imageNode.id,
+        modifiedGmt: imageNode.modifiedGmt,
+      })
     }
 
     if (imageNode) {
@@ -293,6 +323,7 @@ const replaceNodeHtmlImages = async ({
         nodeString,
         node,
         helpers,
+        pluginOptions,
       }
     )
 
