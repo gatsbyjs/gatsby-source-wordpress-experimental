@@ -6,7 +6,9 @@ describe(`[gatsby-source-wordpress-experimental] filtered type definitions`, () 
       url: `http://localhost:8000/___graphql`,
       query: /* GraphQL */ `
         {
-          wpPage {
+          wpPage(id: { eq: "cG9zdDoy" }) {
+            id
+            databaseId
             year: date(formatString: "YYYY")
             month: date(formatString: "MMMM")
             dayOfMonth: date(formatString: "DD")
