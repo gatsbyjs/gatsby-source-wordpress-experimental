@@ -944,6 +944,14 @@ Array [
   },
   Object {
     "fields": Array [
+      "databaseId",
+      "id",
+      "uri",
+    ],
+    "name": "WpMenuItemLinkable",
+  },
+  Object {
+    "fields": Array [
       "fieldGroupName",
       "flex",
       "image",
@@ -2130,6 +2138,14 @@ Array [
   },
   Object {
     "fields": null,
+    "name": "WpMenuItemToMenuItemLinkableConnectionEdgeFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpMenuItemLinkableFilterInput",
+  },
+  Object {
+    "fields": null,
     "name": "WpMenuItemToMenuConnectionEdgeFilterInput",
   },
   Object {
@@ -2161,7 +2177,7 @@ Array [
   Object {
     "fields": Array [
       "childItems",
-      "connectedObject",
+      "connectedNode",
       "cssClasses",
       "databaseId",
       "description",
@@ -2191,8 +2207,10 @@ Array [
     "name": "WpMenuItemToMenuItemConnection",
   },
   Object {
-    "fields": null,
-    "name": "WpMenuItemObjectUnion",
+    "fields": Array [
+      "node",
+    ],
+    "name": "WpMenuItemToMenuItemLinkableConnectionEdge",
   },
   Object {
     "fields": Array [
@@ -2428,7 +2446,7 @@ Array [
 ]
 `;
 
-exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the local Gatsby schema 2`] = `"9cbbd0efd3e3ad987386cbc7fa129fa2"`;
+exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the local Gatsby schema 2`] = `"74cd8b8c8998556e89ac460f12583e92"`;
 
 exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the remote WPGraphQL schema 1`] = `
 Array [
@@ -3493,6 +3511,14 @@ Array [
       "menuOrder",
     ],
     "name": "NodeWithPageAttributes",
+  },
+  Object {
+    "fields": Array [
+      "databaseId",
+      "id",
+      "uri",
+    ],
+    "name": "MenuItemLinkable",
   },
   Object {
     "fields": Array [
@@ -4802,7 +4828,7 @@ Array [
   Object {
     "fields": Array [
       "childItems",
-      "connectedObject",
+      "connectedNode",
       "cssClasses",
       "databaseId",
       "description",
@@ -4840,6 +4866,12 @@ Array [
       "node",
     ],
     "name": "MenuItemToMenuItemConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "node",
+    ],
+    "name": "MenuItemToMenuItemLinkableConnectionEdge",
   },
   Object {
     "fields": null,
@@ -6044,4 +6076,4 @@ Array [
 ]
 `;
 
-exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the remote WPGraphQL schema 2`] = `"22acb93119ed7e9b1dc66bccad2631ce"`;
+exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the remote WPGraphQL schema 2`] = `"d9c3786680f9bc4b677604dcd876fafe"`;

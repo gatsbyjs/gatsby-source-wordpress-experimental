@@ -5,6 +5,8 @@ import { transformListOfGatsbyNodes } from "./transform-object"
 import { getGatsbyNodeTypeNames } from "~/steps/source-nodes/fetch-nodes/fetch-nodes"
 import { typeIsABuiltInScalar } from "~/steps/create-schema-customization/helpers"
 import store from "~/store"
+import { typeIsExcluded } from "~/steps/ingest-remote-schema/is-excluded"
+import { getPluginOptions } from "~/utils/get-gatsby-api"
 
 export const fieldTransformers = [
   {
@@ -110,13 +112,36 @@ export const fieldTransformers = [
   },
 
   {
-    // Gatsby node Objects
+    // Gatsby node Objects OR Interfaces where all possible types are Gatsby nodes
     test: (field) => {
       const gatsbyNodeTypes = getGatsbyNodeTypeNames()
 
+      const pluginOptions = getPluginOptions()
+
+      const isAnInterfaceTypeOfGatsbyNodes =
+        // if this is an interface
+        field.type.kind === `INTERFACE` &&
+        // and every possible type is a future gatsby node
+        store
+          .getState()
+          // get the full type for this interface
+          .remoteSchema.typeMap.get(findTypeName(field.type))
+          // filter out any excluded types
+          .possibleTypes?.filter(
+            (possibleType) =>
+              !typeIsExcluded({
+                pluginOptions,
+                typeName: possibleType.name,
+              })
+          )
+          // if every remaining type is a Gatsby node type
+          // then use this field transformer
+          ?.every((possibleType) => gatsbyNodeTypes.includes(possibleType.name))
+
       return (
-        gatsbyNodeTypes.includes(field.type.name) &&
-        field.type.kind === `OBJECT`
+        (gatsbyNodeTypes.includes(field.type.name) &&
+          field.type.kind === `OBJECT`) ||
+        isAnInterfaceTypeOfGatsbyNodes
       )
     },
 

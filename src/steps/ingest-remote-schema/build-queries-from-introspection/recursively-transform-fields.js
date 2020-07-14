@@ -143,6 +143,7 @@ function transformField({
   // count the number of times this type has appeared as an ancestor of itself
   // somewhere up the tree
   const typeName = findTypeName(field.type)
+  const typeKind = findTypeKind(field.type)
 
   const typeIncarnationCount = countIncarnations({
     typeName,
@@ -219,7 +220,6 @@ function transformField({
   const isListOfMediaItems = ofType && typeName === `MediaItem`
 
   const hasIdField = fieldType?.fields?.find(({ name }) => name === `id`)
-
   if (
     fieldType.kind === `LIST` &&
     isListOfGatsbyNodes &&
@@ -299,10 +299,21 @@ function transformField({
       fieldType,
     }
   } else if (isAGatsbyNode && hasIdField) {
-    // just pull the id for connections to other gatsby nodes
+    const isAnInterfaceTypeOfGatsbyNodes =
+      // if this is an interface
+      typeKind === `INTERFACE` &&
+      // and every possible type is a future gatsby node
+      fieldType?.possibleTypes?.every((possibleType) =>
+        gatsbyNodesInfo.typeNames.includes(possibleType.name)
+      )
+
     return {
       fieldName: fieldName,
-      fields: [`id`],
+      fields: isAnInterfaceTypeOfGatsbyNodes
+        ? // we need the typename for interfaces
+          [`id`, `__typename`]
+        : // or just the id for 1:1 connections to gatsby nodes
+          [`id`],
       fieldType,
     }
   }

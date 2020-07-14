@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.0.7
+
+### Bug Fixes
+
+- Connection fields to interface types that consist entirely of Gatsby node types were not being handled properly in the query generation and schema customization steps. This is due to latest WPGraphQL using interface types for node connections in places where it previously wasn't, so this bug wasn't previously discovered.
+
 ## 1.0.6
 
 Bumped minimum WPGQL version to `0.10.3` to prevent folks from running into a WPGQL resolver regression that caused some builds to fail.

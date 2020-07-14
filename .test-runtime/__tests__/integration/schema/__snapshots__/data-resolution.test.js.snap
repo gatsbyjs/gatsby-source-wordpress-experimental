@@ -35,15 +35,16 @@ Object {
                           },
                         ],
                       },
-                      "connectedObject": Object {
-                        "__typename": "WpPost",
-                        "featuredImage": Object {
-                          "node": Object {
-                            "title": "84-1000×1000",
+                      "connectedNode": Object {
+                        "node": Object {
+                          "featuredImage": Object {
+                            "node": Object {
+                              "title": "84-1000×1000",
+                            },
                           },
+                          "title": "Hello world!",
+                          "uri": "/2020/02/25/hello-world/",
                         },
-                        "title": "Hello world!",
-                        "uri": "/2020/02/25/hello-world/",
                       },
                       "databaseId": 566,
                       "id": "bmF2X21lbnVfaXRlbTo1NjY=",
@@ -66,9 +67,7 @@ Object {
                       "childItems": Object {
                         "nodes": Array [],
                       },
-                      "connectedObject": Object {
-                        "__typename": "WpMenuItem",
-                      },
+                      "connectedNode": null,
                       "databaseId": 567,
                       "id": "bmF2X21lbnVfaXRlbTo1Njc=",
                       "label": "test custom link",
@@ -140,15 +139,16 @@ Object {
                           },
                         ],
                       },
-                      "connectedObject": Object {
-                        "__typename": "WpPost",
-                        "featuredImage": Object {
-                          "node": Object {
-                            "title": "84-1000×1000",
+                      "connectedNode": Object {
+                        "node": Object {
+                          "featuredImage": Object {
+                            "node": Object {
+                              "title": "84-1000×1000",
+                            },
                           },
+                          "title": "Hello world! DELTA SYNC",
+                          "uri": "/2020/02/25/hello-world/",
                         },
-                        "title": "Hello world! DELTA SYNC",
-                        "uri": "/2020/02/25/hello-world/",
                       },
                       "databaseId": 566,
                       "id": "bmF2X21lbnVfaXRlbTo1NjY=",
@@ -171,9 +171,7 @@ Object {
                       "childItems": Object {
                         "nodes": Array [],
                       },
-                      "connectedObject": Object {
-                        "__typename": "WpMenuItem",
-                      },
+                      "connectedNode": null,
                       "databaseId": 567,
                       "id": "bmF2X21lbnVfaXRlbTo1Njc=",
                       "label": "test custom link",
