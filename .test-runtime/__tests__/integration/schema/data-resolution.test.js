@@ -29,14 +29,15 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
                       label
                       id
                       databaseId
-                      connectedObject {
-                        __typename
-                        ... on WpPost {
-                          title
-                          uri
-                          featuredImage {
-                            node {
-                              title
+                      connectedNode {
+                        node {
+                          ... on WpPost {
+                            title
+                            uri
+                            featuredImage {
+                              node {
+                                title
+                              }
                             }
                           }
                         }

@@ -255,12 +255,14 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       author {
         node {
           id
+          __typename
         }
       }
       authorIp
       commentedOn {
         node {
           id
+          __typename
         }
       }
       content
@@ -299,12 +301,14 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     author {
       node {
         id
+        __typename
       }
     }
     authorIp
     commentedOn {
       node {
         id
+        __typename
       }
     }
     content
@@ -338,12 +342,14 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     author {
       node {
         id
+        __typename
       }
     }
     authorIp
     commentedOn {
       node {
         id
+        __typename
       }
     }
     content
@@ -668,6 +674,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       wpParent: parent {
         node {
           id
+          __typename
         }
       }
       parentDatabaseId
@@ -819,6 +826,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     wpParent: parent {
       node {
         id
+        __typename
       }
     }
     parentDatabaseId
@@ -965,6 +973,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     wpParent: parent {
       node {
         id
+        __typename
       }
     }
     parentDatabaseId
@@ -1098,37 +1107,10 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
           id
         }
       }
-      connectedObject {
-        __typename
-        ... on Post {
+      connectedNode {
+        node {
           id
-        }
-        ... on Page {
-          id
-        }
-        ... on TeamMember {
-          id
-        }
-        ... on Project {
-          id
-        }
-        ... on TypeLimitTest {
-          id
-        }
-        ... on TypeLimit0Test {
-          id
-        }
-        ... on TranslationFilterTest {
-          id
-        }
-        ... on Category {
-          id
-        }
-        ... on Tag {
-          id
-        }
-        ... on MenuItem {
-          id
+          __typename
         }
       }
       cssClasses
@@ -1169,37 +1151,10 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         id
       }
     }
-    connectedObject {
-      __typename
-      ... on Post {
+    connectedNode {
+      node {
         id
-      }
-      ... on Page {
-        id
-      }
-      ... on TeamMember {
-        id
-      }
-      ... on Project {
-        id
-      }
-      ... on TypeLimitTest {
-        id
-      }
-      ... on TypeLimit0Test {
-        id
-      }
-      ... on TranslationFilterTest {
-        id
-      }
-      ... on Category {
-        id
-      }
-      ... on Tag {
-        id
-      }
-      ... on MenuItem {
-        id
+        __typename
       }
     }
     cssClasses
@@ -1235,37 +1190,10 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         id
       }
     }
-    connectedObject {
-      __typename
-      ... on Post {
+    connectedNode {
+      node {
         id
-      }
-      ... on Page {
-        id
-      }
-      ... on TeamMember {
-        id
-      }
-      ... on Project {
-        id
-      }
-      ... on TypeLimitTest {
-        id
-      }
-      ... on TypeLimit0Test {
-        id
-      }
-      ... on TranslationFilterTest {
-        id
-      }
-      ... on Category {
-        id
-      }
-      ... on Tag {
-        id
-      }
-      ... on MenuItem {
-        id
+        __typename
       }
     }
     cssClasses
@@ -1387,6 +1315,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       wpParent: parent {
         node {
           id
+          __typename
         }
       }
       parentDatabaseId
@@ -1539,6 +1468,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     wpParent: parent {
       node {
         id
+        __typename
       }
     }
     parentDatabaseId
@@ -1686,6 +1616,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     wpParent: parent {
       node {
         id
+        __typename
       }
     }
     parentDatabaseId
