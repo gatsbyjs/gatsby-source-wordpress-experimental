@@ -1,5 +1,9 @@
 # Change Log
 
+## Upcoming
+
+- Disallowed use of MediaItem.limit option as this option only introduces bugs and odd behaviour due to the special handling of this node type internally.
+
 ## 1.0.7
 
 ### Bug Fixes
