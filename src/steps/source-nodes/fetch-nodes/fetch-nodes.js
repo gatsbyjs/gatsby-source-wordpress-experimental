@@ -5,6 +5,11 @@ import { CREATED_NODE_IDS } from "~/constants"
 import store from "~/store"
 import { getGatsbyApi } from "~/utils/get-gatsby-api"
 import chunk from "lodash/chunk"
+import fetchGraphql from "../../../utils/fetch-graphql"
+import {
+  pushPromiseOntoRetryQueue,
+  mediaNodeFetchQueue,
+} from "./fetch-referenced-media-items"
 
 /**
  * fetchWPGQLContentNodes
@@ -120,6 +125,119 @@ export const fetchWPGQLContentNodesByContentType = async () => {
   return contentNodeGroups
 }
 
+const fetchByIdsInQueue = async () => {
+  const allIdsWithTypes = await fetchGraphql({
+    query: /* GraphQL */ `
+      {
+        wpGatsby {
+          allIDs {
+            id
+            type
+          }
+        }
+      }
+    `,
+  })
+
+  const nodes = await fetchNodesByIdsAndType(
+    allIdsWithTypes.data.wpGatsby.allIDs
+  )
+
+  dd(nodes.length)
+}
+
+const fetchNodesByIdsAndType = async (typedIds) => {
+  const typeNameToQueryInfo = getContentTypeQueryInfos().reduce(
+    (accumulator, current) => {
+      accumulator[current.typeInfo.nodesTypeName] = current
+
+      return accumulator
+    },
+    {}
+  )
+
+  const state = store.getState()
+  const { helpers, pluginOptions } = state.gatsbyApi
+  const { createContentDigest, actions } = helpers
+
+  let nodes = []
+
+  const chunkedTypedIds = chunk(typedIds, 100)
+
+  for (const [index, ids] of chunkedTypedIds.entries()) {
+    pushPromiseOntoRetryQueue({
+      helpers,
+      createContentDigest,
+      actions,
+      queue: mediaNodeFetchQueue,
+      retryKey: `Nodes by IDs query #${index}`,
+      retryPromise: async () => {
+        let neededFragmentsByType = {}
+
+        const query = /* GraphQL */ `
+          query AssortedNodesByIds {
+            ${ids
+              .map(({ id, type }, index) => {
+                const {
+                  selectionSet,
+                  builtFragments,
+                  typeInfo: { singularName },
+                } = typeNameToQueryInfo[type]
+
+                neededFragmentsByType[type] = {
+                  selectionSet,
+                  builtFragments,
+                }
+
+                return /* GraphQL */ `
+                  node__index_${index}: ${singularName}(id: "${id}") {
+                    ...${type}
+                  }
+                `
+              })
+              .join(` `)}
+          }
+          
+          ${Object.entries(neededFragmentsByType)
+            .map(
+              ([
+                type,
+                { selectionSet, builtFragments },
+              ]) => `fragment ${type} on ${type} {
+            ${selectionSet}
+          }
+
+          ${builtFragments || ``}`
+            )
+            .join(` `)}
+        `
+
+        const { data } = await fetchGraphql({
+          query,
+          errorContext: `Error occured while fast-fetching assorted nodes by ids.`,
+        })
+
+        // since we're getting each media item on it's single node root field
+        // we just needs the values of each property in the response
+        // anything that returns null is because we tried to get the source url
+        // plus the source url minus resize patterns. So there will be nulls
+        // since only the full source url will return data
+        Object.values(data).forEach((node) => {
+          if (!node) {
+            return
+          }
+
+          nodes.push(node)
+        })
+      },
+    })
+  }
+
+  await mediaNodeFetchQueue.onIdle()
+
+  return nodes
+}
+
 /**
  * fetchAndCreateAllNodes
  *
@@ -138,6 +256,8 @@ export const fetchAndCreateAllNodes = async () => {
   store.subscribe(() => {
     activity.setStatus(`${store.getState().logger.entityCount} total`)
   })
+
+  await fetchByIdsInQueue()
 
   const wpgqlNodesByContentType = await fetchWPGQLContentNodesByContentType()
 

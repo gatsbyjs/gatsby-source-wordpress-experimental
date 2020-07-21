@@ -17,19 +17,19 @@ const normalizedConcurrency =
     ? concurrency
     : adjustedConcurrency
 
-const mediaFileFetchQueue = new PQueue({
+export const mediaFileFetchQueue = new PQueue({
   concurrency: normalizedConcurrency,
   carryoverConcurrencyCount: true,
 })
 
-const mediaNodeFetchQueue = new PQueue({
+export const mediaNodeFetchQueue = new PQueue({
   concurrency: nodeFetchConcurrency,
   carryoverConcurrencyCount: true,
 })
 
 const previouslyRetriedPromises = {}
 
-const pushPromiseOntoRetryQueue = ({
+export const pushPromiseOntoRetryQueue = ({
   node,
   helpers,
   createContentDigest,

@@ -67,6 +67,9 @@ const defaultPluginOptions = {
     GeneralSettings: {
       excludeFieldNames: [`email`],
     },
+    WpGatsby: {
+      exclude: true,
+    },
     WpContentNodeToEditLockConnectionEdge: {
       exclude: true,
     },
