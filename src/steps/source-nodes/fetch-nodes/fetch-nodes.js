@@ -6,6 +6,7 @@ import store from "~/store"
 import { getGatsbyApi } from "~/utils/get-gatsby-api"
 import chunk from "lodash/chunk"
 import fetchGraphql from "../../../utils/fetch-graphql"
+import compress from "graphql-query-compress"
 import {
   pushPromiseOntoRetryQueue,
   mediaNodeFetchQueue,
@@ -158,11 +159,17 @@ const fetchNodesByIdsAndType = async (typedIds) => {
 
   const state = store.getState()
   const { helpers, pluginOptions } = state.gatsbyApi
-  const { createContentDigest, actions } = helpers
+  const { createContentDigest, actions, reporter } = helpers
 
   let nodes = []
 
   const chunkedTypedIds = chunk(typedIds, 100)
+
+  store.dispatch.logger.createActivityTimer({
+    typeName: `All Nodes`,
+    pluginOptions,
+    reporter,
+  })
 
   for (const [index, ids] of chunkedTypedIds.entries()) {
     pushPromiseOntoRetryQueue({
@@ -213,7 +220,7 @@ const fetchNodesByIdsAndType = async (typedIds) => {
         `
 
         const { data } = await fetchGraphql({
-          query,
+          query: compress(query),
           errorContext: `Error occured while fast-fetching assorted nodes by ids.`,
         })
 
@@ -222,16 +229,24 @@ const fetchNodesByIdsAndType = async (typedIds) => {
         // anything that returns null is because we tried to get the source url
         // plus the source url minus resize patterns. So there will be nulls
         // since only the full source url will return data
-        Object.values(data).forEach((node) => {
+        const fetchedNodes = Object.values(data).filter((node) => {
           if (!node) {
-            return
+            return false
           }
 
           nodes.push(node)
+          return true
+        })
+
+        store.dispatch.logger.incrementActivityTimer({
+          typeName: `All Nodes`,
+          by: fetchedNodes.length,
         })
       },
     })
   }
+
+  store.dispatch.logger.stopActivityTimer({ typeName: `All Nodes` })
 
   await mediaNodeFetchQueue.onIdle()
 
