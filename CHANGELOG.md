@@ -2,7 +2,10 @@
 
 ## Upcoming
 
+### Bug fixes
+
 - Disallowed use of MediaItem.limit option as this option only introduces bugs and odd behaviour due to the special handling of this node type internally.
+- Default exclude User.UserToMediaItemConnection field as this will cause many sites to fetch 100's more media items than needed. If you need this field you can enable this yourself by adding `type: { UserToMediaItemConnection: { exclude: false } }` to your plugin options.
 
 ## 1.0.7
 
