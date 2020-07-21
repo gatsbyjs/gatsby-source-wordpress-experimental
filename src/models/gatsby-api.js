@@ -67,6 +67,11 @@ const defaultPluginOptions = {
     GeneralSettings: {
       excludeFieldNames: [`email`],
     },
+    UserToMediaItemConnection: {
+      // if this type is not excluded it will potentially fetch an extra 100
+      // media items per user during node sourcing
+      exclude: true,
+    },
     WpContentNodeToEditLockConnectionEdge: {
       exclude: true,
     },
