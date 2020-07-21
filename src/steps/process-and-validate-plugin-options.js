@@ -4,6 +4,18 @@ import isInteger from "lodash/isInteger"
 
 const optionsProcessors = [
   {
+    name: `pluginOptions.type.MediaItem.limit is not allowed`,
+    test: ({ userPluginOptions }) =>
+      !!userPluginOptions?.type?.MediaItem?.limit,
+    processor: ({ helpers, userPluginOptions }) => {
+      helpers.reporter.panic(
+        formatLogMessage(
+          `PluginOptions.type.MediaItem.limit is an disallowed plugin option.\nPlease remove the MediaItem.limit option from gatsby-config.js (currently set to ${userPluginOptions?.type?.MediaItem?.limit})\n\nMediaItem nodes are automatically limited to 0 and then fetched only when referenced by other node types. For example as a featured image, in custom fields, or in post_content.`
+        )
+      )
+    },
+  },
+  {
     name: `excludeFields-renamed-to-excludeFieldNames`,
     test: ({ userPluginOptions }) =>
       userPluginOptions?.excludeFields?.length ||
