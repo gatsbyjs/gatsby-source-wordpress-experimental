@@ -124,12 +124,20 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
 
   // get all the image nodes we've cached from elsewhere
   const { nodeMetaByUrl } = store.getState().imageNodes
-  const previouslyCachedNodesByUrl = await Promise.all(
-    Object.entries(nodeMetaByUrl).map(([sourceUrl, { id }]) => ({
-      sourceUrl,
-      ...(helpers.getNode(id) ?? {}),
-    }))
-  )
+  const previouslyCachedNodesByUrl = (
+    await Promise.all(
+      Object.entries(nodeMetaByUrl).map(([sourceUrl, { id } = {}]) => {
+        if (!sourceUrl || !id) {
+          return null
+        }
+
+        return {
+          sourceUrl,
+          ...(helpers.getNode(id) ?? {}),
+        }
+      })
+    )
+  ).filter(Boolean)
 
   const mediaItemNodes = [
     ...mediaItemNodesById,
