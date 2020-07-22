@@ -379,6 +379,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
   contentTypes(first: $first, after: $after) {
     nodes {
+      archivePath
       canExport
       connectedTaxonomies(first: 100) {
         nodes {
@@ -452,6 +453,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] ContentType node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
   contentType(id: $id, idType: ID, asPreview: true) {
+    archivePath
     canExport
     connectedTaxonomies(first: 100) {
       nodes {
@@ -520,6 +522,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] ContentType node single query hasn't changed 1`] = `
 "query SINGLE_CONTENT_QUERY($id: ID!) {
   contentType(id: $id) {
+    archivePath
     canExport
     connectedTaxonomies(first: 100) {
       nodes {
@@ -2586,6 +2589,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
   taxonomies(first: $first, after: $after) {
     nodes {
+      archivePath
       connectedContentTypes(first: 100) {
         nodes {
           id
@@ -2623,6 +2627,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Taxonomy node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
   taxonomy(id: $id, idType: ID, asPreview: true) {
+    archivePath
     connectedContentTypes(first: 100) {
       nodes {
         id
@@ -2655,6 +2660,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Taxonomy node single query hasn't changed 1`] = `
 "query SINGLE_CONTENT_QUERY($id: ID!) {
   taxonomy(id: $id) {
+    archivePath
     connectedContentTypes(first: 100) {
       nodes {
         id
@@ -4006,12 +4012,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       id
       lastName
       locale
-      mediaItems(first: 100) {
-        nodes {
-          id
-          sourceUrl
-        }
-      }
       name
       nicename
       nickname
@@ -4096,12 +4096,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     id
     lastName
     locale
-    mediaItems(first: 100) {
-      nodes {
-        id
-        sourceUrl
-      }
-    }
     name
     nicename
     nickname
@@ -4181,12 +4175,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     id
     lastName
     locale
-    mediaItems(first: 100) {
-      nodes {
-        id
-        sourceUrl
-      }
-    }
     name
     nicename
     nickname

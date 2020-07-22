@@ -64,11 +64,19 @@ Array [
   },
   Object {
     "fields": null,
-    "name": "WpUserToMediaItemConnectionFilterInput",
+    "name": "WpUserToPageConnectionFilterInput",
   },
   Object {
     "fields": null,
-    "name": "WpMediaItemFilterListInput",
+    "name": "WpPageFilterListInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpPageFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpPage_AcfpagefieldsFilterInput",
   },
   Object {
     "fields": null,
@@ -156,19 +164,7 @@ Array [
   },
   Object {
     "fields": null,
-    "name": "WpUserToPageConnectionFilterInput",
-  },
-  Object {
-    "fields": null,
-    "name": "WpPageFilterListInput",
-  },
-  Object {
-    "fields": null,
-    "name": "WpPageFilterInput",
-  },
-  Object {
-    "fields": null,
-    "name": "WpPage_AcfpagefieldsFilterInput",
+    "name": "WpMediaItemFilterListInput",
   },
   Object {
     "fields": null,
@@ -403,7 +399,6 @@ Array [
       "id",
       "lastName",
       "locale",
-      "mediaItems",
       "name",
       "nicename",
       "nickname",
@@ -520,7 +515,94 @@ Array [
     "fields": Array [
       "nodes",
     ],
-    "name": "WpUserToMediaItemConnection",
+    "name": "WpUserToPageConnection",
+  },
+  Object {
+    "fields": Array [
+      "acfPageFields",
+      "ancestors",
+      "author",
+      "authorDatabaseId",
+      "authorId",
+      "wpChildren",
+      "commentStatus",
+      "comments",
+      "content",
+      "contentType",
+      "databaseId",
+      "date",
+      "dateGmt",
+      "desiredSlug",
+      "featuredImage",
+      "featuredImageDatabaseId",
+      "featuredImageId",
+      "guid",
+      "id",
+      "isFrontPage",
+      "isRevision",
+      "language",
+      "lastEditedBy",
+      "link",
+      "menuOrder",
+      "modified",
+      "modifiedGmt",
+      "wpParent",
+      "parentDatabaseId",
+      "parentId",
+      "seo",
+      "slug",
+      "status",
+      "template",
+      "terms",
+      "title",
+      "translations",
+      "uri",
+      "nodeType",
+      "parent",
+      "children",
+      "internal",
+    ],
+    "name": "WpPage",
+  },
+  Object {
+    "fields": Array [
+      "title",
+    ],
+    "name": "WpNodeWithTitle",
+  },
+  Object {
+    "fields": Array [
+      "content",
+    ],
+    "name": "WpNodeWithContentEditor",
+  },
+  Object {
+    "fields": Array [
+      "author",
+      "authorDatabaseId",
+      "authorId",
+    ],
+    "name": "WpNodeWithAuthor",
+  },
+  Object {
+    "fields": Array [
+      "node",
+    ],
+    "name": "WpNodeWithAuthorToUserConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "featuredImage",
+      "featuredImageDatabaseId",
+      "featuredImageId",
+    ],
+    "name": "WpNodeWithFeaturedImage",
+  },
+  Object {
+    "fields": Array [
+      "node",
+    ],
+    "name": "WpNodeWithFeaturedImageToMediaItemConnectionEdge",
   },
   Object {
     "fields": Array [
@@ -575,26 +657,6 @@ Array [
   },
   Object {
     "fields": Array [
-      "title",
-    ],
-    "name": "WpNodeWithTitle",
-  },
-  Object {
-    "fields": Array [
-      "author",
-      "authorDatabaseId",
-      "authorId",
-    ],
-    "name": "WpNodeWithAuthor",
-  },
-  Object {
-    "fields": Array [
-      "node",
-    ],
-    "name": "WpNodeWithAuthorToUserConnectionEdge",
-  },
-  Object {
-    "fields": Array [
       "commentStatus",
     ],
     "name": "WpNodeWithComments",
@@ -635,6 +697,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "archivePath",
       "canExport",
       "connectedTaxonomies",
       "contentNodes",
@@ -676,6 +739,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "archivePath",
       "connectedContentTypes",
       "description",
       "graphqlPluralName",
@@ -856,79 +920,6 @@ Array [
       "nodeType",
     ],
     "name": "WpTermNode",
-  },
-  Object {
-    "fields": Array [
-      "nodes",
-    ],
-    "name": "WpUserToPageConnection",
-  },
-  Object {
-    "fields": Array [
-      "acfPageFields",
-      "ancestors",
-      "author",
-      "authorDatabaseId",
-      "authorId",
-      "wpChildren",
-      "commentStatus",
-      "comments",
-      "content",
-      "contentType",
-      "databaseId",
-      "date",
-      "dateGmt",
-      "desiredSlug",
-      "featuredImage",
-      "featuredImageDatabaseId",
-      "featuredImageId",
-      "guid",
-      "id",
-      "isFrontPage",
-      "isRevision",
-      "language",
-      "lastEditedBy",
-      "link",
-      "menuOrder",
-      "modified",
-      "modifiedGmt",
-      "wpParent",
-      "parentDatabaseId",
-      "parentId",
-      "seo",
-      "slug",
-      "status",
-      "template",
-      "terms",
-      "title",
-      "translations",
-      "uri",
-      "nodeType",
-      "parent",
-      "children",
-      "internal",
-    ],
-    "name": "WpPage",
-  },
-  Object {
-    "fields": Array [
-      "content",
-    ],
-    "name": "WpNodeWithContentEditor",
-  },
-  Object {
-    "fields": Array [
-      "featuredImage",
-      "featuredImageDatabaseId",
-      "featuredImageId",
-    ],
-    "name": "WpNodeWithFeaturedImage",
-  },
-  Object {
-    "fields": Array [
-      "node",
-    ],
-    "name": "WpNodeWithFeaturedImageToMediaItemConnectionEdge",
   },
   Object {
     "fields": Array [
@@ -2446,7 +2437,7 @@ Array [
 ]
 `;
 
-exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the local Gatsby schema 2`] = `"74cd8b8c8998556e89ac460f12583e92"`;
+exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the local Gatsby schema 2`] = `"90e941aec501d179a320795a452b9265"`;
 
 exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the remote WPGraphQL schema 1`] = `
 Array [
@@ -3048,6 +3039,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "archivePath",
       "canExport",
       "connectedTaxonomies",
       "contentNodes",
@@ -3095,6 +3087,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "archivePath",
       "connectedContentTypes",
       "description",
       "graphqlPluralName",
@@ -6076,4 +6069,4 @@ Array [
 ]
 `;
 
-exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the remote WPGraphQL schema 2`] = `"d9c3786680f9bc4b677604dcd876fafe"`;
+exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the remote WPGraphQL schema 2`] = `"4187a00a867d17165bc9ff1091b3c129"`;
