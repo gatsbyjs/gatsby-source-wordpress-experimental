@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.0.9
+
+### Bug Fixes
+
+- The last release introduced and error `absolutePathUrls is not defined`
+
 ## 1.0.8
 
 ### Bug fixes
@@ -8,6 +14,7 @@
 - Disallowed use of MediaItem.limit option as this option only introduces bugs and odd behaviour due to the special handling of this node type internally.
 - Default exclude User.UserToMediaItemConnection field as this will cause many sites to fetch 100's more media items than needed. If you need this field you can enable this yourself by adding `type: { UserToMediaItemConnection: { exclude: false } }` to your plugin options.
 - More file types than were required were being regexed for when searching for images in html fields. Now the types that are regexed for are `jpeg|jpg|png|gif|ico|mpg|ogv|svg|bmp|tif|tiff`.
+- When accessing previously cached image nodes, protect against missing id's
 
 ## 1.0.7
 

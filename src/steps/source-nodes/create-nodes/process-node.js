@@ -98,8 +98,6 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
 
     if (src.startsWith(`/`)) {
       src = `${protocol}//${host}${src}`
-
-      absolutePathUrls.push(src)
     }
 
     return src
