@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.0.10
+
+### Bug Fixes
+
+- Cast filenames to strings to prevent 0.jpeg from being taken as "no file name at all".jpeg 🤦‍♂️
+
 ## 1.0.9
 
 ### Bug Fixes
