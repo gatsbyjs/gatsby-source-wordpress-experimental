@@ -19,7 +19,7 @@ import btoa from "btoa"
 import store from "~/store"
 
 // @todo this doesn't make sense because these aren't all images
-const imgSrcRemoteFileRegex = /(?:src=\\")((?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[A-Z0-9+&@#/%=~_|$])\.(?:jpeg|jpg|png|gif|ico|pdf|doc|docx|ppt|pptx|pps|ppsx|odt|xls|psd|mp3|m4a|ogg|wav|mp4|m4v|mov|wmv|avi|mpg|ogv|3gp|3g2|svg|bmp|tif|tiff|asf|asx|wm|wmx|divx|flv|qt|mpe|webm|mkv|tt|asc|c|cc|h|csv|tsv|ics|rtx|css|htm|html|m4b|ra|ram|mid|midi|wax|mka|rtf|js|swf|class|tar|zip|gz|gzip|rar|7z|exe|pot|wri|xla|xlt|xlw|mdb|mpp|docm|dotx|dotm|xlsm|xlsb|xltx|xltm|xlam|pptm|ppsm|potx|potm|ppam|sldx|sldm|onetoc|onetoc2|onetmp|onepkg|odp|ods|odg|odc|odb|odf|wp|wpd|key|numbers|pages))(?=\\"| |\.)/gim
+const imgSrcRemoteFileRegex = /(?:src=\\")((?:(?:https?|ftp|file):\/\/|www\.|ftp\.|\/)(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[A-Z0-9+&@#/%=~_|$])\.(?:jpeg|jpg|png|gif|ico|mpg|ogv|svg|bmp|tif|tiff))(?=\\"| |\.)/gim
 
 const imgTagRegex = /<img([\w\W]+?)[\/]?>/gim
 
@@ -88,11 +88,22 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
   node,
   helpers,
   pluginOptions,
+  wpUrl,
 }) => {
+  const { protocol, host } = url.parse(wpUrl)
+
   // @todo check if we have any of these nodes locally already
-  const mediaItemUrls = cheerioImages.map(
-    ({ cheerioImg }) => cheerioImg.attribs.src
-  )
+  const mediaItemUrls = cheerioImages.map(({ cheerioImg }) => {
+    let src = cheerioImg.attribs.src
+
+    if (src.startsWith(`/`)) {
+      src = `${protocol}//${host}${src}`
+
+      absolutePathUrls.push(src)
+    }
+
+    return src
+  })
 
   // build a query to fetch all media items that we don't already have
   const mediaItemNodesBySourceUrl = await fetchReferencedMediaItemsAndCreateNodes(
@@ -314,13 +325,19 @@ const replaceNodeHtmlImages = async ({
 
   const imageUrlMatches = execall(imgSrcRemoteFileRegex, nodeString)
 
-  const imgTagMatches = execall(imgTagRegex, nodeString).filter(({ match }) => {
-    // @todo make it a plugin option to fetch non-wp images
-    // here we're filtering out image tags that don't contain our site url
-    const isHostedInWp = match.includes(wpUrl)
+  const imgTagMatches = execall(imgTagRegex, nodeString).filter(
+    ({ match, subMatches }) => {
+      // @todo make it a plugin option to fetch non-wp images
+      // here we're filtering out image tags that don't contain our site url
+      const isHostedInWp =
+        // if it has the full WP url
+        match.includes(wpUrl) ||
+        // or it's an absolute path
+        subMatches[0].includes('src=\\"/')
 
-    return isHostedInWp
-  })
+      return isHostedInWp
+    }
+  )
 
   if (imageUrlMatches.length) {
     const cheerioImages = imgTagMatches.map(getCheerioImgFromMatch)
@@ -332,6 +349,7 @@ const replaceNodeHtmlImages = async ({
         node,
         helpers,
         pluginOptions,
+        wpUrl,
       }
     )
 

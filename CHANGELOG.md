@@ -4,8 +4,10 @@
 
 ### Bug fixes
 
+- Images with absolute paths were not being properly recognized. For example if you had an image with a src of `/content/2020/01/06/my.jpeg`, this would resolve in vanilla WP, but the source plugin wasn't recognizing it. The solution is to find absolute paths and fetch them with the hostname of the WP url attached to the beginning.
 - Disallowed use of MediaItem.limit option as this option only introduces bugs and odd behaviour due to the special handling of this node type internally.
 - Default exclude User.UserToMediaItemConnection field as this will cause many sites to fetch 100's more media items than needed. If you need this field you can enable this yourself by adding `type: { UserToMediaItemConnection: { exclude: false } }` to your plugin options.
+- More file types than were required were being regexed for when searching for images in html fields. Now the types that are regexed for are `jpeg|jpg|png|gif|ico|mpg|ogv|svg|bmp|tif|tiff`.
 
 ## 1.0.7
 
