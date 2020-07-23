@@ -5,6 +5,7 @@ import { CREATED_NODE_IDS } from "~/constants"
 import store from "~/store"
 import { getGatsbyApi } from "~/utils/get-gatsby-api"
 import chunk from "lodash/chunk"
+import uniq from "lodash/uniq"
 import fetchGraphql from "../../../utils/fetch-graphql"
 import compress from "graphql-query-compress"
 import {
@@ -181,26 +182,36 @@ const fetchNodesByIdsAndType = async (typedIds) => {
       retryPromise: async () => {
         let neededFragmentsByType = {}
 
+        const timerMessage = `starting #${index}. types: ${uniq(
+          ids.map(({ type }) => type)
+        ).join(`, `)}`
+
+        console.time(timerMessage)
+
         const query = /* GraphQL */ `
           query AssortedNodesByIds {
             ${ids
               .map(({ id, type }, index) => {
-                const {
-                  selectionSet,
-                  builtFragments,
-                  typeInfo: { singularName },
-                } = typeNameToQueryInfo[type]
+                try {
+                  const {
+                    selectionSet,
+                    builtFragments,
+                    typeInfo: { singularName },
+                  } = typeNameToQueryInfo[type]
 
-                neededFragmentsByType[type] = {
-                  selectionSet,
-                  builtFragments,
-                }
+                  neededFragmentsByType[type] = {
+                    selectionSet,
+                    builtFragments,
+                  }
 
-                return /* GraphQL */ `
+                  return /* GraphQL */ `
                   node__index_${index}: ${singularName}(id: "${id}") {
                     ...${type}
                   }
                 `
+                } catch (e) {
+                  dump(`no query info for ${type}`)
+                }
               })
               .join(` `)}
           }
@@ -237,6 +248,8 @@ const fetchNodesByIdsAndType = async (typedIds) => {
           nodes.push(node)
           return true
         })
+
+        console.timeEnd(timerMessage)
 
         store.dispatch.logger.incrementActivityTimer({
           typeName: `All Nodes`,

@@ -8,7 +8,7 @@ import { buildTypeName } from "~/steps/create-schema-customization/helpers"
 import fetchGraphql from "~/utils/fetch-graphql"
 import { getFileNodeMetaBySourceUrl } from "~/steps/source-nodes/create-nodes/create-remote-media-item-node"
 
-const nodeFetchConcurrency = 2
+const nodeFetchConcurrency = 5
 
 const concurrency = Number(process.env.GATSBY_CONCURRENT_DOWNLOAD ?? 200)
 const adjustedConcurrency = Number(concurrency ?? 200) - nodeFetchConcurrency
