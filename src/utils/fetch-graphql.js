@@ -206,7 +206,7 @@ const handleFetchErrors = async ({
       formatLogMessage(
         `It took too long for ${url} to respond (longer than ${
           timeout / 1000
-        } seconds). Either your URL is wrong, you need to increase server resources, or you need to increase your timeout in the gatsby-source-wordpress options. \n${genericError(
+        } seconds). Either your URL is wrong, you need to increase server resources, you need to decrease your options.schema.perPage value from the default 100, or you need to increase your timeout in the gatsby-source-wordpress options. \n${genericError(
           { url }
         )}`,
         { useVerboseStyle: true }
