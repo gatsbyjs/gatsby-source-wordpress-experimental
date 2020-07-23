@@ -1,5 +1,14 @@
 # Change Log
 
+## 1.0.11
+
+### Bug Fixes
+
+- Absolute path images with no image node were causing errors because the hostname was not prepended in the case that no node exists.
+- Images in code blocks and pre tags were being transformed when they shouldn't be.
+- Images nodes fetched by url were sometimes being double fetched
+- Images with no media item node or file node were being incorrectly cached.
+
 ## 1.0.10
 
 ### Bug Fixes
