@@ -8,6 +8,8 @@ This plugin supports [Preview](https://www.gatsbyjs.com/preview/) and has been d
 
 You can find our tutorial on setting up WPGatsby [here](../tutorials/configuring-wp-gatsby.md#setting-up-preview). Part-way down the page there are instructions you can follow on setting up Preview.
 
+__Note__: Previews for brand new posts currently require sending 2 webhooks. 1 when the new draft page is opened and another when the "preview" button is pressed. The reason for this is that the WP preview window opens so quickly that the first preview will show a 404 page if we don't get a blank preview node ready. Work to remedy this is currently underway.
+
 
 
 ## How Preview works
