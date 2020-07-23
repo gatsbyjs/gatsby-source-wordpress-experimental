@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.0.12
+
+### Bug Fixes
+
+- The root field data node was not being properly processed for html images, links, and referenced media node ids. This resulted in some media items going missing on root fields like options pages.
+
 ## 1.0.11
 
 ### Bug Fixes

@@ -8,6 +8,7 @@ import { buildTypeName } from "~/steps/create-schema-customization/helpers"
 import fetchGraphql from "~/utils/fetch-graphql"
 import { getFileNodeMetaBySourceUrl } from "~/steps/source-nodes/create-nodes/create-remote-media-item-node"
 import uniq from "lodash/uniq"
+import { getGatsbyApi } from "~/utils/get-gatsby-api"
 
 const nodeFetchConcurrency = 2
 
@@ -320,19 +321,15 @@ const fetchMediaItemsBySourceUrl = async ({
 
         // take the WPGraphQL nodes we received and create Gatsby nodes out of them
         const nodes = await Promise.all(
-          thisPagesNodes.map((node) => {
-            try {
-              return createMediaItemNode({
-                node,
-                helpers,
-                createContentDigest,
-                actions,
-                allMediaItemNodes,
-              })
-            } catch (e) {
-              dd(e)
-            }
-          })
+          thisPagesNodes.map((node) =>
+            createMediaItemNode({
+              node,
+              helpers,
+              createContentDigest,
+              actions,
+              allMediaItemNodes,
+            })
+          )
         )
 
         nodes.forEach((node, index) => {
@@ -370,17 +367,19 @@ const fetchMediaItemsById = async ({
   helpers,
   typeInfo,
 }) => {
-  if (settings.limit && settings.limit < mediaItemIds.length) {
-    mediaItemIds = mediaItemIds.slice(0, settings.limit)
-  }
+  const newMediaItemIds = mediaItemIds.filter((id) => !helpers.getNode(id))
 
   const nodesPerFetch = 100
-  const chunkedIds = chunk(mediaItemIds, nodesPerFetch)
+  const chunkedIds = chunk(newMediaItemIds, nodesPerFetch)
 
   let resolveFutureNodes
   let futureNodes = new Promise((resolve) => {
     resolveFutureNodes = resolve
   })
+
+  if (!newMediaItemIds.length) {
+    resolveFutureNodes([])
+  }
 
   let allMediaItemNodes = []
 
@@ -456,7 +455,7 @@ export default async function fetchReferencedMediaItemsAndCreateNodes({
 
   const { helpers, pluginOptions } = state.gatsbyApi
   const { createContentDigest, actions } = helpers
-  const { url, verbose } = pluginOptions
+  const { url } = pluginOptions
   const { typeInfo, settings, selectionSet, builtFragments } = queryInfo
 
   let createdNodes = []

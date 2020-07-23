@@ -17,7 +17,7 @@ const createNodesQueue = new PQueue({
   concurrency: 2,
 })
 
-const createNodeWithSideEffects = ({
+export const createNodeWithSideEffects = ({
   node,
   actions,
   createContentDigest,
@@ -25,10 +25,11 @@ const createNodeWithSideEffects = ({
   pluginOptions,
   referencedMediaItemNodeIds,
   helpers,
-  createdNodeIds,
+  createdNodeIds = [],
   createNodesActivity,
   totalSideEffectNodes,
   wpUrl,
+  type,
 }) => async () => {
   if (node.link) {
     // @todo is this still necessary? I don't think it is but double check
@@ -36,7 +37,7 @@ const createNodeWithSideEffects = ({
     node.path = urlToPath(node.link)
   }
 
-  if (wpgqlNodesGroup.plural !== `mediaItems`) {
+  if (wpgqlNodesGroup?.plural !== `mediaItems`) {
     node = await processNode({
       node,
       pluginOptions,
@@ -52,7 +53,7 @@ const createNodeWithSideEffects = ({
     parent: null,
     internal: {
       contentDigest: createContentDigest(node),
-      type: buildTypeName(node.type),
+      type: type || buildTypeName(node.type),
     },
   }
 
