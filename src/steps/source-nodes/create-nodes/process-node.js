@@ -82,6 +82,16 @@ const dbIdToMediaItemRelayId = (dbId) => (dbId ? btoa(`post:${dbId}`) : null)
 const getCheerioImgRelayId = (cheerioImg) =>
   dbIdToMediaItemRelayId(getCheerioImgDbId(cheerioImg))
 
+export const ensureSrcHasHostname = ({ src, wpUrl }) => {
+  const { protocol, host } = url.parse(wpUrl)
+
+  if (src.startsWith(`/`)) {
+    src = `${protocol}//${host}${src}`
+  }
+
+  return src
+}
+
 const fetchNodeHtmlImageMediaItemNodes = async ({
   cheerioImages,
   nodeString,
@@ -90,15 +100,12 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
   pluginOptions,
   wpUrl,
 }) => {
-  const { protocol, host } = url.parse(wpUrl)
-
   // @todo check if we have any of these nodes locally already
   const mediaItemUrls = cheerioImages.map(({ cheerioImg }) => {
-    let src = cheerioImg.attribs.src
-
-    if (src.startsWith(`/`)) {
-      src = `${protocol}//${host}${src}`
-    }
+    let src = ensureSrcHasHostname({
+      src: cheerioImg.attribs.src,
+      wpUrl,
+    })
 
     return src
   })
@@ -156,7 +163,10 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
 
   const htmlMatchesToMediaItemNodesMap = new Map()
   for (const { cheerioImg, match } of cheerioImages) {
-    const htmlImgSrc = cheerioImg.attribs.src
+    const htmlImgSrc = ensureSrcHasHostname({
+      src: cheerioImg.attribs.src,
+      wpUrl,
+    })
 
     const possibleHtmlSrcs = [
       // try to match the media item source url by original html src
@@ -215,16 +225,16 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
           helpers.reporter.panic(formatLogMessage(e))
         }
       }
+    }
 
+    if (imageNode) {
       // save any fetched media items in our global media item cache
       store.dispatch.imageNodes.pushNodeMeta({
         sourceUrl: htmlImgSrc,
         id: imageNode.id,
         modifiedGmt: imageNode.modifiedGmt,
       })
-    }
 
-    if (imageNode) {
       // match is the html string of the img tag
       htmlMatchesToMediaItemNodesMap.set(match, { imageNode, cheerioImg })
     }
@@ -323,21 +333,26 @@ const replaceNodeHtmlImages = async ({
 
   const imageUrlMatches = execall(imgSrcRemoteFileRegex, nodeString)
 
-  const imgTagMatches = execall(imgTagRegex, nodeString).filter(
-    ({ match, subMatches }) => {
-      // @todo make it a plugin option to fetch non-wp images
-      // here we're filtering out image tags that don't contain our site url
-      const isHostedInWp =
-        // if it has the full WP url
-        match.includes(wpUrl) ||
-        // or it's an absolute path
-        subMatches[0].includes('src=\\"/')
+  const imgTagMatches = execall(
+    imgTagRegex,
+    nodeString
+      // we don't want to match images inside pre
+      .replace(/<pre([\w\W]+?)[\/]?>.*(<\/pre>)/gim, ``)
+      // and code tags, so temporarily remove those tags and everything inside them
+      .replace(/<code([\w\W]+?)[\/]?>.*(<\/code>)/gim, ``)
+  ).filter(({ match, subMatches }) => {
+    // @todo make it a plugin option to fetch non-wp images
+    // here we're filtering out image tags that don't contain our site url
+    const isHostedInWp =
+      // if it has the full WP url
+      match.includes(wpUrl) ||
+      // or it's an absolute path
+      subMatches[0].includes('src=\\"/')
 
-      return isHostedInWp
-    }
-  )
+    return isHostedInWp
+  })
 
-  if (imageUrlMatches.length) {
+  if (imageUrlMatches.length && imgTagMatches.length) {
     const cheerioImages = imgTagMatches.map(getCheerioImgFromMatch)
 
     const htmlMatchesToMediaItemNodesMap = await fetchNodeHtmlImageMediaItemNodes(

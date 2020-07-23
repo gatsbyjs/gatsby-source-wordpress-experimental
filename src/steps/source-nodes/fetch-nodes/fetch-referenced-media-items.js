@@ -7,6 +7,7 @@ import { paginatedWpNodeFetch, normalizeNode } from "./fetch-nodes-paginated"
 import { buildTypeName } from "~/steps/create-schema-customization/helpers"
 import fetchGraphql from "~/utils/fetch-graphql"
 import { getFileNodeMetaBySourceUrl } from "~/steps/source-nodes/create-nodes/create-remote-media-item-node"
+import uniq from "lodash/uniq"
 
 const nodeFetchConcurrency = 2
 
@@ -198,19 +199,21 @@ export const stripImageSizesFromUrl = (url) => {
 // someone could upload a full-size image that contains that pattern - so the full
 // size url would have 500x1000 in it, and removing it would make it so we can never
 // fetch this image node.
-const processImageUrls = (urls) =>
-  urls.reduce((accumulator, url) => {
-    const strippedUrl = stripImageSizesFromUrl(url)
+const processAndDedupeImageUrls = (urls) =>
+  uniq(
+    urls.reduce((accumulator, url) => {
+      const strippedUrl = stripImageSizesFromUrl(url)
 
-    // if the url had no image sizes, don't do anything special
-    if (strippedUrl === url) {
+      // if the url had no image sizes, don't do anything special
+      if (strippedUrl === url) {
+        return accumulator
+      }
+
+      accumulator.push(strippedUrl)
+
       return accumulator
-    }
-
-    accumulator.push(strippedUrl)
-
-    return accumulator
-  }, urls)
+    }, urls)
+  )
 
 const fetchMediaItemsBySourceUrl = async ({
   mediaItemUrls,
@@ -222,7 +225,7 @@ const fetchMediaItemsBySourceUrl = async ({
   allMediaItemNodes = [],
 }) => {
   const perPage = 100
-  const processedMediaItemUrls = processImageUrls(mediaItemUrls)
+  const processedMediaItemUrls = processAndDedupeImageUrls(mediaItemUrls)
 
   const {
     cachedMediaItemNodeIds,
@@ -317,15 +320,19 @@ const fetchMediaItemsBySourceUrl = async ({
 
         // take the WPGraphQL nodes we received and create Gatsby nodes out of them
         const nodes = await Promise.all(
-          thisPagesNodes.map((node) =>
-            createMediaItemNode({
-              node,
-              helpers,
-              createContentDigest,
-              actions,
-              allMediaItemNodes,
-            })
-          )
+          thisPagesNodes.map((node) => {
+            try {
+              return createMediaItemNode({
+                node,
+                helpers,
+                createContentDigest,
+                actions,
+                allMediaItemNodes,
+              })
+            } catch (e) {
+              dd(e)
+            }
+          })
         )
 
         nodes.forEach((node, index) => {
