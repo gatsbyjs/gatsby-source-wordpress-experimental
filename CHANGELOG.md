@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.0.13
+
+### Bug Fixes
+
+- Some fields on the `User` and `Page` types which are by default private were being automatically excluded via default plugin options. These fields have very low overhead and in some cases devs will filter these fields to make them public. This manifests to some devs as a bug because fields they're looking for don't exist. As of this release they're no longer excluded by default.
+
 ## 1.0.12
 
 ### Bug Fixes

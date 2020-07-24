@@ -21,10 +21,7 @@ describe(`[gatsby-source-wordpress-experimental] plugin options`, () => {
       `ActionMonitorAction`,
       `UserToActionMonitorActionConnection`,
       `Plugin`,
-      `PostFormat`,
       `Theme`,
-      `UserRole`,
-      `UserToUserRoleConnection`,
     ]
 
     // make sure our schema doesn't have any of the default excluded types

@@ -1735,6 +1735,11 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       modifiedGmt
       pingStatus
       pinged
+      postFormats(first: 100) {
+        nodes {
+          id
+        }
+      }
       seo {
         focuskw
         metaDesc
@@ -1856,6 +1861,11 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     modifiedGmt
     pingStatus
     pinged
+    postFormats(first: 100) {
+      nodes {
+        id
+      }
+    }
     seo {
       focuskw
       metaDesc
@@ -1972,6 +1982,11 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     modifiedGmt
     pingStatus
     pinged
+    postFormats(first: 100) {
+      nodes {
+        id
+      }
+    }
     seo {
       focuskw
       metaDesc
@@ -2021,6 +2036,174 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     translations {
       id
     }
+    uri
+    __typename
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] PostFormat node list query hasn't changed 1`] = `
+"query NODE_LIST_QUERY($first: Int!, $after: String) {
+  postFormats(first: $first, after: $after, where: { parent: null }) {
+    nodes {
+      count
+      databaseId
+      description
+      id
+      link
+      name
+      posts(first: 100) {
+        nodes {
+          id
+        }
+      }
+      seo {
+        focuskw
+        metaDesc
+        metaKeywords
+        metaRobotsNofollow
+        metaRobotsNoindex
+        opengraphDescription
+        opengraphImage {
+          id
+          sourceUrl
+        }
+        opengraphTitle
+        title
+        twitterDescription
+        twitterImage {
+          id
+          sourceUrl
+        }
+        twitterTitle
+      }
+      slug
+      taxonomy {
+        node {
+          id
+        }
+      }
+      teamMembers(first: 100) {
+        nodes {
+          id
+        }
+      }
+      termGroupId
+      termTaxonomyId
+      uri
+      __typename
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] PostFormat node preview query hasn't changed 1`] = `
+"query PREVIEW_QUERY($id: ID!) {
+  postFormat(id: $id, idType: ID, asPreview: true) {
+    count
+    databaseId
+    description
+    id
+    link
+    name
+    posts(first: 100) {
+      nodes {
+        id
+      }
+    }
+    seo {
+      focuskw
+      metaDesc
+      metaKeywords
+      metaRobotsNofollow
+      metaRobotsNoindex
+      opengraphDescription
+      opengraphImage {
+        id
+        sourceUrl
+      }
+      opengraphTitle
+      title
+      twitterDescription
+      twitterImage {
+        id
+        sourceUrl
+      }
+      twitterTitle
+    }
+    slug
+    taxonomy {
+      node {
+        id
+      }
+    }
+    teamMembers(first: 100) {
+      nodes {
+        id
+      }
+    }
+    termGroupId
+    termTaxonomyId
+    uri
+    __typename
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] PostFormat node single query hasn't changed 1`] = `
+"query SINGLE_CONTENT_QUERY($id: ID!) {
+  postFormat(id: $id) {
+    count
+    databaseId
+    description
+    id
+    link
+    name
+    posts(first: 100) {
+      nodes {
+        id
+      }
+    }
+    seo {
+      focuskw
+      metaDesc
+      metaKeywords
+      metaRobotsNofollow
+      metaRobotsNoindex
+      opengraphDescription
+      opengraphImage {
+        id
+        sourceUrl
+      }
+      opengraphTitle
+      title
+      twitterDescription
+      twitterImage {
+        id
+        sourceUrl
+      }
+      twitterTitle
+    }
+    slug
+    taxonomy {
+      node {
+        id
+      }
+    }
+    teamMembers(first: 100) {
+      nodes {
+        id
+      }
+    }
+    termGroupId
+    termTaxonomyId
     uri
     __typename
   }
@@ -2335,6 +2518,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     discussionSettingsDefaultPingStatus
     generalSettingsDateFormat
     generalSettingsDescription
+    generalSettingsEmail
     generalSettingsLanguage
     generalSettingsStartOfWeek
     generalSettingsTimeFormat
@@ -2362,6 +2546,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
   generalSettings {
     dateFormat
     description
+    email
     language
     startOfWeek
     timeFormat
@@ -2771,6 +2956,11 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       modifiedGmt
       pingStatus
       pinged
+      postFormats(first: 100) {
+        nodes {
+          id
+        }
+      }
       seo {
         focuskw
         metaDesc
@@ -2909,6 +3099,11 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     modifiedGmt
     pingStatus
     pinged
+    postFormats(first: 100) {
+      nodes {
+        id
+      }
+    }
     seo {
       focuskw
       metaDesc
@@ -3042,6 +3237,11 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     modifiedGmt
     pingStatus
     pinged
+    postFormats(first: 100) {
+      nodes {
+        id
+      }
+    }
     seo {
       focuskw
       metaDesc
@@ -4031,6 +4231,11 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         }
       }
       registeredDate
+      roles(first: 100) {
+        nodes {
+          id
+        }
+      }
       slug
       teamMembers(first: 100) {
         nodes {
@@ -4115,6 +4320,11 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
     }
     registeredDate
+    roles(first: 100) {
+      nodes {
+        id
+      }
+    }
     slug
     teamMembers(first: 100) {
       nodes {
@@ -4194,6 +4404,11 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
     }
     registeredDate
+    roles(first: 100) {
+      nodes {
+        id
+      }
+    }
     slug
     teamMembers(first: 100) {
       nodes {
@@ -4218,6 +4433,51 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     uri
     url
     username
+    __typename
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] UserRole node list query hasn't changed 1`] = `
+"query NODE_LIST_QUERY($first: Int!, $after: String) {
+  userRoles(first: $first, after: $after) {
+    nodes {
+      capabilities
+      displayName
+      id
+      name
+      __typename
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] UserRole node preview query hasn't changed 1`] = `
+"query PREVIEW_QUERY($id: ID!) {
+  userRole(id: $id, idType: ID, asPreview: true) {
+    capabilities
+    displayName
+    id
+    name
+    __typename
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] UserRole node single query hasn't changed 1`] = `
+"query SINGLE_CONTENT_QUERY($id: ID!) {
+  userRole(id: $id) {
+    capabilities
+    displayName
+    id
+    name
     __typename
   }
 }

@@ -61,12 +61,6 @@ const defaultPluginOptions = {
     RootQuery: {
       excludeFieldNames: [`viewer`, `node`, `schemaMd5`],
     },
-    Settings: {
-      excludeFieldNames: [`generalSettingsEmail`],
-    },
-    GeneralSettings: {
-      excludeFieldNames: [`email`],
-    },
     UserToMediaItemConnection: {
       // if this type is not excluded it will potentially fetch an extra 100
       // media items per user during node sourcing
@@ -87,28 +81,8 @@ const defaultPluginOptions = {
     Plugin: {
       exclude: true,
     },
-    PostFormat: {
-      exclude: true,
-    },
     Theme: {
       exclude: true,
-    },
-    UserRole: {
-      exclude: true,
-    },
-    UserToUserRoleConnection: {
-      exclude: true,
-    },
-    Page: {
-      excludeFieldNames: [`enclosure`],
-    },
-    User: {
-      excludeFieldNames: [
-        `extraCapabilities`,
-        `capKey`,
-        `email`,
-        `registeredDate`,
-      ],
     },
     MediaItem: {
       lazyNodes: false,

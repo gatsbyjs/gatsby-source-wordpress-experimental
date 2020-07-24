@@ -50,6 +50,17 @@ const wpPluginOptions = !process.env.DEFAULT_PLUGIN_OPTIONS
             }
           },
         },
+        Page: {
+          excludeFieldNames: [`enclosure`],
+        },
+        User: {
+          excludeFieldNames: [
+            `extraCapabilities`,
+            `capKey`,
+            `email`,
+            `registeredDate`,
+          ],
+        },
         Post: {
           limit:
             process.env.NODE_ENV === `development`

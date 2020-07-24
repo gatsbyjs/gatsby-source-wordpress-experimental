@@ -256,6 +256,30 @@ Array [
   },
   Object {
     "fields": null,
+    "name": "WpTeamMemberToPostFormatConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpPostFormatFilterListInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpPostFormatFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpPostFormatToPostConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpPostFormatToTaxonomyConnectionEdgeFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpPostFormatToTeamMemberConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
     "name": "WpTeamMemberToTagConnectionFilterInput",
   },
   Object {
@@ -288,6 +312,10 @@ Array [
   },
   Object {
     "fields": null,
+    "name": "WpPostToPostFormatConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
     "name": "WpPostToTagConnectionFilterInput",
   },
   Object {
@@ -309,6 +337,18 @@ Array [
   Object {
     "fields": null,
     "name": "WpProjectToContentTypeConnectionEdgeFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpUserToUserRoleConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpUserRoleFilterListInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpUserRoleFilterInput",
   },
   Object {
     "fields": null,
@@ -405,6 +445,7 @@ Array [
       "pages",
       "posts",
       "projects",
+      "roles",
       "slug",
       "teamMembers",
       "translationFilterTests",
@@ -1008,6 +1049,7 @@ Array [
       "modifiedGmt",
       "pingStatus",
       "pinged",
+      "postFormats",
       "seo",
       "slug",
       "status",
@@ -1208,6 +1250,7 @@ Array [
       "modifiedGmt",
       "pingStatus",
       "pinged",
+      "postFormats",
       "seo",
       "slug",
       "status",
@@ -1242,6 +1285,53 @@ Array [
       "node",
     ],
     "name": "WpPostToContentTypeConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpPostToPostFormatConnection",
+  },
+  Object {
+    "fields": Array [
+      "count",
+      "databaseId",
+      "description",
+      "id",
+      "link",
+      "name",
+      "posts",
+      "seo",
+      "slug",
+      "taxonomy",
+      "teamMembers",
+      "termGroupId",
+      "termTaxonomyId",
+      "uri",
+      "nodeType",
+      "parent",
+      "children",
+      "internal",
+    ],
+    "name": "WpPostFormat",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpPostFormatToPostConnection",
+  },
+  Object {
+    "fields": Array [
+      "node",
+    ],
+    "name": "WpPostFormatToTaxonomyConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpPostFormatToTeamMemberConnection",
   },
   Object {
     "fields": Array [
@@ -1320,6 +1410,12 @@ Array [
     "fields": Array [
       "nodes",
     ],
+    "name": "WpTeamMemberToPostFormatConnection",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
     "name": "WpTeamMemberToTagConnection",
   },
   Object {
@@ -1345,6 +1441,25 @@ Array [
       "nodes",
     ],
     "name": "WpUserToProjectConnection",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpUserToUserRoleConnection",
+  },
+  Object {
+    "fields": Array [
+      "capabilities",
+      "displayName",
+      "id",
+      "name",
+      "nodeType",
+      "parent",
+      "children",
+      "internal",
+    ],
+    "name": "WpUserRole",
   },
   Object {
     "fields": Array [
@@ -1953,6 +2068,44 @@ Array [
   },
   Object {
     "fields": null,
+    "name": "WpPostFormatSortInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpPostFormatFieldsEnum",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "distinct",
+      "group",
+    ],
+    "name": "WpPostFormatConnection",
+  },
+  Object {
+    "fields": Array [
+      "next",
+      "node",
+      "previous",
+    ],
+    "name": "WpPostFormatEdge",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "field",
+      "fieldValue",
+    ],
+    "name": "WpPostFormatGroupConnection",
+  },
+  Object {
+    "fields": null,
     "name": "WpTagSortInput",
   },
   Object {
@@ -1988,6 +2141,44 @@ Array [
       "fieldValue",
     ],
     "name": "WpTagGroupConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpUserRoleSortInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpUserRoleFieldsEnum",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "distinct",
+      "group",
+    ],
+    "name": "WpUserRoleConnection",
+  },
+  Object {
+    "fields": Array [
+      "next",
+      "node",
+      "previous",
+    ],
+    "name": "WpUserRoleEdge",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "field",
+      "fieldValue",
+    ],
+    "name": "WpUserRoleGroupConnection",
   },
   Object {
     "fields": null,
@@ -2332,6 +2523,7 @@ Array [
       "discussionSettingsDefaultPingStatus",
       "generalSettingsDateFormat",
       "generalSettingsDescription",
+      "generalSettingsEmail",
       "generalSettingsLanguage",
       "generalSettingsStartOfWeek",
       "generalSettingsTimeFormat",
@@ -2356,6 +2548,7 @@ Array [
     "fields": Array [
       "dateFormat",
       "description",
+      "email",
       "language",
       "startOfWeek",
       "timeFormat",
@@ -2437,7 +2630,7 @@ Array [
 ]
 `;
 
-exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the local Gatsby schema 2`] = `"90e941aec501d179a320795a452b9265"`;
+exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the local Gatsby schema 2`] = `"5f25fa431a2c5a4c489f7ca1cb83f59f"`;
 
 exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the remote WPGraphQL schema 1`] = `
 Array [
