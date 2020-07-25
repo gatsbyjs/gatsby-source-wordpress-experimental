@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.0.14
+
+### Features
+
+- Improved the error message for GraphQL request timeouts via #86, thanks @jacobarriola!
+
 ## 1.0.13
 
 ### Bug Fixes
