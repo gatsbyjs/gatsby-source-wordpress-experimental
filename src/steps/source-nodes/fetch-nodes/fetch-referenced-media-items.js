@@ -492,5 +492,5 @@ export default async function fetchReferencedMediaItemsAndCreateNodes({
     createdNodes = [...createdNodes, ...nodesSourcedByUrl]
   }
 
-  return createdNodes
+  return createdNodes.filter(Boolean)
 }
