@@ -1,5 +1,17 @@
 # Change Log
 
+## 1.1.0
+
+### Bug Fixes
+
+- Bumped minimum WPGatsby version because the latest fixes a bug where saving a published post as a draft wouldn't delete the corresponding node.
+- Updates during development were no longer automatically showing up in Gatsby due to inconsistencies in the latest version of Gatsby core
+
+### Features
+
+- Added a link to the wp-admin plugins page to update WPGatsby if your version is not within the accepted range.
+- Split the WPGatsby and WPGraphQL upgrade reason error messages depending on wether one or both need to be updated.
+
 ## 1.0.14
 
 ### Features

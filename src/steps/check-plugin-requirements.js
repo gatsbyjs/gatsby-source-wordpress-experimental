@@ -1,14 +1,20 @@
+import url from "url"
+
 import fetchGraphql from "~/utils/fetch-graphql"
 import { formatLogMessage } from "~/utils/format-log-message"
 
 import { getPluginOptions } from "~/utils/get-gatsby-api"
+import store from "~/store"
 
 import {
   supportedWpPluginVersions,
   genericDownloadMessage,
 } from "~/supported-remote-plugin-versions"
 
-const areRemotePluginVersionsSatisfied = async ({ helpers }) => {
+const areRemotePluginVersionsSatisfied = async ({
+  helpers,
+  url: wpGraphQLEndpoint,
+}) => {
   let wpgqlIsSatisfied
   let wpGatsbyIsSatisfied
 
@@ -56,23 +62,25 @@ const areRemotePluginVersionsSatisfied = async ({ helpers }) => {
     }
   }
 
+  const shouldDisplayWPGraphQLReason =
+    !wpgqlIsSatisfied && supportedWpPluginVersions.WPGraphQL.reason
+
+  const shouldDisplayWPGatsbyReason =
+    !wpGatsbyIsSatisfied && supportedWpPluginVersions.WPGatsby.reason
+
+  const shouldDisplayAtleastOneReason =
+    shouldDisplayWPGraphQLReason || shouldDisplayWPGatsbyReason
+
+  const shouldDisplayBothReasons =
+    shouldDisplayWPGraphQLReason && shouldDisplayWPGatsbyReason
+
   // a message explaining why these are the minimum versions
-  const reasons = `${
-    supportedWpPluginVersions.WPGraphQL.reason ||
-    supportedWpPluginVersions.WPGatsby.reason
-      ? `\n\nReasons:\n\n`
-      : ``
-  }${
-    supportedWpPluginVersions.WPGraphQL.reason
+  const reasons = `${shouldDisplayAtleastOneReason ? `\n\nReasons:\n\n` : ``}${
+    shouldDisplayWPGraphQLReason
       ? `- ${supportedWpPluginVersions.WPGraphQL.reason}`
       : ``
-  }${
-    supportedWpPluginVersions.WPGraphQL.reason &&
-    supportedWpPluginVersions.WPGatsby.reason
-      ? `\n\n`
-      : ``
-  }${
-    supportedWpPluginVersions.WPGatsby.reason
+  }${shouldDisplayBothReasons ? `\n\n` : ``}${
+    shouldDisplayWPGatsbyReason
       ? `- ${supportedWpPluginVersions.WPGatsby.reason}`
       : ``
   }`
@@ -90,9 +98,11 @@ ${reasons}
   }
 
   if (!wpGatsbyIsSatisfied) {
+    const { hostname, protocol } = url.parse(wpGraphQLEndpoint)
+
     message = `Your remote version of WPGatsby is not within the accepted range (${supportedWpPluginVersions.WPGatsby.version})
 
-\tDownload v ${supportedWpPluginVersions.WPGatsby.version} at https://github.com/TylerBarnes/using-gatsby-source-wordpress-experimental/tree/master/WordPress/plugins
+\tDownload v ${supportedWpPluginVersions.WPGatsby.version} at https://github.com/TylerBarnes/using-gatsby-source-wordpress-experimental/tree/master/WordPress/plugins or update via ${protocol}//${hostname}/wp-admin/plugins.php
 ${reasons}`
   }
 
@@ -128,13 +138,14 @@ const ensurePluginRequirementsAreMet = async (helpers, _pluginOptions) => {
   }
 
   const {
+    url,
     debug: { disableCompatibilityCheck },
   } = getPluginOptions()
 
   await isWpGatsby()
 
   if (!disableCompatibilityCheck) {
-    await areRemotePluginVersionsSatisfied({ helpers })
+    await areRemotePluginVersionsSatisfied({ helpers, url })
   }
 }
 
