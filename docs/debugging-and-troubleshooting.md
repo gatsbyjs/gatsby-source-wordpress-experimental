@@ -16,7 +16,9 @@
 
 If some fields are returning null or an empty array when you think they should be returning data, a few things could be at play. To debug follow these steps:
 
-1. Make the same query in Gatsby and directly to WPGraphQL using a GraphQL client app like [GraphQL Playground](https://github.com/prisma-labs/graphql-playground). For example if pages weren't returning titles for some reason and the following was your query in Gatsby:
+1. Make the same query in Gatsby and directly to WPGraphQL using a GraphQL client app like [GraphQL Playground](https://github.com/prisma-labs/graphql-playground). Do not use wp-graphiql to debug because it is authenticated and Gatsby will not be authenticated when sourcing data. Use a 3rd party GraphQL client outside of WordPress.
+
+For example if pages weren't returning titles for some reason and the following was your query in Gatsby:
 
    ```js
    {
