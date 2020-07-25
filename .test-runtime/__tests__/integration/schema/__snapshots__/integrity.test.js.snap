@@ -2630,7 +2630,7 @@ Array [
 ]
 `;
 
-exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the local Gatsby schema 2`] = `"5f25fa431a2c5a4c489f7ca1cb83f59f"`;
+exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the local Gatsby schema 2`] = `"b17b006869a1396a7ccc3f01f7cd3f1b"`;
 
 exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the remote WPGraphQL schema 1`] = `
 Array [
