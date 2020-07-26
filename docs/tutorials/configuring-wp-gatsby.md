@@ -17,7 +17,7 @@ You should see the following "Builds Webhook" field at the top of the page:
 
 ![WPGatsby Builds Webhook Screenshot](/docs/assets/wp-gatsby-builds-webhook-settings.png)
 
-Enter the Webhook that should be triggered when content is updated in WordPress.
+Enter the Webhook that should be used, a POST request will be sent to the Webhook when content is updated in WordPress.
 
 If you're using [Gatsby Cloud](https://www.gatsbyjs.com/dashboard/sites), you can find this webhook by navigating to the "Site Settings" tab for your Gatsby instance and then navigating to "Webhook" in the left-side menu.
 
