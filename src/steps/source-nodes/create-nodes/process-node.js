@@ -131,7 +131,8 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
     .map((dbId) => dbIdToMediaItemRelayId(dbId))
     .filter(
       // filter out any media item ids we already fetched
-      (relayId) => !mediaItemNodesBySourceUrl.find(({ id }) => id === relayId)
+      (relayId) =>
+        !mediaItemNodesBySourceUrl.find(({ id } = {}) => id === relayId)
     )
 
   const mediaItemNodesById = await fetchReferencedMediaItemsAndCreateNodes({

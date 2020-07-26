@@ -7,93 +7,124 @@ import {
 import { fieldIsExcludedOnParentType } from "~/steps/ingest-remote-schema/is-excluded"
 import { returnAliasedFieldName } from "~/steps/create-schema-customization/transform-fields"
 
-const transformInlineFragments = ({
+export const transformInlineFragments = ({
   possibleTypes,
   gatsbyNodesInfo,
   typeMap,
-  depth,
   maxDepth,
   parentType,
   mainType,
   parentField,
   fragments,
   circularQueryLimit,
+  buildGatsbyNodeFields = false,
+  debug = false,
+  depth = 0,
   buildingFragment = false,
-  ancestorTypeNames: parentAncestorTypeNames,
+  ancestorTypeNames: parentAncestorTypeNames = [],
 }) => {
+  const state = store.getState()
+
+  if (!typeMap) {
+    typeMap = state.remoteSchema.typeMap
+  }
+
+  const { pluginOptions } = state.gatsbyApi
+
+  if (!maxDepth) {
+    maxDepth = pluginOptions.schema.queryDepth
+  }
+
+  if (!circularQueryLimit) {
+    circularQueryLimit = pluginOptions.circularQueryLimit
+  }
+
+  if (!gatsbyNodesInfo) {
+    gatsbyNodesInfo = state.remoteSchema.gatsbyNodesInfo
+  }
+
   const ancestorTypeNames = [...parentAncestorTypeNames]
 
-  return possibleTypes && depth <= maxDepth
-    ? possibleTypes
-        .map((possibleType) => {
-          possibleType = { ...possibleType }
+  const transformedInlineFragments = possibleTypes
+    .map((possibleType) => {
+      possibleType = { ...possibleType }
 
-          const type = typeMap.get(possibleType.name)
+      const type = typeMap.get(possibleType.name)
 
-          if (!type) {
-            return false
-          }
+      if (!type) {
+        if (debug) {
+          dd(`here`)
+        }
+        return false
+      }
 
-          const typeSettings = getTypeSettingsByType(type)
+      const typeSettings = getTypeSettingsByType(type)
 
-          if (typeSettings.exclude) {
-            return false
-          }
+      if (typeSettings.exclude) {
+        if (debug) {
+          dd(`here2`)
+        }
+        return false
+      }
 
-          possibleType.type = { ...type }
+      possibleType.type = { ...type }
 
-          // save this type so we can use it in schema customization
-          store.dispatch.remoteSchema.addFetchedType(type)
+      // save this type so we can use it in schema customization
+      store.dispatch.remoteSchema.addFetchedType(type)
 
-          const isAGatsbyNode = gatsbyNodesInfo.typeNames.includes(
-            possibleType.name
-          )
+      const isAGatsbyNode = gatsbyNodesInfo.typeNames.includes(
+        possibleType.name
+      )
 
-          if (isAGatsbyNode) {
-            // we use the id to link to the top level Gatsby node
-            possibleType.fields = [`id`]
-            return possibleType
-          }
+      if (isAGatsbyNode && !buildGatsbyNodeFields) {
+        if (debug) {
+          dd(`here3`)
+        }
+        // we use the id to link to the top level Gatsby node
+        possibleType.fields = [`id`]
+        return possibleType
+      }
 
-          const typeInfo = typeMap.get(possibleType.name)
+      const typeInfo = typeMap.get(possibleType.name)
 
-          let filteredFields = [...typeInfo.fields]
+      let filteredFields = [...typeInfo.fields]
 
-          if (parentType?.kind === `INTERFACE`) {
-            // remove any fields from our fragment if the parent type already has them as shared fields
-            filteredFields = filteredFields.filter(
-              (filteredField) =>
-                !parentType.fields.find(
-                  (parentField) => parentField.name === filteredField.name
-                )
+      if (parentType?.kind === `INTERFACE`) {
+        // remove any fields from our fragment if the parent type already has them as shared fields
+        filteredFields = filteredFields.filter(
+          (filteredField) =>
+            !parentType.fields.find(
+              (parentField) => parentField.name === filteredField.name
             )
-          }
+        )
+      }
 
-          if (typeInfo) {
-            const fields = recursivelyTransformFields({
-              fields: filteredFields,
-              parentType: type,
-              depth,
-              ancestorTypeNames,
-              fragments,
-              buildingFragment,
-              circularQueryLimit,
-              mainType,
-              parentField,
-            })
-
-            if (!fields || !fields.length) {
-              return false
-            }
-
-            possibleType.fields = [...fields]
-            return possibleType
-          }
-
-          return false
+      if (typeInfo) {
+        const fields = recursivelyTransformFields({
+          fields: filteredFields,
+          parentType: type,
+          depth,
+          ancestorTypeNames,
+          fragments,
+          buildingFragment,
+          circularQueryLimit,
+          mainType,
+          parentField,
         })
-        .filter(Boolean)
-    : null
+
+        if (!fields || !fields.length) {
+          return false
+        }
+
+        possibleType.fields = [...fields]
+        return possibleType
+      }
+
+      return false
+    })
+    .filter(Boolean)
+
+  return possibleTypes && depth <= maxDepth ? transformedInlineFragments : null
 }
 
 // since we're counting circular types that may be on fields many levels up, incarnation felt like it works here ;) the types are born again in later generations
@@ -104,7 +135,7 @@ const countIncarnations = ({ typeName, ancestorTypeNames }) =>
       )?.length
     : 0
 
-function transformField({
+export function transformField({
   field,
   gatsbyNodesInfo,
   typeMap,
@@ -250,6 +281,11 @@ function transformField({
       buildingFragment,
       mainType,
     })
+
+    if (parentType === `Product`) {
+      clipboardy.writeSync(JSON.stringify(listOfType.possibleTypes, null, 2))
+      dd(listOfType.possibleTypes)
+    }
 
     const transformedInlineFragments = transformInlineFragments({
       possibleTypes: listOfType.possibleTypes,
