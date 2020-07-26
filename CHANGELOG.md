@@ -1,5 +1,12 @@
 # Change Log
 
+## 1.1.1
+
+### Bug Fixes
+
+- Null values in html image caching were sometimes throwing errors. There are now guards against null values here.
+- Top level inline fragments (for WP node interfaces that are not Gatsby @nodeInterface types) were not being generated along with regular fields. This caused WooCommerce price fields (and many other fields) to not be fetched even though the schema was properly generated for these types.
+
 ## 1.1.0
 
 ### Bug Fixes

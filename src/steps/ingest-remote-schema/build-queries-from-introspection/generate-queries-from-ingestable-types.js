@@ -1,4 +1,7 @@
-import recursivelyTransformFields from "./recursively-transform-fields"
+import recursivelyTransformFields, {
+  transformInlineFragments,
+} from "./recursively-transform-fields"
+
 import {
   buildNodesQueryOnFieldName,
   buildNodeQueryOnFieldName,
@@ -150,7 +153,7 @@ const generateNodeQueriesFromIngestibleFields = async () => {
     // the type of this query
     const nodesType = typeMap.get(nodesField.type.ofType.name)
 
-    const { fields } = nodesType
+    const { fields, possibleTypes } = nodesType
 
     const settings = getTypeSettingsByType(nodesType)
 
@@ -188,6 +191,34 @@ const generateNodeQueriesFromIngestibleFields = async () => {
     // we need this for node interface types on the WPGQL side
     transformedFields.push(`__typename`)
 
+    let transformedInlineFragments
+
+    if (possibleTypes) {
+      transformedInlineFragments = transformInlineFragments({
+        possibleTypes,
+        fragments,
+        parentType: nodesType,
+        mainType: nodesType,
+        debug: true,
+        // normally we only want the id for gatsby node fields
+        // but in this case we're at the top level and need to query
+        // these fields
+        buildGatsbyNodeFields: true,
+      })
+
+      // alias conflicting inline fragment fields
+      transformedInlineFragments = transformedInlineFragments.map(
+        ({ fields, ...inlineFragment }) => {
+          return {
+            ...inlineFragment,
+            fields: aliasConflictingFields({
+              transformedFields: fields,
+            }),
+          }
+        }
+      )
+    }
+
     // mutates the fragments..
     aliasConflictingFragmentFields({ fragments })
 
@@ -199,6 +230,7 @@ const generateNodeQueriesFromIngestibleFields = async () => {
     const selectionSet = buildSelectionSet(aliasedTransformedFields, {
       fieldPath: name,
       fragments,
+      transformedInlineFragments,
     })
 
     const builtFragments = generateReusableFragments({
