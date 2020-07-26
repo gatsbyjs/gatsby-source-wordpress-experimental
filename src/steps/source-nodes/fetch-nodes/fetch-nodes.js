@@ -77,8 +77,31 @@ export const getContentTypeQueryInfos = () => {
   return queryInfos
 }
 
-export const getGatsbyNodeTypeNames = () =>
-  getContentTypeQueryInfos().map((query) => query.typeInfo.nodesTypeName)
+export const getGatsbyNodeTypeNames = () => {
+  const { typeMap } = store.getState().remoteSchema
+
+  const queryableTypenames = getContentTypeQueryInfos().map(
+    (query) => query.typeInfo.nodesTypeName
+  )
+
+  const implementingNodeTypes = queryableTypenames.reduce(
+    (accumulator, typename) => {
+      const type = typeMap.get(typename)
+
+      if (type.possibleTypes?.length) {
+        accumulator = [
+          ...accumulator,
+          ...type.possibleTypes.map(({ name }) => name),
+        ]
+      }
+
+      return accumulator
+    },
+    []
+  )
+
+  return [...new Set([...queryableTypenames, ...implementingNodeTypes])]
+}
 
 /**
  * fetchWPGQLContentNodesByContentType

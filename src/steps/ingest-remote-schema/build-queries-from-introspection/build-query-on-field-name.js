@@ -104,7 +104,10 @@ const buildInlineFragments = (inlineFragments, { fragments = {} } = {}) =>
     `
     : ``
 
-export const buildSelectionSet = (fields, { fragments = {} } = {}) => {
+export const buildSelectionSet = (
+  fields,
+  { fragments = {}, transformedInlineFragments = [] } = {}
+) => {
   if (!fields || !fields.length) {
     return ``
   }
@@ -113,71 +116,85 @@ export const buildSelectionSet = (fields, { fragments = {} } = {}) => {
     remoteSchema: { typeMap },
   } = store.getState()
 
-  const selectionSet = fields
-    .map((field) => {
-      if (typeof field === `string`) {
-        return field
-      }
+  const buildFieldSelectionSet = (field) => {
+    if (typeof field === `string`) {
+      return field
+    }
 
-      let {
-        fieldName,
-        variables,
-        fields,
-        inlineFragments,
-        fieldType,
-        internalType,
-        builtSelectionSet,
-      } = field
+    let {
+      fieldName,
+      variables,
+      fields,
+      inlineFragments,
+      fieldType,
+      internalType,
+      builtSelectionSet,
+    } = field
 
-      if (internalType === `Fragment`) {
-        return `...${field.fragment.name}`
-      }
+    if (internalType === `Fragment`) {
+      return `...${field.fragment.name}`
+    }
 
-      if (
-        (!variables || variables === ``) &&
-        fields?.find((field) => field.fieldName === `nodes`)
-      ) {
-        // @todo instead of checking for a nodes field, include the field type here
-        // and check for input args instead. Maybe some kind of input args API or something would be helpful
-        variables = `first: 100`
-      }
+    if (
+      (!variables || variables === ``) &&
+      fields?.find((field) => field.fieldName === `nodes`)
+    ) {
+      // @todo instead of checking for a nodes field, include the field type here
+      // and check for input args instead. Maybe some kind of input args API or something would be helpful
+      variables = `first: 100`
+    }
 
-      const selectionSet =
-        builtSelectionSet ||
-        buildSelectionSet(fields, {
-          fragments,
-        })
-
-      const builtInlineFragments = buildInlineFragments(inlineFragments, {
+    const selectionSet =
+      builtSelectionSet ||
+      buildSelectionSet(fields, {
         fragments,
       })
 
-      if (fieldName && (builtInlineFragments !== `` || selectionSet !== ``)) {
-        return `
-          ${fieldName} ${buildVariables(variables)} {
-            ${selectionSet}
-            ${builtInlineFragments}
-          }
-        `
-      } else if (fieldName) {
-        const fullFieldType = typeMap.get(findTypeName(fieldType))
+    const builtInlineFragments = buildInlineFragments(inlineFragments, {
+      fragments,
+    })
 
-        // if this field has subfields but we didn't build a selection set for it
-        // we shouldn't fetch this field. This can happen when we have self referencing types that are limited by the schema.circularQueryLimit plugin option.
-        // @todo the above should be fixed in recursively-transform-fields.js instead of here. recursion is hard :p
-        if (fullFieldType.fields) {
-          return null
+    if (fieldName && (builtInlineFragments !== `` || selectionSet !== ``)) {
+      return `
+        ${fieldName} ${buildVariables(variables)} {
+          ${selectionSet}
+          ${builtInlineFragments}
         }
+      `
+    } else if (fieldName) {
+      const fullFieldType = typeMap.get(findTypeName(fieldType))
 
-        return fieldName
+      // if this field has subfields but we didn't build a selection set for it
+      // we shouldn't fetch this field. This can happen when we have self referencing types that are limited by the schema.circularQueryLimit plugin option.
+      // @todo the above should be fixed in recursively-transform-fields.js instead of here. recursion is hard :p
+      if (fullFieldType.fields) {
+        return null
       }
 
-      return null
-    })
-    .filter(Boolean).join(`
+      return fieldName
+    }
+
+    return null
+  }
+
+  let inlineFragmentsSelectionSet = ``
+
+  if (transformedInlineFragments?.length) {
+    inlineFragmentsSelectionSet = transformedInlineFragments.map(
+      (inlineFragment) => {
+        return `... on ${inlineFragment.name} {
+        ${inlineFragment.fields.map(buildFieldSelectionSet).filter(Boolean)
+          .join(`
+        `)}
+      }`
+      }
+    )
+  }
+
+  const selectionSet = fields.map(buildFieldSelectionSet).filter(Boolean).join(`
     `)
 
-  return selectionSet
+  return `${inlineFragmentsSelectionSet} ${selectionSet}`
 }
 
 const buildQuery = ({
