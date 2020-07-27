@@ -4,7 +4,7 @@
 
 [gatsby-starter-wordpress-twenty-twenty](https://github.com/henrikwirth/gatsby-starter-wordpress-twenty-twenty)
 
-
+[gatsby-starter-wordpress-blog](https://github.com/zeevosec/gatsby-starter-wordpress-blog)
 
 # Themes
 
