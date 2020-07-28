@@ -391,6 +391,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
           id
         }
       }
+      databaseId
       deleteWithUser
       description
       excludeFromSearch
@@ -399,6 +400,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       hasArchive
       hierarchical
       id
+      isFrontPage
+      isPostsPage
       label
       labels {
         addNew
@@ -439,6 +442,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       showInNavMenus
       showInRest
       showUi
+      uri
       __typename
     }
     pageInfo {
@@ -465,6 +469,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         id
       }
     }
+    databaseId
     deleteWithUser
     description
     excludeFromSearch
@@ -473,6 +478,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     hasArchive
     hierarchical
     id
+    isFrontPage
+    isPostsPage
     label
     labels {
       addNew
@@ -513,6 +520,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     showInNavMenus
     showInRest
     showUi
+    uri
     __typename
   }
 }
@@ -534,6 +542,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         id
       }
     }
+    databaseId
     deleteWithUser
     description
     excludeFromSearch
@@ -542,6 +551,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     hasArchive
     hierarchical
     id
+    isFrontPage
+    isPostsPage
     label
     labels {
       addNew
@@ -582,6 +593,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     showInNavMenus
     showInRest
     showUi
+    uri
     __typename
   }
 }
@@ -628,6 +640,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       description
       desiredSlug
       enclosure
+      fileSize
       guid
       id
       language {
@@ -661,6 +674,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         }
         sizes {
           file
+          fileSize
           height
           mimeType
           name
@@ -780,6 +794,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     description
     desiredSlug
     enclosure
+    fileSize
     guid
     id
     language {
@@ -813,6 +828,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
       sizes {
         file
+        fileSize
         height
         mimeType
         name
@@ -927,6 +943,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     description
     desiredSlug
     enclosure
+    fileSize
     guid
     id
     language {
@@ -960,6 +977,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
       sizes {
         file
+        fileSize
         height
         mimeType
         name
@@ -1299,6 +1317,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       guid
       id
       isFrontPage
+      isPostsPage
       isRevision
       language {
         id
@@ -1452,6 +1471,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     guid
     id
     isFrontPage
+    isPostsPage
     isRevision
     language {
       id
@@ -1600,6 +1620,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     guid
     id
     isFrontPage
+    isPostsPage
     isRevision
     language {
       id

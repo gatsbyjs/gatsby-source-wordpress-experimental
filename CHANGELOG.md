@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.2.1
+
+### New Features
+
+- Updated Schema compatibility so that WPGraphQL v0.11.0 will be supported.
+
 ## 1.2.0
 
 ### New Features

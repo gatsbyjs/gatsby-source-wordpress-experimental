@@ -580,6 +580,7 @@ Array [
       "guid",
       "id",
       "isFrontPage",
+      "isPostsPage",
       "isRevision",
       "language",
       "lastEditedBy",
@@ -663,6 +664,7 @@ Array [
       "description",
       "desiredSlug",
       "enclosure",
+      "fileSize",
       "guid",
       "id",
       "language",
@@ -742,6 +744,7 @@ Array [
       "canExport",
       "connectedTaxonomies",
       "contentNodes",
+      "databaseId",
       "deleteWithUser",
       "description",
       "excludeFromSearch",
@@ -750,6 +753,8 @@ Array [
       "hasArchive",
       "hierarchical",
       "id",
+      "isFrontPage",
+      "isPostsPage",
       "label",
       "labels",
       "menuIcon",
@@ -765,6 +770,7 @@ Array [
       "showInNavMenus",
       "showInRest",
       "showUi",
+      "uri",
       "nodeType",
       "parent",
       "children",
@@ -887,6 +893,7 @@ Array [
   Object {
     "fields": Array [
       "file",
+      "fileSize",
       "height",
       "mimeType",
       "name",
@@ -2630,7 +2637,7 @@ Array [
 ]
 `;
 
-exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the local Gatsby schema 2`] = `"addfb83387db7a0853f8ff3b06b24ef9"`;
+exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the local Gatsby schema 2`] = `"b85e9806649ff130f448f2c4fc9ee0be"`;
 
 exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the remote WPGraphQL schema 1`] = `
 Array [
@@ -3121,6 +3128,7 @@ Array [
       "enclosure",
       "enqueuedScripts",
       "enqueuedStylesheets",
+      "fileSize",
       "guid",
       "id",
       "isPreview",
@@ -3192,6 +3200,10 @@ Array [
     "name": "HierarchicalContentNode",
   },
   Object {
+    "fields": null,
+    "name": "HierarchicalContentNodeToContentNodeConnectionWhereArgs",
+  },
+  Object {
     "fields": Array [
       "edges",
       "nodes",
@@ -3236,6 +3248,7 @@ Array [
       "canExport",
       "connectedTaxonomies",
       "contentNodes",
+      "databaseId",
       "deleteWithUser",
       "description",
       "excludeFromSearch",
@@ -3244,6 +3257,8 @@ Array [
       "hasArchive",
       "hierarchical",
       "id",
+      "isFrontPage",
+      "isPostsPage",
       "isRestricted",
       "label",
       "labels",
@@ -3260,6 +3275,7 @@ Array [
       "showInNavMenus",
       "showInRest",
       "showUi",
+      "uri",
     ],
     "name": "ContentType",
   },
@@ -3399,6 +3415,10 @@ Array [
     "name": "ContentNodeToEnqueuedStylesheetConnectionEdge",
   },
   Object {
+    "fields": null,
+    "name": "MediaItemSizeEnum",
+  },
+  Object {
     "fields": Array [
       "code",
       "id",
@@ -3452,6 +3472,7 @@ Array [
   Object {
     "fields": Array [
       "file",
+      "fileSize",
       "height",
       "mimeType",
       "name",
@@ -3476,10 +3497,6 @@ Array [
       "twitterTitle",
     ],
     "name": "SEO",
-  },
-  Object {
-    "fields": null,
-    "name": "MediaItemSizeEnum",
   },
   Object {
     "fields": null,
@@ -3630,6 +3647,7 @@ Array [
       "guid",
       "id",
       "isFrontPage",
+      "isPostsPage",
       "isPreview",
       "isRestricted",
       "isRevision",
@@ -6262,4 +6280,4 @@ Array [
 ]
 `;
 
-exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the remote WPGraphQL schema 2`] = `"4187a00a867d17165bc9ff1091b3c129"`;
+exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the remote WPGraphQL schema 2`] = `"70dd7c064cdc789be4fcff5efc9defcc"`;

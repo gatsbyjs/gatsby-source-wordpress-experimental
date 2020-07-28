@@ -20,5 +20,6 @@ Object {
       "yearGmt": "2020",
     },
   },
+  "extensions": Object {},
 }
 `;
