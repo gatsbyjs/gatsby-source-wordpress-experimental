@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.2.0
+
+### New Features
+
+- Added Date resolver to `modified` `modifiedGmt` and `dateGmt` fields (#83)
+
 ## 1.1.1
 
 ### Bug Fixes
