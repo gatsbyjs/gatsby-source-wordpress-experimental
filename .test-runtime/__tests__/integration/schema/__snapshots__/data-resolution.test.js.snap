@@ -101,6 +101,7 @@ Object {
       ],
     },
   },
+  "extensions": Object {},
 }
 `;
 
@@ -205,6 +206,7 @@ Object {
       ],
     },
   },
+  "extensions": Object {},
 }
 `;
 
@@ -476,6 +478,7 @@ Object {
       "title": "Sample Page",
     },
   },
+  "extensions": Object {},
 }
 `;
 
@@ -747,6 +750,7 @@ Object {
       "title": "Sample Page DELTA SYNC",
     },
   },
+  "extensions": Object {},
 }
 `;
 
@@ -780,6 +784,7 @@ Object {
       "title": "Hello world!",
     },
   },
+  "extensions": Object {},
 }
 `;
 
@@ -813,6 +818,7 @@ Object {
       "title": "Hello world! DELTA SYNC",
     },
   },
+  "extensions": Object {},
 }
 `;
 
@@ -844,6 +850,7 @@ Object {
       },
     },
   },
+  "extensions": Object {},
 }
 `;
 
@@ -875,6 +882,7 @@ Object {
       },
     },
   },
+  "extensions": Object {},
 }
 `;
 
@@ -919,6 +927,7 @@ Object {
       "firstName": "Tyler",
     },
   },
+  "extensions": Object {},
 }
 `;
 
@@ -963,5 +972,6 @@ Object {
       "firstName": "Tyler DELTA SYNC",
     },
   },
+  "extensions": Object {},
 }
 `;
