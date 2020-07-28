@@ -20,6 +20,7 @@ module.exports = runApisInSteps({
   onPostBuild: [steps.setImageNodeIdCache],
 
   onCreateDevServer: [
+    steps.setGatsbyApiToState,
     steps.setImageNodeIdCache,
     steps.startPollingForContentUpdates,
   ],

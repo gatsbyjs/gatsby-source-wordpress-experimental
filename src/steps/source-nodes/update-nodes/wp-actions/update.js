@@ -265,7 +265,9 @@ export const createSingleNode = async ({
   }
 
   if (remoteNode) {
-    actions.createNode(remoteNode)
+    console.log(`creating node`)
+    await actions.createNode(remoteNode)
+    console.log(`node created`)
 
     cachedNodeIds.push(remoteNode.id)
 
