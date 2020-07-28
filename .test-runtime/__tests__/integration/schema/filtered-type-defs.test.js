@@ -22,20 +22,6 @@ describe(`[gatsby-source-wordpress-experimental] filtered type definitions`, () 
             dayOfWeekNumberGmt: date(formatString: "E")
             dayOfWeekNameGmt: date(formatString: "dddd")
             dateGmt: date
-
-            yearModified: modified(formatString: "YYYY")
-            monthModified: modified(formatString: "MMMM")
-            dayOfMonthModified: modified(formatString: "DD")
-            dayOfWeekNumberModified: modified(formatString: "E")
-            dayOfWeekNameModified: modified(formatString: "dddd")
-            dateModified: modified
-
-            yearModifiedGmt: modifiedGmt(formatString: "YYYY")
-            monthModifiedGmt: modifiedGmt(formatString: "MMMM")
-            dayOfMonthModifiedGmt: modifiedGmt(formatString: "DD")
-            dayOfWeekNumberModifiedGmt: modifiedGmt(formatString: "E")
-            dayOfWeekNameModifiedGmt: modifiedGmt(formatString: "dddd")
-            dateModifiedGmt: modifiedGmt
           }
         }
       `,
