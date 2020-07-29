@@ -84,7 +84,9 @@ export const createRemoteMediaItemNode = async ({
   mediaItemNode,
   fixedBarTotal,
 }) => {
-  const { helpers, pluginOptions } = getGatsbyApi()
+  const state = store.getState()
+  const { helpers, pluginOptions } = state.gatsbyApi
+
   const existingNode = await getFileNodeByMediaItemNode({
     mediaItemNode,
     helpers,
@@ -127,8 +129,6 @@ export const createRemoteMediaItemNode = async ({
     (process.env.NODE_ENV === `production` &&
       pluginOptions.production.hardCacheMediaFiles)
 
-  const htaccessCredentials = pluginOptions.auth.htaccess
-
   // Otherwise we need to download it
   const remoteFileNode = await retry(
     async () => {
@@ -162,16 +162,29 @@ export const createRemoteMediaItemNode = async ({
         }
       }
 
-      // if this errors, it's caught one level above in fetch-referenced-media-items.js so it can be placed on the end of the request queue
-      const node = await createRemoteFileNode({
-        url: mediaItemUrl,
-        fixedBarTotal,
-        auth: htaccessCredentials
+      const { wpUrl } = state.remoteSchema
+      const { hostname: wpUrlHostname } = wpUrl
+      const { hostname: mediaItemHostname } = url.parse(mediaItemUrl)
+
+      const htaccessCredentials = pluginOptions.auth.htaccess
+
+      // if media items are hosted on another url like s3,
+      // using the htaccess creds will throw 400 errors
+      const shouldUseHtaccessCredentials = wpUrlHostname === mediaItemHostname
+
+      const auth =
+        htaccessCredentials && shouldUseHtaccessCredentials
           ? {
               htaccess_pass: htaccessCredentials?.password,
               htaccess_user: htaccessCredentials?.username,
             }
-          : null,
+          : null
+
+      // if this errors, it's caught one level above in fetch-referenced-media-items.js so it can be placed on the end of the request queue
+      const node = await createRemoteFileNode({
+        url: mediaItemUrl,
+        fixedBarTotal,
+        auth,
         ...createFileNodeRequirements,
       })
 
