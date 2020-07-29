@@ -31,7 +31,8 @@
     "p-queue": "^6.3.0",
     "prettier": "^2.0.5",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "ws": "^7.3.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.4",
