@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.2.2
+
+### Bug Fixes
+
+- htaccess auth headers were being passed to all media item file urls regardless of wether that url was the WP url or another url (like s3). This was causing 400 errors in some cases as the 3rd party server considered these headers malformed. This is now fixed.
+
 ## 1.2.1
 
 ### New Features
