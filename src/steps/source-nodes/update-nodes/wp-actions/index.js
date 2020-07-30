@@ -4,6 +4,8 @@ import wpActionUPDATE from "./update"
 import { LAST_COMPLETED_SOURCE_TIME } from "~/constants"
 import { paginatedWpNodeFetch } from "~/steps/source-nodes/fetch-nodes/fetch-nodes-paginated"
 
+import fetchAndCreateNonNodeRootFields from "~/steps/source-nodes/create-nodes/fetch-and-create-non-node-root-fields"
+
 const previouslyFetchedActionIds = []
 
 /**
@@ -92,6 +94,9 @@ export const handleWpActions = async (api) => {
     case `UPDATE`:
     case `CREATE`:
       await wpActionUPDATE(api)
+      break
+    case `NON_NODE_ROOT_FIELDS`:
+      await fetchAndCreateNonNodeRootFields()
   }
 
   return cachedNodeIds
