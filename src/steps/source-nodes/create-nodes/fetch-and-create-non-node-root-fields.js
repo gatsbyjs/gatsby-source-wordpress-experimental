@@ -47,7 +47,7 @@ const fetchAndCreateNonNodeRootFields = async () => {
     type,
   })
 
-  await createRootNode()
+  createRootNode()
 
   const referencedMediaItemNodeIdsArray = [...referencedMediaItemNodeIds]
 
