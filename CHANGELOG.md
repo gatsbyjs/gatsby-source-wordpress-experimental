@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.2.3
+
+### New Features
+
+- Added logic to receive delta updates for non-node root fields like options and settings. Requires WPGatsby v0.4.15 to work, but nothing bad will happen if you don't update WPGatsby, you just wont get any delta updates for these fields until you do.
+
 ## 1.2.2
 
 ### Bug Fixes
