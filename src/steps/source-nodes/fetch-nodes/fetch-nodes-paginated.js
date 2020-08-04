@@ -22,6 +22,7 @@ const paginatedWpNodeFetch = async ({
   nodeTypeName,
   helpers,
   throwFetchErrors = false,
+  throwGqlErrors = false,
   allContentNodes = [],
   after = null,
   settings = {},
@@ -56,6 +57,7 @@ const paginatedWpNodeFetch = async ({
   const response = await fetchGraphql({
     query,
     throwFetchErrors,
+    throwGqlErrors,
     variables: {
       ...variables,
       after,
