@@ -18,7 +18,12 @@ export const touchValidNodes = async () => {
  * onPreBootstrap to ask WordPress for the latest changes, and then
  * apply creates, updates, and deletes to Gatsby nodes
  */
-const fetchAndApplyNodeUpdates = async ({ since, intervalRefetching }) => {
+const fetchAndApplyNodeUpdates = async ({
+  since,
+  intervalRefetching,
+  throwFetchErrors = false,
+  throwGqlErrors = false,
+}) => {
   const { helpers, pluginOptions } = getGatsbyApi()
 
   const { cache, reporter } = helpers
@@ -42,6 +47,8 @@ const fetchAndApplyNodeUpdates = async ({ since, intervalRefetching }) => {
     intervalRefetching,
     helpers,
     pluginOptions,
+    throwFetchErrors,
+    throwGqlErrors,
   })
 
   if (
