@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.2.4
+
+### Bug Fixes
+
+- Previously when in `gatsby develop` or in a Preview instance, if the connection to WP went down for a moment it would fail the build. It now displays an activity timer with the number of times it's retried, and then a success message when it finally does succeed.
+
 ## 1.2.3
 
 ### New Features
