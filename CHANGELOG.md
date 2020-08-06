@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.2.5
+
+### Bug Fixes
+
+- Removed some debugging code that made it to master 😱
+
+### New Features
+
+- Improved the error displayed when a GraphQL request is redirected or when a PHP WP filter adds additional output to a GraphQL request
+
 ## 1.2.4
 
 ### Bug Fixes
