@@ -306,7 +306,7 @@ ${slackChannelSupportMessage}`
 
     reporter.panic(
       formatLogMessage(
-        `${errorContext}\n\n${
+        `${errorContext || ``}\n\n${
           e.message
         } \n\nReceived HTML as a response. Are you sure ${url} is the correct URL?\n\nIf that URL redirects to the correct URL via WordPress in the browser,\nor you've entered the wrong URL in settings,\nyou might receive this error.\nVisit that URL in your browser, and if it looks good, copy/paste it from your URL bar to your config.\n\n${ensureStatementsAreTrue}${
           copyHtmlResponseOnError
