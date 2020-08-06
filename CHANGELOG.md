@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.2.6
+
+### Bug Fixes
+
+- Errors with no errorContext object would sometimes print "false", this now prints an empty string instead, followed by the proper error.
+
 ## 1.2.5
 
 ### Bug Fixes
