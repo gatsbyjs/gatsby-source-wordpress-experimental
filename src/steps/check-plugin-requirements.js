@@ -130,6 +130,7 @@ const isWpGatsby = async () =>
       to: `WPGatsby is not active in your WordPress installation.\nTo download the latest versions of WPGatsby and WPGraphL, visit:\nhttps://github.com/TylerBarnes/using-gatsby-source-wordpress-experimental/tree/master/WordPress/plugins`,
     },
     panicOnError: true,
+    isFirstRequest: true,
   })
 
 const ensurePluginRequirementsAreMet = async (helpers, _pluginOptions) => {
