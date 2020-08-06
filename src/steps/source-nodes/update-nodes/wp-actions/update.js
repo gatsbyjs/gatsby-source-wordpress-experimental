@@ -185,7 +185,6 @@ export const createSingleNode = async ({
     pluginOptions,
     wpUrl,
     helpers,
-    test: true,
   })
 
   const { actions } = helpers
