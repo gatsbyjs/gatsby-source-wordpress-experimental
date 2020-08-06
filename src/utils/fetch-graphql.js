@@ -5,19 +5,17 @@ import chalk from "chalk"
 import { formatLogMessage } from "./format-log-message"
 import store from "~/store"
 import { getPluginOptions } from "./get-gatsby-api"
+import urlUtil from "url"
 
 const http = rateLimit(axios.create(), {
   maxRPS: process.env.GATSBY_CONCURRENT_DOWNLOAD || 50,
 })
 
-const handleErrors = async ({
+const handleErrorOptions = async ({
   variables,
+  query,
   pluginOptions,
   reporter,
-  responseJSON,
-  query,
-  panicOnError,
-  errorContext,
 }) => {
   if (
     variables &&
@@ -46,6 +44,18 @@ const handleErrors = async ({
       // do nothing
     }
   }
+}
+
+const handleErrors = async ({
+  variables,
+  query,
+  pluginOptions,
+  reporter,
+  responseJSON,
+  panicOnError,
+  errorContext,
+}) => {
+  await handleErrorOptions({ variables, query, pluginOptions, reporter })
 
   if (!responseJSON) {
     return
@@ -261,10 +271,52 @@ const handleFetchErrors = async ({
     )
   }
 
-  if (response?.headers[`content-type`].includes(`text/html;`)) {
+  const redirected = e.message.includes(`GraphQL request was redirected`)
+
+  if (redirected) {
+    await handleErrorOptions({ variables, query, pluginOptions, reporter })
     reporter.panic(
       formatLogMessage(
-        `${e.message} \n\nReceived HTML as a response. Are you sure ${url} is the correct URL?\n\nIf that URL redirects to the correct URL via WordPress in the browser, or you've entered the wrong URL in settings, you might receive this error.\nVisit that URL in your browser, and if it looks good, copy/paste it from your URL bar to your config.\n\n${ensureStatementsAreTrue}`,
+        `${e.message}\n\n${errorContext}\n\nThis can happen due to custom code or redirection plugins which redirect the request when a post is accessed.\nThis redirection code will need to be patched to not run during GraphQL requests.\n\nThat can be achieved by adding something like the following to your WP PHP code:\n
+if ( defined( 'GRAPHQL_REQUEST' ) && true === GRAPHQL_REQUEST ) {
+  return examplePreventRedirect();
+}`
+      )
+    )
+  }
+
+  if (response?.headers[`content-type`].includes(`text/html;`)) {
+    const copyHtmlResponseOnError =
+      pluginOptions?.debug?.graphql?.copyHtmlResponseOnError
+
+    if (copyHtmlResponseOnError) {
+      try {
+        clipboardy?.writeSync(response.data)
+      } catch (e) {}
+    }
+
+    reporter.panic(
+      formatLogMessage(
+        `${errorContext}\n\n${
+          e.message
+        } \n\nReceived HTML as a response. Are you sure ${url} is the correct URL?\n\nIf that URL redirects to the correct URL via WordPress in the browser,\nor you've entered the wrong URL in settings,\nyou might receive this error.\nVisit that URL in your browser, and if it looks good, copy/paste it from your URL bar to your config.\n\n${ensureStatementsAreTrue}${
+          copyHtmlResponseOnError
+            ? `\n\nCopied HTML response to your clipboard.`
+            : `\n\n${chalk.bold(
+                `Further debugging`
+              )}\nIf you still receive this error after following the steps above, this may be a problem with your WordPress instance.\nA plugin or theme may be adding additional output for some posts or pages.\nAdd the following plugin option to copy the html response to your clipboard for debugging.\nYou can paste the response into an html file to see what's being returned.\n
+{
+  resolve: "gatsby-source-wordpress-experimental",
+  options: {
+    debug: {
+      graphql: {
+        copyHtmlResponseOnError: true
+      }
+    }
+  }
+}`
+        }
+        `,
         {
           useVerboseStyle: true,
         }
@@ -334,6 +386,13 @@ const fetchGraphql = async ({
     }
 
     response = await http.post(url, { query, variables }, requestOptions)
+
+    const { path } = urlUtil.parse(url)
+    const responsePath = response.request.path
+
+    if (path !== responsePath) {
+      throw new Error(`GraphQL request was redirected to ${responsePath}`)
+    }
 
     const contentType = response.headers[`content-type`]
 
