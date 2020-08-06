@@ -163,7 +163,7 @@ export const createRemoteMediaItemNode = async ({
       }
 
       const { wpUrl } = state.remoteSchema
-      const { hostname: wpUrlHostname } = wpUrl
+      const { hostname: wpUrlHostname } = url.parse(wpUrl)
       const { hostname: mediaItemHostname } = url.parse(mediaItemUrl)
 
       const htaccessCredentials = pluginOptions.auth.htaccess

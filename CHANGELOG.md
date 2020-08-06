@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.2.7
+
+### Bug Fixes
+
+- Fixed a regression where htaccess headers were not being properly passed to image file requests when they should be.
+
 ## 1.2.6
 
 ### Bug Fixes
