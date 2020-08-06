@@ -10,8 +10,8 @@
   "scripts": {
     "develop": "gatsby develop",
     "build": "gatsby build",
-    "clean-develop": "gatsby clean && yarn develop",
-    "clean-build": "gatsby clean && yarn build",
+    "clean-develop": "npx gatsby clean && yarn develop",
+    "clean-build": "npx gatsby clean && yarn build",
     "serve": "gatsby serve"
   },
   "dependencies": {

@@ -71,7 +71,7 @@
     "prepublishOnly": "npm run test",
     "watch": "babel -w src --out-dir . --ignore **/__tests__ --verbose",
     "ci": "yarn test",
-    "clean-test-runtime": "cd .test-runtime && gatsby clean",
+    "clean-test-runtime": "cd .test-runtime && npx gatsby clean",
     "develop-test-runtime": "cd .test-runtime && yarn develop",
     "build-test-runtime": "cd .test-runtime && yarn build",
     "serve-test-runtime": "cd .test-runtime && yarn serve",
