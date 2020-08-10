@@ -1,5 +1,13 @@
 # Change Log
 
+## 1.3.1
+
+### Bug Fixes
+
+- Fixed default resolver for auto aliased fields in the case that the field type is nested in ofType.
+  https://github.com/GatsbyWPGutenberg/gatsby-wordpress-gutenberg/issues/44
+  https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/issues/79
+
 ## 1.3.0
 
 ### New Features
