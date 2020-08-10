@@ -391,7 +391,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
           id
         }
       }
-      databaseId
       deleteWithUser
       description
       excludeFromSearch
@@ -469,7 +468,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         id
       }
     }
-    databaseId
     deleteWithUser
     description
     excludeFromSearch
@@ -542,7 +540,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         id
       }
     }
-    databaseId
     deleteWithUser
     description
     excludeFromSearch

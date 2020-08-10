@@ -469,7 +469,6 @@ Array [
   },
   Object {
     "fields": Array [
-      "databaseId",
       "id",
       "uri",
     ],
@@ -483,6 +482,12 @@ Array [
       "url",
     ],
     "name": "WpCommenter",
+  },
+  Object {
+    "fields": Array [
+      "databaseId",
+    ],
+    "name": "WpDatabaseIdentifier",
   },
   Object {
     "fields": Array [
@@ -744,7 +749,6 @@ Array [
       "canExport",
       "connectedTaxonomies",
       "contentNodes",
-      "databaseId",
       "deleteWithUser",
       "description",
       "excludeFromSearch",
@@ -2637,7 +2641,7 @@ Array [
 ]
 `;
 
-exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the local Gatsby schema 2`] = `"b85e9806649ff130f448f2c4fc9ee0be"`;
+exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the local Gatsby schema 2`] = `"815fce15974c7676e57e2001157be4f0"`;
 
 exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the remote WPGraphQL schema 1`] = `
 Array [
@@ -2847,7 +2851,6 @@ Array [
   },
   Object {
     "fields": Array [
-      "databaseId",
       "id",
       "uri",
     ],
@@ -2863,6 +2866,12 @@ Array [
       "url",
     ],
     "name": "Commenter",
+  },
+  Object {
+    "fields": Array [
+      "databaseId",
+    ],
+    "name": "DatabaseIdentifier",
   },
   Object {
     "fields": null,
@@ -3248,7 +3257,6 @@ Array [
       "canExport",
       "connectedTaxonomies",
       "contentNodes",
-      "databaseId",
       "deleteWithUser",
       "description",
       "excludeFromSearch",
@@ -6280,4 +6288,4 @@ Array [
 ]
 `;
 
-exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the remote WPGraphQL schema 2`] = `"70dd7c064cdc789be4fcff5efc9defcc"`;
+exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the remote WPGraphQL schema 2`] = `"356c7e0c6b109dbe768069d11ed66e10"`;

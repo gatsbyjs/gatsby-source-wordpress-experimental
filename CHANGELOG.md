@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.3.0
+
+### New Features
+
+- Tested WPGraphQL v0.12.0 and adjusted the compatibility API to allow it.
+
 ## 1.2.7
 
 ### Bug Fixes
