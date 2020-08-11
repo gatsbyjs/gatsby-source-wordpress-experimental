@@ -2,6 +2,10 @@
 
 ## 1.3.5
 
+### Bug Fixes
+
+- Root field types could not have their fields excluded previously. This now works!
+
 ### New Error Messages
 
 - Added an error message for when a GraphQL request returns an empty string "". Fails prod builds and warns in develop.
