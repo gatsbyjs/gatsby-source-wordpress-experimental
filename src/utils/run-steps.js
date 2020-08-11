@@ -22,7 +22,9 @@ const runSteps = async (steps, helpers, pluginOptions, apiName) => {
       helpers.reporter.error(e)
       helpers.reporter.panic(
         formatLogMessage(
-          `\n\n\tEncountered a critical error when running the ${apiName}.${step.name} build step.\n\tSee above for more information.`,
+          `\n\n\tEncountered a critical error when running the ${
+            apiName ? `${apiName}.` : ``
+          }${step.name} build step.\n\tSee above for more information.`,
           { useVerboseStyle: true }
         )
       )
