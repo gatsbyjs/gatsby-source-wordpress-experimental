@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.3.2
+
+### Bug Fixes
+
+- fixed case where schema customization might fail if a type had no subfields
+
 ## 1.3.1
 
 ### Bug Fixes

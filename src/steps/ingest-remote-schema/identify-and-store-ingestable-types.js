@@ -78,7 +78,7 @@ const identifyAndStoreIngestableFieldsAndTypes = async () => {
     if (field.type.kind === `OBJECT`) {
       const type = typeMap.get(field.type.name)
 
-      const nodeField = type.fields.find(nodeListFilter)
+      const nodeField = type?.fields?.find(nodeListFilter)
 
       if (nodeField && nodeField.type.ofType.kind === `INTERFACE`) {
         const nodeListField = type.fields.find(nodeListFilter)
