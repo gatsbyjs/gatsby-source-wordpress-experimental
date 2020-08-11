@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.3.3
+
+### Bug Fixes
+
+- In our logs, chalk.white.bgBlue() was changed to chalk.bgBlue.white() to support light coloured themes. Previously there wasn't enough contrast when a light theme was enabled.
+
 ## 1.3.2
 
 ### Bug Fixes
