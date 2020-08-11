@@ -2,7 +2,10 @@
 
 ## 1.3.5
 
+### New Error Messages
+
 - Added an error message for when a GraphQL request returns an empty string "". Fails prod builds and warns in develop.
+- debugMessages are now checked for on startup. This will fail the build if there are multiple fields on a type which have the same fieldname for example.
 
 ## 1.3.4
 
