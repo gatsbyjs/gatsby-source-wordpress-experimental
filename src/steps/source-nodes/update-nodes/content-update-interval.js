@@ -5,7 +5,7 @@ import store from "~/store"
 const refetcher = async (
   msRefetchInterval,
   helpers,
-  { reconnectionActivity = null, retryCount = 0 } = {}
+  { reconnectionActivity = null, retryCount = 1 } = {}
 ) => {
   try {
     await fetchAndApplyNodeUpdates({
@@ -18,12 +18,14 @@ const refetcher = async (
       reconnectionActivity.end()
       helpers.reporter.success(
         formatLogMessage(
-          `Content updates re-connected after ${retryCount} tries`
+          `Content updates re-connected after ${retryCount} ${
+            retryCount === 1 ? `try` : `tries`
+          }`
         )
       )
 
       reconnectionActivity = null
-      retryCount = 0
+      retryCount = 1
     }
   } catch (e) {
     if (!reconnectionActivity) {
@@ -37,7 +39,14 @@ const refetcher = async (
       reconnectionActivity.setStatus(`retried ${retryCount} times`)
     }
 
-    await new Promise((resolve) => setTimeout(resolve, 30000))
+    // retry after retry count times 5 seconds
+    const retryTime = retryCount * 5000
+    // if the retry time is greater than or equal to the max (60 seconds)
+    // use the max, otherwise use the retry time
+    const maxWait = 60000
+    const waitFor = retryTime >= maxWait ? maxWait : retryTime
+
+    await new Promise((resolve) => setTimeout(resolve, waitFor))
   }
 
   setTimeout(
