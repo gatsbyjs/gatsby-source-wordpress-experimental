@@ -343,6 +343,21 @@ if ( defined( 'GRAPHQL_REQUEST' ) && true === GRAPHQL_REQUEST ) {
     )
   }
 
+  const sharedEmptyStringReponseError = `\n\nAn empty string was returned instead of a response when making a GraphQL request.\nThis may indicate that you have a WordPress filter running which is causing WPGraphQL\nto return an empty string instead of a response.\nPlease open an issue with a reproduction at\nhttps://github.com/gatsbyjs/gatsby-source-wordpress-experimental/issues/new\nfor more help\n\n${errorContext}\n`
+
+  const emptyStringResponse =
+    e.message === `GraphQL request returned an empty string.`
+
+  const warnOrPanic =
+    process.env.NODE_ENV === `development` ? reporter.warn : reporter.panic
+
+  if (emptyStringResponse) {
+    reporter.log(``)
+    warnOrPanic(formatLogMessage(sharedEmptyStringReponseError))
+
+    return
+  }
+
   reporter.panic(
     formatLogMessage(
       `${e.message} ${
@@ -406,6 +421,10 @@ const fetchGraphql = async ({
     }
 
     response = await http.post(url, { query, variables }, requestOptions)
+
+    if (response.data === "") {
+      throw new Error(`GraphQL request returned an empty string.`)
+    }
 
     const { path } = urlUtil.parse(url)
     const responsePath = response.request.path

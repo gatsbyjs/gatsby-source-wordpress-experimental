@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.3.5
+
+- Added an error message for when a GraphQL request returns an empty string "". Fails prod builds and warns in develop.
+
 ## 1.3.4
 
 ### Bug Fixes
