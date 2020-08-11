@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.4.0
+
+### Bug Fixes
+
+- The delta update retry reconnection logic had an off by one error, causing the error log to occasionally say "reconnected after 0 retries".
+
+### New Features
+
+- Previously, the delta update retry reconnection logic was hardcoded to wait 30 seconds when attempting to reconnect. Now it starts at 5 seconds and increases in multiples of 5 seconds until it gets to 60 seconds, then keeps attempting to reconnect after 60 seconds perpetually afterwards.
+
 ## 1.3.3
 
 ### Bug Fixes
