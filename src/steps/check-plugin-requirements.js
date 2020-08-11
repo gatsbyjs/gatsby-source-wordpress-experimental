@@ -167,9 +167,7 @@ const ensurePluginRequirementsAreMet = async (helpers, _pluginOptions) => {
     debug: { disableCompatibilityCheck },
   } = getPluginOptions()
 
-  console.log("blank request")
   await blankGetRequest({ url, helpers })
-  console.log(`blank request succeeded`)
 
   await isWpGatsby()
 
