@@ -5,6 +5,7 @@
 ### Bug Fixes
 
 - Root field types could not have their fields excluded previously. This now works!
+- In build step error messages, depending on which step errored, undefined.stepName would be printed.
 
 ### New Error Messages
 
