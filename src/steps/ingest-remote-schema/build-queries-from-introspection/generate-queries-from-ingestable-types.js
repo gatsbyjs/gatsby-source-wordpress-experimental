@@ -184,7 +184,7 @@ const generateNodeQueriesFromIngestibleFields = async () => {
     const transformedFields = recursivelyTransformFields({
       fields,
       fragments,
-      parentType: nodesType,
+      parentType: type,
       mainType: type,
     })
 
