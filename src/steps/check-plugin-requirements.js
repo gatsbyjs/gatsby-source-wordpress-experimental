@@ -1,15 +1,16 @@
 import url from "url"
 
 import fetchGraphql from "~/utils/fetch-graphql"
+
 import { formatLogMessage } from "~/utils/format-log-message"
 
 import { getPluginOptions } from "~/utils/get-gatsby-api"
-import store from "~/store"
 
 import {
   supportedWpPluginVersions,
   genericDownloadMessage,
 } from "~/supported-remote-plugin-versions"
+import fetch from "node-fetch"
 
 const areRemotePluginVersionsSatisfied = async ({
   helpers,
@@ -117,6 +118,29 @@ ${reasons}`
   }
 }
 
+// This blank request is used to find debug messages
+// when a graphql request is made with no query
+// for example if 2 root fields are registered with the fieldname "products"
+// this will throw a helpful error message explaining that one should be removed
+const blankGetRequest = async ({ url, helpers }) =>
+  fetch(url)
+    .then((response) => response.json())
+    .then((json) => {
+      if (json?.errors?.length) {
+        const firstError = json.errors[0]
+
+        if (firstError.debugMessage) {
+          helpers.reporter.panic(
+            formatLogMessage(`WPGraphQL returned a debug message on startup:
+
+${firstError.debugMessage}
+          `)
+          )
+        }
+      }
+    })
+    .catch((e) => {})
+
 const isWpGatsby = async () =>
   fetchGraphql({
     query: /* GraphQL */ `
@@ -130,6 +154,7 @@ const isWpGatsby = async () =>
       to: `WPGatsby is not active in your WordPress installation.\nTo download the latest versions of WPGatsby and WPGraphL, visit:\nhttps://github.com/TylerBarnes/using-gatsby-source-wordpress-experimental/tree/master/WordPress/plugins`,
     },
     panicOnError: true,
+    isFirstRequest: true,
   })
 
 const ensurePluginRequirementsAreMet = async (helpers, _pluginOptions) => {
@@ -141,6 +166,8 @@ const ensurePluginRequirementsAreMet = async (helpers, _pluginOptions) => {
     url,
     debug: { disableCompatibilityCheck },
   } = getPluginOptions()
+
+  await blankGetRequest({ url, helpers })
 
   await isWpGatsby()
 

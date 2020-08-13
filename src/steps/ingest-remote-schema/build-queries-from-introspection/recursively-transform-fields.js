@@ -282,11 +282,6 @@ export function transformField({
       mainType,
     })
 
-    if (parentType === `Product`) {
-      clipboardy.writeSync(JSON.stringify(listOfType.possibleTypes, null, 2))
-      dd(listOfType.possibleTypes)
-    }
-
     const transformedInlineFragments = transformInlineFragments({
       possibleTypes: listOfType.possibleTypes,
       parentType: listOfType || fieldType,

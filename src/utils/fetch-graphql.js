@@ -5,19 +5,17 @@ import chalk from "chalk"
 import { formatLogMessage } from "./format-log-message"
 import store from "~/store"
 import { getPluginOptions } from "./get-gatsby-api"
+import urlUtil from "url"
 
 const http = rateLimit(axios.create(), {
   maxRPS: process.env.GATSBY_CONCURRENT_DOWNLOAD || 50,
 })
 
-const handleErrors = async ({
+const handleErrorOptions = async ({
   variables,
+  query,
   pluginOptions,
   reporter,
-  responseJSON,
-  query,
-  panicOnError,
-  errorContext,
 }) => {
   if (
     variables &&
@@ -46,6 +44,18 @@ const handleErrors = async ({
       // do nothing
     }
   }
+}
+
+const handleErrors = async ({
+  variables,
+  query,
+  pluginOptions,
+  reporter,
+  responseJSON,
+  panicOnError,
+  errorContext,
+}) => {
+  await handleErrorOptions({ variables, query, pluginOptions, reporter })
 
   if (!responseJSON) {
     return
@@ -180,6 +190,8 @@ const ensureStatementsAreTrue = `${chalk.bold(
 const genericError = ({ url }) =>
   `GraphQL request to ${chalk.bold(url)} failed.\n\n${ensureStatementsAreTrue}`
 
+const slackChannelSupportMessage = `If you're still having issues, please visit https://www.wpgraphql.com/community-and-support/\nand follow the link to join the WPGraphQL Slack.\nThere are a lot of folks there in the #gatsby channel who are happy to help with debugging.`
+
 const handleFetchErrors = async ({
   e,
   reporter,
@@ -190,6 +202,7 @@ const handleFetchErrors = async ({
   query,
   response,
   errorContext,
+  isFirstRequest,
 }) => {
   await handleErrors({
     panicOnError: false,
@@ -261,15 +274,88 @@ const handleFetchErrors = async ({
     )
   }
 
-  if (response?.headers[`content-type`].includes(`text/html;`)) {
+  const redirected = e.message.includes(`GraphQL request was redirected`)
+
+  if (redirected) {
+    await handleErrorOptions({ variables, query, pluginOptions, reporter })
     reporter.panic(
       formatLogMessage(
-        `${e.message} \n\nReceived HTML as a response. Are you sure ${url} is the correct URL?\n\nIf that URL redirects to the correct URL via WordPress in the browser, or you've entered the wrong URL in settings, you might receive this error.\nVisit that URL in your browser, and if it looks good, copy/paste it from your URL bar to your config.\n\n${ensureStatementsAreTrue}`,
+        `${e.message}\n\n${errorContext}\n\nThis can happen due to custom code or redirection plugins which redirect the request when a post is accessed.\nThis redirection code will need to be patched to not run during GraphQL requests.\n\nThat can be achieved by adding something like the following to your WP PHP code:\n
+if ( defined( 'GRAPHQL_REQUEST' ) && true === GRAPHQL_REQUEST ) {
+  return examplePreventRedirect();
+}
+
+${slackChannelSupportMessage}`
+      )
+    )
+  }
+
+  const responseReturnedHtml = response?.headers[`content-type`].includes(
+    `text/html;`
+  )
+
+  if (responseReturnedHtml && isFirstRequest) {
+    const copyHtmlResponseOnError =
+      pluginOptions?.debug?.graphql?.copyHtmlResponseOnError
+
+    if (copyHtmlResponseOnError) {
+      try {
+        clipboardy?.writeSync(response.data)
+      } catch (e) {}
+    }
+
+    reporter.panic(
+      formatLogMessage(
+        `${errorContext || ``}\n\n${
+          e.message
+        } \n\nReceived HTML as a response. Are you sure ${url} is the correct URL?\n\nIf that URL redirects to the correct URL via WordPress in the browser,\nor you've entered the wrong URL in settings,\nyou might receive this error.\nVisit that URL in your browser, and if it looks good, copy/paste it from your URL bar to your config.\n\n${ensureStatementsAreTrue}${
+          copyHtmlResponseOnError
+            ? `\n\nCopied HTML response to your clipboard.`
+            : `\n\n${chalk.bold(
+                `Further debugging`
+              )}\nIf you still receive this error after following the steps above, this may be a problem with your WordPress instance.\nA plugin or theme may be adding additional output for some posts or pages.\nAdd the following plugin option to copy the html response to your clipboard for debugging.\nYou can paste the response into an html file to see what's being returned.\n
+{
+  resolve: "gatsby-source-wordpress-experimental",
+  options: {
+    debug: {
+      graphql: {
+        copyHtmlResponseOnError: true
+      }
+    }
+  }
+}`
+        }
+        `,
         {
           useVerboseStyle: true,
         }
       )
     )
+  } else if (responseReturnedHtml && !isFirstRequest) {
+    reporter.panic(
+      formatLogMessage(
+        `${errorContext}\n\n${e.message}\n\nThere are some WordPress PHP filters in your site which are adding additional output to the GraphQL response.\nThese may have been added via custom code or via a plugin.\n\nYou will need to debug this and remove these filters during GraphQL requests using something like the following:
+        
+if ( defined( 'GRAPHQL_REQUEST' ) && true === GRAPHQL_REQUEST ) {
+  return exampleReturnEarlyInFilter( $data );
+}\n\nYou can use the gatsby-source-wordpress-experimental debug options to determine which GraphQL request is causing this error.\nhttps://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/plugin-options.md#debuggraphql-object\n\n${slackChannelSupportMessage}`
+      )
+    )
+  }
+
+  const sharedEmptyStringReponseError = `\n\nAn empty string was returned instead of a response when making a GraphQL request.\nThis may indicate that you have a WordPress filter running which is causing WPGraphQL\nto return an empty string instead of a response.\nPlease open an issue with a reproduction at\nhttps://github.com/gatsbyjs/gatsby-source-wordpress-experimental/issues/new\nfor more help\n\n${errorContext}\n`
+
+  const emptyStringResponse =
+    e.message === `GraphQL request returned an empty string.`
+
+  const warnOrPanic =
+    process.env.NODE_ENV === `development` ? reporter.warn : reporter.panic
+
+  if (emptyStringResponse) {
+    reporter.log(``)
+    warnOrPanic(formatLogMessage(sharedEmptyStringReponseError))
+
+    return
   }
 
   reporter.panic(
@@ -295,6 +381,7 @@ const fetchGraphql = async ({
   variables = {},
   headers = {},
   errorContext = false,
+  isFirstRequest = false,
 }) => {
   const { helpers, pluginOptions } = store.getState().gatsbyApi
 
@@ -335,6 +422,17 @@ const fetchGraphql = async ({
 
     response = await http.post(url, { query, variables }, requestOptions)
 
+    if (response.data === "") {
+      throw new Error(`GraphQL request returned an empty string.`)
+    }
+
+    const { path } = urlUtil.parse(url)
+    const responsePath = response.request.path
+
+    if (path !== responsePath) {
+      throw new Error(`GraphQL request was redirected to ${responsePath}`)
+    }
+
     const contentType = response.headers[`content-type`]
 
     if (!contentType.includes(`application/json;`)) {
@@ -355,6 +453,7 @@ const fetchGraphql = async ({
       query,
       response,
       errorContext,
+      isFirstRequest,
     })
   }
 
@@ -377,6 +476,7 @@ const fetchGraphql = async ({
       url,
       timeout,
       errorContext,
+      isFirstRequest,
     })
   }
 

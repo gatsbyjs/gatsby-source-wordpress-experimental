@@ -4,6 +4,8 @@ import wpActionUPDATE from "./update"
 import { LAST_COMPLETED_SOURCE_TIME } from "~/constants"
 import { paginatedWpNodeFetch } from "~/steps/source-nodes/fetch-nodes/fetch-nodes-paginated"
 
+import fetchAndCreateNonNodeRootFields from "~/steps/source-nodes/create-nodes/fetch-and-create-non-node-root-fields"
+
 const previouslyFetchedActionIds = []
 
 /**
@@ -14,7 +16,12 @@ const previouslyFetchedActionIds = []
  * An example of a non-valid change would be a post that was created
  * and then immediately deleted.
  */
-export const getWpActions = async ({ variables, helpers }) => {
+export const getWpActions = async ({
+  variables,
+  helpers,
+  throwFetchErrors = false,
+  throwGqlErrors = false,
+}) => {
   // current time minus 5 seconds so we don't lose updates between the cracks
   // if someone bulk-edits a list of nodes in WP
   // @todo make this cursor based so we don't need to do this.
@@ -28,6 +35,8 @@ export const getWpActions = async ({ variables, helpers }) => {
     query: actionMonitorQuery,
     nodeTypeName: `ActionMonitor`,
     helpers,
+    throwFetchErrors,
+    throwGqlErrors,
     ...variables,
   })
 
@@ -92,6 +101,9 @@ export const handleWpActions = async (api) => {
     case `UPDATE`:
     case `CREATE`:
       await wpActionUPDATE(api)
+      break
+    case `NON_NODE_ROOT_FIELDS`:
+      await fetchAndCreateNonNodeRootFields()
   }
 
   return cachedNodeIds
@@ -108,6 +120,8 @@ export const fetchAndRunWpActions = async ({
   pluginOptions,
   intervalRefetching,
   since,
+  throwFetchErrors = false,
+  throwGqlErrors = false,
 }) => {
   // check for new, edited, or deleted posts in WP "Action Monitor"
   const wpActions = await getWpActions({
@@ -115,6 +129,8 @@ export const fetchAndRunWpActions = async ({
       since,
     },
     helpers,
+    throwFetchErrors,
+    throwGqlErrors,
   })
 
   const didUpdate = !!wpActions.length

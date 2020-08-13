@@ -391,7 +391,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
           id
         }
       }
-      databaseId
       deleteWithUser
       description
       excludeFromSearch
@@ -469,7 +468,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         id
       }
     }
-    databaseId
     deleteWithUser
     description
     excludeFromSearch
@@ -542,7 +540,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         id
       }
     }
-    databaseId
     deleteWithUser
     description
     excludeFromSearch
@@ -1305,7 +1302,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       date
       dateGmt
       desiredSlug
-      enclosure
       featuredImage {
         node {
           id
@@ -1459,7 +1455,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     date
     dateGmt
     desiredSlug
-    enclosure
     featuredImage {
       node {
         id
@@ -1608,7 +1603,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     date
     dateGmt
     desiredSlug
-    enclosure
     featuredImage {
       node {
         id
@@ -4218,7 +4212,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         url
         width
       }
-      capKey
       capabilities
       comments(first: 100) {
         nodes {
@@ -4227,8 +4220,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
       databaseId
       description
-      email
-      extraCapabilities
       firstName
       id
       lastName
@@ -4251,7 +4242,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
           id
         }
       }
-      registeredDate
       roles(first: 100) {
         nodes {
           id
@@ -4307,7 +4297,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       url
       width
     }
-    capKey
     capabilities
     comments(first: 100) {
       nodes {
@@ -4316,8 +4305,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     databaseId
     description
-    email
-    extraCapabilities
     firstName
     id
     lastName
@@ -4340,7 +4327,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         id
       }
     }
-    registeredDate
     roles(first: 100) {
       nodes {
         id
@@ -4391,7 +4377,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       url
       width
     }
-    capKey
     capabilities
     comments(first: 100) {
       nodes {
@@ -4400,8 +4385,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     databaseId
     description
-    email
-    extraCapabilities
     firstName
     id
     lastName
@@ -4424,7 +4407,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         id
       }
     }
-    registeredDate
     roles(first: 100) {
       nodes {
         id

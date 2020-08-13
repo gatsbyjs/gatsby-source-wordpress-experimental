@@ -1,5 +1,93 @@
 # Change Log
 
+## 1.3.6
+
+### Bug Fixes
+
+- Root field types could not have their fields excluded previously. This now works!
+- In build step error messages, depending on which step errored, undefined.stepName would be printed.
+
+### New Error Messages
+
+- Added an error message for when a GraphQL request returns an empty string "". Fails prod builds and warns in develop.
+- debugMessages are now checked for on startup. This will fail the build if there are multiple fields on a type which have the same fieldname for example.
+
+## 1.3.4
+
+### Bug Fixes
+
+- The delta update retry reconnection logic had an off by one error, causing the error log to occasionally say "reconnected after 0 retries".
+
+### New Features
+
+- Previously, the delta update retry reconnection logic was hardcoded to wait 30 seconds when attempting to reconnect. Now it starts at 5 seconds and increases in multiples of 5 seconds until it gets to 60 seconds, then keeps attempting to reconnect after 60 seconds perpetually afterwards.
+
+## 1.3.3
+
+### Bug Fixes
+
+- In our logs, chalk.white.bgBlue() was changed to chalk.bgBlue.white() to support light coloured themes. Previously there wasn't enough contrast when a light theme was enabled.
+
+## 1.3.2
+
+### Bug Fixes
+
+- fixed case where schema customization might fail if a type had no subfields
+
+## 1.3.1
+
+### Bug Fixes
+
+- Fixed default resolver for auto aliased fields in the case that the field type is nested in ofType.
+  https://github.com/GatsbyWPGutenberg/gatsby-wordpress-gutenberg/issues/44
+  https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/issues/79
+
+## 1.3.0
+
+### New Features
+
+- Tested WPGraphQL v0.12.0 and adjusted the compatibility API to allow it.
+
+## 1.2.7
+
+### Bug Fixes
+
+- Fixed a regression where htaccess headers were not being properly passed to image file requests when they should be.
+
+## 1.2.6
+
+### Bug Fixes
+
+- Errors with no errorContext object would sometimes print "false", this now prints an empty string instead, followed by the proper error.
+
+## 1.2.5
+
+### Bug Fixes
+
+- Removed some debugging code that made it to master 😱
+
+### New Features
+
+- Improved the error displayed when a GraphQL request is redirected or when a PHP WP filter adds additional output to a GraphQL request
+
+## 1.2.4
+
+### Bug Fixes
+
+- Previously when in `gatsby develop` or in a Preview instance, if the connection to WP went down for a moment it would fail the build. It now displays an activity timer with the number of times it's retried, and then a success message when it finally does succeed.
+
+## 1.2.3
+
+### New Features
+
+- Added logic to receive delta updates for non-node root fields like options and settings. Requires WPGatsby v0.4.15 to work, but nothing bad will happen if you don't update WPGatsby, you just wont get any delta updates for these fields until you do.
+
+## 1.2.2
+
+### Bug Fixes
+
+- htaccess auth headers were being passed to all media item file urls regardless of wether that url was the WP url or another url (like s3). This was causing 400 errors in some cases as the 3rd party server considered these headers malformed. This is now fixed.
+
 ## 1.2.1
 
 ### New Features
