@@ -144,7 +144,7 @@ export default function Home({ data }) {
   return (
     <Layout>
         <SEO title="home" />
-        //highlight-start
+        {/* highlight-start */}
         <h1>My WordPress Blog</h1>
         <h4>Posts</h4>
         {data.allWpPost.nodes.map((node) => (
@@ -153,7 +153,7 @@ export default function Home({ data }) {
             <div dangerouslySetInnerHTML={{ __html: node.excerpt }} />
             </div>
         ))}
-        //highlight-end
+        {/* highlight-end */}
     </Layout>
   )
 }
@@ -320,11 +320,11 @@ export default function Home({ data }) {
       <h4>Posts</h4>
       {data.allWpPost.nodes.map((node) => (
         <div key={node.slug}>
-          //highlight-start
+          {/* highlight-start */}
           <Link to={node.slug}>
             <p>{node.title}</p>
           </Link>
-          //highlight-end
+          {/* highlight-end */}
           <div dangerouslySetInnerHTML={{ __html: node.excerpt }} />
         </div>
       ))}
