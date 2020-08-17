@@ -603,6 +603,35 @@ const replaceNodeHtmlLinks = ({ wpUrl, nodeString, node }) => {
   return nodeString
 }
 
+// replaces specific string with a given string from the plugin options config
+const findAndReplaceNodeHtmlString = ({ nodeString, node, pluginOptions }) => {
+  if (pluginOptions?.findAndReplace?.length) {
+    pluginOptions.findAndReplace.forEach(({ find, replace }) => {
+      const replaceLinkRegex = new RegExp(find, "g")
+
+      const stringMatches = execall(replaceLinkRegex, nodeString)
+
+      if (stringMatches.length) {
+        stringMatches.forEach(({ match }) => {
+          if (match) {
+            try {
+              nodeString = nodeString.replace(find, replace)
+            } catch (e) {
+              console.error(e)
+              console.warning(
+                formatLogMessage(
+                  `Failed to process search and replace string in ${node.__typename} ${node.id}`
+                )
+              )
+            }
+          }
+        })
+      }
+    })
+  }
+  return nodeString
+}
+
 const processNodeString = async ({
   nodeString,
   node,
@@ -610,7 +639,11 @@ const processNodeString = async ({
   helpers,
   wpUrl,
 }) => {
-  const nodeStringFilters = [replaceNodeHtmlImages, replaceNodeHtmlLinks]
+  const nodeStringFilters = [
+    replaceNodeHtmlImages,
+    replaceNodeHtmlLinks,
+    findAndReplaceNodeHtmlString,
+  ]
 
   for (const nodeStringFilter of nodeStringFilters) {
     nodeString = await nodeStringFilter({

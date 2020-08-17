@@ -33,6 +33,7 @@
     - [type.RootQuery: Object](#typerootquery-object)
     - [type.MediaItem.lazyNodes: Boolean](#typemediaitemlazynodes-boolean)
     - [type.MediaItem.localFile.excludeByMimeTypes: Array](#typemediaitemlocalfileexcludebymimetypes-array)
+  - [searchAndReplay: Array](#searchandreplace-array)
 - [Up Next :point_right:](#up-next-point_right)
 
 ## url: String
@@ -577,6 +578,25 @@ Default is `[]`.
         },
       },
     },
+  },
+},
+```
+
+## searchAndReplace: Array
+
+Options to search and replace strings in nodes. See below for options.
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+	options: {
+	  searchAndReplace: [
+      {
+        find: '',
+        replace: ''
+      },
+      ...
+    ],
   },
 },
 ```
