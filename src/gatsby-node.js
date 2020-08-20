@@ -3,8 +3,17 @@ import { emitter } from "gatsby/dist/redux"
 import express from "express"
 import * as steps from "~/steps/index"
 import { Server as WebSocketServer } from "ws"
+import moment from "moment"
 
 const listeningToNodes = {}
+
+const sourceNodes = [
+  steps.setGatsbyApiToState,
+  steps.persistPreviouslyCachedImages,
+  steps.sourcePreviews,
+  steps.sourceNodes,
+  steps.setImageNodeIdCache,
+]
 
 module.exports = runApisInSteps({
   createSchemaCustomization: [
@@ -14,19 +23,12 @@ module.exports = runApisInSteps({
     steps.createSchemaCustomization,
   ],
 
-  sourceNodes: [
-    steps.setGatsbyApiToState,
-    steps.persistPreviouslyCachedImages,
-    steps.sourcePreviews,
-    steps.sourceNodes,
-    steps.setImageNodeIdCache,
-  ],
+  sourceNodes,
 
   onPostBuild: [steps.setImageNodeIdCache],
 
   onCreateNode: [
     ({ node }) => {
-      console.log(`createnode ${node?.context?.id}`)
       if (
         node.internal.type === `SitePage` &&
         listeningToNodes[node?.context?.id]
@@ -39,7 +41,8 @@ module.exports = runApisInSteps({
   ],
 
   onCreateDevServer: [
-    ({ app, getNodesByType, getNode }) => {
+    (helpers, pluginOptions) => {
+      const { app, getNodesByType, getNode } = helpers
       const refresh = async (req) => {
         emitter.emit(`WEBHOOK_RECEIVED`, {
           webhookBody: req.body,
@@ -50,7 +53,11 @@ module.exports = runApisInSteps({
 
       app.use(REFRESH_ENDPOINT, express.json())
       app.post(REFRESH_ENDPOINT, (req, res) => {
-        refresh(req)
+        // refresh(req)
+        runApisInSteps({
+          sourceNodes,
+        }).sourceNodes({ ...helpers, webhookBody: req.body }, pluginOptions)
+
         res.end()
       })
 
@@ -70,18 +77,42 @@ module.exports = runApisInSteps({
               // get that node
               const node = getNode(message.nodeId)
 
+              const nodeModifiedTime = moment.utc(node.modifiedGmt).unix()
+              const receivedTime = moment.utc(message.modifiedGmt).unix()
+
               // check if it's been updated since the preview was sent
-              return node.modifiedGmt == message.modifiedGmt
+              // if it has we want to send that back right away to remove the loader
+              const nodeIsStale =
+                // if the modified date of the node we have
+                nodeModifiedTime <
+                // is earlier than the modified date sent
+                receivedTime
+
+              dump({
+                nodeModifiedTime,
+                receivedTime,
+              })
+
+              if (node && !nodeIsStale) {
+                console.log(`found unstale node`)
+                console.log(`unstale node modified = ${node.modifiedGmt}`)
+              } else if (node && nodeIsStale) {
+                console.log(`found stale node`)
+                console.log(`stale node modified = ${node.modifiedGmt}`)
+              }
+
+              return !nodeIsStale
             }
 
             return false
           })
 
           if (pageNodeForDesiredNode) {
-            // console.log(`sending existing node to connection`)
+            console.log(`sending existing node to connection`)
+            // console.log(pageNodeForDesiredNode)
             connection.send(JSON.stringify(pageNodeForDesiredNode))
           } else {
-            // console.log(`setting up createnode on ${message.nodeId}`)
+            console.log(`setting up createnode on ${message.nodeId}`)
             listeningToNodes[message.nodeId] = (pageNode) => {
               if (pageNode.internal.type !== `SitePage`) {
                 const pageNodes = getNodesByType(`SitePage`)
@@ -90,7 +121,7 @@ module.exports = runApisInSteps({
                   (pageNode) => pageNode?.context?.id === message.nodeId
                 )
               }
-              // console.log(`sending created pageNode to connection`)
+              console.log(`sending created pageNode to connection`)
               connection.send(JSON.stringify(pageNode))
             }
           }
