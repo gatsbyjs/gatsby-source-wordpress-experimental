@@ -3,10 +3,83 @@ import { incrementalIt } from "../../../test-utils/incremental-it"
 
 jest.setTimeout(100000)
 
+const url = `http://localhost:8000/___graphql`
+
 describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
+  incrementalIt(`resolves correct number of nodes`, async () => {
+    const { data } = await fetchGraphql({
+      url,
+      query: /* GraphQL */ `
+        {
+          allWpMenu {
+            totalCount
+          }
+          allWpTag {
+            totalCount
+          }
+          allWpUser {
+            totalCount
+          }
+          allWpPage {
+            totalCount
+          }
+          allWpPost {
+            totalCount
+          }
+          allWpComment {
+            totalCount
+          }
+          allWpProject {
+            totalCount
+          }
+          allWpTaxonomy {
+            totalCount
+          }
+          allWpCategory {
+            totalCount
+          }
+          allWpUserRole {
+            totalCount
+          }
+          allWpMenuItem {
+            totalCount
+          }
+          allWpMediaItem {
+            totalCount
+          }
+          allWpTeamMember {
+            totalCount
+          }
+          allWpPostFormat {
+            totalCount
+          }
+          allWpContentType {
+            totalCount
+          }
+        }
+      `,
+    })
+
+    expect(data[`allWpTag`].totalCount).toBe(3)
+    expect(data[`allWpUser`].totalCount).toBe(1)
+    expect(data[`allWpPage`].totalCount).toBe(5)
+    expect(data[`allWpPost`].totalCount).toBe(1)
+    expect(data[`allWpComment`].totalCount).toBe(1)
+    expect(data[`allWpProject`].totalCount).toBe(1)
+    expect(data[`allWpTaxonomy`].totalCount).toBe(3)
+    expect(data[`allWpCategory`].totalCount).toBe(2)
+    expect(data[`allWpUserRole`].totalCount).toBe(0)
+    expect(data[`allWpMenu`].totalCount).toBe(1)
+    expect(data[`allWpMenuItem`].totalCount).toBe(4)
+    expect(data[`allWpMediaItem`].totalCount).toBe(4)
+    expect(data[`allWpTeamMember`].totalCount).toBe(1)
+    expect(data[`allWpPostFormat`].totalCount).toBe(0)
+    expect(data[`allWpContentType`].totalCount).toBe(8)
+  })
+
   incrementalIt(`resolves menus`, async () => {
     const result = await fetchGraphql({
-      url: `http://localhost:8000/___graphql`,
+      url,
       query: /* GraphQL */ `
         {
           allWpMenu {
@@ -63,7 +136,7 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
 
   incrementalIt(`resolves pages`, async () => {
     const result = await fetchGraphql({
-      url: `http://localhost:8000/___graphql`,
+      url,
       query: /* GraphQL */ `
         {
           testPage: wpPage(id: { eq: "cG9zdDoy" }) {
@@ -186,7 +259,7 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
 
   incrementalIt(`resolves posts`, async () => {
     const result = await fetchGraphql({
-      url: `http://localhost:8000/___graphql`,
+      url,
       query: /* GraphQL */ `
         {
           testPost: wpPost(id: { eq: "cG9zdDox" }) {
@@ -228,7 +301,7 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
 
   incrementalIt(`resolves users`, async () => {
     const result = await fetchGraphql({
-      url: `http://localhost:8000/___graphql`,
+      url,
       query: /* GraphQL */ `
         {
           testUser: wpUser(id: { eq: "dXNlcjox" }) {
@@ -263,7 +336,7 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
 
   incrementalIt(`resolves root fields`, async () => {
     const result = await fetchGraphql({
-      url: `http://localhost:8000/___graphql`,
+      url,
       query: /* GraphQL */ `
         {
           wp {
