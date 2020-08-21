@@ -262,7 +262,7 @@ Object {
                             "date": "2020-03-02T20:58:44",
                             "description": null,
                             "desiredSlug": null,
-                            "sourceUrl": "https://dev-automated-testing-gatsby-source-wordpress-wpgraphql.pantheonsite.io/wp-content/uploads/2020/03/avatar.jpg",
+                            "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/03/avatar.jpg",
                           },
                           "projects": Array [
                             Object {
@@ -397,7 +397,7 @@ Object {
                             "date": "2020-03-02T20:58:44",
                             "description": null,
                             "desiredSlug": null,
-                            "sourceUrl": "https://dev-automated-testing-gatsby-source-wordpress-wpgraphql.pantheonsite.io/wp-content/uploads/2020/03/avatar.jpg",
+                            "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/03/avatar.jpg",
                           },
                           "projects": Array [
                             Object {
@@ -534,7 +534,7 @@ Object {
                             "date": "2020-03-02T20:58:44",
                             "description": null,
                             "desiredSlug": null,
-                            "sourceUrl": "https://dev-automated-testing-gatsby-source-wordpress-wpgraphql.pantheonsite.io/wp-content/uploads/2020/03/avatar.jpg",
+                            "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/03/avatar.jpg",
                           },
                           "projects": Array [
                             Object {
@@ -669,7 +669,7 @@ Object {
                             "date": "2020-03-02T20:58:44",
                             "description": null,
                             "desiredSlug": null,
-                            "sourceUrl": "https://dev-automated-testing-gatsby-source-wordpress-wpgraphql.pantheonsite.io/wp-content/uploads/2020/03/avatar.jpg",
+                            "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/03/avatar.jpg",
                           },
                           "projects": Array [
                             Object {
@@ -773,7 +773,7 @@ Object {
           "featuredImage": Object {
             "node": Object {
               "altText": "",
-              "sourceUrl": "https://dev-automated-testing-gatsby-source-wordpress-wpgraphql.pantheonsite.io/wp-content/uploads/2020/03/84-1000x1000-1.jpg",
+              "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/03/84-1000x1000-1.jpg",
             },
           },
           "title": "Hello world!",
@@ -807,7 +807,7 @@ Object {
           "featuredImage": Object {
             "node": Object {
               "altText": "",
-              "sourceUrl": "https://dev-automated-testing-gatsby-source-wordpress-wpgraphql.pantheonsite.io/wp-content/uploads/2020/03/84-1000x1000-1.jpg",
+              "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/03/84-1000x1000-1.jpg",
             },
           },
           "title": "Hello world! DELTA SYNC",
@@ -836,7 +836,7 @@ Object {
         "generalSettingsTimeFormat": "g:i a",
         "generalSettingsTimezone": "",
         "generalSettingsTitle": "Automated testing for Gatsby source WordPress V4",
-        "generalSettingsUrl": "https://dev-automated-testing-gatsby-source-wordpress-wpgraphql.pantheonsite.io",
+        "generalSettingsUrl": "https://gatsbyinttests.wpengine.com",
         "readingSettingsPostsPerPage": 10,
         "writingSettingsDefaultCategory": 23,
         "writingSettingsDefaultPostFormat": "",
@@ -868,7 +868,7 @@ Object {
         "generalSettingsTimeFormat": "g:i a",
         "generalSettingsTimezone": "",
         "generalSettingsTitle": "Automated testing for Gatsby source WordPress V4",
-        "generalSettingsUrl": "https://dev-automated-testing-gatsby-source-wordpress-wpgraphql.pantheonsite.io",
+        "generalSettingsUrl": "https://gatsbyinttests.wpengine.com",
         "readingSettingsPostsPerPage": 10,
         "writingSettingsDefaultCategory": 23,
         "writingSettingsDefaultPostFormat": "",
