@@ -50,8 +50,14 @@ const wpPluginOptions = !process.env.DEFAULT_PLUGIN_OPTIONS
             }
           },
         },
+        Comment: {
+          excludeFieldNames: [`databaseId`],
+        },
         Page: {
           excludeFieldNames: [`enclosure`],
+        },
+        DatabaseIdentifier: {
+          exclude: true,
         },
         User: {
           excludeFieldNames: [
