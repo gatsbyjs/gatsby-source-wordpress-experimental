@@ -77,6 +77,12 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
     expect(data[`allWpContentType`].totalCount).toBe(8)
   })
 
+  // it(`resolves wp-graphql-acf data`, async () => {
+  //   const result = await fetchGraphql({
+  //     url
+  //   })
+  // })
+
   incrementalIt(`resolves menus`, async () => {
     const result = await fetchGraphql({
       url,
