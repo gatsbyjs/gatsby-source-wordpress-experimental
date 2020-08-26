@@ -332,6 +332,8 @@ const replaceNodeHtmlImages = async ({
     return nodeString
   }
 
+  const { hostname: wpHostname } = url.parse(wpUrl)
+
   const imageUrlMatches = execall(imgSrcRemoteFileRegex, nodeString)
 
   const imgTagMatches = execall(
@@ -346,7 +348,7 @@ const replaceNodeHtmlImages = async ({
     // here we're filtering out image tags that don't contain our site url
     const isHostedInWp =
       // if it has the full WP url
-      match.includes(wpUrl) ||
+      match.includes(wpHostname) ||
       // or it's an absolute path
       subMatches[0].includes('src=\\"/')
 

@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.3.7
+
+### Bug Fixes
+
+- When using https hosting but the WordPress general settings url is set to http, images and other links may still point to https. This was causing images to not be picked up and transformed into Gatsby imgs. This release provides a warning and safeguards against this by not comparing the protocol when determining wether an image should be fetched or not.
+
 ## 1.3.6
 
 ### Bug Fixes
