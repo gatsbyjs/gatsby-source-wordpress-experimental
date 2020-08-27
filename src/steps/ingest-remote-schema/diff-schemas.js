@@ -1,3 +1,4 @@
+import url from "url"
 import fetchGraphql from "~/utils/fetch-graphql"
 import store from "~/store"
 import gql from "~/utils/gql"
@@ -40,6 +41,23 @@ const checkIfSchemaHasChanged = async (_, pluginOptions) => {
     schemaMd5,
     generalSettings: { url: wpUrl },
   } = data
+
+  if (url.parse(wpUrl).protocol !== url.parse(pluginOptions.url).protocol) {
+    helpers.reporter.log(``)
+    helpers.reporter.warn(
+      formatLogMessage(`
+
+The Url set in plugin options has a different protocol than the Url saved in WordPress general settings.
+
+options.url: ${pluginOptions.url}
+WordPress settings: ${wpUrl}
+
+This may cause subtle bugs, or it may be fine.
+Please consider addressing this issue by changing your WordPress settings or plugin options accordingly.
+
+`)
+    )
+  }
 
   const cachedSchemaMd5 = await helpers.cache.get(MD5_CACHE_KEY)
 
