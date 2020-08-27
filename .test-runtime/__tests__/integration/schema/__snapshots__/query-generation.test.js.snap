@@ -266,7 +266,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         }
       }
       content
-      databaseId
       date
       dateGmt
       id
@@ -312,7 +311,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
     }
     content
-    databaseId
     date
     dateGmt
     id
@@ -353,7 +351,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
     }
     content
-    databaseId
     date
     dateGmt
     id
@@ -1244,30 +1241,261 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
   pages(first: $first, after: $after, where: { parent: null }) {
     nodes {
       acfPageFields {
+        buttonGroupField
+        checkboxField
+        colorPickerField
+        datePickerField
+        dateTimePickerField
         fieldGroupName
-        flex {
+        fileField {
+          id
+          sourceUrl
+        }
+        flexibleContentField {
           __typename
-          ... on Page_Acfpagefields_Flex_Header {
+          ... on Page_Acfpagefields_FlexibleContentField_FlexLayout1 {
             fieldGroupName
-            header
-          }
-          ... on Page_Acfpagefields_Flex_TeamMembers {
-            fieldGroupName
-            teamMembers {
+            flexImage {
+              id
+              sourceUrl
+            }
+            flexRelationship {
+              __typename
+              ... on Post {
+                id
+              }
+              ... on Page {
+                id
+              }
+              ... on MediaItem {
+                id
+              }
+              ... on TeamMember {
+                id
+              }
+              ... on Project {
+                id
+              }
+              ... on TypeLimitTest {
+                id
+              }
+              ... on TypeLimit0Test {
+                id
+              }
+              ... on TranslationFilterTest {
+                id
+              }
+            }
+            flexRepeater {
               fieldGroupName
-              teamMember {
+              flexRepeaterRelationship {
                 __typename
+                ... on Post {
+                  id
+                }
+                ... on Page {
+                  id
+                }
+                ... on MediaItem {
+                  id
+                }
                 ... on TeamMember {
+                  id
+                }
+                ... on Project {
+                  id
+                }
+                ... on TypeLimitTest {
+                  id
+                }
+                ... on TypeLimit0Test {
+                  id
+                }
+                ... on TranslationFilterTest {
+                  id
+                }
+              }
+              flexRepeaterTitle
+            }
+            flexTitle
+          }
+        }
+        galleryField {
+          id
+          sourceUrl
+        }
+        googleMapField {
+          city
+          country
+          countryShort
+          latitude
+          longitude
+          placeId
+          postCode
+          state
+          stateShort
+          streetAddress
+          streetName
+          streetNumber
+          zoom
+        }
+        groupField {
+          fieldGroupName
+        }
+        imageField {
+          id
+          sourceUrl
+        }
+        linkField {
+          target
+          title
+          url
+        }
+        oembedField
+        pageLinkField {
+          __typename
+          ... on Post {
+            id
+          }
+          ... on Page {
+            id
+          }
+          ... on MediaItem {
+            id
+          }
+          ... on TeamMember {
+            id
+          }
+          ... on Project {
+            id
+          }
+          ... on TypeLimitTest {
+            id
+          }
+          ... on TypeLimit0Test {
+            id
+          }
+          ... on TranslationFilterTest {
+            id
+          }
+        }
+        postObjectField {
+          __typename
+          ... on Post {
+            id
+          }
+          ... on Page {
+            id
+          }
+          ... on MediaItem {
+            id
+          }
+          ... on TeamMember {
+            id
+          }
+          ... on Project {
+            id
+          }
+          ... on TypeLimitTest {
+            id
+          }
+          ... on TypeLimit0Test {
+            id
+          }
+          ... on TranslationFilterTest {
+            id
+          }
+        }
+        radioButtonField
+        rangeField
+        relationshipField {
+          __typename
+          ... on Post {
+            id
+          }
+          ... on Page {
+            id
+          }
+          ... on MediaItem {
+            id
+          }
+          ... on TeamMember {
+            id
+          }
+          ... on Project {
+            id
+          }
+          ... on TypeLimitTest {
+            id
+          }
+          ... on TypeLimit0Test {
+            id
+          }
+          ... on TranslationFilterTest {
+            id
+          }
+        }
+        repeaterField {
+          fieldGroupName
+          repeaterFlex {
+            __typename
+            ... on Page_Acfpagefields_repeaterField_RepeaterFlex_RepeaterFlexTitleLayout {
+              fieldGroupName
+              repeaterFlexTitle
+            }
+            ... on Page_Acfpagefields_repeaterField_RepeaterFlex_RepeaterFlexRelationshipLayout {
+              fieldGroupName
+              repeaterFlexRelationship {
+                __typename
+                ... on Post {
+                  id
+                }
+                ... on Page {
+                  id
+                }
+                ... on MediaItem {
+                  id
+                }
+                ... on TeamMember {
+                  id
+                }
+                ... on Project {
+                  id
+                }
+                ... on TypeLimitTest {
+                  id
+                }
+                ... on TypeLimit0Test {
+                  id
+                }
+                ... on TranslationFilterTest {
                   id
                 }
               }
             }
           }
         }
-        image {
-          id
-          sourceUrl
+        selectField
+        taxonomyField {
+          __typename
+          ... on Category {
+            id
+          }
+          ... on Tag {
+            id
+          }
+          ... on PostFormat {
+            id
+          }
         }
+        textAreaField
+        textField
+        timePicker
+        trueFalseField
+        userField {
+          id
+        }
+        wysiwygEditorField
       }
       ancestors(first: 100) {
         nodes {
@@ -1397,30 +1625,261 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 "query PREVIEW_QUERY($id: ID!) {
   page(id: $id, idType: ID, asPreview: true) {
     acfPageFields {
+      buttonGroupField
+      checkboxField
+      colorPickerField
+      datePickerField
+      dateTimePickerField
       fieldGroupName
-      flex {
+      fileField {
+        id
+        sourceUrl
+      }
+      flexibleContentField {
         __typename
-        ... on Page_Acfpagefields_Flex_Header {
+        ... on Page_Acfpagefields_FlexibleContentField_FlexLayout1 {
           fieldGroupName
-          header
-        }
-        ... on Page_Acfpagefields_Flex_TeamMembers {
-          fieldGroupName
-          teamMembers {
+          flexImage {
+            id
+            sourceUrl
+          }
+          flexRelationship {
+            __typename
+            ... on Post {
+              id
+            }
+            ... on Page {
+              id
+            }
+            ... on MediaItem {
+              id
+            }
+            ... on TeamMember {
+              id
+            }
+            ... on Project {
+              id
+            }
+            ... on TypeLimitTest {
+              id
+            }
+            ... on TypeLimit0Test {
+              id
+            }
+            ... on TranslationFilterTest {
+              id
+            }
+          }
+          flexRepeater {
             fieldGroupName
-            teamMember {
+            flexRepeaterRelationship {
               __typename
+              ... on Post {
+                id
+              }
+              ... on Page {
+                id
+              }
+              ... on MediaItem {
+                id
+              }
               ... on TeamMember {
+                id
+              }
+              ... on Project {
+                id
+              }
+              ... on TypeLimitTest {
+                id
+              }
+              ... on TypeLimit0Test {
+                id
+              }
+              ... on TranslationFilterTest {
+                id
+              }
+            }
+            flexRepeaterTitle
+          }
+          flexTitle
+        }
+      }
+      galleryField {
+        id
+        sourceUrl
+      }
+      googleMapField {
+        city
+        country
+        countryShort
+        latitude
+        longitude
+        placeId
+        postCode
+        state
+        stateShort
+        streetAddress
+        streetName
+        streetNumber
+        zoom
+      }
+      groupField {
+        fieldGroupName
+      }
+      imageField {
+        id
+        sourceUrl
+      }
+      linkField {
+        target
+        title
+        url
+      }
+      oembedField
+      pageLinkField {
+        __typename
+        ... on Post {
+          id
+        }
+        ... on Page {
+          id
+        }
+        ... on MediaItem {
+          id
+        }
+        ... on TeamMember {
+          id
+        }
+        ... on Project {
+          id
+        }
+        ... on TypeLimitTest {
+          id
+        }
+        ... on TypeLimit0Test {
+          id
+        }
+        ... on TranslationFilterTest {
+          id
+        }
+      }
+      postObjectField {
+        __typename
+        ... on Post {
+          id
+        }
+        ... on Page {
+          id
+        }
+        ... on MediaItem {
+          id
+        }
+        ... on TeamMember {
+          id
+        }
+        ... on Project {
+          id
+        }
+        ... on TypeLimitTest {
+          id
+        }
+        ... on TypeLimit0Test {
+          id
+        }
+        ... on TranslationFilterTest {
+          id
+        }
+      }
+      radioButtonField
+      rangeField
+      relationshipField {
+        __typename
+        ... on Post {
+          id
+        }
+        ... on Page {
+          id
+        }
+        ... on MediaItem {
+          id
+        }
+        ... on TeamMember {
+          id
+        }
+        ... on Project {
+          id
+        }
+        ... on TypeLimitTest {
+          id
+        }
+        ... on TypeLimit0Test {
+          id
+        }
+        ... on TranslationFilterTest {
+          id
+        }
+      }
+      repeaterField {
+        fieldGroupName
+        repeaterFlex {
+          __typename
+          ... on Page_Acfpagefields_repeaterField_RepeaterFlex_RepeaterFlexTitleLayout {
+            fieldGroupName
+            repeaterFlexTitle
+          }
+          ... on Page_Acfpagefields_repeaterField_RepeaterFlex_RepeaterFlexRelationshipLayout {
+            fieldGroupName
+            repeaterFlexRelationship {
+              __typename
+              ... on Post {
+                id
+              }
+              ... on Page {
+                id
+              }
+              ... on MediaItem {
+                id
+              }
+              ... on TeamMember {
+                id
+              }
+              ... on Project {
+                id
+              }
+              ... on TypeLimitTest {
+                id
+              }
+              ... on TypeLimit0Test {
+                id
+              }
+              ... on TranslationFilterTest {
                 id
               }
             }
           }
         }
       }
-      image {
-        id
-        sourceUrl
+      selectField
+      taxonomyField {
+        __typename
+        ... on Category {
+          id
+        }
+        ... on Tag {
+          id
+        }
+        ... on PostFormat {
+          id
+        }
       }
+      textAreaField
+      textField
+      timePicker
+      trueFalseField
+      userField {
+        id
+      }
+      wysiwygEditorField
     }
     ancestors(first: 100) {
       nodes {
@@ -1545,30 +2004,261 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 "query SINGLE_CONTENT_QUERY($id: ID!) {
   page(id: $id) {
     acfPageFields {
+      buttonGroupField
+      checkboxField
+      colorPickerField
+      datePickerField
+      dateTimePickerField
       fieldGroupName
-      flex {
+      fileField {
+        id
+        sourceUrl
+      }
+      flexibleContentField {
         __typename
-        ... on Page_Acfpagefields_Flex_Header {
+        ... on Page_Acfpagefields_FlexibleContentField_FlexLayout1 {
           fieldGroupName
-          header
-        }
-        ... on Page_Acfpagefields_Flex_TeamMembers {
-          fieldGroupName
-          teamMembers {
+          flexImage {
+            id
+            sourceUrl
+          }
+          flexRelationship {
+            __typename
+            ... on Post {
+              id
+            }
+            ... on Page {
+              id
+            }
+            ... on MediaItem {
+              id
+            }
+            ... on TeamMember {
+              id
+            }
+            ... on Project {
+              id
+            }
+            ... on TypeLimitTest {
+              id
+            }
+            ... on TypeLimit0Test {
+              id
+            }
+            ... on TranslationFilterTest {
+              id
+            }
+          }
+          flexRepeater {
             fieldGroupName
-            teamMember {
+            flexRepeaterRelationship {
               __typename
+              ... on Post {
+                id
+              }
+              ... on Page {
+                id
+              }
+              ... on MediaItem {
+                id
+              }
               ... on TeamMember {
+                id
+              }
+              ... on Project {
+                id
+              }
+              ... on TypeLimitTest {
+                id
+              }
+              ... on TypeLimit0Test {
+                id
+              }
+              ... on TranslationFilterTest {
+                id
+              }
+            }
+            flexRepeaterTitle
+          }
+          flexTitle
+        }
+      }
+      galleryField {
+        id
+        sourceUrl
+      }
+      googleMapField {
+        city
+        country
+        countryShort
+        latitude
+        longitude
+        placeId
+        postCode
+        state
+        stateShort
+        streetAddress
+        streetName
+        streetNumber
+        zoom
+      }
+      groupField {
+        fieldGroupName
+      }
+      imageField {
+        id
+        sourceUrl
+      }
+      linkField {
+        target
+        title
+        url
+      }
+      oembedField
+      pageLinkField {
+        __typename
+        ... on Post {
+          id
+        }
+        ... on Page {
+          id
+        }
+        ... on MediaItem {
+          id
+        }
+        ... on TeamMember {
+          id
+        }
+        ... on Project {
+          id
+        }
+        ... on TypeLimitTest {
+          id
+        }
+        ... on TypeLimit0Test {
+          id
+        }
+        ... on TranslationFilterTest {
+          id
+        }
+      }
+      postObjectField {
+        __typename
+        ... on Post {
+          id
+        }
+        ... on Page {
+          id
+        }
+        ... on MediaItem {
+          id
+        }
+        ... on TeamMember {
+          id
+        }
+        ... on Project {
+          id
+        }
+        ... on TypeLimitTest {
+          id
+        }
+        ... on TypeLimit0Test {
+          id
+        }
+        ... on TranslationFilterTest {
+          id
+        }
+      }
+      radioButtonField
+      rangeField
+      relationshipField {
+        __typename
+        ... on Post {
+          id
+        }
+        ... on Page {
+          id
+        }
+        ... on MediaItem {
+          id
+        }
+        ... on TeamMember {
+          id
+        }
+        ... on Project {
+          id
+        }
+        ... on TypeLimitTest {
+          id
+        }
+        ... on TypeLimit0Test {
+          id
+        }
+        ... on TranslationFilterTest {
+          id
+        }
+      }
+      repeaterField {
+        fieldGroupName
+        repeaterFlex {
+          __typename
+          ... on Page_Acfpagefields_repeaterField_RepeaterFlex_RepeaterFlexTitleLayout {
+            fieldGroupName
+            repeaterFlexTitle
+          }
+          ... on Page_Acfpagefields_repeaterField_RepeaterFlex_RepeaterFlexRelationshipLayout {
+            fieldGroupName
+            repeaterFlexRelationship {
+              __typename
+              ... on Post {
+                id
+              }
+              ... on Page {
+                id
+              }
+              ... on MediaItem {
+                id
+              }
+              ... on TeamMember {
+                id
+              }
+              ... on Project {
+                id
+              }
+              ... on TypeLimitTest {
+                id
+              }
+              ... on TypeLimit0Test {
+                id
+              }
+              ... on TranslationFilterTest {
                 id
               }
             }
           }
         }
       }
-      image {
-        id
-        sourceUrl
+      selectField
+      taxonomyField {
+        __typename
+        ... on Category {
+          id
+        }
+        ... on Tag {
+          id
+        }
+        ... on PostFormat {
+          id
+        }
       }
+      textAreaField
+      textField
+      timePicker
+      trueFalseField
+      userField {
+        id
+      }
+      wysiwygEditorField
     }
     ancestors(first: 100) {
       nodes {

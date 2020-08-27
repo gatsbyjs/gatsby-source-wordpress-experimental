@@ -62,26 +62,170 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
 
     expect(data[`allWpTag`].totalCount).toBe(3)
     expect(data[`allWpUser`].totalCount).toBe(1)
-    expect(data[`allWpPage`].totalCount).toBe(5)
+    expect(data[`allWpPage`].totalCount).toBe(6)
     expect(data[`allWpPost`].totalCount).toBe(1)
     expect(data[`allWpComment`].totalCount).toBe(1)
     expect(data[`allWpProject`].totalCount).toBe(1)
     expect(data[`allWpTaxonomy`].totalCount).toBe(3)
-    expect(data[`allWpCategory`].totalCount).toBe(2)
+    expect(data[`allWpCategory`].totalCount).toBe(3)
     expect(data[`allWpUserRole`].totalCount).toBe(0)
     expect(data[`allWpMenu`].totalCount).toBe(1)
     expect(data[`allWpMenuItem`].totalCount).toBe(4)
-    expect(data[`allWpMediaItem`].totalCount).toBe(4)
+    expect(data[`allWpMediaItem`].totalCount).toBe(10)
     expect(data[`allWpTeamMember`].totalCount).toBe(1)
     expect(data[`allWpPostFormat`].totalCount).toBe(0)
     expect(data[`allWpContentType`].totalCount).toBe(8)
   })
 
-  // it(`resolves wp-graphql-acf data`, async () => {
-  //   const result = await fetchGraphql({
-  //     url
-  //   })
-  // })
+  it(`resolves wp-graphql-acf data`, async () => {
+    const acfFields = /* GraphQL */ `
+      acfPageFields {
+        buttonGroupField
+        checkboxField
+        colorPickerField
+        datePickerField
+        dateTimePickerField
+        fieldGroupName
+        fileField {
+          id
+          title
+        }
+        galleryField {
+          id
+          title
+        }
+        googleMapField {
+          city
+          country
+          countryShort
+          latitude
+          longitude
+          placeId
+          postCode
+          state
+          stateShort
+          streetAddress
+          streetName
+          streetNumber
+          zoom
+        }
+        groupField {
+          fieldGroupName
+        }
+        imageField {
+          id
+          title
+        }
+        oembedField
+        radioButtonField
+        rangeField
+        repeaterField {
+          fieldGroupName
+        }
+        selectField
+        textAreaField
+        textField
+        timePicker
+        trueFalseField
+        userField {
+          id
+          name
+        }
+
+        relationshipField {
+          ... on WpPost {
+            id
+            title
+          }
+          ... on WpPage {
+            id
+            title
+          }
+        }
+        postObjectField {
+          ... on WpPost {
+            id
+            title
+          }
+          ... on WpPage {
+            id
+            title
+          }
+        }
+        pageLinkField {
+          ... on WpPage {
+            id
+            title
+          }
+          ... on WpPost {
+            id
+            title
+          }
+        }
+
+        flexibleContentField {
+          ... on WpPage_Acfpagefields_FlexibleContentField_FlexLayout1 {
+            fieldGroupName
+            flexImage {
+              title
+            }
+            flexRelationship {
+              ... on WpPost {
+                title
+              }
+            }
+            flexRepeater {
+              fieldGroupName
+              # https://github.com/wp-graphql/wp-graphql-acf/issues/165
+              # flexRepeaterRelationship {
+              #   ... on WpPost {
+              #     id
+              #     title
+              #   }
+              # }
+              flexRepeaterTitle
+            }
+          }
+        }
+        repeaterField {
+          repeaterFlex {
+            ... on WpPage_Acfpagefields_repeaterField_RepeaterFlex_RepeaterFlexTitleLayout {
+              repeaterFlexTitle
+            }
+            ... on WpPage_Acfpagefields_repeaterField_RepeaterFlex_RepeaterFlexRelationshipLayout {
+              repeaterFlexRelationship {
+                ... on WpPage {
+                  title
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `
+    const gatsbyResult = await fetchGraphql({
+      url,
+      query: `
+        {
+          wpPage(title: { eq: "ACF Field Test" }) {
+            ${acfFields}
+        }
+      `,
+    })
+
+    const WPGraphQLResult = await fetchGraphql({
+      url: process.env.WPGRAPHQL_URL,
+      query: `
+        {
+          page(id: "cG9zdDo3NjQ2") {
+            ${acfFields.replace(/Wp/gm, ``)}
+        }
+      `,
+    })
+
+    expect(WPGraphQLResult.data.page).toStrictEqual(gatsbyResult.data.wpPage)
+  })
 
   incrementalIt(`resolves menus`, async () => {
     const result = await fetchGraphql({
@@ -168,86 +312,6 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
                 title
               }
               acfPageFields {
-                flex {
-                  __typename
-                  ... on WpPage_Acfpagefields_Flex_Header {
-                    header
-                  }
-                  ... on WpPage_Acfpagefields_Flex_TeamMembers {
-                    teamMembers {
-                      teamMember {
-                        __typename
-                        ... on WpTeamMember {
-                          acfData {
-                            name
-                            title
-                            twitterlink {
-                              target
-                              title
-                              url
-                            }
-                            webSite {
-                              target
-                              title
-                              url
-                            }
-                            portrait {
-                              sourceUrl
-                              altText
-                              caption
-                              commentStatus
-                              date
-                              databaseId
-                              description
-                              desiredSlug
-                            }
-                            fieldGroupName
-                            projects {
-                              ... on WpProject {
-                                id
-                                content
-                                date
-                                databaseId
-                                slug
-                                status
-                                title
-                                uri
-                              }
-                            }
-                          }
-                          content
-                          databaseId
-                          date
-                          desiredSlug
-                          enclosure
-                          excerpt
-                          id
-                          link
-                          menuOrder
-                          pingStatus
-                          seo {
-                            focuskw
-                            metaDesc
-                            metaKeywords
-                            metaRobotsNofollow
-                            title
-                          }
-                          slug
-                          status
-                          terms {
-                            nodes {
-                              name
-                              slug
-                            }
-                          }
-                          title
-                          toPing
-                          uri
-                        }
-                      }
-                    }
-                  }
-                }
                 fieldGroupName
               }
             }
