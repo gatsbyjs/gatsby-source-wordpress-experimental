@@ -323,6 +323,22 @@ Object {
             "nodes": Array [],
           },
         },
+        Object {
+          "acfPageFields": Object {
+            "fieldGroupName": "acfPageFields",
+          },
+          "author": Object {
+            "node": Object {
+              "name": "Tyler",
+            },
+          },
+          "title": "Yoast SEO",
+          "translations": Array [],
+          "uri": "/beautiful_slug/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
+        },
       ],
     },
     "testPage": Object {
@@ -442,6 +458,22 @@ Object {
           "title": "ACF Field Test",
           "translations": Array [],
           "uri": "/acf-field-test/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
+        },
+        Object {
+          "acfPageFields": Object {
+            "fieldGroupName": "acfPageFields",
+          },
+          "author": Object {
+            "node": Object {
+              "name": "Tyler",
+            },
+          },
+          "title": "Yoast SEO",
+          "translations": Array [],
+          "uri": "/beautiful_slug/",
           "wpChildren": Object {
             "nodes": Array [],
           },
@@ -599,6 +631,9 @@ Object {
           "pages": Object {
             "nodes": Array [
               Object {
+                "title": "Yoast SEO",
+              },
+              Object {
                 "title": "ACF Field Test",
               },
               Object {
@@ -646,6 +681,9 @@ Object {
           "name": "Tyler",
           "pages": Object {
             "nodes": Array [
+              Object {
+                "title": "Yoast SEO",
+              },
               Object {
                 "title": "ACF Field Test",
               },
