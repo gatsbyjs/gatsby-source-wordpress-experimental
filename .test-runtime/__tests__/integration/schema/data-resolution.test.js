@@ -62,7 +62,7 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
 
     expect(data[`allWpTag`].totalCount).toBe(3)
     expect(data[`allWpUser`].totalCount).toBe(1)
-    expect(data[`allWpPage`].totalCount).toBe(6)
+    expect(data[`allWpPage`].totalCount).toBe(7)
     expect(data[`allWpPost`].totalCount).toBe(1)
     expect(data[`allWpComment`].totalCount).toBe(1)
     expect(data[`allWpProject`].totalCount).toBe(1)
@@ -282,6 +282,172 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
     })
 
     expect(result).toMatchSnapshot()
+  })
+
+  it(`resolves Yoast SEO data`, async () => {
+    const yoastRootFields = /* GraphQL */ `
+      seo {
+        breadcrumbs {
+          archivePrefix
+          boldLast
+          enabled
+          homeText
+          notFoundText
+          prefix
+          searchPrefix
+          separator
+          showBlogPage
+        }
+        openGraph {
+          defaultImage {
+            id
+            title
+          }
+          frontPage {
+            description
+            image {
+              id
+              title
+            }
+            title
+          }
+        }
+        redirects {
+          format
+          origin
+          target
+          type
+        }
+        schema {
+          companyLogo {
+            id
+            title
+          }
+          companyName
+          companyOrPerson
+          inLanguage
+          logo {
+            id
+            title
+          }
+          siteName
+          siteUrl
+          wordpressSiteName
+          personLogo {
+            id
+            title
+          }
+        }
+        social {
+          facebook {
+            url
+            defaultImage {
+              title
+              id
+            }
+          }
+          instagram {
+            url
+          }
+          linkedIn {
+            url
+          }
+          mySpace {
+            url
+          }
+          pinterest {
+            url
+            metaTag
+          }
+          twitter {
+            cardType
+            username
+          }
+          wikipedia {
+            url
+          }
+          youTube {
+            url
+          }
+        }
+        webmaster {
+          baiduVerify
+          googleVerify
+          msVerify
+          yandexVerify
+        }
+      }
+    `
+
+    const pageYoastFields = /* GraphQL */ `
+      seo {
+        breadcrumbs {
+          text
+        }
+        canonical
+        focuskw
+        metaDesc
+        metaKeywords
+        metaRobotsNofollow
+        metaRobotsNoindex
+        opengraphAuthor
+        opengraphDescription
+        opengraphImage {
+          id
+          title
+        }
+        opengraphModifiedTime
+        opengraphPublishedTime
+        opengraphPublisher
+        opengraphSiteName
+        opengraphTitle
+        opengraphType
+        opengraphUrl
+        title
+        twitterDescription
+        twitterImage {
+          id
+          title
+        }
+        twitterTitle
+      }
+    `
+
+    const gatsbyResult = await fetchGraphql({
+      url,
+      query: /* GraphQL */ `
+        {
+          wp {
+            ${yoastRootFields}
+          }
+          wpPage(title: {eq: "Yoast SEO"}) {
+            ${pageYoastFields}
+          }
+        }
+      `,
+    })
+
+    const WPGraphQLResult = await fetchGraphql({
+      url: process.env.WPGRAPHQL_URL,
+      query: /* GraphQL */ `
+        {
+          ${yoastRootFields}
+          page(id: "cG9zdDo3ODY4") {
+            ${pageYoastFields}
+          }
+        }
+      `,
+    })
+
+    const wpGraphQLPageNormalizedPaths = JSON.parse(
+      JSON.stringify(WPGraphQLResult.data.page).replace(
+        /https:\/\/gatsbyinttests.wpengine.com/gm,
+        ``
+      )
+    )
+
+    expect(gatsbyResult.data.wpPage).toStrictEqual(wpGraphQLPageNormalizedPaths)
+    expect(gatsbyResult.data.wp.seo).toStrictEqual(WPGraphQLResult.data.seo)
   })
 
   incrementalIt(`resolves pages`, async () => {

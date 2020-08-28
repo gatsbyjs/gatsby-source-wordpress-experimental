@@ -140,6 +140,14 @@ Array [
   },
   Object {
     "fields": null,
+    "name": "WpLanguageCodeEnumQueryOperatorInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpLanguageCodeEnum",
+  },
+  Object {
+    "fields": null,
     "name": "WpMediaDetailsFilterInput",
   },
   Object {
@@ -161,6 +169,14 @@ Array [
   Object {
     "fields": null,
     "name": "WpSEOFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpSEOPostTypeBreadcrumbsFilterListInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpSEOPostTypeBreadcrumbsFilterInput",
   },
   Object {
     "fields": null,
@@ -368,6 +384,14 @@ Array [
   },
   Object {
     "fields": null,
+    "name": "WpSEOUserFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpSEOUserSocialFilterInput",
+  },
+  Object {
+    "fields": null,
     "name": "WpUserToTeamMemberConnectionFilterInput",
   },
   Object {
@@ -462,6 +486,7 @@ Array [
       "posts",
       "projects",
       "roles",
+      "seo",
       "slug",
       "teamMembers",
       "translationFilterTests",
@@ -869,6 +894,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "code",
       "id",
       "locale",
       "name",
@@ -917,20 +943,36 @@ Array [
   },
   Object {
     "fields": Array [
+      "breadcrumbs",
+      "canonical",
       "focuskw",
       "metaDesc",
       "metaKeywords",
       "metaRobotsNofollow",
       "metaRobotsNoindex",
+      "opengraphAuthor",
       "opengraphDescription",
       "opengraphImage",
+      "opengraphModifiedTime",
+      "opengraphPublishedTime",
+      "opengraphPublisher",
+      "opengraphSiteName",
       "opengraphTitle",
+      "opengraphType",
+      "opengraphUrl",
       "title",
       "twitterDescription",
       "twitterImage",
       "twitterTitle",
     ],
     "name": "WpSEO",
+  },
+  Object {
+    "fields": Array [
+      "text",
+      "url",
+    ],
+    "name": "WpSEOPostTypeBreadcrumbs",
   },
   Object {
     "fields": null,
@@ -1680,6 +1722,30 @@ Array [
       "internal",
     ],
     "name": "WpUserRole",
+  },
+  Object {
+    "fields": Array [
+      "metaDesc",
+      "metaRobotsNofollow",
+      "metaRobotsNoindex",
+      "social",
+      "title",
+    ],
+    "name": "WpSEOUser",
+  },
+  Object {
+    "fields": Array [
+      "facebook",
+      "instagram",
+      "linkedIn",
+      "mySpace",
+      "pinterest",
+      "soundCloud",
+      "twitter",
+      "wikipedia",
+      "youTube",
+    ],
+    "name": "WpSEOUserSocial",
   },
   Object {
     "fields": Array [
@@ -2593,6 +2659,82 @@ Array [
   },
   Object {
     "fields": null,
+    "name": "WpSEOConfigFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpSEOBreadcrumbsFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpSEOOpenGraphFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpSEOOpenGraphFrontPageFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpSEORedirectFilterListInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpSEORedirectFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpSEOSchemaFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpSEOSocialFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpSEOSocialFacebookFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpSEOSocialInstagramFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpSEOSocialLinkedInFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpSEOSocialMySpaceFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpSEOSocialPinterestFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpSEOSocialTwitterFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpSEOCardTypeQueryOperatorInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpSEOCardType",
+  },
+  Object {
+    "fields": null,
+    "name": "WpSEOSocialWikipediaFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpSEOSocialYoutubeFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpSEOWebmasterFilterInput",
+  },
+  Object {
+    "fields": null,
     "name": "WpWritingSettingsFilterInput",
   },
   Object {
@@ -2603,6 +2745,7 @@ Array [
       "generalSettings",
       "languages",
       "readingSettings",
+      "seo",
       "writingSettings",
       "nodeType",
       "id",
@@ -2658,6 +2801,142 @@ Array [
       "postsPerPage",
     ],
     "name": "WpReadingSettings",
+  },
+  Object {
+    "fields": Array [
+      "breadcrumbs",
+      "openGraph",
+      "redirects",
+      "schema",
+      "social",
+      "webmaster",
+    ],
+    "name": "WpSEOConfig",
+  },
+  Object {
+    "fields": Array [
+      "archivePrefix",
+      "boldLast",
+      "enabled",
+      "homeText",
+      "notFoundText",
+      "prefix",
+      "searchPrefix",
+      "separator",
+      "showBlogPage",
+    ],
+    "name": "WpSEOBreadcrumbs",
+  },
+  Object {
+    "fields": Array [
+      "defaultImage",
+      "frontPage",
+    ],
+    "name": "WpSEOOpenGraph",
+  },
+  Object {
+    "fields": Array [
+      "description",
+      "image",
+      "title",
+    ],
+    "name": "WpSEOOpenGraphFrontPage",
+  },
+  Object {
+    "fields": Array [
+      "format",
+      "origin",
+      "target",
+      "type",
+    ],
+    "name": "WpSEORedirect",
+  },
+  Object {
+    "fields": Array [
+      "companyLogo",
+      "companyName",
+      "companyOrPerson",
+      "inLanguage",
+      "logo",
+      "personLogo",
+      "siteName",
+      "siteUrl",
+      "wordpressSiteName",
+    ],
+    "name": "WpSEOSchema",
+  },
+  Object {
+    "fields": Array [
+      "facebook",
+      "instagram",
+      "linkedIn",
+      "mySpace",
+      "pinterest",
+      "twitter",
+      "wikipedia",
+      "youTube",
+    ],
+    "name": "WpSEOSocial",
+  },
+  Object {
+    "fields": Array [
+      "defaultImage",
+      "url",
+    ],
+    "name": "WpSEOSocialFacebook",
+  },
+  Object {
+    "fields": Array [
+      "url",
+    ],
+    "name": "WpSEOSocialInstagram",
+  },
+  Object {
+    "fields": Array [
+      "url",
+    ],
+    "name": "WpSEOSocialLinkedIn",
+  },
+  Object {
+    "fields": Array [
+      "url",
+    ],
+    "name": "WpSEOSocialMySpace",
+  },
+  Object {
+    "fields": Array [
+      "metaTag",
+      "url",
+    ],
+    "name": "WpSEOSocialPinterest",
+  },
+  Object {
+    "fields": Array [
+      "cardType",
+      "username",
+    ],
+    "name": "WpSEOSocialTwitter",
+  },
+  Object {
+    "fields": Array [
+      "url",
+    ],
+    "name": "WpSEOSocialWikipedia",
+  },
+  Object {
+    "fields": Array [
+      "url",
+    ],
+    "name": "WpSEOSocialYoutube",
+  },
+  Object {
+    "fields": Array [
+      "baiduVerify",
+      "googleVerify",
+      "msVerify",
+      "yandexVerify",
+    ],
+    "name": "WpSEOWebmaster",
   },
   Object {
     "fields": Array [
@@ -2725,7 +3004,7 @@ Array [
 ]
 `;
 
-exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the local Gatsby schema 2`] = `"e6e24454b67d19acfcdbe4d8811bdc82"`;
+exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the local Gatsby schema 2`] = `"897bb0e38013961800cfeff3ecb0b644"`;
 
 exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the remote WPGraphQL schema 1`] = `
 Array [
@@ -2770,6 +3049,7 @@ Array [
       "registeredStylesheets",
       "revisions",
       "schemaMd5",
+      "seo",
       "tag",
       "tags",
       "taxonomies",
@@ -2922,6 +3202,7 @@ Array [
       "registeredDate",
       "revisions",
       "roles",
+      "seo",
       "slug",
       "teamMembers",
       "translationFilterTests",
@@ -3575,20 +3856,36 @@ Array [
   },
   Object {
     "fields": Array [
+      "breadcrumbs",
+      "canonical",
       "focuskw",
       "metaDesc",
       "metaKeywords",
       "metaRobotsNofollow",
       "metaRobotsNoindex",
+      "opengraphAuthor",
       "opengraphDescription",
       "opengraphImage",
+      "opengraphModifiedTime",
+      "opengraphPublishedTime",
+      "opengraphPublisher",
+      "opengraphSiteName",
       "opengraphTitle",
+      "opengraphType",
+      "opengraphUrl",
       "title",
       "twitterDescription",
       "twitterImage",
       "twitterTitle",
     ],
     "name": "SEO",
+  },
+  Object {
+    "fields": Array [
+      "text",
+      "url",
+    ],
+    "name": "SEOPostTypeBreadcrumbs",
   },
   Object {
     "fields": null,
@@ -4898,6 +5195,30 @@ Array [
     "name": "UserRole",
   },
   Object {
+    "fields": Array [
+      "metaDesc",
+      "metaRobotsNofollow",
+      "metaRobotsNoindex",
+      "social",
+      "title",
+    ],
+    "name": "SEOUser",
+  },
+  Object {
+    "fields": Array [
+      "facebook",
+      "instagram",
+      "linkedIn",
+      "mySpace",
+      "pinterest",
+      "soundCloud",
+      "twitter",
+      "wikipedia",
+      "youTube",
+    ],
+    "name": "SEOUserSocial",
+  },
+  Object {
     "fields": null,
     "name": "UserToTeamMemberConnectionWhereArgs",
   },
@@ -5471,6 +5792,146 @@ Array [
       "node",
     ],
     "name": "RootQueryToContentRevisionUnionConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "breadcrumbs",
+      "openGraph",
+      "redirects",
+      "schema",
+      "social",
+      "webmaster",
+    ],
+    "name": "SEOConfig",
+  },
+  Object {
+    "fields": Array [
+      "archivePrefix",
+      "boldLast",
+      "enabled",
+      "homeText",
+      "notFoundText",
+      "prefix",
+      "searchPrefix",
+      "separator",
+      "showBlogPage",
+    ],
+    "name": "SEOBreadcrumbs",
+  },
+  Object {
+    "fields": Array [
+      "defaultImage",
+      "frontPage",
+    ],
+    "name": "SEOOpenGraph",
+  },
+  Object {
+    "fields": Array [
+      "description",
+      "image",
+      "title",
+    ],
+    "name": "SEOOpenGraphFrontPage",
+  },
+  Object {
+    "fields": Array [
+      "format",
+      "origin",
+      "target",
+      "type",
+    ],
+    "name": "SEORedirect",
+  },
+  Object {
+    "fields": Array [
+      "companyLogo",
+      "companyName",
+      "companyOrPerson",
+      "inLanguage",
+      "logo",
+      "personLogo",
+      "siteName",
+      "siteUrl",
+      "wordpressSiteName",
+    ],
+    "name": "SEOSchema",
+  },
+  Object {
+    "fields": Array [
+      "facebook",
+      "instagram",
+      "linkedIn",
+      "mySpace",
+      "pinterest",
+      "twitter",
+      "wikipedia",
+      "youTube",
+    ],
+    "name": "SEOSocial",
+  },
+  Object {
+    "fields": Array [
+      "defaultImage",
+      "url",
+    ],
+    "name": "SEOSocialFacebook",
+  },
+  Object {
+    "fields": Array [
+      "url",
+    ],
+    "name": "SEOSocialInstagram",
+  },
+  Object {
+    "fields": Array [
+      "url",
+    ],
+    "name": "SEOSocialLinkedIn",
+  },
+  Object {
+    "fields": Array [
+      "url",
+    ],
+    "name": "SEOSocialMySpace",
+  },
+  Object {
+    "fields": Array [
+      "metaTag",
+      "url",
+    ],
+    "name": "SEOSocialPinterest",
+  },
+  Object {
+    "fields": Array [
+      "cardType",
+      "username",
+    ],
+    "name": "SEOSocialTwitter",
+  },
+  Object {
+    "fields": null,
+    "name": "SEOCardType",
+  },
+  Object {
+    "fields": Array [
+      "url",
+    ],
+    "name": "SEOSocialWikipedia",
+  },
+  Object {
+    "fields": Array [
+      "url",
+    ],
+    "name": "SEOSocialYoutube",
+  },
+  Object {
+    "fields": Array [
+      "baiduVerify",
+      "googleVerify",
+      "msVerify",
+      "yandexVerify",
+    ],
+    "name": "SEOWebmaster",
   },
   Object {
     "fields": null,
@@ -6447,4 +6908,4 @@ Array [
 ]
 `;
 
-exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the remote WPGraphQL schema 2`] = `"6d31851b1f33200d3014f6caa201127c"`;
+exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the remote WPGraphQL schema 2`] = `"2c747c77181b509ef46dc761da000dfa"`;
