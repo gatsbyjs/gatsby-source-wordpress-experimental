@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.3.8
+
+### Bug Fixes
+
+- Enum type fields were not being picked up by this plugin prior to this release.
+
 ## 1.3.7
 
 ### Bug Fixes
