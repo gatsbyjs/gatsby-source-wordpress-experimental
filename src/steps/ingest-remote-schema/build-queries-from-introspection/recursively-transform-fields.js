@@ -52,18 +52,12 @@ export const transformInlineFragments = ({
       const type = typeMap.get(possibleType.name)
 
       if (!type) {
-        if (debug) {
-          dd(`here`)
-        }
         return false
       }
 
       const typeSettings = getTypeSettingsByType(type)
 
       if (typeSettings.exclude) {
-        if (debug) {
-          dd(`here2`)
-        }
         return false
       }
 
@@ -77,9 +71,6 @@ export const transformInlineFragments = ({
       )
 
       if (isAGatsbyNode && !buildGatsbyNodeFields) {
-        if (debug) {
-          dd(`here3`)
-        }
         // we use the id to link to the top level Gatsby node
         possibleType.fields = [`id`]
         return possibleType
@@ -232,6 +223,7 @@ export function transformField({
 
   if (
     fieldType.kind === `SCALAR` ||
+    fieldType.kind === `ENUM` ||
     (fieldType.kind === `NON_NULL` && ofType.kind === `SCALAR`) ||
     (fieldType.kind === `LIST` && fieldType.ofType.kind === `SCALAR`) ||
     // a list of enums has no type name, so findTypeName above finds the enum type

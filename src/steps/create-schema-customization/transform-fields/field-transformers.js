@@ -97,6 +97,12 @@ export const fieldTransformers = [
   },
 
   {
+    // enums
+    test: (field) => field.type.kind === `ENUM`,
+    transform: ({ field }) => buildTypeName(field.type.name),
+  },
+
+  {
     // scalars
     test: (field) => field.type.kind === `SCALAR`,
     transform: ({ field }) => {
