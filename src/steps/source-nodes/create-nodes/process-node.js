@@ -334,7 +334,16 @@ const replaceNodeHtmlImages = async ({
 
   const { hostname: wpHostname } = url.parse(wpUrl)
 
-  const imageUrlMatches = execall(imgSrcRemoteFileRegex, nodeString)
+  const imageUrlMatches = execall(imgSrcRemoteFileRegex, nodeString).filter(
+    ({ subMatches }) => {
+      // if our match is json encoded, that means it's inside a JSON
+      // encoded string field.
+      const isInJSON = subMatches[0].includes(`\/\/`)
+
+      // we shouldn't process encoded JSON, so skip this match if it's JSON
+      return !isInJSON
+    }
+  )
 
   const imgTagMatches = execall(
     imgTagRegex,
