@@ -1,5 +1,11 @@
 # Change Log
 
+## Upcoming
+
+### Bug Fixes
+
+- JSON encoded strings as fields were being processed for <img> tags while gatsby-image in html transformations were taking place. This caused errors and shouldn't have been happening in the first place. This release excludes JSON encoded img src's from being processed.
+
 ## 1.3.8
 
 ### Bug Fixes
