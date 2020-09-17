@@ -1,10 +1,11 @@
 # Change Log
 
-## Upcoming
+## 1.3.9
 
 ### Bug Fixes
 
 - JSON encoded strings as fields were being processed for <img> tags while gatsby-image in html transformations were taking place. This caused errors and shouldn't have been happening in the first place. This release excludes JSON encoded img src's from being processed.
+- The WPGQL Node type is an interface type of all possible WPGQL node types. Since not all of those are Gatsby node types, fields of this type were not being registered properly as Gatsby node connections. This PR adds a check to the default resolver to see if a connected node exists as well as adding the \_\_typename field to all interface fields during query generation and node sourcing. This means connections of the Node type work properly in Gatsby.
 
 ## 1.3.8
 
