@@ -504,6 +504,118 @@ Object {
               },
             },
           },
+          "featuredImage": null,
+          "title": "Gutenberg: Image Alignment",
+        },
+        Object {
+          "author": Object {
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
+            },
+          },
+          "featuredImage": null,
+          "title": "Gutenberg: Widget Blocks",
+        },
+        Object {
+          "author": Object {
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
+            },
+          },
+          "featuredImage": null,
+          "title": "Gutenberg: Common Blocks",
+        },
+        Object {
+          "author": Object {
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
+            },
+          },
+          "featuredImage": null,
+          "title": "Gutenberg: Classic Block",
+        },
+        Object {
+          "author": Object {
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
+            },
+          },
+          "featuredImage": null,
+          "title": "Gutenberg: Embed Blocks",
+        },
+        Object {
+          "author": Object {
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
+            },
+          },
+          "featuredImage": null,
+          "title": "Gutenberg: Formatting Blocks",
+        },
+        Object {
+          "author": Object {
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
+            },
+          },
+          "featuredImage": null,
+          "title": "Gutenberg: Layout Element Blocks",
+        },
+        Object {
+          "author": Object {
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
+            },
+          },
+          "featuredImage": null,
+          "title": "Gutenberg: Columns",
+        },
+        Object {
+          "author": Object {
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
+            },
+          },
           "featuredImage": Object {
             "node": Object {
               "altText": "",
@@ -527,6 +639,118 @@ Object {
   "data": Object {
     "allWpPost": Object {
       "nodes": Array [
+        Object {
+          "author": Object {
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
+            },
+          },
+          "featuredImage": null,
+          "title": "Gutenberg: Image Alignment",
+        },
+        Object {
+          "author": Object {
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
+            },
+          },
+          "featuredImage": null,
+          "title": "Gutenberg: Widget Blocks",
+        },
+        Object {
+          "author": Object {
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
+            },
+          },
+          "featuredImage": null,
+          "title": "Gutenberg: Common Blocks",
+        },
+        Object {
+          "author": Object {
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
+            },
+          },
+          "featuredImage": null,
+          "title": "Gutenberg: Classic Block",
+        },
+        Object {
+          "author": Object {
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
+            },
+          },
+          "featuredImage": null,
+          "title": "Gutenberg: Embed Blocks",
+        },
+        Object {
+          "author": Object {
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
+            },
+          },
+          "featuredImage": null,
+          "title": "Gutenberg: Formatting Blocks",
+        },
+        Object {
+          "author": Object {
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
+            },
+          },
+          "featuredImage": null,
+          "title": "Gutenberg: Layout Element Blocks",
+        },
+        Object {
+          "author": Object {
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
+            },
+          },
+          "featuredImage": null,
+          "title": "Gutenberg: Columns",
+        },
         Object {
           "author": Object {
             "node": Object {
@@ -658,6 +882,30 @@ Object {
               Object {
                 "title": "Hello world!",
               },
+              Object {
+                "title": "Gutenberg: Columns",
+              },
+              Object {
+                "title": "Gutenberg: Layout Element Blocks",
+              },
+              Object {
+                "title": "Gutenberg: Formatting Blocks",
+              },
+              Object {
+                "title": "Gutenberg: Embed Blocks",
+              },
+              Object {
+                "title": "Gutenberg: Classic Block",
+              },
+              Object {
+                "title": "Gutenberg: Common Blocks",
+              },
+              Object {
+                "title": "Gutenberg: Widget Blocks",
+              },
+              Object {
+                "title": "Gutenberg: Image Alignment",
+              },
             ],
           },
         },
@@ -708,6 +956,30 @@ Object {
             "nodes": Array [
               Object {
                 "title": "Hello world! DELTA SYNC",
+              },
+              Object {
+                "title": "Gutenberg: Columns",
+              },
+              Object {
+                "title": "Gutenberg: Layout Element Blocks",
+              },
+              Object {
+                "title": "Gutenberg: Formatting Blocks",
+              },
+              Object {
+                "title": "Gutenberg: Embed Blocks",
+              },
+              Object {
+                "title": "Gutenberg: Classic Block",
+              },
+              Object {
+                "title": "Gutenberg: Common Blocks",
+              },
+              Object {
+                "title": "Gutenberg: Widget Blocks",
+              },
+              Object {
+                "title": "Gutenberg: Image Alignment",
               },
             ],
           },
