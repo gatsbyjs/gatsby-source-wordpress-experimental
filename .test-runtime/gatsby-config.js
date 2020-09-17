@@ -12,9 +12,7 @@ require(`dotenv`).config({
 const wpPluginOptions = !process.env.DEFAULT_PLUGIN_OPTIONS
   ? {
       verbose: true,
-      // for wp-graphql-gutenberg, attributes currently breaks due
-      // to the origin schema. It works if we exclude attributes
-      excludeFieldNames: [`commentCount`, `attributes`, `commentCount`],
+      excludeFieldNames: [`commentCount`, `commentCount`],
       schema: {
         queryDepth: 5,
         typePrefix: `Wp`,
