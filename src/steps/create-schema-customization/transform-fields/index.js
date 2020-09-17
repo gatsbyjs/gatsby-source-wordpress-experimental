@@ -1,11 +1,14 @@
 import { fieldTransformers } from "./field-transformers"
 import store from "~/store"
+
 import {
   fieldOfTypeWasFetched,
   typeIsASupportedScalar,
   getTypeSettingsByType,
   findTypeName,
 } from "~/steps/create-schema-customization/helpers"
+
+import { buildDefaultResolver } from "./default-resolver"
 
 const handleCustomScalars = (field) => {
   const fieldTypeIsACustomScalar =
@@ -92,6 +95,7 @@ export const transformFields = ({
   fieldBlacklist,
   parentType,
   parentInterfacesImplementingTypes,
+  gatsbyNodeTypes,
 }) => {
   if (!fields || !fields.length) {
     return null
@@ -151,15 +155,19 @@ export const transformFields = ({
 
     field = handleCustomScalars(field)
 
-    const { transform } =
+    const { transform, description } =
       fieldTransformers.find(({ test }) => test(field)) || {}
 
     if (transform && typeof transform === `function`) {
-      let transformedField = transform({
+      const transformerApi = {
         field,
         fieldsObject,
         fieldName,
-      })
+        gatsbyNodeTypes,
+        description,
+      }
+
+      let transformedField = transform(transformerApi)
 
       // add default resolver
       if (typeof transformedField === `string`) {
@@ -170,35 +178,7 @@ export const transformFields = ({
         // inlineFragments on the same union or interface type.
         transformedField = {
           type: transformedField,
-          resolve: (source) => {
-            const resolvedField = source[fieldName]
-
-            if (typeof resolvedField !== `undefined`) {
-              return resolvedField
-            }
-
-            const autoAliasedFieldPropertyName = `${fieldName}__typename_${field?.type?.name}`
-
-            const aliasedField = source[autoAliasedFieldPropertyName]
-
-            if (typeof aliasedField !== `undefined`) {
-              return aliasedField
-            }
-
-            // the findTypeName helpers was written after this resolver
-            // had been in production for a while.
-            // so we don't know if in all cases it will find the right typename
-            // for this resolver..
-            // So the old way of doing it is above in autoAliasedFieldPropertyName
-            // @todo write comprehesive data resolution integration tests
-            // using many different WPGraphQL extensions
-            // then come back and remove the `return aliasedField` line and
-            // see if this still resolves everything properly
-            const typeName = findTypeName(field.type)
-            const autoAliasedFieldName = `${fieldName}__typename_${typeName}`
-
-            return source[autoAliasedFieldName]
-          },
+          resolve: buildDefaultResolver(transformerApi),
         }
       }
 

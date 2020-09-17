@@ -234,10 +234,12 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
         isDynamic
         order
         originalContent
-        # @todo parentNode is not resolving properly
-        # parentNode {
-        #   id
-        # }
+        parentNode {
+          id
+          ... on WpPost {
+            title
+          }
+        }
         parentNodeDatabaseId
         saveContent
         dynamicContent
@@ -252,10 +254,12 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
         name
         order
         originalContent
-        # @todo parentNode is not resolving properly
-        # parentNode {
-        #   id
-        # }
+        parentNode {
+          id
+          ... on WpPost {
+            title
+          }
+        }
         parentNodeDatabaseId
         dynamicContent
         attributes {
