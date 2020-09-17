@@ -324,6 +324,251 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
     expect(WPGraphQLResult.data.post).toStrictEqual(gatsbyResult.data.wpPost)
   })
 
+  it(`resolves wp-graphql-gutenberg layout elements`, async () => {
+    const gutenbergGatsbyQuery = /* GraphQL */ `
+      {
+        wpPost(id: { eq: "cG9zdDoxMjU=" }) {
+          title
+          blocks {
+            name
+            ... on WpCoreButtonBlock {
+              attributes {
+                ... on WpCoreButtonBlockAttributes {
+                  align
+                  backgroundColor
+                  borderRadius
+                  className
+                  customBackgroundColor
+                  customGradient
+                  customTextColor
+                  gradient
+                  linkTarget
+                  placeholder
+                  rel
+                  text
+                  textColor
+                  title
+                  url
+                }
+              }
+            }
+            ... on WpCoreFileBlock {
+              attributes {
+                downloadButtonText
+                fileName
+                href
+                id
+                showDownloadButton
+                textLinkHref
+                textLinkTarget
+              }
+            }
+            ... on WpCoreSpacerBlock {
+              attributes {
+                height
+              }
+            }
+            ... on WpCoreSeparatorBlock {
+              attributes {
+                color
+                customColor
+                className
+              }
+            }
+          }
+        }
+      }
+    `
+    const gatsbyResult = await fetchGraphql({
+      url,
+      query: gutenbergGatsbyQuery,
+    })
+
+    const gutenbergWpGraphQLQuery = gutenbergGatsbyQuery
+      .replace(/Wp/gm, ``)
+      .replace(
+        `wpPost(id: { eq: "cG9zdDoxMjU=" }) {`,
+        `post(id: "cG9zdDoxMjU=") {`
+      )
+
+    const WPGraphQLResult = await fetchGraphql({
+      url: process.env.WPGRAPHQL_URL,
+      query: gutenbergWpGraphQLQuery,
+    })
+
+    expect(WPGraphQLResult.data.post).toStrictEqual(gatsbyResult.data.wpPost)
+  })
+
+  it(`resolves wp-graphql-gutenberg formatting blocks`, async () => {
+    const gutenbergGatsbyQuery = /* GraphQL */ `
+      {
+        wpPost(id: { eq: "cG9zdDoxMjI=" }) {
+          title
+          blocks {
+            name
+            ... on WpCoreCodeBlock {
+              originalContent
+              attributes {
+                content
+              }
+            }
+            ... on WpCoreFreeformBlock {
+              attributes {
+                content
+              }
+            }
+            ... on WpCoreHtmlBlock {
+              attributes {
+                content
+              }
+            }
+            ... on WpCorePullquoteBlock {
+              attributes {
+                ... on WpCorePullquoteBlockAttributes {
+                  citation
+                  value
+                }
+              }
+            }
+            ... on WpCoreTableBlock {
+              attributes {
+                ... on WpCoreTableBlockAttributes {
+                  body {
+                    cells {
+                      content
+                      scope
+                      tag
+                    }
+                  }
+                  caption
+                  foot {
+                    cells {
+                      content
+                      scope
+                      tag
+                    }
+                  }
+                  hasFixedLayout
+                  head {
+                    cells {
+                      content
+                      scope
+                      tag
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    `
+    const gatsbyResult = await fetchGraphql({
+      url,
+      query: gutenbergGatsbyQuery,
+    })
+
+    const gutenbergWpGraphQLQuery = gutenbergGatsbyQuery
+      .replace(/Wp/gm, ``)
+      .replace(
+        `wpPost(id: { eq: "cG9zdDoxMjI=" }) {`,
+        `post(id: "cG9zdDoxMjI=") {`
+      )
+
+    const WPGraphQLResult = await fetchGraphql({
+      url: process.env.WPGRAPHQL_URL,
+      query: gutenbergWpGraphQLQuery,
+    })
+
+    expect(WPGraphQLResult.data.post).toStrictEqual(gatsbyResult.data.wpPost)
+  })
+
+  it(`resolves wp-graphql-gutenberg common blocks`, async () => {
+    const gutenbergGatsbyQuery = /* GraphQL */ `
+      {
+        wpPost(id: { eq: "cG9zdDo5NA==" }) {
+          blocks {
+            name
+            ... on WpCoreParagraphBlock {
+              attributes {
+                ... on WpCoreParagraphBlockAttributes {
+                  content
+                }
+              }
+            }
+
+            ... on WpCoreHeadingBlock {
+              attributes {
+                ... on WpCoreHeadingBlockAttributes {
+                  content
+                  level
+                }
+              }
+            }
+
+            ... on WpCoreImageBlock {
+              attributes {
+                ... on WpCoreImageBlockAttributes {
+                  url
+                }
+              }
+            }
+
+            ... on WpCoreGalleryBlock {
+              attributes {
+                ... on WpCoreGalleryBlockAttributes {
+                  images {
+                    id
+                    url
+                  }
+                }
+              }
+            }
+
+            ... on WpCoreListBlock {
+              attributes {
+                ordered
+                values
+              }
+            }
+
+            ... on WpCoreAudioBlock {
+              attributes {
+                ... on WpCoreAudioBlockAttributes {
+                  src
+                }
+              }
+            }
+
+            ... on WpCoreVideoBlock {
+              attributes {
+                src
+              }
+            }
+          }
+        }
+      }
+    `
+    const gatsbyResult = await fetchGraphql({
+      url,
+      query: gutenbergGatsbyQuery,
+    })
+
+    const gutenbergWpGraphQLQuery = gutenbergGatsbyQuery
+      .replace(/Wp/gm, ``)
+      .replace(
+        `wpPost(id: { eq: "cG9zdDo5NA==" }) {`,
+        `post(id: "cG9zdDo5NA==") {`
+      )
+
+    const WPGraphQLResult = await fetchGraphql({
+      url: process.env.WPGRAPHQL_URL,
+      query: gutenbergWpGraphQLQuery,
+    })
+
+    expect(WPGraphQLResult.data.post).toStrictEqual(gatsbyResult.data.wpPost)
+  })
+
   it(`resolves Yoast SEO data`, async () => {
     const yoastRootFields = /* GraphQL */ `
       seo {
