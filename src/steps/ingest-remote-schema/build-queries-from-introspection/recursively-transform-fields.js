@@ -322,17 +322,13 @@ export function transformField({
       fieldType,
     }
   } else if (isAGatsbyNode && hasIdField) {
-    const isAnInterfaceTypeOfGatsbyNodes =
+    const isAnInterfaceType =
       // if this is an interface
-      typeKind === `INTERFACE` &&
-      // and every possible type is a future gatsby node
-      fieldType?.possibleTypes?.every((possibleType) =>
-        gatsbyNodesInfo.typeNames.includes(possibleType.name)
-      )
+      typeKind === `INTERFACE` || fieldType.kind === `INTERFACE`
 
     return {
       fieldName: fieldName,
-      fields: isAnInterfaceTypeOfGatsbyNodes
+      fields: isAnInterfaceType
         ? // we need the typename for interfaces
           [`id`, `__typename`]
         : // or just the id for 1:1 connections to gatsby nodes
