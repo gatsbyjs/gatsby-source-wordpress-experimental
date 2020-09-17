@@ -72,9 +72,20 @@ export const getFileNodeByMediaItemNode = async ({
     // and it hasn't been modified
     existingNodeMeta.modifiedGmt === modifiedGmt
   ) {
-    const node = await helpers.getNode(existingNodeMeta.id)
+    let node = await helpers.getNode(existingNodeMeta.id)
 
-    return node
+    // some of the cached node metas dont necessarily need to be a File
+    // so check that we really read a file node
+    if (node.internal.type !== 'File') {
+      if (node.localFile && node.localFile.id) {
+        // look up the corresponding file node
+        node = await helpers.getNode(node.localFile.id)
+      } else {
+        return null;
+      }
+    }
+
+    return node;
   }
 
   return null
