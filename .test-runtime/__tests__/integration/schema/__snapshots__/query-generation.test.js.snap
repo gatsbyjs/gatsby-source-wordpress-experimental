@@ -166,6 +166,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       terms(first: 100) {
         nodes {
           id
+          __typename
         }
       }
       title
@@ -186,6 +187,7 @@ fragment BlockFragment on Block {
   originalContent
   parentNode {
     id
+    __typename
   }
   parentNodeDatabaseId
   saveContent
@@ -1955,6 +1957,7 @@ fragment BlockFragment on Block {
     }
     reusableBlock {
       id
+      __typename
     }
   }
   ... on CoreSocialLinksBlock {
@@ -2269,6 +2272,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     terms(first: 100) {
       nodes {
         id
+        __typename
       }
     }
     title
@@ -2284,6 +2288,7 @@ fragment BlockFragment on Block {
   originalContent
   parentNode {
     id
+    __typename
   }
   parentNodeDatabaseId
   saveContent
@@ -4053,6 +4058,7 @@ fragment BlockFragment on Block {
     }
     reusableBlock {
       id
+      __typename
     }
   }
   ... on CoreSocialLinksBlock {
@@ -4367,6 +4373,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     terms(first: 100) {
       nodes {
         id
+        __typename
       }
     }
     title
@@ -4382,6 +4389,7 @@ fragment BlockFragment on Block {
   originalContent
   parentNode {
     id
+    __typename
   }
   parentNodeDatabaseId
   saveContent
@@ -6151,6 +6159,7 @@ fragment BlockFragment on Block {
     }
     reusableBlock {
       id
+      __typename
     }
   }
   ... on CoreSocialLinksBlock {
@@ -6725,6 +6734,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       contentNodes(first: 100) {
         nodes {
           id
+          __typename
         }
       }
       deleteWithUser
@@ -6803,6 +6813,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     contentNodes(first: 100) {
       nodes {
         id
+        __typename
       }
     }
     deleteWithUser
@@ -6876,6 +6887,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     contentNodes(first: 100) {
       nodes {
         id
+        __typename
       }
     }
     deleteWithUser
@@ -6944,6 +6956,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       ancestors(first: 100) {
         nodes {
           id
+          __typename
         }
       }
       author {
@@ -6957,6 +6970,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       wpChildren: children(first: 100) {
         nodes {
           id
+          __typename
         }
       }
       commentStatus
@@ -7085,6 +7099,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       terms(first: 100) {
         nodes {
           id
+          __typename
         }
       }
       title
@@ -7111,6 +7126,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     ancestors(first: 100) {
       nodes {
         id
+        __typename
       }
     }
     author {
@@ -7124,6 +7140,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     wpChildren: children(first: 100) {
       nodes {
         id
+        __typename
       }
     }
     commentStatus
@@ -7252,6 +7269,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     terms(first: 100) {
       nodes {
         id
+        __typename
       }
     }
     title
@@ -7273,6 +7291,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     ancestors(first: 100) {
       nodes {
         id
+        __typename
       }
     }
     author {
@@ -7286,6 +7305,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     wpChildren: children(first: 100) {
       nodes {
         id
+        __typename
       }
     }
     commentStatus
@@ -7414,6 +7434,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     terms(first: 100) {
       nodes {
         id
+        __typename
       }
     }
     title
@@ -7917,6 +7938,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       ancestors(first: 100) {
         nodes {
           id
+          __typename
         }
       }
       author {
@@ -7950,6 +7972,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       wpChildren: children(first: 100) {
         nodes {
           id
+          __typename
         }
       }
       commentStatus
@@ -8075,6 +8098,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       terms(first: 100) {
         nodes {
           id
+          __typename
         }
       }
       title
@@ -8098,6 +8122,7 @@ fragment BlockFragment on Block {
   originalContent
   parentNode {
     id
+    __typename
   }
   parentNodeDatabaseId
   saveContent
@@ -9867,6 +9892,7 @@ fragment BlockFragment on Block {
     }
     reusableBlock {
       id
+      __typename
     }
   }
   ... on CoreSocialLinksBlock {
@@ -10315,6 +10341,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     ancestors(first: 100) {
       nodes {
         id
+        __typename
       }
     }
     author {
@@ -10348,6 +10375,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     wpChildren: children(first: 100) {
       nodes {
         id
+        __typename
       }
     }
     commentStatus
@@ -10473,6 +10501,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     terms(first: 100) {
       nodes {
         id
+        __typename
       }
     }
     title
@@ -10491,6 +10520,7 @@ fragment BlockFragment on Block {
   originalContent
   parentNode {
     id
+    __typename
   }
   parentNodeDatabaseId
   saveContent
@@ -12260,6 +12290,7 @@ fragment BlockFragment on Block {
     }
     reusableBlock {
       id
+      __typename
     }
   }
   ... on CoreSocialLinksBlock {
@@ -12708,6 +12739,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     ancestors(first: 100) {
       nodes {
         id
+        __typename
       }
     }
     author {
@@ -12741,6 +12773,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     wpChildren: children(first: 100) {
       nodes {
         id
+        __typename
       }
     }
     commentStatus
@@ -12866,6 +12899,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     terms(first: 100) {
       nodes {
         id
+        __typename
       }
     }
     title
@@ -12884,6 +12918,7 @@ fragment BlockFragment on Block {
   originalContent
   parentNode {
     id
+    __typename
   }
   parentNodeDatabaseId
   saveContent
@@ -14653,6 +14688,7 @@ fragment BlockFragment on Block {
     }
     reusableBlock {
       id
+      __typename
     }
   }
   ... on CoreSocialLinksBlock {
@@ -14965,6 +15001,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       terms(first: 100) {
         nodes {
           id
+          __typename
         }
       }
       title
@@ -14989,6 +15026,7 @@ fragment BlockFragment on Block {
   originalContent
   parentNode {
     id
+    __typename
   }
   parentNodeDatabaseId
   saveContent
@@ -16758,6 +16796,7 @@ fragment BlockFragment on Block {
     }
     reusableBlock {
       id
+      __typename
     }
   }
   ... on CoreSocialLinksBlock {
@@ -17069,6 +17108,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     terms(first: 100) {
       nodes {
         id
+        __typename
       }
     }
     title
@@ -17088,6 +17128,7 @@ fragment BlockFragment on Block {
   originalContent
   parentNode {
     id
+    __typename
   }
   parentNodeDatabaseId
   saveContent
@@ -18857,6 +18898,7 @@ fragment BlockFragment on Block {
     }
     reusableBlock {
       id
+      __typename
     }
   }
   ... on CoreSocialLinksBlock {
@@ -19168,6 +19210,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     terms(first: 100) {
       nodes {
         id
+        __typename
       }
     }
     title
@@ -19187,6 +19230,7 @@ fragment BlockFragment on Block {
   originalContent
   parentNode {
     id
+    __typename
   }
   parentNodeDatabaseId
   saveContent
@@ -20956,6 +21000,7 @@ fragment BlockFragment on Block {
     }
     reusableBlock {
       id
+      __typename
     }
   }
   ... on CoreSocialLinksBlock {
@@ -21452,6 +21497,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       terms(first: 100) {
         nodes {
           id
+          __typename
         }
       }
       title
@@ -21472,6 +21518,7 @@ fragment BlockFragment on Block {
   originalContent
   parentNode {
     id
+    __typename
   }
   parentNodeDatabaseId
   saveContent
@@ -23241,6 +23288,7 @@ fragment BlockFragment on Block {
     }
     reusableBlock {
       id
+      __typename
     }
   }
   ... on CoreSocialLinksBlock {
@@ -23532,6 +23580,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     terms(first: 100) {
       nodes {
         id
+        __typename
       }
     }
     title
@@ -23547,6 +23596,7 @@ fragment BlockFragment on Block {
   originalContent
   parentNode {
     id
+    __typename
   }
   parentNodeDatabaseId
   saveContent
@@ -25316,6 +25366,7 @@ fragment BlockFragment on Block {
     }
     reusableBlock {
       id
+      __typename
     }
   }
   ... on CoreSocialLinksBlock {
@@ -25607,6 +25658,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     terms(first: 100) {
       nodes {
         id
+        __typename
       }
     }
     title
@@ -25622,6 +25674,7 @@ fragment BlockFragment on Block {
   originalContent
   parentNode {
     id
+    __typename
   }
   parentNodeDatabaseId
   saveContent
@@ -27391,6 +27444,7 @@ fragment BlockFragment on Block {
     }
     reusableBlock {
       id
+      __typename
     }
   }
   ... on CoreSocialLinksBlock {
@@ -27663,6 +27717,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       terms(first: 100) {
         nodes {
           id
+          __typename
         }
       }
       title
@@ -27686,6 +27741,7 @@ fragment BlockFragment on Block {
   originalContent
   parentNode {
     id
+    __typename
   }
   parentNodeDatabaseId
   saveContent
@@ -29455,6 +29511,7 @@ fragment BlockFragment on Block {
     }
     reusableBlock {
       id
+      __typename
     }
   }
   ... on CoreSocialLinksBlock {
@@ -29726,6 +29783,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     terms(first: 100) {
       nodes {
         id
+        __typename
       }
     }
     title
@@ -29744,6 +29802,7 @@ fragment BlockFragment on Block {
   originalContent
   parentNode {
     id
+    __typename
   }
   parentNodeDatabaseId
   saveContent
@@ -31513,6 +31572,7 @@ fragment BlockFragment on Block {
     }
     reusableBlock {
       id
+      __typename
     }
   }
   ... on CoreSocialLinksBlock {
@@ -31784,6 +31844,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     terms(first: 100) {
       nodes {
         id
+        __typename
       }
     }
     title
@@ -31802,6 +31863,7 @@ fragment BlockFragment on Block {
   originalContent
   parentNode {
     id
+    __typename
   }
   parentNodeDatabaseId
   saveContent
@@ -33571,6 +33633,7 @@ fragment BlockFragment on Block {
     }
     reusableBlock {
       id
+      __typename
     }
   }
   ... on CoreSocialLinksBlock {
@@ -34419,6 +34482,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       terms(first: 100) {
         nodes {
           id
+          __typename
         }
       }
       title
@@ -34440,6 +34504,7 @@ fragment BlockFragment on Block {
   originalContent
   parentNode {
     id
+    __typename
   }
   parentNodeDatabaseId
   saveContent
@@ -36209,6 +36274,7 @@ fragment BlockFragment on Block {
     }
     reusableBlock {
       id
+      __typename
     }
   }
   ... on CoreSocialLinksBlock {
@@ -36539,6 +36605,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     terms(first: 100) {
       nodes {
         id
+        __typename
       }
     }
     title
@@ -36555,6 +36622,7 @@ fragment BlockFragment on Block {
   originalContent
   parentNode {
     id
+    __typename
   }
   parentNodeDatabaseId
   saveContent
@@ -38324,6 +38392,7 @@ fragment BlockFragment on Block {
     }
     reusableBlock {
       id
+      __typename
     }
   }
   ... on CoreSocialLinksBlock {
@@ -38654,6 +38723,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     terms(first: 100) {
       nodes {
         id
+        __typename
       }
     }
     title
@@ -38670,6 +38740,7 @@ fragment BlockFragment on Block {
   originalContent
   parentNode {
     id
+    __typename
   }
   parentNodeDatabaseId
   saveContent
@@ -40439,6 +40510,7 @@ fragment BlockFragment on Block {
     }
     reusableBlock {
       id
+      __typename
     }
   }
   ... on CoreSocialLinksBlock {
@@ -40793,6 +40865,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       terms(first: 100) {
         nodes {
           id
+          __typename
         }
       }
       title
@@ -40816,6 +40889,7 @@ fragment BlockFragment on Block {
   originalContent
   parentNode {
     id
+    __typename
   }
   parentNodeDatabaseId
   saveContent
@@ -42585,6 +42659,7 @@ fragment BlockFragment on Block {
     }
     reusableBlock {
       id
+      __typename
     }
   }
   ... on CoreSocialLinksBlock {
@@ -42871,6 +42946,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     terms(first: 100) {
       nodes {
         id
+        __typename
       }
     }
     title
@@ -42889,6 +42965,7 @@ fragment BlockFragment on Block {
   originalContent
   parentNode {
     id
+    __typename
   }
   parentNodeDatabaseId
   saveContent
@@ -44658,6 +44735,7 @@ fragment BlockFragment on Block {
     }
     reusableBlock {
       id
+      __typename
     }
   }
   ... on CoreSocialLinksBlock {
@@ -44944,6 +45022,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     terms(first: 100) {
       nodes {
         id
+        __typename
       }
     }
     title
@@ -44962,6 +45041,7 @@ fragment BlockFragment on Block {
   originalContent
   parentNode {
     id
+    __typename
   }
   parentNodeDatabaseId
   saveContent
@@ -46731,6 +46811,7 @@ fragment BlockFragment on Block {
     }
     reusableBlock {
       id
+      __typename
     }
   }
   ... on CoreSocialLinksBlock {
@@ -47011,6 +47092,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       terms(first: 100) {
         nodes {
           id
+          __typename
         }
       }
       title
@@ -47031,6 +47113,7 @@ fragment BlockFragment on Block {
   originalContent
   parentNode {
     id
+    __typename
   }
   parentNodeDatabaseId
   saveContent
@@ -48800,6 +48883,7 @@ fragment BlockFragment on Block {
     }
     reusableBlock {
       id
+      __typename
     }
   }
   ... on CoreSocialLinksBlock {
@@ -49079,6 +49163,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     terms(first: 100) {
       nodes {
         id
+        __typename
       }
     }
     title
@@ -49094,6 +49179,7 @@ fragment BlockFragment on Block {
   originalContent
   parentNode {
     id
+    __typename
   }
   parentNodeDatabaseId
   saveContent
@@ -50863,6 +50949,7 @@ fragment BlockFragment on Block {
     }
     reusableBlock {
       id
+      __typename
     }
   }
   ... on CoreSocialLinksBlock {
@@ -51142,6 +51229,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     terms(first: 100) {
       nodes {
         id
+        __typename
       }
     }
     title
@@ -51157,6 +51245,7 @@ fragment BlockFragment on Block {
   originalContent
   parentNode {
     id
+    __typename
   }
   parentNodeDatabaseId
   saveContent
@@ -52926,6 +53015,7 @@ fragment BlockFragment on Block {
     }
     reusableBlock {
       id
+      __typename
     }
   }
   ... on CoreSocialLinksBlock {
@@ -53206,6 +53296,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       terms(first: 100) {
         nodes {
           id
+          __typename
         }
       }
       title
@@ -53226,6 +53317,7 @@ fragment BlockFragment on Block {
   originalContent
   parentNode {
     id
+    __typename
   }
   parentNodeDatabaseId
   saveContent
@@ -54995,6 +55087,7 @@ fragment BlockFragment on Block {
     }
     reusableBlock {
       id
+      __typename
     }
   }
   ... on CoreSocialLinksBlock {
@@ -55274,6 +55367,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     terms(first: 100) {
       nodes {
         id
+        __typename
       }
     }
     title
@@ -55289,6 +55383,7 @@ fragment BlockFragment on Block {
   originalContent
   parentNode {
     id
+    __typename
   }
   parentNodeDatabaseId
   saveContent
@@ -57058,6 +57153,7 @@ fragment BlockFragment on Block {
     }
     reusableBlock {
       id
+      __typename
     }
   }
   ... on CoreSocialLinksBlock {
@@ -57337,6 +57433,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     terms(first: 100) {
       nodes {
         id
+        __typename
       }
     }
     title
@@ -57352,6 +57449,7 @@ fragment BlockFragment on Block {
   originalContent
   parentNode {
     id
+    __typename
   }
   parentNodeDatabaseId
   saveContent
@@ -59121,6 +59219,7 @@ fragment BlockFragment on Block {
     }
     reusableBlock {
       id
+      __typename
     }
   }
   ... on CoreSocialLinksBlock {
