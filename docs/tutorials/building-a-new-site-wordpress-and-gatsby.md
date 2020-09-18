@@ -101,7 +101,7 @@ This first query will pull in the blogpost content from WordPress:
 
 ```graphql
 query {
-    allWpPage {
+    allWpPost {
         nodes {
             id
             title
