@@ -1859,6 +1859,662 @@ Array [
   },
   Object {
     "fields": Array [
+      "count",
+      "databaseId",
+      "description",
+      "id",
+      "link",
+      "name",
+      "seo",
+      "slug",
+      "taxonomy",
+      "termGroupId",
+      "termTaxonomyId",
+      "uri",
+      "nodeType",
+      "parent",
+      "children",
+      "internal",
+    ],
+    "name": "WpProductType",
+  },
+  Object {
+    "fields": Array [
+      "node",
+    ],
+    "name": "WpProductTypeToTaxonomyConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "count",
+      "databaseId",
+      "description",
+      "id",
+      "link",
+      "name",
+      "seo",
+      "slug",
+      "taxonomy",
+      "termGroupId",
+      "termTaxonomyId",
+      "uri",
+      "nodeType",
+      "parent",
+      "children",
+      "internal",
+    ],
+    "name": "WpVisibleProduct",
+  },
+  Object {
+    "fields": Array [
+      "node",
+    ],
+    "name": "WpVisibleProductToTaxonomyConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "ancestors",
+      "wpChildren",
+      "count",
+      "databaseId",
+      "description",
+      "id",
+      "image",
+      "link",
+      "name",
+      "wpParent",
+      "parentDatabaseId",
+      "parentId",
+      "products",
+      "seo",
+      "slug",
+      "taxonomy",
+      "termGroupId",
+      "termTaxonomyId",
+      "uri",
+      "nodeType",
+      "parent",
+      "children",
+      "internal",
+    ],
+    "name": "WpProductCategory",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpProductCategoryToAncestorsProductCategoryConnection",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpProductCategoryToProductCategoryConnection",
+  },
+  Object {
+    "fields": Array [
+      "node",
+    ],
+    "name": "WpProductCategoryToParentProductCategoryConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpProductCategoryToProductConnection",
+  },
+  Object {
+    "fields": Array [
+      "attributes",
+      "averageRating",
+      "catalogVisibility",
+      "contentType",
+      "date",
+      "dateOnSaleFrom",
+      "dateOnSaleTo",
+      "description",
+      "featured",
+      "galleryImages",
+      "globalAttributes",
+      "id",
+      "image",
+      "link",
+      "localAttributes",
+      "menuOrder",
+      "modified",
+      "name",
+      "onSale",
+      "paColors",
+      "paSizes",
+      "wpParent",
+      "productCategories",
+      "productId",
+      "productTags",
+      "productTypes",
+      "purchasable",
+      "purchaseNote",
+      "related",
+      "reviewCount",
+      "reviews",
+      "reviewsAllowed",
+      "seo",
+      "shippingClasses",
+      "shortDescription",
+      "sku",
+      "slug",
+      "status",
+      "totalSales",
+      "type",
+      "upsell",
+      "visibleProducts",
+      "nodeType",
+    ],
+    "name": "WpProduct",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpProductToProductAttributeConnection",
+  },
+  Object {
+    "fields": Array [
+      "attributeId",
+      "id",
+      "name",
+      "options",
+      "position",
+      "variation",
+      "visible",
+    ],
+    "name": "WpProductAttribute",
+  },
+  Object {
+    "fields": null,
+    "name": "WpCatalogVisibilityEnum",
+  },
+  Object {
+    "fields": Array [
+      "node",
+    ],
+    "name": "WpProductToContentTypeConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpProductToMediaItemConnection",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpProductToGlobalProductAttributeConnection",
+  },
+  Object {
+    "fields": Array [
+      "attributeId",
+      "id",
+      "name",
+      "options",
+      "position",
+      "terms",
+      "variation",
+      "visible",
+    ],
+    "name": "WpGlobalProductAttribute",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpGlobalProductAttributeToTermNodeConnection",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpProductToLocalProductAttributeConnection",
+  },
+  Object {
+    "fields": Array [
+      "attributeId",
+      "id",
+      "name",
+      "options",
+      "position",
+      "variation",
+      "visible",
+    ],
+    "name": "WpLocalProductAttribute",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpProductToPaColorConnection",
+  },
+  Object {
+    "fields": Array [
+      "count",
+      "databaseId",
+      "description",
+      "id",
+      "link",
+      "name",
+      "products",
+      "seo",
+      "slug",
+      "taxonomy",
+      "termGroupId",
+      "termTaxonomyId",
+      "uri",
+      "variations",
+      "nodeType",
+      "parent",
+      "children",
+      "internal",
+    ],
+    "name": "WpPaColor",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpPaColorToProductConnection",
+  },
+  Object {
+    "fields": Array [
+      "node",
+    ],
+    "name": "WpPaColorToTaxonomyConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpPaColorToProductVariationConnection",
+  },
+  Object {
+    "fields": Array [
+      "attributes",
+      "backorders",
+      "backordersAllowed",
+      "catalogVisibility",
+      "contentType",
+      "date",
+      "dateOnSaleFrom",
+      "dateOnSaleTo",
+      "description",
+      "downloadExpiry",
+      "downloadLimit",
+      "downloadable",
+      "downloads",
+      "hasAttributes",
+      "height",
+      "id",
+      "image",
+      "length",
+      "manageStock",
+      "menuOrder",
+      "metaData",
+      "modified",
+      "name",
+      "onSale",
+      "wpParent",
+      "price",
+      "purchasable",
+      "purchaseNote",
+      "regularPrice",
+      "salePrice",
+      "shippingClass",
+      "shippingClasses",
+      "sku",
+      "status",
+      "stockQuantity",
+      "stockStatus",
+      "taxClass",
+      "taxStatus",
+      "type",
+      "variationId",
+      "virtual",
+      "visibleProducts",
+      "weight",
+      "width",
+      "nodeType",
+      "parent",
+      "children",
+      "internal",
+    ],
+    "name": "WpProductVariation",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpProductVariationToVariationAttributeConnection",
+  },
+  Object {
+    "fields": Array [
+      "attributeId",
+      "id",
+      "name",
+      "value",
+    ],
+    "name": "WpVariationAttribute",
+  },
+  Object {
+    "fields": null,
+    "name": "WpBackordersEnum",
+  },
+  Object {
+    "fields": Array [
+      "node",
+    ],
+    "name": "WpProductVariationToContentTypeConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "allowedFileType",
+      "downloadId",
+      "file",
+      "fileExists",
+      "fileExt",
+      "filePathType",
+      "fileType",
+      "name",
+    ],
+    "name": "WpProductDownload",
+  },
+  Object {
+    "fields": null,
+    "name": "WpManageStockEnum",
+  },
+  Object {
+    "fields": Array [
+      "id",
+      "key",
+      "value",
+    ],
+    "name": "WpMetaData",
+  },
+  Object {
+    "fields": Array [
+      "attributes",
+      "averageRating",
+      "backorders",
+      "backordersAllowed",
+      "catalogVisibility",
+      "contentType",
+      "crossSell",
+      "date",
+      "dateOnSaleFrom",
+      "dateOnSaleTo",
+      "defaultAttributes",
+      "description",
+      "featured",
+      "galleryImages",
+      "globalAttributes",
+      "height",
+      "id",
+      "image",
+      "length",
+      "link",
+      "localAttributes",
+      "manageStock",
+      "menuOrder",
+      "metaData",
+      "modified",
+      "name",
+      "onSale",
+      "paColors",
+      "paSizes",
+      "wpParent",
+      "price",
+      "productCategories",
+      "productId",
+      "productTags",
+      "productTypes",
+      "purchasable",
+      "purchaseNote",
+      "regularPrice",
+      "related",
+      "reviewCount",
+      "reviews",
+      "reviewsAllowed",
+      "salePrice",
+      "seo",
+      "shippingClassId",
+      "shippingClasses",
+      "shippingRequired",
+      "shippingTaxable",
+      "shortDescription",
+      "sku",
+      "slug",
+      "soldIndividually",
+      "status",
+      "stockQuantity",
+      "taxClass",
+      "taxStatus",
+      "totalSales",
+      "type",
+      "upsell",
+      "variations",
+      "visibleProducts",
+      "weight",
+      "width",
+      "nodeType",
+      "parent",
+      "children",
+      "internal",
+    ],
+    "name": "WpVariableProduct",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpVariableProductToProductConnection",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpVariableProductToVariationAttributeConnection",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpProductToPaSizeConnection",
+  },
+  Object {
+    "fields": Array [
+      "count",
+      "databaseId",
+      "description",
+      "id",
+      "link",
+      "name",
+      "products",
+      "seo",
+      "slug",
+      "taxonomy",
+      "termGroupId",
+      "termTaxonomyId",
+      "uri",
+      "variations",
+      "nodeType",
+      "parent",
+      "children",
+      "internal",
+    ],
+    "name": "WpPaSize",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpPaSizeToProductConnection",
+  },
+  Object {
+    "fields": Array [
+      "node",
+    ],
+    "name": "WpPaSizeToTaxonomyConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpPaSizeToProductVariationConnection",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpProductToProductCategoryConnection",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpProductToProductTagConnection",
+  },
+  Object {
+    "fields": Array [
+      "count",
+      "databaseId",
+      "description",
+      "id",
+      "link",
+      "name",
+      "products",
+      "seo",
+      "slug",
+      "taxonomy",
+      "termGroupId",
+      "termTaxonomyId",
+      "uri",
+      "nodeType",
+      "parent",
+      "children",
+      "internal",
+    ],
+    "name": "WpProductTag",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpProductTagToProductConnection",
+  },
+  Object {
+    "fields": Array [
+      "node",
+    ],
+    "name": "WpProductTagToTaxonomyConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpProductToProductTypeConnection",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpProductToProductConnection",
+  },
+  Object {
+    "fields": Array [
+      "averageRating",
+      "nodes",
+    ],
+    "name": "WpProductToCommentConnection",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpProductToShippingClassConnection",
+  },
+  Object {
+    "fields": Array [
+      "count",
+      "databaseId",
+      "description",
+      "id",
+      "link",
+      "name",
+      "seo",
+      "slug",
+      "taxonomy",
+      "termGroupId",
+      "termTaxonomyId",
+      "uri",
+      "nodeType",
+      "parent",
+      "children",
+      "internal",
+    ],
+    "name": "WpShippingClass",
+  },
+  Object {
+    "fields": Array [
+      "node",
+    ],
+    "name": "WpShippingClassToTaxonomyConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "WpTaxClassEnum",
+  },
+  Object {
+    "fields": null,
+    "name": "WpTaxStatusEnum",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductTypesEnum",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpVariableProductToProductVariationConnection",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpProductToVisibleProductConnection",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpProductVariationToShippingClassConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpStockStatusEnum",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpProductVariationToVisibleProductConnection",
+  },
+  Object {
+    "fields": Array [
+      "node",
+    ],
+    "name": "WpProductCategoryToTaxonomyConnectionEdge",
+  },
+  Object {
+    "fields": Array [
       "nodes",
     ],
     "name": "WpPageToCommentConnection",
@@ -2061,6 +2717,348 @@ Array [
       "fieldValue",
     ],
     "name": "WpTermNodeGroupConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductToProductAttributeConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductAttributeFilterListInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductAttributeFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpCatalogVisibilityEnumQueryOperatorInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductToContentTypeConnectionEdgeFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductToMediaItemConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductToGlobalProductAttributeConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpGlobalProductAttributeFilterListInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpGlobalProductAttributeFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpGlobalProductAttributeToTermNodeConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductToLocalProductAttributeConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpLocalProductAttributeFilterListInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpLocalProductAttributeFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductToPaColorConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpPaColorFilterListInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpPaColorFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpPaColorToProductConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductFilterListInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductToPaSizeConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpPaSizeFilterListInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpPaSizeFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpPaSizeToProductConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpPaSizeToTaxonomyConnectionEdgeFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpPaSizeToProductVariationConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductVariationFilterListInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductVariationFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductVariationToVariationAttributeConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpVariationAttributeFilterListInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpVariationAttributeFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpBackordersEnumQueryOperatorInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductVariationToContentTypeConnectionEdgeFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductDownloadFilterListInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductDownloadFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpManageStockEnumQueryOperatorInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpMetaDataFilterListInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpMetaDataFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpVariableProductFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpVariableProductToProductConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpVariableProductToVariationAttributeConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductToProductCategoryConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductCategoryFilterListInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductCategoryFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductCategoryToAncestorsProductCategoryConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductCategoryToProductCategoryConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductCategoryToParentProductCategoryConnectionEdgeFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductCategoryToProductConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductCategoryToTaxonomyConnectionEdgeFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductToProductTagConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductTagFilterListInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductTagFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductTagToProductConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductTagToTaxonomyConnectionEdgeFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductToProductTypeConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductTypeFilterListInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductTypeFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductTypeToTaxonomyConnectionEdgeFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductToProductConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductToCommentConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductToShippingClassConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpShippingClassFilterListInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpShippingClassFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpShippingClassToTaxonomyConnectionEdgeFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpTaxClassEnumQueryOperatorInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpTaxStatusEnumQueryOperatorInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductTypesEnumQueryOperatorInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpVariableProductToProductVariationConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductToVisibleProductConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpVisibleProductFilterListInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpVisibleProductFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpVisibleProductToTaxonomyConnectionEdgeFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductVariationToShippingClassConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpStockStatusEnumQueryOperatorInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductVariationToVisibleProductConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpPaColorToTaxonomyConnectionEdgeFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpPaColorToProductVariationConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductSortInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductFieldsEnum",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "distinct",
+      "group",
+    ],
+    "name": "WpProductConnection",
+  },
+  Object {
+    "fields": Array [
+      "next",
+      "node",
+      "previous",
+    ],
+    "name": "WpProductEdge",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "field",
+      "fieldValue",
+    ],
+    "name": "WpProductGroupConnection",
   },
   Object {
     "fields": null,
@@ -2722,6 +3720,348 @@ Array [
   },
   Object {
     "fields": null,
+    "name": "WpProductTypeSortInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductTypeFieldsEnum",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "distinct",
+      "group",
+    ],
+    "name": "WpProductTypeConnection",
+  },
+  Object {
+    "fields": Array [
+      "next",
+      "node",
+      "previous",
+    ],
+    "name": "WpProductTypeEdge",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "field",
+      "fieldValue",
+    ],
+    "name": "WpProductTypeGroupConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpVisibleProductSortInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpVisibleProductFieldsEnum",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "distinct",
+      "group",
+    ],
+    "name": "WpVisibleProductConnection",
+  },
+  Object {
+    "fields": Array [
+      "next",
+      "node",
+      "previous",
+    ],
+    "name": "WpVisibleProductEdge",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "field",
+      "fieldValue",
+    ],
+    "name": "WpVisibleProductGroupConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductCategorySortInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductCategoryFieldsEnum",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "distinct",
+      "group",
+    ],
+    "name": "WpProductCategoryConnection",
+  },
+  Object {
+    "fields": Array [
+      "next",
+      "node",
+      "previous",
+    ],
+    "name": "WpProductCategoryEdge",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "field",
+      "fieldValue",
+    ],
+    "name": "WpProductCategoryGroupConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpPaColorSortInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpPaColorFieldsEnum",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "distinct",
+      "group",
+    ],
+    "name": "WpPaColorConnection",
+  },
+  Object {
+    "fields": Array [
+      "next",
+      "node",
+      "previous",
+    ],
+    "name": "WpPaColorEdge",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "field",
+      "fieldValue",
+    ],
+    "name": "WpPaColorGroupConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductVariationSortInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductVariationFieldsEnum",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "distinct",
+      "group",
+    ],
+    "name": "WpProductVariationConnection",
+  },
+  Object {
+    "fields": Array [
+      "next",
+      "node",
+      "previous",
+    ],
+    "name": "WpProductVariationEdge",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "field",
+      "fieldValue",
+    ],
+    "name": "WpProductVariationGroupConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpVariableProductSortInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpVariableProductFieldsEnum",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "distinct",
+      "group",
+    ],
+    "name": "WpVariableProductConnection",
+  },
+  Object {
+    "fields": Array [
+      "next",
+      "node",
+      "previous",
+    ],
+    "name": "WpVariableProductEdge",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "field",
+      "fieldValue",
+    ],
+    "name": "WpVariableProductGroupConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpPaSizeSortInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpPaSizeFieldsEnum",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "distinct",
+      "group",
+    ],
+    "name": "WpPaSizeConnection",
+  },
+  Object {
+    "fields": Array [
+      "next",
+      "node",
+      "previous",
+    ],
+    "name": "WpPaSizeEdge",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "field",
+      "fieldValue",
+    ],
+    "name": "WpPaSizeGroupConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductTagSortInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductTagFieldsEnum",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "distinct",
+      "group",
+    ],
+    "name": "WpProductTagConnection",
+  },
+  Object {
+    "fields": Array [
+      "next",
+      "node",
+      "previous",
+    ],
+    "name": "WpProductTagEdge",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "field",
+      "fieldValue",
+    ],
+    "name": "WpProductTagGroupConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpShippingClassSortInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpShippingClassFieldsEnum",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "distinct",
+      "group",
+    ],
+    "name": "WpShippingClassConnection",
+  },
+  Object {
+    "fields": Array [
+      "next",
+      "node",
+      "previous",
+    ],
+    "name": "WpShippingClassEdge",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "field",
+      "fieldValue",
+    ],
+    "name": "WpShippingClassGroupConnection",
+  },
+  Object {
+    "fields": null,
     "name": "WpUserRoleSortInput",
   },
   Object {
@@ -2757,6 +4097,1046 @@ Array [
       "fieldValue",
     ],
     "name": "WpUserRoleGroupConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpCouponToContentTypeConnectionEdgeFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpDiscountTypeEnumQueryOperatorInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpDiscountTypeEnum",
+  },
+  Object {
+    "fields": null,
+    "name": "WpCouponToProductCategoryConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpCouponToProductConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpCouponToCustomerConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpCustomerFilterListInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpCustomerFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpCustomerAddressFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpCountriesEnumQueryOperatorInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpCountriesEnum",
+  },
+  Object {
+    "fields": null,
+    "name": "WpCustomerToDownloadableItemConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpDownloadableItemFilterListInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpDownloadableItemFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpOrderFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpOrderToContentTypeConnectionEdgeFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpOrderToCouponLineConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpCouponLineFilterListInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpCouponLineFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpCouponFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpOrderToDownloadableItemConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpOrderToFeeLineConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpFeeLineFilterListInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpFeeLineFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpOrderItemTaxFilterListInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpOrderItemTaxFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpTaxLineFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpTaxRateFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpOrderToLineItemConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpLineItemFilterListInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpLineItemFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpOrderToRefundConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpRefundFilterListInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpRefundFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpRefundToContentTypeConnectionEdgeFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpRefundToLineItemConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpOrderToShippingLineConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpShippingLineFilterListInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpShippingLineFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpShippingMethodFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpOrderStatusEnumQueryOperatorInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpOrderStatusEnum",
+  },
+  Object {
+    "fields": null,
+    "name": "WpOrderToTaxLineConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpTaxLineFilterListInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpCustomerToOrderConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpOrderFilterListInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpCustomerToRefundConnectionFilterInput",
+  },
+  Object {
+    "fields": Array [
+      "amount",
+      "code",
+      "contentType",
+      "couponId",
+      "date",
+      "dateExpiry",
+      "description",
+      "discountType",
+      "emailRestrictions",
+      "excludeSaleItems",
+      "excludedProductCategories",
+      "excludedProducts",
+      "freeShipping",
+      "id",
+      "individualUse",
+      "limitUsageToXItems",
+      "maximumAmount",
+      "metaData",
+      "minimumAmount",
+      "modified",
+      "productCategories",
+      "products",
+      "usageCount",
+      "usageLimit",
+      "usageLimitPerUser",
+      "usedBy",
+      "nodeType",
+      "parent",
+      "children",
+      "internal",
+    ],
+    "name": "WpCoupon",
+  },
+  Object {
+    "fields": Array [
+      "node",
+    ],
+    "name": "WpCouponToContentTypeConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpCouponToProductCategoryConnection",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpCouponToProductConnection",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpCouponToCustomerConnection",
+  },
+  Object {
+    "fields": Array [
+      "billing",
+      "calculatedShipping",
+      "customerId",
+      "date",
+      "displayName",
+      "downloadableItems",
+      "email",
+      "firstName",
+      "hasCalculatedShipping",
+      "id",
+      "isPayingCustomer",
+      "isVatExempt",
+      "lastName",
+      "lastOrder",
+      "metaData",
+      "modified",
+      "orderCount",
+      "orders",
+      "refunds",
+      "role",
+      "shipping",
+      "totalSpent",
+      "username",
+      "nodeType",
+      "parent",
+      "children",
+      "internal",
+    ],
+    "name": "WpCustomer",
+  },
+  Object {
+    "fields": Array [
+      "address1",
+      "address2",
+      "city",
+      "company",
+      "country",
+      "email",
+      "firstName",
+      "lastName",
+      "phone",
+      "postcode",
+      "state",
+    ],
+    "name": "WpCustomerAddress",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpCustomerToDownloadableItemConnection",
+  },
+  Object {
+    "fields": Array [
+      "accessExpires",
+      "download",
+      "downloadId",
+      "downloadsRemaining",
+      "name",
+      "product",
+      "url",
+    ],
+    "name": "WpDownloadableItem",
+  },
+  Object {
+    "fields": Array [
+      "billing",
+      "cartHash",
+      "cartTax",
+      "contentType",
+      "couponLines",
+      "createdVia",
+      "currency",
+      "customer",
+      "customerIpAddress",
+      "customerNote",
+      "customerUserAgent",
+      "date",
+      "dateCompleted",
+      "datePaid",
+      "discountTax",
+      "discountTotal",
+      "downloadableItems",
+      "feeLines",
+      "hasBillingAddress",
+      "hasDownloadableItem",
+      "hasShippingAddress",
+      "id",
+      "isDownloadPermitted",
+      "lineItems",
+      "metaData",
+      "modified",
+      "needsPayment",
+      "needsProcessing",
+      "needsShippingAddress",
+      "orderId",
+      "orderKey",
+      "orderNumber",
+      "orderVersion",
+      "wpParent",
+      "paymentMethod",
+      "paymentMethodTitle",
+      "pricesIncludeTax",
+      "refunds",
+      "shipping",
+      "shippingAddressMapUrl",
+      "shippingLines",
+      "shippingTax",
+      "shippingTotal",
+      "status",
+      "subtotal",
+      "taxLines",
+      "total",
+      "totalTax",
+      "transactionId",
+      "nodeType",
+      "parent",
+      "children",
+      "internal",
+    ],
+    "name": "WpOrder",
+  },
+  Object {
+    "fields": Array [
+      "node",
+    ],
+    "name": "WpOrderToContentTypeConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpOrderToCouponLineConnection",
+  },
+  Object {
+    "fields": Array [
+      "code",
+      "coupon",
+      "discount",
+      "discountTax",
+      "itemId",
+      "metaData",
+      "orderId",
+    ],
+    "name": "WpCouponLine",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpOrderToDownloadableItemConnection",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpOrderToFeeLineConnection",
+  },
+  Object {
+    "fields": Array [
+      "amount",
+      "itemId",
+      "metaData",
+      "name",
+      "orderId",
+      "taxClass",
+      "taxStatus",
+      "taxes",
+      "total",
+      "totalTax",
+    ],
+    "name": "WpFeeLine",
+  },
+  Object {
+    "fields": Array [
+      "amount",
+      "subtotal",
+      "taxLine",
+      "taxLineId",
+      "total",
+    ],
+    "name": "WpOrderItemTax",
+  },
+  Object {
+    "fields": Array [
+      "isCompound",
+      "itemId",
+      "label",
+      "metaData",
+      "orderId",
+      "rateCode",
+      "shippingTaxTotal",
+      "taxRate",
+      "taxTotal",
+    ],
+    "name": "WpTaxLine",
+  },
+  Object {
+    "fields": Array [
+      "city",
+      "class",
+      "compound",
+      "country",
+      "id",
+      "name",
+      "order",
+      "postcode",
+      "priority",
+      "rate",
+      "rateId",
+      "shipping",
+      "state",
+      "nodeType",
+      "parent",
+      "children",
+      "internal",
+    ],
+    "name": "WpTaxRate",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpOrderToLineItemConnection",
+  },
+  Object {
+    "fields": Array [
+      "itemDownloads",
+      "itemId",
+      "metaData",
+      "orderId",
+      "product",
+      "productId",
+      "quantity",
+      "subtotal",
+      "subtotalTax",
+      "taxClass",
+      "taxStatus",
+      "taxes",
+      "total",
+      "totalTax",
+      "variation",
+      "variationId",
+    ],
+    "name": "WpLineItem",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpOrderToRefundConnection",
+  },
+  Object {
+    "fields": Array [
+      "amount",
+      "contentType",
+      "id",
+      "lineItems",
+      "metaData",
+      "reason",
+      "refundId",
+      "refundedBy",
+      "title",
+      "nodeType",
+      "parent",
+      "children",
+      "internal",
+    ],
+    "name": "WpRefund",
+  },
+  Object {
+    "fields": Array [
+      "node",
+    ],
+    "name": "WpRefundToContentTypeConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpRefundToLineItemConnection",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpOrderToShippingLineConnection",
+  },
+  Object {
+    "fields": Array [
+      "itemId",
+      "metaData",
+      "methodTitle",
+      "orderId",
+      "shippingMethod",
+      "taxClass",
+      "taxes",
+      "total",
+      "totalTax",
+    ],
+    "name": "WpShippingLine",
+  },
+  Object {
+    "fields": Array [
+      "description",
+      "id",
+      "methodId",
+      "title",
+      "nodeType",
+      "parent",
+      "children",
+      "internal",
+    ],
+    "name": "WpShippingMethod",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpOrderToTaxLineConnection",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpCustomerToOrderConnection",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpCustomerToRefundConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpCouponSortInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpCouponFieldsEnum",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "distinct",
+      "group",
+    ],
+    "name": "WpCouponConnection",
+  },
+  Object {
+    "fields": Array [
+      "next",
+      "node",
+      "previous",
+    ],
+    "name": "WpCouponEdge",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "field",
+      "fieldValue",
+    ],
+    "name": "WpCouponGroupConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpCustomerSortInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpCustomerFieldsEnum",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "distinct",
+      "group",
+    ],
+    "name": "WpCustomerConnection",
+  },
+  Object {
+    "fields": Array [
+      "next",
+      "node",
+      "previous",
+    ],
+    "name": "WpCustomerEdge",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "field",
+      "fieldValue",
+    ],
+    "name": "WpCustomerGroupConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpOrderSortInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpOrderFieldsEnum",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "distinct",
+      "group",
+    ],
+    "name": "WpOrderConnection",
+  },
+  Object {
+    "fields": Array [
+      "next",
+      "node",
+      "previous",
+    ],
+    "name": "WpOrderEdge",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "field",
+      "fieldValue",
+    ],
+    "name": "WpOrderGroupConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpTaxRateSortInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpTaxRateFieldsEnum",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "distinct",
+      "group",
+    ],
+    "name": "WpTaxRateConnection",
+  },
+  Object {
+    "fields": Array [
+      "next",
+      "node",
+      "previous",
+    ],
+    "name": "WpTaxRateEdge",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "field",
+      "fieldValue",
+    ],
+    "name": "WpTaxRateGroupConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpRefundSortInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpRefundFieldsEnum",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "distinct",
+      "group",
+    ],
+    "name": "WpRefundConnection",
+  },
+  Object {
+    "fields": Array [
+      "next",
+      "node",
+      "previous",
+    ],
+    "name": "WpRefundEdge",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "field",
+      "fieldValue",
+    ],
+    "name": "WpRefundGroupConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpShippingMethodSortInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpShippingMethodFieldsEnum",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "distinct",
+      "group",
+    ],
+    "name": "WpShippingMethodConnection",
+  },
+  Object {
+    "fields": Array [
+      "next",
+      "node",
+      "previous",
+    ],
+    "name": "WpShippingMethodEdge",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "field",
+      "fieldValue",
+    ],
+    "name": "WpShippingMethodGroupConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpExternalProductToVariationAttributeConnectionFilterInput",
+  },
+  Object {
+    "fields": Array [
+      "attributes",
+      "averageRating",
+      "buttonText",
+      "catalogVisibility",
+      "contentType",
+      "date",
+      "dateOnSaleFrom",
+      "dateOnSaleTo",
+      "defaultAttributes",
+      "description",
+      "externalUrl",
+      "featured",
+      "galleryImages",
+      "globalAttributes",
+      "id",
+      "image",
+      "link",
+      "localAttributes",
+      "menuOrder",
+      "metaData",
+      "modified",
+      "name",
+      "onSale",
+      "paColors",
+      "paSizes",
+      "wpParent",
+      "price",
+      "productCategories",
+      "productId",
+      "productTags",
+      "productTypes",
+      "purchasable",
+      "purchaseNote",
+      "regularPrice",
+      "related",
+      "reviewCount",
+      "reviews",
+      "reviewsAllowed",
+      "salePrice",
+      "seo",
+      "shippingClasses",
+      "shortDescription",
+      "sku",
+      "slug",
+      "status",
+      "taxClass",
+      "taxStatus",
+      "totalSales",
+      "type",
+      "upsell",
+      "visibleProducts",
+      "nodeType",
+      "parent",
+      "children",
+      "internal",
+    ],
+    "name": "WpExternalProduct",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpExternalProductToVariationAttributeConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpExternalProductFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpExternalProductSortInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpExternalProductFieldsEnum",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "distinct",
+      "group",
+    ],
+    "name": "WpExternalProductConnection",
+  },
+  Object {
+    "fields": Array [
+      "next",
+      "node",
+      "previous",
+    ],
+    "name": "WpExternalProductEdge",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "field",
+      "fieldValue",
+    ],
+    "name": "WpExternalProductGroupConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpGroupProductToVariationAttributeConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpGroupProductToProductConnectionFilterInput",
+  },
+  Object {
+    "fields": Array [
+      "addToCartDescription",
+      "addToCartText",
+      "attributes",
+      "averageRating",
+      "catalogVisibility",
+      "contentType",
+      "date",
+      "dateOnSaleFrom",
+      "dateOnSaleTo",
+      "defaultAttributes",
+      "description",
+      "featured",
+      "galleryImages",
+      "globalAttributes",
+      "id",
+      "image",
+      "link",
+      "localAttributes",
+      "menuOrder",
+      "metaData",
+      "modified",
+      "name",
+      "onSale",
+      "paColors",
+      "paSizes",
+      "wpParent",
+      "productCategories",
+      "productId",
+      "productTags",
+      "productTypes",
+      "products",
+      "purchasable",
+      "purchaseNote",
+      "related",
+      "reviewCount",
+      "reviews",
+      "reviewsAllowed",
+      "seo",
+      "shippingClasses",
+      "shortDescription",
+      "sku",
+      "slug",
+      "status",
+      "totalSales",
+      "type",
+      "upsell",
+      "visibleProducts",
+      "nodeType",
+      "parent",
+      "children",
+      "internal",
+    ],
+    "name": "WpGroupProduct",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpGroupProductToVariationAttributeConnection",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpGroupProductToProductConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpGroupProductFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpGroupProductSortInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpGroupProductFieldsEnum",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "distinct",
+      "group",
+    ],
+    "name": "WpGroupProductConnection",
+  },
+  Object {
+    "fields": Array [
+      "next",
+      "node",
+      "previous",
+    ],
+    "name": "WpGroupProductEdge",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "field",
+      "fieldValue",
+    ],
+    "name": "WpGroupProductGroupConnection",
   },
   Object {
     "fields": null,
@@ -2942,7 +5322,194 @@ Array [
   },
   Object {
     "fields": null,
+    "name": "WpSimpleProductToProductConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpSimpleProductToVariationAttributeConnectionFilterInput",
+  },
+  Object {
+    "fields": Array [
+      "attributes",
+      "averageRating",
+      "backorders",
+      "backordersAllowed",
+      "catalogVisibility",
+      "contentType",
+      "crossSell",
+      "date",
+      "dateOnSaleFrom",
+      "dateOnSaleTo",
+      "defaultAttributes",
+      "description",
+      "downloadExpiry",
+      "downloadLimit",
+      "downloadable",
+      "downloads",
+      "featured",
+      "galleryImages",
+      "globalAttributes",
+      "height",
+      "id",
+      "image",
+      "length",
+      "link",
+      "localAttributes",
+      "manageStock",
+      "menuOrder",
+      "metaData",
+      "modified",
+      "name",
+      "onSale",
+      "paColors",
+      "paSizes",
+      "wpParent",
+      "price",
+      "productCategories",
+      "productId",
+      "productTags",
+      "productTypes",
+      "purchasable",
+      "purchaseNote",
+      "regularPrice",
+      "related",
+      "reviewCount",
+      "reviews",
+      "reviewsAllowed",
+      "salePrice",
+      "seo",
+      "shippingClassId",
+      "shippingClasses",
+      "shippingRequired",
+      "shippingTaxable",
+      "shortDescription",
+      "sku",
+      "slug",
+      "soldIndividually",
+      "status",
+      "stockQuantity",
+      "stockStatus",
+      "taxClass",
+      "taxStatus",
+      "totalSales",
+      "type",
+      "upsell",
+      "virtual",
+      "visibleProducts",
+      "weight",
+      "width",
+      "nodeType",
+      "parent",
+      "children",
+      "internal",
+    ],
+    "name": "WpSimpleProduct",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpSimpleProductToProductConnection",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpSimpleProductToVariationAttributeConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpSimpleProductFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpSimpleProductSortInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpSimpleProductFieldsEnum",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "distinct",
+      "group",
+    ],
+    "name": "WpSimpleProductConnection",
+  },
+  Object {
+    "fields": Array [
+      "next",
+      "node",
+      "previous",
+    ],
+    "name": "WpSimpleProductEdge",
+  },
+  Object {
+    "fields": Array [
+      "totalCount",
+      "edges",
+      "nodes",
+      "pageInfo",
+      "field",
+      "fieldValue",
+    ],
+    "name": "WpSimpleProductGroupConnection",
+  },
+  Object {
+    "fields": null,
     "name": "WpSettingsFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpCartFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpCartToCouponConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpCouponFilterListInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpShippingPackageFilterListInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpShippingPackageFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpShippingRateFilterListInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpShippingRateFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpCartToCartItemConnectionFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpCartItemFilterListInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpCartItemFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpCartFeeFilterListInput",
+  },
+  Object {
+    "fields": null,
+    "name": "WpCartFeeFilterInput",
   },
   Object {
     "fields": null,
@@ -3043,6 +5610,7 @@ Array [
   Object {
     "fields": Array [
       "allSettings",
+      "cart",
       "defaultLanguage",
       "discussionSettings",
       "generalSettings",
@@ -3077,6 +5645,88 @@ Array [
       "writingSettingsUseSmilies",
     ],
     "name": "WpSettings",
+  },
+  Object {
+    "fields": Array [
+      "appliedCoupons",
+      "availableShippingMethods",
+      "chosenShippingMethod",
+      "contents",
+      "contentsTax",
+      "contentsTotal",
+      "discountTax",
+      "discountTotal",
+      "displayPricesIncludeTax",
+      "feeTax",
+      "feeTotal",
+      "fees",
+      "isEmpty",
+      "needsShippingAddress",
+      "shippingTax",
+      "shippingTotal",
+      "subtotal",
+      "subtotalTax",
+      "total",
+      "totalTax",
+    ],
+    "name": "WpCart",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpCartToCouponConnection",
+  },
+  Object {
+    "fields": Array [
+      "packageDetails",
+      "rates",
+      "supportsShippingCalculator",
+    ],
+    "name": "WpShippingPackage",
+  },
+  Object {
+    "fields": Array [
+      "cost",
+      "id",
+      "instanceId",
+      "label",
+      "methodId",
+    ],
+    "name": "WpShippingRate",
+  },
+  Object {
+    "fields": Array [
+      "itemCount",
+      "nodes",
+      "productCount",
+    ],
+    "name": "WpCartToCartItemConnection",
+  },
+  Object {
+    "fields": Array [
+      "extraData",
+      "key",
+      "product",
+      "quantity",
+      "subtotal",
+      "subtotalTax",
+      "tax",
+      "total",
+      "variation",
+    ],
+    "name": "WpCartItem",
+  },
+  Object {
+    "fields": Array [
+      "amount",
+      "id",
+      "name",
+      "taxClass",
+      "taxable",
+      "total",
+    ],
+    "name": "WpCartFee",
   },
   Object {
     "fields": Array [
@@ -3303,6 +5953,19 @@ Array [
       "node",
     ],
     "name": "WpNodeWithRevisionsToContentNodeConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductAttributeTypesEnum",
+  },
+  Object {
+    "fields": Array [
+      "description",
+      "icon",
+      "id",
+      "title",
+    ],
+    "name": "WpPaymentGateway",
   },
   Object {
     "fields": Array [
@@ -6848,7 +9511,7 @@ Array [
 ]
 `;
 
-exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the local Gatsby schema 2`] = `"2c43c642a9c71a88a72c6dc93c1da83e"`;
+exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the local Gatsby schema 2`] = `"5d7b60c487fa8134f4e6b8785fb38dcf"`;
 
 exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the remote WPGraphQL schema 1`] = `
 Array [
@@ -6861,6 +9524,9 @@ Array [
       "allSettings",
       "blockEditorContentNodes",
       "blockEditorPreviews",
+      "cart",
+      "cartFee",
+      "cartItem",
       "categories",
       "category",
       "comment",
@@ -6869,9 +9535,15 @@ Array [
       "contentNodes",
       "contentType",
       "contentTypes",
+      "coupon",
+      "coupons",
+      "customer",
+      "customers",
       "defaultLanguage",
       "discussionSettings",
+      "externalProduct",
       "generalSettings",
+      "groupProduct",
       "isWpGatsby",
       "languages",
       "mediaItem",
@@ -6882,25 +9554,50 @@ Array [
       "menus",
       "node",
       "nodeByUri",
+      "order",
+      "orders",
+      "paColor",
+      "paColors",
+      "paSize",
+      "paSizes",
       "page",
       "pages",
+      "paymentGateways",
       "plugin",
       "plugins",
       "post",
       "postFormat",
       "postFormats",
       "posts",
+      "product",
+      "productCategories",
+      "productCategory",
+      "productTag",
+      "productTags",
+      "productType",
+      "productTypes",
+      "productVariation",
+      "products",
       "project",
       "projects",
       "readingSettings",
+      "refund",
+      "refunds",
       "registeredScripts",
       "registeredStylesheets",
       "reusableBlocks",
       "revisions",
       "schemaMd5",
       "seo",
+      "shippingClass",
+      "shippingClasses",
+      "shippingMethod",
+      "shippingMethods",
+      "simpleProduct",
       "tag",
       "tags",
+      "taxRate",
+      "taxRates",
       "taxonomies",
       "taxonomy",
       "teamMember",
@@ -6920,7 +9617,10 @@ Array [
       "userRole",
       "userRoles",
       "users",
+      "variableProduct",
       "viewer",
+      "visibleProduct",
+      "visibleProducts",
       "wpGatsbyCompatibility",
       "writingSettings",
     ],
@@ -9087,6 +11787,1034 @@ Array [
     "name": "TermObjectUnion",
   },
   Object {
+    "fields": Array [
+      "count",
+      "databaseId",
+      "description",
+      "enqueuedScripts",
+      "enqueuedStylesheets",
+      "id",
+      "isRestricted",
+      "link",
+      "name",
+      "seo",
+      "slug",
+      "taxonomy",
+      "termGroupId",
+      "termTaxonomyId",
+      "uri",
+    ],
+    "name": "ProductType",
+  },
+  Object {
+    "fields": Array [
+      "node",
+    ],
+    "name": "ProductTypeToTaxonomyConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "count",
+      "databaseId",
+      "description",
+      "enqueuedScripts",
+      "enqueuedStylesheets",
+      "id",
+      "isRestricted",
+      "link",
+      "name",
+      "seo",
+      "slug",
+      "taxonomy",
+      "termGroupId",
+      "termTaxonomyId",
+      "uri",
+    ],
+    "name": "VisibleProduct",
+  },
+  Object {
+    "fields": Array [
+      "node",
+    ],
+    "name": "VisibleProductToTaxonomyConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "ancestors",
+      "children",
+      "count",
+      "databaseId",
+      "description",
+      "enqueuedScripts",
+      "enqueuedStylesheets",
+      "id",
+      "image",
+      "isRestricted",
+      "link",
+      "name",
+      "parent",
+      "parentDatabaseId",
+      "parentId",
+      "products",
+      "seo",
+      "slug",
+      "taxonomy",
+      "termGroupId",
+      "termTaxonomyId",
+      "uri",
+    ],
+    "name": "ProductCategory",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "ProductCategoryToAncestorsProductCategoryConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "ProductCategoryToAncestorsProductCategoryConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "ProductCategoryToProductCategoryConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "ProductCategoryToProductCategoryConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "ProductCategoryToProductCategoryConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "node",
+    ],
+    "name": "ProductCategoryToParentProductCategoryConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "ProductCategoryToProductConnectionWhereArgs",
+  },
+  Object {
+    "fields": null,
+    "name": "ProductsOrderbyInput",
+  },
+  Object {
+    "fields": null,
+    "name": "ProductsOrderByEnum",
+  },
+  Object {
+    "fields": null,
+    "name": "StockStatusEnum",
+  },
+  Object {
+    "fields": null,
+    "name": "ProductTaxonomyFilterRelationInput",
+  },
+  Object {
+    "fields": null,
+    "name": "ProductTaxonomyFilterInput",
+  },
+  Object {
+    "fields": null,
+    "name": "TaxonomyOperatorEnum",
+  },
+  Object {
+    "fields": null,
+    "name": "ProductTaxonomyEnum",
+  },
+  Object {
+    "fields": null,
+    "name": "ProductTypesEnum",
+  },
+  Object {
+    "fields": null,
+    "name": "CatalogVisibilityEnum",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "ProductCategoryToProductConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "ProductCategoryToProductConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "attributes",
+      "averageRating",
+      "catalogVisibility",
+      "contentType",
+      "date",
+      "dateOnSaleFrom",
+      "dateOnSaleTo",
+      "description",
+      "featured",
+      "galleryImages",
+      "globalAttributes",
+      "id",
+      "image",
+      "link",
+      "localAttributes",
+      "menuOrder",
+      "modified",
+      "name",
+      "onSale",
+      "paColors",
+      "paSizes",
+      "parent",
+      "productCategories",
+      "productId",
+      "productTags",
+      "productTypes",
+      "purchasable",
+      "purchaseNote",
+      "related",
+      "reviewCount",
+      "reviews",
+      "reviewsAllowed",
+      "seo",
+      "shippingClasses",
+      "shortDescription",
+      "sku",
+      "slug",
+      "status",
+      "totalSales",
+      "type",
+      "upsell",
+      "visibleProducts",
+    ],
+    "name": "Product",
+  },
+  Object {
+    "fields": null,
+    "name": "ProductToProductAttributeConnectionWhereArgs",
+  },
+  Object {
+    "fields": null,
+    "name": "ProductAttributeTypesEnum",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "ProductToProductAttributeConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "ProductToProductAttributeConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "attributeId",
+      "id",
+      "name",
+      "options",
+      "position",
+      "scope",
+      "variation",
+      "visible",
+    ],
+    "name": "ProductAttribute",
+  },
+  Object {
+    "fields": Array [
+      "node",
+    ],
+    "name": "ProductToContentTypeConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "ProductToMediaItemConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "ProductToMediaItemConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "ProductToMediaItemConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "ProductToGlobalProductAttributeConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "ProductToGlobalProductAttributeConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "ProductToGlobalProductAttributeConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "attributeId",
+      "id",
+      "name",
+      "options",
+      "position",
+      "scope",
+      "terms",
+      "variation",
+      "visible",
+    ],
+    "name": "GlobalProductAttribute",
+  },
+  Object {
+    "fields": null,
+    "name": "GlobalProductAttributeToTermNodeConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "GlobalProductAttributeToTermNodeConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "GlobalProductAttributeToTermNodeConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "ProductToLocalProductAttributeConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "ProductToLocalProductAttributeConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "ProductToLocalProductAttributeConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "attributeId",
+      "id",
+      "name",
+      "options",
+      "position",
+      "scope",
+      "variation",
+      "visible",
+    ],
+    "name": "LocalProductAttribute",
+  },
+  Object {
+    "fields": null,
+    "name": "ProductToPaColorConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "ProductToPaColorConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "ProductToPaColorConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "count",
+      "databaseId",
+      "description",
+      "enqueuedScripts",
+      "enqueuedStylesheets",
+      "id",
+      "isRestricted",
+      "link",
+      "name",
+      "products",
+      "seo",
+      "slug",
+      "taxonomy",
+      "termGroupId",
+      "termTaxonomyId",
+      "uri",
+      "variations",
+    ],
+    "name": "PaColor",
+  },
+  Object {
+    "fields": null,
+    "name": "PaColorToProductConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "PaColorToProductConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "PaColorToProductConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "node",
+    ],
+    "name": "PaColorToTaxonomyConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "PaColorToProductVariationConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "PaColorToProductVariationConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "PaColorToProductVariationConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "attributes",
+      "backorders",
+      "backordersAllowed",
+      "catalogVisibility",
+      "contentType",
+      "date",
+      "dateOnSaleFrom",
+      "dateOnSaleTo",
+      "description",
+      "downloadExpiry",
+      "downloadLimit",
+      "downloadable",
+      "downloads",
+      "hasAttributes",
+      "height",
+      "id",
+      "image",
+      "length",
+      "manageStock",
+      "menuOrder",
+      "metaData",
+      "modified",
+      "name",
+      "onSale",
+      "parent",
+      "price",
+      "purchasable",
+      "purchaseNote",
+      "regularPrice",
+      "salePrice",
+      "shippingClass",
+      "shippingClasses",
+      "sku",
+      "status",
+      "stockQuantity",
+      "stockStatus",
+      "taxClass",
+      "taxStatus",
+      "type",
+      "variationId",
+      "virtual",
+      "visibleProducts",
+      "weight",
+      "width",
+    ],
+    "name": "ProductVariation",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "ProductVariationToVariationAttributeConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "ProductVariationToVariationAttributeConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "attributeId",
+      "id",
+      "name",
+      "value",
+    ],
+    "name": "VariationAttribute",
+  },
+  Object {
+    "fields": null,
+    "name": "BackordersEnum",
+  },
+  Object {
+    "fields": Array [
+      "node",
+    ],
+    "name": "ProductVariationToContentTypeConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "allowedFileType",
+      "downloadId",
+      "file",
+      "fileExists",
+      "fileExt",
+      "filePathType",
+      "fileType",
+      "name",
+    ],
+    "name": "ProductDownload",
+  },
+  Object {
+    "fields": null,
+    "name": "ManageStockEnum",
+  },
+  Object {
+    "fields": Array [
+      "id",
+      "key",
+      "value",
+    ],
+    "name": "MetaData",
+  },
+  Object {
+    "fields": Array [
+      "attributes",
+      "averageRating",
+      "backorders",
+      "backordersAllowed",
+      "catalogVisibility",
+      "contentType",
+      "crossSell",
+      "date",
+      "dateOnSaleFrom",
+      "dateOnSaleTo",
+      "defaultAttributes",
+      "description",
+      "featured",
+      "galleryImages",
+      "globalAttributes",
+      "height",
+      "id",
+      "image",
+      "length",
+      "link",
+      "localAttributes",
+      "manageStock",
+      "menuOrder",
+      "metaData",
+      "modified",
+      "name",
+      "onSale",
+      "paColors",
+      "paSizes",
+      "parent",
+      "price",
+      "productCategories",
+      "productId",
+      "productTags",
+      "productTypes",
+      "purchasable",
+      "purchaseNote",
+      "regularPrice",
+      "related",
+      "reviewCount",
+      "reviews",
+      "reviewsAllowed",
+      "salePrice",
+      "seo",
+      "shippingClassId",
+      "shippingClasses",
+      "shippingRequired",
+      "shippingTaxable",
+      "shortDescription",
+      "sku",
+      "slug",
+      "soldIndividually",
+      "status",
+      "stockQuantity",
+      "taxClass",
+      "taxStatus",
+      "totalSales",
+      "type",
+      "upsell",
+      "variations",
+      "visibleProducts",
+      "weight",
+      "width",
+    ],
+    "name": "VariableProduct",
+  },
+  Object {
+    "fields": null,
+    "name": "VariableProductToProductConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "VariableProductToProductConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "VariableProductToProductConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "VariableProductToVariationAttributeConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "VariableProductToVariationAttributeConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "ProductToPaSizeConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "ProductToPaSizeConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "ProductToPaSizeConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "count",
+      "databaseId",
+      "description",
+      "enqueuedScripts",
+      "enqueuedStylesheets",
+      "id",
+      "isRestricted",
+      "link",
+      "name",
+      "products",
+      "seo",
+      "slug",
+      "taxonomy",
+      "termGroupId",
+      "termTaxonomyId",
+      "uri",
+      "variations",
+    ],
+    "name": "PaSize",
+  },
+  Object {
+    "fields": null,
+    "name": "PaSizeToProductConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "PaSizeToProductConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "PaSizeToProductConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "node",
+    ],
+    "name": "PaSizeToTaxonomyConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "PaSizeToProductVariationConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "PaSizeToProductVariationConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "PaSizeToProductVariationConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "PricingFieldFormatEnum",
+  },
+  Object {
+    "fields": null,
+    "name": "ProductToProductCategoryConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "ProductToProductCategoryConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "ProductToProductCategoryConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "ProductToProductTagConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "ProductToProductTagConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "ProductToProductTagConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "count",
+      "databaseId",
+      "description",
+      "enqueuedScripts",
+      "enqueuedStylesheets",
+      "id",
+      "isRestricted",
+      "link",
+      "name",
+      "products",
+      "seo",
+      "slug",
+      "taxonomy",
+      "termGroupId",
+      "termTaxonomyId",
+      "uri",
+    ],
+    "name": "ProductTag",
+  },
+  Object {
+    "fields": null,
+    "name": "ProductTagToProductConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "ProductTagToProductConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "ProductTagToProductConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "node",
+    ],
+    "name": "ProductTagToTaxonomyConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "ProductToProductTypeConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "ProductToProductTypeConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "ProductToProductTypeConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "ProductToProductConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "ProductToProductConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "ProductToProductConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "ProductToCommentConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "averageRating",
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "ProductToCommentConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+      "rating",
+    ],
+    "name": "ProductToCommentConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "ProductToShippingClassConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "ProductToShippingClassConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "ProductToShippingClassConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "count",
+      "databaseId",
+      "description",
+      "enqueuedScripts",
+      "enqueuedStylesheets",
+      "id",
+      "isRestricted",
+      "link",
+      "name",
+      "seo",
+      "slug",
+      "taxonomy",
+      "termGroupId",
+      "termTaxonomyId",
+      "uri",
+    ],
+    "name": "ShippingClass",
+  },
+  Object {
+    "fields": Array [
+      "node",
+    ],
+    "name": "ShippingClassToTaxonomyConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "TaxClassEnum",
+  },
+  Object {
+    "fields": null,
+    "name": "TaxStatusEnum",
+  },
+  Object {
+    "fields": null,
+    "name": "VariableProductToProductVariationConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "VariableProductToProductVariationConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "VariableProductToProductVariationConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "ProductToVisibleProductConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "ProductToVisibleProductConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "ProductToVisibleProductConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "ProductVariationToShippingClassConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "ProductVariationToShippingClassConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "ProductVariationToShippingClassConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "ProductVariationToVisibleProductConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "ProductVariationToVisibleProductConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "ProductVariationToVisibleProductConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "node",
+    ],
+    "name": "ProductCategoryToTaxonomyConnectionEdge",
+  },
+  Object {
     "fields": null,
     "name": "PageToCommentConnectionWhereArgs",
   },
@@ -9420,6 +13148,678 @@ Array [
     "name": "RootQueryToBlockEditorPreviewConnectionEdge",
   },
   Object {
+    "fields": Array [
+      "appliedCoupons",
+      "availableShippingMethods",
+      "chosenShippingMethod",
+      "contents",
+      "contentsTax",
+      "contentsTotal",
+      "discountTax",
+      "discountTotal",
+      "displayPricesIncludeTax",
+      "feeTax",
+      "feeTotal",
+      "fees",
+      "isEmpty",
+      "needsShippingAddress",
+      "shippingTax",
+      "shippingTotal",
+      "subtotal",
+      "subtotalTax",
+      "total",
+      "totalTax",
+    ],
+    "name": "Cart",
+  },
+  Object {
+    "fields": null,
+    "name": "CartToCouponConnectionWhereArgs",
+  },
+  Object {
+    "fields": null,
+    "name": "PostTypeOrderbyInput",
+  },
+  Object {
+    "fields": null,
+    "name": "PostTypeOrderByEnum",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "CartToCouponConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "CartToCouponConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "amount",
+      "code",
+      "contentType",
+      "couponId",
+      "date",
+      "dateExpiry",
+      "description",
+      "discountType",
+      "emailRestrictions",
+      "excludeSaleItems",
+      "excludedProductCategories",
+      "excludedProducts",
+      "freeShipping",
+      "id",
+      "individualUse",
+      "limitUsageToXItems",
+      "maximumAmount",
+      "metaData",
+      "minimumAmount",
+      "modified",
+      "productCategories",
+      "products",
+      "usageCount",
+      "usageLimit",
+      "usageLimitPerUser",
+      "usedBy",
+    ],
+    "name": "Coupon",
+  },
+  Object {
+    "fields": Array [
+      "node",
+    ],
+    "name": "CouponToContentTypeConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "DiscountTypeEnum",
+  },
+  Object {
+    "fields": null,
+    "name": "CouponToProductCategoryConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "CouponToProductCategoryConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "CouponToProductCategoryConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "CouponToProductConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "CouponToProductConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "CouponToProductConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "CouponToCustomerConnectionWhereArgs",
+  },
+  Object {
+    "fields": null,
+    "name": "CustomerConnectionOrderbyEnum",
+  },
+  Object {
+    "fields": null,
+    "name": "UserRoleEnum",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "CouponToCustomerConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "CouponToCustomerConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "billing",
+      "calculatedShipping",
+      "customerId",
+      "date",
+      "displayName",
+      "downloadableItems",
+      "email",
+      "firstName",
+      "hasCalculatedShipping",
+      "id",
+      "isPayingCustomer",
+      "isVatExempt",
+      "lastName",
+      "lastOrder",
+      "metaData",
+      "modified",
+      "orderCount",
+      "orders",
+      "refunds",
+      "role",
+      "shipping",
+      "totalSpent",
+      "username",
+    ],
+    "name": "Customer",
+  },
+  Object {
+    "fields": Array [
+      "address1",
+      "address2",
+      "city",
+      "company",
+      "country",
+      "email",
+      "firstName",
+      "lastName",
+      "phone",
+      "postcode",
+      "state",
+    ],
+    "name": "CustomerAddress",
+  },
+  Object {
+    "fields": null,
+    "name": "CountriesEnum",
+  },
+  Object {
+    "fields": null,
+    "name": "CustomerToDownloadableItemConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "CustomerToDownloadableItemConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "CustomerToDownloadableItemConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "accessExpires",
+      "download",
+      "downloadId",
+      "downloadsRemaining",
+      "name",
+      "product",
+      "url",
+    ],
+    "name": "DownloadableItem",
+  },
+  Object {
+    "fields": Array [
+      "billing",
+      "cartHash",
+      "cartTax",
+      "contentType",
+      "couponLines",
+      "createdVia",
+      "currency",
+      "customer",
+      "customerIpAddress",
+      "customerNote",
+      "customerUserAgent",
+      "date",
+      "dateCompleted",
+      "datePaid",
+      "discountTax",
+      "discountTotal",
+      "downloadableItems",
+      "feeLines",
+      "hasBillingAddress",
+      "hasDownloadableItem",
+      "hasShippingAddress",
+      "id",
+      "isDownloadPermitted",
+      "lineItems",
+      "metaData",
+      "modified",
+      "needsPayment",
+      "needsProcessing",
+      "needsShippingAddress",
+      "orderId",
+      "orderKey",
+      "orderNumber",
+      "orderVersion",
+      "parent",
+      "paymentMethod",
+      "paymentMethodTitle",
+      "pricesIncludeTax",
+      "refunds",
+      "shipping",
+      "shippingAddressMapUrl",
+      "shippingLines",
+      "shippingTax",
+      "shippingTotal",
+      "status",
+      "subtotal",
+      "taxLines",
+      "total",
+      "totalTax",
+      "transactionId",
+    ],
+    "name": "Order",
+  },
+  Object {
+    "fields": Array [
+      "node",
+    ],
+    "name": "OrderToContentTypeConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "OrderToCouponLineConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "OrderToCouponLineConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "code",
+      "coupon",
+      "discount",
+      "discountTax",
+      "itemId",
+      "metaData",
+      "orderId",
+    ],
+    "name": "CouponLine",
+  },
+  Object {
+    "fields": null,
+    "name": "OrderToDownloadableItemConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "OrderToDownloadableItemConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "OrderToDownloadableItemConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "OrderToFeeLineConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "OrderToFeeLineConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "amount",
+      "itemId",
+      "metaData",
+      "name",
+      "orderId",
+      "taxClass",
+      "taxStatus",
+      "taxes",
+      "total",
+      "totalTax",
+    ],
+    "name": "FeeLine",
+  },
+  Object {
+    "fields": Array [
+      "amount",
+      "subtotal",
+      "taxLine",
+      "taxLineId",
+      "total",
+    ],
+    "name": "OrderItemTax",
+  },
+  Object {
+    "fields": Array [
+      "isCompound",
+      "itemId",
+      "label",
+      "metaData",
+      "orderId",
+      "rateCode",
+      "shippingTaxTotal",
+      "taxRate",
+      "taxTotal",
+    ],
+    "name": "TaxLine",
+  },
+  Object {
+    "fields": Array [
+      "city",
+      "class",
+      "compound",
+      "country",
+      "id",
+      "name",
+      "order",
+      "postcode",
+      "priority",
+      "rate",
+      "rateId",
+      "shipping",
+      "state",
+    ],
+    "name": "TaxRate",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "OrderToLineItemConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "OrderToLineItemConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "itemDownloads",
+      "itemId",
+      "metaData",
+      "orderId",
+      "product",
+      "productId",
+      "quantity",
+      "subtotal",
+      "subtotalTax",
+      "taxClass",
+      "taxStatus",
+      "taxes",
+      "total",
+      "totalTax",
+      "variation",
+      "variationId",
+    ],
+    "name": "LineItem",
+  },
+  Object {
+    "fields": null,
+    "name": "OrderToRefundConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "OrderToRefundConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "OrderToRefundConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "amount",
+      "contentType",
+      "id",
+      "lineItems",
+      "metaData",
+      "reason",
+      "refundId",
+      "refundedBy",
+      "title",
+    ],
+    "name": "Refund",
+  },
+  Object {
+    "fields": Array [
+      "node",
+    ],
+    "name": "RefundToContentTypeConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "RefundToLineItemConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "RefundToLineItemConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "OrderToShippingLineConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "OrderToShippingLineConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "itemId",
+      "metaData",
+      "methodTitle",
+      "orderId",
+      "shippingMethod",
+      "taxClass",
+      "taxes",
+      "total",
+      "totalTax",
+    ],
+    "name": "ShippingLine",
+  },
+  Object {
+    "fields": Array [
+      "description",
+      "id",
+      "methodId",
+      "title",
+    ],
+    "name": "ShippingMethod",
+  },
+  Object {
+    "fields": null,
+    "name": "OrderStatusEnum",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "OrderToTaxLineConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "OrderToTaxLineConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "CustomerToOrderConnectionWhereArgs",
+  },
+  Object {
+    "fields": null,
+    "name": "OrdersOrderbyInput",
+  },
+  Object {
+    "fields": null,
+    "name": "OrdersOrderByEnum",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "CustomerToOrderConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "CustomerToOrderConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "CustomerToRefundConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "CustomerToRefundConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "CustomerToRefundConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "packageDetails",
+      "rates",
+      "supportsShippingCalculator",
+    ],
+    "name": "ShippingPackage",
+  },
+  Object {
+    "fields": Array [
+      "cost",
+      "id",
+      "instanceId",
+      "label",
+      "methodId",
+    ],
+    "name": "ShippingRate",
+  },
+  Object {
+    "fields": null,
+    "name": "CartToCartItemConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "itemCount",
+      "nodes",
+      "pageInfo",
+      "productCount",
+    ],
+    "name": "CartToCartItemConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "CartToCartItemConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "extraData",
+      "key",
+      "product",
+      "quantity",
+      "subtotal",
+      "subtotalTax",
+      "tax",
+      "total",
+      "variation",
+    ],
+    "name": "CartItem",
+  },
+  Object {
+    "fields": Array [
+      "amount",
+      "id",
+      "name",
+      "taxClass",
+      "taxable",
+      "total",
+    ],
+    "name": "CartFee",
+  },
+  Object {
     "fields": null,
     "name": "RootQueryToCategoryConnectionWhereArgs",
   },
@@ -9508,11 +13908,128 @@ Array [
     "name": "RootQueryToContentTypeConnectionEdge",
   },
   Object {
+    "fields": null,
+    "name": "CouponIdTypeEnum",
+  },
+  Object {
+    "fields": null,
+    "name": "RootQueryToCouponConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "RootQueryToCouponConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "RootQueryToCouponConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "RootQueryToCustomerConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "RootQueryToCustomerConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "RootQueryToCustomerConnectionEdge",
+  },
+  Object {
     "fields": Array [
       "defaultCommentStatus",
       "defaultPingStatus",
     ],
     "name": "DiscussionSettings",
+  },
+  Object {
+    "fields": null,
+    "name": "ProductIdTypeEnum",
+  },
+  Object {
+    "fields": Array [
+      "attributes",
+      "averageRating",
+      "buttonText",
+      "catalogVisibility",
+      "contentType",
+      "date",
+      "dateOnSaleFrom",
+      "dateOnSaleTo",
+      "defaultAttributes",
+      "description",
+      "externalUrl",
+      "featured",
+      "galleryImages",
+      "globalAttributes",
+      "id",
+      "image",
+      "link",
+      "localAttributes",
+      "menuOrder",
+      "metaData",
+      "modified",
+      "name",
+      "onSale",
+      "paColors",
+      "paSizes",
+      "parent",
+      "price",
+      "productCategories",
+      "productId",
+      "productTags",
+      "productTypes",
+      "purchasable",
+      "purchaseNote",
+      "regularPrice",
+      "related",
+      "reviewCount",
+      "reviews",
+      "reviewsAllowed",
+      "salePrice",
+      "seo",
+      "shippingClasses",
+      "shortDescription",
+      "sku",
+      "slug",
+      "status",
+      "taxClass",
+      "taxStatus",
+      "totalSales",
+      "type",
+      "upsell",
+      "visibleProducts",
+    ],
+    "name": "ExternalProduct",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "ExternalProductToVariationAttributeConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "ExternalProductToVariationAttributeConnectionEdge",
   },
   Object {
     "fields": Array [
@@ -9527,6 +14044,92 @@ Array [
       "url",
     ],
     "name": "GeneralSettings",
+  },
+  Object {
+    "fields": Array [
+      "addToCartDescription",
+      "addToCartText",
+      "attributes",
+      "averageRating",
+      "catalogVisibility",
+      "contentType",
+      "date",
+      "dateOnSaleFrom",
+      "dateOnSaleTo",
+      "defaultAttributes",
+      "description",
+      "featured",
+      "galleryImages",
+      "globalAttributes",
+      "id",
+      "image",
+      "link",
+      "localAttributes",
+      "menuOrder",
+      "metaData",
+      "modified",
+      "name",
+      "onSale",
+      "paColors",
+      "paSizes",
+      "parent",
+      "productCategories",
+      "productId",
+      "productTags",
+      "productTypes",
+      "products",
+      "purchasable",
+      "purchaseNote",
+      "related",
+      "reviewCount",
+      "reviews",
+      "reviewsAllowed",
+      "seo",
+      "shippingClasses",
+      "shortDescription",
+      "sku",
+      "slug",
+      "status",
+      "totalSales",
+      "type",
+      "upsell",
+      "visibleProducts",
+    ],
+    "name": "GroupProduct",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "GroupProductToVariationAttributeConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "GroupProductToVariationAttributeConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "GroupProductToProductConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "GroupProductToProductConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "GroupProductToProductConnectionEdge",
   },
   Object {
     "fields": null,
@@ -9693,6 +14296,75 @@ Array [
   },
   Object {
     "fields": null,
+    "name": "OrderIdTypeEnum",
+  },
+  Object {
+    "fields": null,
+    "name": "RootQueryToOrderConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "RootQueryToOrderConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "RootQueryToOrderConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "PaColorIdType",
+  },
+  Object {
+    "fields": null,
+    "name": "RootQueryToPaColorConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "RootQueryToPaColorConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "RootQueryToPaColorConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "PaSizeIdType",
+  },
+  Object {
+    "fields": null,
+    "name": "RootQueryToPaSizeConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "RootQueryToPaSizeConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "RootQueryToPaSizeConnectionEdge",
+  },
+  Object {
+    "fields": null,
     "name": "PageIdType",
   },
   Object {
@@ -9713,6 +14385,34 @@ Array [
       "node",
     ],
     "name": "RootQueryToPageConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "RootQueryToPaymentGatewayConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "RootQueryToPaymentGatewayConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "RootQueryToPaymentGatewayConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "description",
+      "icon",
+      "id",
+      "title",
+    ],
+    "name": "PaymentGateway",
   },
   Object {
     "fields": Array [
@@ -9791,6 +14491,98 @@ Array [
   },
   Object {
     "fields": null,
+    "name": "RootQueryToProductCategoryConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "RootQueryToProductCategoryConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "RootQueryToProductCategoryConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "ProductCategoryIdType",
+  },
+  Object {
+    "fields": null,
+    "name": "ProductTagIdType",
+  },
+  Object {
+    "fields": null,
+    "name": "RootQueryToProductTagConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "RootQueryToProductTagConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "RootQueryToProductTagConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "ProductTypeIdType",
+  },
+  Object {
+    "fields": null,
+    "name": "RootQueryToProductTypeConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "RootQueryToProductTypeConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "RootQueryToProductTypeConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "ProductVariationIdTypeEnum",
+  },
+  Object {
+    "fields": null,
+    "name": "RootQueryToProductConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "RootQueryToProductConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "RootQueryToProductConnectionEdge",
+  },
+  Object {
+    "fields": null,
     "name": "ProjectIdType",
   },
   Object {
@@ -9817,6 +14609,29 @@ Array [
       "postsPerPage",
     ],
     "name": "ReadingSettings",
+  },
+  Object {
+    "fields": null,
+    "name": "RefundIdTypeEnum",
+  },
+  Object {
+    "fields": null,
+    "name": "RootQueryToRefundConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "RootQueryToRefundConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "RootQueryToRefundConnectionEdge",
   },
   Object {
     "fields": Array [
@@ -10028,6 +14843,155 @@ Array [
   },
   Object {
     "fields": null,
+    "name": "ShippingClassIdType",
+  },
+  Object {
+    "fields": null,
+    "name": "RootQueryToShippingClassConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "RootQueryToShippingClassConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "RootQueryToShippingClassConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "ShippingMethodIdTypeEnum",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "RootQueryToShippingMethodConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "RootQueryToShippingMethodConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "attributes",
+      "averageRating",
+      "backorders",
+      "backordersAllowed",
+      "catalogVisibility",
+      "contentType",
+      "crossSell",
+      "date",
+      "dateOnSaleFrom",
+      "dateOnSaleTo",
+      "defaultAttributes",
+      "description",
+      "downloadExpiry",
+      "downloadLimit",
+      "downloadable",
+      "downloads",
+      "featured",
+      "galleryImages",
+      "globalAttributes",
+      "height",
+      "id",
+      "image",
+      "length",
+      "link",
+      "localAttributes",
+      "manageStock",
+      "menuOrder",
+      "metaData",
+      "modified",
+      "name",
+      "onSale",
+      "paColors",
+      "paSizes",
+      "parent",
+      "price",
+      "productCategories",
+      "productId",
+      "productTags",
+      "productTypes",
+      "purchasable",
+      "purchaseNote",
+      "regularPrice",
+      "related",
+      "reviewCount",
+      "reviews",
+      "reviewsAllowed",
+      "salePrice",
+      "seo",
+      "shippingClassId",
+      "shippingClasses",
+      "shippingRequired",
+      "shippingTaxable",
+      "shortDescription",
+      "sku",
+      "slug",
+      "soldIndividually",
+      "status",
+      "stockQuantity",
+      "stockStatus",
+      "taxClass",
+      "taxStatus",
+      "totalSales",
+      "type",
+      "upsell",
+      "virtual",
+      "visibleProducts",
+      "weight",
+      "width",
+    ],
+    "name": "SimpleProduct",
+  },
+  Object {
+    "fields": null,
+    "name": "SimpleProductToProductConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "SimpleProductToProductConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "SimpleProductToProductConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "SimpleProductToVariationAttributeConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "SimpleProductToVariationAttributeConnectionEdge",
+  },
+  Object {
+    "fields": null,
     "name": "TagIdType",
   },
   Object {
@@ -10048,6 +15012,37 @@ Array [
       "node",
     ],
     "name": "RootQueryToTagConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "TaxRateIdTypeEnum",
+  },
+  Object {
+    "fields": null,
+    "name": "RootQueryToTaxRateConnectionWhereArgs",
+  },
+  Object {
+    "fields": null,
+    "name": "TaxRateConnectionOrderbyInput",
+  },
+  Object {
+    "fields": null,
+    "name": "TaxRateConnectionOrderbyEnum",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "RootQueryToTaxRateConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "RootQueryToTaxRateConnectionEdge",
   },
   Object {
     "fields": Array [
@@ -10246,10 +15241,6 @@ Array [
     "name": "UsersConnectionOrderbyEnum",
   },
   Object {
-    "fields": null,
-    "name": "UserRoleEnum",
-  },
-  Object {
     "fields": Array [
       "edges",
       "nodes",
@@ -10263,6 +15254,29 @@ Array [
       "node",
     ],
     "name": "RootQueryToUserConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "VisibleProductIdType",
+  },
+  Object {
+    "fields": null,
+    "name": "RootQueryToVisibleProductConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "RootQueryToVisibleProductConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "RootQueryToVisibleProductConnectionEdge",
   },
   Object {
     "fields": Array [
@@ -10288,56 +15302,97 @@ Array [
   Object {
     "fields": Array [
       "updateCategory",
+      "updatePaColor",
+      "updatePaSize",
       "updatePostFormat",
+      "updateProductCategory",
+      "updateProductTag",
+      "updateProductType",
+      "updateShippingClass",
       "updateTag",
+      "updateVisibleProduct",
+      "addFee",
+      "addToCart",
+      "applyCoupon",
+      "checkout",
       "createActionMonitorAction",
       "createCategory",
       "createComment",
       "createMediaItem",
+      "createOrder",
+      "createPaColor",
+      "createPaSize",
       "createPage",
       "createPost",
       "createPostFormat",
+      "createProductCategory",
+      "createProductTag",
+      "createProductType",
       "createProject",
       "createReusableBlock",
+      "createShippingClass",
       "createTag",
       "createTeamMember",
       "createTranslationFilterTest",
       "createTypeLimit0Test",
       "createTypeLimitTest",
       "createUser",
+      "createVisibleProduct",
       "deleteActionMonitorAction",
       "deleteCategory",
       "deleteComment",
       "deleteMediaItem",
+      "deleteOrder",
+      "deleteOrderItems",
+      "deletePaColor",
+      "deletePaSize",
       "deletePage",
       "deletePost",
       "deletePostFormat",
+      "deleteProductCategory",
+      "deleteProductTag",
+      "deleteProductType",
       "deleteProject",
       "deleteReusableBlock",
+      "deleteReview",
+      "deleteShippingClass",
       "deleteTag",
       "deleteTeamMember",
       "deleteTranslationFilterTest",
       "deleteTypeLimit0Test",
       "deleteTypeLimitTest",
       "deleteUser",
+      "deleteVisibleProduct",
+      "emptyCart",
       "increaseCount",
+      "registerCustomer",
       "registerUser",
+      "removeCoupons",
+      "removeItemsFromCart",
       "resetUserPassword",
+      "restoreCartItems",
       "restoreComment",
+      "restoreReview",
       "sendPasswordResetEmail",
       "updateActionMonitorAction",
       "updateComment",
+      "updateCustomer",
+      "updateItemQuantities",
       "updateMediaItem",
+      "updateOrder",
       "updatePage",
       "updatePost",
       "updateProject",
       "updateReusableBlock",
+      "updateReview",
       "updateSettings",
+      "updateShippingMethod",
       "updateTeamMember",
       "updateTranslationFilterTest",
       "updateTypeLimit0Test",
       "updateTypeLimitTest",
       "updateUser",
+      "writeReview",
     ],
     "name": "RootMutation",
   },
@@ -10354,6 +15409,28 @@ Array [
   },
   Object {
     "fields": null,
+    "name": "UpdatePaColorInput",
+  },
+  Object {
+    "fields": Array [
+      "clientMutationId",
+      "paColor",
+    ],
+    "name": "UpdatePaColorPayload",
+  },
+  Object {
+    "fields": null,
+    "name": "UpdatePaSizeInput",
+  },
+  Object {
+    "fields": Array [
+      "clientMutationId",
+      "paSize",
+    ],
+    "name": "UpdatePaSizePayload",
+  },
+  Object {
+    "fields": null,
     "name": "UpdatePostFormatInput",
   },
   Object {
@@ -10365,6 +15442,50 @@ Array [
   },
   Object {
     "fields": null,
+    "name": "UpdateProductCategoryInput",
+  },
+  Object {
+    "fields": Array [
+      "clientMutationId",
+      "productCategory",
+    ],
+    "name": "UpdateProductCategoryPayload",
+  },
+  Object {
+    "fields": null,
+    "name": "UpdateProductTagInput",
+  },
+  Object {
+    "fields": Array [
+      "clientMutationId",
+      "productTag",
+    ],
+    "name": "UpdateProductTagPayload",
+  },
+  Object {
+    "fields": null,
+    "name": "UpdateProductTypeInput",
+  },
+  Object {
+    "fields": Array [
+      "clientMutationId",
+      "productType",
+    ],
+    "name": "UpdateProductTypePayload",
+  },
+  Object {
+    "fields": null,
+    "name": "UpdateShippingClassInput",
+  },
+  Object {
+    "fields": Array [
+      "clientMutationId",
+      "shippingClass",
+    ],
+    "name": "UpdateShippingClassPayload",
+  },
+  Object {
+    "fields": null,
     "name": "UpdateTagInput",
   },
   Object {
@@ -10373,6 +15494,82 @@ Array [
       "tag",
     ],
     "name": "UpdateTagPayload",
+  },
+  Object {
+    "fields": null,
+    "name": "UpdateVisibleProductInput",
+  },
+  Object {
+    "fields": Array [
+      "clientMutationId",
+      "visibleProduct",
+    ],
+    "name": "UpdateVisibleProductPayload",
+  },
+  Object {
+    "fields": null,
+    "name": "AddFeeInput",
+  },
+  Object {
+    "fields": Array [
+      "cart",
+      "cartFee",
+      "clientMutationId",
+    ],
+    "name": "AddFeePayload",
+  },
+  Object {
+    "fields": null,
+    "name": "AddToCartInput",
+  },
+  Object {
+    "fields": null,
+    "name": "ProductAttributeInput",
+  },
+  Object {
+    "fields": Array [
+      "cart",
+      "cartItem",
+      "clientMutationId",
+    ],
+    "name": "AddToCartPayload",
+  },
+  Object {
+    "fields": null,
+    "name": "ApplyCouponInput",
+  },
+  Object {
+    "fields": Array [
+      "cart",
+      "clientMutationId",
+    ],
+    "name": "ApplyCouponPayload",
+  },
+  Object {
+    "fields": null,
+    "name": "CheckoutInput",
+  },
+  Object {
+    "fields": null,
+    "name": "CreateAccountInput",
+  },
+  Object {
+    "fields": null,
+    "name": "CustomerAddressInput",
+  },
+  Object {
+    "fields": null,
+    "name": "MetaDataInput",
+  },
+  Object {
+    "fields": Array [
+      "clientMutationId",
+      "customer",
+      "order",
+      "redirect",
+      "result",
+    ],
+    "name": "CheckoutPayload",
   },
   Object {
     "fields": null,
@@ -10422,6 +15619,51 @@ Array [
       "mediaItem",
     ],
     "name": "CreateMediaItemPayload",
+  },
+  Object {
+    "fields": null,
+    "name": "CreateOrderInput",
+  },
+  Object {
+    "fields": null,
+    "name": "FeeLineInput",
+  },
+  Object {
+    "fields": null,
+    "name": "LineItemInput",
+  },
+  Object {
+    "fields": null,
+    "name": "ShippingLineInput",
+  },
+  Object {
+    "fields": Array [
+      "clientMutationId",
+      "order",
+    ],
+    "name": "CreateOrderPayload",
+  },
+  Object {
+    "fields": null,
+    "name": "CreatePaColorInput",
+  },
+  Object {
+    "fields": Array [
+      "clientMutationId",
+      "paColor",
+    ],
+    "name": "CreatePaColorPayload",
+  },
+  Object {
+    "fields": null,
+    "name": "CreatePaSizeInput",
+  },
+  Object {
+    "fields": Array [
+      "clientMutationId",
+      "paSize",
+    ],
+    "name": "CreatePaSizePayload",
   },
   Object {
     "fields": null,
@@ -10482,6 +15724,39 @@ Array [
   },
   Object {
     "fields": null,
+    "name": "CreateProductCategoryInput",
+  },
+  Object {
+    "fields": Array [
+      "clientMutationId",
+      "productCategory",
+    ],
+    "name": "CreateProductCategoryPayload",
+  },
+  Object {
+    "fields": null,
+    "name": "CreateProductTagInput",
+  },
+  Object {
+    "fields": Array [
+      "clientMutationId",
+      "productTag",
+    ],
+    "name": "CreateProductTagPayload",
+  },
+  Object {
+    "fields": null,
+    "name": "CreateProductTypeInput",
+  },
+  Object {
+    "fields": Array [
+      "clientMutationId",
+      "productType",
+    ],
+    "name": "CreateProductTypePayload",
+  },
+  Object {
+    "fields": null,
     "name": "CreateProjectInput",
   },
   Object {
@@ -10501,6 +15776,17 @@ Array [
       "clientMutationId",
     ],
     "name": "CreateReusableBlockPayload",
+  },
+  Object {
+    "fields": null,
+    "name": "CreateShippingClassInput",
+  },
+  Object {
+    "fields": Array [
+      "clientMutationId",
+      "shippingClass",
+    ],
+    "name": "CreateShippingClassPayload",
   },
   Object {
     "fields": null,
@@ -10594,6 +15880,17 @@ Array [
   },
   Object {
     "fields": null,
+    "name": "CreateVisibleProductInput",
+  },
+  Object {
+    "fields": Array [
+      "clientMutationId",
+      "visibleProduct",
+    ],
+    "name": "CreateVisibleProductPayload",
+  },
+  Object {
+    "fields": null,
     "name": "DeleteActionMonitorActionInput",
   },
   Object {
@@ -10642,6 +15939,52 @@ Array [
   },
   Object {
     "fields": null,
+    "name": "DeleteOrderInput",
+  },
+  Object {
+    "fields": Array [
+      "clientMutationId",
+      "order",
+    ],
+    "name": "DeleteOrderPayload",
+  },
+  Object {
+    "fields": null,
+    "name": "DeleteOrderItemsInput",
+  },
+  Object {
+    "fields": Array [
+      "clientMutationId",
+      "order",
+    ],
+    "name": "DeleteOrderItemsPayload",
+  },
+  Object {
+    "fields": null,
+    "name": "DeletePaColorInput",
+  },
+  Object {
+    "fields": Array [
+      "clientMutationId",
+      "deletedId",
+      "paColor",
+    ],
+    "name": "DeletePaColorPayload",
+  },
+  Object {
+    "fields": null,
+    "name": "DeletePaSizeInput",
+  },
+  Object {
+    "fields": Array [
+      "clientMutationId",
+      "deletedId",
+      "paSize",
+    ],
+    "name": "DeletePaSizePayload",
+  },
+  Object {
+    "fields": null,
     "name": "DeletePageInput",
   },
   Object {
@@ -10678,6 +16021,42 @@ Array [
   },
   Object {
     "fields": null,
+    "name": "DeleteProductCategoryInput",
+  },
+  Object {
+    "fields": Array [
+      "clientMutationId",
+      "deletedId",
+      "productCategory",
+    ],
+    "name": "DeleteProductCategoryPayload",
+  },
+  Object {
+    "fields": null,
+    "name": "DeleteProductTagInput",
+  },
+  Object {
+    "fields": Array [
+      "clientMutationId",
+      "deletedId",
+      "productTag",
+    ],
+    "name": "DeleteProductTagPayload",
+  },
+  Object {
+    "fields": null,
+    "name": "DeleteProductTypeInput",
+  },
+  Object {
+    "fields": Array [
+      "clientMutationId",
+      "deletedId",
+      "productType",
+    ],
+    "name": "DeleteProductTypePayload",
+  },
+  Object {
+    "fields": null,
     "name": "DeleteProjectInput",
   },
   Object {
@@ -10699,6 +16078,31 @@ Array [
       "deletedId",
     ],
     "name": "DeleteReusableBlockPayload",
+  },
+  Object {
+    "fields": null,
+    "name": "DeleteReviewInput",
+  },
+  Object {
+    "fields": Array [
+      "affectedId",
+      "clientMutationId",
+      "rating",
+      "review",
+    ],
+    "name": "DeleteReviewPayload",
+  },
+  Object {
+    "fields": null,
+    "name": "DeleteShippingClassInput",
+  },
+  Object {
+    "fields": Array [
+      "clientMutationId",
+      "deletedId",
+      "shippingClass",
+    ],
+    "name": "DeleteShippingClassPayload",
   },
   Object {
     "fields": null,
@@ -10774,6 +16178,41 @@ Array [
   },
   Object {
     "fields": null,
+    "name": "DeleteVisibleProductInput",
+  },
+  Object {
+    "fields": Array [
+      "clientMutationId",
+      "deletedId",
+      "visibleProduct",
+    ],
+    "name": "DeleteVisibleProductPayload",
+  },
+  Object {
+    "fields": null,
+    "name": "EmptyCartInput",
+  },
+  Object {
+    "fields": Array [
+      "cart",
+      "clientMutationId",
+    ],
+    "name": "EmptyCartPayload",
+  },
+  Object {
+    "fields": null,
+    "name": "RegisterCustomerInput",
+  },
+  Object {
+    "fields": Array [
+      "clientMutationId",
+      "customer",
+      "viewer",
+    ],
+    "name": "RegisterCustomerPayload",
+  },
+  Object {
+    "fields": null,
     "name": "RegisterUserInput",
   },
   Object {
@@ -10782,6 +16221,29 @@ Array [
       "user",
     ],
     "name": "RegisterUserPayload",
+  },
+  Object {
+    "fields": null,
+    "name": "RemoveCouponsInput",
+  },
+  Object {
+    "fields": Array [
+      "cart",
+      "clientMutationId",
+    ],
+    "name": "RemoveCouponsPayload",
+  },
+  Object {
+    "fields": null,
+    "name": "RemoveItemsFromCartInput",
+  },
+  Object {
+    "fields": Array [
+      "cart",
+      "cartItems",
+      "clientMutationId",
+    ],
+    "name": "RemoveItemsFromCartPayload",
   },
   Object {
     "fields": null,
@@ -10796,6 +16258,18 @@ Array [
   },
   Object {
     "fields": null,
+    "name": "RestoreCartItemsInput",
+  },
+  Object {
+    "fields": Array [
+      "cart",
+      "cartItems",
+      "clientMutationId",
+    ],
+    "name": "RestoreCartItemsPayload",
+  },
+  Object {
+    "fields": null,
     "name": "RestoreCommentInput",
   },
   Object {
@@ -10805,6 +16279,19 @@ Array [
       "restoredId",
     ],
     "name": "RestoreCommentPayload",
+  },
+  Object {
+    "fields": null,
+    "name": "RestoreReviewInput",
+  },
+  Object {
+    "fields": Array [
+      "affectedId",
+      "clientMutationId",
+      "rating",
+      "review",
+    ],
+    "name": "RestoreReviewPayload",
   },
   Object {
     "fields": null,
@@ -10842,6 +16329,35 @@ Array [
   },
   Object {
     "fields": null,
+    "name": "UpdateCustomerInput",
+  },
+  Object {
+    "fields": Array [
+      "clientMutationId",
+      "customer",
+    ],
+    "name": "UpdateCustomerPayload",
+  },
+  Object {
+    "fields": null,
+    "name": "UpdateItemQuantitiesInput",
+  },
+  Object {
+    "fields": null,
+    "name": "CartItemQuantityInput",
+  },
+  Object {
+    "fields": Array [
+      "cart",
+      "clientMutationId",
+      "items",
+      "removed",
+      "updated",
+    ],
+    "name": "UpdateItemQuantitiesPayload",
+  },
+  Object {
+    "fields": null,
     "name": "UpdateMediaItemInput",
   },
   Object {
@@ -10850,6 +16366,17 @@ Array [
       "mediaItem",
     ],
     "name": "UpdateMediaItemPayload",
+  },
+  Object {
+    "fields": null,
+    "name": "UpdateOrderInput",
+  },
+  Object {
+    "fields": Array [
+      "clientMutationId",
+      "order",
+    ],
+    "name": "UpdateOrderPayload",
   },
   Object {
     "fields": null,
@@ -10897,6 +16424,18 @@ Array [
   },
   Object {
     "fields": null,
+    "name": "UpdateReviewInput",
+  },
+  Object {
+    "fields": Array [
+      "clientMutationId",
+      "rating",
+      "review",
+    ],
+    "name": "UpdateReviewPayload",
+  },
+  Object {
+    "fields": null,
     "name": "UpdateSettingsInput",
   },
   Object {
@@ -10909,6 +16448,17 @@ Array [
       "writingSettings",
     ],
     "name": "UpdateSettingsPayload",
+  },
+  Object {
+    "fields": null,
+    "name": "UpdateShippingMethodInput",
+  },
+  Object {
+    "fields": Array [
+      "cart",
+      "clientMutationId",
+    ],
+    "name": "UpdateShippingMethodPayload",
   },
   Object {
     "fields": null,
@@ -10964,6 +16514,18 @@ Array [
       "user",
     ],
     "name": "UpdateUserPayload",
+  },
+  Object {
+    "fields": null,
+    "name": "WriteReviewInput",
+  },
+  Object {
+    "fields": Array [
+      "clientMutationId",
+      "rating",
+      "review",
+    ],
+    "name": "WriteReviewPayload",
   },
   Object {
     "fields": Array [
@@ -14587,4 +20149,4 @@ Array [
 ]
 `;
 
-exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the remote WPGraphQL schema 2`] = `"a6c39b4d0a4be7402466f8bb4dbd124c"`;
+exports[`[gatsby-source-wordpress-experimental] schema integrity hasn't altered the remote WPGraphQL schema 2`] = `"83700982f21ea2522f00633e401839da"`;

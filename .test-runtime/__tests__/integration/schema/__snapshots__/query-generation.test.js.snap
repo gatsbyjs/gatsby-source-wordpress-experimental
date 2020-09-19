@@ -6948,6 +6948,489 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 "
 `;
 
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Coupon node list query hasn't changed 1`] = `
+"query NODE_LIST_QUERY($first: Int!, $after: String) {
+  coupons(first: $first, after: $after, where: { parent: null }) {
+    nodes {
+      amount
+      code
+      contentType {
+        node {
+          id
+        }
+      }
+      couponId
+      date
+      dateExpiry
+      description
+      discountType
+      emailRestrictions
+      excludeSaleItems
+      excludedProductCategories(first: 100) {
+        nodes {
+          id
+        }
+      }
+      excludedProducts(first: 100) {
+        nodes {
+          id
+          __typename
+        }
+      }
+      freeShipping
+      id
+      individualUse
+      limitUsageToXItems
+      maximumAmount
+      metaData {
+        id
+        key
+        value
+      }
+      minimumAmount
+      modified
+      productCategories(first: 100) {
+        nodes {
+          id
+        }
+      }
+      products(first: 100) {
+        nodes {
+          id
+          __typename
+        }
+      }
+      usageCount
+      usageLimit
+      usageLimitPerUser
+      usedBy(first: 100) {
+        nodes {
+          id
+        }
+      }
+      __typename
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Coupon node preview query hasn't changed 1`] = `
+"query PREVIEW_QUERY($id: ID!) {
+  coupon(id: $id, idType: ID, asPreview: true) {
+    amount
+    code
+    contentType {
+      node {
+        id
+      }
+    }
+    couponId
+    date
+    dateExpiry
+    description
+    discountType
+    emailRestrictions
+    excludeSaleItems
+    excludedProductCategories(first: 100) {
+      nodes {
+        id
+      }
+    }
+    excludedProducts(first: 100) {
+      nodes {
+        id
+        __typename
+      }
+    }
+    freeShipping
+    id
+    individualUse
+    limitUsageToXItems
+    maximumAmount
+    metaData {
+      id
+      key
+      value
+    }
+    minimumAmount
+    modified
+    productCategories(first: 100) {
+      nodes {
+        id
+      }
+    }
+    products(first: 100) {
+      nodes {
+        id
+        __typename
+      }
+    }
+    usageCount
+    usageLimit
+    usageLimitPerUser
+    usedBy(first: 100) {
+      nodes {
+        id
+      }
+    }
+    __typename
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Coupon node single query hasn't changed 1`] = `
+"query SINGLE_CONTENT_QUERY($id: ID!) {
+  coupon(id: $id) {
+    amount
+    code
+    contentType {
+      node {
+        id
+      }
+    }
+    couponId
+    date
+    dateExpiry
+    description
+    discountType
+    emailRestrictions
+    excludeSaleItems
+    excludedProductCategories(first: 100) {
+      nodes {
+        id
+      }
+    }
+    excludedProducts(first: 100) {
+      nodes {
+        id
+        __typename
+      }
+    }
+    freeShipping
+    id
+    individualUse
+    limitUsageToXItems
+    maximumAmount
+    metaData {
+      id
+      key
+      value
+    }
+    minimumAmount
+    modified
+    productCategories(first: 100) {
+      nodes {
+        id
+      }
+    }
+    products(first: 100) {
+      nodes {
+        id
+        __typename
+      }
+    }
+    usageCount
+    usageLimit
+    usageLimitPerUser
+    usedBy(first: 100) {
+      nodes {
+        id
+      }
+    }
+    __typename
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Customer node list query hasn't changed 1`] = `
+"query NODE_LIST_QUERY($first: Int!, $after: String) {
+  customers(first: $first, after: $after) {
+    nodes {
+      billing {
+        address1
+        address2
+        city
+        company
+        country
+        email
+        firstName
+        lastName
+        phone
+        postcode
+        state
+      }
+      calculatedShipping
+      customerId
+      date
+      displayName
+      downloadableItems(first: 100) {
+        nodes {
+          accessExpires
+          download {
+            allowedFileType
+            downloadId
+            file
+            fileExists
+            fileExt
+            filePathType
+            fileType
+            name
+          }
+          downloadId
+          downloadsRemaining
+          name
+          product {
+            id
+            __typename
+          }
+          url
+        }
+      }
+      email
+      firstName
+      hasCalculatedShipping
+      id
+      isPayingCustomer
+      isVatExempt
+      lastName
+      lastOrder {
+        id
+      }
+      metaData {
+        id
+        key
+        value
+      }
+      modified
+      orderCount
+      orders(first: 100) {
+        nodes {
+          id
+        }
+      }
+      refunds(first: 100) {
+        nodes {
+          id
+        }
+      }
+      role
+      shipping {
+        address1
+        address2
+        city
+        company
+        country
+        email
+        firstName
+        lastName
+        phone
+        postcode
+        state
+      }
+      totalSpent
+      username
+      __typename
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Customer node preview query hasn't changed 1`] = `
+"query PREVIEW_QUERY($id: ID!) {
+  customer(id: $id, idType: ID, asPreview: true) {
+    billing {
+      address1
+      address2
+      city
+      company
+      country
+      email
+      firstName
+      lastName
+      phone
+      postcode
+      state
+    }
+    calculatedShipping
+    customerId
+    date
+    displayName
+    downloadableItems(first: 100) {
+      nodes {
+        accessExpires
+        download {
+          allowedFileType
+          downloadId
+          file
+          fileExists
+          fileExt
+          filePathType
+          fileType
+          name
+        }
+        downloadId
+        downloadsRemaining
+        name
+        product {
+          id
+          __typename
+        }
+        url
+      }
+    }
+    email
+    firstName
+    hasCalculatedShipping
+    id
+    isPayingCustomer
+    isVatExempt
+    lastName
+    lastOrder {
+      id
+    }
+    metaData {
+      id
+      key
+      value
+    }
+    modified
+    orderCount
+    orders(first: 100) {
+      nodes {
+        id
+      }
+    }
+    refunds(first: 100) {
+      nodes {
+        id
+      }
+    }
+    role
+    shipping {
+      address1
+      address2
+      city
+      company
+      country
+      email
+      firstName
+      lastName
+      phone
+      postcode
+      state
+    }
+    totalSpent
+    username
+    __typename
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Customer node single query hasn't changed 1`] = `
+"query SINGLE_CONTENT_QUERY($id: ID!) {
+  customer(id: $id) {
+    billing {
+      address1
+      address2
+      city
+      company
+      country
+      email
+      firstName
+      lastName
+      phone
+      postcode
+      state
+    }
+    calculatedShipping
+    customerId
+    date
+    displayName
+    downloadableItems(first: 100) {
+      nodes {
+        accessExpires
+        download {
+          allowedFileType
+          downloadId
+          file
+          fileExists
+          fileExt
+          filePathType
+          fileType
+          name
+        }
+        downloadId
+        downloadsRemaining
+        name
+        product {
+          id
+          __typename
+        }
+        url
+      }
+    }
+    email
+    firstName
+    hasCalculatedShipping
+    id
+    isPayingCustomer
+    isVatExempt
+    lastName
+    lastOrder {
+      id
+    }
+    metaData {
+      id
+      key
+      value
+    }
+    modified
+    orderCount
+    orders(first: 100) {
+      nodes {
+        id
+      }
+    }
+    refunds(first: 100) {
+      nodes {
+        id
+      }
+    }
+    role
+    shipping {
+      address1
+      address2
+      city
+      company
+      country
+      email
+      firstName
+      lastName
+      phone
+      postcode
+      state
+    }
+    totalSpent
+    username
+    __typename
+  }
+}
+"
+`;
+
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] MediaItem node list query hasn't changed 1`] = `
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
   mediaItems(first: $first, after: $after, where: { parent: null }) {
@@ -7638,6 +8121,2022 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 "
 `;
 
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Order node list query hasn't changed 1`] = `
+"query NODE_LIST_QUERY($first: Int!, $after: String) {
+  orders(first: $first, after: $after, where: { parent: null }) {
+    nodes {
+      billing {
+        address1
+        address2
+        city
+        company
+        country
+        email
+        firstName
+        lastName
+        phone
+        postcode
+        state
+      }
+      cartHash
+      cartTax
+      contentType {
+        node {
+          id
+        }
+      }
+      couponLines(first: 100) {
+        nodes {
+          code
+          coupon {
+            id
+          }
+          discount
+          discountTax
+          itemId
+          metaData {
+            id
+            key
+            value
+          }
+          orderId
+        }
+      }
+      createdVia
+      currency
+      customer {
+        id
+      }
+      customerIpAddress
+      customerNote
+      customerUserAgent
+      date
+      dateCompleted
+      datePaid
+      discountTax
+      discountTotal
+      downloadableItems(first: 100) {
+        nodes {
+          accessExpires
+          download {
+            allowedFileType
+            downloadId
+            file
+            fileExists
+            fileExt
+            filePathType
+            fileType
+            name
+          }
+          downloadId
+          downloadsRemaining
+          name
+          product {
+            id
+            __typename
+          }
+          url
+        }
+      }
+      feeLines(first: 100) {
+        nodes {
+          amount
+          itemId
+          metaData {
+            id
+            key
+            value
+          }
+          name
+          orderId
+          taxClass
+          taxStatus
+          taxes {
+            amount
+            subtotal
+            taxLine {
+              isCompound
+              itemId
+              label
+              metaData {
+                id
+                key
+                value
+              }
+              orderId
+              rateCode
+              shippingTaxTotal
+              taxRate {
+                id
+              }
+              taxTotal
+            }
+            taxLineId
+            total
+          }
+          total
+          totalTax
+        }
+      }
+      hasBillingAddress
+      hasDownloadableItem
+      hasShippingAddress
+      id
+      isDownloadPermitted
+      lineItems(first: 100) {
+        nodes {
+          itemDownloads {
+            allowedFileType
+            downloadId
+            file
+            fileExists
+            fileExt
+            filePathType
+            fileType
+            name
+          }
+          itemId
+          metaData {
+            id
+            key
+            value
+          }
+          orderId
+          product {
+            id
+            __typename
+          }
+          productId
+          quantity
+          subtotal
+          subtotalTax
+          taxClass
+          taxStatus
+          taxes {
+            amount
+            subtotal
+            taxLine {
+              isCompound
+              itemId
+              label
+              metaData {
+                id
+                key
+                value
+              }
+              orderId
+              rateCode
+              shippingTaxTotal
+              taxRate {
+                id
+              }
+              taxTotal
+            }
+            taxLineId
+            total
+          }
+          total
+          totalTax
+          variation {
+            attributes(first: 100) {
+              nodes {
+                attributeId
+                id
+                name
+                value
+              }
+            }
+            backorders
+            backordersAllowed
+            catalogVisibility
+            contentType {
+              node {
+                id
+              }
+            }
+            date
+            dateOnSaleFrom
+            dateOnSaleTo
+            description
+            downloadExpiry
+            downloadLimit
+            downloadable
+            downloads {
+              allowedFileType
+              downloadId
+              file
+              fileExists
+              fileExt
+              filePathType
+              fileType
+              name
+            }
+            hasAttributes
+            height
+            id
+            image {
+              id
+              sourceUrl
+            }
+            length
+            manageStock
+            menuOrder
+            metaData {
+              id
+              key
+              value
+            }
+            modified
+            name
+            onSale
+            wpParent: parent {
+              id
+            }
+            price
+            purchasable
+            purchaseNote
+            regularPrice
+            salePrice
+            shippingClass
+            shippingClasses(first: 100) {
+              nodes {
+                id
+              }
+            }
+            sku
+            status
+            stockQuantity
+            stockStatus
+            taxClass
+            taxStatus
+            type
+            variationId
+            virtual
+            visibleProducts(first: 100) {
+              nodes {
+                id
+              }
+            }
+            weight
+            width
+          }
+          variationId
+        }
+      }
+      metaData {
+        id
+        key
+        value
+      }
+      modified
+      needsPayment
+      needsProcessing
+      needsShippingAddress
+      orderId
+      orderKey
+      orderNumber
+      orderVersion
+      wpParent: parent {
+        id
+      }
+      paymentMethod
+      paymentMethodTitle
+      pricesIncludeTax
+      refunds(first: 100) {
+        nodes {
+          id
+        }
+      }
+      shipping {
+        address1
+        address2
+        city
+        company
+        country
+        email
+        firstName
+        lastName
+        phone
+        postcode
+        state
+      }
+      shippingAddressMapUrl
+      shippingLines(first: 100) {
+        nodes {
+          itemId
+          metaData {
+            id
+            key
+            value
+          }
+          methodTitle
+          orderId
+          shippingMethod {
+            id
+          }
+          taxClass
+          taxes {
+            amount
+            subtotal
+            taxLine {
+              isCompound
+              itemId
+              label
+              metaData {
+                id
+                key
+                value
+              }
+              orderId
+              rateCode
+              shippingTaxTotal
+              taxRate {
+                id
+              }
+              taxTotal
+            }
+            taxLineId
+            total
+          }
+          total
+          totalTax
+        }
+      }
+      shippingTax
+      shippingTotal
+      status
+      subtotal
+      taxLines(first: 100) {
+        nodes {
+          isCompound
+          itemId
+          label
+          metaData {
+            id
+            key
+            value
+          }
+          orderId
+          rateCode
+          shippingTaxTotal
+          taxRate {
+            id
+          }
+          taxTotal
+        }
+      }
+      total
+      totalTax
+      transactionId
+      __typename
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Order node preview query hasn't changed 1`] = `
+"query PREVIEW_QUERY($id: ID!) {
+  order(id: $id, idType: ID, asPreview: true) {
+    billing {
+      address1
+      address2
+      city
+      company
+      country
+      email
+      firstName
+      lastName
+      phone
+      postcode
+      state
+    }
+    cartHash
+    cartTax
+    contentType {
+      node {
+        id
+      }
+    }
+    couponLines(first: 100) {
+      nodes {
+        code
+        coupon {
+          id
+        }
+        discount
+        discountTax
+        itemId
+        metaData {
+          id
+          key
+          value
+        }
+        orderId
+      }
+    }
+    createdVia
+    currency
+    customer {
+      id
+    }
+    customerIpAddress
+    customerNote
+    customerUserAgent
+    date
+    dateCompleted
+    datePaid
+    discountTax
+    discountTotal
+    downloadableItems(first: 100) {
+      nodes {
+        accessExpires
+        download {
+          allowedFileType
+          downloadId
+          file
+          fileExists
+          fileExt
+          filePathType
+          fileType
+          name
+        }
+        downloadId
+        downloadsRemaining
+        name
+        product {
+          id
+          __typename
+        }
+        url
+      }
+    }
+    feeLines(first: 100) {
+      nodes {
+        amount
+        itemId
+        metaData {
+          id
+          key
+          value
+        }
+        name
+        orderId
+        taxClass
+        taxStatus
+        taxes {
+          amount
+          subtotal
+          taxLine {
+            isCompound
+            itemId
+            label
+            metaData {
+              id
+              key
+              value
+            }
+            orderId
+            rateCode
+            shippingTaxTotal
+            taxRate {
+              id
+            }
+            taxTotal
+          }
+          taxLineId
+          total
+        }
+        total
+        totalTax
+      }
+    }
+    hasBillingAddress
+    hasDownloadableItem
+    hasShippingAddress
+    id
+    isDownloadPermitted
+    lineItems(first: 100) {
+      nodes {
+        itemDownloads {
+          allowedFileType
+          downloadId
+          file
+          fileExists
+          fileExt
+          filePathType
+          fileType
+          name
+        }
+        itemId
+        metaData {
+          id
+          key
+          value
+        }
+        orderId
+        product {
+          id
+          __typename
+        }
+        productId
+        quantity
+        subtotal
+        subtotalTax
+        taxClass
+        taxStatus
+        taxes {
+          amount
+          subtotal
+          taxLine {
+            isCompound
+            itemId
+            label
+            metaData {
+              id
+              key
+              value
+            }
+            orderId
+            rateCode
+            shippingTaxTotal
+            taxRate {
+              id
+            }
+            taxTotal
+          }
+          taxLineId
+          total
+        }
+        total
+        totalTax
+        variation {
+          attributes(first: 100) {
+            nodes {
+              attributeId
+              id
+              name
+              value
+            }
+          }
+          backorders
+          backordersAllowed
+          catalogVisibility
+          contentType {
+            node {
+              id
+            }
+          }
+          date
+          dateOnSaleFrom
+          dateOnSaleTo
+          description
+          downloadExpiry
+          downloadLimit
+          downloadable
+          downloads {
+            allowedFileType
+            downloadId
+            file
+            fileExists
+            fileExt
+            filePathType
+            fileType
+            name
+          }
+          hasAttributes
+          height
+          id
+          image {
+            id
+            sourceUrl
+          }
+          length
+          manageStock
+          menuOrder
+          metaData {
+            id
+            key
+            value
+          }
+          modified
+          name
+          onSale
+          wpParent: parent {
+            id
+          }
+          price
+          purchasable
+          purchaseNote
+          regularPrice
+          salePrice
+          shippingClass
+          shippingClasses(first: 100) {
+            nodes {
+              id
+            }
+          }
+          sku
+          status
+          stockQuantity
+          stockStatus
+          taxClass
+          taxStatus
+          type
+          variationId
+          virtual
+          visibleProducts(first: 100) {
+            nodes {
+              id
+            }
+          }
+          weight
+          width
+        }
+        variationId
+      }
+    }
+    metaData {
+      id
+      key
+      value
+    }
+    modified
+    needsPayment
+    needsProcessing
+    needsShippingAddress
+    orderId
+    orderKey
+    orderNumber
+    orderVersion
+    wpParent: parent {
+      id
+    }
+    paymentMethod
+    paymentMethodTitle
+    pricesIncludeTax
+    refunds(first: 100) {
+      nodes {
+        id
+      }
+    }
+    shipping {
+      address1
+      address2
+      city
+      company
+      country
+      email
+      firstName
+      lastName
+      phone
+      postcode
+      state
+    }
+    shippingAddressMapUrl
+    shippingLines(first: 100) {
+      nodes {
+        itemId
+        metaData {
+          id
+          key
+          value
+        }
+        methodTitle
+        orderId
+        shippingMethod {
+          id
+        }
+        taxClass
+        taxes {
+          amount
+          subtotal
+          taxLine {
+            isCompound
+            itemId
+            label
+            metaData {
+              id
+              key
+              value
+            }
+            orderId
+            rateCode
+            shippingTaxTotal
+            taxRate {
+              id
+            }
+            taxTotal
+          }
+          taxLineId
+          total
+        }
+        total
+        totalTax
+      }
+    }
+    shippingTax
+    shippingTotal
+    status
+    subtotal
+    taxLines(first: 100) {
+      nodes {
+        isCompound
+        itemId
+        label
+        metaData {
+          id
+          key
+          value
+        }
+        orderId
+        rateCode
+        shippingTaxTotal
+        taxRate {
+          id
+        }
+        taxTotal
+      }
+    }
+    total
+    totalTax
+    transactionId
+    __typename
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Order node single query hasn't changed 1`] = `
+"query SINGLE_CONTENT_QUERY($id: ID!) {
+  order(id: $id) {
+    billing {
+      address1
+      address2
+      city
+      company
+      country
+      email
+      firstName
+      lastName
+      phone
+      postcode
+      state
+    }
+    cartHash
+    cartTax
+    contentType {
+      node {
+        id
+      }
+    }
+    couponLines(first: 100) {
+      nodes {
+        code
+        coupon {
+          id
+        }
+        discount
+        discountTax
+        itemId
+        metaData {
+          id
+          key
+          value
+        }
+        orderId
+      }
+    }
+    createdVia
+    currency
+    customer {
+      id
+    }
+    customerIpAddress
+    customerNote
+    customerUserAgent
+    date
+    dateCompleted
+    datePaid
+    discountTax
+    discountTotal
+    downloadableItems(first: 100) {
+      nodes {
+        accessExpires
+        download {
+          allowedFileType
+          downloadId
+          file
+          fileExists
+          fileExt
+          filePathType
+          fileType
+          name
+        }
+        downloadId
+        downloadsRemaining
+        name
+        product {
+          id
+          __typename
+        }
+        url
+      }
+    }
+    feeLines(first: 100) {
+      nodes {
+        amount
+        itemId
+        metaData {
+          id
+          key
+          value
+        }
+        name
+        orderId
+        taxClass
+        taxStatus
+        taxes {
+          amount
+          subtotal
+          taxLine {
+            isCompound
+            itemId
+            label
+            metaData {
+              id
+              key
+              value
+            }
+            orderId
+            rateCode
+            shippingTaxTotal
+            taxRate {
+              id
+            }
+            taxTotal
+          }
+          taxLineId
+          total
+        }
+        total
+        totalTax
+      }
+    }
+    hasBillingAddress
+    hasDownloadableItem
+    hasShippingAddress
+    id
+    isDownloadPermitted
+    lineItems(first: 100) {
+      nodes {
+        itemDownloads {
+          allowedFileType
+          downloadId
+          file
+          fileExists
+          fileExt
+          filePathType
+          fileType
+          name
+        }
+        itemId
+        metaData {
+          id
+          key
+          value
+        }
+        orderId
+        product {
+          id
+          __typename
+        }
+        productId
+        quantity
+        subtotal
+        subtotalTax
+        taxClass
+        taxStatus
+        taxes {
+          amount
+          subtotal
+          taxLine {
+            isCompound
+            itemId
+            label
+            metaData {
+              id
+              key
+              value
+            }
+            orderId
+            rateCode
+            shippingTaxTotal
+            taxRate {
+              id
+            }
+            taxTotal
+          }
+          taxLineId
+          total
+        }
+        total
+        totalTax
+        variation {
+          attributes(first: 100) {
+            nodes {
+              attributeId
+              id
+              name
+              value
+            }
+          }
+          backorders
+          backordersAllowed
+          catalogVisibility
+          contentType {
+            node {
+              id
+            }
+          }
+          date
+          dateOnSaleFrom
+          dateOnSaleTo
+          description
+          downloadExpiry
+          downloadLimit
+          downloadable
+          downloads {
+            allowedFileType
+            downloadId
+            file
+            fileExists
+            fileExt
+            filePathType
+            fileType
+            name
+          }
+          hasAttributes
+          height
+          id
+          image {
+            id
+            sourceUrl
+          }
+          length
+          manageStock
+          menuOrder
+          metaData {
+            id
+            key
+            value
+          }
+          modified
+          name
+          onSale
+          wpParent: parent {
+            id
+          }
+          price
+          purchasable
+          purchaseNote
+          regularPrice
+          salePrice
+          shippingClass
+          shippingClasses(first: 100) {
+            nodes {
+              id
+            }
+          }
+          sku
+          status
+          stockQuantity
+          stockStatus
+          taxClass
+          taxStatus
+          type
+          variationId
+          virtual
+          visibleProducts(first: 100) {
+            nodes {
+              id
+            }
+          }
+          weight
+          width
+        }
+        variationId
+      }
+    }
+    metaData {
+      id
+      key
+      value
+    }
+    modified
+    needsPayment
+    needsProcessing
+    needsShippingAddress
+    orderId
+    orderKey
+    orderNumber
+    orderVersion
+    wpParent: parent {
+      id
+    }
+    paymentMethod
+    paymentMethodTitle
+    pricesIncludeTax
+    refunds(first: 100) {
+      nodes {
+        id
+      }
+    }
+    shipping {
+      address1
+      address2
+      city
+      company
+      country
+      email
+      firstName
+      lastName
+      phone
+      postcode
+      state
+    }
+    shippingAddressMapUrl
+    shippingLines(first: 100) {
+      nodes {
+        itemId
+        metaData {
+          id
+          key
+          value
+        }
+        methodTitle
+        orderId
+        shippingMethod {
+          id
+        }
+        taxClass
+        taxes {
+          amount
+          subtotal
+          taxLine {
+            isCompound
+            itemId
+            label
+            metaData {
+              id
+              key
+              value
+            }
+            orderId
+            rateCode
+            shippingTaxTotal
+            taxRate {
+              id
+            }
+            taxTotal
+          }
+          taxLineId
+          total
+        }
+        total
+        totalTax
+      }
+    }
+    shippingTax
+    shippingTotal
+    status
+    subtotal
+    taxLines(first: 100) {
+      nodes {
+        isCompound
+        itemId
+        label
+        metaData {
+          id
+          key
+          value
+        }
+        orderId
+        rateCode
+        shippingTaxTotal
+        taxRate {
+          id
+        }
+        taxTotal
+      }
+    }
+    total
+    totalTax
+    transactionId
+    __typename
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] PaColor node list query hasn't changed 1`] = `
+"query NODE_LIST_QUERY($first: Int!, $after: String) {
+  paColors(first: $first, after: $after, where: { parent: null }) {
+    nodes {
+      count
+      databaseId
+      description
+      id
+      link
+      name
+      products(first: 100) {
+        nodes {
+          id
+          __typename
+        }
+      }
+      seo {
+        breadcrumbs {
+          text
+          url
+        }
+        canonical
+        focuskw
+        metaDesc
+        metaKeywords
+        metaRobotsNofollow
+        metaRobotsNoindex
+        opengraphAuthor
+        opengraphDescription
+        opengraphImage {
+          id
+          sourceUrl
+        }
+        opengraphModifiedTime
+        opengraphPublishedTime
+        opengraphPublisher
+        opengraphSiteName
+        opengraphTitle
+        opengraphType
+        opengraphUrl
+        title
+        twitterDescription
+        twitterImage {
+          id
+          sourceUrl
+        }
+        twitterTitle
+      }
+      slug
+      taxonomy {
+        node {
+          id
+        }
+      }
+      termGroupId
+      termTaxonomyId
+      uri
+      variations(first: 100) {
+        nodes {
+          attributes(first: 100) {
+            nodes {
+              attributeId
+              id
+              name
+              value
+            }
+          }
+          backorders
+          backordersAllowed
+          catalogVisibility
+          contentType {
+            node {
+              id
+            }
+          }
+          date
+          dateOnSaleFrom
+          dateOnSaleTo
+          description
+          downloadExpiry
+          downloadLimit
+          downloadable
+          downloads {
+            allowedFileType
+            downloadId
+            file
+            fileExists
+            fileExt
+            filePathType
+            fileType
+            name
+          }
+          hasAttributes
+          height
+          id
+          image {
+            id
+            sourceUrl
+          }
+          length
+          manageStock
+          menuOrder
+          metaData {
+            id
+            key
+            value
+          }
+          modified
+          name
+          onSale
+          wpParent: parent {
+            id
+          }
+          price
+          purchasable
+          purchaseNote
+          regularPrice
+          salePrice
+          shippingClass
+          shippingClasses(first: 100) {
+            nodes {
+              id
+            }
+          }
+          sku
+          status
+          stockQuantity
+          stockStatus
+          taxClass
+          taxStatus
+          type
+          variationId
+          virtual
+          visibleProducts(first: 100) {
+            nodes {
+              id
+            }
+          }
+          weight
+          width
+        }
+      }
+      __typename
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] PaColor node preview query hasn't changed 1`] = `
+"query PREVIEW_QUERY($id: ID!) {
+  paColor(id: $id, idType: ID, asPreview: true) {
+    count
+    databaseId
+    description
+    id
+    link
+    name
+    products(first: 100) {
+      nodes {
+        id
+        __typename
+      }
+    }
+    seo {
+      breadcrumbs {
+        text
+        url
+      }
+      canonical
+      focuskw
+      metaDesc
+      metaKeywords
+      metaRobotsNofollow
+      metaRobotsNoindex
+      opengraphAuthor
+      opengraphDescription
+      opengraphImage {
+        id
+        sourceUrl
+      }
+      opengraphModifiedTime
+      opengraphPublishedTime
+      opengraphPublisher
+      opengraphSiteName
+      opengraphTitle
+      opengraphType
+      opengraphUrl
+      title
+      twitterDescription
+      twitterImage {
+        id
+        sourceUrl
+      }
+      twitterTitle
+    }
+    slug
+    taxonomy {
+      node {
+        id
+      }
+    }
+    termGroupId
+    termTaxonomyId
+    uri
+    variations(first: 100) {
+      nodes {
+        attributes(first: 100) {
+          nodes {
+            attributeId
+            id
+            name
+            value
+          }
+        }
+        backorders
+        backordersAllowed
+        catalogVisibility
+        contentType {
+          node {
+            id
+          }
+        }
+        date
+        dateOnSaleFrom
+        dateOnSaleTo
+        description
+        downloadExpiry
+        downloadLimit
+        downloadable
+        downloads {
+          allowedFileType
+          downloadId
+          file
+          fileExists
+          fileExt
+          filePathType
+          fileType
+          name
+        }
+        hasAttributes
+        height
+        id
+        image {
+          id
+          sourceUrl
+        }
+        length
+        manageStock
+        menuOrder
+        metaData {
+          id
+          key
+          value
+        }
+        modified
+        name
+        onSale
+        wpParent: parent {
+          id
+        }
+        price
+        purchasable
+        purchaseNote
+        regularPrice
+        salePrice
+        shippingClass
+        shippingClasses(first: 100) {
+          nodes {
+            id
+          }
+        }
+        sku
+        status
+        stockQuantity
+        stockStatus
+        taxClass
+        taxStatus
+        type
+        variationId
+        virtual
+        visibleProducts(first: 100) {
+          nodes {
+            id
+          }
+        }
+        weight
+        width
+      }
+    }
+    __typename
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] PaColor node single query hasn't changed 1`] = `
+"query SINGLE_CONTENT_QUERY($id: ID!) {
+  paColor(id: $id) {
+    count
+    databaseId
+    description
+    id
+    link
+    name
+    products(first: 100) {
+      nodes {
+        id
+        __typename
+      }
+    }
+    seo {
+      breadcrumbs {
+        text
+        url
+      }
+      canonical
+      focuskw
+      metaDesc
+      metaKeywords
+      metaRobotsNofollow
+      metaRobotsNoindex
+      opengraphAuthor
+      opengraphDescription
+      opengraphImage {
+        id
+        sourceUrl
+      }
+      opengraphModifiedTime
+      opengraphPublishedTime
+      opengraphPublisher
+      opengraphSiteName
+      opengraphTitle
+      opengraphType
+      opengraphUrl
+      title
+      twitterDescription
+      twitterImage {
+        id
+        sourceUrl
+      }
+      twitterTitle
+    }
+    slug
+    taxonomy {
+      node {
+        id
+      }
+    }
+    termGroupId
+    termTaxonomyId
+    uri
+    variations(first: 100) {
+      nodes {
+        attributes(first: 100) {
+          nodes {
+            attributeId
+            id
+            name
+            value
+          }
+        }
+        backorders
+        backordersAllowed
+        catalogVisibility
+        contentType {
+          node {
+            id
+          }
+        }
+        date
+        dateOnSaleFrom
+        dateOnSaleTo
+        description
+        downloadExpiry
+        downloadLimit
+        downloadable
+        downloads {
+          allowedFileType
+          downloadId
+          file
+          fileExists
+          fileExt
+          filePathType
+          fileType
+          name
+        }
+        hasAttributes
+        height
+        id
+        image {
+          id
+          sourceUrl
+        }
+        length
+        manageStock
+        menuOrder
+        metaData {
+          id
+          key
+          value
+        }
+        modified
+        name
+        onSale
+        wpParent: parent {
+          id
+        }
+        price
+        purchasable
+        purchaseNote
+        regularPrice
+        salePrice
+        shippingClass
+        shippingClasses(first: 100) {
+          nodes {
+            id
+          }
+        }
+        sku
+        status
+        stockQuantity
+        stockStatus
+        taxClass
+        taxStatus
+        type
+        variationId
+        virtual
+        visibleProducts(first: 100) {
+          nodes {
+            id
+          }
+        }
+        weight
+        width
+      }
+    }
+    __typename
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] PaSize node list query hasn't changed 1`] = `
+"query NODE_LIST_QUERY($first: Int!, $after: String) {
+  paSizes(first: $first, after: $after, where: { parent: null }) {
+    nodes {
+      count
+      databaseId
+      description
+      id
+      link
+      name
+      products(first: 100) {
+        nodes {
+          id
+          __typename
+        }
+      }
+      seo {
+        breadcrumbs {
+          text
+          url
+        }
+        canonical
+        focuskw
+        metaDesc
+        metaKeywords
+        metaRobotsNofollow
+        metaRobotsNoindex
+        opengraphAuthor
+        opengraphDescription
+        opengraphImage {
+          id
+          sourceUrl
+        }
+        opengraphModifiedTime
+        opengraphPublishedTime
+        opengraphPublisher
+        opengraphSiteName
+        opengraphTitle
+        opengraphType
+        opengraphUrl
+        title
+        twitterDescription
+        twitterImage {
+          id
+          sourceUrl
+        }
+        twitterTitle
+      }
+      slug
+      taxonomy {
+        node {
+          id
+        }
+      }
+      termGroupId
+      termTaxonomyId
+      uri
+      variations(first: 100) {
+        nodes {
+          attributes(first: 100) {
+            nodes {
+              attributeId
+              id
+              name
+              value
+            }
+          }
+          backorders
+          backordersAllowed
+          catalogVisibility
+          contentType {
+            node {
+              id
+            }
+          }
+          date
+          dateOnSaleFrom
+          dateOnSaleTo
+          description
+          downloadExpiry
+          downloadLimit
+          downloadable
+          downloads {
+            allowedFileType
+            downloadId
+            file
+            fileExists
+            fileExt
+            filePathType
+            fileType
+            name
+          }
+          hasAttributes
+          height
+          id
+          image {
+            id
+            sourceUrl
+          }
+          length
+          manageStock
+          menuOrder
+          metaData {
+            id
+            key
+            value
+          }
+          modified
+          name
+          onSale
+          wpParent: parent {
+            id
+          }
+          price
+          purchasable
+          purchaseNote
+          regularPrice
+          salePrice
+          shippingClass
+          shippingClasses(first: 100) {
+            nodes {
+              id
+            }
+          }
+          sku
+          status
+          stockQuantity
+          stockStatus
+          taxClass
+          taxStatus
+          type
+          variationId
+          virtual
+          visibleProducts(first: 100) {
+            nodes {
+              id
+            }
+          }
+          weight
+          width
+        }
+      }
+      __typename
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] PaSize node preview query hasn't changed 1`] = `
+"query PREVIEW_QUERY($id: ID!) {
+  paSize(id: $id, idType: ID, asPreview: true) {
+    count
+    databaseId
+    description
+    id
+    link
+    name
+    products(first: 100) {
+      nodes {
+        id
+        __typename
+      }
+    }
+    seo {
+      breadcrumbs {
+        text
+        url
+      }
+      canonical
+      focuskw
+      metaDesc
+      metaKeywords
+      metaRobotsNofollow
+      metaRobotsNoindex
+      opengraphAuthor
+      opengraphDescription
+      opengraphImage {
+        id
+        sourceUrl
+      }
+      opengraphModifiedTime
+      opengraphPublishedTime
+      opengraphPublisher
+      opengraphSiteName
+      opengraphTitle
+      opengraphType
+      opengraphUrl
+      title
+      twitterDescription
+      twitterImage {
+        id
+        sourceUrl
+      }
+      twitterTitle
+    }
+    slug
+    taxonomy {
+      node {
+        id
+      }
+    }
+    termGroupId
+    termTaxonomyId
+    uri
+    variations(first: 100) {
+      nodes {
+        attributes(first: 100) {
+          nodes {
+            attributeId
+            id
+            name
+            value
+          }
+        }
+        backorders
+        backordersAllowed
+        catalogVisibility
+        contentType {
+          node {
+            id
+          }
+        }
+        date
+        dateOnSaleFrom
+        dateOnSaleTo
+        description
+        downloadExpiry
+        downloadLimit
+        downloadable
+        downloads {
+          allowedFileType
+          downloadId
+          file
+          fileExists
+          fileExt
+          filePathType
+          fileType
+          name
+        }
+        hasAttributes
+        height
+        id
+        image {
+          id
+          sourceUrl
+        }
+        length
+        manageStock
+        menuOrder
+        metaData {
+          id
+          key
+          value
+        }
+        modified
+        name
+        onSale
+        wpParent: parent {
+          id
+        }
+        price
+        purchasable
+        purchaseNote
+        regularPrice
+        salePrice
+        shippingClass
+        shippingClasses(first: 100) {
+          nodes {
+            id
+          }
+        }
+        sku
+        status
+        stockQuantity
+        stockStatus
+        taxClass
+        taxStatus
+        type
+        variationId
+        virtual
+        visibleProducts(first: 100) {
+          nodes {
+            id
+          }
+        }
+        weight
+        width
+      }
+    }
+    __typename
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] PaSize node single query hasn't changed 1`] = `
+"query SINGLE_CONTENT_QUERY($id: ID!) {
+  paSize(id: $id) {
+    count
+    databaseId
+    description
+    id
+    link
+    name
+    products(first: 100) {
+      nodes {
+        id
+        __typename
+      }
+    }
+    seo {
+      breadcrumbs {
+        text
+        url
+      }
+      canonical
+      focuskw
+      metaDesc
+      metaKeywords
+      metaRobotsNofollow
+      metaRobotsNoindex
+      opengraphAuthor
+      opengraphDescription
+      opengraphImage {
+        id
+        sourceUrl
+      }
+      opengraphModifiedTime
+      opengraphPublishedTime
+      opengraphPublisher
+      opengraphSiteName
+      opengraphTitle
+      opengraphType
+      opengraphUrl
+      title
+      twitterDescription
+      twitterImage {
+        id
+        sourceUrl
+      }
+      twitterTitle
+    }
+    slug
+    taxonomy {
+      node {
+        id
+      }
+    }
+    termGroupId
+    termTaxonomyId
+    uri
+    variations(first: 100) {
+      nodes {
+        attributes(first: 100) {
+          nodes {
+            attributeId
+            id
+            name
+            value
+          }
+        }
+        backorders
+        backordersAllowed
+        catalogVisibility
+        contentType {
+          node {
+            id
+          }
+        }
+        date
+        dateOnSaleFrom
+        dateOnSaleTo
+        description
+        downloadExpiry
+        downloadLimit
+        downloadable
+        downloads {
+          allowedFileType
+          downloadId
+          file
+          fileExists
+          fileExt
+          filePathType
+          fileType
+          name
+        }
+        hasAttributes
+        height
+        id
+        image {
+          id
+          sourceUrl
+        }
+        length
+        manageStock
+        menuOrder
+        metaData {
+          id
+          key
+          value
+        }
+        modified
+        name
+        onSale
+        wpParent: parent {
+          id
+        }
+        price
+        purchasable
+        purchaseNote
+        regularPrice
+        salePrice
+        shippingClass
+        shippingClasses(first: 100) {
+          nodes {
+            id
+          }
+        }
+        sku
+        status
+        stockQuantity
+        stockStatus
+        taxClass
+        taxStatus
+        type
+        variationId
+        virtual
+        visibleProducts(first: 100) {
+          nodes {
+            id
+          }
+        }
+        weight
+        width
+      }
+    }
+    __typename
+  }
+}
+"
+`;
+
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Page node list query hasn't changed 1`] = `
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
   pages(first: $first, after: $after, where: { parent: null }) {
@@ -7923,6 +10422,27 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
             id
           }
           ... on PostFormat {
+            id
+          }
+          ... on ProductType {
+            id
+          }
+          ... on VisibleProduct {
+            id
+          }
+          ... on ProductCategory {
+            id
+          }
+          ... on ProductTag {
+            id
+          }
+          ... on ShippingClass {
+            id
+          }
+          ... on PaColor {
+            id
+          }
+          ... on PaSize {
             id
           }
         }
@@ -10328,6 +12848,27 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         ... on PostFormat {
           id
         }
+        ... on ProductType {
+          id
+        }
+        ... on VisibleProduct {
+          id
+        }
+        ... on ProductCategory {
+          id
+        }
+        ... on ProductTag {
+          id
+        }
+        ... on ShippingClass {
+          id
+        }
+        ... on PaColor {
+          id
+        }
+        ... on PaSize {
+          id
+        }
       }
       textAreaField
       textField
@@ -12724,6 +15265,27 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
           id
         }
         ... on PostFormat {
+          id
+        }
+        ... on ProductType {
+          id
+        }
+        ... on VisibleProduct {
+          id
+        }
+        ... on ProductCategory {
+          id
+        }
+        ... on ProductTag {
+          id
+        }
+        ... on ShippingClass {
+          id
+        }
+        ... on PaColor {
+          id
+        }
+        ... on PaSize {
           id
         }
       }
@@ -21354,6 +23916,2514 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 "
 `;
 
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Product node list query hasn't changed 1`] = `
+"query NODE_LIST_QUERY($first: Int!, $after: String) {
+  products(first: $first, after: $after, where: { parent: null }) {
+    nodes {
+      ... on VariableProduct {
+        backorders
+        backordersAllowed
+        crossSell(first: 100) {
+          nodes {
+            id
+            __typename
+          }
+        }
+        defaultAttributes(first: 100) {
+          nodes {
+            attributeId
+            id
+            name
+            value
+          }
+        }
+        height
+        length
+        manageStock
+        metaData {
+          id
+          key
+          value
+        }
+        price
+        regularPrice
+        salePrice
+        shippingClassId
+        shippingRequired
+        shippingTaxable
+        soldIndividually
+        stockQuantity
+        taxClass
+        taxStatus
+        variations(first: 100) {
+          nodes {
+            attributes(first: 100) {
+              nodes {
+                attributeId
+                id
+                name
+                value
+              }
+            }
+            backorders
+            backordersAllowed
+            catalogVisibility
+            contentType {
+              node {
+                id
+              }
+            }
+            date
+            dateOnSaleFrom
+            dateOnSaleTo
+            description
+            downloadExpiry
+            downloadLimit
+            downloadable
+            downloads {
+              allowedFileType
+              downloadId
+              file
+              fileExists
+              fileExt
+              filePathType
+              fileType
+              name
+            }
+            hasAttributes
+            height
+            id
+            image {
+              id
+              sourceUrl
+            }
+            length
+            manageStock
+            menuOrder
+            metaData {
+              id
+              key
+              value
+            }
+            modified
+            name
+            onSale
+            wpParent: parent {
+              id
+              ...VariableProductFragment
+            }
+            price
+            purchasable
+            purchaseNote
+            regularPrice
+            salePrice
+            shippingClass
+            shippingClasses(first: 100) {
+              nodes {
+                id
+              }
+            }
+            sku
+            status
+            stockQuantity
+            stockStatus
+            taxClass
+            taxStatus
+            type
+            variationId
+            virtual
+            visibleProducts(first: 100) {
+              nodes {
+                id
+              }
+            }
+            weight
+            width
+          }
+        }
+        weight
+        width
+      }
+      ... on ExternalProduct {
+        buttonText
+        defaultAttributes(first: 100) {
+          nodes {
+            attributeId
+            id
+            name
+            value
+          }
+        }
+        externalUrl
+        metaData {
+          id
+          key
+          value
+        }
+        price
+        regularPrice
+        salePrice
+        taxClass
+        taxStatus
+      }
+      ... on GroupProduct {
+        addToCartDescription
+        addToCartText
+        defaultAttributes(first: 100) {
+          nodes {
+            attributeId
+            id
+            name
+            value
+          }
+        }
+        metaData {
+          id
+          key
+          value
+        }
+        products(first: 100) {
+          nodes {
+            id
+            __typename
+          }
+        }
+      }
+      ... on SimpleProduct {
+        backorders
+        backordersAllowed
+        crossSell(first: 100) {
+          nodes {
+            id
+            __typename
+          }
+        }
+        defaultAttributes(first: 100) {
+          nodes {
+            attributeId
+            id
+            name
+            value
+          }
+        }
+        downloadExpiry
+        downloadLimit
+        downloadable
+        downloads {
+          allowedFileType
+          downloadId
+          file
+          fileExists
+          fileExt
+          filePathType
+          fileType
+          name
+        }
+        height
+        length
+        manageStock
+        metaData {
+          id
+          key
+          value
+        }
+        price
+        regularPrice
+        salePrice
+        shippingClassId
+        shippingRequired
+        shippingTaxable
+        soldIndividually
+        stockQuantity
+        stockStatus
+        taxClass
+        taxStatus
+        virtual
+        weight
+        width
+      }
+      attributes(first: 100) {
+        nodes {
+          attributeId
+          id
+          name
+          options
+          position
+          scope
+          variation
+          visible
+          __typename
+          ... on GlobalProductAttribute {
+            terms(first: 100) {
+              nodes {
+                id
+                __typename
+              }
+            }
+          }
+        }
+      }
+      averageRating
+      catalogVisibility
+      contentType {
+        node {
+          id
+        }
+      }
+      date
+      dateOnSaleFrom
+      dateOnSaleTo
+      description
+      featured
+      galleryImages(first: 100) {
+        nodes {
+          id
+          sourceUrl
+        }
+      }
+      globalAttributes(first: 100) {
+        nodes {
+          attributeId
+          id
+          name
+          options
+          position
+          scope
+          terms(first: 100) {
+            nodes {
+              id
+              __typename
+            }
+          }
+          variation
+          visible
+        }
+      }
+      id
+      image {
+        id
+        sourceUrl
+      }
+      link
+      localAttributes(first: 100) {
+        nodes {
+          attributeId
+          id
+          name
+          options
+          position
+          scope
+          variation
+          visible
+        }
+      }
+      menuOrder
+      modified
+      name
+      onSale
+      paColors(first: 100) {
+        nodes {
+          id
+        }
+      }
+      paSizes(first: 100) {
+        nodes {
+          id
+        }
+      }
+      wpParent: parent {
+        id
+        __typename
+      }
+      productCategories(first: 100) {
+        nodes {
+          id
+        }
+      }
+      productId
+      productTags(first: 100) {
+        nodes {
+          id
+        }
+      }
+      productTypes(first: 100) {
+        nodes {
+          id
+        }
+      }
+      purchasable
+      purchaseNote
+      related(first: 100) {
+        nodes {
+          id
+          __typename
+        }
+      }
+      reviewCount
+      reviews(first: 100) {
+        averageRating
+        nodes {
+          id
+        }
+      }
+      reviewsAllowed
+      seo {
+        breadcrumbs {
+          text
+          url
+        }
+        canonical
+        focuskw
+        metaDesc
+        metaKeywords
+        metaRobotsNofollow
+        metaRobotsNoindex
+        opengraphAuthor
+        opengraphDescription
+        opengraphImage {
+          id
+          sourceUrl
+        }
+        opengraphModifiedTime
+        opengraphPublishedTime
+        opengraphPublisher
+        opengraphSiteName
+        opengraphTitle
+        opengraphType
+        opengraphUrl
+        title
+        twitterDescription
+        twitterImage {
+          id
+          sourceUrl
+        }
+        twitterTitle
+      }
+      shippingClasses(first: 100) {
+        nodes {
+          id
+        }
+      }
+      shortDescription
+      sku
+      slug
+      status
+      totalSales
+      type
+      upsell(first: 100) {
+        nodes {
+          id
+          __typename
+        }
+      }
+      visibleProducts(first: 100) {
+        nodes {
+          id
+        }
+      }
+      __typename
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
+fragment VariableProductFragment on VariableProduct {
+  attributes(first: 100) {
+    nodes {
+      attributeId
+      id
+      name
+      options
+      position
+      scope
+      variation
+      visible
+      __typename
+      ... on GlobalProductAttribute {
+        terms(first: 100) {
+          nodes {
+            id
+            __typename
+          }
+        }
+      }
+    }
+  }
+  averageRating
+  backorders
+  backordersAllowed
+  catalogVisibility
+  contentType {
+    node {
+      id
+    }
+  }
+  crossSell(first: 100) {
+    nodes {
+      id
+      __typename
+    }
+  }
+  date
+  dateOnSaleFrom
+  dateOnSaleTo
+  defaultAttributes(first: 100) {
+    nodes {
+      attributeId
+      id
+      name
+      value
+    }
+  }
+  description
+  featured
+  galleryImages(first: 100) {
+    nodes {
+      id
+      sourceUrl
+    }
+  }
+  globalAttributes(first: 100) {
+    nodes {
+      attributeId
+      id
+      name
+      options
+      position
+      scope
+      terms(first: 100) {
+        nodes {
+          id
+          __typename
+        }
+      }
+      variation
+      visible
+    }
+  }
+  height
+  id
+  image {
+    id
+    sourceUrl
+  }
+  length
+  link
+  localAttributes(first: 100) {
+    nodes {
+      attributeId
+      id
+      name
+      options
+      position
+      scope
+      variation
+      visible
+    }
+  }
+  manageStock
+  menuOrder
+  metaData {
+    id
+    key
+    value
+  }
+  modified
+  name
+  onSale
+  paColors(first: 100) {
+    nodes {
+      id
+    }
+  }
+  paSizes(first: 100) {
+    nodes {
+      id
+    }
+  }
+  wpParent: parent {
+    id
+    __typename
+  }
+  price
+  productCategories(first: 100) {
+    nodes {
+      id
+    }
+  }
+  productId
+  productTags(first: 100) {
+    nodes {
+      id
+    }
+  }
+  productTypes(first: 100) {
+    nodes {
+      id
+    }
+  }
+  purchasable
+  purchaseNote
+  regularPrice
+  related(first: 100) {
+    nodes {
+      id
+      __typename
+    }
+  }
+  reviewCount
+  reviews(first: 100) {
+    averageRating
+    nodes {
+      id
+    }
+  }
+  reviewsAllowed
+  salePrice
+  seo {
+    breadcrumbs {
+      text
+      url
+    }
+    canonical
+    focuskw
+    metaDesc
+    metaKeywords
+    metaRobotsNofollow
+    metaRobotsNoindex
+    opengraphAuthor
+    opengraphDescription
+    opengraphImage {
+      id
+      sourceUrl
+    }
+    opengraphModifiedTime
+    opengraphPublishedTime
+    opengraphPublisher
+    opengraphSiteName
+    opengraphTitle
+    opengraphType
+    opengraphUrl
+    title
+    twitterDescription
+    twitterImage {
+      id
+      sourceUrl
+    }
+    twitterTitle
+  }
+  shippingClassId
+  shippingClasses(first: 100) {
+    nodes {
+      id
+    }
+  }
+  shippingRequired
+  shippingTaxable
+  shortDescription
+  sku
+  slug
+  soldIndividually
+  status
+  stockQuantity
+  taxClass
+  taxStatus
+  totalSales
+  type
+  upsell(first: 100) {
+    nodes {
+      id
+      __typename
+    }
+  }
+  visibleProducts(first: 100) {
+    nodes {
+      id
+    }
+  }
+  weight
+  width
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Product node preview query hasn't changed 1`] = `
+"query PREVIEW_QUERY($id: ID!) {
+  product(id: $id, idType: ID, asPreview: true) {
+    ... on VariableProduct {
+      backorders
+      backordersAllowed
+      crossSell(first: 100) {
+        nodes {
+          id
+          __typename
+        }
+      }
+      defaultAttributes(first: 100) {
+        nodes {
+          attributeId
+          id
+          name
+          value
+        }
+      }
+      height
+      length
+      manageStock
+      metaData {
+        id
+        key
+        value
+      }
+      price
+      regularPrice
+      salePrice
+      shippingClassId
+      shippingRequired
+      shippingTaxable
+      soldIndividually
+      stockQuantity
+      taxClass
+      taxStatus
+      variations(first: 100) {
+        nodes {
+          attributes(first: 100) {
+            nodes {
+              attributeId
+              id
+              name
+              value
+            }
+          }
+          backorders
+          backordersAllowed
+          catalogVisibility
+          contentType {
+            node {
+              id
+            }
+          }
+          date
+          dateOnSaleFrom
+          dateOnSaleTo
+          description
+          downloadExpiry
+          downloadLimit
+          downloadable
+          downloads {
+            allowedFileType
+            downloadId
+            file
+            fileExists
+            fileExt
+            filePathType
+            fileType
+            name
+          }
+          hasAttributes
+          height
+          id
+          image {
+            id
+            sourceUrl
+          }
+          length
+          manageStock
+          menuOrder
+          metaData {
+            id
+            key
+            value
+          }
+          modified
+          name
+          onSale
+          wpParent: parent {
+            id
+            ...VariableProductFragment
+          }
+          price
+          purchasable
+          purchaseNote
+          regularPrice
+          salePrice
+          shippingClass
+          shippingClasses(first: 100) {
+            nodes {
+              id
+            }
+          }
+          sku
+          status
+          stockQuantity
+          stockStatus
+          taxClass
+          taxStatus
+          type
+          variationId
+          virtual
+          visibleProducts(first: 100) {
+            nodes {
+              id
+            }
+          }
+          weight
+          width
+        }
+      }
+      weight
+      width
+    }
+    ... on ExternalProduct {
+      buttonText
+      defaultAttributes(first: 100) {
+        nodes {
+          attributeId
+          id
+          name
+          value
+        }
+      }
+      externalUrl
+      metaData {
+        id
+        key
+        value
+      }
+      price
+      regularPrice
+      salePrice
+      taxClass
+      taxStatus
+    }
+    ... on GroupProduct {
+      addToCartDescription
+      addToCartText
+      defaultAttributes(first: 100) {
+        nodes {
+          attributeId
+          id
+          name
+          value
+        }
+      }
+      metaData {
+        id
+        key
+        value
+      }
+      products(first: 100) {
+        nodes {
+          id
+          __typename
+        }
+      }
+    }
+    ... on SimpleProduct {
+      backorders
+      backordersAllowed
+      crossSell(first: 100) {
+        nodes {
+          id
+          __typename
+        }
+      }
+      defaultAttributes(first: 100) {
+        nodes {
+          attributeId
+          id
+          name
+          value
+        }
+      }
+      downloadExpiry
+      downloadLimit
+      downloadable
+      downloads {
+        allowedFileType
+        downloadId
+        file
+        fileExists
+        fileExt
+        filePathType
+        fileType
+        name
+      }
+      height
+      length
+      manageStock
+      metaData {
+        id
+        key
+        value
+      }
+      price
+      regularPrice
+      salePrice
+      shippingClassId
+      shippingRequired
+      shippingTaxable
+      soldIndividually
+      stockQuantity
+      stockStatus
+      taxClass
+      taxStatus
+      virtual
+      weight
+      width
+    }
+    attributes(first: 100) {
+      nodes {
+        attributeId
+        id
+        name
+        options
+        position
+        scope
+        variation
+        visible
+        __typename
+        ... on GlobalProductAttribute {
+          terms(first: 100) {
+            nodes {
+              id
+              __typename
+            }
+          }
+        }
+      }
+    }
+    averageRating
+    catalogVisibility
+    contentType {
+      node {
+        id
+      }
+    }
+    date
+    dateOnSaleFrom
+    dateOnSaleTo
+    description
+    featured
+    galleryImages(first: 100) {
+      nodes {
+        id
+        sourceUrl
+      }
+    }
+    globalAttributes(first: 100) {
+      nodes {
+        attributeId
+        id
+        name
+        options
+        position
+        scope
+        terms(first: 100) {
+          nodes {
+            id
+            __typename
+          }
+        }
+        variation
+        visible
+      }
+    }
+    id
+    image {
+      id
+      sourceUrl
+    }
+    link
+    localAttributes(first: 100) {
+      nodes {
+        attributeId
+        id
+        name
+        options
+        position
+        scope
+        variation
+        visible
+      }
+    }
+    menuOrder
+    modified
+    name
+    onSale
+    paColors(first: 100) {
+      nodes {
+        id
+      }
+    }
+    paSizes(first: 100) {
+      nodes {
+        id
+      }
+    }
+    wpParent: parent {
+      id
+      __typename
+    }
+    productCategories(first: 100) {
+      nodes {
+        id
+      }
+    }
+    productId
+    productTags(first: 100) {
+      nodes {
+        id
+      }
+    }
+    productTypes(first: 100) {
+      nodes {
+        id
+      }
+    }
+    purchasable
+    purchaseNote
+    related(first: 100) {
+      nodes {
+        id
+        __typename
+      }
+    }
+    reviewCount
+    reviews(first: 100) {
+      averageRating
+      nodes {
+        id
+      }
+    }
+    reviewsAllowed
+    seo {
+      breadcrumbs {
+        text
+        url
+      }
+      canonical
+      focuskw
+      metaDesc
+      metaKeywords
+      metaRobotsNofollow
+      metaRobotsNoindex
+      opengraphAuthor
+      opengraphDescription
+      opengraphImage {
+        id
+        sourceUrl
+      }
+      opengraphModifiedTime
+      opengraphPublishedTime
+      opengraphPublisher
+      opengraphSiteName
+      opengraphTitle
+      opengraphType
+      opengraphUrl
+      title
+      twitterDescription
+      twitterImage {
+        id
+        sourceUrl
+      }
+      twitterTitle
+    }
+    shippingClasses(first: 100) {
+      nodes {
+        id
+      }
+    }
+    shortDescription
+    sku
+    slug
+    status
+    totalSales
+    type
+    upsell(first: 100) {
+      nodes {
+        id
+        __typename
+      }
+    }
+    visibleProducts(first: 100) {
+      nodes {
+        id
+      }
+    }
+    __typename
+  }
+}
+fragment VariableProductFragment on VariableProduct {
+  attributes(first: 100) {
+    nodes {
+      attributeId
+      id
+      name
+      options
+      position
+      scope
+      variation
+      visible
+      __typename
+      ... on GlobalProductAttribute {
+        terms(first: 100) {
+          nodes {
+            id
+            __typename
+          }
+        }
+      }
+    }
+  }
+  averageRating
+  backorders
+  backordersAllowed
+  catalogVisibility
+  contentType {
+    node {
+      id
+    }
+  }
+  crossSell(first: 100) {
+    nodes {
+      id
+      __typename
+    }
+  }
+  date
+  dateOnSaleFrom
+  dateOnSaleTo
+  defaultAttributes(first: 100) {
+    nodes {
+      attributeId
+      id
+      name
+      value
+    }
+  }
+  description
+  featured
+  galleryImages(first: 100) {
+    nodes {
+      id
+      sourceUrl
+    }
+  }
+  globalAttributes(first: 100) {
+    nodes {
+      attributeId
+      id
+      name
+      options
+      position
+      scope
+      terms(first: 100) {
+        nodes {
+          id
+          __typename
+        }
+      }
+      variation
+      visible
+    }
+  }
+  height
+  id
+  image {
+    id
+    sourceUrl
+  }
+  length
+  link
+  localAttributes(first: 100) {
+    nodes {
+      attributeId
+      id
+      name
+      options
+      position
+      scope
+      variation
+      visible
+    }
+  }
+  manageStock
+  menuOrder
+  metaData {
+    id
+    key
+    value
+  }
+  modified
+  name
+  onSale
+  paColors(first: 100) {
+    nodes {
+      id
+    }
+  }
+  paSizes(first: 100) {
+    nodes {
+      id
+    }
+  }
+  wpParent: parent {
+    id
+    __typename
+  }
+  price
+  productCategories(first: 100) {
+    nodes {
+      id
+    }
+  }
+  productId
+  productTags(first: 100) {
+    nodes {
+      id
+    }
+  }
+  productTypes(first: 100) {
+    nodes {
+      id
+    }
+  }
+  purchasable
+  purchaseNote
+  regularPrice
+  related(first: 100) {
+    nodes {
+      id
+      __typename
+    }
+  }
+  reviewCount
+  reviews(first: 100) {
+    averageRating
+    nodes {
+      id
+    }
+  }
+  reviewsAllowed
+  salePrice
+  seo {
+    breadcrumbs {
+      text
+      url
+    }
+    canonical
+    focuskw
+    metaDesc
+    metaKeywords
+    metaRobotsNofollow
+    metaRobotsNoindex
+    opengraphAuthor
+    opengraphDescription
+    opengraphImage {
+      id
+      sourceUrl
+    }
+    opengraphModifiedTime
+    opengraphPublishedTime
+    opengraphPublisher
+    opengraphSiteName
+    opengraphTitle
+    opengraphType
+    opengraphUrl
+    title
+    twitterDescription
+    twitterImage {
+      id
+      sourceUrl
+    }
+    twitterTitle
+  }
+  shippingClassId
+  shippingClasses(first: 100) {
+    nodes {
+      id
+    }
+  }
+  shippingRequired
+  shippingTaxable
+  shortDescription
+  sku
+  slug
+  soldIndividually
+  status
+  stockQuantity
+  taxClass
+  taxStatus
+  totalSales
+  type
+  upsell(first: 100) {
+    nodes {
+      id
+      __typename
+    }
+  }
+  visibleProducts(first: 100) {
+    nodes {
+      id
+    }
+  }
+  weight
+  width
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Product node single query hasn't changed 1`] = `
+"query SINGLE_CONTENT_QUERY($id: ID!) {
+  product(id: $id) {
+    ... on VariableProduct {
+      backorders
+      backordersAllowed
+      crossSell(first: 100) {
+        nodes {
+          id
+          __typename
+        }
+      }
+      defaultAttributes(first: 100) {
+        nodes {
+          attributeId
+          id
+          name
+          value
+        }
+      }
+      height
+      length
+      manageStock
+      metaData {
+        id
+        key
+        value
+      }
+      price
+      regularPrice
+      salePrice
+      shippingClassId
+      shippingRequired
+      shippingTaxable
+      soldIndividually
+      stockQuantity
+      taxClass
+      taxStatus
+      variations(first: 100) {
+        nodes {
+          attributes(first: 100) {
+            nodes {
+              attributeId
+              id
+              name
+              value
+            }
+          }
+          backorders
+          backordersAllowed
+          catalogVisibility
+          contentType {
+            node {
+              id
+            }
+          }
+          date
+          dateOnSaleFrom
+          dateOnSaleTo
+          description
+          downloadExpiry
+          downloadLimit
+          downloadable
+          downloads {
+            allowedFileType
+            downloadId
+            file
+            fileExists
+            fileExt
+            filePathType
+            fileType
+            name
+          }
+          hasAttributes
+          height
+          id
+          image {
+            id
+            sourceUrl
+          }
+          length
+          manageStock
+          menuOrder
+          metaData {
+            id
+            key
+            value
+          }
+          modified
+          name
+          onSale
+          wpParent: parent {
+            id
+            ...VariableProductFragment
+          }
+          price
+          purchasable
+          purchaseNote
+          regularPrice
+          salePrice
+          shippingClass
+          shippingClasses(first: 100) {
+            nodes {
+              id
+            }
+          }
+          sku
+          status
+          stockQuantity
+          stockStatus
+          taxClass
+          taxStatus
+          type
+          variationId
+          virtual
+          visibleProducts(first: 100) {
+            nodes {
+              id
+            }
+          }
+          weight
+          width
+        }
+      }
+      weight
+      width
+    }
+    ... on ExternalProduct {
+      buttonText
+      defaultAttributes(first: 100) {
+        nodes {
+          attributeId
+          id
+          name
+          value
+        }
+      }
+      externalUrl
+      metaData {
+        id
+        key
+        value
+      }
+      price
+      regularPrice
+      salePrice
+      taxClass
+      taxStatus
+    }
+    ... on GroupProduct {
+      addToCartDescription
+      addToCartText
+      defaultAttributes(first: 100) {
+        nodes {
+          attributeId
+          id
+          name
+          value
+        }
+      }
+      metaData {
+        id
+        key
+        value
+      }
+      products(first: 100) {
+        nodes {
+          id
+          __typename
+        }
+      }
+    }
+    ... on SimpleProduct {
+      backorders
+      backordersAllowed
+      crossSell(first: 100) {
+        nodes {
+          id
+          __typename
+        }
+      }
+      defaultAttributes(first: 100) {
+        nodes {
+          attributeId
+          id
+          name
+          value
+        }
+      }
+      downloadExpiry
+      downloadLimit
+      downloadable
+      downloads {
+        allowedFileType
+        downloadId
+        file
+        fileExists
+        fileExt
+        filePathType
+        fileType
+        name
+      }
+      height
+      length
+      manageStock
+      metaData {
+        id
+        key
+        value
+      }
+      price
+      regularPrice
+      salePrice
+      shippingClassId
+      shippingRequired
+      shippingTaxable
+      soldIndividually
+      stockQuantity
+      stockStatus
+      taxClass
+      taxStatus
+      virtual
+      weight
+      width
+    }
+    attributes(first: 100) {
+      nodes {
+        attributeId
+        id
+        name
+        options
+        position
+        scope
+        variation
+        visible
+        __typename
+        ... on GlobalProductAttribute {
+          terms(first: 100) {
+            nodes {
+              id
+              __typename
+            }
+          }
+        }
+      }
+    }
+    averageRating
+    catalogVisibility
+    contentType {
+      node {
+        id
+      }
+    }
+    date
+    dateOnSaleFrom
+    dateOnSaleTo
+    description
+    featured
+    galleryImages(first: 100) {
+      nodes {
+        id
+        sourceUrl
+      }
+    }
+    globalAttributes(first: 100) {
+      nodes {
+        attributeId
+        id
+        name
+        options
+        position
+        scope
+        terms(first: 100) {
+          nodes {
+            id
+            __typename
+          }
+        }
+        variation
+        visible
+      }
+    }
+    id
+    image {
+      id
+      sourceUrl
+    }
+    link
+    localAttributes(first: 100) {
+      nodes {
+        attributeId
+        id
+        name
+        options
+        position
+        scope
+        variation
+        visible
+      }
+    }
+    menuOrder
+    modified
+    name
+    onSale
+    paColors(first: 100) {
+      nodes {
+        id
+      }
+    }
+    paSizes(first: 100) {
+      nodes {
+        id
+      }
+    }
+    wpParent: parent {
+      id
+      __typename
+    }
+    productCategories(first: 100) {
+      nodes {
+        id
+      }
+    }
+    productId
+    productTags(first: 100) {
+      nodes {
+        id
+      }
+    }
+    productTypes(first: 100) {
+      nodes {
+        id
+      }
+    }
+    purchasable
+    purchaseNote
+    related(first: 100) {
+      nodes {
+        id
+        __typename
+      }
+    }
+    reviewCount
+    reviews(first: 100) {
+      averageRating
+      nodes {
+        id
+      }
+    }
+    reviewsAllowed
+    seo {
+      breadcrumbs {
+        text
+        url
+      }
+      canonical
+      focuskw
+      metaDesc
+      metaKeywords
+      metaRobotsNofollow
+      metaRobotsNoindex
+      opengraphAuthor
+      opengraphDescription
+      opengraphImage {
+        id
+        sourceUrl
+      }
+      opengraphModifiedTime
+      opengraphPublishedTime
+      opengraphPublisher
+      opengraphSiteName
+      opengraphTitle
+      opengraphType
+      opengraphUrl
+      title
+      twitterDescription
+      twitterImage {
+        id
+        sourceUrl
+      }
+      twitterTitle
+    }
+    shippingClasses(first: 100) {
+      nodes {
+        id
+      }
+    }
+    shortDescription
+    sku
+    slug
+    status
+    totalSales
+    type
+    upsell(first: 100) {
+      nodes {
+        id
+        __typename
+      }
+    }
+    visibleProducts(first: 100) {
+      nodes {
+        id
+      }
+    }
+    __typename
+  }
+}
+fragment VariableProductFragment on VariableProduct {
+  attributes(first: 100) {
+    nodes {
+      attributeId
+      id
+      name
+      options
+      position
+      scope
+      variation
+      visible
+      __typename
+      ... on GlobalProductAttribute {
+        terms(first: 100) {
+          nodes {
+            id
+            __typename
+          }
+        }
+      }
+    }
+  }
+  averageRating
+  backorders
+  backordersAllowed
+  catalogVisibility
+  contentType {
+    node {
+      id
+    }
+  }
+  crossSell(first: 100) {
+    nodes {
+      id
+      __typename
+    }
+  }
+  date
+  dateOnSaleFrom
+  dateOnSaleTo
+  defaultAttributes(first: 100) {
+    nodes {
+      attributeId
+      id
+      name
+      value
+    }
+  }
+  description
+  featured
+  galleryImages(first: 100) {
+    nodes {
+      id
+      sourceUrl
+    }
+  }
+  globalAttributes(first: 100) {
+    nodes {
+      attributeId
+      id
+      name
+      options
+      position
+      scope
+      terms(first: 100) {
+        nodes {
+          id
+          __typename
+        }
+      }
+      variation
+      visible
+    }
+  }
+  height
+  id
+  image {
+    id
+    sourceUrl
+  }
+  length
+  link
+  localAttributes(first: 100) {
+    nodes {
+      attributeId
+      id
+      name
+      options
+      position
+      scope
+      variation
+      visible
+    }
+  }
+  manageStock
+  menuOrder
+  metaData {
+    id
+    key
+    value
+  }
+  modified
+  name
+  onSale
+  paColors(first: 100) {
+    nodes {
+      id
+    }
+  }
+  paSizes(first: 100) {
+    nodes {
+      id
+    }
+  }
+  wpParent: parent {
+    id
+    __typename
+  }
+  price
+  productCategories(first: 100) {
+    nodes {
+      id
+    }
+  }
+  productId
+  productTags(first: 100) {
+    nodes {
+      id
+    }
+  }
+  productTypes(first: 100) {
+    nodes {
+      id
+    }
+  }
+  purchasable
+  purchaseNote
+  regularPrice
+  related(first: 100) {
+    nodes {
+      id
+      __typename
+    }
+  }
+  reviewCount
+  reviews(first: 100) {
+    averageRating
+    nodes {
+      id
+    }
+  }
+  reviewsAllowed
+  salePrice
+  seo {
+    breadcrumbs {
+      text
+      url
+    }
+    canonical
+    focuskw
+    metaDesc
+    metaKeywords
+    metaRobotsNofollow
+    metaRobotsNoindex
+    opengraphAuthor
+    opengraphDescription
+    opengraphImage {
+      id
+      sourceUrl
+    }
+    opengraphModifiedTime
+    opengraphPublishedTime
+    opengraphPublisher
+    opengraphSiteName
+    opengraphTitle
+    opengraphType
+    opengraphUrl
+    title
+    twitterDescription
+    twitterImage {
+      id
+      sourceUrl
+    }
+    twitterTitle
+  }
+  shippingClassId
+  shippingClasses(first: 100) {
+    nodes {
+      id
+    }
+  }
+  shippingRequired
+  shippingTaxable
+  shortDescription
+  sku
+  slug
+  soldIndividually
+  status
+  stockQuantity
+  taxClass
+  taxStatus
+  totalSales
+  type
+  upsell(first: 100) {
+    nodes {
+      id
+      __typename
+    }
+  }
+  visibleProducts(first: 100) {
+    nodes {
+      id
+    }
+  }
+  weight
+  width
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] ProductCategory node list query hasn't changed 1`] = `
+"query NODE_LIST_QUERY($first: Int!, $after: String) {
+  productCategories(first: $first, after: $after, where: { parent: null }) {
+    nodes {
+      ancestors(first: 100) {
+        nodes {
+          id
+        }
+      }
+      wpChildren: children(first: 100) {
+        nodes {
+          id
+        }
+      }
+      count
+      databaseId
+      description
+      id
+      image {
+        id
+        sourceUrl
+      }
+      link
+      name
+      wpParent: parent {
+        node {
+          id
+        }
+      }
+      parentDatabaseId
+      parentId
+      products(first: 100) {
+        nodes {
+          id
+          __typename
+        }
+      }
+      seo {
+        breadcrumbs {
+          text
+          url
+        }
+        canonical
+        focuskw
+        metaDesc
+        metaKeywords
+        metaRobotsNofollow
+        metaRobotsNoindex
+        opengraphAuthor
+        opengraphDescription
+        opengraphImage {
+          id
+          sourceUrl
+        }
+        opengraphModifiedTime
+        opengraphPublishedTime
+        opengraphPublisher
+        opengraphSiteName
+        opengraphTitle
+        opengraphType
+        opengraphUrl
+        title
+        twitterDescription
+        twitterImage {
+          id
+          sourceUrl
+        }
+        twitterTitle
+      }
+      slug
+      taxonomy {
+        node {
+          id
+        }
+      }
+      termGroupId
+      termTaxonomyId
+      uri
+      __typename
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] ProductCategory node preview query hasn't changed 1`] = `
+"query PREVIEW_QUERY($id: ID!) {
+  productCategory(id: $id, idType: ID, asPreview: true) {
+    ancestors(first: 100) {
+      nodes {
+        id
+      }
+    }
+    wpChildren: children(first: 100) {
+      nodes {
+        id
+      }
+    }
+    count
+    databaseId
+    description
+    id
+    image {
+      id
+      sourceUrl
+    }
+    link
+    name
+    wpParent: parent {
+      node {
+        id
+      }
+    }
+    parentDatabaseId
+    parentId
+    products(first: 100) {
+      nodes {
+        id
+        __typename
+      }
+    }
+    seo {
+      breadcrumbs {
+        text
+        url
+      }
+      canonical
+      focuskw
+      metaDesc
+      metaKeywords
+      metaRobotsNofollow
+      metaRobotsNoindex
+      opengraphAuthor
+      opengraphDescription
+      opengraphImage {
+        id
+        sourceUrl
+      }
+      opengraphModifiedTime
+      opengraphPublishedTime
+      opengraphPublisher
+      opengraphSiteName
+      opengraphTitle
+      opengraphType
+      opengraphUrl
+      title
+      twitterDescription
+      twitterImage {
+        id
+        sourceUrl
+      }
+      twitterTitle
+    }
+    slug
+    taxonomy {
+      node {
+        id
+      }
+    }
+    termGroupId
+    termTaxonomyId
+    uri
+    __typename
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] ProductCategory node single query hasn't changed 1`] = `
+"query SINGLE_CONTENT_QUERY($id: ID!) {
+  productCategory(id: $id) {
+    ancestors(first: 100) {
+      nodes {
+        id
+      }
+    }
+    wpChildren: children(first: 100) {
+      nodes {
+        id
+      }
+    }
+    count
+    databaseId
+    description
+    id
+    image {
+      id
+      sourceUrl
+    }
+    link
+    name
+    wpParent: parent {
+      node {
+        id
+      }
+    }
+    parentDatabaseId
+    parentId
+    products(first: 100) {
+      nodes {
+        id
+        __typename
+      }
+    }
+    seo {
+      breadcrumbs {
+        text
+        url
+      }
+      canonical
+      focuskw
+      metaDesc
+      metaKeywords
+      metaRobotsNofollow
+      metaRobotsNoindex
+      opengraphAuthor
+      opengraphDescription
+      opengraphImage {
+        id
+        sourceUrl
+      }
+      opengraphModifiedTime
+      opengraphPublishedTime
+      opengraphPublisher
+      opengraphSiteName
+      opengraphTitle
+      opengraphType
+      opengraphUrl
+      title
+      twitterDescription
+      twitterImage {
+        id
+        sourceUrl
+      }
+      twitterTitle
+    }
+    slug
+    taxonomy {
+      node {
+        id
+      }
+    }
+    termGroupId
+    termTaxonomyId
+    uri
+    __typename
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] ProductTag node list query hasn't changed 1`] = `
+"query NODE_LIST_QUERY($first: Int!, $after: String) {
+  productTags(first: $first, after: $after, where: { parent: null }) {
+    nodes {
+      count
+      databaseId
+      description
+      id
+      link
+      name
+      products(first: 100) {
+        nodes {
+          id
+          __typename
+        }
+      }
+      seo {
+        breadcrumbs {
+          text
+          url
+        }
+        canonical
+        focuskw
+        metaDesc
+        metaKeywords
+        metaRobotsNofollow
+        metaRobotsNoindex
+        opengraphAuthor
+        opengraphDescription
+        opengraphImage {
+          id
+          sourceUrl
+        }
+        opengraphModifiedTime
+        opengraphPublishedTime
+        opengraphPublisher
+        opengraphSiteName
+        opengraphTitle
+        opengraphType
+        opengraphUrl
+        title
+        twitterDescription
+        twitterImage {
+          id
+          sourceUrl
+        }
+        twitterTitle
+      }
+      slug
+      taxonomy {
+        node {
+          id
+        }
+      }
+      termGroupId
+      termTaxonomyId
+      uri
+      __typename
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] ProductTag node preview query hasn't changed 1`] = `
+"query PREVIEW_QUERY($id: ID!) {
+  productTag(id: $id, idType: ID, asPreview: true) {
+    count
+    databaseId
+    description
+    id
+    link
+    name
+    products(first: 100) {
+      nodes {
+        id
+        __typename
+      }
+    }
+    seo {
+      breadcrumbs {
+        text
+        url
+      }
+      canonical
+      focuskw
+      metaDesc
+      metaKeywords
+      metaRobotsNofollow
+      metaRobotsNoindex
+      opengraphAuthor
+      opengraphDescription
+      opengraphImage {
+        id
+        sourceUrl
+      }
+      opengraphModifiedTime
+      opengraphPublishedTime
+      opengraphPublisher
+      opengraphSiteName
+      opengraphTitle
+      opengraphType
+      opengraphUrl
+      title
+      twitterDescription
+      twitterImage {
+        id
+        sourceUrl
+      }
+      twitterTitle
+    }
+    slug
+    taxonomy {
+      node {
+        id
+      }
+    }
+    termGroupId
+    termTaxonomyId
+    uri
+    __typename
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] ProductTag node single query hasn't changed 1`] = `
+"query SINGLE_CONTENT_QUERY($id: ID!) {
+  productTag(id: $id) {
+    count
+    databaseId
+    description
+    id
+    link
+    name
+    products(first: 100) {
+      nodes {
+        id
+        __typename
+      }
+    }
+    seo {
+      breadcrumbs {
+        text
+        url
+      }
+      canonical
+      focuskw
+      metaDesc
+      metaKeywords
+      metaRobotsNofollow
+      metaRobotsNoindex
+      opengraphAuthor
+      opengraphDescription
+      opengraphImage {
+        id
+        sourceUrl
+      }
+      opengraphModifiedTime
+      opengraphPublishedTime
+      opengraphPublisher
+      opengraphSiteName
+      opengraphTitle
+      opengraphType
+      opengraphUrl
+      title
+      twitterDescription
+      twitterImage {
+        id
+        sourceUrl
+      }
+      twitterTitle
+    }
+    slug
+    taxonomy {
+      node {
+        id
+      }
+    }
+    termGroupId
+    termTaxonomyId
+    uri
+    __typename
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] ProductType node list query hasn't changed 1`] = `
+"query NODE_LIST_QUERY($first: Int!, $after: String) {
+  productTypes(first: $first, after: $after, where: { parent: null }) {
+    nodes {
+      count
+      databaseId
+      description
+      id
+      link
+      name
+      seo {
+        breadcrumbs {
+          text
+          url
+        }
+        canonical
+        focuskw
+        metaDesc
+        metaKeywords
+        metaRobotsNofollow
+        metaRobotsNoindex
+        opengraphAuthor
+        opengraphDescription
+        opengraphImage {
+          id
+          sourceUrl
+        }
+        opengraphModifiedTime
+        opengraphPublishedTime
+        opengraphPublisher
+        opengraphSiteName
+        opengraphTitle
+        opengraphType
+        opengraphUrl
+        title
+        twitterDescription
+        twitterImage {
+          id
+          sourceUrl
+        }
+        twitterTitle
+      }
+      slug
+      taxonomy {
+        node {
+          id
+        }
+      }
+      termGroupId
+      termTaxonomyId
+      uri
+      __typename
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] ProductType node preview query hasn't changed 1`] = `
+"query PREVIEW_QUERY($id: ID!) {
+  productType(id: $id, idType: ID, asPreview: true) {
+    count
+    databaseId
+    description
+    id
+    link
+    name
+    seo {
+      breadcrumbs {
+        text
+        url
+      }
+      canonical
+      focuskw
+      metaDesc
+      metaKeywords
+      metaRobotsNofollow
+      metaRobotsNoindex
+      opengraphAuthor
+      opengraphDescription
+      opengraphImage {
+        id
+        sourceUrl
+      }
+      opengraphModifiedTime
+      opengraphPublishedTime
+      opengraphPublisher
+      opengraphSiteName
+      opengraphTitle
+      opengraphType
+      opengraphUrl
+      title
+      twitterDescription
+      twitterImage {
+        id
+        sourceUrl
+      }
+      twitterTitle
+    }
+    slug
+    taxonomy {
+      node {
+        id
+      }
+    }
+    termGroupId
+    termTaxonomyId
+    uri
+    __typename
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] ProductType node single query hasn't changed 1`] = `
+"query SINGLE_CONTENT_QUERY($id: ID!) {
+  productType(id: $id) {
+    count
+    databaseId
+    description
+    id
+    link
+    name
+    seo {
+      breadcrumbs {
+        text
+        url
+      }
+      canonical
+      focuskw
+      metaDesc
+      metaKeywords
+      metaRobotsNofollow
+      metaRobotsNoindex
+      opengraphAuthor
+      opengraphDescription
+      opengraphImage {
+        id
+        sourceUrl
+      }
+      opengraphModifiedTime
+      opengraphPublishedTime
+      opengraphPublisher
+      opengraphSiteName
+      opengraphTitle
+      opengraphType
+      opengraphUrl
+      title
+      twitterDescription
+      twitterImage {
+        id
+        sourceUrl
+      }
+      twitterTitle
+    }
+    slug
+    taxonomy {
+      node {
+        id
+      }
+    }
+    termGroupId
+    termTaxonomyId
+    uri
+    __typename
+  }
+}
+"
+`;
+
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Project node list query hasn't changed 1`] = `
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
   projects(first: $first, after: $after, where: { parent: null }) {
@@ -27594,6 +32664,513 @@ fragment BlockFragment on Block {
 "
 `;
 
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Refund node list query hasn't changed 1`] = `
+"query NODE_LIST_QUERY($first: Int!, $after: String) {
+  refunds(first: $first, after: $after, where: { parent: null }) {
+    nodes {
+      amount
+      contentType {
+        node {
+          id
+        }
+      }
+      id
+      lineItems(first: 100) {
+        nodes {
+          itemDownloads {
+            allowedFileType
+            downloadId
+            file
+            fileExists
+            fileExt
+            filePathType
+            fileType
+            name
+          }
+          itemId
+          metaData {
+            id
+            key
+            value
+          }
+          orderId
+          product {
+            id
+            __typename
+          }
+          productId
+          quantity
+          subtotal
+          subtotalTax
+          taxClass
+          taxStatus
+          taxes {
+            amount
+            subtotal
+            taxLine {
+              isCompound
+              itemId
+              label
+              metaData {
+                id
+                key
+                value
+              }
+              orderId
+              rateCode
+              shippingTaxTotal
+              taxRate {
+                id
+              }
+              taxTotal
+            }
+            taxLineId
+            total
+          }
+          total
+          totalTax
+          variation {
+            attributes(first: 100) {
+              nodes {
+                attributeId
+                id
+                name
+                value
+              }
+            }
+            backorders
+            backordersAllowed
+            catalogVisibility
+            contentType {
+              node {
+                id
+              }
+            }
+            date
+            dateOnSaleFrom
+            dateOnSaleTo
+            description
+            downloadExpiry
+            downloadLimit
+            downloadable
+            downloads {
+              allowedFileType
+              downloadId
+              file
+              fileExists
+              fileExt
+              filePathType
+              fileType
+              name
+            }
+            hasAttributes
+            height
+            id
+            image {
+              id
+              sourceUrl
+            }
+            length
+            manageStock
+            menuOrder
+            metaData {
+              id
+              key
+              value
+            }
+            modified
+            name
+            onSale
+            wpParent: parent {
+              id
+            }
+            price
+            purchasable
+            purchaseNote
+            regularPrice
+            salePrice
+            shippingClass
+            shippingClasses(first: 100) {
+              nodes {
+                id
+              }
+            }
+            sku
+            status
+            stockQuantity
+            stockStatus
+            taxClass
+            taxStatus
+            type
+            variationId
+            virtual
+            visibleProducts(first: 100) {
+              nodes {
+                id
+              }
+            }
+            weight
+            width
+          }
+          variationId
+        }
+      }
+      metaData {
+        id
+        key
+        value
+      }
+      reason
+      refundId
+      refundedBy {
+        id
+      }
+      title
+      __typename
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Refund node preview query hasn't changed 1`] = `
+"query PREVIEW_QUERY($id: ID!) {
+  refund(id: $id, idType: ID, asPreview: true) {
+    amount
+    contentType {
+      node {
+        id
+      }
+    }
+    id
+    lineItems(first: 100) {
+      nodes {
+        itemDownloads {
+          allowedFileType
+          downloadId
+          file
+          fileExists
+          fileExt
+          filePathType
+          fileType
+          name
+        }
+        itemId
+        metaData {
+          id
+          key
+          value
+        }
+        orderId
+        product {
+          id
+          __typename
+        }
+        productId
+        quantity
+        subtotal
+        subtotalTax
+        taxClass
+        taxStatus
+        taxes {
+          amount
+          subtotal
+          taxLine {
+            isCompound
+            itemId
+            label
+            metaData {
+              id
+              key
+              value
+            }
+            orderId
+            rateCode
+            shippingTaxTotal
+            taxRate {
+              id
+            }
+            taxTotal
+          }
+          taxLineId
+          total
+        }
+        total
+        totalTax
+        variation {
+          attributes(first: 100) {
+            nodes {
+              attributeId
+              id
+              name
+              value
+            }
+          }
+          backorders
+          backordersAllowed
+          catalogVisibility
+          contentType {
+            node {
+              id
+            }
+          }
+          date
+          dateOnSaleFrom
+          dateOnSaleTo
+          description
+          downloadExpiry
+          downloadLimit
+          downloadable
+          downloads {
+            allowedFileType
+            downloadId
+            file
+            fileExists
+            fileExt
+            filePathType
+            fileType
+            name
+          }
+          hasAttributes
+          height
+          id
+          image {
+            id
+            sourceUrl
+          }
+          length
+          manageStock
+          menuOrder
+          metaData {
+            id
+            key
+            value
+          }
+          modified
+          name
+          onSale
+          wpParent: parent {
+            id
+          }
+          price
+          purchasable
+          purchaseNote
+          regularPrice
+          salePrice
+          shippingClass
+          shippingClasses(first: 100) {
+            nodes {
+              id
+            }
+          }
+          sku
+          status
+          stockQuantity
+          stockStatus
+          taxClass
+          taxStatus
+          type
+          variationId
+          virtual
+          visibleProducts(first: 100) {
+            nodes {
+              id
+            }
+          }
+          weight
+          width
+        }
+        variationId
+      }
+    }
+    metaData {
+      id
+      key
+      value
+    }
+    reason
+    refundId
+    refundedBy {
+      id
+    }
+    title
+    __typename
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Refund node single query hasn't changed 1`] = `
+"query SINGLE_CONTENT_QUERY($id: ID!) {
+  refund(id: $id) {
+    amount
+    contentType {
+      node {
+        id
+      }
+    }
+    id
+    lineItems(first: 100) {
+      nodes {
+        itemDownloads {
+          allowedFileType
+          downloadId
+          file
+          fileExists
+          fileExt
+          filePathType
+          fileType
+          name
+        }
+        itemId
+        metaData {
+          id
+          key
+          value
+        }
+        orderId
+        product {
+          id
+          __typename
+        }
+        productId
+        quantity
+        subtotal
+        subtotalTax
+        taxClass
+        taxStatus
+        taxes {
+          amount
+          subtotal
+          taxLine {
+            isCompound
+            itemId
+            label
+            metaData {
+              id
+              key
+              value
+            }
+            orderId
+            rateCode
+            shippingTaxTotal
+            taxRate {
+              id
+            }
+            taxTotal
+          }
+          taxLineId
+          total
+        }
+        total
+        totalTax
+        variation {
+          attributes(first: 100) {
+            nodes {
+              attributeId
+              id
+              name
+              value
+            }
+          }
+          backorders
+          backordersAllowed
+          catalogVisibility
+          contentType {
+            node {
+              id
+            }
+          }
+          date
+          dateOnSaleFrom
+          dateOnSaleTo
+          description
+          downloadExpiry
+          downloadLimit
+          downloadable
+          downloads {
+            allowedFileType
+            downloadId
+            file
+            fileExists
+            fileExt
+            filePathType
+            fileType
+            name
+          }
+          hasAttributes
+          height
+          id
+          image {
+            id
+            sourceUrl
+          }
+          length
+          manageStock
+          menuOrder
+          metaData {
+            id
+            key
+            value
+          }
+          modified
+          name
+          onSale
+          wpParent: parent {
+            id
+          }
+          price
+          purchasable
+          purchaseNote
+          regularPrice
+          salePrice
+          shippingClass
+          shippingClasses(first: 100) {
+            nodes {
+              id
+            }
+          }
+          sku
+          status
+          stockQuantity
+          stockStatus
+          taxClass
+          taxStatus
+          type
+          variationId
+          virtual
+          visibleProducts(first: 100) {
+            nodes {
+              id
+            }
+          }
+          weight
+          width
+        }
+        variationId
+      }
+    }
+    metaData {
+      id
+      key
+      value
+    }
+    reason
+    refundId
+    refundedBy {
+      id
+    }
+    title
+    __typename
+  }
+}
+"
+`;
+
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] ReusableBlock node list query hasn't changed 1`] = `
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
   reusableBlocks(first: $first, after: $after, where: { parent: null }) {
@@ -33803,6 +39380,173 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     writingSettingsUseSmilies
   }
 
+  cart {
+    appliedCoupons(first: 100) {
+      nodes {
+        id
+      }
+    }
+
+    availableShippingMethods {
+      packageDetails
+
+      rates {
+        cost
+        id
+        instanceId
+        label
+        methodId
+      }
+
+      supportsShippingCalculator
+    }
+
+    chosenShippingMethod
+
+    contents(first: 100) {
+      itemCount
+
+      nodes {
+        extraData {
+          id
+          key
+          value
+        }
+
+        key
+
+        product {
+          id
+          __typename
+        }
+
+        quantity
+        subtotal
+        subtotalTax
+        tax
+        total
+
+        variation {
+          backorders
+          backordersAllowed
+          catalogVisibility
+
+          contentType {
+            node {
+              id
+            }
+          }
+
+          date
+          dateOnSaleFrom
+          dateOnSaleTo
+          description
+          downloadExpiry
+          downloadLimit
+          downloadable
+
+          downloads {
+            allowedFileType
+            downloadId
+            file
+            fileExists
+            fileExt
+            filePathType
+            fileType
+            name
+          }
+
+          hasAttributes
+          height
+          id
+
+          image {
+            id
+            sourceUrl
+          }
+
+          length
+          manageStock
+          menuOrder
+
+          metaData {
+            id
+            key
+            value
+          }
+
+          modified
+          name
+          onSale
+
+          wpParent: parent {
+            id
+          }
+
+          price
+          purchasable
+          purchaseNote
+          regularPrice
+          salePrice
+          shippingClass
+
+          shippingClasses(first: 100) {
+            nodes {
+              id
+            }
+          }
+
+          sku
+          status
+          stockQuantity
+          stockStatus
+          taxClass
+          taxStatus
+          type
+          variationId
+          virtual
+
+          visibleProducts(first: 100) {
+            nodes {
+              id
+            }
+          }
+
+          weight
+          width
+        }
+      }
+
+      productCount
+    }
+
+    contentsTax
+    contentsTotal
+    discountTax
+    discountTotal
+    displayPricesIncludeTax
+    feeTax
+    feeTotal
+
+    fees {
+      amount
+      id
+      name
+      taxClass
+      taxable
+      total
+    }
+
+    isEmpty
+    needsShippingAddress
+    shippingTax
+    shippingTotal
+    subtotal
+    subtotalTax
+    total
+    totalTax
+  }
+
   defaultLanguage {
     code
     id
@@ -33956,6 +39700,225 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     defaultCategory
     defaultPostFormat
     useSmilies
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] ShippingClass node list query hasn't changed 1`] = `
+"query NODE_LIST_QUERY($first: Int!, $after: String) {
+  shippingClasses(first: $first, after: $after, where: { parent: null }) {
+    nodes {
+      count
+      databaseId
+      description
+      id
+      link
+      name
+      seo {
+        breadcrumbs {
+          text
+          url
+        }
+        canonical
+        focuskw
+        metaDesc
+        metaKeywords
+        metaRobotsNofollow
+        metaRobotsNoindex
+        opengraphAuthor
+        opengraphDescription
+        opengraphImage {
+          id
+          sourceUrl
+        }
+        opengraphModifiedTime
+        opengraphPublishedTime
+        opengraphPublisher
+        opengraphSiteName
+        opengraphTitle
+        opengraphType
+        opengraphUrl
+        title
+        twitterDescription
+        twitterImage {
+          id
+          sourceUrl
+        }
+        twitterTitle
+      }
+      slug
+      taxonomy {
+        node {
+          id
+        }
+      }
+      termGroupId
+      termTaxonomyId
+      uri
+      __typename
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] ShippingClass node preview query hasn't changed 1`] = `
+"query PREVIEW_QUERY($id: ID!) {
+  shippingClass(id: $id, idType: ID, asPreview: true) {
+    count
+    databaseId
+    description
+    id
+    link
+    name
+    seo {
+      breadcrumbs {
+        text
+        url
+      }
+      canonical
+      focuskw
+      metaDesc
+      metaKeywords
+      metaRobotsNofollow
+      metaRobotsNoindex
+      opengraphAuthor
+      opengraphDescription
+      opengraphImage {
+        id
+        sourceUrl
+      }
+      opengraphModifiedTime
+      opengraphPublishedTime
+      opengraphPublisher
+      opengraphSiteName
+      opengraphTitle
+      opengraphType
+      opengraphUrl
+      title
+      twitterDescription
+      twitterImage {
+        id
+        sourceUrl
+      }
+      twitterTitle
+    }
+    slug
+    taxonomy {
+      node {
+        id
+      }
+    }
+    termGroupId
+    termTaxonomyId
+    uri
+    __typename
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] ShippingClass node single query hasn't changed 1`] = `
+"query SINGLE_CONTENT_QUERY($id: ID!) {
+  shippingClass(id: $id) {
+    count
+    databaseId
+    description
+    id
+    link
+    name
+    seo {
+      breadcrumbs {
+        text
+        url
+      }
+      canonical
+      focuskw
+      metaDesc
+      metaKeywords
+      metaRobotsNofollow
+      metaRobotsNoindex
+      opengraphAuthor
+      opengraphDescription
+      opengraphImage {
+        id
+        sourceUrl
+      }
+      opengraphModifiedTime
+      opengraphPublishedTime
+      opengraphPublisher
+      opengraphSiteName
+      opengraphTitle
+      opengraphType
+      opengraphUrl
+      title
+      twitterDescription
+      twitterImage {
+        id
+        sourceUrl
+      }
+      twitterTitle
+    }
+    slug
+    taxonomy {
+      node {
+        id
+      }
+    }
+    termGroupId
+    termTaxonomyId
+    uri
+    __typename
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] ShippingMethod node list query hasn't changed 1`] = `
+"query NODE_LIST_QUERY($first: Int!, $after: String) {
+  shippingMethods(first: $first, after: $after) {
+    nodes {
+      description
+      id
+      methodId
+      title
+      __typename
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] ShippingMethod node preview query hasn't changed 1`] = `
+"query PREVIEW_QUERY($id: ID!) {
+  shippingMethod(id: $id, idType: ID, asPreview: true) {
+    description
+    id
+    methodId
+    title
+    __typename
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] ShippingMethod node single query hasn't changed 1`] = `
+"query SINGLE_CONTENT_QUERY($id: ID!) {
+  shippingMethod(id: $id) {
+    description
+    id
+    methodId
+    title
+    __typename
   }
 }
 "
@@ -34189,6 +40152,78 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       id
     }
     uri
+    __typename
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] TaxRate node list query hasn't changed 1`] = `
+"query NODE_LIST_QUERY($first: Int!, $after: String) {
+  taxRates(first: $first, after: $after) {
+    nodes {
+      city
+      class
+      compound
+      country
+      id
+      name
+      order
+      postcode
+      priority
+      rate
+      rateId
+      shipping
+      state
+      __typename
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] TaxRate node preview query hasn't changed 1`] = `
+"query PREVIEW_QUERY($id: ID!) {
+  taxRate(id: $id, idType: ID, asPreview: true) {
+    city
+    class
+    compound
+    country
+    id
+    name
+    order
+    postcode
+    priority
+    rate
+    rateId
+    shipping
+    state
+    __typename
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] TaxRate node single query hasn't changed 1`] = `
+"query SINGLE_CONTENT_QUERY($id: ID!) {
+  taxRate(id: $id) {
+    city
+    class
+    compound
+    country
+    id
+    name
+    order
+    postcode
+    priority
+    rate
+    rateId
+    shipping
+    state
     __typename
   }
 }
@@ -59720,6 +65755,180 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     displayName
     id
     name
+    __typename
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] VisibleProduct node list query hasn't changed 1`] = `
+"query NODE_LIST_QUERY($first: Int!, $after: String) {
+  visibleProducts(first: $first, after: $after, where: { parent: null }) {
+    nodes {
+      count
+      databaseId
+      description
+      id
+      link
+      name
+      seo {
+        breadcrumbs {
+          text
+          url
+        }
+        canonical
+        focuskw
+        metaDesc
+        metaKeywords
+        metaRobotsNofollow
+        metaRobotsNoindex
+        opengraphAuthor
+        opengraphDescription
+        opengraphImage {
+          id
+          sourceUrl
+        }
+        opengraphModifiedTime
+        opengraphPublishedTime
+        opengraphPublisher
+        opengraphSiteName
+        opengraphTitle
+        opengraphType
+        opengraphUrl
+        title
+        twitterDescription
+        twitterImage {
+          id
+          sourceUrl
+        }
+        twitterTitle
+      }
+      slug
+      taxonomy {
+        node {
+          id
+        }
+      }
+      termGroupId
+      termTaxonomyId
+      uri
+      __typename
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] VisibleProduct node preview query hasn't changed 1`] = `
+"query PREVIEW_QUERY($id: ID!) {
+  visibleProduct(id: $id, idType: ID, asPreview: true) {
+    count
+    databaseId
+    description
+    id
+    link
+    name
+    seo {
+      breadcrumbs {
+        text
+        url
+      }
+      canonical
+      focuskw
+      metaDesc
+      metaKeywords
+      metaRobotsNofollow
+      metaRobotsNoindex
+      opengraphAuthor
+      opengraphDescription
+      opengraphImage {
+        id
+        sourceUrl
+      }
+      opengraphModifiedTime
+      opengraphPublishedTime
+      opengraphPublisher
+      opengraphSiteName
+      opengraphTitle
+      opengraphType
+      opengraphUrl
+      title
+      twitterDescription
+      twitterImage {
+        id
+        sourceUrl
+      }
+      twitterTitle
+    }
+    slug
+    taxonomy {
+      node {
+        id
+      }
+    }
+    termGroupId
+    termTaxonomyId
+    uri
+    __typename
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] VisibleProduct node single query hasn't changed 1`] = `
+"query SINGLE_CONTENT_QUERY($id: ID!) {
+  visibleProduct(id: $id) {
+    count
+    databaseId
+    description
+    id
+    link
+    name
+    seo {
+      breadcrumbs {
+        text
+        url
+      }
+      canonical
+      focuskw
+      metaDesc
+      metaKeywords
+      metaRobotsNofollow
+      metaRobotsNoindex
+      opengraphAuthor
+      opengraphDescription
+      opengraphImage {
+        id
+        sourceUrl
+      }
+      opengraphModifiedTime
+      opengraphPublishedTime
+      opengraphPublisher
+      opengraphSiteName
+      opengraphTitle
+      opengraphType
+      opengraphUrl
+      title
+      twitterDescription
+      twitterImage {
+        id
+        sourceUrl
+      }
+      twitterTitle
+    }
+    slug
+    taxonomy {
+      node {
+        id
+      }
+    }
+    termGroupId
+    termTaxonomyId
+    uri
     __typename
   }
 }

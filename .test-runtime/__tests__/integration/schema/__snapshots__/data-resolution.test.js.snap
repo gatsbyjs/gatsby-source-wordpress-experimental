@@ -339,6 +339,70 @@ Object {
             "nodes": Array [],
           },
         },
+        Object {
+          "acfPageFields": Object {
+            "fieldGroupName": "acfPageFields",
+          },
+          "author": Object {
+            "node": Object {
+              "name": "Tyler",
+            },
+          },
+          "title": "Cart",
+          "translations": Array [],
+          "uri": "/cart/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
+        },
+        Object {
+          "acfPageFields": Object {
+            "fieldGroupName": "acfPageFields",
+          },
+          "author": Object {
+            "node": Object {
+              "name": "Tyler",
+            },
+          },
+          "title": "Shop",
+          "translations": Array [],
+          "uri": "/shop/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
+        },
+        Object {
+          "acfPageFields": Object {
+            "fieldGroupName": "acfPageFields",
+          },
+          "author": Object {
+            "node": Object {
+              "name": "Tyler",
+            },
+          },
+          "title": "My account",
+          "translations": Array [],
+          "uri": "/my-account/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
+        },
+        Object {
+          "acfPageFields": Object {
+            "fieldGroupName": "acfPageFields",
+          },
+          "author": Object {
+            "node": Object {
+              "name": "Tyler",
+            },
+          },
+          "title": "Checkout",
+          "translations": Array [],
+          "uri": "/checkout/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
+        },
       ],
     },
     "testPage": Object {
@@ -474,6 +538,70 @@ Object {
           "title": "Yoast SEO",
           "translations": Array [],
           "uri": "/beautiful_slug/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
+        },
+        Object {
+          "acfPageFields": Object {
+            "fieldGroupName": "acfPageFields",
+          },
+          "author": Object {
+            "node": Object {
+              "name": "Tyler",
+            },
+          },
+          "title": "Cart",
+          "translations": Array [],
+          "uri": "/cart/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
+        },
+        Object {
+          "acfPageFields": Object {
+            "fieldGroupName": "acfPageFields",
+          },
+          "author": Object {
+            "node": Object {
+              "name": "Tyler",
+            },
+          },
+          "title": "Shop",
+          "translations": Array [],
+          "uri": "/shop/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
+        },
+        Object {
+          "acfPageFields": Object {
+            "fieldGroupName": "acfPageFields",
+          },
+          "author": Object {
+            "node": Object {
+              "name": "Tyler",
+            },
+          },
+          "title": "My account",
+          "translations": Array [],
+          "uri": "/my-account/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
+        },
+        Object {
+          "acfPageFields": Object {
+            "fieldGroupName": "acfPageFields",
+          },
+          "author": Object {
+            "node": Object {
+              "name": "Tyler",
+            },
+          },
+          "title": "Checkout",
+          "translations": Array [],
+          "uri": "/checkout/",
           "wpChildren": Object {
             "nodes": Array [],
           },
@@ -855,6 +983,18 @@ Object {
           "pages": Object {
             "nodes": Array [
               Object {
+                "title": "My account",
+              },
+              Object {
+                "title": "Checkout",
+              },
+              Object {
+                "title": "Cart",
+              },
+              Object {
+                "title": "Shop",
+              },
+              Object {
                 "title": "Yoast SEO",
               },
               Object {
@@ -929,6 +1069,18 @@ Object {
           "name": "Tyler",
           "pages": Object {
             "nodes": Array [
+              Object {
+                "title": "My account",
+              },
+              Object {
+                "title": "Checkout",
+              },
+              Object {
+                "title": "Cart",
+              },
+              Object {
+                "title": "Shop",
+              },
               Object {
                 "title": "Yoast SEO",
               },
