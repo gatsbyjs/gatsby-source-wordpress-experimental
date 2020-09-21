@@ -3,6 +3,7 @@
 - [Plugin Options](#plugin-options)
   - [url: String](#url-string)
   - [verbose: Boolean](#verbose-boolean)
+  - [alternativeWordpressUrls: String[]](#alternativeWordpressUrls)
   - [debug: Object](#debug-object)
     - [debug.graphql: Object](#debuggraphql-object)
       - [debug.graphql.showQueryVarsOnError: Boolean](#debuggraphqlshowqueryvarsonerror-boolean)
@@ -62,6 +63,12 @@ Wether there will be verbose output in the terminal. Set to `false` to turn off.
   },
 },
 ```
+
+## alternativeWordpressUrls: String[]
+
+In case the external wordpress url of images / relative links does not match to urls within the database
+this all image `src` tags with a base url of one of the provided URLs will be treated as if they exist
+on the main wordpress url, see [url](##url).
 
 ## debug: Object
 

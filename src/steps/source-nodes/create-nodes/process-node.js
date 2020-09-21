@@ -82,11 +82,20 @@ const dbIdToMediaItemRelayId = (dbId) => (dbId ? btoa(`post:${dbId}`) : null)
 const getCheerioImgRelayId = (cheerioImg) =>
   dbIdToMediaItemRelayId(getCheerioImgDbId(cheerioImg))
 
-export const ensureSrcHasHostname = ({ src, wpUrl }) => {
+export const ensureSrcHasHostname = ({ src, wpUrl, alternativeWordpressUrls }) => {
   const { protocol, host } = url.parse(wpUrl)
 
   if (src.startsWith(`/`)) {
     src = `${protocol}//${host}${src}`
+  } else if (alternativeWordpressUrls) {
+    // check all possible wp root urls and replace it with the actual wp url
+    for (const altWpUrl of alternativeWordpressUrls) {
+      if (src.startsWith(altWpUrl)) {
+        // remove the prefix and replace it with the real wp url
+        src = `${protocol}//${host}` + src.substring(altWpUrl.length)
+        break
+      }
+    }
   }
 
   return src
@@ -105,6 +114,7 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
     let src = ensureSrcHasHostname({
       src: cheerioImg.attribs.src,
       wpUrl,
+      alternativeWordpressUrls: pluginOptions.alternativeWordpressUrls
     })
 
     return src
@@ -167,6 +177,7 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
     const htmlImgSrc = ensureSrcHasHostname({
       src: cheerioImg.attribs.src,
       wpUrl,
+      pluginOptions.alternativeWordpressUrls
     })
 
     const possibleHtmlSrcs = [
@@ -355,13 +366,24 @@ const replaceNodeHtmlImages = async ({
   ).filter(({ match, subMatches }) => {
     // @todo make it a plugin option to fetch non-wp images
     // here we're filtering out image tags that don't contain our site url
-    const isHostedInWp =
+    let isHostedInWp =
       // if it has the full WP url
       match.includes(wpHostname) ||
       // or it's an absolute path
       subMatches[0].includes('src=\\"/')
 
-    return isHostedInWp
+    const alternativeWpUrls = pluginOptions.alternativeWordpressUrls
+    if (!isHostedInWp && alternativeWpUrls) {
+      for (const altWpUrl of alternativeWpUrls) {
+        const { hostname: altWpHostname } = url.parse(altWpUrl)
+        if (match.includes(altWpHostname)) {
+          isHostedInWp = true
+          break
+        }
+      }
+    }
+
+    return isHostedInWp;
   })
 
   if (imageUrlMatches.length && imgTagMatches.length) {
@@ -579,13 +601,23 @@ const replaceNodeHtmlImages = async ({
 }
 
 // replaces any url which is a front-end WP url with a relative path
-const replaceNodeHtmlLinks = ({ wpUrl, nodeString, node }) => {
+const replaceNodeHtmlLinks = ({ wpUrl, nodeString, node, alternativeWordpressUrls }) => {
   const wpLinkRegex = new RegExp(
     `["']${wpUrl}(?!/wp-content|/wp-admin|/wp-includes)(/[^'"]+)["']`,
     `gim`
   )
 
-  const linkMatches = execall(wpLinkRegex, nodeString)
+  let linkMatches = execall(wpLinkRegex, nodeString)
+  if (alternativeWordpressUrls) {
+    for (const altWpUrl of alternativeWordpressUrls) {
+      const wpLinkRegex2 = new RegExp(
+          `["']${altWpUrl}(?!/wp-content|/wp-admin|/wp-includes)(/[^'"]+)["']`,
+          `gim`
+      )
+      const additionalLinkMatches = execall(wpLinkRegex2, nodeString)
+      linkMatches.push(...additionalLinkMatches)
+    }
+  }
 
   if (linkMatches.length) {
     linkMatches.forEach(({ match, subMatches: [path] }) => {
@@ -608,7 +640,7 @@ const replaceNodeHtmlLinks = ({ wpUrl, nodeString, node }) => {
           )
         }
       }
-    })
+    });
   }
 
   return nodeString
