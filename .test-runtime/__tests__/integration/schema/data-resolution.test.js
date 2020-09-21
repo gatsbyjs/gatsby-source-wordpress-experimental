@@ -39,6 +39,10 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
       from: `wpPage(title: { eq: "ACF Field Test" }) {`,
       to: `page(id: "cG9zdDo3NjQ2") {`,
     },
+    fields: {
+      gatsby: `wpPage`,
+      wpgql: `page`,
+    },
   })
 
   testResolvedData({
@@ -48,6 +52,10 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
     queryReplace: {
       from: `wpPost(title: { eq: "Gutenberg: Columns" }) {`,
       to: `post(id: "cG9zdDoxMjg=") {`,
+    },
+    fields: {
+      gatsby: `wpPost`,
+      wpgql: `post`,
     },
   })
 
@@ -59,6 +67,10 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
       from: `wpPost(id: { eq: "cG9zdDoxMjU=" }) {`,
       to: `post(id: "cG9zdDoxMjU=") {`,
     },
+    fields: {
+      gatsby: `wpPost`,
+      wpgql: `post`,
+    },
   })
 
   testResolvedData({
@@ -69,6 +81,10 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
       from: `wpPost(id: { eq: "cG9zdDoxMjI=" }) {`,
       to: `post(id: "cG9zdDoxMjI=") {`,
     },
+    fields: {
+      gatsby: `wpPost`,
+      wpgql: `post`,
+    },
   })
 
   testResolvedData({
@@ -78,6 +94,180 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
     queryReplace: {
       from: `wpPost(id: { eq: "cG9zdDo5NA==" }) {`,
       to: `post(id: "cG9zdDo5NA==") {`,
+    },
+    fields: {
+      gatsby: `wpPost`,
+      wpgql: `post`,
+    },
+  })
+
+  testResolvedData({
+    url,
+    title: `resolves wp-graphql-woocommerce WP Pennant`,
+    gatsbyQuery: queries.wooCommerceProduct,
+    queryReplace: {
+      from: `wpProduct(id: { eq: $id }) {`,
+      to: `product(id: $id) {`,
+    },
+    variables: {
+      id: "cHJvZHVjdDo4NTIx",
+    },
+    fields: {
+      gatsby: `wpProduct`,
+      wpgql: `product`,
+    },
+  })
+
+  testResolvedData({
+    url,
+    title: `resolves wp-graphql-woocommerce Logo Collection`,
+    gatsbyQuery: queries.wooCommerceProduct,
+    queryReplace: {
+      from: `wpProduct(id: { eq: $id }) {`,
+      to: `product(id: $id) {`,
+    },
+    variables: {
+      id: "cHJvZHVjdDo4NTE5",
+    },
+    fields: {
+      gatsby: `wpProduct`,
+      wpgql: `product`,
+    },
+  })
+
+  testResolvedData({
+    url,
+    title: `resolves wp-graphql-woocommerce Beanie with Logo`,
+    gatsbyQuery: queries.wooCommerceProduct,
+    queryReplace: {
+      from: `wpProduct(id: { eq: $id }) {`,
+      to: `product(id: $id) {`,
+    },
+    variables: {
+      id: "cHJvZHVjdDo4NTE3",
+    },
+    fields: {
+      gatsby: `wpProduct`,
+      wpgql: `product`,
+    },
+  })
+
+  testResolvedData({
+    url,
+    title: `resolves wp-graphql-woocommerce T-Shirt with Logo`,
+    gatsbyQuery: queries.wooCommerceProduct,
+    queryReplace: {
+      from: `wpProduct(id: { eq: $id }) {`,
+      to: `product(id: $id) {`,
+    },
+    variables: {
+      id: "cHJvZHVjdDo4NTE1",
+    },
+    fields: {
+      gatsby: `wpProduct`,
+      wpgql: `product`,
+    },
+  })
+
+  testResolvedData({
+    url,
+    title: `resolves wp-graphql-woocommerce Single`,
+    gatsbyQuery: queries.wooCommerceProduct,
+    queryReplace: {
+      from: `wpProduct(id: { eq: $id }) {`,
+      to: `product(id: $id) {`,
+    },
+    variables: {
+      id: "cHJvZHVjdDo4NTAx",
+    },
+    fields: {
+      gatsby: `wpProduct`,
+      wpgql: `product`,
+    },
+  })
+
+  testResolvedData({
+    url,
+    title: `resolves wp-graphql-woocommerce Album`,
+    gatsbyQuery: queries.wooCommerceProduct,
+    queryReplace: {
+      from: `wpProduct(id: { eq: $id }) {`,
+      to: `product(id: $id) {`,
+    },
+    variables: {
+      id: "cHJvZHVjdDo4NDk5",
+    },
+    fields: {
+      gatsby: `wpProduct`,
+      wpgql: `product`,
+    },
+  })
+
+  testResolvedData({
+    url,
+    title: `resolves wp-graphql-woocommerce Polo`,
+    gatsbyQuery: queries.wooCommerceProduct,
+    queryReplace: {
+      from: `wpProduct(id: { eq: $id }) {`,
+      to: `product(id: $id) {`,
+    },
+    variables: {
+      id: "cHJvZHVjdDo4NDk3",
+    },
+    fields: {
+      gatsby: `wpProduct`,
+      wpgql: `product`,
+    },
+  })
+
+  testResolvedData({
+    url,
+    title: `resolves wp-graphql-woocommerce Long Sleeve Tee`,
+    gatsbyQuery: queries.wooCommerceProduct,
+    queryReplace: {
+      from: `wpProduct(id: { eq: $id }) {`,
+      to: `product(id: $id) {`,
+    },
+    variables: {
+      id: "cHJvZHVjdDo4NDk1",
+    },
+    fields: {
+      gatsby: `wpProduct`,
+      wpgql: `product`,
+    },
+  })
+
+  testResolvedData({
+    url,
+    title: `resolves wp-graphql-woocommerce Hoodie with Zipper`,
+    gatsbyQuery: queries.wooCommerceProduct,
+    queryReplace: {
+      from: `wpProduct(id: { eq: $id }) {`,
+      to: `product(id: $id) {`,
+    },
+    variables: {
+      id: "cHJvZHVjdDo4NDkz",
+    },
+    fields: {
+      gatsby: `wpProduct`,
+      wpgql: `product`,
+    },
+  })
+
+  testResolvedData({
+    url,
+    title: `resolves wp-graphql-woocommerce Sunglasses`,
+    gatsbyQuery: queries.wooCommerceProduct,
+    queryReplace: {
+      from: `wpProduct(id: { eq: $id }) {`,
+      to: `product(id: $id) {`,
+    },
+    variables: {
+      id: "cHJvZHVjdDo4NDg5",
+    },
+    fields: {
+      gatsby: `wpProduct`,
+      wpgql: `product`,
     },
   })
 
