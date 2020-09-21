@@ -722,4 +722,85 @@ export const queries = {
       }
     }
   `,
+  wooCommerceProduct: /* GraphQL */ `
+    query Product($id: String!) {
+      wpProduct(id: { eq: $id }) {
+        averageRating
+        catalogVisibility
+        date
+        dateOnSaleFrom
+        dateOnSaleTo
+        description
+        featured
+        id
+        link
+        menuOrder
+        modified
+        name
+        onSale
+        productId
+        purchasable
+        purchaseNote
+        reviewCount
+        reviewsAllowed
+        shortDescription
+        sku
+        slug
+        status
+        totalSales
+        # type
+        attributes {
+          nodes {
+            name
+            options
+            position
+            # scope
+            variation
+            visible
+            attributeId
+            id
+            ... on WpGlobalProductAttribute {
+              id
+              name
+              terms {
+                nodes {
+                  id
+                  name
+                }
+              }
+              variation
+            }
+            ... on WpLocalProductAttribute {
+              id
+              name
+            }
+          }
+        }
+        upsell {
+          nodes {
+            id
+            link
+            featured
+            description
+            dateOnSaleTo
+            dateOnSaleFrom
+            name
+            onSale
+            ... on WpVariableProduct {
+              id
+              name
+              length
+              link
+              onSale
+              productId
+            }
+            ... on WpExternalProduct {
+              id
+              name
+            }
+          }
+        }
+      }
+    }
+  `,
 }
