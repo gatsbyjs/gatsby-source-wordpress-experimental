@@ -1,6 +1,6 @@
 # Change Log
 
-## Upcoming
+## 1.3.10
 
 ### Bug Fixes
 
