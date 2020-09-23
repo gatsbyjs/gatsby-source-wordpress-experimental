@@ -1,5 +1,11 @@
 # Change Log
 
+## Upcoming
+
+### Bug Fixes
+
+- Gatsby image's in html blocks were not always being picked up or cached properly.
+
 ## 1.3.9
 
 ### Bug Fixes
