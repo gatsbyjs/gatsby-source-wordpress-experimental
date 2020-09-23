@@ -34,8 +34,12 @@ export const queries = {
       allWpMenuItem {
         totalCount
       }
-      allWpMediaItem {
+      allWpMediaItem(sort: { fields: [id] }) {
         totalCount
+        nodes {
+          id
+          sourceUrl
+        }
       }
       allWpTeamMember {
         totalCount
@@ -190,7 +194,7 @@ export const queries = {
         }
       }
       parentNodeDatabaseId
-      saveContent
+      # saveContent
       dynamicContent
       attributes {
         className
@@ -222,7 +226,7 @@ export const queries = {
           verticalAlignment
         }
       }
-      saveContent
+      # saveContent
     }
 
     fragment InnerBlocks on WpBlock {

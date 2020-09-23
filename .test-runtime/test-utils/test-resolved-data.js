@@ -35,7 +35,7 @@ export const testResolvedData = ({
     expect(wpgqlNode).toBeTruthy()
 
     const gatsbyNode = normalizeResponse(gatsbyResult.data[gatsby])
-    console.log(gatsbyNode)
+
     expect(gatsbyNode).toBeTruthy()
 
     expect(wpgqlNode).toStrictEqual(gatsbyNode)
