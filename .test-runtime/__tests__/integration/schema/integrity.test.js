@@ -37,7 +37,5 @@ describe(`[gatsby-source-wordpress-experimental] schema integrity`, () => {
       }))
 
     expect(localWPTypeNamesWithFieldNames).toMatchSnapshot()
-
-    expect(createContentDigest(result.data.__schema)).toMatchSnapshot()
   })
 })
