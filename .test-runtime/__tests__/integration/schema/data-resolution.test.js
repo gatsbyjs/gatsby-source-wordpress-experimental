@@ -8,15 +8,19 @@ jest.setTimeout(100000)
 const url = `http://localhost:8000/___graphql`
 
 describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
-  incrementalIt(`resolves correct number of nodes`, async () => {
+  it(`resolves correct number of nodes`, async () => {
     const { data } = await fetchGraphql({
       url,
       query: queries.nodeCounts,
     })
 
+    expect(data[`allWpMediaItem`].nodes).toBeTruthy()
+    expect(data[`allWpMediaItem`].nodes).toMatchSnapshot()
+    expect(data[`allWpMediaItem`].totalCount).toBe(40)
+
     expect(data[`allWpTag`].totalCount).toBe(5)
     expect(data[`allWpUser`].totalCount).toBe(1)
-    expect(data[`allWpPage`].totalCount).toBe(11)
+    expect(data[`allWpPage`].totalCount).toBe(14)
     expect(data[`allWpPost`].totalCount).toBe(9)
     expect(data[`allWpComment`].totalCount).toBe(1)
     expect(data[`allWpProject`].totalCount).toBe(1)
@@ -25,7 +29,6 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
     expect(data[`allWpUserRole`].totalCount).toBe(0)
     expect(data[`allWpMenu`].totalCount).toBe(1)
     expect(data[`allWpMenuItem`].totalCount).toBe(4)
-    expect(data[`allWpMediaItem`].totalCount).toBe(31)
     expect(data[`allWpTeamMember`].totalCount).toBe(1)
     expect(data[`allWpPostFormat`].totalCount).toBe(0)
     expect(data[`allWpContentType`].totalCount).toBe(9)
