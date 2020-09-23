@@ -29,7 +29,7 @@ describe(`[gatsby-source-wordpress-experimental] schema integrity`, () => {
     })
 
     const localWPTypeNamesWithFieldNames = result.data.__schema.types
-      .filter(({ name }) => name.startsWith(`allWp`) || name.startsWith(`Wp`))
+      .filter(({ name }) => name.startsWith(`Wp`))
       .map(type => ({
         name: type.name,
         fields:
