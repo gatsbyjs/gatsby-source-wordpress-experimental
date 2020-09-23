@@ -1,5 +1,4 @@
 import { isWebUri } from "valid-url"
-import uniq from "lodash/uniq"
 import { fluid } from "gatsby-plugin-sharp"
 import Img from "gatsby-image"
 import React from "react"
@@ -19,6 +18,7 @@ import fetchReferencedMediaItemsAndCreateNodes, {
 } from "../fetch-nodes/fetch-referenced-media-items"
 import btoa from "btoa"
 import store from "~/store"
+import { CREATED_NODE_IDS } from "~/constants"
 
 const imgSrcRemoteFileRegex = /(?:src=\\")((?:(?:https?|ftp|file):\/\/|www\.|ftp\.|\/)(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[A-Z0-9+&@#/%=~_|$])\.(?:jpeg|jpg|png|gif|ico|mpg|ogv|svg|bmp|tif|tiff))(?=\\"| |\.)/gim
 
@@ -192,11 +192,23 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
     referencedMediaItemNodeIds: mediaItemRelayIds,
   })
 
-  const mediaItemNodes = [
-    ...mediaItemNodesById,
-    ...mediaItemNodesBySourceUrl,
-    ...previouslyCachedNodesByUrl,
-  ]
+  const createdNodeIds = [...mediaItemNodesById, ...mediaItemNodesBySourceUrl]
+
+  // if we've created nodes we need to save the id's so they get touched
+  // on the next build and aren't garbage collected
+  // @todo this should be written 1 time, not on each node transformation
+  if (createdNodeIds.length) {
+    const previouslyCreatedNodeIds =
+      (await helpers.cache.get(CREATED_NODE_IDS)) || []
+
+    const allCreatedNodeIds = [...createdNodeIds, ...previouslyCreatedNodeIds]
+
+    if (allCreatedNodeIds.length) {
+      await helpers.cache.set(CREATED_NODE_IDS, allCreatedNodeIds)
+    }
+  }
+
+  const mediaItemNodes = [...createdNodeIds, ...previouslyCachedNodesByUrl]
 
   const htmlMatchesToMediaItemNodesMap = new Map()
   for (const { cheerioImg, match } of cheerioImages) {
