@@ -194,20 +194,6 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
 
   const createdNodeIds = [...mediaItemNodesById, ...mediaItemNodesBySourceUrl]
 
-  // if we've created nodes we need to save the id's so they get touched
-  // on the next build and aren't garbage collected
-  // @todo this should be written 1 time, not on each node transformation
-  if (createdNodeIds.length) {
-    const previouslyCreatedNodeIds =
-      (await helpers.cache.get(CREATED_NODE_IDS)) || []
-
-    const allCreatedNodeIds = [...createdNodeIds, ...previouslyCreatedNodeIds]
-
-    if (allCreatedNodeIds.length) {
-      await helpers.cache.set(CREATED_NODE_IDS, allCreatedNodeIds)
-    }
-  }
-
   const mediaItemNodes = [...createdNodeIds, ...previouslyCachedNodesByUrl]
 
   const htmlMatchesToMediaItemNodesMap = new Map()
@@ -243,6 +229,9 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
           ...helpers,
           createNode: helpers.actions.createNode,
         })
+
+        // save this file node id to cache the node properly
+        createdNodeIds.push(imageNode.id)
       } catch (e) {
         if (typeof e === `string` && e.includes(`404`)) {
           const nodeEditLink = getNodeEditLink(node)
@@ -277,6 +266,20 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
 
       // match is the html string of the img tag
       htmlMatchesToMediaItemNodesMap.set(match, { imageNode, cheerioImg })
+    }
+  }
+
+  // if we've created nodes we need to save the id's so they get touched
+  // on the next build and aren't garbage collected
+  // @todo this should be written 1 time, not on each node transformation
+  if (createdNodeIds.length) {
+    const previouslyCreatedNodeIds =
+      (await helpers.cache.get(CREATED_NODE_IDS)) || []
+
+    const allCreatedNodeIds = [...createdNodeIds, ...previouslyCreatedNodeIds]
+
+    if (allCreatedNodeIds.length) {
+      await helpers.cache.set(CREATED_NODE_IDS, allCreatedNodeIds)
     }
   }
 
