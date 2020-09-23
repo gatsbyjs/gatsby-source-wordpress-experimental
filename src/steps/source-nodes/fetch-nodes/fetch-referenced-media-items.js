@@ -8,7 +8,8 @@ import { buildTypeName } from "~/steps/create-schema-customization/helpers"
 import fetchGraphql from "~/utils/fetch-graphql"
 import { getFileNodeMetaBySourceUrl } from "~/steps/source-nodes/create-nodes/create-remote-media-item-node"
 import uniq from "lodash/uniq"
-import { getGatsbyApi } from "~/utils/get-gatsby-api"
+import urlUtil from "url"
+import path from "path"
 
 const nodeFetchConcurrency = 2
 
@@ -184,11 +185,48 @@ const createMediaItemNode = async ({
   return futureNode
 }
 
+const urlToFileExtension = (url) => {
+  const { pathname } = urlUtil.parse(url)
+
+  const fileExtension = path.extname(pathname)
+
+  return fileExtension
+}
+
 export const stripImageSizesFromUrl = (url) => {
-  const imageSizesPattern = new RegExp("(?:[-_]([0-9]+)x([0-9]+))")
-  const urlWithoutSizes = url.replace(imageSizesPattern, "")
+  const fileExtension = urlToFileExtension(url)
+
+  const imageSizesPattern = new RegExp(
+    `(?:[-_]([0-9]+)x([0-9]+))${fileExtension ? `\.${fileExtension}` : ``}`
+  )
+
+  let urlWithoutSizes = url.replace(imageSizesPattern, "")
+
+  if (urlWithoutSizes !== url && fileExtension) {
+    urlWithoutSizes = `${urlWithoutSizes}${fileExtension}`
+  }
 
   return urlWithoutSizes
+}
+
+const createScaledImageUrl = (url) => {
+  const fileExtension = urlToFileExtension(url)
+
+  const isAlreadyScaled = url.includes(`-scaled${fileExtension || ``}`)
+
+  if (isAlreadyScaled) {
+    return url
+  }
+
+  let scaledUrl
+
+  if (fileExtension) {
+    scaledUrl = url.replace(fileExtension, `-scaled${fileExtension}`)
+  } else {
+    scaledUrl = `${url}-scaled`
+  }
+
+  return scaledUrl
 }
 
 // takes an array of image urls and returns them + additional urls if
@@ -203,6 +241,9 @@ export const stripImageSizesFromUrl = (url) => {
 const processAndDedupeImageUrls = (urls) =>
   uniq(
     urls.reduce((accumulator, url) => {
+      const scaledUrl = createScaledImageUrl(url)
+      accumulator.push(scaledUrl)
+
       const strippedUrl = stripImageSizesFromUrl(url)
 
       // if the url had no image sizes, don't do anything special
@@ -211,6 +252,9 @@ const processAndDedupeImageUrls = (urls) =>
       }
 
       accumulator.push(strippedUrl)
+
+      const scaledStrippedUrl = createScaledImageUrl(strippedUrl)
+      accumulator.push(scaledStrippedUrl)
 
       return accumulator
     }, urls)
