@@ -139,7 +139,7 @@ const generateNodeQueriesFromIngestibleFields = async () => {
 
   let nodeQueries = {}
 
-  for (const { type, name, args } of nodeListRootFields) {
+  for (const { type, name } of nodeListRootFields) {
     if (fieldBlacklist.includes(name)) {
       continue
     }
@@ -256,17 +256,7 @@ const generateNodeQueriesFromIngestibleFields = async () => {
       builtSelectionSet: selectionSet,
     })
 
-    const whereArgs = args.find((arg) => arg.name === `where`)
-
-    const needsNullParent = whereArgs
-      ? !!whereArgs.type.inputFields.find(
-          (inputField) => inputField.name === `parent`
-        )
-      : false
-
-    const fieldVariables = needsNullParent
-      ? `where: { parent: null ${settings.where || ``} }`
-      : settings.where || ``
+    const fieldVariables = settings.where ? `where: { ${settings.where} }` : ``
 
     if (
       settings.nodeListQueries &&
