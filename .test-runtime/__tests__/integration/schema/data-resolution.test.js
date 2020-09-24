@@ -21,11 +21,11 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
     expect(data[`allWpTag`].totalCount).toBe(5)
     expect(data[`allWpUser`].totalCount).toBe(1)
     expect(data[`allWpPage`].totalCount).toBe(14)
-    expect(data[`allWpPost`].totalCount).toBe(9)
+    expect(data[`allWpPost`].totalCount).toBe(10)
     expect(data[`allWpComment`].totalCount).toBe(1)
     expect(data[`allWpProject`].totalCount).toBe(1)
     expect(data[`allWpTaxonomy`].totalCount).toBe(6)
-    expect(data[`allWpCategory`].totalCount).toBe(4)
+    expect(data[`allWpCategory`].totalCount).toBe(9)
     expect(data[`allWpUserRole`].totalCount).toBe(0)
     expect(data[`allWpMenu`].totalCount).toBe(1)
     expect(data[`allWpMenuItem`].totalCount).toBe(4)
@@ -140,6 +140,57 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
 
     expect(gatsbyResult.data.wpPage).toStrictEqual(wpGraphQLPageNormalizedPaths)
     expect(gatsbyResult.data.wp.seo).toStrictEqual(WPGraphQLResult.data.seo)
+  })
+
+  it(`resolves hierarchichal categories`, async () => {
+    const gatsbyResult = await fetchGraphql({
+      url,
+      query: /* GraphQL */ `
+        fragment NestedCats on WpCategory {
+          name
+          wpChildren {
+            nodes {
+              name
+              wpChildren {
+                nodes {
+                  name
+                  wpChildren {
+                    nodes {
+                      name
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        {
+          allWpCategory {
+            nodes {
+              name
+            }
+          }
+          wpPost(id: { eq: "cG9zdDo5MzYx" }) {
+            id
+            title
+            categories {
+              nodes {
+                ...NestedCats
+              }
+            }
+          }
+        }
+      `,
+    })
+
+    const categoryNodes = gatsbyResult.data.allWpCategory.nodes
+    const categoryNames = categoryNodes.map(({ name }) => name)
+
+    expect(categoryNames.includes(`h1`)).toBeTruthy()
+    expect(categoryNames.includes(`h2`)).toBeTruthy()
+    expect(categoryNames.includes(`h3`)).toBeTruthy()
+    expect(categoryNames.includes(`h4`)).toBeTruthy()
   })
 
   incrementalIt(`resolves menus`, async () => {
