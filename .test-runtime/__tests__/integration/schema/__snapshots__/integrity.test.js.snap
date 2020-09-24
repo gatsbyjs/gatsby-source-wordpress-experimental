@@ -713,13 +713,14 @@ Array [
   },
   Object {
     "fields": Array [
+      "templateFile",
       "templateName",
     ],
     "name": "WpContentTemplate",
   },
   Object {
     "fields": null,
-    "name": "WpContentTemplateUnion",
+    "name": "WpContentTemplateFilterInput",
   },
   Object {
     "fields": Array [
@@ -4413,6 +4414,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "templateFile",
       "templateName",
     ],
     "name": "WpCoverTemplateTemplate",
@@ -4547,6 +4549,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "templateFile",
       "templateName",
     ],
     "name": "WpDefaultTemplate",
@@ -4743,6 +4746,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "templateFile",
       "templateName",
     ],
     "name": "WpFullWidthTemplateTemplate",
@@ -10727,6 +10731,10 @@ Array [
   },
   Object {
     "fields": null,
+    "name": "BlockUnion",
+  },
+  Object {
+    "fields": null,
     "name": "Boolean",
   },
   Object {
@@ -10981,6 +10989,17 @@ Array [
   },
   Object {
     "fields": Array [
+      "databaseId",
+      "email",
+      "id",
+      "isRestricted",
+      "name",
+      "url",
+    ],
+    "name": "CommentAuthor",
+  },
+  Object {
+    "fields": Array [
       "edges",
       "nodes",
       "pageInfo",
@@ -11134,13 +11153,10 @@ Array [
   },
   Object {
     "fields": Array [
+      "templateFile",
       "templateName",
     ],
     "name": "ContentTemplate",
-  },
-  Object {
-    "fields": null,
-    "name": "ContentTemplateUnion",
   },
   Object {
     "fields": Array [
@@ -14772,6 +14788,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "templateFile",
       "templateName",
     ],
     "name": "CoverTemplateTemplate",
@@ -14790,6 +14807,17 @@ Array [
       "clientMutationId",
     ],
     "name": "CreateActionMonitorActionPayload",
+  },
+  Object {
+    "fields": null,
+    "name": "CreateBlockEditorPreviewInput",
+  },
+  Object {
+    "fields": Array [
+      "blockEditorPreview",
+      "clientMutationId",
+    ],
+    "name": "CreateBlockEditorPreviewPayload",
   },
   Object {
     "fields": null,
@@ -15159,6 +15187,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "templateFile",
       "templateName",
     ],
     "name": "DefaultTemplate",
@@ -15174,6 +15203,18 @@ Array [
       "deletedId",
     ],
     "name": "DeleteActionMonitorActionPayload",
+  },
+  Object {
+    "fields": null,
+    "name": "DeleteBlockEditorPreviewInput",
+  },
+  Object {
+    "fields": Array [
+      "blockEditorPreview",
+      "clientMutationId",
+      "deletedId",
+    ],
+    "name": "DeleteBlockEditorPreviewPayload",
   },
   Object {
     "fields": null,
@@ -15628,6 +15669,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "templateFile",
       "templateName",
     ],
     "name": "FullWidthTemplateTemplate",
@@ -16082,6 +16124,10 @@ Array [
       "node",
     ],
     "name": "MenuItemToMenuItemLinkableConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "MenuItemsWhereArgs",
   },
   Object {
     "fields": null,
@@ -19909,6 +19955,10 @@ Array [
     "name": "Theme",
   },
   Object {
+    "fields": null,
+    "name": "TimezoneEnum",
+  },
+  Object {
     "fields": Array [
       "author",
       "authorDatabaseId",
@@ -20105,6 +20155,17 @@ Array [
       "clientMutationId",
     ],
     "name": "UpdateActionMonitorActionPayload",
+  },
+  Object {
+    "fields": null,
+    "name": "UpdateBlockEditorPreviewInput",
+  },
+  Object {
+    "fields": Array [
+      "blockEditorPreview",
+      "clientMutationId",
+    ],
+    "name": "UpdateBlockEditorPreviewPayload",
   },
   Object {
     "fields": null,
