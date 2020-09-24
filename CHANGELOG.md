@@ -1,5 +1,11 @@
 # Change Log
 
+## Upcoming
+
+### New Features
+
+- Previously not all nodes were being fetched in flat lists. This meant extra logic was being run to recursively fetch category nodes, and it meant that custom taxonomies could not have hierarchical data. All core nodes are now fetched as flat lists, enabling hierarchical custom taxonomies and speeding up data sourcing for Category nodes.
+
 ## 1.3.10
 
 ### Bug Fixes
