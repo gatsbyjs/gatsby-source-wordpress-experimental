@@ -2,7 +2,7 @@
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] BlockEditorPreview node list query hasn't changed 1`] = `
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
-  blockEditorPreviews(first: $first, after: $after, where: { parent: null }) {
+  blockEditorPreviews(first: $first, after: $after) {
     nodes {
       author {
         node {
@@ -7961,7 +7961,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Category node list query hasn't changed 1`] = `
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
-  categories(first: $first, after: $after, where: { parent: null }) {
+  categories(first: $first, after: $after) {
     nodes {
       ancestors(first: 100) {
         nodes {
@@ -8246,7 +8246,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Comment node list query hasn't changed 1`] = `
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
-  comments(first: $first, after: $after, where: { parent: null }) {
+  comments(first: $first, after: $after) {
     nodes {
       agent
       approved
@@ -8600,7 +8600,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Coupon node list query hasn't changed 1`] = `
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
-  coupons(first: $first, after: $after, where: { parent: null }) {
+  coupons(first: $first, after: $after) {
     nodes {
       amount
       code
@@ -9194,7 +9194,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] MediaItem node list query hasn't changed 1`] = `
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
-  mediaItems(first: $first, after: $after, where: { parent: null }) {
+  mediaItems(first: $first, after: $after) {
     nodes {
       altText
       ancestors(first: 100) {
@@ -9884,7 +9884,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Order node list query hasn't changed 1`] = `
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
-  orders(first: $first, after: $after, where: { parent: null }) {
+  orders(first: $first, after: $after) {
     nodes {
       billing {
         address1
@@ -11006,7 +11006,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] PaColor node list query hasn't changed 1`] = `
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
-  paColors(first: $first, after: $after, where: { parent: null }) {
+  paColors(first: $first, after: $after) {
     nodes {
       count
       databaseId
@@ -11453,7 +11453,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] PaSize node list query hasn't changed 1`] = `
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
-  paSizes(first: $first, after: $after, where: { parent: null }) {
+  paSizes(first: $first, after: $after) {
     nodes {
       count
       databaseId
@@ -11900,7 +11900,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Page node list query hasn't changed 1`] = `
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
-  pages(first: $first, after: $after, where: { parent: null }) {
+  pages(first: $first, after: $after) {
     nodes {
       acfPageFields {
         buttonGroupField
@@ -20618,7 +20618,7 @@ fragment BlockFragment on Block {
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Post node list query hasn't changed 1`] = `
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
-  posts(first: $first, after: $after, where: { parent: null }) {
+  posts(first: $first, after: $after) {
     nodes {
       author {
         node {
@@ -28385,7 +28385,7 @@ fragment BlockFragment on Block {
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] PostFormat node list query hasn't changed 1`] = `
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
-  postFormats(first: $first, after: $after, where: { parent: null }) {
+  postFormats(first: $first, after: $after) {
     nodes {
       count
       databaseId
@@ -28589,7 +28589,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Product node list query hasn't changed 1`] = `
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
-  products(first: $first, after: $after, where: { parent: null }) {
+  products(first: $first, after: $after) {
     nodes {
       ... on VariableProduct {
         backorders
@@ -30476,7 +30476,7 @@ fragment VariableProductFragment on VariableProduct {
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] ProductCategory node list query hasn't changed 1`] = `
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
-  productCategories(first: $first, after: $after, where: { parent: null }) {
+  productCategories(first: $first, after: $after) {
     nodes {
       ancestors(first: 100) {
         nodes {
@@ -30731,7 +30731,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] ProductTag node list query hasn't changed 1`] = `
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
-  productTags(first: $first, after: $after, where: { parent: null }) {
+  productTags(first: $first, after: $after) {
     nodes {
       count
       databaseId
@@ -30923,7 +30923,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] ProductType node list query hasn't changed 1`] = `
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
-  productTypes(first: $first, after: $after, where: { parent: null }) {
+  productTypes(first: $first, after: $after) {
     nodes {
       count
       databaseId
@@ -31097,7 +31097,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Project node list query hasn't changed 1`] = `
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
-  projects(first: $first, after: $after, where: { parent: null }) {
+  projects(first: $first, after: $after) {
     nodes {
       acfProject {
         fieldGroupName
@@ -38792,7 +38792,7 @@ fragment BlockFragment on Block {
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Refund node list query hasn't changed 1`] = `
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
-  refunds(first: $first, after: $after, where: { parent: null }) {
+  refunds(first: $first, after: $after) {
     nodes {
       amount
       contentType {
@@ -39299,7 +39299,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] ReusableBlock node list query hasn't changed 1`] = `
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
-  reusableBlocks(first: $first, after: $after, where: { parent: null }) {
+  reusableBlocks(first: $first, after: $after) {
     nodes {
       blocks {
         innerBlocks {
@@ -47288,7 +47288,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] ShippingClass node list query hasn't changed 1`] = `
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
-  shippingClasses(first: $first, after: $after, where: { parent: null }) {
+  shippingClasses(first: $first, after: $after) {
     nodes {
       count
       databaseId
@@ -47507,7 +47507,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Tag node list query hasn't changed 1`] = `
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
-  tags(first: $first, after: $after, where: { parent: null }) {
+  tags(first: $first, after: $after) {
     nodes {
       count
       databaseId
@@ -48122,7 +48122,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] TeamMember node list query hasn't changed 1`] = `
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
-  teamMembers(first: $first, after: $after, where: { parent: null }) {
+  teamMembers(first: $first, after: $after) {
     nodes {
       acfData {
         fieldGroupName
@@ -56003,7 +56003,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
   translationFilterTests(
     first: $first
     after: $after
-    where: { parent: null, language: FR }
+    where: { language: FR }
   ) {
     nodes {
       author {
@@ -63693,7 +63693,7 @@ fragment BlockFragment on Block {
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] TypeLimit0Test node list query hasn't changed 1`] = `
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
-  typeLimit0Tests(first: $first, after: $after, where: { parent: null }) {
+  typeLimit0Tests(first: $first, after: $after) {
     nodes {
       author {
         node {
@@ -71352,7 +71352,7 @@ fragment BlockFragment on Block {
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] TypeLimitTest node list query hasn't changed 1`] = `
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
-  typeLimitTests(first: $first, after: $after, where: { parent: null }) {
+  typeLimitTests(first: $first, after: $after) {
     nodes {
       author {
         node {
@@ -79368,7 +79368,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] VisibleProduct node list query hasn't changed 1`] = `
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
-  visibleProducts(first: $first, after: $after, where: { parent: null }) {
+  visibleProducts(first: $first, after: $after) {
     nodes {
       count
       databaseId
