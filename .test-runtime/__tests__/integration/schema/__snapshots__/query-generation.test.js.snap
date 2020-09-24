@@ -7764,6 +7764,201 @@ fragment BlockFragment on Block {
 "
 `;
 
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Brand node list query hasn't changed 1`] = `
+"query NODE_LIST_QUERY($first: Int!, $after: String) {
+  brands(first: $first, after: $after, where: { parent: null }) {
+    nodes {
+      ancestors(first: 100) {
+        nodes {
+          id
+        }
+      }
+      banner {
+        id
+        sourceUrl
+      }
+      wpChildren: children(first: 100) {
+        nodes {
+          id
+        }
+      }
+      count
+      custom {
+        fieldGroupName
+        founderNames
+        founderProfilePhoto {
+          id
+          sourceUrl
+        }
+        impactIcons
+        impactOneLine
+        meetTheFounder
+        shippingInfo
+        shortDescription
+        videoEmbed
+      }
+      databaseId
+      description
+      id
+      image {
+        id
+        sourceUrl
+      }
+      link
+      name
+      wpParent: parent {
+        node {
+          id
+        }
+      }
+      parentDatabaseId
+      parentId
+      slug
+      taxonomy {
+        node {
+          id
+        }
+      }
+      termGroupId
+      termTaxonomyId
+      uri
+      __typename
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Brand node preview query hasn't changed 1`] = `
+"query PREVIEW_QUERY($id: ID!) {
+  brand(id: $id, idType: ID, asPreview: true) {
+    ancestors(first: 100) {
+      nodes {
+        id
+      }
+    }
+    banner {
+      id
+      sourceUrl
+    }
+    wpChildren: children(first: 100) {
+      nodes {
+        id
+      }
+    }
+    count
+    custom {
+      fieldGroupName
+      founderNames
+      founderProfilePhoto {
+        id
+        sourceUrl
+      }
+      impactIcons
+      impactOneLine
+      meetTheFounder
+      shippingInfo
+      shortDescription
+      videoEmbed
+    }
+    databaseId
+    description
+    id
+    image {
+      id
+      sourceUrl
+    }
+    link
+    name
+    wpParent: parent {
+      node {
+        id
+      }
+    }
+    parentDatabaseId
+    parentId
+    slug
+    taxonomy {
+      node {
+        id
+      }
+    }
+    termGroupId
+    termTaxonomyId
+    uri
+    __typename
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Brand node single query hasn't changed 1`] = `
+"query SINGLE_CONTENT_QUERY($id: ID!) {
+  brand(id: $id) {
+    ancestors(first: 100) {
+      nodes {
+        id
+      }
+    }
+    banner {
+      id
+      sourceUrl
+    }
+    wpChildren: children(first: 100) {
+      nodes {
+        id
+      }
+    }
+    count
+    custom {
+      fieldGroupName
+      founderNames
+      founderProfilePhoto {
+        id
+        sourceUrl
+      }
+      impactIcons
+      impactOneLine
+      meetTheFounder
+      shippingInfo
+      shortDescription
+      videoEmbed
+    }
+    databaseId
+    description
+    id
+    image {
+      id
+      sourceUrl
+    }
+    link
+    name
+    wpParent: parent {
+      node {
+        id
+      }
+    }
+    parentDatabaseId
+    parentId
+    slug
+    taxonomy {
+      node {
+        id
+      }
+    }
+    termGroupId
+    termTaxonomyId
+    uri
+    __typename
+  }
+}
+"
+`;
+
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Category node list query hasn't changed 1`] = `
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
   categories(first: $first, after: $after, where: { parent: null }) {
@@ -8880,6 +9075,117 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     totalSpent
     username
+    __typename
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Impact node list query hasn't changed 1`] = `
+"query NODE_LIST_QUERY($first: Int!, $after: String) {
+  impacts(first: $first, after: $after, where: { parent: null }) {
+    nodes {
+      count
+      databaseId
+      description
+      icon {
+        fieldGroupName
+        icon {
+          id
+          sourceUrl
+        }
+        plainIcon {
+          id
+          sourceUrl
+        }
+      }
+      id
+      link
+      name
+      slug
+      taxonomy {
+        node {
+          id
+        }
+      }
+      termGroupId
+      termTaxonomyId
+      uri
+      __typename
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Impact node preview query hasn't changed 1`] = `
+"query PREVIEW_QUERY($id: ID!) {
+  impact(id: $id, idType: ID, asPreview: true) {
+    count
+    databaseId
+    description
+    icon {
+      fieldGroupName
+      icon {
+        id
+        sourceUrl
+      }
+      plainIcon {
+        id
+        sourceUrl
+      }
+    }
+    id
+    link
+    name
+    slug
+    taxonomy {
+      node {
+        id
+      }
+    }
+    termGroupId
+    termTaxonomyId
+    uri
+    __typename
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Impact node single query hasn't changed 1`] = `
+"query SINGLE_CONTENT_QUERY($id: ID!) {
+  impact(id: $id) {
+    count
+    databaseId
+    description
+    icon {
+      fieldGroupName
+      icon {
+        id
+        sourceUrl
+      }
+      plainIcon {
+        id
+        sourceUrl
+      }
+    }
+    id
+    link
+    name
+    slug
+    taxonomy {
+      node {
+        id
+      }
+    }
+    termGroupId
+    termTaxonomyId
+    uri
     __typename
   }
 }
@@ -47604,6 +47910,210 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     showInQuickEdit
     showInRest
     showUi
+    __typename
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Team node list query hasn't changed 1`] = `
+"query NODE_LIST_QUERY($first: Int!, $after: String) {
+  teamMembers(first: $first, after: $after, where: { parent: null }) {
+    nodes {
+      categories(first: 100) {
+        nodes {
+          id
+        }
+      }
+      content
+      contentType {
+        node {
+          id
+        }
+      }
+      databaseId
+      date
+      dateGmt
+      desiredSlug
+      enclosure
+      featuredImage {
+        node {
+          id
+          sourceUrl
+        }
+      }
+      featuredImageDatabaseId
+      featuredImageId
+      guid
+      id
+      isRevision
+      lastEditedBy {
+        node {
+          id
+        }
+      }
+      link
+      modified
+      modifiedGmt
+      slug
+      status
+      template {
+        __typename
+        ... on DefaultTemplate {
+          templateName
+        }
+        ... on CoverTemplateTemplate {
+          templateName
+        }
+        ... on FullWidthTemplateTemplate {
+          templateName
+        }
+      }
+      terms(first: 100) {
+        nodes {
+          id
+          __typename
+        }
+      }
+      title
+      uri
+      __typename
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Team node preview query hasn't changed 1`] = `
+"query PREVIEW_QUERY($id: ID!) {
+  team(id: $id, idType: ID, asPreview: true) {
+    categories(first: 100) {
+      nodes {
+        id
+      }
+    }
+    content
+    contentType {
+      node {
+        id
+      }
+    }
+    databaseId
+    date
+    dateGmt
+    desiredSlug
+    enclosure
+    featuredImage {
+      node {
+        id
+        sourceUrl
+      }
+    }
+    featuredImageDatabaseId
+    featuredImageId
+    guid
+    id
+    isRevision
+    lastEditedBy {
+      node {
+        id
+      }
+    }
+    link
+    modified
+    modifiedGmt
+    slug
+    status
+    template {
+      __typename
+      ... on DefaultTemplate {
+        templateName
+      }
+      ... on CoverTemplateTemplate {
+        templateName
+      }
+      ... on FullWidthTemplateTemplate {
+        templateName
+      }
+    }
+    terms(first: 100) {
+      nodes {
+        id
+        __typename
+      }
+    }
+    title
+    uri
+    __typename
+  }
+}
+"
+`;
+
+exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Team node single query hasn't changed 1`] = `
+"query SINGLE_CONTENT_QUERY($id: ID!) {
+  team(id: $id) {
+    categories(first: 100) {
+      nodes {
+        id
+      }
+    }
+    content
+    contentType {
+      node {
+        id
+      }
+    }
+    databaseId
+    date
+    dateGmt
+    desiredSlug
+    enclosure
+    featuredImage {
+      node {
+        id
+        sourceUrl
+      }
+    }
+    featuredImageDatabaseId
+    featuredImageId
+    guid
+    id
+    isRevision
+    lastEditedBy {
+      node {
+        id
+      }
+    }
+    link
+    modified
+    modifiedGmt
+    slug
+    status
+    template {
+      __typename
+      ... on DefaultTemplate {
+        templateName
+      }
+      ... on CoverTemplateTemplate {
+        templateName
+      }
+      ... on FullWidthTemplateTemplate {
+        templateName
+      }
+    }
+    terms(first: 100) {
+      nodes {
+        id
+        __typename
+      }
+    }
+    title
+    uri
     __typename
   }
 }
