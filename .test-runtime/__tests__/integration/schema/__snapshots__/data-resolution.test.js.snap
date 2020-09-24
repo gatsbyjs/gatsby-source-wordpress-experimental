@@ -1013,6 +1013,20 @@ Object {
           },
           "title": "Hello world!",
         },
+        Object {
+          "author": Object {
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
+            },
+          },
+          "featuredImage": null,
+          "title": "hierarchical category test",
+        },
       ],
     },
     "testPost": Object {
@@ -1159,6 +1173,20 @@ Object {
           },
           "title": "Hello world! DELTA SYNC",
         },
+        Object {
+          "author": Object {
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
+            },
+          },
+          "featuredImage": null,
+          "title": "hierarchical category test",
+        },
       ],
     },
     "testPost": Object {
@@ -1290,6 +1318,9 @@ Object {
           "posts": Object {
             "nodes": Array [
               Object {
+                "title": "hierarchical category test",
+              },
+              Object {
                 "title": "Hello world!",
               },
               Object {
@@ -1385,6 +1416,9 @@ Object {
           },
           "posts": Object {
             "nodes": Array [
+              Object {
+                "title": "hierarchical category test",
+              },
               Object {
                 "title": "Hello world! DELTA SYNC",
               },
