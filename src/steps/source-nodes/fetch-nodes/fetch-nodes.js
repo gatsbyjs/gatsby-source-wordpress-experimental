@@ -5,6 +5,7 @@ import { CREATED_NODE_IDS } from "~/constants"
 import store from "~/store"
 import { getGatsbyApi } from "~/utils/get-gatsby-api"
 import chunk from "lodash/chunk"
+import { getCache } from "~/utils/cache"
 
 /**
  * fetchWPGQLContentNodes
@@ -143,6 +144,43 @@ export const fetchWPGQLContentNodesByContentType = async () => {
   return contentNodeGroups
 }
 
+const getHardCachedNodes = async () => {
+  const isDevelop = process.env.NODE_ENV === `development`
+
+  if (isDevelop) {
+    const hardCache = getCache(`wordpress-data`)
+    const allWpNodes = await hardCache.get(`allWpNodes`)
+    // const cachedSchemaMD5 = await hardCache.get(`schemaMD5`)
+    // const cachedLastActionId = await hardCache.get(`lastActionId`)
+
+    const shouldUseHardDataCache = allWpNodes?.length
+    // &&
+    // cachedSchemaMD5 &&
+    // cachedLastActionId
+
+    if (shouldUseHardDataCache) {
+      return allWpNodes
+    }
+  }
+
+  return false
+}
+
+const setHardCachedNodes = async ({ helpers }) => {
+  const isDevelop = process.env.NODE_ENV === `development`
+
+  if (isDevelop) {
+    const hardCache = getCache(`wordpress-data`)
+
+    const allNodes = await helpers.getNodes()
+    const allWpNodes = allNodes.filter(
+      (node) => node.internal.owner === `gatsby-source-wordpress-experimental`
+    )
+
+    await hardCache.set(`allWpNodes`, allWpNodes)
+  }
+}
+
 /**
  * fetchAndCreateAllNodes
  *
@@ -150,7 +188,7 @@ export const fetchWPGQLContentNodesByContentType = async () => {
  * fetch and create Gatsby nodes from any lists of nodes in the remote schema
  */
 export const fetchAndCreateAllNodes = async () => {
-  const { helpers } = getGatsbyApi()
+  const { helpers, pluginOptions } = getGatsbyApi()
   const { reporter, cache } = helpers
 
   //
@@ -162,22 +200,85 @@ export const fetchAndCreateAllNodes = async () => {
     activity.setStatus(`${store.getState().logger.entityCount} total`)
   })
 
-  const wpgqlNodesByContentType = await fetchWPGQLContentNodesByContentType()
+  let createdNodeIds
 
-  const createNodesActivity = reporter.activityTimer(
-    formatLogMessage(`creating nodes`)
-  )
-  createNodesActivity.start()
+  const hardCachedNodes = await getHardCachedNodes()
 
-  //
-  // Create Gatsby nodes from WPGQL response
-  const createdNodeIds = await createGatsbyNodesFromWPGQLContentNodes({
-    wpgqlNodesByContentType,
-    createNodesActivity,
-  })
+  if (!hardCachedNodes) {
+    const wpgqlNodesByContentType = await fetchWPGQLContentNodesByContentType()
 
-  createNodesActivity.end()
-  activity.end()
+    const createNodesActivity = reporter.activityTimer(
+      formatLogMessage(`creating nodes`)
+    )
+    createNodesActivity.start()
+
+    //
+    // Create Gatsby nodes from WPGQL response
+    createdNodeIds = await createGatsbyNodesFromWPGQLContentNodes({
+      wpgqlNodesByContentType,
+      createNodesActivity,
+    })
+
+    await setHardCachedNodes({ helpers })
+
+    createNodesActivity.end()
+    activity.end()
+  }
+
+  if (hardCachedNodes) {
+    const loggers = {}
+
+    // restore nodes
+    await Promise.all(
+      hardCachedNodes.map(async (node) => {
+        if (!loggers[node.internal.type]) {
+          // const {
+          //   pluginOptions,
+          //   helpers: { reporter },
+          // } = getGatsbyApi()
+
+          loggers[node.internal.type] = true
+
+          store.dispatch.logger.createActivityTimer({
+            typeName: node.internal.type,
+            pluginOptions,
+            reporter,
+          })
+
+          // allWpNodes.forEach((group) => {
+          //   const chunkedNodes = chunk(group.allNodesOfContentType, 100)
+
+          //   chunkedNodes.forEach((chunk) => {
+          //     store.dispatch.logger.incrementActivityTimer({
+          //       typeName: `Cached nodes`,
+          //       by: chunk.length,
+          //       action: `restored`,
+          //     })
+          //   })
+          // })
+
+          // store.dispatch.logger.stopActivityTimer({
+          //   typeName: `Cached nodes`,
+          //   action: `restored`,
+          // })
+        } else {
+          store.dispatch.logger.incrementActivityTimer({
+            typeName: node.internal.type,
+            by: 1,
+            action: `restored`,
+          })
+        }
+
+        node.internal = {
+          contentDigest: node.internal.contentDigest,
+          type: node.internal.type,
+        }
+        await helpers.actions.createNode(node)
+      })
+    )
+    // build createdNodeIds id array
+    createdNodeIds = hardCachedNodes.map((node) => node.id)
+  }
 
   // save the node id's so we can touch them on the next build
   // so that we don't have to refetch all nodes
