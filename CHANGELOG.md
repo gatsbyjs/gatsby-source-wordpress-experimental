@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.4.1
+
+- Added support for WPGraphQL ~0.13.0
+
 ## 1.4.0
 
 ### New Features
