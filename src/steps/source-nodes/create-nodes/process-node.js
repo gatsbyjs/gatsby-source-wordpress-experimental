@@ -1,3 +1,4 @@
+import { isWebUri } from "valid-url"
 import { fluid } from "gatsby-plugin-sharp"
 import Img from "gatsby-image"
 import React from "react"
@@ -17,8 +18,8 @@ import fetchReferencedMediaItemsAndCreateNodes, {
 } from "../fetch-nodes/fetch-referenced-media-items"
 import btoa from "btoa"
 import store from "~/store"
+import { CREATED_NODE_IDS } from "~/constants"
 
-// @todo this doesn't make sense because these aren't all images
 const imgSrcRemoteFileRegex = /(?:src=\\")((?:(?:https?|ftp|file):\/\/|www\.|ftp\.|\/)(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[A-Z0-9+&@#/%=~_|$])\.(?:jpeg|jpg|png|gif|ico|mpg|ogv|svg|bmp|tif|tiff))(?=\\"| |\.)/gim
 
 const imgTagRegex = /<img([\w\W]+?)[\/]?>/gim
@@ -77,6 +78,7 @@ const getCheerioImgDbId = (cheerioImg) => {
   return null
 }
 
+// media items are of the "post" type
 const dbIdToMediaItemRelayId = (dbId) => (dbId ? btoa(`post:${dbId}`) : null)
 
 const getCheerioImgRelayId = (cheerioImg) =>
@@ -92,6 +94,29 @@ export const ensureSrcHasHostname = ({ src, wpUrl }) => {
   return src
 }
 
+const pickNodeBySourceUrlOrCheerioImg = ({
+  url,
+  cheerioImg,
+  mediaItemNodes,
+}) => {
+  const possibleHtmlSrcs = [
+    // try to match the media item source url by original html src
+    url,
+    // or by the src minus any image sizes string
+    stripImageSizesFromUrl(url),
+  ]
+
+  let imageNode = mediaItemNodes.find(
+    (mediaItemNode) =>
+      // either find our node by the source url
+      possibleHtmlSrcs.includes(mediaItemNode.sourceUrl) ||
+      // or by id for cases where the src url didn't return a node
+      (!!cheerioImg && getCheerioImgRelayId(cheerioImg) === mediaItemNode.id)
+  )
+
+  return imageNode
+}
+
 const fetchNodeHtmlImageMediaItemNodes = async ({
   cheerioImages,
   nodeString,
@@ -100,45 +125,6 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
   pluginOptions,
   wpUrl,
 }) => {
-  // @todo check if we have any of these nodes locally already
-  const mediaItemUrls = cheerioImages.map(({ cheerioImg }) => {
-    let src = ensureSrcHasHostname({
-      src: cheerioImg.attribs.src,
-      wpUrl,
-    })
-
-    return src
-  })
-
-  // build a query to fetch all media items that we don't already have
-  const mediaItemNodesBySourceUrl = await fetchReferencedMediaItemsAndCreateNodes(
-    {
-      mediaItemUrls,
-    }
-  )
-
-  // images that have been edited from the media library that were previously
-  // uploaded to a post/page will have a different sourceUrl so they can't be fetched by it
-  // in many cases we have data-id or data-image-id as attributes on the img
-  // we can try to use those to fetch media item nodes as well
-  // this will keep us from missing nodes
-  const mediaItemDbIds = cheerioImages
-    .map(({ cheerioImg }) => getCheerioImgDbId(cheerioImg))
-    .filter(Boolean)
-
-  // media items are of the post type
-  const mediaItemRelayIds = mediaItemDbIds
-    .map((dbId) => dbIdToMediaItemRelayId(dbId))
-    .filter(
-      // filter out any media item ids we already fetched
-      (relayId) =>
-        !mediaItemNodesBySourceUrl.find(({ id } = {}) => id === relayId)
-    )
-
-  const mediaItemNodesById = await fetchReferencedMediaItemsAndCreateNodes({
-    referencedMediaItemNodeIds: mediaItemRelayIds,
-  })
-
   // get all the image nodes we've cached from elsewhere
   const { nodeMetaByUrl } = store.getState().imageNodes
   const previouslyCachedNodesByUrl = (
@@ -156,11 +142,59 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
     )
   ).filter(Boolean)
 
-  const mediaItemNodes = [
-    ...mediaItemNodesById,
-    ...mediaItemNodesBySourceUrl,
-    ...previouslyCachedNodesByUrl,
-  ]
+  const mediaItemUrls = cheerioImages
+    // filter out nodes we already have
+    .filter(({ cheerioImg }) => {
+      const existingNode = pickNodeBySourceUrlOrCheerioImg({
+        url: cheerioImg.attribs.src,
+        mediaItemNodes: previouslyCachedNodesByUrl,
+      })
+
+      return !existingNode
+    })
+    // get remaining urls
+    .map(({ cheerioImg }) => {
+      let src = ensureSrcHasHostname({
+        src: cheerioImg.attribs.src,
+        wpUrl,
+      })
+
+      return src
+    })
+
+  // build a query to fetch all media items that we don't already have
+  const mediaItemNodesBySourceUrl = await fetchReferencedMediaItemsAndCreateNodes(
+    {
+      mediaItemUrls,
+    }
+  )
+
+  // images that have been edited from the media library that were previously
+  // uploaded to a post/page will have a different sourceUrl so they can't be fetched by it
+  // in many cases we have data-id or data-image-id as attributes on the img
+  // we can try to use those to fetch media item nodes as well
+  // this will keep us from missing nodes
+  const mediaItemDbIds = cheerioImages
+    .map(({ cheerioImg }) => getCheerioImgDbId(cheerioImg))
+    .filter(Boolean)
+
+  const mediaItemRelayIds = mediaItemDbIds
+    .map((dbId) => dbIdToMediaItemRelayId(dbId))
+    .filter(
+      // filter out any media item ids we already fetched
+      (relayId) =>
+        ![...mediaItemNodesBySourceUrl, ...previouslyCachedNodesByUrl].find(
+          ({ id } = {}) => id === relayId
+        )
+    )
+
+  const mediaItemNodesById = await fetchReferencedMediaItemsAndCreateNodes({
+    referencedMediaItemNodeIds: mediaItemRelayIds,
+  })
+
+  const createdNodeIds = [...mediaItemNodesById, ...mediaItemNodesBySourceUrl]
+
+  const mediaItemNodes = [...createdNodeIds, ...previouslyCachedNodesByUrl]
 
   const htmlMatchesToMediaItemNodesMap = new Map()
   for (const { cheerioImg, match } of cheerioImages) {
@@ -169,20 +203,11 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
       wpUrl,
     })
 
-    const possibleHtmlSrcs = [
-      // try to match the media item source url by original html src
-      htmlImgSrc,
-      // or by the src minus any image sizes string
-      stripImageSizesFromUrl(htmlImgSrc),
-    ]
-
-    let imageNode = mediaItemNodes.find(
-      (mediaItemNode) =>
-        // either find our node by the source url
-        possibleHtmlSrcs.includes(mediaItemNode.sourceUrl) ||
-        // or by id for cases where the src url didn't return a node
-        getCheerioImgRelayId(cheerioImg) === mediaItemNode.id
-    )
+    let imageNode = pickNodeBySourceUrlOrCheerioImg({
+      url: htmlImgSrc,
+      cheerioImg,
+      mediaItemNodes,
+    })
 
     if (!imageNode && htmlImgSrc) {
       // if we didn't get a media item node for this image,
@@ -204,6 +229,9 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
           ...helpers,
           createNode: helpers.actions.createNode,
         })
+
+        // save this file node id to cache the node properly
+        createdNodeIds.push(imageNode.id)
       } catch (e) {
         if (typeof e === `string` && e.includes(`404`)) {
           const nodeEditLink = getNodeEditLink(node)
@@ -238,6 +266,20 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
 
       // match is the html string of the img tag
       htmlMatchesToMediaItemNodesMap.set(match, { imageNode, cheerioImg })
+    }
+  }
+
+  // if we've created nodes we need to save the id's so they get touched
+  // on the next build and aren't garbage collected
+  // @todo this should be written 1 time, not on each node transformation
+  if (createdNodeIds.length) {
+    const previouslyCreatedNodeIds =
+      (await helpers.cache.get(CREATED_NODE_IDS)) || []
+
+    const allCreatedNodeIds = [...createdNodeIds, ...previouslyCreatedNodeIds]
+
+    if (allCreatedNodeIds.length) {
+      await helpers.cache.set(CREATED_NODE_IDS, allCreatedNodeIds)
     }
   }
 
@@ -334,7 +376,16 @@ const replaceNodeHtmlImages = async ({
 
   const { hostname: wpHostname } = url.parse(wpUrl)
 
-  const imageUrlMatches = execall(imgSrcRemoteFileRegex, nodeString)
+  const imageUrlMatches = execall(imgSrcRemoteFileRegex, nodeString).filter(
+    ({ subMatches }) => {
+      // if our match is json encoded, that means it's inside a JSON
+      // encoded string field.
+      const isInJSON = subMatches[0].includes(`\\/\\/`)
+
+      // we shouldn't process encoded JSON, so skip this match if it's JSON
+      return !isInJSON
+    }
+  )
 
   const imgTagMatches = execall(
     imgTagRegex,
@@ -352,11 +403,21 @@ const replaceNodeHtmlImages = async ({
       // or it's an absolute path
       subMatches[0].includes('src=\\"/')
 
-    return isHostedInWp
+    const isInJSON = subMatches[0].includes(`\\/\\/`)
+
+    return isHostedInWp && !isInJSON
   })
 
   if (imageUrlMatches.length && imgTagMatches.length) {
-    const cheerioImages = imgTagMatches.map(getCheerioImgFromMatch)
+    const cheerioImages = imgTagMatches
+      .map(getCheerioImgFromMatch)
+      .filter(({ cheerioImg: { attribs } }) => {
+        if (!attribs.src) {
+          return false
+        }
+
+        return isWebUri(attribs.src)
+      })
 
     const htmlMatchesToMediaItemNodesMap = await fetchNodeHtmlImageMediaItemNodes(
       {

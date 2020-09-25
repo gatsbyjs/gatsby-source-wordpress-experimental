@@ -1,5 +1,170 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`[gatsby-source-wordpress-experimental] data resolution resolves correct number of nodes 1`] = `
+Array [
+  Object {
+    "id": "cG9zdDo3NzQ0",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/08/101-2621x1747-1-scaled.jpg",
+  },
+  Object {
+    "id": "cG9zdDo3NzQ4",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/08/1002-4312x2868-1-scaled.jpg",
+  },
+  Object {
+    "id": "cG9zdDo3NzQw",
+    "sourceUrl": null,
+  },
+  Object {
+    "id": "cG9zdDo3NzU2",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/08/1001-5616x3744-1-scaled.jpg",
+  },
+  Object {
+    "id": "cG9zdDo3NzUy",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/08/1003-1181x1772-1.jpg",
+  },
+  Object {
+    "id": "cG9zdDo3NzY0",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/08/1004-5616x3744-1-scaled.jpg",
+  },
+  Object {
+    "id": "cG9zdDo3NzYw",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/08/10-2500x1667-1.jpg",
+  },
+  Object {
+    "id": "cG9zdDo4NTI1",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/09/vneck-tee-2.jpg",
+  },
+  Object {
+    "id": "cG9zdDo4NTI5",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/09/vnech-tee-green-1.jpg",
+  },
+  Object {
+    "id": "cG9zdDo4NTM3",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/09/hoodie-2.jpg",
+  },
+  Object {
+    "id": "cG9zdDo4NTMz",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/09/vnech-tee-blue-1.jpg",
+  },
+  Object {
+    "id": "cG9zdDo4NTQ1",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/09/hoodie-green-1.jpg",
+  },
+  Object {
+    "id": "cG9zdDo4NTQ5",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/09/hoodie-with-logo-2.jpg",
+  },
+  Object {
+    "id": "cG9zdDo4NTQx",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/09/hoodie-blue-1.jpg",
+  },
+  Object {
+    "id": "cG9zdDo4NTU3",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/09/beanie-2.jpg",
+  },
+  Object {
+    "id": "cG9zdDo4NTUz",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/09/tshirt-2.jpg",
+  },
+  Object {
+    "id": "cG9zdDo4NTY1",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/09/cap-2.jpg",
+  },
+  Object {
+    "id": "cG9zdDo4NTY5",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/09/sunglasses-2.jpg",
+  },
+  Object {
+    "id": "cG9zdDo4NTYx",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/09/belt-2.jpg",
+  },
+  Object {
+    "id": "cG9zdDo4NTc3",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/09/hoodie-with-zipper-2.jpg",
+  },
+  Object {
+    "id": "cG9zdDo4NTg1",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/09/polo-2.jpg",
+  },
+  Object {
+    "id": "cG9zdDo4NTg5",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/09/album-1.jpg",
+  },
+  Object {
+    "id": "cG9zdDo4NTgx",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/09/long-sleeve-tee-2.jpg",
+  },
+  Object {
+    "id": "cG9zdDo4NTk3",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/09/t-shirt-with-logo-1.jpg",
+  },
+  Object {
+    "id": "cG9zdDo4NTkz",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/09/single-1.jpg",
+  },
+  Object {
+    "id": "cG9zdDo4NjA1",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/09/logo-1.jpg",
+  },
+  Object {
+    "id": "cG9zdDo4NjA5",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/09/pennant-1.jpg",
+  },
+  Object {
+    "id": "cG9zdDo4NjAx",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/09/beanie-with-logo-1.jpg",
+  },
+  Object {
+    "id": "cG9zdDo5MjA0",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/09/windows-W1N58KDE8r0-unsplash-1-scaled-e1600819839939.jpg",
+  },
+  Object {
+    "id": "cG9zdDo5MjEw",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/09/windows-W1N58KDE8r0-unsplash-scaled-e1600819062167.jpg",
+  },
+  Object {
+    "id": "cG9zdDo5NQ==",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2018/10/aperture-vintage-346923-unsplash-scaled.jpg",
+  },
+  Object {
+    "id": "cG9zdDo5Ng==",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2018/10/brandon-siu-608784-unsplash-scaled.jpg",
+  },
+  Object {
+    "id": "cG9zdDo5Nw==",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2018/10/casey-horner-512022-unsplash-scaled.jpg",
+  },
+  Object {
+    "id": "cG9zdDo5OQ==",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/03/avatar.jpg",
+  },
+  Object {
+    "id": "cG9zdDoxMDA=",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2018/10/federico-bottos-442265-unsplash-scaled.jpg",
+  },
+  Object {
+    "id": "cG9zdDoxMDE=",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2018/10/jordan-steranka-504707-unsplash-scaled.jpg",
+  },
+  Object {
+    "id": "cG9zdDoxMDI=",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2018/10/kristopher-roller-110203-unsplash-scaled.jpg",
+  },
+  Object {
+    "id": "cG9zdDoxMDM=",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2018/10/zoltan-tasi-482489-unsplash-scaled.jpg",
+  },
+  Object {
+    "id": "cG9zdDoxOTU=",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/03/1024x1024-300x300-1.png",
+  },
+  Object {
+    "id": "cG9zdDozNjI=",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/03/84-1000x1000-1.jpg",
+  },
+]
+`;
+
 exports[`[gatsby-source-wordpress-experimental] data resolution resolves menus 1`] = `
 Object {
   "data": Object {
@@ -339,6 +504,118 @@ Object {
             "nodes": Array [],
           },
         },
+        Object {
+          "acfPageFields": Object {
+            "fieldGroupName": "acfPageFields",
+          },
+          "author": Object {
+            "node": Object {
+              "name": "Tyler",
+            },
+          },
+          "title": "Cart",
+          "translations": Array [],
+          "uri": "/cart/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
+        },
+        Object {
+          "acfPageFields": Object {
+            "fieldGroupName": "acfPageFields",
+          },
+          "author": Object {
+            "node": Object {
+              "name": "Tyler",
+            },
+          },
+          "title": "Shop",
+          "translations": Array [],
+          "uri": "/shop/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
+        },
+        Object {
+          "acfPageFields": Object {
+            "fieldGroupName": "acfPageFields",
+          },
+          "author": Object {
+            "node": Object {
+              "name": "Tyler",
+            },
+          },
+          "title": "My account",
+          "translations": Array [],
+          "uri": "/my-account/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
+        },
+        Object {
+          "acfPageFields": Object {
+            "fieldGroupName": "acfPageFields",
+          },
+          "author": Object {
+            "node": Object {
+              "name": "Tyler",
+            },
+          },
+          "title": "Checkout",
+          "translations": Array [],
+          "uri": "/checkout/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
+        },
+        Object {
+          "acfPageFields": Object {
+            "fieldGroupName": "acfPageFields",
+          },
+          "author": Object {
+            "node": Object {
+              "name": "Tyler",
+            },
+          },
+          "title": "Inline gatsby-image Gutenberg test",
+          "translations": Array [],
+          "uri": "/inline-gatsby-image-test/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
+        },
+        Object {
+          "acfPageFields": Object {
+            "fieldGroupName": "acfPageFields",
+          },
+          "author": Object {
+            "node": Object {
+              "name": "Tyler",
+            },
+          },
+          "title": "Edited inline html image test",
+          "translations": Array [],
+          "uri": "/edited-inline-html-image-test/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
+        },
+        Object {
+          "acfPageFields": Object {
+            "fieldGroupName": "acfPageFields",
+          },
+          "author": Object {
+            "node": Object {
+              "name": "Tyler",
+            },
+          },
+          "title": "inline html image edited after this post was saved",
+          "translations": Array [],
+          "uri": "/inline-html-image-edited-after-this-post-was-saved/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
+        },
       ],
     },
     "testPage": Object {
@@ -478,6 +755,118 @@ Object {
             "nodes": Array [],
           },
         },
+        Object {
+          "acfPageFields": Object {
+            "fieldGroupName": "acfPageFields",
+          },
+          "author": Object {
+            "node": Object {
+              "name": "Tyler",
+            },
+          },
+          "title": "Cart",
+          "translations": Array [],
+          "uri": "/cart/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
+        },
+        Object {
+          "acfPageFields": Object {
+            "fieldGroupName": "acfPageFields",
+          },
+          "author": Object {
+            "node": Object {
+              "name": "Tyler",
+            },
+          },
+          "title": "Shop",
+          "translations": Array [],
+          "uri": "/shop/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
+        },
+        Object {
+          "acfPageFields": Object {
+            "fieldGroupName": "acfPageFields",
+          },
+          "author": Object {
+            "node": Object {
+              "name": "Tyler",
+            },
+          },
+          "title": "My account",
+          "translations": Array [],
+          "uri": "/my-account/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
+        },
+        Object {
+          "acfPageFields": Object {
+            "fieldGroupName": "acfPageFields",
+          },
+          "author": Object {
+            "node": Object {
+              "name": "Tyler",
+            },
+          },
+          "title": "Checkout",
+          "translations": Array [],
+          "uri": "/checkout/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
+        },
+        Object {
+          "acfPageFields": Object {
+            "fieldGroupName": "acfPageFields",
+          },
+          "author": Object {
+            "node": Object {
+              "name": "Tyler",
+            },
+          },
+          "title": "Inline gatsby-image Gutenberg test",
+          "translations": Array [],
+          "uri": "/inline-gatsby-image-test/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
+        },
+        Object {
+          "acfPageFields": Object {
+            "fieldGroupName": "acfPageFields",
+          },
+          "author": Object {
+            "node": Object {
+              "name": "Tyler",
+            },
+          },
+          "title": "Edited inline html image test",
+          "translations": Array [],
+          "uri": "/edited-inline-html-image-test/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
+        },
+        Object {
+          "acfPageFields": Object {
+            "fieldGroupName": "acfPageFields",
+          },
+          "author": Object {
+            "node": Object {
+              "name": "Tyler",
+            },
+          },
+          "title": "inline html image edited after this post was saved",
+          "translations": Array [],
+          "uri": "/inline-html-image-edited-after-this-post-was-saved/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
+        },
       ],
     },
     "testPage": Object {
@@ -504,6 +893,118 @@ Object {
               },
             },
           },
+          "featuredImage": null,
+          "title": "Gutenberg: Image Alignment",
+        },
+        Object {
+          "author": Object {
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
+            },
+          },
+          "featuredImage": null,
+          "title": "Gutenberg: Widget Blocks",
+        },
+        Object {
+          "author": Object {
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
+            },
+          },
+          "featuredImage": null,
+          "title": "Gutenberg: Common Blocks",
+        },
+        Object {
+          "author": Object {
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
+            },
+          },
+          "featuredImage": null,
+          "title": "Gutenberg: Classic Block",
+        },
+        Object {
+          "author": Object {
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
+            },
+          },
+          "featuredImage": null,
+          "title": "Gutenberg: Embed Blocks",
+        },
+        Object {
+          "author": Object {
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
+            },
+          },
+          "featuredImage": null,
+          "title": "Gutenberg: Formatting Blocks",
+        },
+        Object {
+          "author": Object {
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
+            },
+          },
+          "featuredImage": null,
+          "title": "Gutenberg: Layout Element Blocks",
+        },
+        Object {
+          "author": Object {
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
+            },
+          },
+          "featuredImage": null,
+          "title": "Gutenberg: Columns",
+        },
+        Object {
+          "author": Object {
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
+            },
+          },
           "featuredImage": Object {
             "node": Object {
               "altText": "",
@@ -511,6 +1012,20 @@ Object {
             },
           },
           "title": "Hello world!",
+        },
+        Object {
+          "author": Object {
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
+            },
+          },
+          "featuredImage": null,
+          "title": "hierarchical category test",
         },
       ],
     },
@@ -538,6 +1053,118 @@ Object {
               },
             },
           },
+          "featuredImage": null,
+          "title": "Gutenberg: Image Alignment",
+        },
+        Object {
+          "author": Object {
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
+            },
+          },
+          "featuredImage": null,
+          "title": "Gutenberg: Widget Blocks",
+        },
+        Object {
+          "author": Object {
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
+            },
+          },
+          "featuredImage": null,
+          "title": "Gutenberg: Common Blocks",
+        },
+        Object {
+          "author": Object {
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
+            },
+          },
+          "featuredImage": null,
+          "title": "Gutenberg: Classic Block",
+        },
+        Object {
+          "author": Object {
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
+            },
+          },
+          "featuredImage": null,
+          "title": "Gutenberg: Embed Blocks",
+        },
+        Object {
+          "author": Object {
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
+            },
+          },
+          "featuredImage": null,
+          "title": "Gutenberg: Formatting Blocks",
+        },
+        Object {
+          "author": Object {
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
+            },
+          },
+          "featuredImage": null,
+          "title": "Gutenberg: Layout Element Blocks",
+        },
+        Object {
+          "author": Object {
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
+            },
+          },
+          "featuredImage": null,
+          "title": "Gutenberg: Columns",
+        },
+        Object {
+          "author": Object {
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
+            },
+          },
           "featuredImage": Object {
             "node": Object {
               "altText": "",
@@ -545,6 +1172,20 @@ Object {
             },
           },
           "title": "Hello world! DELTA SYNC",
+        },
+        Object {
+          "author": Object {
+            "node": Object {
+              "avatar": Object {
+                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+              },
+              "comments": Object {
+                "nodes": Array [],
+              },
+            },
+          },
+          "featuredImage": null,
+          "title": "hierarchical category test",
         },
       ],
     },
@@ -631,6 +1272,27 @@ Object {
           "pages": Object {
             "nodes": Array [
               Object {
+                "title": "inline html image edited after this post was saved",
+              },
+              Object {
+                "title": "Edited inline html image test",
+              },
+              Object {
+                "title": "Inline gatsby-image Gutenberg test",
+              },
+              Object {
+                "title": "My account",
+              },
+              Object {
+                "title": "Checkout",
+              },
+              Object {
+                "title": "Cart",
+              },
+              Object {
+                "title": "Shop",
+              },
+              Object {
                 "title": "Yoast SEO",
               },
               Object {
@@ -656,7 +1318,34 @@ Object {
           "posts": Object {
             "nodes": Array [
               Object {
+                "title": "hierarchical category test",
+              },
+              Object {
                 "title": "Hello world!",
+              },
+              Object {
+                "title": "Gutenberg: Columns",
+              },
+              Object {
+                "title": "Gutenberg: Layout Element Blocks",
+              },
+              Object {
+                "title": "Gutenberg: Formatting Blocks",
+              },
+              Object {
+                "title": "Gutenberg: Embed Blocks",
+              },
+              Object {
+                "title": "Gutenberg: Classic Block",
+              },
+              Object {
+                "title": "Gutenberg: Common Blocks",
+              },
+              Object {
+                "title": "Gutenberg: Widget Blocks",
+              },
+              Object {
+                "title": "Gutenberg: Image Alignment",
               },
             ],
           },
@@ -681,6 +1370,27 @@ Object {
           "name": "Tyler",
           "pages": Object {
             "nodes": Array [
+              Object {
+                "title": "inline html image edited after this post was saved",
+              },
+              Object {
+                "title": "Edited inline html image test",
+              },
+              Object {
+                "title": "Inline gatsby-image Gutenberg test",
+              },
+              Object {
+                "title": "My account",
+              },
+              Object {
+                "title": "Checkout",
+              },
+              Object {
+                "title": "Cart",
+              },
+              Object {
+                "title": "Shop",
+              },
               Object {
                 "title": "Yoast SEO",
               },
@@ -707,7 +1417,34 @@ Object {
           "posts": Object {
             "nodes": Array [
               Object {
+                "title": "hierarchical category test",
+              },
+              Object {
                 "title": "Hello world! DELTA SYNC",
+              },
+              Object {
+                "title": "Gutenberg: Columns",
+              },
+              Object {
+                "title": "Gutenberg: Layout Element Blocks",
+              },
+              Object {
+                "title": "Gutenberg: Formatting Blocks",
+              },
+              Object {
+                "title": "Gutenberg: Embed Blocks",
+              },
+              Object {
+                "title": "Gutenberg: Classic Block",
+              },
+              Object {
+                "title": "Gutenberg: Common Blocks",
+              },
+              Object {
+                "title": "Gutenberg: Widget Blocks",
+              },
+              Object {
+                "title": "Gutenberg: Image Alignment",
               },
             ],
           },

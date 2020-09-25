@@ -3,3 +3,4 @@ WordPress
 .cache
 Public
 node_modules
+.wordpress-cache
