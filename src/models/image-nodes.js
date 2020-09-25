@@ -24,9 +24,14 @@ const imageNodes = {
 
     pushNodeMeta(state, { id, sourceUrl, modifiedGmt }) {
       state.nodeIds.push(id)
-      state.nodeMetaByUrl[stripImageSizesFromUrl(sourceUrl)] = {
-        id,
-        modifiedGmt,
+      const nodeUrl = stripImageSizesFromUrl(sourceUrl);
+      // dont overwrite the lookup table in case we have multiple
+      // sized urls for the same image
+      if (!state.nodeMetaByUrl[nodeUrl]) {
+        state.nodeMetaByUrl[nodeUrl] = {
+          id,
+          modifiedGmt,
+        };
       }
 
       return state
