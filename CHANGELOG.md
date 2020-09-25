@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.4.2
+
+- Fixed a race condition / logic error in Gatsby image html processing. Thanks for PR #158 @rburgst!
+
 ## 1.4.1
 
 - Added support for WPGraphQL ~0.13.0
