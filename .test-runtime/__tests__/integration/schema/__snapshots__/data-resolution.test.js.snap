@@ -131,12 +131,12 @@ Array [
     "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2018/10/brandon-siu-608784-unsplash-scaled.jpg",
   },
   Object {
-    "id": "cG9zdDo5NjIy",
-    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/09/imagename-300x163-1-scaled-e1601072170341.jpg",
-  },
-  Object {
     "id": "cG9zdDo5Nw==",
     "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2018/10/casey-horner-512022-unsplash-scaled.jpg",
+  },
+  Object {
+    "id": "cG9zdDo5NzIy",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/09/imagename-300x163-1-scaled.jpg",
   },
   Object {
     "id": "cG9zdDo5OQ==",
