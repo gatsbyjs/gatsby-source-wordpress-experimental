@@ -127,10 +127,6 @@ const defaultPluginOptions = {
     TermNode: {
       nodeInterface: true,
     },
-    Category: {
-      // @todo remove this when categories are a flat list in WPGQL
-      beforeChangeNode: categoryBeforeChangeNode,
-    },
     Menu: {
       /**
        * This is used to fetch child menu items

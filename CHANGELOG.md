@@ -1,5 +1,28 @@
 # Change Log
 
+## 1.4.1
+
+- Added support for WPGraphQL ~0.13.0
+
+## 1.4.0
+
+### New Features
+
+- Previously not all nodes were being fetched in flat lists. This meant extra logic was being run to recursively fetch category nodes, and it meant that custom taxonomies could not have hierarchical data. All core nodes are now fetched as flat lists, enabling hierarchical custom taxonomies and speeding up data sourcing for Category nodes.
+
+## 1.3.10
+
+### Bug Fixes
+
+- Gatsby image's in html blocks were not always being picked up or cached properly.
+
+## 1.3.9
+
+### Bug Fixes
+
+- JSON encoded strings as fields were being processed for <img> tags while gatsby-image in html transformations were taking place. This caused errors and shouldn't have been happening in the first place. This release excludes JSON encoded img src's from being processed.
+- The WPGQL Node type is an interface type of all possible WPGQL node types. Since not all of those are Gatsby node types, fields of this type were not being registered properly as Gatsby node connections. This PR adds a check to the default resolver to see if a connected node exists as well as adding the \_\_typename field to all interface fields during query generation and node sourcing. This means connections of the Node type work properly in Gatsby.
+
 ## 1.3.8
 
 ### Bug Fixes

@@ -1,8 +1,8 @@
-const isIncrement = process.env.WPGRAPHQL_INCREMENT
+const isIncrement = process.env.WPGQL_INCREMENT
 
 export const incrementalIt = (name, test) => {
   // full fetch
-  ;(isIncrement ? it : it.skip)(name, test)
+  ;(!isIncrement ? it : it.skip)(name, test)
   // incremental data fetch
-  ;(!isIncrement ? it : it.skip)(`${name} INCREMENTED`, test)
+  ;(isIncrement ? it : it.skip)(`${name} INCREMENTED`, test)
 }
