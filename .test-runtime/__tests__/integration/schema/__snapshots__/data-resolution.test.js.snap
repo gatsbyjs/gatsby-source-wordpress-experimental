@@ -135,6 +135,10 @@ Array [
     "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2018/10/casey-horner-512022-unsplash-scaled.jpg",
   },
   Object {
+    "id": "cG9zdDo5NzIy",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/09/imagename-300x163-1-scaled.jpg",
+  },
+  Object {
     "id": "cG9zdDo5OQ==",
     "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/03/avatar.jpg",
   },
@@ -616,6 +620,62 @@ Object {
             "nodes": Array [],
           },
         },
+        Object {
+          "acfPageFields": Object {
+            "fieldGroupName": "acfPageFields",
+          },
+          "author": Object {
+            "node": Object {
+              "name": "Tyler",
+            },
+          },
+          "title": "Image test 1",
+          "translations": Array [
+            Object {
+              "title": "Image test 1 french",
+            },
+          ],
+          "uri": "/image-test-1/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
+        },
+        Object {
+          "acfPageFields": Object {
+            "fieldGroupName": "acfPageFields",
+          },
+          "author": Object {
+            "node": Object {
+              "name": "Tyler",
+            },
+          },
+          "title": "Image test 1 duplicate",
+          "translations": Array [],
+          "uri": "/image-test-1-duplicate/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
+        },
+        Object {
+          "acfPageFields": Object {
+            "fieldGroupName": "acfPageFields",
+          },
+          "author": Object {
+            "node": Object {
+              "name": "Tyler",
+            },
+          },
+          "title": "Image test 1 french",
+          "translations": Array [
+            Object {
+              "title": "Image test 1",
+            },
+          ],
+          "uri": "/fr/image-test-1-french/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
+        },
       ],
     },
     "testPage": Object {
@@ -863,6 +923,62 @@ Object {
           "title": "inline html image edited after this post was saved",
           "translations": Array [],
           "uri": "/inline-html-image-edited-after-this-post-was-saved/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
+        },
+        Object {
+          "acfPageFields": Object {
+            "fieldGroupName": "acfPageFields",
+          },
+          "author": Object {
+            "node": Object {
+              "name": "Tyler",
+            },
+          },
+          "title": "Image test 1",
+          "translations": Array [
+            Object {
+              "title": "Image test 1 french",
+            },
+          ],
+          "uri": "/image-test-1/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
+        },
+        Object {
+          "acfPageFields": Object {
+            "fieldGroupName": "acfPageFields",
+          },
+          "author": Object {
+            "node": Object {
+              "name": "Tyler",
+            },
+          },
+          "title": "Image test 1 duplicate",
+          "translations": Array [],
+          "uri": "/image-test-1-duplicate/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
+        },
+        Object {
+          "acfPageFields": Object {
+            "fieldGroupName": "acfPageFields",
+          },
+          "author": Object {
+            "node": Object {
+              "name": "Tyler",
+            },
+          },
+          "title": "Image test 1 french",
+          "translations": Array [
+            Object {
+              "title": "Image test 1",
+            },
+          ],
+          "uri": "/fr/image-test-1-french/",
           "wpChildren": Object {
             "nodes": Array [],
           },
@@ -1272,6 +1388,15 @@ Object {
           "pages": Object {
             "nodes": Array [
               Object {
+                "title": "Image test 1 french",
+              },
+              Object {
+                "title": "Image test 1 duplicate",
+              },
+              Object {
+                "title": "Image test 1",
+              },
+              Object {
                 "title": "inline html image edited after this post was saved",
               },
               Object {
@@ -1370,6 +1495,15 @@ Object {
           "name": "Tyler",
           "pages": Object {
             "nodes": Array [
+              Object {
+                "title": "Image test 1 french",
+              },
+              Object {
+                "title": "Image test 1 duplicate",
+              },
+              Object {
+                "title": "Image test 1",
+              },
               Object {
                 "title": "inline html image edited after this post was saved",
               },
