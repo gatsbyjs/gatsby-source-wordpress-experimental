@@ -1,4 +1,5 @@
 import url from "url"
+import Range from "semver/classes/range"
 
 import fetchGraphql from "~/utils/fetch-graphql"
 
@@ -11,6 +12,30 @@ import {
   genericDownloadMessage,
 } from "~/supported-remote-plugin-versions"
 import fetch from "node-fetch"
+
+const parseRange = (range) => {
+  const {
+    set: [versions],
+  } = new Range(range)
+
+  const isARange = versions.length >= 2
+  const minVersion = versions[0].semver.version
+  const maxVersion = versions[1]?.semver?.version
+
+  let message
+  if (isARange) {
+    message = `Install a version between ${minVersion} and ${maxVersion}.`
+  } else {
+    message = `Install version ${minVersion}.`
+  }
+
+  return {
+    message,
+    minVersion,
+    maxVersion,
+    isARange,
+  }
+}
 
 const areRemotePluginVersionsSatisfied = async ({
   helpers,
@@ -86,30 +111,61 @@ const areRemotePluginVersionsSatisfied = async ({
       : ``
   }`
 
-  let message
+  let message = ``
 
-  if (!wpgqlIsSatisfied && wpGatsbyIsSatisfied) {
-    message = `Your remote version of WPGraphQL is not within the accepted range (${supportedWpPluginVersions.WPGraphQL.version}).
+  if (!wpgqlIsSatisfied) {
+    const { message: rangeMessage, minVersion, maxVersion } = parseRange(
+      supportedWpPluginVersions.WPGraphQL.version
+    )
 
-\tDownload v ${supportedWpPluginVersions.WPGraphQL.version} at https://github.com/wp-graphql/wp-graphql/releases
+    message += `Your remote version of WPGraphQL is not within the accepted range (${
+      supportedWpPluginVersions.WPGraphQL.version
+    }).
 
-\tIf you're upgrading from an earlier version, read the release notes for each version between your old and new versions to determine which breaking changes you might encounter based on your use of the schema.
-${reasons}
-`
-  }
+${rangeMessage}
 
-  if (!wpGatsbyIsSatisfied) {
-    const { hostname, protocol } = url.parse(wpGraphQLEndpoint)
+If the version of WPGraphQL in your WordPress instance is lower than ${minVersion}
+it means you need to upgrade your version of WPGraphQL.
 
-    message = `Your remote version of WPGatsby is not within the accepted range (${supportedWpPluginVersions.WPGatsby.version})
+If the version of WPGraphQL in your WordPress instance is higher than ${
+      maxVersion || minVersion
+    }
+it may mean you need to upgrade your version of gatsby-source-wordpress.
 
-\tDownload v ${supportedWpPluginVersions.WPGatsby.version} at https://github.com/TylerBarnes/using-gatsby-source-wordpress-experimental/tree/master/WordPress/plugins or update via ${protocol}//${hostname}/wp-admin/plugins.php
-${reasons}`
+You can find a matching WPGraphQL version at https://github.com/wp-graphql/wp-graphql/releases`
   }
 
   if (!wpGatsbyIsSatisfied && !wpgqlIsSatisfied) {
-    message = `WPGatsby and WPGraphQL are both outside the accepted version ranges.
-visit https://github.com/TylerBarnes/using-gatsby-source-wordpress-experimental/tree/master/WordPress/plugins to download the latest versions.
+    message += `\n\n---------------\n\n`
+  }
+
+  if (!wpGatsbyIsSatisfied) {
+    const { message: rangeMessage, minVersion, maxVersion } = parseRange(
+      supportedWpPluginVersions.WPGatsby.version
+    )
+
+    const { hostname, protocol } = url.parse(wpGraphQLEndpoint)
+
+    message += `Your remote version of WPGatsby is not within the accepted range (${
+      supportedWpPluginVersions.WPGatsby.version
+    })
+
+${rangeMessage}
+
+If the version of WPGatsby in your WordPress instance is lower than ${minVersion}
+it means you need to upgrade your version of WPGatsby.
+
+If the version of WPGatsby in your WordPress instance is higher than ${
+      maxVersion || minVersion
+    }
+it may mean you need to upgrade your version of gatsby-source-wordpress.
+
+Download a matching version at https://github.com/gatsbyjs/wp-gatsby/releases
+or update via ${protocol}//${hostname}/wp-admin/plugins.php`
+  }
+
+  if (!wpGatsbyIsSatisfied || !wpgqlIsSatisfied) {
+    message += `
 ${reasons}`
   }
 
