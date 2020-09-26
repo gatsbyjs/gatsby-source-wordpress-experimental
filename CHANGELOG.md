@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.4.4
+
+- Improved the compatibility API error message to make it clearer that you may need to upgrade OR downgrade WPGraphQL, WPGatsby, or gatsby-source-wordpress-experimental
+
 ## 1.4.3
 
 - Added a warning in the terminal output if pretty permalinks are not enabled in WP.
