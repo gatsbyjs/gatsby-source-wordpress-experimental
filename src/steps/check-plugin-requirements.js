@@ -157,6 +157,38 @@ const isWpGatsby = async () =>
     isFirstRequest: true,
   })
 
+const prettyPermalinksAreEnabled = async ({ helpers }) => {
+  try {
+    const { data } = await fetchGraphql({
+      query: /* GraphQL */ `
+        {
+          generalSettings {
+            url
+          }
+          wpGatsby {
+            arePrettyPermalinksEnabled
+          }
+        }
+      `,
+      throwGqlErrors: true,
+    })
+
+    if (!data.wpGatsby.arePrettyPermalinksEnabled) {
+      helpers.reporter.log(``)
+      helpers.reporter.warn(
+        formatLogMessage(`
+Pretty permalinks are not enabled in your WordPress instance.
+Gatsby routing requires this setting to function properly.
+Please enable pretty permalinks by changing your settings at
+${data.generalSettings.url}/wp-admin/options-permalink.php.
+`)
+      )
+    }
+  } catch (e) {
+    // the WPGatsby version is too old to query for wpGatsby.arePrettyPermalinksEnabled
+  }
+}
+
 const ensurePluginRequirementsAreMet = async (helpers, _pluginOptions) => {
   if (helpers.traceId === `refresh-createSchemaCustomization`) {
     return
@@ -170,6 +202,7 @@ const ensurePluginRequirementsAreMet = async (helpers, _pluginOptions) => {
   await blankGetRequest({ url, helpers })
 
   await isWpGatsby()
+  await prettyPermalinksAreEnabled({ helpers })
 
   if (!disableCompatibilityCheck) {
     await areRemotePluginVersionsSatisfied({ helpers, url })

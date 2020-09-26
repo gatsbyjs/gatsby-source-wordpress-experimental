@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.4.3
+
+- Added a warning in the terminal output if pretty permalinks are not enabled in WP.
+
 ## 1.4.2
 
 - Fixed a race condition / logic error in Gatsby image html processing. Thanks for PR #158 @rburgst!
