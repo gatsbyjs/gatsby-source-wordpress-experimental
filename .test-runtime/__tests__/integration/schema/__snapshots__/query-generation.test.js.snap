@@ -47151,6 +47151,10 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
   }
 
+  wpGatsby {
+    arePrettyPermalinksEnabled
+  }
+
   writingSettings {
     defaultCategory
     defaultPostFormat
