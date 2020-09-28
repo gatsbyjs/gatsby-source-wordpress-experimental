@@ -5,7 +5,7 @@
 ### Bug Fixes
 
 - In situations where MediaItem.sourceUrl is returned as an absolute path without the WP url, File nodes were unable to be fetched from MediaItem nodes because the URL was wrong.
-- Images with `-scaled` as part of the sourceUrl were cached properly but were not being restored from the cache properly.
+- Images with `-scaled` as part of the sourceUrl were cached properly but were not being restored from the cache properly when html url's included the full size url instead of the `-scaled` url.
 - There was duplicative cache logic running for media item node id's which was unneccessary.
 
 ## 1.4.4
