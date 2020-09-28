@@ -87,7 +87,7 @@ const getCheerioImgRelayId = (cheerioImg) =>
 export const ensureSrcHasHostname = ({ src, wpUrl }) => {
   const { protocol, host } = url.parse(wpUrl)
 
-  if (src.startsWith(`/`)) {
+  if (src.startsWith(`/wp-content`)) {
     src = `${protocol}//${host}${src}`
   }
 
@@ -286,7 +286,7 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
   return htmlMatchesToMediaItemNodesMap
 }
 
-const getCheerioImgFromMatch = ({ match }) => {
+const getCheerioImgFromMatch = (wpUrl) => ({ match }) => {
   // unescape quotes
   const parsedMatch = JSON.parse(`"${match}"`)
 
@@ -307,6 +307,10 @@ const getCheerioImgFromMatch = ({ match }) => {
   // there's only ever one image due to our match matching a single img tag
   // $(`img`) isn't an array, it's an object with a key of 0
   const cheerioImg = $(`img`)[0]
+
+  if (cheerioImg.attribs.src.startsWith(`/wp-content`)) {
+    cheerioImg.attribs.src = `${wpUrl}${cheerioImg.attribs.src}`
+  }
 
   return {
     match,
@@ -401,7 +405,7 @@ const replaceNodeHtmlImages = async ({
       // if it has the full WP url
       match.includes(wpHostname) ||
       // or it's an absolute path
-      subMatches[0].includes('src=\\"/')
+      subMatches[0].includes('src=\\"/wp-content')
 
     const isInJSON = subMatches[0].includes(`\\/\\/`)
 
@@ -410,7 +414,7 @@ const replaceNodeHtmlImages = async ({
 
   if (imageUrlMatches.length && imgTagMatches.length) {
     const cheerioImages = imgTagMatches
-      .map(getCheerioImgFromMatch)
+      .map(getCheerioImgFromMatch(wpUrl))
       .filter(({ cheerioImg: { attribs } }) => {
         if (!attribs.src) {
           return false
