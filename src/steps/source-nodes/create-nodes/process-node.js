@@ -87,7 +87,7 @@ const getCheerioImgRelayId = (cheerioImg) =>
 export const ensureSrcHasHostname = ({ src, wpUrl }) => {
   const { protocol, host } = url.parse(wpUrl)
 
-  if (src.startsWith(`/`)) {
+  if (src.startsWith(`/wp-content`)) {
     src = `${protocol}//${host}${src}`
   }
 
@@ -110,6 +110,14 @@ const pickNodeBySourceUrlOrCheerioImg = ({
     (mediaItemNode) =>
       // either find our node by the source url
       possibleHtmlSrcs.includes(mediaItemNode.sourceUrl) ||
+      possibleHtmlSrcs.includes(
+        // try to match without -scaled in the sourceUrl as well
+        // since WP adds -scaled to image urls if they were too large
+        // at upload time but image urls in html don't have this requirement.
+        // the sourceUrl may have -scaled in it but the full size image is still
+        // stored on the server (just not in the db)
+        mediaItemNode.sourceUrl.replace(`-scaled`, ``)
+      ) ||
       // or by id for cases where the src url didn't return a node
       (!!cheerioImg && getCheerioImgRelayId(cheerioImg) === mediaItemNode.id)
   )
@@ -127,12 +135,15 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
 }) => {
   // get all the image nodes we've cached from elsewhere
   const { nodeMetaByUrl } = store.getState().imageNodes
+
   const previouslyCachedNodesByUrl = (
     await Promise.all(
       Object.entries(nodeMetaByUrl).map(([sourceUrl, { id } = {}]) => {
         if (!sourceUrl || !id) {
           return null
         }
+
+        sourceUrl = ensureSrcHasHostname({ wpUrl, src: sourceUrl })
 
         return {
           sourceUrl,
@@ -145,8 +156,10 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
   const mediaItemUrls = cheerioImages
     // filter out nodes we already have
     .filter(({ cheerioImg }) => {
+      const url = ensureSrcHasHostname({ wpUrl, src: cheerioImg.attribs.src })
+
       const existingNode = pickNodeBySourceUrlOrCheerioImg({
-        url: cheerioImg.attribs.src,
+        url,
         mediaItemNodes: previouslyCachedNodesByUrl,
       })
 
@@ -229,9 +242,6 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
           ...helpers,
           createNode: helpers.actions.createNode,
         })
-
-        // save this file node id to cache the node properly
-        createdNodeIds.push(imageNode.id)
       } catch (e) {
         if (typeof e === `string` && e.includes(`404`)) {
           const nodeEditLink = getNodeEditLink(node)
@@ -269,24 +279,10 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
     }
   }
 
-  // if we've created nodes we need to save the id's so they get touched
-  // on the next build and aren't garbage collected
-  // @todo this should be written 1 time, not on each node transformation
-  if (createdNodeIds.length) {
-    const previouslyCreatedNodeIds =
-      (await helpers.cache.get(CREATED_NODE_IDS)) || []
-
-    const allCreatedNodeIds = [...createdNodeIds, ...previouslyCreatedNodeIds]
-
-    if (allCreatedNodeIds.length) {
-      await helpers.cache.set(CREATED_NODE_IDS, allCreatedNodeIds)
-    }
-  }
-
   return htmlMatchesToMediaItemNodesMap
 }
 
-const getCheerioImgFromMatch = ({ match }) => {
+const getCheerioImgFromMatch = (wpUrl) => ({ match }) => {
   // unescape quotes
   const parsedMatch = JSON.parse(`"${match}"`)
 
@@ -307,6 +303,10 @@ const getCheerioImgFromMatch = ({ match }) => {
   // there's only ever one image due to our match matching a single img tag
   // $(`img`) isn't an array, it's an object with a key of 0
   const cheerioImg = $(`img`)[0]
+
+  if (cheerioImg.attribs.src.startsWith(`/wp-content`)) {
+    cheerioImg.attribs.src = `${wpUrl}${cheerioImg.attribs.src}`
+  }
 
   return {
     match,
@@ -401,7 +401,7 @@ const replaceNodeHtmlImages = async ({
       // if it has the full WP url
       match.includes(wpHostname) ||
       // or it's an absolute path
-      subMatches[0].includes('src=\\"/')
+      subMatches[0].includes('src=\\"/wp-content')
 
     const isInJSON = subMatches[0].includes(`\\/\\/`)
 
@@ -410,7 +410,7 @@ const replaceNodeHtmlImages = async ({
 
   if (imageUrlMatches.length && imgTagMatches.length) {
     const cheerioImages = imgTagMatches
-      .map(getCheerioImgFromMatch)
+      .map(getCheerioImgFromMatch(wpUrl))
       .filter(({ cheerioImg: { attribs } }) => {
         if (!attribs.src) {
           return false
