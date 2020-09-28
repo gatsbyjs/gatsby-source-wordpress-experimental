@@ -135,12 +135,15 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
 }) => {
   // get all the image nodes we've cached from elsewhere
   const { nodeMetaByUrl } = store.getState().imageNodes
+
   const previouslyCachedNodesByUrl = (
     await Promise.all(
       Object.entries(nodeMetaByUrl).map(([sourceUrl, { id } = {}]) => {
         if (!sourceUrl || !id) {
           return null
         }
+
+        sourceUrl = ensureSrcHasHostname({ wpUrl, src: sourceUrl })
 
         return {
           sourceUrl,
@@ -153,8 +156,10 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
   const mediaItemUrls = cheerioImages
     // filter out nodes we already have
     .filter(({ cheerioImg }) => {
+      const url = ensureSrcHasHostname({ wpUrl, src: cheerioImg.attribs.src })
+
       const existingNode = pickNodeBySourceUrlOrCheerioImg({
-        url: cheerioImg.attribs.src,
+        url,
         mediaItemNodes: previouslyCachedNodesByUrl,
       })
 
