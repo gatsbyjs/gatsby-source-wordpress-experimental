@@ -9,10 +9,11 @@ import { createFileNodeFromBuffer } from "gatsby-source-filesystem"
 import createRemoteFileNode from "./create-remote-file-node/index"
 
 import store from "~/store"
-import { getGatsbyApi } from "~/utils/get-gatsby-api"
+
 import urlToPath from "~/utils/url-to-path"
 import { formatLogMessage } from "~/utils/format-log-message"
 import { stripImageSizesFromUrl } from "~/steps/source-nodes/fetch-nodes/fetch-referenced-media-items"
+import { ensureSrcHasHostname } from "./process-node"
 
 export const getFileNodeMetaBySourceUrl = (sourceUrl) => {
   const fileNodesMetaByUrls = store.getState().imageNodes.nodeMetaByUrl
@@ -115,11 +116,14 @@ export const createRemoteMediaItemNode = async ({
     actions: { createNode },
   } = helpers
 
-  const { mediaItemUrl, modifiedGmt, mimeType, title } = mediaItemNode
+  let { mediaItemUrl, modifiedGmt, mimeType, title } = mediaItemNode
 
   if (!mediaItemUrl) {
     return null
   }
+
+  const { wpUrl } = state.remoteSchema
+  mediaItemUrl = ensureSrcHasHostname({ wpUrl, src: mediaItemUrl })
 
   const { excludeByMimeTypes } = pluginOptions.type?.MediaItem?.localFile
 
@@ -173,7 +177,6 @@ export const createRemoteMediaItemNode = async ({
         }
       }
 
-      const { wpUrl } = state.remoteSchema
       const { hostname: wpUrlHostname } = url.parse(wpUrl)
       const { hostname: mediaItemHostname } = url.parse(mediaItemUrl)
 
