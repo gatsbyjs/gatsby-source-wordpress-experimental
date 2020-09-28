@@ -139,6 +139,10 @@ Array [
     "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/09/imagename-300x163-1-scaled.jpg",
   },
   Object {
+    "id": "cG9zdDo5ODI3",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/09/5642fae96ade14100be5-scaled.jpg",
+  },
+  Object {
     "id": "cG9zdDo5OQ==",
     "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/03/avatar.jpg",
   },
@@ -676,6 +680,22 @@ Object {
             "nodes": Array [],
           },
         },
+        Object {
+          "acfPageFields": Object {
+            "fieldGroupName": "acfPageFields",
+          },
+          "author": Object {
+            "node": Object {
+              "name": "Tyler",
+            },
+          },
+          "title": "Relative image path",
+          "translations": Array [],
+          "uri": "/relative-image-path/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
+        },
       ],
     },
     "testPage": Object {
@@ -979,6 +999,22 @@ Object {
             },
           ],
           "uri": "/fr/image-test-1-french/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
+        },
+        Object {
+          "acfPageFields": Object {
+            "fieldGroupName": "acfPageFields",
+          },
+          "author": Object {
+            "node": Object {
+              "name": "Tyler",
+            },
+          },
+          "title": "Relative image path",
+          "translations": Array [],
+          "uri": "/relative-image-path/",
           "wpChildren": Object {
             "nodes": Array [],
           },
@@ -1388,6 +1424,9 @@ Object {
           "pages": Object {
             "nodes": Array [
               Object {
+                "title": "Relative image path",
+              },
+              Object {
                 "title": "Image test 1 french",
               },
               Object {
@@ -1495,6 +1534,9 @@ Object {
           "name": "Tyler",
           "pages": Object {
             "nodes": Array [
+              Object {
+                "title": "Relative image path",
+              },
               Object {
                 "title": "Image test 1 french",
               },
