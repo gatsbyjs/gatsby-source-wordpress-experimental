@@ -110,6 +110,14 @@ const pickNodeBySourceUrlOrCheerioImg = ({
     (mediaItemNode) =>
       // either find our node by the source url
       possibleHtmlSrcs.includes(mediaItemNode.sourceUrl) ||
+      possibleHtmlSrcs.includes(
+        // try to match without -scaled in the sourceUrl as well
+        // since WP adds -scaled to image urls if they were too large
+        // at upload time but image urls in html don't have this requirement.
+        // the sourceUrl may have -scaled in it but the full size image is still
+        // stored on the server (just not in the db)
+        mediaItemNode.sourceUrl.replace(`-scaled`, ``)
+      ) ||
       // or by id for cases where the src url didn't return a node
       (!!cheerioImg && getCheerioImgRelayId(cheerioImg) === mediaItemNode.id)
   )
