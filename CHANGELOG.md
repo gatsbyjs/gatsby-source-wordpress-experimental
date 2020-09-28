@@ -1,5 +1,13 @@
 # Change Log
 
+## Upcoming
+
+### Bug Fixes
+
+- In situations where MediaItem.sourceUrl is returned as an absolute path without the WP url, File nodes were unable to be fetched from MediaItem nodes because the URL was wrong.
+- Images with `-scaled` as part of the sourceUrl were cached properly but were not being restored from the cache properly.
+- There was duplicative cache logic running for media item node id's which was unneccessary.
+
 ## 1.4.4
 
 - Improved the compatibility API error message to make it clearer that you may need to upgrade OR downgrade WPGraphQL, WPGatsby, or gatsby-source-wordpress-experimental
