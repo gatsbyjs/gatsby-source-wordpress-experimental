@@ -9,10 +9,11 @@ import { createFileNodeFromBuffer } from "gatsby-source-filesystem"
 import createRemoteFileNode from "./create-remote-file-node/index"
 
 import store from "~/store"
-import { getGatsbyApi } from "~/utils/get-gatsby-api"
+
 import urlToPath from "~/utils/url-to-path"
 import { formatLogMessage } from "~/utils/format-log-message"
 import { stripImageSizesFromUrl } from "~/steps/source-nodes/fetch-nodes/fetch-referenced-media-items"
+import { ensureSrcHasHostname } from "./process-node"
 
 export const getFileNodeMetaBySourceUrl = (sourceUrl) => {
   const fileNodesMetaByUrls = store.getState().imageNodes.nodeMetaByUrl
@@ -72,7 +73,18 @@ export const getFileNodeByMediaItemNode = async ({
     // and it hasn't been modified
     existingNodeMeta.modifiedGmt === modifiedGmt
   ) {
-    const node = await helpers.getNode(existingNodeMeta.id)
+    let node = await helpers.getNode(existingNodeMeta.id)
+
+    // some of the cached node metas dont necessarily need to be a File
+    // so make sure we return a File node if what we get isn't one
+    if (node && node.internal && node.internal.type !== `File`) {
+      if (node.localFile && node.localFile.id) {
+        // look up the corresponding file node
+        node = await helpers.getNode(node.localFile.id)
+      } else {
+        return null
+      }
+    }
 
     return node
   }
@@ -104,11 +116,14 @@ export const createRemoteMediaItemNode = async ({
     actions: { createNode },
   } = helpers
 
-  const { mediaItemUrl, modifiedGmt, mimeType, title } = mediaItemNode
+  let { mediaItemUrl, modifiedGmt, mimeType, title } = mediaItemNode
 
   if (!mediaItemUrl) {
     return null
   }
+
+  const { wpUrl } = state.remoteSchema
+  mediaItemUrl = ensureSrcHasHostname({ wpUrl, src: mediaItemUrl })
 
   const { excludeByMimeTypes } = pluginOptions.type?.MediaItem?.localFile
 
@@ -162,7 +177,6 @@ export const createRemoteMediaItemNode = async ({
         }
       }
 
-      const { wpUrl } = state.remoteSchema
       const { hostname: wpUrlHostname } = url.parse(wpUrl)
       const { hostname: mediaItemHostname } = url.parse(mediaItemUrl)
 

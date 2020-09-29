@@ -152,16 +152,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       slug
       status
       template {
+        templateFile
+        templateName
         __typename
-        ... on DefaultTemplate {
-          templateName
-        }
-        ... on CoverTemplateTemplate {
-          templateName
-        }
-        ... on FullWidthTemplateTemplate {
-          templateName
-        }
       }
       terms(first: 100) {
         nodes {
@@ -2743,16 +2736,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     slug
     status
     template {
+      templateFile
+      templateName
       __typename
-      ... on DefaultTemplate {
-        templateName
-      }
-      ... on CoverTemplateTemplate {
-        templateName
-      }
-      ... on FullWidthTemplateTemplate {
-        templateName
-      }
     }
     terms(first: 100) {
       nodes {
@@ -5329,16 +5315,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     slug
     status
     template {
+      templateFile
+      templateName
       __typename
-      ... on DefaultTemplate {
-        templateName
-      }
-      ... on CoverTemplateTemplate {
-        templateName
-      }
-      ... on FullWidthTemplateTemplate {
-        templateName
-      }
     }
     terms(first: 100) {
       nodes {
@@ -9329,16 +9308,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       srcSet
       status
       template {
+        templateFile
+        templateName
         __typename
-        ... on DefaultTemplate {
-          templateName
-        }
-        ... on CoverTemplateTemplate {
-          templateName
-        }
-        ... on FullWidthTemplateTemplate {
-          templateName
-        }
       }
       terms(first: 100) {
         nodes {
@@ -9499,16 +9471,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     srcSet
     status
     template {
+      templateFile
+      templateName
       __typename
-      ... on DefaultTemplate {
-        templateName
-      }
-      ... on CoverTemplateTemplate {
-        templateName
-      }
-      ... on FullWidthTemplateTemplate {
-        templateName
-      }
     }
     terms(first: 100) {
       nodes {
@@ -9664,16 +9629,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     srcSet
     status
     template {
+      templateFile
+      templateName
       __typename
-      ... on DefaultTemplate {
-        templateName
-      }
-      ... on CoverTemplateTemplate {
-        templateName
-      }
-      ... on FullWidthTemplateTemplate {
-        templateName
-      }
     }
     terms(first: 100) {
       nodes {
@@ -12365,16 +12323,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       slug
       status
       template {
+        templateFile
+        templateName
         __typename
-        ... on DefaultTemplate {
-          templateName
-        }
-        ... on CoverTemplateTemplate {
-          templateName
-        }
-        ... on FullWidthTemplateTemplate {
-          templateName
-        }
       }
       terms(first: 100) {
         nodes {
@@ -15274,16 +15225,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     slug
     status
     template {
+      templateFile
+      templateName
       __typename
-      ... on DefaultTemplate {
-        templateName
-      }
-      ... on CoverTemplateTemplate {
-        templateName
-      }
-      ... on FullWidthTemplateTemplate {
-        templateName
-      }
     }
     terms(first: 100) {
       nodes {
@@ -18178,16 +18122,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     slug
     status
     template {
+      templateFile
+      templateName
       __typename
-      ... on DefaultTemplate {
-        templateName
-      }
-      ... on CoverTemplateTemplate {
-        templateName
-      }
-      ... on FullWidthTemplateTemplate {
-        templateName
-      }
     }
     terms(first: 100) {
       nodes {
@@ -20765,16 +20702,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         }
       }
       template {
+        templateFile
+        templateName
         __typename
-        ... on DefaultTemplate {
-          templateName
-        }
-        ... on CoverTemplateTemplate {
-          templateName
-        }
-        ... on FullWidthTemplateTemplate {
-          templateName
-        }
       }
       terms(first: 100) {
         nodes {
@@ -23357,16 +23287,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
     }
     template {
+      templateFile
+      templateName
       __typename
-      ... on DefaultTemplate {
-        templateName
-      }
-      ... on CoverTemplateTemplate {
-        templateName
-      }
-      ... on FullWidthTemplateTemplate {
-        templateName
-      }
     }
     terms(first: 100) {
       nodes {
@@ -25944,16 +25867,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
     }
     template {
+      templateFile
+      templateName
       __typename
-      ... on DefaultTemplate {
-        templateName
-      }
-      ... on CoverTemplateTemplate {
-        templateName
-      }
-      ... on FullWidthTemplateTemplate {
-        templateName
-      }
     }
     terms(first: 100) {
       nodes {
@@ -31224,16 +31140,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       slug
       status
       template {
+        templateFile
+        templateName
         __typename
-        ... on DefaultTemplate {
-          templateName
-        }
-        ... on CoverTemplateTemplate {
-          templateName
-        }
-        ... on FullWidthTemplateTemplate {
-          templateName
-        }
       }
       terms(first: 100) {
         nodes {
@@ -33792,16 +33701,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     slug
     status
     template {
+      templateFile
+      templateName
       __typename
-      ... on DefaultTemplate {
-        templateName
-      }
-      ... on CoverTemplateTemplate {
-        templateName
-      }
-      ... on FullWidthTemplateTemplate {
-        templateName
-      }
     }
     terms(first: 100) {
       nodes {
@@ -36355,16 +36257,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     slug
     status
     template {
+      templateFile
+      templateName
       __typename
-      ... on DefaultTemplate {
-        templateName
-      }
-      ... on CoverTemplateTemplate {
-        templateName
-      }
-      ... on FullWidthTemplateTemplate {
-        templateName
-      }
     }
     terms(first: 100) {
       nodes {
@@ -39406,16 +39301,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       slug
       status
       template {
+        templateFile
+        templateName
         __typename
-        ... on DefaultTemplate {
-          templateName
-        }
-        ... on CoverTemplateTemplate {
-          templateName
-        }
-        ... on FullWidthTemplateTemplate {
-          templateName
-        }
       }
       terms(first: 100) {
         nodes {
@@ -41957,16 +41845,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     slug
     status
     template {
+      templateFile
+      templateName
       __typename
-      ... on DefaultTemplate {
-        templateName
-      }
-      ... on CoverTemplateTemplate {
-        templateName
-      }
-      ... on FullWidthTemplateTemplate {
-        templateName
-      }
     }
     terms(first: 100) {
       nodes {
@@ -44503,16 +44384,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     slug
     status
     template {
+      templateFile
+      templateName
       __typename
-      ... on DefaultTemplate {
-        templateName
-      }
-      ... on CoverTemplateTemplate {
-        templateName
-      }
-      ... on FullWidthTemplateTemplate {
-        templateName
-      }
     }
     terms(first: 100) {
       nodes {
@@ -47277,6 +47151,10 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
   }
 
+  wpGatsby {
+    arePrettyPermalinksEnabled
+  }
+
   writingSettings {
     defaultCategory
     defaultPostFormat
@@ -48288,16 +48166,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         }
       }
       template {
+        templateFile
+        templateName
         __typename
-        ... on DefaultTemplate {
-          templateName
-        }
-        ... on CoverTemplateTemplate {
-          templateName
-        }
-        ... on FullWidthTemplateTemplate {
-          templateName
-        }
       }
       terms(first: 100) {
         nodes {
@@ -50896,16 +50767,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
     }
     template {
+      templateFile
+      templateName
       __typename
-      ... on DefaultTemplate {
-        templateName
-      }
-      ... on CoverTemplateTemplate {
-        templateName
-      }
-      ... on FullWidthTemplateTemplate {
-        templateName
-      }
     }
     terms(first: 100) {
       nodes {
@@ -53499,16 +53363,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
     }
     template {
+      templateFile
+      templateName
       __typename
-      ... on DefaultTemplate {
-        templateName
-      }
-      ... on CoverTemplateTemplate {
-        templateName
-      }
-      ... on FullWidthTemplateTemplate {
-        templateName
-      }
     }
     terms(first: 100) {
       nodes {
@@ -56126,16 +55983,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       slug
       status
       template {
+        templateFile
+        templateName
         __typename
-        ... on DefaultTemplate {
-          templateName
-        }
-        ... on CoverTemplateTemplate {
-          templateName
-        }
-        ... on FullWidthTemplateTemplate {
-          templateName
-        }
       }
       terms(first: 100) {
         nodes {
@@ -58692,16 +58542,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     slug
     status
     template {
+      templateFile
+      templateName
       __typename
-      ... on DefaultTemplate {
-        templateName
-      }
-      ... on CoverTemplateTemplate {
-        templateName
-      }
-      ... on FullWidthTemplateTemplate {
-        templateName
-      }
     }
     terms(first: 100) {
       nodes {
@@ -61253,16 +61096,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     slug
     status
     template {
+      templateFile
+      templateName
       __typename
-      ... on DefaultTemplate {
-        templateName
-      }
-      ... on CoverTemplateTemplate {
-        templateName
-      }
-      ... on FullWidthTemplateTemplate {
-        templateName
-      }
     }
     terms(first: 100) {
       nodes {
@@ -63808,16 +63644,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       slug
       status
       template {
+        templateFile
+        templateName
         __typename
-        ... on DefaultTemplate {
-          templateName
-        }
-        ... on CoverTemplateTemplate {
-          templateName
-        }
-        ... on FullWidthTemplateTemplate {
-          templateName
-        }
       }
       terms(first: 100) {
         nodes {
@@ -66364,16 +66193,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     slug
     status
     template {
+      templateFile
+      templateName
       __typename
-      ... on DefaultTemplate {
-        templateName
-      }
-      ... on CoverTemplateTemplate {
-        templateName
-      }
-      ... on FullWidthTemplateTemplate {
-        templateName
-      }
     }
     terms(first: 100) {
       nodes {
@@ -68915,16 +68737,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     slug
     status
     template {
+      templateFile
+      templateName
       __typename
-      ... on DefaultTemplate {
-        templateName
-      }
-      ... on CoverTemplateTemplate {
-        templateName
-      }
-      ... on FullWidthTemplateTemplate {
-        templateName
-      }
     }
     terms(first: 100) {
       nodes {
@@ -71467,16 +71282,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       slug
       status
       template {
+        templateFile
+        templateName
         __typename
-        ... on DefaultTemplate {
-          templateName
-        }
-        ... on CoverTemplateTemplate {
-          templateName
-        }
-        ... on FullWidthTemplateTemplate {
-          templateName
-        }
       }
       terms(first: 100) {
         nodes {
@@ -74023,16 +73831,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     slug
     status
     template {
+      templateFile
+      templateName
       __typename
-      ... on DefaultTemplate {
-        templateName
-      }
-      ... on CoverTemplateTemplate {
-        templateName
-      }
-      ... on FullWidthTemplateTemplate {
-        templateName
-      }
     }
     terms(first: 100) {
       nodes {
@@ -76574,16 +76375,9 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     slug
     status
     template {
+      templateFile
+      templateName
       __typename
-      ... on DefaultTemplate {
-        templateName
-      }
-      ... on CoverTemplateTemplate {
-        templateName
-      }
-      ... on FullWidthTemplateTemplate {
-        templateName
-      }
     }
     terms(first: 100) {
       nodes {

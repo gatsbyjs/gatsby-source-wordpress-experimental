@@ -1,5 +1,35 @@
 # Change Log
 
+## 1.4.6
+
+### Bug Fixes
+
+- Fixed a bug where a Preview safeguard was preventing the usage of Preview with bedrock/roots (or any other setup that requires the gql endpoint to be used as /?graphql).
+
+## 1.4.5
+
+### Bug Fixes
+
+- In situations where MediaItem.sourceUrl is returned as an absolute path without the WP url, File nodes were unable to be fetched from MediaItem nodes because the URL was wrong.
+- Images with `-scaled` as part of the sourceUrl were cached properly but were not being restored from the cache properly when html url's included the full size url instead of the `-scaled` url.
+- There was duplicative cache logic running for media item node id's which was unneccessary.
+
+## 1.4.4
+
+- Improved the compatibility API error message to make it clearer that you may need to upgrade OR downgrade WPGraphQL, WPGatsby, or gatsby-source-wordpress-experimental
+
+## 1.4.3
+
+- Added a warning in the terminal output if pretty permalinks are not enabled in WP.
+
+## 1.4.2
+
+- Fixed a race condition / logic error in Gatsby image html processing. Thanks for PR #158 @rburgst!
+
+## 1.4.1
+
+- Added support for WPGraphQL ~0.13.0
+
 ## 1.4.0
 
 ### New Features
