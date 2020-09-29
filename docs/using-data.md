@@ -11,3 +11,11 @@ Visit your menu edit page by navigating to `[yoursite].com/wp-admin/nav-menus.ph
 ![WordPress menu location settings Screenshot](/docs/assets/menu-locations.png)
 
 If you need help registering additional locations, refer to the WordPress.org documentation on [registering menus](https://codex.wordpress.org/Navigation_Menus#Register_Menus).
+
+# Up Next :point_right:
+
+- :house: [Hosting WordPress](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/hosting.md)
+- :athletic_shoe: [Themes, Starters, and Examples](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/themes-starters-examples.md)
+- :medal_sports: [Usage with popular WPGraphQL extensions](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/usage-with-popular-wp-graphql-extensions.md)
+- :hammer_and_wrench: [Debugging and troubleshooting](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/debugging-and-troubleshooting.md)
+- :national_park: [Community and Support](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/community-and-support.md)
