@@ -1,0 +1,13 @@
+# Using Data
+
+@todo this article is a stub.
+
+## Menus
+
+In order for menus to show up properly in your Gatsby site, you'll need to make sure they have a location set in WordPress. Menus that are not attached to a location are considered private data in WordPress.
+
+Visit your menu edit page by navigating to `[yoursite].com/wp-admin/nav-menus.php`. Once you're there, scroll to the bottom of the page to see all available locations.
+
+![WordPress menu location settings Screenshot](/docs/assets/menu-locations.png)
+
+If you need help registering additional locations, refer to the WordPress.org documentation on [registering menus](https://codex.wordpress.org/Navigation_Menus#Register_Menus).
