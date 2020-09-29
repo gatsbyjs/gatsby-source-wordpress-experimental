@@ -357,10 +357,10 @@ You can apply the same procedure to calling and creating pages, custom post type
 
 # Up Next :point_right:
 
-- :boat: [Migrating from other WP source plugins](./migrating-from-other-wp-source-plugins.md)
-- :house: [Hosting WordPress](./hosting.md)
-- :athletic_shoe: [Themes, Starters, and Examples](./themes-starters-examples.md)
--  :medal_sports: [Usage with popular WPGraphQL extensions](./usage-with-popular-wp-graphql-extensions.md)
-- :hammer_and_wrench: [Debugging and troubleshooting](./debugging-and-troubleshooting.md)
-- :national_park: [Community and Support](./community-and-support.md)
-- :point_left: [Back to README.md](../README.md)
+- :boat: [Migrating from other WP source plugins](../migrating-from-other-wp-source-plugins.md)
+- :house: [Hosting WordPress](../hosting.md)
+- :athletic_shoe: [Themes, Starters, and Examples](../themes-starters-examples.md)
+-  :medal_sports: [Usage with popular WPGraphQL extensions](../usage-with-popular-wp-graphql-extensions.md)
+- :hammer_and_wrench: [Debugging and troubleshooting](../debugging-and-troubleshooting.md)
+- :national_park: [Community and Support](../community-and-support.md)
+- :point_left: [Back to README.md](../../README.md)
