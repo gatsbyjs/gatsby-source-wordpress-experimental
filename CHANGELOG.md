@@ -1,5 +1,11 @@
 # Change Log
 
+## Upcoming
+
+### Bug Fixes
+
+- Fixed a bug where a Preview safeguard was preventing the usage of Preview with bedrock/roots (or any other setup that requires the gql endpoint to be used as /?graphql).
+
 ## 1.4.5
 
 ### Bug Fixes
