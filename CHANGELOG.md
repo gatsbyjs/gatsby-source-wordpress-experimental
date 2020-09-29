@@ -1,6 +1,6 @@
 # Change Log
 
-## Upcoming
+## 1.4.6
 
 ### Bug Fixes
 
