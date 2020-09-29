@@ -43,6 +43,7 @@ Developer & Content Creator experience are some of our main focuses with this in
 - :feet: [Features](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/features/index.md)
 - :electric_plug: [Plugin options](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/plugin-options.md)
 - :boat: [Migrating from other WP source plugins](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/migrating-from-other-wp-source-plugins.md)
+- :computer: [Using Data](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/using-data.md)
 - :house: [Hosting WordPress](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/hosting.md)
 - :athletic_shoe: [Themes, Starters, and Examples](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/themes-starters-examples.md)
 - :medal_sports: [Usage with popular WPGraphQL extensions](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/usage-with-popular-wp-graphql-extensions.md)

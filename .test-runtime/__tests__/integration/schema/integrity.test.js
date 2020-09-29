@@ -1,6 +1,7 @@
 import { createContentDigest } from "gatsby-core-utils"
 import { introspectionQuery } from "gatsby-source-wordpress-experimental/utils/graphql-queries"
 import fetchGraphql from "gatsby-source-wordpress-experimental/utils/fetch-graphql"
+import sortBy from "lodash/sortBy"
 
 describe(`[gatsby-source-wordpress-experimental] schema integrity`, () => {
   it(`hasn't altered the remote WPGraphQL schema`, async () => {
@@ -9,17 +10,16 @@ describe(`[gatsby-source-wordpress-experimental] schema integrity`, () => {
       url: process.env.WPGRAPHQL_URL,
     })
 
-    const remoteWPGQLTypeNamesWithFieldNames = result.data.__schema.types.map(
-      type => ({
+    const remoteWPGQLTypeNamesWithFieldNames = sortBy(
+      result.data.__schema.types.map(type => ({
         name: type.name,
         fields:
           type && type.fields ? type.fields.map(field => field.name) : null,
-      })
+      })),
+      [`name`]
     )
 
     expect(remoteWPGQLTypeNamesWithFieldNames).toMatchSnapshot()
-
-    expect(createContentDigest(result.data.__schema)).toMatchSnapshot()
   })
 
   it(`hasn't altered the local Gatsby schema`, async () => {
@@ -28,13 +28,16 @@ describe(`[gatsby-source-wordpress-experimental] schema integrity`, () => {
       query: introspectionQuery,
     })
 
-    const localWPTypeNamesWithFieldNames = result.data.__schema.types
-      .filter(({ name }) => name.startsWith(`Wp`))
-      .map(type => ({
-        name: type.name,
-        fields:
-          type && type.fields ? type.fields.map(field => field.name) : null,
-      }))
+    const localWPTypeNamesWithFieldNames = sortBy(
+      result.data.__schema.types
+        .filter(({ name }) => name.startsWith(`Wp`))
+        .map(type => ({
+          name: type.name,
+          fields:
+            type && type.fields ? type.fields.map(field => field.name) : null,
+        })),
+      [`name`]
+    )
 
     expect(localWPTypeNamesWithFieldNames).toMatchSnapshot()
   })
