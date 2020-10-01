@@ -218,7 +218,7 @@ Default is false.
 
 ### develop.hardCacheData: Boolean
 
-This option is experimental. When set to true, WordPress data will be hard-cached outside the Gatsby cache in `./.wordpress-cache/caches`. This is useful for preventing the need to re-fetch all data when the Gatsby cache automatically clears.
+This option is experimental. When set to true, WordPress data will be hard-cached outside the Gatsby cache in `./.wordpress-cache/caches`. This is useful for preventing the need to re-fetch all data when the Gatsby cache automatically clears. This hard cache will automatically clear itself when your remote WPGraphQL schema changes, or when you change your plugin options.
 
 When using this option, be sure to gitignore the `wordpress-cache` directory in the root of your project.
 
