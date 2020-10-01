@@ -1,11 +1,12 @@
 import store from "~/store"
 import { getGatsbyApi } from "~/utils/get-gatsby-api"
+import { getPersistentCache } from "~/utils/cache"
 
 const persistPreviouslyCachedImages = async () => {
   const { helpers } = getGatsbyApi()
 
   // load up image node id's from cache
-  const imageNodeIds = await helpers.cache.get(`image-node-ids`)
+  const imageNodeIds = await getPersistentCache({ key: `image-node-ids` })
 
   // if they exist,
   if (imageNodeIds && imageNodeIds.length) {
@@ -22,7 +23,9 @@ const persistPreviouslyCachedImages = async () => {
     store.dispatch.imageNodes.setNodeIds(imageNodeIds)
   }
 
-  const imageNodeMetaByUrl = await helpers.cache.get(`image-node-meta-by-url`)
+  const imageNodeMetaByUrl = await getPersistentCache({
+    key: `image-node-meta-by-url`,
+  })
 
   if (imageNodeMetaByUrl) {
     store.dispatch.imageNodes.setState({

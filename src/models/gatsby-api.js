@@ -22,6 +22,7 @@ const defaultPluginOptions = {
   develop: {
     nodeUpdateInterval: 300,
     hardCacheMediaFiles: false,
+    hardCacheData: false,
   },
   production: {
     hardCacheMediaFiles: false,
