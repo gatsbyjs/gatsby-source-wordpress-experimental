@@ -19,7 +19,6 @@ const wpPluginOptions = !process.env.DEFAULT_PLUGIN_OPTIONS
       },
       develop: {
         nodeUpdateInterval: 3000,
-        hardCacheMediaFiles: true,
       },
       debug: {
         graphql: {
