@@ -19,18 +19,19 @@ const createNodesQueue = new PQueue({
 
 export const createNodeWithSideEffects = ({
   node,
-  actions,
-  createContentDigest,
-  wpgqlNodesGroup,
-  pluginOptions,
-  referencedMediaItemNodeIds,
-  helpers,
+  state,
+  wpgqlNodesGroup = null,
+  referencedMediaItemNodeIds = new Set(),
   createdNodeIds = [],
-  createNodesActivity,
-  totalSideEffectNodes,
-  wpUrl,
-  type,
+  createNodesActivity = null,
+  totalSideEffectNodes = null,
+  type = null,
 }) => async () => {
+  const { wpUrl } = state.remoteSchema
+  const { helpers, pluginOptions } = state.gatsbyApi
+
+  const { actions, createContentDigest } = helpers
+
   if (node.link) {
     // @todo is this still necessary? I don't think it is but double check
     // create a pathname for the node using the WP permalink
@@ -75,15 +76,17 @@ export const createNodeWithSideEffects = ({
         wpStore: store,
       })) || {}
 
-    if (additionalNodeIds?.length) {
+    if (additionalNodeIds?.length && totalSideEffectNodes) {
       additionalNodeIds.forEach(
         (id) => createdNodeIds.push(id) && totalSideEffectNodes.push(id)
       )
     }
 
     if (
+      totalSideEffectNodes &&
       typeof totalSideEffectNodes?.length === `number` &&
-      totalSideEffectNodes.length > 0
+      totalSideEffectNodes.length > 0 &&
+      createNodesActivity
     ) {
       createNodesActivity.setStatus(
         `awaiting async side effects - ${totalSideEffectNodes.length} additional nodes fetched`
@@ -101,16 +104,15 @@ export const createGatsbyNodesFromWPGQLContentNodes = async ({
   createNodesActivity,
 }) => {
   const state = store.getState()
-  const { wpUrl } = state.remoteSchema
   const { helpers, pluginOptions } = state.gatsbyApi
+
+  const { reporter } = helpers
 
   // wp supports these file extensions
   // jpeg|jpg|png|gif|ico|pdf|doc|docx|ppt|pptx|pps|ppsx|odt|xls|psd|mp3|m4a|ogg|wav|mp4|m4v|mov|wmv|avi|mpg|ogv|3gp|3g2|svg|bmp|tif|tiff|asf|asx|wm|wmx|divx|flv|qt|mpe|webm|mkv|txt|asc|c|cc|h|csv|tsv|ics|rtx|css|htm|html|m4b|ra|ram|mid|midi|wax|mka|rtf|js|swf|class|tar|zip|gz|gzip|rar|7z|exe|pot|wri|xla|xlt|xlw|mdb|mpp|docm|dotx|dotm|xlsm|xlsb|xltx|xltm|xlam|pptm|ppsm|potx|potm|ppam|sldx|sldm|onetoc|onetoc2|onetmp|onepkg|odp|ods|odg|odc|odb|odf|wp|wpd|key|numbers|pages
 
   // gatsby-image supports these file types
   // const imgSrcRemoteFileRegex = /<img.*?src=\\"(.*?jpeg|jpg|png|webp|tif|tiff$)\\"[^>]+>/gim
-
-  const { actions, createContentDigest, reporter } = helpers
 
   store.dispatch.logger.createActivityTimer({
     typeName: `MediaItem`,
@@ -128,17 +130,13 @@ export const createGatsbyNodesFromWPGQLContentNodes = async ({
     for (const node of wpgqlNodes.values()) {
       createNodesQueue.add(
         createNodeWithSideEffects({
+          state,
           node,
-          actions,
-          createContentDigest,
           wpgqlNodesGroup,
-          pluginOptions,
           referencedMediaItemNodeIds,
-          helpers,
           createdNodeIds,
           createNodesActivity,
           totalSideEffectNodes,
-          wpUrl,
         })
       )
     }

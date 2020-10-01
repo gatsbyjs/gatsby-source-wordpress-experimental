@@ -103,7 +103,7 @@ const pushPromiseOntoRetryQueue = ({
   })
 }
 
-const createMediaItemNode = async ({
+export const createMediaItemNode = async ({
   node,
   helpers,
   createContentDigest,

@@ -7,10 +7,12 @@ import { CREATED_NODE_IDS } from "~/constants"
 import { getPersistentCache, setPersistentCache } from "~/utils/cache"
 
 const fetchAndCreateNonNodeRootFields = async () => {
+  const state = store.getState()
+
   const {
     remoteSchema: { nonNodeQuery, wpUrl },
     gatsbyApi: { helpers, pluginOptions },
-  } = store.getState()
+  } = state
 
   const { actions, createContentDigest, reporter } = helpers
 
@@ -37,15 +39,11 @@ const fetchAndCreateNonNodeRootFields = async () => {
 
   const createRootNode = createNodeWithSideEffects({
     node,
-    actions,
-    createContentDigest,
-    pluginOptions,
+    state,
     referencedMediaItemNodeIds,
-    helpers,
     createdNodeIds,
-    // totalSideEffectNodes,
-    wpUrl,
     type,
+    // totalSideEffectNodes,
   })
 
   createRootNode()

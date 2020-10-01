@@ -2,11 +2,14 @@ import { createGatsbyNodesFromWPGQLContentNodes } from "../create-nodes/create-n
 import { paginatedWpNodeFetch } from "./fetch-nodes-paginated"
 import { formatLogMessage } from "~/utils/format-log-message"
 import { CREATED_NODE_IDS } from "~/constants"
+
 import store from "~/store"
 import { getGatsbyApi } from "~/utils/get-gatsby-api"
 import chunk from "lodash/chunk"
+
 import {
   getHardCachedNodes,
+  restoreHardCachedNodes,
   setHardCachedNodes,
   setPersistentCache,
 } from "~/utils/cache"
@@ -21,7 +24,6 @@ export const fetchWPGQLContentNodes = async ({ queryInfo }) => {
   const { reporter } = helpers
   const {
     url,
-    verbose,
     schema: { perPage },
   } = pluginOptions
 
@@ -115,9 +117,7 @@ export const getGatsbyNodeTypeNames = () => {
  *
  * @returns {Array}
  */
-export const fetchWPGQLContentNodesByContentType = async () => {
-  const contentNodeGroups = []
-
+export const runFnForEachNodeQuery = async (fn) => {
   const nodeQueries = getContentTypeQueryInfos()
 
   const chunkSize = process.env.GATSBY_CONCURRENT_DOWNLOAD || 50
@@ -136,14 +136,22 @@ export const fetchWPGQLContentNodesByContentType = async () => {
           return
         }
 
-        const contentNodeGroup = await fetchWPGQLContentNodes({ queryInfo })
-
-        if (contentNodeGroup) {
-          contentNodeGroups.push(contentNodeGroup)
-        }
+        await fn({ queryInfo })
       })
     )
   }
+}
+
+export const fetchWPGQLContentNodesByContentType = async () => {
+  const contentNodeGroups = []
+
+  await runFnForEachNodeQuery(async ({ queryInfo }) => {
+    const contentNodeGroup = await fetchWPGQLContentNodes({ queryInfo })
+
+    if (contentNodeGroup) {
+      contentNodeGroups.push(contentNodeGroup)
+    }
+  })
 
   return contentNodeGroups
 }
@@ -190,48 +198,10 @@ export const fetchAndCreateAllNodes = async () => {
 
     createNodesActivity.end()
     activity.end()
-  }
-
-  if (hardCachedNodes) {
-    const loggerTypeCounts = {}
-
-    // restore nodes
-    await Promise.all(
-      hardCachedNodes.map(async (node) => {
-        if (!loggerTypeCounts[node.internal.type]) {
-          loggerTypeCounts[node.internal.type] = 0
-        }
-
-        loggerTypeCounts[node.internal.type] += 1
-
-        node.internal = {
-          contentDigest: node.internal.contentDigest,
-          type: node.internal.type,
-        }
-
-        // restore each node
-        await helpers.actions.createNode(node)
-      })
-    )
-
-    Object.entries(loggerTypeCounts).forEach(([typeName, count]) => {
-      store.dispatch.logger.createActivityTimer({
-        typeName,
-        pluginOptions,
-        reporter,
-      })
-
-      store.dispatch.logger.incrementActivityTimer({
-        typeName,
-        by: count,
-        action: `restored`,
-      })
-
-      store.dispatch.logger.stopActivityTimer({ typeName, action: `restored` })
+  } else if (hardCachedNodes) {
+    createdNodeIds = await restoreHardCachedNodes({
+      hardCachedNodes,
     })
-
-    // build createdNodeIds id array
-    createdNodeIds = hardCachedNodes.map((node) => node.id)
   }
 
   // save the node id's so we can touch them on the next build
