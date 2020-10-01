@@ -1,4 +1,5 @@
 import store from "~/store"
+import { setPersistentCache } from "~/utils/cache"
 
 // since we create image nodes in resolvers
 // we cache our image node id's on post build for production
@@ -10,14 +11,17 @@ const setImageNodeIdCache = async () => {
   const { imageNodes, gatsbyApi } = state
 
   if (imageNodes.nodeIds && imageNodes.nodeIds.length) {
-    await gatsbyApi.helpers.cache.set(`image-node-ids`, imageNodes.nodeIds)
+    await setPersistentCache({
+      key: `image-node-ids`,
+      value: imageNodes.nodeIds,
+    })
   }
 
   if (imageNodes.nodeMetaByUrl) {
-    await gatsbyApi.helpers.cache.set(
-      `image-node-meta-by-url`,
-      imageNodes.nodeMetaByUrl
-    )
+    await setPersistentCache({
+      key: `image-node-meta-by-url`,
+      value: imageNodes.nodeMetaByUrl,
+    })
   }
 }
 

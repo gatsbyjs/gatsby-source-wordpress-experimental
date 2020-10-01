@@ -1,11 +1,11 @@
 import store from "~/store"
+import { setPersistentCache } from "~/utils/cache"
 export const cacheFetchedTypes = async () => {
   const state = store.getState()
   const { fetchedTypes } = state.remoteSchema
-  const { helpers } = state.gatsbyApi
 
-  await helpers.cache.set(
-    `previously-fetched-types`,
-    Array.from([...fetchedTypes])
-  )
+  await setPersistentCache({
+    key: `previously-fetched-types`,
+    value: Array.from([...fetchedTypes]),
+  })
 }
