@@ -5,11 +5,14 @@ import gql from "~/utils/gql"
 import { formatLogMessage } from "~/utils/format-log-message"
 import { LAST_COMPLETED_SOURCE_TIME, MD5_CACHE_KEY } from "~/constants"
 
+import { createContentDigest } from "gatsby-core-utils"
+
 import {
   clearHardCache,
   getHardCachedData,
-  setPersistentCache,
   getHardCachedNodes,
+  setPersistentCache,
+  getPersistentCache,
 } from "~/utils/cache"
 
 const checkIfSchemaHasChanged = async (_, pluginOptions) => {
@@ -81,10 +84,26 @@ Please consider addressing this issue by changing your WordPress settings or plu
 
   const schemaWasChanged = schemaMd5 !== cachedSchemaMd5
 
-  if (schemaWasChanged && foundUsableHardCachedData) {
-    foundUsableHardCachedData = false
+  const pluginOptionsMD5Key = `plugin-options-md5`
+  const lastPluginOptionsMD5 = await getPersistentCache({
+    key: pluginOptionsMD5Key,
+  })
+
+  const pluginOptionsMD5 = createContentDigest(pluginOptions)
+
+  const shouldClearHardCache =
+    schemaWasChanged || lastPluginOptionsMD5 !== pluginOptionsMD5
+
+  if (shouldClearHardCache && foundUsableHardCachedData) {
     await clearHardCache()
+
+    foundUsableHardCachedData = false
   }
+
+  await setPersistentCache({
+    key: pluginOptionsMD5Key,
+    value: pluginOptionsMD5,
+  })
 
   if (
     lastCompletedSourceTime &&
