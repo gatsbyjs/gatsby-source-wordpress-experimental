@@ -6,6 +6,7 @@ const defaultPluginOptions = {
   url: null,
   verbose: true,
   debug: {
+    throwRefetchErrors: false,
     graphql: {
       showQueryOnError: false,
       showQueryVarsOnError: false,

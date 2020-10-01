@@ -1,6 +1,7 @@
 import fetchAndApplyNodeUpdates from "./fetch-node-updates"
 import { formatLogMessage } from "~/utils/format-log-message"
 import store from "~/store"
+import { getGatsbyApi } from "~/utils/get-gatsby-api"
 
 const refetcher = async (
   msRefetchInterval,
@@ -28,6 +29,11 @@ const refetcher = async (
       retryCount = 1
     }
   } catch (e) {
+    const { pluginOptions } = getGatsbyApi()
+    if (pluginOptions?.debug?.throwRefetchErrors) {
+      throw e
+    }
+
     if (!reconnectionActivity) {
       reconnectionActivity = helpers.reporter.activityTimer(
         formatLogMessage(`Content update error: "${e.message}"`)
