@@ -20,6 +20,10 @@ const sourceNodes = async (helpers, _pluginOptions) => {
     return
   }
 
+  // fetch non-node root fields such as settings.
+  // For now, we're refetching them on every build
+  const nonNodeRootFieldsPromise = fetchAndCreateNonNodeRootFields()
+
   const lastCompletedSourceTime = await cache.get(LAST_COMPLETED_SOURCE_TIME)
 
   const {
@@ -47,9 +51,7 @@ const sourceNodes = async (helpers, _pluginOptions) => {
     })
   }
 
-  // fetch non-node root fields such as settings.
-  // For now, we're refetching them on every build
-  await fetchAndCreateNonNodeRootFields()
+  await nonNodeRootFieldsPromise
 }
 
 export { sourceNodes }
