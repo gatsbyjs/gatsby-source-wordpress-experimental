@@ -200,7 +200,8 @@ Default is `300`.
 
 ### develop.hardCacheMediaFiles: Boolean
 
-When true, media files will be hard-cached outside the Gatsby cache at `./.wordpress-cache/path/to/media/file.jpeg`. This is useful for preventing media files from being re-downloaded when the Gatsby cache automatically clears.
+This option is experimental. When set to true, media files will be hard-cached outside the Gatsby cache at `./.wordpress-cache/path/to/media/file.jpeg`. This is useful for preventing media files from being re-downloaded when the Gatsby cache automatically clears.
+When using this option, be sure to gitignore the `wordpress-cache` directory in the root of your project.
 
 Default is false.
 
@@ -217,7 +218,9 @@ Default is false.
 
 ### develop.hardCacheData: Boolean
 
-When true, WordPress data will be hard-cached outside the Gatsby cache in `./.wordpress-cache/caches`. This is useful for preventing the need to re-fetch all data when the Gatsby cache automatically clears.
+This option is experimental. When set to true, WordPress data will be hard-cached outside the Gatsby cache in `./.wordpress-cache/caches`. This is useful for preventing the need to re-fetch all data when the Gatsby cache automatically clears.
+
+When using this option, be sure to gitignore the `wordpress-cache` directory in the root of your project.
 
 Default is false.
 
