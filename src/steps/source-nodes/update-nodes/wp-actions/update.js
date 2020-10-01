@@ -14,7 +14,7 @@ import {
   getTypeSettingsByType,
 } from "~/steps/create-schema-customization/helpers"
 import { processNode } from "~/steps/source-nodes/create-nodes/process-node"
-import { getPersistentCache } from "~/utils/cache"
+import { getPersistentCache, setPersistentCache } from "~/utils/cache"
 
 const getDbIdFromRelayId = (relayId) => atob(relayId).split(`:`).reverse()[0]
 
@@ -298,7 +298,7 @@ const wpActionUPDATE = async ({
     reporter.log(``)
   }
 
-  const { reporter, cache, actions } = helpers
+  const { reporter, actions } = helpers
 
   let cachedNodeIds = await getPersistentCache({ key: CREATED_NODE_IDS })
 
