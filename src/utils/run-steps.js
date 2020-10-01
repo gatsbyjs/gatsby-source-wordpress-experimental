@@ -3,7 +3,7 @@ import { formatLogMessage } from "~/utils/format-log-message"
 const runSteps = async (steps, helpers, pluginOptions, apiName) => {
   for (const step of steps) {
     try {
-      const { timeBuildSteps } = pluginOptions?.debug
+      const { timeBuildSteps } = pluginOptions?.debug ?? {}
       const timeStep =
         typeof timeBuildSteps === `boolean`
           ? timeBuildSteps
