@@ -21,7 +21,11 @@ const runSteps = async (steps, helpers, pluginOptions, apiName) => {
         activity.start()
       }
 
+      if (typeof step === `function`) {
         await step(helpers, pluginOptions)
+      } else if (Array.isArray(step)) {
+        await runSteps(step, helpers, pluginOptions, apiName)
+      }
 
       if (activity) {
         activity.end()
