@@ -870,6 +870,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "autoplay",
       "caption",
       "className",
@@ -887,6 +888,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "autoplay",
       "caption",
       "className",
@@ -937,16 +939,15 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundColor",
       "borderRadius",
       "className",
-      "customBackgroundColor",
-      "customGradient",
-      "customTextColor",
       "gradient",
       "linkTarget",
       "placeholder",
       "rel",
+      "style",
       "text",
       "textColor",
       "title",
@@ -961,16 +962,15 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundColor",
       "borderRadius",
       "className",
-      "customBackgroundColor",
-      "customGradient",
-      "customTextColor",
       "gradient",
       "linkTarget",
       "placeholder",
       "rel",
+      "style",
       "text",
       "textColor",
       "title",
@@ -981,16 +981,15 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundColor",
       "borderRadius",
       "className",
-      "customBackgroundColor",
-      "customGradient",
-      "customTextColor",
       "gradient",
       "linkTarget",
       "placeholder",
       "rel",
+      "style",
       "text",
       "textColor",
       "title",
@@ -1001,16 +1000,15 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundColor",
       "borderRadius",
       "className",
-      "customBackgroundColor",
-      "customGradient",
-      "customTextColor",
       "gradient",
       "linkTarget",
       "placeholder",
       "rel",
+      "style",
       "text",
       "textColor",
       "title",
@@ -1021,22 +1019,59 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundColor",
       "borderRadius",
       "className",
-      "customBackgroundColor",
-      "customGradient",
-      "customTextColor",
       "gradient",
       "linkTarget",
       "placeholder",
       "rel",
+      "style",
       "text",
       "textColor",
       "title",
       "url",
     ],
     "name": "WpCoreButtonBlockDeprecatedV4Attributes",
+  },
+  Object {
+    "fields": Array [
+      "align",
+      "anchor",
+      "backgroundColor",
+      "borderRadius",
+      "className",
+      "gradient",
+      "linkTarget",
+      "placeholder",
+      "rel",
+      "style",
+      "text",
+      "textColor",
+      "title",
+      "url",
+    ],
+    "name": "WpCoreButtonBlockDeprecatedV5Attributes",
+  },
+  Object {
+    "fields": Array [
+      "align",
+      "anchor",
+      "backgroundColor",
+      "borderRadius",
+      "className",
+      "gradient",
+      "linkTarget",
+      "placeholder",
+      "rel",
+      "style",
+      "text",
+      "textColor",
+      "title",
+      "url",
+    ],
+    "name": "WpCoreButtonBlockDeprecatedV6Attributes",
   },
   Object {
     "fields": Array [
@@ -1056,6 +1091,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "className",
     ],
     "name": "WpCoreButtonsBlockAttributes",
@@ -1126,6 +1162,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "anchor",
       "className",
       "content",
     ],
@@ -1148,6 +1185,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "anchor",
       "className",
       "verticalAlignment",
       "width",
@@ -1172,10 +1210,11 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundColor",
       "className",
-      "customBackgroundColor",
-      "customTextColor",
+      "gradient",
+      "style",
       "textColor",
       "verticalAlignment",
     ],
@@ -1188,10 +1227,11 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundColor",
       "className",
-      "customBackgroundColor",
-      "customTextColor",
+      "gradient",
+      "style",
       "textColor",
       "verticalAlignment",
     ],
@@ -1200,14 +1240,28 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundColor",
       "className",
-      "customBackgroundColor",
-      "customTextColor",
+      "gradient",
+      "style",
       "textColor",
       "verticalAlignment",
     ],
     "name": "WpCoreColumnsBlockDeprecatedV2Attributes",
+  },
+  Object {
+    "fields": Array [
+      "align",
+      "anchor",
+      "backgroundColor",
+      "className",
+      "gradient",
+      "style",
+      "textColor",
+      "verticalAlignment",
+    ],
+    "name": "WpCoreColumnsBlockDeprecatedV3Attributes",
   },
   Object {
     "fields": Array [
@@ -1227,8 +1281,10 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundType",
       "className",
+      "contentPosition",
       "customGradient",
       "customOverlayColor",
       "dimRatio",
@@ -1237,7 +1293,9 @@ Array [
       "hasParallax",
       "id",
       "minHeight",
+      "minHeightUnit",
       "overlayColor",
+      "style",
       "url",
     ],
     "name": "WpCoreCoverBlockAttributes",
@@ -1249,8 +1307,10 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundType",
       "className",
+      "contentPosition",
       "customGradient",
       "customOverlayColor",
       "dimRatio",
@@ -1259,7 +1319,9 @@ Array [
       "hasParallax",
       "id",
       "minHeight",
+      "minHeightUnit",
       "overlayColor",
+      "style",
       "url",
     ],
     "name": "WpCoreCoverBlockDeprecatedV1Attributes",
@@ -1267,8 +1329,10 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundType",
       "className",
+      "contentPosition",
       "customGradient",
       "customOverlayColor",
       "dimRatio",
@@ -1277,7 +1341,9 @@ Array [
       "hasParallax",
       "id",
       "minHeight",
+      "minHeightUnit",
       "overlayColor",
+      "style",
       "url",
     ],
     "name": "WpCoreCoverBlockDeprecatedV2Attributes",
@@ -1285,8 +1351,10 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundType",
       "className",
+      "contentPosition",
       "customGradient",
       "customOverlayColor",
       "dimRatio",
@@ -1295,7 +1363,9 @@ Array [
       "hasParallax",
       "id",
       "minHeight",
+      "minHeightUnit",
       "overlayColor",
+      "style",
       "url",
     ],
     "name": "WpCoreCoverBlockDeprecatedV3Attributes",
@@ -1303,8 +1373,10 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundType",
       "className",
+      "contentPosition",
       "customGradient",
       "customOverlayColor",
       "dimRatio",
@@ -1313,7 +1385,9 @@ Array [
       "hasParallax",
       "id",
       "minHeight",
+      "minHeightUnit",
       "overlayColor",
+      "style",
       "url",
     ],
     "name": "WpCoreCoverBlockDeprecatedV4Attributes",
@@ -1321,8 +1395,10 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundType",
       "className",
+      "contentPosition",
       "customGradient",
       "customOverlayColor",
       "dimRatio",
@@ -1331,7 +1407,9 @@ Array [
       "hasParallax",
       "id",
       "minHeight",
+      "minHeightUnit",
       "overlayColor",
+      "style",
       "url",
     ],
     "name": "WpCoreCoverBlockDeprecatedV5Attributes",
@@ -1722,49 +1800,6 @@ Array [
       "url",
     ],
     "name": "WpCoreEmbedFlickrBlockDeprecatedV1Attributes",
-  },
-  Object {
-    "fields": Array [
-      "attributes",
-      "dynamicContent",
-      "innerBlocks",
-      "isDynamic",
-      "name",
-      "order",
-      "originalContent",
-      "parentNode",
-      "parentNodeDatabaseId",
-      "saveContent",
-    ],
-    "name": "WpCoreEmbedHuluBlock",
-  },
-  Object {
-    "fields": Array [
-      "align",
-      "allowResponsive",
-      "caption",
-      "className",
-      "providerNameSlug",
-      "type",
-      "url",
-    ],
-    "name": "WpCoreEmbedHuluBlockAttributes",
-  },
-  Object {
-    "fields": null,
-    "name": "WpCoreEmbedHuluBlockAttributesUnion",
-  },
-  Object {
-    "fields": Array [
-      "align",
-      "allowResponsive",
-      "caption",
-      "className",
-      "providerNameSlug",
-      "type",
-      "url",
-    ],
-    "name": "WpCoreEmbedHuluBlockDeprecatedV1Attributes",
   },
   Object {
     "fields": Array [
@@ -2902,6 +2937,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "className",
       "downloadButtonText",
       "fileName",
@@ -2952,6 +2988,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "caption",
       "className",
       "columns",
@@ -2981,6 +3018,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "caption",
       "className",
       "columns",
@@ -3006,6 +3044,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "caption",
       "className",
       "columns",
@@ -3031,6 +3070,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "caption",
       "className",
       "columns",
@@ -3056,6 +3096,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "caption",
       "className",
       "columns",
@@ -3099,8 +3140,9 @@ Array [
       "anchor",
       "backgroundColor",
       "className",
-      "customBackgroundColor",
-      "customTextColor",
+      "gradient",
+      "style",
+      "tagName",
       "textColor",
     ],
     "name": "WpCoreGroupBlockAttributes",
@@ -3115,8 +3157,9 @@ Array [
       "anchor",
       "backgroundColor",
       "className",
-      "customBackgroundColor",
-      "customTextColor",
+      "gradient",
+      "style",
+      "tagName",
       "textColor",
     ],
     "name": "WpCoreGroupBlockDeprecatedV1Attributes",
@@ -3127,11 +3170,25 @@ Array [
       "anchor",
       "backgroundColor",
       "className",
-      "customBackgroundColor",
-      "customTextColor",
+      "gradient",
+      "style",
+      "tagName",
       "textColor",
     ],
     "name": "WpCoreGroupBlockDeprecatedV2Attributes",
+  },
+  Object {
+    "fields": Array [
+      "align",
+      "anchor",
+      "backgroundColor",
+      "className",
+      "gradient",
+      "style",
+      "tagName",
+      "textColor",
+    ],
+    "name": "WpCoreGroupBlockDeprecatedV3Attributes",
   },
   Object {
     "fields": Array [
@@ -3152,11 +3209,13 @@ Array [
     "fields": Array [
       "align",
       "anchor",
+      "backgroundColor",
       "className",
       "content",
-      "customTextColor",
+      "fontSize",
       "level",
       "placeholder",
+      "style",
       "textColor",
     ],
     "name": "WpCoreHeadingBlockAttributes",
@@ -3169,11 +3228,13 @@ Array [
     "fields": Array [
       "align",
       "anchor",
+      "backgroundColor",
       "className",
       "content",
-      "customTextColor",
+      "fontSize",
       "level",
       "placeholder",
+      "style",
       "textColor",
     ],
     "name": "WpCoreHeadingBlockDeprecatedV1Attributes",
@@ -3182,14 +3243,31 @@ Array [
     "fields": Array [
       "align",
       "anchor",
+      "backgroundColor",
       "className",
       "content",
-      "customTextColor",
+      "fontSize",
       "level",
       "placeholder",
+      "style",
       "textColor",
     ],
     "name": "WpCoreHeadingBlockDeprecatedV2Attributes",
+  },
+  Object {
+    "fields": Array [
+      "align",
+      "anchor",
+      "backgroundColor",
+      "className",
+      "content",
+      "fontSize",
+      "level",
+      "placeholder",
+      "style",
+      "textColor",
+    ],
+    "name": "WpCoreHeadingBlockDeprecatedV3Attributes",
   },
   Object {
     "fields": Array [
@@ -3231,6 +3309,7 @@ Array [
     "fields": Array [
       "align",
       "alt",
+      "anchor",
       "caption",
       "className",
       "height",
@@ -3255,6 +3334,7 @@ Array [
     "fields": Array [
       "align",
       "alt",
+      "anchor",
       "caption",
       "className",
       "height",
@@ -3275,6 +3355,7 @@ Array [
     "fields": Array [
       "align",
       "alt",
+      "anchor",
       "caption",
       "className",
       "height",
@@ -3295,6 +3376,7 @@ Array [
     "fields": Array [
       "align",
       "alt",
+      "anchor",
       "caption",
       "className",
       "height",
@@ -3358,6 +3440,7 @@ Array [
       "categories",
       "className",
       "columns",
+      "displayAuthor",
       "displayFeaturedImage",
       "displayPostContent",
       "displayPostContentRadio",
@@ -3371,8 +3454,37 @@ Array [
       "orderBy",
       "postLayout",
       "postsToShow",
+      "selectedAuthor",
     ],
     "name": "WpCoreLatestPostsBlockAttributes",
+  },
+  Object {
+    "fields": null,
+    "name": "WpCoreLatestPostsBlockAttributesUnion",
+  },
+  Object {
+    "fields": Array [
+      "align",
+      "categories",
+      "className",
+      "columns",
+      "displayAuthor",
+      "displayFeaturedImage",
+      "displayPostContent",
+      "displayPostContentRadio",
+      "displayPostDate",
+      "excerptLength",
+      "featuredImageAlign",
+      "featuredImageSizeHeight",
+      "featuredImageSizeSlug",
+      "featuredImageSizeWidth",
+      "order",
+      "orderBy",
+      "postLayout",
+      "postsToShow",
+      "selectedAuthor",
+    ],
+    "name": "WpCoreLatestPostsBlockDeprecatedV1Attributes",
   },
   Object {
     "fields": Array [
@@ -3391,6 +3503,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "anchor",
       "className",
       "ordered",
       "reversed",
@@ -3418,10 +3531,11 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundColor",
       "className",
-      "customBackgroundColor",
       "focalPoint",
+      "gradient",
       "href",
       "imageFill",
       "isStackedOnMobile",
@@ -3436,6 +3550,8 @@ Array [
       "mediaUrl",
       "mediaWidth",
       "rel",
+      "style",
+      "textColor",
       "verticalAlignment",
     ],
     "name": "WpCoreMediaTextBlockAttributes",
@@ -3447,10 +3563,11 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundColor",
       "className",
-      "customBackgroundColor",
       "focalPoint",
+      "gradient",
       "href",
       "imageFill",
       "isStackedOnMobile",
@@ -3465,6 +3582,8 @@ Array [
       "mediaUrl",
       "mediaWidth",
       "rel",
+      "style",
+      "textColor",
       "verticalAlignment",
     ],
     "name": "WpCoreMediaTextBlockDeprecatedV1Attributes",
@@ -3472,10 +3591,11 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundColor",
       "className",
-      "customBackgroundColor",
       "focalPoint",
+      "gradient",
       "href",
       "imageFill",
       "isStackedOnMobile",
@@ -3490,9 +3610,39 @@ Array [
       "mediaUrl",
       "mediaWidth",
       "rel",
+      "style",
+      "textColor",
       "verticalAlignment",
     ],
     "name": "WpCoreMediaTextBlockDeprecatedV2Attributes",
+  },
+  Object {
+    "fields": Array [
+      "align",
+      "anchor",
+      "backgroundColor",
+      "className",
+      "focalPoint",
+      "gradient",
+      "href",
+      "imageFill",
+      "isStackedOnMobile",
+      "linkClass",
+      "linkDestination",
+      "linkTarget",
+      "mediaAlt",
+      "mediaId",
+      "mediaLink",
+      "mediaPosition",
+      "mediaType",
+      "mediaUrl",
+      "mediaWidth",
+      "rel",
+      "style",
+      "textColor",
+      "verticalAlignment",
+    ],
+    "name": "WpCoreMediaTextBlockDeprecatedV3Attributes",
   },
   Object {
     "fields": Array [
@@ -3571,16 +3721,15 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundColor",
       "className",
       "content",
-      "customBackgroundColor",
-      "customFontSize",
-      "customTextColor",
       "direction",
       "dropCap",
       "fontSize",
       "placeholder",
+      "style",
       "textColor",
     ],
     "name": "WpCoreParagraphBlockAttributes",
@@ -3592,16 +3741,15 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundColor",
       "className",
       "content",
-      "customBackgroundColor",
-      "customFontSize",
-      "customTextColor",
       "direction",
       "dropCap",
       "fontSize",
       "placeholder",
+      "style",
       "textColor",
     ],
     "name": "WpCoreParagraphBlockDeprecatedV1Attributes",
@@ -3609,16 +3757,15 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundColor",
       "className",
       "content",
-      "customBackgroundColor",
-      "customFontSize",
-      "customTextColor",
       "direction",
       "dropCap",
       "fontSize",
       "placeholder",
+      "style",
       "textColor",
     ],
     "name": "WpCoreParagraphBlockDeprecatedV2Attributes",
@@ -3626,16 +3773,15 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundColor",
       "className",
       "content",
-      "customBackgroundColor",
-      "customFontSize",
-      "customTextColor",
       "direction",
       "dropCap",
       "fontSize",
       "placeholder",
+      "style",
       "textColor",
     ],
     "name": "WpCoreParagraphBlockDeprecatedV3Attributes",
@@ -3643,19 +3789,34 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundColor",
       "className",
       "content",
-      "customBackgroundColor",
-      "customFontSize",
-      "customTextColor",
       "direction",
       "dropCap",
       "fontSize",
       "placeholder",
+      "style",
       "textColor",
     ],
     "name": "WpCoreParagraphBlockDeprecatedV4Attributes",
+  },
+  Object {
+    "fields": Array [
+      "align",
+      "anchor",
+      "backgroundColor",
+      "className",
+      "content",
+      "direction",
+      "dropCap",
+      "fontSize",
+      "placeholder",
+      "style",
+      "textColor",
+    ],
+    "name": "WpCoreParagraphBlockDeprecatedV5Attributes",
   },
   Object {
     "fields": Array [
@@ -3674,6 +3835,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "anchor",
       "className",
       "content",
     ],
@@ -3697,6 +3859,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "citation",
       "className",
       "customMainColor",
@@ -3714,6 +3877,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "citation",
       "className",
       "customMainColor",
@@ -3727,6 +3891,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "citation",
       "className",
       "customMainColor",
@@ -3740,6 +3905,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "citation",
       "className",
       "customMainColor",
@@ -3753,6 +3919,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "citation",
       "className",
       "customMainColor",
@@ -3781,6 +3948,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "citation",
       "className",
       "value",
@@ -3794,6 +3962,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "citation",
       "className",
       "value",
@@ -3803,6 +3972,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "citation",
       "className",
       "value",
@@ -3812,6 +3982,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "citation",
       "className",
       "value",
@@ -3890,6 +4061,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "anchor",
       "className",
       "color",
       "customColor",
@@ -3959,6 +4131,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "className",
     ],
     "name": "WpCoreSocialLinksBlockAttributes",
@@ -3980,6 +4153,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "anchor",
       "className",
       "height",
     ],
@@ -4026,6 +4200,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundColor",
       "body",
       "caption",
@@ -4088,6 +4263,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundColor",
       "body",
       "caption",
@@ -4214,6 +4390,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "anchor",
       "className",
       "content",
       "textAlign",
@@ -4226,6 +4403,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "anchor",
       "className",
       "content",
       "textAlign",
@@ -4250,6 +4428,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "autoplay",
       "caption",
       "className",
@@ -11289,6 +11468,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "autoplay",
       "caption",
       "className",
@@ -11306,6 +11486,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "autoplay",
       "caption",
       "className",
@@ -11356,16 +11537,15 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundColor",
       "borderRadius",
       "className",
-      "customBackgroundColor",
-      "customGradient",
-      "customTextColor",
       "gradient",
       "linkTarget",
       "placeholder",
       "rel",
+      "style",
       "text",
       "textColor",
       "title",
@@ -11380,16 +11560,15 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundColor",
       "borderRadius",
       "className",
-      "customBackgroundColor",
-      "customGradient",
-      "customTextColor",
       "gradient",
       "linkTarget",
       "placeholder",
       "rel",
+      "style",
       "text",
       "textColor",
       "title",
@@ -11400,16 +11579,15 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundColor",
       "borderRadius",
       "className",
-      "customBackgroundColor",
-      "customGradient",
-      "customTextColor",
       "gradient",
       "linkTarget",
       "placeholder",
       "rel",
+      "style",
       "text",
       "textColor",
       "title",
@@ -11420,16 +11598,15 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundColor",
       "borderRadius",
       "className",
-      "customBackgroundColor",
-      "customGradient",
-      "customTextColor",
       "gradient",
       "linkTarget",
       "placeholder",
       "rel",
+      "style",
       "text",
       "textColor",
       "title",
@@ -11440,22 +11617,59 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundColor",
       "borderRadius",
       "className",
-      "customBackgroundColor",
-      "customGradient",
-      "customTextColor",
       "gradient",
       "linkTarget",
       "placeholder",
       "rel",
+      "style",
       "text",
       "textColor",
       "title",
       "url",
     ],
     "name": "CoreButtonBlockDeprecatedV4Attributes",
+  },
+  Object {
+    "fields": Array [
+      "align",
+      "anchor",
+      "backgroundColor",
+      "borderRadius",
+      "className",
+      "gradient",
+      "linkTarget",
+      "placeholder",
+      "rel",
+      "style",
+      "text",
+      "textColor",
+      "title",
+      "url",
+    ],
+    "name": "CoreButtonBlockDeprecatedV5Attributes",
+  },
+  Object {
+    "fields": Array [
+      "align",
+      "anchor",
+      "backgroundColor",
+      "borderRadius",
+      "className",
+      "gradient",
+      "linkTarget",
+      "placeholder",
+      "rel",
+      "style",
+      "text",
+      "textColor",
+      "title",
+      "url",
+    ],
+    "name": "CoreButtonBlockDeprecatedV6Attributes",
   },
   Object {
     "fields": Array [
@@ -11475,6 +11689,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "className",
     ],
     "name": "CoreButtonsBlockAttributes",
@@ -11545,6 +11760,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "anchor",
       "className",
       "content",
     ],
@@ -11567,6 +11783,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "anchor",
       "className",
       "verticalAlignment",
       "width",
@@ -11591,10 +11808,11 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundColor",
       "className",
-      "customBackgroundColor",
-      "customTextColor",
+      "gradient",
+      "style",
       "textColor",
       "verticalAlignment",
     ],
@@ -11607,10 +11825,11 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundColor",
       "className",
-      "customBackgroundColor",
-      "customTextColor",
+      "gradient",
+      "style",
       "textColor",
       "verticalAlignment",
     ],
@@ -11619,14 +11838,28 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundColor",
       "className",
-      "customBackgroundColor",
-      "customTextColor",
+      "gradient",
+      "style",
       "textColor",
       "verticalAlignment",
     ],
     "name": "CoreColumnsBlockDeprecatedV2Attributes",
+  },
+  Object {
+    "fields": Array [
+      "align",
+      "anchor",
+      "backgroundColor",
+      "className",
+      "gradient",
+      "style",
+      "textColor",
+      "verticalAlignment",
+    ],
+    "name": "CoreColumnsBlockDeprecatedV3Attributes",
   },
   Object {
     "fields": Array [
@@ -11646,8 +11879,10 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundType",
       "className",
+      "contentPosition",
       "customGradient",
       "customOverlayColor",
       "dimRatio",
@@ -11656,7 +11891,9 @@ Array [
       "hasParallax",
       "id",
       "minHeight",
+      "minHeightUnit",
       "overlayColor",
+      "style",
       "url",
     ],
     "name": "CoreCoverBlockAttributes",
@@ -11668,8 +11905,10 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundType",
       "className",
+      "contentPosition",
       "customGradient",
       "customOverlayColor",
       "dimRatio",
@@ -11678,7 +11917,9 @@ Array [
       "hasParallax",
       "id",
       "minHeight",
+      "minHeightUnit",
       "overlayColor",
+      "style",
       "url",
     ],
     "name": "CoreCoverBlockDeprecatedV1Attributes",
@@ -11686,8 +11927,10 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundType",
       "className",
+      "contentPosition",
       "customGradient",
       "customOverlayColor",
       "dimRatio",
@@ -11696,7 +11939,9 @@ Array [
       "hasParallax",
       "id",
       "minHeight",
+      "minHeightUnit",
       "overlayColor",
+      "style",
       "url",
     ],
     "name": "CoreCoverBlockDeprecatedV2Attributes",
@@ -11704,8 +11949,10 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundType",
       "className",
+      "contentPosition",
       "customGradient",
       "customOverlayColor",
       "dimRatio",
@@ -11714,7 +11961,9 @@ Array [
       "hasParallax",
       "id",
       "minHeight",
+      "minHeightUnit",
       "overlayColor",
+      "style",
       "url",
     ],
     "name": "CoreCoverBlockDeprecatedV3Attributes",
@@ -11722,8 +11971,10 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundType",
       "className",
+      "contentPosition",
       "customGradient",
       "customOverlayColor",
       "dimRatio",
@@ -11732,7 +11983,9 @@ Array [
       "hasParallax",
       "id",
       "minHeight",
+      "minHeightUnit",
       "overlayColor",
+      "style",
       "url",
     ],
     "name": "CoreCoverBlockDeprecatedV4Attributes",
@@ -11740,8 +11993,10 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundType",
       "className",
+      "contentPosition",
       "customGradient",
       "customOverlayColor",
       "dimRatio",
@@ -11750,7 +12005,9 @@ Array [
       "hasParallax",
       "id",
       "minHeight",
+      "minHeightUnit",
       "overlayColor",
+      "style",
       "url",
     ],
     "name": "CoreCoverBlockDeprecatedV5Attributes",
@@ -12141,49 +12398,6 @@ Array [
       "url",
     ],
     "name": "CoreEmbedFlickrBlockDeprecatedV1Attributes",
-  },
-  Object {
-    "fields": Array [
-      "attributes",
-      "dynamicContent",
-      "innerBlocks",
-      "isDynamic",
-      "name",
-      "order",
-      "originalContent",
-      "parentNode",
-      "parentNodeDatabaseId",
-      "saveContent",
-    ],
-    "name": "CoreEmbedHuluBlock",
-  },
-  Object {
-    "fields": Array [
-      "align",
-      "allowResponsive",
-      "caption",
-      "className",
-      "providerNameSlug",
-      "type",
-      "url",
-    ],
-    "name": "CoreEmbedHuluBlockAttributes",
-  },
-  Object {
-    "fields": null,
-    "name": "CoreEmbedHuluBlockAttributesUnion",
-  },
-  Object {
-    "fields": Array [
-      "align",
-      "allowResponsive",
-      "caption",
-      "className",
-      "providerNameSlug",
-      "type",
-      "url",
-    ],
-    "name": "CoreEmbedHuluBlockDeprecatedV1Attributes",
   },
   Object {
     "fields": Array [
@@ -13321,6 +13535,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "className",
       "downloadButtonText",
       "fileName",
@@ -13371,6 +13586,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "caption",
       "className",
       "columns",
@@ -13400,6 +13616,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "caption",
       "className",
       "columns",
@@ -13425,6 +13642,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "caption",
       "className",
       "columns",
@@ -13450,6 +13668,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "caption",
       "className",
       "columns",
@@ -13475,6 +13694,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "caption",
       "className",
       "columns",
@@ -13518,8 +13738,9 @@ Array [
       "anchor",
       "backgroundColor",
       "className",
-      "customBackgroundColor",
-      "customTextColor",
+      "gradient",
+      "style",
+      "tagName",
       "textColor",
     ],
     "name": "CoreGroupBlockAttributes",
@@ -13534,8 +13755,9 @@ Array [
       "anchor",
       "backgroundColor",
       "className",
-      "customBackgroundColor",
-      "customTextColor",
+      "gradient",
+      "style",
+      "tagName",
       "textColor",
     ],
     "name": "CoreGroupBlockDeprecatedV1Attributes",
@@ -13546,11 +13768,25 @@ Array [
       "anchor",
       "backgroundColor",
       "className",
-      "customBackgroundColor",
-      "customTextColor",
+      "gradient",
+      "style",
+      "tagName",
       "textColor",
     ],
     "name": "CoreGroupBlockDeprecatedV2Attributes",
+  },
+  Object {
+    "fields": Array [
+      "align",
+      "anchor",
+      "backgroundColor",
+      "className",
+      "gradient",
+      "style",
+      "tagName",
+      "textColor",
+    ],
+    "name": "CoreGroupBlockDeprecatedV3Attributes",
   },
   Object {
     "fields": Array [
@@ -13571,11 +13807,13 @@ Array [
     "fields": Array [
       "align",
       "anchor",
+      "backgroundColor",
       "className",
       "content",
-      "customTextColor",
+      "fontSize",
       "level",
       "placeholder",
+      "style",
       "textColor",
     ],
     "name": "CoreHeadingBlockAttributes",
@@ -13588,11 +13826,13 @@ Array [
     "fields": Array [
       "align",
       "anchor",
+      "backgroundColor",
       "className",
       "content",
-      "customTextColor",
+      "fontSize",
       "level",
       "placeholder",
+      "style",
       "textColor",
     ],
     "name": "CoreHeadingBlockDeprecatedV1Attributes",
@@ -13601,14 +13841,31 @@ Array [
     "fields": Array [
       "align",
       "anchor",
+      "backgroundColor",
       "className",
       "content",
-      "customTextColor",
+      "fontSize",
       "level",
       "placeholder",
+      "style",
       "textColor",
     ],
     "name": "CoreHeadingBlockDeprecatedV2Attributes",
+  },
+  Object {
+    "fields": Array [
+      "align",
+      "anchor",
+      "backgroundColor",
+      "className",
+      "content",
+      "fontSize",
+      "level",
+      "placeholder",
+      "style",
+      "textColor",
+    ],
+    "name": "CoreHeadingBlockDeprecatedV3Attributes",
   },
   Object {
     "fields": Array [
@@ -13650,6 +13907,7 @@ Array [
     "fields": Array [
       "align",
       "alt",
+      "anchor",
       "caption",
       "className",
       "height",
@@ -13674,6 +13932,7 @@ Array [
     "fields": Array [
       "align",
       "alt",
+      "anchor",
       "caption",
       "className",
       "height",
@@ -13694,6 +13953,7 @@ Array [
     "fields": Array [
       "align",
       "alt",
+      "anchor",
       "caption",
       "className",
       "height",
@@ -13714,6 +13974,7 @@ Array [
     "fields": Array [
       "align",
       "alt",
+      "anchor",
       "caption",
       "className",
       "height",
@@ -13777,6 +14038,7 @@ Array [
       "categories",
       "className",
       "columns",
+      "displayAuthor",
       "displayFeaturedImage",
       "displayPostContent",
       "displayPostContentRadio",
@@ -13790,8 +14052,37 @@ Array [
       "orderBy",
       "postLayout",
       "postsToShow",
+      "selectedAuthor",
     ],
     "name": "CoreLatestPostsBlockAttributes",
+  },
+  Object {
+    "fields": null,
+    "name": "CoreLatestPostsBlockAttributesUnion",
+  },
+  Object {
+    "fields": Array [
+      "align",
+      "categories",
+      "className",
+      "columns",
+      "displayAuthor",
+      "displayFeaturedImage",
+      "displayPostContent",
+      "displayPostContentRadio",
+      "displayPostDate",
+      "excerptLength",
+      "featuredImageAlign",
+      "featuredImageSizeHeight",
+      "featuredImageSizeSlug",
+      "featuredImageSizeWidth",
+      "order",
+      "orderBy",
+      "postLayout",
+      "postsToShow",
+      "selectedAuthor",
+    ],
+    "name": "CoreLatestPostsBlockDeprecatedV1Attributes",
   },
   Object {
     "fields": Array [
@@ -13810,6 +14101,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "anchor",
       "className",
       "ordered",
       "reversed",
@@ -13837,10 +14129,11 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundColor",
       "className",
-      "customBackgroundColor",
       "focalPoint",
+      "gradient",
       "href",
       "imageFill",
       "isStackedOnMobile",
@@ -13855,6 +14148,8 @@ Array [
       "mediaUrl",
       "mediaWidth",
       "rel",
+      "style",
+      "textColor",
       "verticalAlignment",
     ],
     "name": "CoreMediaTextBlockAttributes",
@@ -13866,10 +14161,11 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundColor",
       "className",
-      "customBackgroundColor",
       "focalPoint",
+      "gradient",
       "href",
       "imageFill",
       "isStackedOnMobile",
@@ -13884,6 +14180,8 @@ Array [
       "mediaUrl",
       "mediaWidth",
       "rel",
+      "style",
+      "textColor",
       "verticalAlignment",
     ],
     "name": "CoreMediaTextBlockDeprecatedV1Attributes",
@@ -13891,10 +14189,11 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundColor",
       "className",
-      "customBackgroundColor",
       "focalPoint",
+      "gradient",
       "href",
       "imageFill",
       "isStackedOnMobile",
@@ -13909,9 +14208,39 @@ Array [
       "mediaUrl",
       "mediaWidth",
       "rel",
+      "style",
+      "textColor",
       "verticalAlignment",
     ],
     "name": "CoreMediaTextBlockDeprecatedV2Attributes",
+  },
+  Object {
+    "fields": Array [
+      "align",
+      "anchor",
+      "backgroundColor",
+      "className",
+      "focalPoint",
+      "gradient",
+      "href",
+      "imageFill",
+      "isStackedOnMobile",
+      "linkClass",
+      "linkDestination",
+      "linkTarget",
+      "mediaAlt",
+      "mediaId",
+      "mediaLink",
+      "mediaPosition",
+      "mediaType",
+      "mediaUrl",
+      "mediaWidth",
+      "rel",
+      "style",
+      "textColor",
+      "verticalAlignment",
+    ],
+    "name": "CoreMediaTextBlockDeprecatedV3Attributes",
   },
   Object {
     "fields": Array [
@@ -13990,16 +14319,15 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundColor",
       "className",
       "content",
-      "customBackgroundColor",
-      "customFontSize",
-      "customTextColor",
       "direction",
       "dropCap",
       "fontSize",
       "placeholder",
+      "style",
       "textColor",
     ],
     "name": "CoreParagraphBlockAttributes",
@@ -14011,16 +14339,15 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundColor",
       "className",
       "content",
-      "customBackgroundColor",
-      "customFontSize",
-      "customTextColor",
       "direction",
       "dropCap",
       "fontSize",
       "placeholder",
+      "style",
       "textColor",
     ],
     "name": "CoreParagraphBlockDeprecatedV1Attributes",
@@ -14028,16 +14355,15 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundColor",
       "className",
       "content",
-      "customBackgroundColor",
-      "customFontSize",
-      "customTextColor",
       "direction",
       "dropCap",
       "fontSize",
       "placeholder",
+      "style",
       "textColor",
     ],
     "name": "CoreParagraphBlockDeprecatedV2Attributes",
@@ -14045,16 +14371,15 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundColor",
       "className",
       "content",
-      "customBackgroundColor",
-      "customFontSize",
-      "customTextColor",
       "direction",
       "dropCap",
       "fontSize",
       "placeholder",
+      "style",
       "textColor",
     ],
     "name": "CoreParagraphBlockDeprecatedV3Attributes",
@@ -14062,19 +14387,34 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundColor",
       "className",
       "content",
-      "customBackgroundColor",
-      "customFontSize",
-      "customTextColor",
       "direction",
       "dropCap",
       "fontSize",
       "placeholder",
+      "style",
       "textColor",
     ],
     "name": "CoreParagraphBlockDeprecatedV4Attributes",
+  },
+  Object {
+    "fields": Array [
+      "align",
+      "anchor",
+      "backgroundColor",
+      "className",
+      "content",
+      "direction",
+      "dropCap",
+      "fontSize",
+      "placeholder",
+      "style",
+      "textColor",
+    ],
+    "name": "CoreParagraphBlockDeprecatedV5Attributes",
   },
   Object {
     "fields": Array [
@@ -14093,6 +14433,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "anchor",
       "className",
       "content",
     ],
@@ -14116,6 +14457,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "citation",
       "className",
       "customMainColor",
@@ -14133,6 +14475,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "citation",
       "className",
       "customMainColor",
@@ -14146,6 +14489,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "citation",
       "className",
       "customMainColor",
@@ -14159,6 +14503,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "citation",
       "className",
       "customMainColor",
@@ -14172,6 +14517,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "citation",
       "className",
       "customMainColor",
@@ -14200,6 +14546,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "citation",
       "className",
       "value",
@@ -14213,6 +14560,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "citation",
       "className",
       "value",
@@ -14222,6 +14570,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "citation",
       "className",
       "value",
@@ -14231,6 +14580,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "citation",
       "className",
       "value",
@@ -14309,6 +14659,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "anchor",
       "className",
       "color",
       "customColor",
@@ -14378,6 +14729,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "className",
     ],
     "name": "CoreSocialLinksBlockAttributes",
@@ -14399,6 +14751,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "anchor",
       "className",
       "height",
     ],
@@ -14445,6 +14798,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundColor",
       "body",
       "caption",
@@ -14507,6 +14861,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "backgroundColor",
       "body",
       "caption",
@@ -14633,6 +14988,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "anchor",
       "className",
       "content",
       "textAlign",
@@ -14645,6 +15001,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "anchor",
       "className",
       "content",
       "textAlign",
@@ -14669,6 +15026,7 @@ Array [
   Object {
     "fields": Array [
       "align",
+      "anchor",
       "autoplay",
       "caption",
       "className",
