@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.5.0
+
+### New Features
+
+- Added `options.develop.hardCacheData` plugin option. This option allows hard caching data between Gatsby cache clears in development. This will speed up development when installing npm packages or modifying gatsby-node. Normally doing either of those things would mean you have to re-fetch all data. This experimental option syncs the data cache outside of the Gatsby cache to help streamline development.
+
 ## 1.4.6
 
 ### Bug Fixes
