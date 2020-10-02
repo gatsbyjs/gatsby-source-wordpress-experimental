@@ -192,11 +192,17 @@ const blankGetRequest = async ({ url, helpers }) =>
       if (json?.errors?.length) {
         const firstError = json.errors[0]
 
-        if (firstError.debugMessage) {
+        if (
+          firstError.debugMessage ||
+          (firstError.message &&
+            !firstError.message?.includes(
+              `GraphQL Request must include at least one of those two parameters: "query" or "queryId"`
+            ))
+        ) {
           helpers.reporter.panic(
             formatLogMessage(`WPGraphQL returned a debug message on startup:
 
-${firstError.debugMessage}
+${firstError.debugMessage || firstError.message}
           `)
           )
         }
@@ -274,9 +280,10 @@ const ensurePluginRequirementsAreMet = async (helpers, _pluginOptions) => {
     return
   }
 
-  await Promise.all([blankGetRequest({ url, helpers }), isWpGatsby()])
+  await blankGetRequest({ url, helpers })
 
   await Promise.all([
+    isWpGatsby(),
     prettyPermalinksAreEnabled({ helpers }),
     areRemotePluginVersionsSatisfied({
       helpers,
