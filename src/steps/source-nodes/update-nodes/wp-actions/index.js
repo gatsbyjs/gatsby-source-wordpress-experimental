@@ -5,6 +5,7 @@ import { LAST_COMPLETED_SOURCE_TIME } from "~/constants"
 import { paginatedWpNodeFetch } from "~/steps/source-nodes/fetch-nodes/fetch-nodes-paginated"
 
 import fetchAndCreateNonNodeRootFields from "~/steps/source-nodes/create-nodes/fetch-and-create-non-node-root-fields"
+import { setHardCachedNodes } from "~/utils/cache"
 
 const previouslyFetchedActionIds = []
 
@@ -91,10 +92,9 @@ export const getWpActions = async ({
  * the latest WP changes
  */
 export const handleWpActions = async (api) => {
-  let { cachedNodeIds } = api
+  let { cachedNodeIds, helpers } = api
 
   switch (api.wpAction.actionType) {
-    // @todo case `PREVIEW`: <- link a revision to it's parent post
     case `DELETE`:
       await wpActionDELETE(api)
       break
@@ -105,6 +105,8 @@ export const handleWpActions = async (api) => {
     case `NON_NODE_ROOT_FIELDS`:
       await fetchAndCreateNonNodeRootFields()
   }
+
+  await setHardCachedNodes({ helpers })
 
   return cachedNodeIds
 }

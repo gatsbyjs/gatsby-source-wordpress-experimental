@@ -5,13 +5,15 @@ import fetchGraphql from "~/utils/fetch-graphql"
 
 import { formatLogMessage } from "~/utils/format-log-message"
 
-import { getPluginOptions } from "~/utils/get-gatsby-api"
+import { MD5_CACHE_KEY } from "~/constants"
 
 import {
   supportedWpPluginVersions,
   genericDownloadMessage,
 } from "~/supported-remote-plugin-versions"
 import fetch from "node-fetch"
+import store from "~/store"
+import { getPersistentCache } from "~/utils/cache"
 
 const parseRange = (range) => {
   const {
@@ -39,8 +41,13 @@ const parseRange = (range) => {
 
 const areRemotePluginVersionsSatisfied = async ({
   helpers,
+  disableCompatibilityCheck,
   url: wpGraphQLEndpoint,
 }) => {
+  if (disableCompatibilityCheck) {
+    return
+  }
+
   let wpgqlIsSatisfied
   let wpGatsbyIsSatisfied
 
@@ -251,18 +258,32 @@ const ensurePluginRequirementsAreMet = async (helpers, _pluginOptions) => {
   }
 
   const {
-    url,
-    debug: { disableCompatibilityCheck },
-  } = getPluginOptions()
+    gatsbyApi: {
+      pluginOptions: {
+        url,
+        debug: { disableCompatibilityCheck },
+      },
+    },
+    remoteSchema: { schemaWasChanged },
+  } = store.getState()
 
-  await blankGetRequest({ url, helpers })
+  // if we don't have a cached remote schema MD5, this is a cold build
+  const isFirstBuild = !(await getPersistentCache({ key: MD5_CACHE_KEY }))
 
-  await isWpGatsby()
-  await prettyPermalinksAreEnabled({ helpers })
-
-  if (!disableCompatibilityCheck) {
-    await areRemotePluginVersionsSatisfied({ helpers, url })
+  if (!schemaWasChanged && !isFirstBuild) {
+    return
   }
+
+  await Promise.all([blankGetRequest({ url, helpers }), isWpGatsby()])
+
+  await Promise.all([
+    prettyPermalinksAreEnabled({ helpers }),
+    areRemotePluginVersionsSatisfied({
+      helpers,
+      url,
+      disableCompatibilityCheck,
+    }),
+  ])
 }
 
 export { ensurePluginRequirementsAreMet }

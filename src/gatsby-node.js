@@ -11,16 +11,17 @@ module.exports = runApisInSteps({
 
   sourceNodes: [
     steps.setGatsbyApiToState,
-    steps.persistPreviouslyCachedImages,
-    steps.sourcePreviews,
-    steps.sourceNodes,
+    [
+      steps.persistPreviouslyCachedImages,
+      steps.sourcePreviews,
+      steps.sourceNodes,
+    ],
     steps.setImageNodeIdCache,
   ],
 
   onPostBuild: [steps.setImageNodeIdCache],
 
   onCreateDevServer: [
-    steps.setImageNodeIdCache,
-    steps.startPollingForContentUpdates,
+    [steps.setImageNodeIdCache, steps.startPollingForContentUpdates],
   ],
 })
