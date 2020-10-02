@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.5.1
+
+### Bug Fixes
+
+- The boot up blank get request to WPGraphQL to find debug messages didn't account for situations where debug mode wasn't enabled. That's now accounted for. For example if you install WPGraphQL for CPTUI and don't configure your post types properly, we were missing those errors. The plugin now fails the build with the start up errors.
+
 ## 1.5.0
 
 ### New Features
