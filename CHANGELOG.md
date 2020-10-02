@@ -1,5 +1,12 @@
 # Change Log
 
+## 1.5.3
+
+### Bug Fixes
+
+- In some cases, an attempt to iterate over `undefined` was occurring and throwing errors.
+- When using the writeQueriesToDisk debugging option, old types were not being removed before new ones were generated. This means types that no longer existed in your schema would hang around there forever.
+
 ## 1.5.2
 
 ### Bug Fixes
