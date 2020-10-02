@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.5.2
+
+### Bug Fixes
+
+- MediaItem sourceUrl's that were encoded on the server were being double encoded and producing a 404 error when the image really did exist. Now there's a check to see if the sourceUrl is already encoded, and is only encoded if it hasn't already been by the server.
+
 ## 1.5.1
 
 ### Bug Fixes
