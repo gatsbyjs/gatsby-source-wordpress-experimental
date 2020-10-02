@@ -2,12 +2,13 @@ import { CREATED_NODE_IDS, LAST_COMPLETED_SOURCE_TIME } from "~/constants"
 import { fetchAndRunWpActions } from "./wp-actions"
 import { formatLogMessage } from "~/utils/format-log-message"
 import { getGatsbyApi } from "~/utils/get-gatsby-api"
+import { getPersistentCache } from "~/utils/cache"
 
 export const touchValidNodes = async () => {
   const { helpers } = getGatsbyApi()
-  const { cache, actions } = helpers
+  const { actions } = helpers
 
-  let validNodeIds = await cache.get(CREATED_NODE_IDS)
+  let validNodeIds = await getPersistentCache({ key: CREATED_NODE_IDS })
   validNodeIds.forEach((nodeId) => actions.touchNode({ nodeId }))
 }
 

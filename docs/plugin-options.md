@@ -12,6 +12,7 @@
   - [develop: Object](#develop-object)
     - [develop.nodeUpdateInterval: Int](#developnodeupdateinterval-int)
     - [develop.hardCacheMediaFiles: Boolean](#develophardcachemediafiles-boolean)
+    - [develop.hardCacheData: Boolean](#develophardcachedata-boolean)
   - [auth: Object](#auth-object)
     - [auth.htaccess: Object](#authhtaccess-object)
       - [auth.htaccess.username: String](#authhtaccessusername-string)
@@ -199,7 +200,8 @@ Default is `300`.
 
 ### develop.hardCacheMediaFiles: Boolean
 
-When true, media files will be hard-cached outside the Gatsby cache in a `./.wordpress-cache/path/to/media/file.jpeg` . This is useful for preventing media files from being re-downloaded when the Gatsby cache automatically clears.
+This option is experimental. When set to true, media files will be hard-cached outside the Gatsby cache at `./.wordpress-cache/path/to/media/file.jpeg`. This is useful for preventing media files from being re-downloaded when the Gatsby cache automatically clears.
+When using this option, be sure to gitignore the `wordpress-cache` directory in the root of your project.
 
 Default is false.
 
@@ -209,6 +211,25 @@ Default is false.
 	options: {
 		develop: {
       hardCacheMediaFiles: true,
+    },
+  },
+},
+```
+
+### develop.hardCacheData: Boolean
+
+This option is experimental. When set to true, WordPress data will be hard-cached outside the Gatsby cache in `./.wordpress-cache/caches`. This is useful for preventing the need to re-fetch all data when the Gatsby cache automatically clears. This hard cache will automatically clear itself when your remote WPGraphQL schema changes, or when you change your plugin options.
+
+When using this option, be sure to gitignore the `wordpress-cache` directory in the root of your project.
+
+Default is false.
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+	options: {
+		develop: {
+      hardCacheData: false,
     },
   },
 },

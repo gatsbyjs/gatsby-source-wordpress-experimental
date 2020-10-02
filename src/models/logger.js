@@ -8,7 +8,7 @@ const logger = {
   },
 
   reducers: {
-    incrementActivityTimer(state, { typeName, by }) {
+    incrementActivityTimer(state, { typeName, by, action = `fetched` }) {
       const logger = state.activityTimers[typeName]
 
       if (!logger) {
@@ -20,16 +20,16 @@ const logger = {
         state.entityCount += by
       }
 
-      logger.activity.setStatus(`fetched ${logger.count}`)
+      logger.activity.setStatus(`${action} ${logger.count}`)
 
       return state
     },
 
-    stopActivityTimer(state, { typeName }) {
+    stopActivityTimer(state, { typeName, action = `fetched` }) {
       const logger = state.activityTimers[typeName]
 
       if (logger.count === 0) {
-        logger.activity.setStatus(`fetched 0`)
+        logger.activity.setStatus(`${action} 0`)
       }
 
       logger.activity.end()

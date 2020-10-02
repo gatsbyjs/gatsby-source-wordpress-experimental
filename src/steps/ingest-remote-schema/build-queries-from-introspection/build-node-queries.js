@@ -1,6 +1,7 @@
 import store from "~/store"
 import { getGatsbyApi } from "~/utils/get-gatsby-api"
 import generateNodeQueriesFromIngestibleFields from "~/steps/ingest-remote-schema/build-queries-from-introspection/generate-queries-from-ingestable-types"
+import { getPersistentCache, setPersistentCache } from "~/utils/cache"
 
 /**
  * buildNodeQueries
@@ -11,11 +12,11 @@ import generateNodeQueriesFromIngestibleFields from "~/steps/ingest-remote-schem
  * @returns {Object} GraphQL query info including gql query strings
  */
 const buildNodeQueries = async () => {
-  const { pluginOptions, helpers } = getGatsbyApi()
+  const { pluginOptions } = getGatsbyApi()
 
   const QUERY_CACHE_KEY = `${pluginOptions.url}--introspection-node-queries`
 
-  let nodeQueries = await helpers.cache.get(QUERY_CACHE_KEY)
+  let nodeQueries = await getPersistentCache({ key: QUERY_CACHE_KEY })
 
   const { schemaWasChanged } = store.getState().remoteSchema
 
@@ -24,9 +25,8 @@ const buildNodeQueries = async () => {
     nodeQueries = await generateNodeQueriesFromIngestibleFields()
 
     // and cache them
-    await helpers.cache.set(QUERY_CACHE_KEY, nodeQueries)
+    await setPersistentCache({ key: QUERY_CACHE_KEY, value: nodeQueries })
   }
-
   // set the queries in our redux store to use later
   store.dispatch.remoteSchema.setState({
     nodeQueries,

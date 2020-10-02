@@ -30,10 +30,8 @@ const ingestRemoteSchema = async (helpers, pluginOptions) => {
         checkIfSchemaHasChanged,
         introspectAndStoreRemoteSchema,
         identifyAndStoreIngestableFieldsAndTypes,
-        buildNodeQueries,
-        buildNonNodeQueries,
-        cacheFetchedTypes,
-        writeQueriesToDisk,
+        [buildNodeQueries, buildNonNodeQueries],
+        [cacheFetchedTypes, writeQueriesToDisk],
       ],
       helpers,
       pluginOptions

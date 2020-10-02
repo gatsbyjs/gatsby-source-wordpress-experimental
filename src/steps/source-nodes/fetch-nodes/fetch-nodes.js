@@ -2,9 +2,17 @@ import { createGatsbyNodesFromWPGQLContentNodes } from "../create-nodes/create-n
 import { paginatedWpNodeFetch } from "./fetch-nodes-paginated"
 import { formatLogMessage } from "~/utils/format-log-message"
 import { CREATED_NODE_IDS } from "~/constants"
+
 import store from "~/store"
 import { getGatsbyApi } from "~/utils/get-gatsby-api"
 import chunk from "lodash/chunk"
+
+import {
+  getHardCachedNodes,
+  restoreHardCachedNodes,
+  setHardCachedNodes,
+  setPersistentCache,
+} from "~/utils/cache"
 
 /**
  * fetchWPGQLContentNodes
@@ -16,7 +24,6 @@ export const fetchWPGQLContentNodes = async ({ queryInfo }) => {
   const { reporter } = helpers
   const {
     url,
-    verbose,
     schema: { perPage },
   } = pluginOptions
 
@@ -110,9 +117,7 @@ export const getGatsbyNodeTypeNames = () => {
  *
  * @returns {Array}
  */
-export const fetchWPGQLContentNodesByContentType = async () => {
-  const contentNodeGroups = []
-
+export const runFnForEachNodeQuery = async (fn) => {
   const nodeQueries = getContentTypeQueryInfos()
 
   const chunkSize = process.env.GATSBY_CONCURRENT_DOWNLOAD || 50
@@ -131,14 +136,22 @@ export const fetchWPGQLContentNodesByContentType = async () => {
           return
         }
 
-        const contentNodeGroup = await fetchWPGQLContentNodes({ queryInfo })
-
-        if (contentNodeGroup) {
-          contentNodeGroups.push(contentNodeGroup)
-        }
+        await fn({ queryInfo })
       })
     )
   }
+}
+
+export const fetchWPGQLContentNodesByContentType = async () => {
+  const contentNodeGroups = []
+
+  await runFnForEachNodeQuery(async ({ queryInfo }) => {
+    const contentNodeGroup = await fetchWPGQLContentNodes({ queryInfo })
+
+    if (contentNodeGroup) {
+      contentNodeGroups.push(contentNodeGroup)
+    }
+  })
 
   return contentNodeGroups
 }
@@ -150,8 +163,8 @@ export const fetchWPGQLContentNodesByContentType = async () => {
  * fetch and create Gatsby nodes from any lists of nodes in the remote schema
  */
 export const fetchAndCreateAllNodes = async () => {
-  const { helpers } = getGatsbyApi()
-  const { reporter, cache } = helpers
+  const { helpers, pluginOptions } = getGatsbyApi()
+  const { reporter } = helpers
 
   //
   // fetch nodes from WPGQL
@@ -162,24 +175,36 @@ export const fetchAndCreateAllNodes = async () => {
     activity.setStatus(`${store.getState().logger.entityCount} total`)
   })
 
-  const wpgqlNodesByContentType = await fetchWPGQLContentNodesByContentType()
+  let createdNodeIds
 
-  const createNodesActivity = reporter.activityTimer(
-    formatLogMessage(`creating nodes`)
-  )
-  createNodesActivity.start()
+  const hardCachedNodes = await getHardCachedNodes()
 
-  //
-  // Create Gatsby nodes from WPGQL response
-  const createdNodeIds = await createGatsbyNodesFromWPGQLContentNodes({
-    wpgqlNodesByContentType,
-    createNodesActivity,
-  })
+  if (!hardCachedNodes) {
+    const wpgqlNodesByContentType = await fetchWPGQLContentNodesByContentType()
 
-  createNodesActivity.end()
-  activity.end()
+    const createNodesActivity = reporter.activityTimer(
+      formatLogMessage(`creating nodes`)
+    )
+    createNodesActivity.start()
+
+    //
+    // Create Gatsby nodes from WPGQL response
+    createdNodeIds = await createGatsbyNodesFromWPGQLContentNodes({
+      wpgqlNodesByContentType,
+      createNodesActivity,
+    })
+
+    await setHardCachedNodes({ helpers })
+
+    createNodesActivity.end()
+    activity.end()
+  } else if (hardCachedNodes) {
+    createdNodeIds = await restoreHardCachedNodes({
+      hardCachedNodes,
+    })
+  }
 
   // save the node id's so we can touch them on the next build
   // so that we don't have to refetch all nodes
-  await cache.set(CREATED_NODE_IDS, createdNodeIds)
+  await setPersistentCache({ key: CREATED_NODE_IDS, value: createdNodeIds })
 }

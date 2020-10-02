@@ -1,12 +1,12 @@
 import merge from "lodash/merge"
 import { createRemoteMediaItemNode } from "~/steps/source-nodes/create-nodes/create-remote-media-item-node"
 import { menuBeforeChangeNode } from "~/steps/source-nodes/before-change-node/menu"
-import { categoryBeforeChangeNode } from "~/steps/source-nodes/before-change-node/category"
 
 const defaultPluginOptions = {
   url: null,
   verbose: true,
   debug: {
+    throwRefetchErrors: false,
     graphql: {
       showQueryOnError: false,
       showQueryVarsOnError: false,
@@ -22,6 +22,7 @@ const defaultPluginOptions = {
   develop: {
     nodeUpdateInterval: 300,
     hardCacheMediaFiles: false,
+    hardCacheData: false,
   },
   production: {
     hardCacheMediaFiles: false,
