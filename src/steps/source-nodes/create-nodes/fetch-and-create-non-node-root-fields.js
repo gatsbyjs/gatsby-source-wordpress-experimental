@@ -75,7 +75,7 @@ const fetchAndCreateNonNodeRootFields = async () => {
 
     const createdNodeIds = [
       ...new Set([
-        ...previouslyCachedNodeIds,
+        ...(previouslyCachedNodeIds || []),
         ...referencedMediaItemNodeIdsArray,
       ]),
     ]
