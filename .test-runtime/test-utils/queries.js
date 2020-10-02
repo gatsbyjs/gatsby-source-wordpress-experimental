@@ -194,7 +194,6 @@ export const queries = {
         }
       }
       parentNodeDatabaseId
-      # saveContent
       dynamicContent
       attributes {
         className
@@ -220,8 +219,6 @@ export const queries = {
           align
           backgroundColor
           className
-          customBackgroundColor
-          customTextColor
           textColor
           verticalAlignment
         }
@@ -270,9 +267,6 @@ export const queries = {
                 backgroundColor
                 borderRadius
                 className
-                customBackgroundColor
-                customGradient
-                customTextColor
                 gradient
                 linkTarget
                 placeholder
