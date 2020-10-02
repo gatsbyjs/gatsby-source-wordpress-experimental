@@ -379,8 +379,13 @@ module.exports = ({
     clearTimeout(doneQueueTimeout)
   }
 
-  // this accounts for special characters in filenames
-  url = encodeURI(url)
+  // if the url isn't already encoded
+  // so decoding it doesn't do anything
+  if (decodeURI(url) === url) {
+    // encode the uri
+    // this accounts for special characters in filenames
+    url = encodeURI(url)
+  }
 
   // validation of the input
   // without this it's notoriously easy to pass in the wrong `createNodeId`
