@@ -18,7 +18,6 @@ import fetchReferencedMediaItemsAndCreateNodes, {
 } from "../fetch-nodes/fetch-referenced-media-items"
 import btoa from "btoa"
 import store from "~/store"
-import { CREATED_NODE_IDS } from "~/constants"
 
 const imgSrcRemoteFileRegex = /(?:src=\\")((?:(?:https?|ftp|file):\/\/|www\.|ftp\.|\/)(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[A-Z0-9+&@#/%=~_|$])\.(?:jpeg|jpg|png|gif|ico|mpg|ogv|svg|bmp|tif|tiff))(?=\\"| |\.)/gim
 
@@ -362,6 +361,14 @@ const findImgTagMaxWidthFromCheerioImg = (cheerioImg) => {
   return null
 }
 
+const getFileNodePublicPath = (fileNode) => {
+  const fileName = `${fileNode.internal.contentDigest}/${fileNode.base}`
+
+  const publicPath = path.join(process.cwd(), `public`, `static`, fileName)
+
+  return publicPath
+}
+
 const replaceNodeHtmlImages = async ({
   nodeString,
   node,
@@ -577,12 +584,7 @@ const replaceNodeHtmlImages = async ({
 
         const fileName = `${fileNode.internal.contentDigest}/${fileNode.base}`
 
-        const publicPath = path.join(
-          process.cwd(),
-          `public`,
-          `static`,
-          fileName
-        )
+        const publicPath = getFileNodePublicPath(fileNode)
 
         if (!fs.existsSync(publicPath)) {
           await fs.copy(
@@ -625,6 +627,55 @@ const replaceNodeHtmlImages = async ({
       // replace match with react string in nodeString
       nodeString = nodeString.replace(match, gatsbyImageString)
     }
+  }
+
+  return nodeString
+}
+
+const replaceFileLinks = async ({
+  nodeString,
+  node,
+  helpers,
+  wpUrl,
+  pluginOptions,
+}) => {
+  if (!pluginOptions?.html?.createStaticFileLinks) {
+    return nodeString
+  }
+
+  const hrefMatchRegex = new RegExp(
+    `href=\\\\["'](${wpUrl})(\/wp-content\/[^'"]+)\\\\["']`,
+    `gm`
+  )
+
+  const hrefMatches = execall(hrefMatchRegex, nodeString)
+
+  if (hrefMatches.length) {
+    const mediaItemUrls = hrefMatches.map(
+      (href) => `${wpUrl}${href.subMatches[1]}`
+    )
+
+    const mediaItemNodesBySourceUrl = await fetchReferencedMediaItemsAndCreateNodes(
+      {
+        mediaItemUrls,
+      }
+    )
+
+    const findReplaceMap = await Promise.all(
+      mediaItemNodesBySourceUrl.map(async (mediaItemNode) => {
+        const localFileNode = await helpers.getNode(mediaItemNode.localFile.id)
+
+        const filePath = getFileNodePublicPath(localFileNode)
+
+        const [, staticUrl] = filePath.split(`${process.cwd()}/public`)
+        dd(staticUrl)
+        return {
+          // need to get the hrefMatch above :thinking_face:
+          find: null,
+          replace: staticUrl,
+        }
+      })
+    )
   }
 
   return nodeString
@@ -673,7 +724,11 @@ const processNodeString = async ({
   helpers,
   wpUrl,
 }) => {
-  const nodeStringFilters = [replaceNodeHtmlImages, replaceNodeHtmlLinks]
+  const nodeStringFilters = [
+    replaceNodeHtmlImages,
+    replaceFileLinks,
+    replaceNodeHtmlLinks,
+  ]
 
   for (const nodeStringFilter of nodeStringFilters) {
     nodeString = await nodeStringFilter({
