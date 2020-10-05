@@ -18,7 +18,6 @@ import fetchReferencedMediaItemsAndCreateNodes, {
 } from "../fetch-nodes/fetch-referenced-media-items"
 import btoa from "btoa"
 import store from "~/store"
-import { CREATED_NODE_IDS } from "~/constants"
 
 const imgSrcRemoteFileRegex = /(?:src=\\")((?:(?:https?|ftp|file):\/\/|www\.|ftp\.|\/)(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[A-Z0-9+&@#/%=~_|$])\.(?:jpeg|jpg|png|gif|ico|mpg|ogv|svg|bmp|tif|tiff))(?=\\"| |\.)/gim
 
@@ -403,7 +402,9 @@ const replaceNodeHtmlImages = async ({
       // or it's an absolute path
       subMatches[0].includes('src=\\"/wp-content')
 
-    const isInJSON = subMatches[0].includes(`\\/\\/`)
+    // six backslashes means we're looking for three backslashes
+    // since we're looking for JSON encoded strings inside of our JSON encoded string
+    const isInJSON = subMatches[0].includes(`src=\\\\\\"`)
 
     return isHostedInWp && !isInJSON
   })
@@ -622,8 +623,24 @@ const replaceNodeHtmlImages = async ({
         gatsbyImageStringJSON.length - 1
       )
 
-      // replace match with react string in nodeString
       nodeString = nodeString.replace(match, gatsbyImageString)
+
+      const jsonStringifiedMatch = JSON.stringify(match)
+      const jsonEscapedMatch = jsonStringifiedMatch.substring(
+        1,
+        jsonStringifiedMatch.length - 1
+      )
+
+      const matchGlobalRegex = new RegExp(jsonEscapedMatch, `gm`)
+
+      const matchInstances = execall(matchGlobalRegex, nodeString)
+
+      if (matchInstances.length) {
+        for (const { match: matchInstance } of matchInstances) {
+          // replace match with react string in nodeString
+          nodeString = nodeString.replace(matchInstance, gatsbyImageString)
+        }
+      }
     }
   }
 

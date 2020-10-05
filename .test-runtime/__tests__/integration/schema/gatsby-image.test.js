@@ -50,7 +50,7 @@ describe(`[gatsby-source-wordpress-experimental] Gatsby image processing`, () =>
     })
 
     expect(wpPage.content).toBeTruthy()
-    expect(wpPage.content).toMatch(/gatsby-image-wrapper/)
+    expect(countGatsbyImgs(wpPage.content)).toBe(2)
     expect(wpPage.content).toMatchSnapshot()
 
     expect(gute.content).toBeTruthy()
