@@ -389,3 +389,28 @@ exports[`[gatsby-source-wordpress-experimental] Gatsby image processing transfor
 /static/512103aa3c375068e3cb8426fe74d180/345c8/1003-1181x1772-1.jpg 1181w\\" src=\\"/static/512103aa3c375068e3cb8426fe74d180/16d62/1003-1181x1772-1.jpg\\" alt=\\"\\" style=\\"position:absolute;top:0;left:0;opacity:1;width:100%;height:100%;object-fit:cover;object-position:center\\"/></picture></noscript></div></p>
 "
 `;
+
+exports[`[gatsby-source-wordpress-experimental] Gatsby image processing transforms inline-html images properly 6`] = `
+"<figure class=\\"wp-block-image size-large\\"><div class=\\"wp-image-10515 gatsby-image-wrapper\\" style=\\"position:relative;overflow:hidden;max-width:100%;width:683px\\" data-reactroot=\\"\\"><div aria-hidden=\\"true\\" style=\\"width:100%;padding-bottom:149.70760233918128%\\"></div><img aria-hidden=\\"true\\" src=\\"data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAeABQDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAMFAgT/xAAVAQEBAAAAAAAAAAAAAAAAAAABAP/aAAwDAQACEAMQAAABa+cwu0yNK1PYPSTiP//EABsQAAIDAQEBAAAAAAAAAAAAAAECAAMSEQQi/9oACAEBAAEFAlUwIGmDPStrzz0lI9v09pdrLW7vUDcOzOz/xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAEDAQE/AR//xAAUEQEAAAAAAAAAAAAAAAAAAAAg/9oACAECAQE/AR//xAAcEAACAgIDAAAAAAAAAAAAAAAAEQEhAhAxcYH/2gAIAQEABj8C41RFV2PKvSiBMYx6/8QAHBABAAMAAwEBAAAAAAAAAAAAAQARITFRgUFx/9oACAEBAAE/Ie3ycBO0BEAeNLY0E51If41+RAzHAgarB5MiFAcksVOvMsOM/9oADAMBAAIAAwAAABA4B7L/xAAVEQEBAAAAAAAAAAAAAAAAAAABEP/aAAgBAwEBPxCCT//EABURAQEAAAAAAAAAAAAAAAAAABAB/9oACAECAQE/ECn/xAAdEAEAAwEAAwEBAAAAAAAAAAABABEhMUFRcWGh/9oACAEBAAE/ENiidNclYUb9QroN4TYnYGBQbql+JtKncG8DZeiqz6iyFQpTb/stIa8sX+jswD009MbWls+welvV7uLlhb4n/9k=\\" alt=\\"\\" style=\\"position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0;transition-delay:500ms\\"/><picture><source srcSet=\\"/static/692883c30b67d3946b6fd3eea439d8be/e1745/jessie-mccall-a9_8YKoqIYo-unsplash-scaled.jpg 171w,
+/static/692883c30b67d3946b6fd3eea439d8be/3fecb/jessie-mccall-a9_8YKoqIYo-unsplash-scaled.jpg 342w,
+/static/692883c30b67d3946b6fd3eea439d8be/5a620/jessie-mccall-a9_8YKoqIYo-unsplash-scaled.jpg 683w,
+/static/692883c30b67d3946b6fd3eea439d8be/d4899/jessie-mccall-a9_8YKoqIYo-unsplash-scaled.jpg 1025w,
+/static/692883c30b67d3946b6fd3eea439d8be/223ef/jessie-mccall-a9_8YKoqIYo-unsplash-scaled.jpg 1366w,
+/static/692883c30b67d3946b6fd3eea439d8be/7865f/jessie-mccall-a9_8YKoqIYo-unsplash-scaled.jpg 1707w\\" sizes=\\"(max-width: 683px) 100vw, 683px\\"/><img sizes=\\"(max-width: 683px) 100vw, 683px\\" srcSet=\\"/static/692883c30b67d3946b6fd3eea439d8be/e1745/jessie-mccall-a9_8YKoqIYo-unsplash-scaled.jpg 171w,
+/static/692883c30b67d3946b6fd3eea439d8be/3fecb/jessie-mccall-a9_8YKoqIYo-unsplash-scaled.jpg 342w,
+/static/692883c30b67d3946b6fd3eea439d8be/5a620/jessie-mccall-a9_8YKoqIYo-unsplash-scaled.jpg 683w,
+/static/692883c30b67d3946b6fd3eea439d8be/d4899/jessie-mccall-a9_8YKoqIYo-unsplash-scaled.jpg 1025w,
+/static/692883c30b67d3946b6fd3eea439d8be/223ef/jessie-mccall-a9_8YKoqIYo-unsplash-scaled.jpg 1366w,
+/static/692883c30b67d3946b6fd3eea439d8be/7865f/jessie-mccall-a9_8YKoqIYo-unsplash-scaled.jpg 1707w\\" src=\\"/static/692883c30b67d3946b6fd3eea439d8be/5a620/jessie-mccall-a9_8YKoqIYo-unsplash-scaled.jpg\\" alt=\\"\\" loading=\\"eager\\" style=\\"position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:1;transition:opacity 500ms\\"/></picture><noscript><picture><source srcset=\\"/static/692883c30b67d3946b6fd3eea439d8be/e1745/jessie-mccall-a9_8YKoqIYo-unsplash-scaled.jpg 171w,
+/static/692883c30b67d3946b6fd3eea439d8be/3fecb/jessie-mccall-a9_8YKoqIYo-unsplash-scaled.jpg 342w,
+/static/692883c30b67d3946b6fd3eea439d8be/5a620/jessie-mccall-a9_8YKoqIYo-unsplash-scaled.jpg 683w,
+/static/692883c30b67d3946b6fd3eea439d8be/d4899/jessie-mccall-a9_8YKoqIYo-unsplash-scaled.jpg 1025w,
+/static/692883c30b67d3946b6fd3eea439d8be/223ef/jessie-mccall-a9_8YKoqIYo-unsplash-scaled.jpg 1366w,
+/static/692883c30b67d3946b6fd3eea439d8be/7865f/jessie-mccall-a9_8YKoqIYo-unsplash-scaled.jpg 1707w\\" sizes=\\"(max-width: 683px) 100vw, 683px\\" /><img loading=\\"eager\\" sizes=\\"(max-width: 683px) 100vw, 683px\\" srcset=\\"/static/692883c30b67d3946b6fd3eea439d8be/e1745/jessie-mccall-a9_8YKoqIYo-unsplash-scaled.jpg 171w,
+/static/692883c30b67d3946b6fd3eea439d8be/3fecb/jessie-mccall-a9_8YKoqIYo-unsplash-scaled.jpg 342w,
+/static/692883c30b67d3946b6fd3eea439d8be/5a620/jessie-mccall-a9_8YKoqIYo-unsplash-scaled.jpg 683w,
+/static/692883c30b67d3946b6fd3eea439d8be/d4899/jessie-mccall-a9_8YKoqIYo-unsplash-scaled.jpg 1025w,
+/static/692883c30b67d3946b6fd3eea439d8be/223ef/jessie-mccall-a9_8YKoqIYo-unsplash-scaled.jpg 1366w,
+/static/692883c30b67d3946b6fd3eea439d8be/7865f/jessie-mccall-a9_8YKoqIYo-unsplash-scaled.jpg 1707w\\" src=\\"/static/692883c30b67d3946b6fd3eea439d8be/5a620/jessie-mccall-a9_8YKoqIYo-unsplash-scaled.jpg\\" alt=\\"\\" style=\\"position:absolute;top:0;left:0;opacity:1;width:100%;height:100%;object-fit:cover;object-position:center\\"/></picture></noscript></div></figure>
+"
+`;
