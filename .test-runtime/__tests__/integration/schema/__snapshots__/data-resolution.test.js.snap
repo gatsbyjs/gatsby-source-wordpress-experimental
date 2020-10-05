@@ -163,6 +163,26 @@ Array [
     "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2018/10/zoltan-tasi-482489-unsplash-scaled.jpg",
   },
   Object {
+    "id": "cG9zdDoxMDQ0NQ==",
+    "sourceUrl": null,
+  },
+  Object {
+    "id": "cG9zdDoxMDQ0OQ==",
+    "sourceUrl": null,
+  },
+  Object {
+    "id": "cG9zdDoxMDQ1Mw==",
+    "sourceUrl": null,
+  },
+  Object {
+    "id": "cG9zdDoxMDQzOQ==",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/10/sample-pdf.jpg",
+  },
+  Object {
+    "id": "cG9zdDoxMDUxNQ==",
+    "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/10/jessie-mccall-a9_8YKoqIYo-unsplash-scaled.jpg",
+  },
+  Object {
     "id": "cG9zdDoxOTU=",
     "sourceUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/03/1024x1024-300x300-1.png",
   },
@@ -696,6 +716,22 @@ Object {
             "nodes": Array [],
           },
         },
+        Object {
+          "acfPageFields": Object {
+            "fieldGroupName": "acfPageFields",
+          },
+          "author": Object {
+            "node": Object {
+              "name": "Tyler",
+            },
+          },
+          "title": "Inline image with http protocol",
+          "translations": Array [],
+          "uri": "/inline-image-with-http-protocol/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
+        },
       ],
     },
     "testPage": Object {
@@ -1015,6 +1051,22 @@ Object {
           "title": "Relative image path",
           "translations": Array [],
           "uri": "/relative-image-path/",
+          "wpChildren": Object {
+            "nodes": Array [],
+          },
+        },
+        Object {
+          "acfPageFields": Object {
+            "fieldGroupName": "acfPageFields",
+          },
+          "author": Object {
+            "node": Object {
+              "name": "Tyler",
+            },
+          },
+          "title": "Inline image with http protocol",
+          "translations": Array [],
+          "uri": "/inline-image-with-http-protocol/",
           "wpChildren": Object {
             "nodes": Array [],
           },
@@ -1424,6 +1476,9 @@ Object {
           "pages": Object {
             "nodes": Array [
               Object {
+                "title": "Inline image with http protocol",
+              },
+              Object {
                 "title": "Relative image path",
               },
               Object {
@@ -1534,6 +1589,9 @@ Object {
           "name": "Tyler",
           "pages": Object {
             "nodes": Array [
+              Object {
+                "title": "Inline image with http protocol",
+              },
               Object {
                 "title": "Relative image path",
               },

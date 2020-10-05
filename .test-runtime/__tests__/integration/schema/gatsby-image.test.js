@@ -7,7 +7,14 @@ const countGatsbyImgs = string =>
 describe(`[gatsby-source-wordpress-experimental] Gatsby image processing`, () => {
   it(`transforms inline-html images properly`, async () => {
     const {
-      data: { wpPage, gute, editedInline, editedMediaLibrary, acfPage },
+      data: {
+        wpPage,
+        gute,
+        editedInline,
+        editedMediaLibrary,
+        acfPage,
+        httpProtocolPage,
+      },
     } = await fetchGraphql({
       url: `http://localhost:8000/__graphql`,
       query: /* GraphQL */ `
@@ -34,12 +41,16 @@ describe(`[gatsby-source-wordpress-experimental] Gatsby image processing`, () =>
           gute: wpPost(id: { eq: "cG9zdDo5NA==" }) {
             content
           }
+          # Page with img src hardcoded to http isntead of https
+          httpProtocolPage: wpPage(databaseId: { eq: 10513 }) {
+            content
+          }
         }
       `,
     })
 
     expect(wpPage.content).toBeTruthy()
-    expect(wpPage.content).toMatch(/gatsby-image-wrapper/)
+    expect(countGatsbyImgs(wpPage.content)).toBe(2)
     expect(wpPage.content).toMatchSnapshot()
 
     expect(gute.content).toBeTruthy()
@@ -57,5 +68,9 @@ describe(`[gatsby-source-wordpress-experimental] Gatsby image processing`, () =>
     expect(acfPage.acfPageFields.wysiwygEditorField).toBeTruthy()
     expect(countGatsbyImgs(acfPage.acfPageFields.wysiwygEditorField)).toBe(2)
     expect(acfPage.acfPageFields.wysiwygEditorField).toMatchSnapshot()
+
+    expect(httpProtocolPage.content).toBeTruthy()
+    expect(countGatsbyImgs(httpProtocolPage.content)).toBe(1)
+    expect(httpProtocolPage.content).toMatchSnapshot()
   })
 })

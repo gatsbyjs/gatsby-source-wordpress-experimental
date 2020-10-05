@@ -48,7 +48,7 @@ export const createNodeWithSideEffects = ({
     })
   }
 
-  const remoteNode = {
+  let remoteNode = {
     ...node,
     id: node.id,
     parent: null,
@@ -63,7 +63,7 @@ export const createNodeWithSideEffects = ({
   })
 
   if (typeof typeSettings?.beforeChangeNode === `function`) {
-    const { additionalNodeIds } =
+    const { additionalNodeIds, remoteNode: changedRemoteNode } =
       (await typeSettings.beforeChangeNode({
         actionType: `CREATE_ALL`,
         remoteNode,
@@ -75,6 +75,10 @@ export const createNodeWithSideEffects = ({
         buildTypeName,
         wpStore: store,
       })) || {}
+
+    if (changedRemoteNode) {
+      remoteNode = changedRemoteNode
+    }
 
     if (additionalNodeIds?.length && totalSideEffectNodes) {
       additionalNodeIds.forEach(
