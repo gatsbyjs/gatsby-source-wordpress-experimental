@@ -12082,6 +12082,10 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         colorPickerField
         datePickerField
         dateTimePickerField
+        doc {
+          id
+          sourceUrl
+        }
         fieldGroupName
         fileField {
           id
@@ -12199,6 +12203,14 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
           title
           url
         }
+        mov {
+          id
+          sourceUrl
+        }
+        mp4 {
+          id
+          sourceUrl
+        }
         oembedField
         pageLinkField {
           __typename
@@ -12232,6 +12244,10 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
           ... on BlockEditorPreview {
             id
           }
+        }
+        pdf {
+          id
+          sourceUrl
         }
         postObjectField {
           __typename
@@ -15158,6 +15174,10 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       colorPickerField
       datePickerField
       dateTimePickerField
+      doc {
+        id
+        sourceUrl
+      }
       fieldGroupName
       fileField {
         id
@@ -15275,6 +15295,14 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         title
         url
       }
+      mov {
+        id
+        sourceUrl
+      }
+      mp4 {
+        id
+        sourceUrl
+      }
       oembedField
       pageLinkField {
         __typename
@@ -15308,6 +15336,10 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         ... on BlockEditorPreview {
           id
         }
+      }
+      pdf {
+        id
+        sourceUrl
       }
       postObjectField {
         __typename
@@ -18229,6 +18261,10 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       colorPickerField
       datePickerField
       dateTimePickerField
+      doc {
+        id
+        sourceUrl
+      }
       fieldGroupName
       fileField {
         id
@@ -18346,6 +18382,14 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         title
         url
       }
+      mov {
+        id
+        sourceUrl
+      }
+      mp4 {
+        id
+        sourceUrl
+      }
       oembedField
       pageLinkField {
         __typename
@@ -18379,6 +18423,10 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         ... on BlockEditorPreview {
           id
         }
+      }
+      pdf {
+        id
+        sourceUrl
       }
       postObjectField {
         __typename

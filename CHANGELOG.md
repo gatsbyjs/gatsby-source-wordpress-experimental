@@ -1,5 +1,12 @@
 # Change Log
 
+## 1.5.4
+
+### Bug Fixes
+
+- the `options.type[typename]type.beforeChangeNode` api was not running when creating all nodes, just when updating nodes. This now runs before all node updates (create, update, delete).
+- When replacing images with Gatsby images in html fields, only the first instance of an image was being replaced if there were more than 1 identical HTML <img /> strings.
+
 ## 1.5.3
 
 ### Bug Fixes
