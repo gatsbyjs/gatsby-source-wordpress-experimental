@@ -403,7 +403,9 @@ const replaceNodeHtmlImages = async ({
       // or it's an absolute path
       subMatches[0].includes('src=\\"/wp-content')
 
-    const isInJSON = subMatches[0].includes(`\\/\\/`)
+    // six backslashes means we're looking for three backslashes
+    // since we're looking for JSON encoded strings inside of our JSON encoded string
+    const isInJSON = subMatches[0].includes(`src=\\\\\\"`)
 
     return isHostedInWp && !isInJSON
   })
