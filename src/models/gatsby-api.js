@@ -53,9 +53,9 @@ const defaultPluginOptions = {
     fallbackImageMaxWidth: 100, // @todo this value is too low of a default
     imageQuality: 90,
     //
-    // Transforms anchor links that point to wp-content into local file static links
+    // Transforms anchor links, video src's, and audio src's (that point to wp-content files) into local file static links
     // Also fetches those files if they don't already exist
-    createStaticFileLinks: true,
+    createStaticFiles: true,
   },
   type: {
     __all: {

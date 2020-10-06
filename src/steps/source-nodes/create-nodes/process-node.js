@@ -10,6 +10,7 @@ import url from "url"
 import path from "path"
 import fs from "fs-extra"
 import { supportedExtensions } from "gatsby-transformer-sharp/supported-extensions"
+import replaceAll from "replaceall"
 
 import { formatLogMessage } from "~/utils/format-log-message"
 import createRemoteFileNode from "./create-remote-file-node/index"
@@ -18,6 +19,7 @@ import fetchReferencedMediaItemsAndCreateNodes, {
 } from "../fetch-nodes/fetch-referenced-media-items"
 import btoa from "btoa"
 import store from "~/store"
+import { match } from "assert"
 
 const imgSrcRemoteFileRegex = /(?:src=\\")((?:(?:https?|ftp|file):\/\/|www\.|ftp\.|\/)(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[A-Z0-9+&@#/%=~_|$])\.(?:jpeg|jpg|png|gif|ico|mpg|ogv|svg|bmp|tif|tiff))(?=\\"| |\.)/gim
 
@@ -281,7 +283,7 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
   return htmlMatchesToMediaItemNodesMap
 }
 
-const getCheerioImgFromMatch = (wpUrl) => ({ match }) => {
+const getCheerioElementFromMatch = (wpUrl) => ({ match, tag = `img` }) => {
   // unescape quotes
   const parsedMatch = JSON.parse(`"${match}"`)
 
@@ -299,17 +301,20 @@ const getCheerioImgFromMatch = (wpUrl) => ({ match }) => {
     },
   })
 
-  // there's only ever one image due to our match matching a single img tag
-  // $(`img`) isn't an array, it's an object with a key of 0
-  const cheerioImg = $(`img`)[0]
+  // there's only ever one element due to our match matching a single tag
+  // $(tag) isn't an array, it's an object with a key of 0
+  const cheerioElement = $(tag)[0]
 
-  if (cheerioImg.attribs.src.startsWith(`/wp-content`)) {
-    cheerioImg.attribs.src = `${wpUrl}${cheerioImg.attribs.src}`
+  if (cheerioElement?.attribs?.src?.startsWith(`/wp-content`)) {
+    cheerioElement.attribs.src = `${wpUrl}${cheerioElement.attribs.src}`
   }
 
   return {
     match,
-    cheerioImg,
+    cheerioElement,
+    // @todo this is from when this function was just used for images
+    // remove this by refactoring
+    cheerioImg: cheerioElement,
   }
 }
 
@@ -361,12 +366,62 @@ const findImgTagMaxWidthFromCheerioImg = (cheerioImg) => {
   return null
 }
 
-const getFileNodePublicPath = (fileNode) => {
+const getFileNodeRelativePathname = (fileNode) => {
   const fileName = `${fileNode.internal.contentDigest}/${fileNode.base}`
+
+  return fileName
+}
+
+const getFileNodePublicPath = (fileNode) => {
+  const fileName = getFileNodeRelativePathname(fileNode)
 
   const publicPath = path.join(process.cwd(), `public`, `static`, fileName)
 
   return publicPath
+}
+
+const copyFileToStaticAndReturnUrlPath = async (fileNode, helpers) => {
+  const publicPath = getFileNodePublicPath(fileNode)
+
+  if (!fs.existsSync(publicPath)) {
+    await fs.copy(
+      fileNode.absolutePath,
+      publicPath,
+      { dereference: true },
+      (err) => {
+        if (err) {
+          console.error(
+            `error copying file from ${fileNode.absolutePath} to ${publicPath}`,
+            err
+          )
+        }
+      }
+    )
+  }
+
+  const fileName = getFileNodeRelativePathname(fileNode)
+
+  const relativeUrl = `${helpers.pathPrefix ?? ``}/static/${fileName}`
+
+  return relativeUrl
+}
+
+const filterMatches = (wpUrl) => ({ match }) => {
+  const { hostname: wpHostname } = url.parse(wpUrl)
+
+  // @todo make it a plugin option to fetch non-wp images
+  // here we're filtering out image tags that don't contain our site url
+  const isHostedInWp =
+    // if it has the full WP url
+    match.includes(wpHostname) ||
+    // or it's an absolute path
+    match.includes('src=\\"/wp-content')
+
+  // six backslashes means we're looking for three backslashes
+  // since we're looking for JSON encoded strings inside of our JSON encoded string
+  const isInJSON = match.includes(`src=\\\\\\"`)
+
+  return isHostedInWp && !isInJSON
 }
 
 const replaceNodeHtmlImages = async ({
@@ -380,8 +435,6 @@ const replaceNodeHtmlImages = async ({
   if (!pluginOptions?.html?.useGatsbyImage) {
     return nodeString
   }
-
-  const { hostname: wpHostname } = url.parse(wpUrl)
 
   const imageUrlMatches = execall(imgSrcRemoteFileRegex, nodeString).filter(
     ({ subMatches }) => {
@@ -401,25 +454,11 @@ const replaceNodeHtmlImages = async ({
       .replace(/<pre([\w\W]+?)[\/]?>.*(<\/pre>)/gim, ``)
       // and code tags, so temporarily remove those tags and everything inside them
       .replace(/<code([\w\W]+?)[\/]?>.*(<\/code>)/gim, ``)
-  ).filter(({ match, subMatches }) => {
-    // @todo make it a plugin option to fetch non-wp images
-    // here we're filtering out image tags that don't contain our site url
-    const isHostedInWp =
-      // if it has the full WP url
-      match.includes(wpHostname) ||
-      // or it's an absolute path
-      subMatches[0].includes('src=\\"/wp-content')
-
-    // six backslashes means we're looking for three backslashes
-    // since we're looking for JSON encoded strings inside of our JSON encoded string
-    const isInJSON = subMatches[0].includes(`src=\\\\\\"`)
-
-    return isHostedInWp && !isInJSON
-  })
+  ).filter(filterMatches(wpUrl))
 
   if (imageUrlMatches.length && imgTagMatches.length) {
     const cheerioImages = imgTagMatches
-      .map(getCheerioImgFromMatch(wpUrl))
+      .map(getCheerioElementFromMatch(wpUrl))
       .filter(({ cheerioImg: { attribs } }) => {
         if (!attribs.src) {
           return false
@@ -584,27 +623,10 @@ const replaceNodeHtmlImages = async ({
       } else {
         const { fileNode } = matchResize
 
-        const fileName = `${fileNode.internal.contentDigest}/${fileNode.base}`
-
-        const publicPath = getFileNodePublicPath(fileNode)
-
-        if (!fs.existsSync(publicPath)) {
-          await fs.copy(
-            fileNode.absolutePath,
-            publicPath,
-            { dereference: true },
-            (err) => {
-              if (err) {
-                console.error(
-                  `error copying file from ${fileNode.absolutePath} to ${publicPath}`,
-                  err
-                )
-              }
-            }
-          )
-        }
-
-        const relativeUrl = `${helpers.pathPrefix ?? ``}/static/${fileName}`
+        const relativeUrl = await copyFileToStaticAndReturnUrlPath(
+          fileNode,
+          helpers
+        )
 
         imgOptions.src = relativeUrl
 
@@ -626,24 +648,7 @@ const replaceNodeHtmlImages = async ({
         gatsbyImageStringJSON.length - 1
       )
 
-      nodeString = nodeString.replace(match, gatsbyImageString)
-
-      const jsonStringifiedMatch = JSON.stringify(match)
-      const jsonEscapedMatch = jsonStringifiedMatch.substring(
-        1,
-        jsonStringifiedMatch.length - 1
-      )
-
-      const matchGlobalRegex = new RegExp(jsonEscapedMatch, `gm`)
-
-      const matchInstances = execall(matchGlobalRegex, nodeString)
-
-      if (matchInstances.length) {
-        for (const { match: matchInstance } of matchInstances) {
-          // replace match with react string in nodeString
-          nodeString = nodeString.replace(matchInstance, gatsbyImageString)
-        }
-      }
+      nodeString = replaceAll(match, gatsbyImageString, nodeString)
     }
   }
 
@@ -652,7 +657,6 @@ const replaceNodeHtmlImages = async ({
 
 const replaceFileLinks = async ({
   nodeString,
-  node,
   helpers,
   wpUrl,
   pluginOptions,
@@ -669,9 +673,12 @@ const replaceFileLinks = async ({
   const hrefMatches = execall(hrefMatchRegex, nodeString)
 
   if (hrefMatches.length) {
-    const mediaItemUrls = hrefMatches.map(
-      (href) => `${wpUrl}${href.subMatches[1]}`
-    )
+    const mediaItemUrlsAndMatches = hrefMatches.map((matchGroup) => ({
+      matchGroup,
+      url: `${wpUrl}${matchGroup.subMatches[1]}`,
+    }))
+
+    const mediaItemUrls = mediaItemUrlsAndMatches.map(({ url }) => url)
 
     const mediaItemNodesBySourceUrl = await fetchReferencedMediaItemsAndCreateNodes(
       {
@@ -679,21 +686,118 @@ const replaceFileLinks = async ({
       }
     )
 
-    const findReplaceMap = await Promise.all(
-      mediaItemNodesBySourceUrl.map(async (mediaItemNode) => {
-        const localFileNode = await helpers.getNode(mediaItemNode.localFile.id)
+    const findReplaceMaps = await Promise.all(
+      mediaItemNodesBySourceUrl.map(async (node) => {
+        let localFileNode
+        let mediaItemNode
+
+        if (node.internal.type === `File`) {
+          localFileNode = node
+          mediaItemNode = await helpers.getNode(node.parent)
+        } else if (node.localFile?.id) {
+          localFileNode = await helpers.getNode(node.localFile.id)
+          mediaItemNode = node
+        } else {
+          return null
+        }
 
         const filePath = getFileNodePublicPath(localFileNode)
-
         const [, staticUrl] = filePath.split(`${process.cwd()}/public`)
-        dd(staticUrl)
+
+        const mediaItemMatchGroup = mediaItemUrlsAndMatches.find(
+          ({
+            matchGroup: {
+              subMatches: [, path],
+            },
+          }) => mediaItemNode.mediaItemUrl.includes(path)
+        )?.matchGroup
+
         return {
-          // need to get the hrefMatch above :thinking_face:
-          find: null,
-          replace: staticUrl,
+          find: mediaItemMatchGroup.match,
+          replace: `href=\\"${staticUrl}\\"`,
         }
       })
     )
+
+    for (const { find, replace } of findReplaceMaps.filter(Boolean)) {
+      nodeString = replaceAll(find, replace, nodeString)
+    }
+  }
+
+  return nodeString
+}
+
+const replaceAudioVideoSrcs = async ({
+  nodeString,
+  helpers,
+  wpUrl,
+  pluginOptions,
+}) => {
+  if (!pluginOptions?.html?.createStaticFiles) {
+    return nodeString
+  }
+
+  const videoAudioTagMatches = execall(
+    /<(video|audio)([\w\W]+?)[\/]?>/gim,
+    nodeString
+  )
+
+  if (!videoAudioTagMatches.length) {
+    return nodeString
+  }
+
+  const videoAudioTagMatchesWithVideoSrcs = videoAudioTagMatches
+    .filter(filterMatches(wpUrl))
+    .map((matchGroup) => {
+      const { cheerioElement } = getCheerioElementFromMatch(wpUrl)({
+        match: matchGroup.match,
+        tag: matchGroup.subMatches[0],
+      })
+
+      return {
+        matchGroup,
+        src: cheerioElement.attribs.src,
+      }
+    })
+
+  const videoAudioSrcs = videoAudioTagMatchesWithVideoSrcs.map(({ src }) => src)
+
+  const createdFileNodes = await fetchReferencedMediaItemsAndCreateNodes({
+    mediaItemUrls: videoAudioSrcs,
+  })
+
+  const findersAndReplacers = await Promise.all(
+    createdFileNodes.map(async (node) => {
+      let fileNode
+      let mediaItemNode
+
+      if (node.internal.type === `File`) {
+        fileNode = node
+        mediaItemNode = await helpers.getNode(node.parent)
+      } else if (node?.localFile?.id) {
+        fileNode = await helpers.getNode(node.localFile.id)
+        mediaItemNode = node
+      }
+
+      // determine which match is for this node
+      const relativeUrl = await copyFileToStaticAndReturnUrlPath(
+        fileNode,
+        helpers
+      )
+
+      const src = videoAudioTagMatchesWithVideoSrcs.find(({ src }) =>
+        mediaItemNode.mediaItemUrl.includes(src)
+      )?.src
+
+      return {
+        find: src,
+        replace: relativeUrl,
+      }
+    })
+  )
+
+  for (const { find, replace } of findersAndReplacers) {
+    nodeString = replaceAll(find, replace, nodeString)
   }
 
   return nodeString
@@ -746,6 +850,7 @@ const processNodeString = async ({
     replaceNodeHtmlImages,
     replaceFileLinks,
     replaceNodeHtmlLinks,
+    replaceAudioVideoSrcs,
   ]
 
   for (const nodeStringFilter of nodeStringFilters) {
