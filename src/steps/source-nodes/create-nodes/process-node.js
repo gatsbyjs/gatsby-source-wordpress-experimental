@@ -674,14 +674,14 @@ const replaceFileLinks = async ({
   }
 
   const hrefMatches = execall(
-    /(src=|href=|url)(\\"|\\'|\()([^'")]*)(\/wp-content\/uploads\/[^'">)]+)(\\"|\\'|>|\))/gm,
+    /(\\"|\\'|\()([^'")]*)(\/wp-content\/uploads\/[^'">)]+)(\\"|\\'|>|\))/gm,
     nodeString
   )
 
   if (hrefMatches.length) {
     const mediaItemUrlsAndMatches = hrefMatches.map((matchGroup) => ({
       matchGroup,
-      url: `${wpUrl}${matchGroup.subMatches[3]}`,
+      url: `${wpUrl}${matchGroup.subMatches[2]}`,
     }))
 
     const mediaItemUrls = mediaItemUrlsAndMatches
@@ -719,13 +719,12 @@ const replaceFileLinks = async ({
         const mediaItemMatchGroup = mediaItemUrlsAndMatches.find(
           ({
             matchGroup: {
-              subMatches: [_htmlProperty, _delimiter, _hostname, path],
+              subMatches: [_delimiter, _hostname, path],
             },
           }) => mediaItemNode.mediaItemUrl.includes(path)
         )?.matchGroup
 
         const [
-          _htmlProperty,
           _delimiterOpen,
           hostname,
           path,
