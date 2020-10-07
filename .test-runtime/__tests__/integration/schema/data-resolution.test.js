@@ -16,7 +16,7 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
 
     expect(data[`allWpMediaItem`].nodes).toBeTruthy()
     expect(data[`allWpMediaItem`].nodes).toMatchSnapshot()
-    expect(data[`allWpMediaItem`].totalCount).toBe(47)
+    expect(data[`allWpMediaItem`].totalCount).toBe(49)
 
     expect(data[`allWpTag`].totalCount).toBe(5)
     expect(data[`allWpUser`].totalCount).toBe(1)
