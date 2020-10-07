@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.6.0
+
+### New Features
+
+- A new plugin option `options.html.createStaticFiles` was added. When this is `true`, any url's which are wrapped in "", '', or () and which contain `/wp-content/uploads` will be transformed into static files and the url's will be rewritten. This adds support for <audio>, <video>, and <a> tags which point at WP media item uploads as well as inline-html css like background-image: url(). It will also transform any plain text like "https://yoursite.com/wp-content/uploads/image.png" as long as it's wrapped in "", '', or ().
+
 ## 1.5.4
 
 ### Bug Fixes
