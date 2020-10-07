@@ -91,6 +91,12 @@ module.exports = {
       resolve: require.resolve(`../package.json`),
       options: {
         url: process.env.WPGRAPHQL_URL,
+        auth: {
+          htaccess: {
+            username: `gatsbyinttests`,
+            password: `13a7f30d`,
+          },
+        },
         ...wpPluginOptions,
       },
     },
