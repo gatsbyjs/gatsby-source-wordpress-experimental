@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.6.0
+
+### New Features
+
+- A new plugin option `options.html.createStaticFiles` was added. When this is `true`, any url's which are wrapped in "", '', or () and which contain `/wp-content/uploads` will be transformed into static files and the url's will be rewritten. This adds support for <audio>, <video>, and <a> tags which point at WP media item uploads as well as inline-html css like background-image: url(). It will also transform any plain text like "https://yoursite.com/wp-content/uploads/image.png" as long as it's wrapped in "", '', or ().
+
+### Changes
+
+- Connected media item id's are analyzed in non media item nodes to determine which nodes to fetch. That was previously being done by finding connections that had an `id` and a `sourceUrl` field on the fetched node data. This was switched to use `id` and `__typename` to save bytes across the wire, slightly reduce the number of db lookups that need to be done on the WPGQL side during node sourcing, and prevent the `createStaticFiles` option from detecting and transforming `sourceUrl` fields.
+
 ## 1.5.4
 
 ### Bug Fixes

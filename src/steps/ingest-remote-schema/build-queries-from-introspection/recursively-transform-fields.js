@@ -257,7 +257,7 @@ export function transformField({
   } else if (fieldType.kind === `LIST` && isListOfMediaItems && hasIdField) {
     return {
       fieldName: fieldName,
-      fields: [`id`, `sourceUrl`],
+      fields: [`__typename`, `id`],
       fieldType,
     }
   } else if (fieldType.kind === `LIST`) {
@@ -314,11 +314,11 @@ export function transformField({
 
   const isAMediaItemNode = isAGatsbyNode && typeName === `MediaItem`
 
-  // pull the id and sourceUrl for connections to media item gatsby nodes
+  // pull the id and __typename for connections to media item gatsby nodes
   if (isAMediaItemNode && hasIdField) {
     return {
       fieldName: fieldName,
-      fields: [`id`, `sourceUrl`],
+      fields: [`__typename`, `id`],
       fieldType,
     }
   } else if (isAGatsbyNode && hasIdField) {
