@@ -19,7 +19,6 @@ import fetchReferencedMediaItemsAndCreateNodes, {
 } from "../fetch-nodes/fetch-referenced-media-items"
 import btoa from "btoa"
 import store from "~/store"
-import { match } from "assert"
 
 const imgSrcRemoteFileRegex = /(?:src=\\")((?:(?:https?|ftp|file):\/\/|www\.|ftp\.|\/)(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[A-Z0-9+&@#/%=~_|$])\.(?:jpeg|jpg|png|gif|ico|mpg|ogv|svg|bmp|tif|tiff))(?=\\"| |\.)/gim
 
@@ -117,7 +116,10 @@ const pickNodeBySourceUrlOrCheerioImg = ({
         // at upload time but image urls in html don't have this requirement.
         // the sourceUrl may have -scaled in it but the full size image is still
         // stored on the server (just not in the db)
-        mediaItemNode.sourceUrl.replace(`-scaled`, ``)
+        (mediaItemNode.sourceUrl || mediaItemNode.mediaItemUrl).replace(
+          `-scaled`,
+          ``
+        )
       ) ||
       // or by id for cases where the src url didn't return a node
       (!!cheerioImg && getCheerioImgRelayId(cheerioImg) === mediaItemNode.id)
@@ -267,14 +269,9 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
       }
     }
 
-    if (imageNode) {
-      // save any fetched media items in our global media item cache
-      store.dispatch.imageNodes.pushNodeMeta({
-        sourceUrl: htmlImgSrc,
-        id: imageNode.id,
-        modifiedGmt: imageNode.modifiedGmt,
-      })
+    cacheCreatedFileNodeBySrc({ node: imageNode, src: htmlImgSrc })
 
+    if (imageNode) {
       // match is the html string of the img tag
       htmlMatchesToMediaItemNodesMap.set(match, { imageNode, cheerioImg })
     }
@@ -422,6 +419,17 @@ const filterMatches = (wpUrl) => ({ match }) => {
   const isInJSON = match.includes(`src=\\\\\\"`)
 
   return isHostedInWp && !isInJSON
+}
+
+const cacheCreatedFileNodeBySrc = ({ node, src }) => {
+  if (node) {
+    // save any fetched media items in our global media item cache
+    store.dispatch.imageNodes.pushNodeMeta({
+      sourceUrl: src,
+      id: node.id,
+      modifiedGmt: node.modifiedGmt,
+    })
+  }
 }
 
 const replaceNodeHtmlImages = async ({
@@ -665,20 +673,20 @@ const replaceFileLinks = async ({
     return nodeString
   }
 
-  const hrefMatchRegex = new RegExp(
-    `href=\\\\["'](${wpUrl})(\/wp-content\/[^'"]+)\\\\["']`,
-    `gm`
+  const hrefMatches = execall(
+    /(src=|href=|url)(\\"|\\'|\()([^'")]*)(\/wp-content\/uploads\/[^'">)]+)(\\"|\\'|>|\))/gm,
+    nodeString
   )
-
-  const hrefMatches = execall(hrefMatchRegex, nodeString)
 
   if (hrefMatches.length) {
     const mediaItemUrlsAndMatches = hrefMatches.map((matchGroup) => ({
       matchGroup,
-      url: `${wpUrl}${matchGroup.subMatches[1]}`,
+      url: `${wpUrl}${matchGroup.subMatches[3]}`,
     }))
 
-    const mediaItemUrls = mediaItemUrlsAndMatches.map(({ url }) => url)
+    const mediaItemUrls = mediaItemUrlsAndMatches
+      .map(({ url }) => url)
+      .filter(isWebUri)
 
     const mediaItemNodesBySourceUrl = await fetchReferencedMediaItemsAndCreateNodes(
       {
@@ -688,33 +696,48 @@ const replaceFileLinks = async ({
 
     const findReplaceMaps = await Promise.all(
       mediaItemNodesBySourceUrl.map(async (node) => {
-        let localFileNode
+        let fileNode
         let mediaItemNode
 
         if (node.internal.type === `File`) {
-          localFileNode = node
+          fileNode = node
           mediaItemNode = await helpers.getNode(node.parent)
         } else if (node.localFile?.id) {
-          localFileNode = await helpers.getNode(node.localFile.id)
+          fileNode = await helpers.getNode(node.localFile.id)
           mediaItemNode = node
         } else {
           return null
         }
 
-        const filePath = getFileNodePublicPath(localFileNode)
-        const [, staticUrl] = filePath.split(`${process.cwd()}/public`)
+        const relativeUrl = await copyFileToStaticAndReturnUrlPath(
+          fileNode,
+          helpers
+        )
 
         const mediaItemMatchGroup = mediaItemUrlsAndMatches.find(
           ({
             matchGroup: {
-              subMatches: [, path],
+              subMatches: [_htmlProperty, _delimiter, _hostname, path],
             },
           }) => mediaItemNode.mediaItemUrl.includes(path)
         )?.matchGroup
 
+        const [
+          _htmlProperty,
+          _delimiterOpen,
+          hostname,
+          path,
+          _delimiterClose,
+        ] = mediaItemMatchGroup.subMatches
+
+        cacheCreatedFileNodeBySrc({
+          node: mediaItemNode,
+          src: `${wpUrl}${path}`,
+        })
+
         return {
-          find: mediaItemMatchGroup.match,
-          replace: `href=\\"${staticUrl}\\"`,
+          find: `${hostname || ``}${path}`,
+          replace: relativeUrl,
         }
       })
     )
@@ -722,82 +745,6 @@ const replaceFileLinks = async ({
     for (const { find, replace } of findReplaceMaps.filter(Boolean)) {
       nodeString = replaceAll(find, replace, nodeString)
     }
-  }
-
-  return nodeString
-}
-
-const replaceAudioVideoSrcs = async ({
-  nodeString,
-  helpers,
-  wpUrl,
-  pluginOptions,
-}) => {
-  if (!pluginOptions?.html?.createStaticFiles) {
-    return nodeString
-  }
-
-  const videoAudioTagMatches = execall(
-    /<(video|audio)([\w\W]+?)[\/]?>/gim,
-    nodeString
-  )
-
-  if (!videoAudioTagMatches.length) {
-    return nodeString
-  }
-
-  const videoAudioTagMatchesWithVideoSrcs = videoAudioTagMatches
-    .filter(filterMatches(wpUrl))
-    .map((matchGroup) => {
-      const { cheerioElement } = getCheerioElementFromMatch(wpUrl)({
-        match: matchGroup.match,
-        tag: matchGroup.subMatches[0],
-      })
-
-      return {
-        matchGroup,
-        src: cheerioElement.attribs.src,
-      }
-    })
-
-  const videoAudioSrcs = videoAudioTagMatchesWithVideoSrcs.map(({ src }) => src)
-
-  const createdFileNodes = await fetchReferencedMediaItemsAndCreateNodes({
-    mediaItemUrls: videoAudioSrcs,
-  })
-
-  const findersAndReplacers = await Promise.all(
-    createdFileNodes.map(async (node) => {
-      let fileNode
-      let mediaItemNode
-
-      if (node.internal.type === `File`) {
-        fileNode = node
-        mediaItemNode = await helpers.getNode(node.parent)
-      } else if (node?.localFile?.id) {
-        fileNode = await helpers.getNode(node.localFile.id)
-        mediaItemNode = node
-      }
-
-      // determine which match is for this node
-      const relativeUrl = await copyFileToStaticAndReturnUrlPath(
-        fileNode,
-        helpers
-      )
-
-      const src = videoAudioTagMatchesWithVideoSrcs.find(({ src }) =>
-        mediaItemNode.mediaItemUrl.includes(src)
-      )?.src
-
-      return {
-        find: src,
-        replace: relativeUrl,
-      }
-    })
-  )
-
-  for (const { find, replace } of findersAndReplacers) {
-    nodeString = replaceAll(find, replace, nodeString)
   }
 
   return nodeString
@@ -850,7 +797,6 @@ const processNodeString = async ({
     replaceNodeHtmlImages,
     replaceFileLinks,
     replaceNodeHtmlLinks,
-    replaceAudioVideoSrcs,
   ]
 
   for (const nodeStringFilter of nodeStringFilters) {

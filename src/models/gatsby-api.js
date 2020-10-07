@@ -55,7 +55,7 @@ const defaultPluginOptions = {
     //
     // Transforms anchor links, video src's, and audio src's (that point to wp-content files) into local file static links
     // Also fetches those files if they don't already exist
-    createStaticFiles: true,
+    createStaticFileLinks: true,
   },
   type: {
     __all: {
