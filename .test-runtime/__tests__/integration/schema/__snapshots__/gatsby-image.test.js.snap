@@ -292,7 +292,7 @@ exports[`[gatsby-source-wordpress-experimental] Gatsby image processing transfor
 
 
 
-<div class=\\"wp-block-cover has-background-dim\\" style=\\"background-image:url(https://chrisrunnells.files.wordpress.com/2018/10/manuel-will-156344-unsplash.jpg)\\"><div class=\\"wp-block-cover__inner-container\\">
+<div class=\\"wp-block-cover has-background-dim\\" style=\\"/static/e5955bc79cda130173fdd04cfa193c9b/Screen-Shot-2020-07-30-at-1.34.09-PM.png);background-position:4% 50%\\"><div class=\\"wp-block-cover__inner-container\\">
 <p class=\\"has-text-align-center has-large-font-size\\">This is a cover image block.</p>
 </div></div>
 
@@ -302,7 +302,7 @@ exports[`[gatsby-source-wordpress-experimental] Gatsby image processing transfor
 
 
 
-<div class=\\"wp-block-file\\"><a href=\\"https://gatsbyinttests.wpengine.com/wp-content/uploads/2018/10/wordpress-logotype-standard.pdf\\">WordPress-logotype-standard</a><a href=\\"https://gatsbyinttests.wpengine.com/wp-content/uploads/2018/10/wordpress-logotype-standard.pdf\\" class=\\"wp-block-file__button\\">Download</a></div>
+<div class=\\"wp-block-file\\"><a href=\\"/static/38723a064a28fee758538b332aa67b70/wordpress-logotype-standard.pdf\\">WordPress-logotype-standard</a><a href=\\"/static/38723a064a28fee758538b332aa67b70/wordpress-logotype-standard.pdf\\" class=\\"wp-block-file__button\\">Download</a></div>
 
 
 
