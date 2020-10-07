@@ -284,7 +284,7 @@ exports[`[gatsby-source-wordpress-experimental] Gatsby image processing transfor
 
 
 
-<figure class=\\"wp-block-audio\\"><audio controls src=\\"https://chrisrunnells.files.wordpress.com/2018/10/mattmullenweg-interview.mp3\\"></audio><figcaption>Tom Raftery interviews Matt Mullenweg and Donncha Ó Caoimh</figcaption></figure>
+<figure class=\\"wp-block-audio\\"><audio controls src=\\"/static/90ef3eae2c87873f1e7d071de310ccf5/mattmullenweg-interview.mp3\\"></audio><figcaption>Tom Raftery interviews Matt Mullenweg and Donncha Ó Caoimh</figcaption></figure>
 
 
 
@@ -310,7 +310,7 @@ exports[`[gatsby-source-wordpress-experimental] Gatsby image processing transfor
 
 
 
-<figure class=\\"wp-block-video\\"><video autoplay controls loop src=\\"https://chrisrunnells.files.wordpress.com/2018/10/giphy.mp4\\"></video><figcaption>Now that’s a fun animation!</figcaption></figure>
+<figure class=\\"wp-block-video\\"><video autoplay controls loop src=\\"/static/156c6eb735776a69677e0f58d7b5c634/giphy.mp4\\"></video><figcaption>Now that’s a fun animation!</figcaption></figure>
 "
 `;
 
