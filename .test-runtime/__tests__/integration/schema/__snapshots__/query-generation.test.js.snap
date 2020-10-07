@@ -131,8 +131,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         opengraphAuthor
         opengraphDescription
         opengraphImage {
+          __typename
           id
-          sourceUrl
         }
         opengraphModifiedTime
         opengraphPublishedTime
@@ -144,8 +144,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         title
         twitterDescription
         twitterImage {
+          __typename
           id
-          sourceUrl
         }
         twitterTitle
       }
@@ -2889,8 +2889,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -2902,8 +2902,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -5642,8 +5642,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -5655,8 +5655,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -8318,8 +8318,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         opengraphAuthor
         opengraphDescription
         opengraphImage {
+          __typename
           id
-          sourceUrl
         }
         opengraphModifiedTime
         opengraphPublishedTime
@@ -8331,8 +8331,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         title
         twitterDescription
         twitterImage {
+          __typename
           id
-          sourceUrl
         }
         twitterTitle
       }
@@ -8416,8 +8416,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -8429,8 +8429,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -8509,8 +8509,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -8522,8 +8522,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -9500,8 +9500,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         opengraphAuthor
         opengraphDescription
         opengraphImage {
+          __typename
           id
-          sourceUrl
         }
         opengraphModifiedTime
         opengraphPublishedTime
@@ -9513,8 +9513,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         title
         twitterDescription
         twitterImage {
+          __typename
           id
-          sourceUrl
         }
         twitterTitle
       }
@@ -9536,8 +9536,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
       title
       translations {
+        __typename
         id
-        sourceUrl
       }
       uri
       __typename
@@ -9663,8 +9663,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -9676,8 +9676,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -9699,8 +9699,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     title
     translations {
+      __typename
       id
-      sourceUrl
     }
     uri
     __typename
@@ -9821,8 +9821,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -9834,8 +9834,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -9857,8 +9857,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     title
     translations {
+      __typename
       id
-      sourceUrl
     }
     uri
     __typename
@@ -10270,8 +10270,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
             height
             id
             image {
+              __typename
               id
-              sourceUrl
             }
             length
             manageStock
@@ -10647,8 +10647,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
           height
           id
           image {
+            __typename
             id
-            sourceUrl
           }
           length
           manageStock
@@ -11019,8 +11019,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
           height
           id
           image {
+            __typename
             id
-            sourceUrl
           }
           length
           manageStock
@@ -11208,8 +11208,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         opengraphAuthor
         opengraphDescription
         opengraphImage {
+          __typename
           id
-          sourceUrl
         }
         opengraphModifiedTime
         opengraphPublishedTime
@@ -11221,8 +11221,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         title
         twitterDescription
         twitterImage {
+          __typename
           id
-          sourceUrl
         }
         twitterTitle
       }
@@ -11274,8 +11274,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
           height
           id
           image {
+            __typename
             id
-            sourceUrl
           }
           length
           manageStock
@@ -11360,8 +11360,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -11373,8 +11373,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -11426,8 +11426,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         height
         id
         image {
+          __typename
           id
-          sourceUrl
         }
         length
         manageStock
@@ -11507,8 +11507,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -11520,8 +11520,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -11573,8 +11573,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         height
         id
         image {
+          __typename
           id
-          sourceUrl
         }
         length
         manageStock
@@ -11655,8 +11655,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         opengraphAuthor
         opengraphDescription
         opengraphImage {
+          __typename
           id
-          sourceUrl
         }
         opengraphModifiedTime
         opengraphPublishedTime
@@ -11668,8 +11668,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         title
         twitterDescription
         twitterImage {
+          __typename
           id
-          sourceUrl
         }
         twitterTitle
       }
@@ -11721,8 +11721,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
           height
           id
           image {
+            __typename
             id
-            sourceUrl
           }
           length
           manageStock
@@ -11807,8 +11807,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -11820,8 +11820,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -11873,8 +11873,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         height
         id
         image {
+          __typename
           id
-          sourceUrl
         }
         length
         manageStock
@@ -11954,8 +11954,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -11967,8 +11967,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -12020,8 +12020,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         height
         id
         image {
+          __typename
           id
-          sourceUrl
         }
         length
         manageStock
@@ -12083,21 +12083,21 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         datePickerField
         dateTimePickerField
         doc {
+          __typename
           id
-          sourceUrl
         }
         fieldGroupName
         fileField {
+          __typename
           id
-          sourceUrl
         }
         flexibleContentField {
           __typename
           ... on Page_Acfpagefields_FlexibleContentField_FlexLayout1 {
             fieldGroupName
             flexImage {
+              __typename
               id
-              sourceUrl
             }
             flexRelationship {
               __typename
@@ -12173,8 +12173,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
           }
         }
         galleryField {
+          __typename
           id
-          sourceUrl
         }
         googleMapField {
           city
@@ -12195,8 +12195,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
           fieldGroupName
         }
         imageField {
+          __typename
           id
-          sourceUrl
         }
         linkField {
           target
@@ -12204,12 +12204,12 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
           url
         }
         mov {
+          __typename
           id
-          sourceUrl
         }
         mp4 {
+          __typename
           id
-          sourceUrl
         }
         oembedField
         pageLinkField {
@@ -12246,8 +12246,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
           }
         }
         pdf {
+          __typename
           id
-          sourceUrl
         }
         postObjectField {
           __typename
@@ -12464,8 +12464,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       desiredSlug
       featuredImage {
         node {
+          __typename
           id
-          sourceUrl
         }
       }
       featuredImageDatabaseId
@@ -12534,8 +12534,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         opengraphAuthor
         opengraphDescription
         opengraphImage {
+          __typename
           id
-          sourceUrl
         }
         opengraphModifiedTime
         opengraphPublishedTime
@@ -12547,8 +12547,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         title
         twitterDescription
         twitterImage {
+          __typename
           id
-          sourceUrl
         }
         twitterTitle
       }
@@ -15175,21 +15175,21 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       datePickerField
       dateTimePickerField
       doc {
+        __typename
         id
-        sourceUrl
       }
       fieldGroupName
       fileField {
+        __typename
         id
-        sourceUrl
       }
       flexibleContentField {
         __typename
         ... on Page_Acfpagefields_FlexibleContentField_FlexLayout1 {
           fieldGroupName
           flexImage {
+            __typename
             id
-            sourceUrl
           }
           flexRelationship {
             __typename
@@ -15265,8 +15265,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         }
       }
       galleryField {
+        __typename
         id
-        sourceUrl
       }
       googleMapField {
         city
@@ -15287,8 +15287,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         fieldGroupName
       }
       imageField {
+        __typename
         id
-        sourceUrl
       }
       linkField {
         target
@@ -15296,12 +15296,12 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         url
       }
       mov {
+        __typename
         id
-        sourceUrl
       }
       mp4 {
+        __typename
         id
-        sourceUrl
       }
       oembedField
       pageLinkField {
@@ -15338,8 +15338,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         }
       }
       pdf {
+        __typename
         id
-        sourceUrl
       }
       postObjectField {
         __typename
@@ -15556,8 +15556,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     desiredSlug
     featuredImage {
       node {
+        __typename
         id
-        sourceUrl
       }
     }
     featuredImageDatabaseId
@@ -15626,8 +15626,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -15639,8 +15639,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -18262,21 +18262,21 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       datePickerField
       dateTimePickerField
       doc {
+        __typename
         id
-        sourceUrl
       }
       fieldGroupName
       fileField {
+        __typename
         id
-        sourceUrl
       }
       flexibleContentField {
         __typename
         ... on Page_Acfpagefields_FlexibleContentField_FlexLayout1 {
           fieldGroupName
           flexImage {
+            __typename
             id
-            sourceUrl
           }
           flexRelationship {
             __typename
@@ -18352,8 +18352,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         }
       }
       galleryField {
+        __typename
         id
-        sourceUrl
       }
       googleMapField {
         city
@@ -18374,8 +18374,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         fieldGroupName
       }
       imageField {
+        __typename
         id
-        sourceUrl
       }
       linkField {
         target
@@ -18383,12 +18383,12 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         url
       }
       mov {
+        __typename
         id
-        sourceUrl
       }
       mp4 {
+        __typename
         id
-        sourceUrl
       }
       oembedField
       pageLinkField {
@@ -18425,8 +18425,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         }
       }
       pdf {
+        __typename
         id
-        sourceUrl
       }
       postObjectField {
         __typename
@@ -18643,8 +18643,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     desiredSlug
     featuredImage {
       node {
+        __typename
         id
-        sourceUrl
       }
     }
     featuredImageDatabaseId
@@ -18713,8 +18713,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -18726,8 +18726,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -21396,8 +21396,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       excerpt
       featuredImage {
         node {
+          __typename
           id
-          sourceUrl
         }
       }
       featuredImageDatabaseId
@@ -21462,8 +21462,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         opengraphAuthor
         opengraphDescription
         opengraphImage {
+          __typename
           id
-          sourceUrl
         }
         opengraphModifiedTime
         opengraphPublishedTime
@@ -21475,8 +21475,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         title
         twitterDescription
         twitterImage {
+          __typename
           id
-          sourceUrl
         }
         twitterTitle
       }
@@ -24155,8 +24155,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     excerpt
     featuredImage {
       node {
+        __typename
         id
-        sourceUrl
       }
     }
     featuredImageDatabaseId
@@ -24221,8 +24221,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -24234,8 +24234,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -26909,8 +26909,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     excerpt
     featuredImage {
       node {
+        __typename
         id
-        sourceUrl
       }
     }
     featuredImageDatabaseId
@@ -26975,8 +26975,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -26988,8 +26988,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -29636,8 +29636,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         opengraphAuthor
         opengraphDescription
         opengraphImage {
+          __typename
           id
-          sourceUrl
         }
         opengraphModifiedTime
         opengraphPublishedTime
@@ -29649,8 +29649,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         title
         twitterDescription
         twitterImage {
+          __typename
           id
-          sourceUrl
         }
         twitterTitle
       }
@@ -29707,8 +29707,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -29720,8 +29720,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -29773,8 +29773,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -29786,8 +29786,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -29889,8 +29889,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
             height
             id
             image {
+              __typename
               id
-              sourceUrl
             }
             length
             manageStock
@@ -30072,8 +30072,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       featured
       galleryImages(first: 100) {
         nodes {
+          __typename
           id
-          sourceUrl
         }
       }
       globalAttributes(first: 100) {
@@ -30096,8 +30096,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       }
       id
       image {
+        __typename
         id
-        sourceUrl
       }
       link
       localAttributes(first: 100) {
@@ -30176,8 +30176,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         opengraphAuthor
         opengraphDescription
         opengraphImage {
+          __typename
           id
-          sourceUrl
         }
         opengraphModifiedTime
         opengraphPublishedTime
@@ -30189,8 +30189,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         title
         twitterDescription
         twitterImage {
+          __typename
           id
-          sourceUrl
         }
         twitterTitle
       }
@@ -30276,8 +30276,8 @@ fragment VariableProductFragment on VariableProduct {
   featured
   galleryImages(first: 100) {
     nodes {
+      __typename
       id
-      sourceUrl
     }
   }
   globalAttributes(first: 100) {
@@ -30301,8 +30301,8 @@ fragment VariableProductFragment on VariableProduct {
   height
   id
   image {
+    __typename
     id
-    sourceUrl
   }
   length
   link
@@ -30391,8 +30391,8 @@ fragment VariableProductFragment on VariableProduct {
     opengraphAuthor
     opengraphDescription
     opengraphImage {
+      __typename
       id
-      sourceUrl
     }
     opengraphModifiedTime
     opengraphPublishedTime
@@ -30404,8 +30404,8 @@ fragment VariableProductFragment on VariableProduct {
     title
     twitterDescription
     twitterImage {
+      __typename
       id
-      sourceUrl
     }
     twitterTitle
   }
@@ -30521,8 +30521,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
           height
           id
           image {
+            __typename
             id
-            sourceUrl
           }
           length
           manageStock
@@ -30704,8 +30704,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     featured
     galleryImages(first: 100) {
       nodes {
+        __typename
         id
-        sourceUrl
       }
     }
     globalAttributes(first: 100) {
@@ -30728,8 +30728,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     id
     image {
+      __typename
       id
-      sourceUrl
     }
     link
     localAttributes(first: 100) {
@@ -30808,8 +30808,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -30821,8 +30821,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -30903,8 +30903,8 @@ fragment VariableProductFragment on VariableProduct {
   featured
   galleryImages(first: 100) {
     nodes {
+      __typename
       id
-      sourceUrl
     }
   }
   globalAttributes(first: 100) {
@@ -30928,8 +30928,8 @@ fragment VariableProductFragment on VariableProduct {
   height
   id
   image {
+    __typename
     id
-    sourceUrl
   }
   length
   link
@@ -31018,8 +31018,8 @@ fragment VariableProductFragment on VariableProduct {
     opengraphAuthor
     opengraphDescription
     opengraphImage {
+      __typename
       id
-      sourceUrl
     }
     opengraphModifiedTime
     opengraphPublishedTime
@@ -31031,8 +31031,8 @@ fragment VariableProductFragment on VariableProduct {
     title
     twitterDescription
     twitterImage {
+      __typename
       id
-      sourceUrl
     }
     twitterTitle
   }
@@ -31148,8 +31148,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
           height
           id
           image {
+            __typename
             id
-            sourceUrl
           }
           length
           manageStock
@@ -31331,8 +31331,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     featured
     galleryImages(first: 100) {
       nodes {
+        __typename
         id
-        sourceUrl
       }
     }
     globalAttributes(first: 100) {
@@ -31355,8 +31355,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     }
     id
     image {
+      __typename
       id
-      sourceUrl
     }
     link
     localAttributes(first: 100) {
@@ -31435,8 +31435,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -31448,8 +31448,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -31530,8 +31530,8 @@ fragment VariableProductFragment on VariableProduct {
   featured
   galleryImages(first: 100) {
     nodes {
+      __typename
       id
-      sourceUrl
     }
   }
   globalAttributes(first: 100) {
@@ -31555,8 +31555,8 @@ fragment VariableProductFragment on VariableProduct {
   height
   id
   image {
+    __typename
     id
-    sourceUrl
   }
   length
   link
@@ -31645,8 +31645,8 @@ fragment VariableProductFragment on VariableProduct {
     opengraphAuthor
     opengraphDescription
     opengraphImage {
+      __typename
       id
-      sourceUrl
     }
     opengraphModifiedTime
     opengraphPublishedTime
@@ -31658,8 +31658,8 @@ fragment VariableProductFragment on VariableProduct {
     title
     twitterDescription
     twitterImage {
+      __typename
       id
-      sourceUrl
     }
     twitterTitle
   }
@@ -31717,8 +31717,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       description
       id
       image {
+        __typename
         id
-        sourceUrl
       }
       link
       name
@@ -31749,8 +31749,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         opengraphAuthor
         opengraphDescription
         opengraphImage {
+          __typename
           id
-          sourceUrl
         }
         opengraphModifiedTime
         opengraphPublishedTime
@@ -31762,8 +31762,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         title
         twitterDescription
         twitterImage {
+          __typename
           id
-          sourceUrl
         }
         twitterTitle
       }
@@ -31805,8 +31805,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     description
     id
     image {
+      __typename
       id
-      sourceUrl
     }
     link
     name
@@ -31837,8 +31837,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -31850,8 +31850,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -31888,8 +31888,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     description
     id
     image {
+      __typename
       id
-      sourceUrl
     }
     link
     name
@@ -31920,8 +31920,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -31933,8 +31933,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -31983,8 +31983,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         opengraphAuthor
         opengraphDescription
         opengraphImage {
+          __typename
           id
-          sourceUrl
         }
         opengraphModifiedTime
         opengraphPublishedTime
@@ -31996,8 +31996,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         title
         twitterDescription
         twitterImage {
+          __typename
           id
-          sourceUrl
         }
         twitterTitle
       }
@@ -32050,8 +32050,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -32063,8 +32063,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -32112,8 +32112,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -32125,8 +32125,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -32169,8 +32169,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         opengraphAuthor
         opengraphDescription
         opengraphImage {
+          __typename
           id
-          sourceUrl
         }
         opengraphModifiedTime
         opengraphPublishedTime
@@ -32182,8 +32182,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         title
         twitterDescription
         twitterImage {
+          __typename
           id
-          sourceUrl
         }
         twitterTitle
       }
@@ -32230,8 +32230,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -32243,8 +32243,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -32286,8 +32286,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -32299,8 +32299,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -32326,8 +32326,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       acfProject {
         fieldGroupName
         image {
+          __typename
           id
-          sourceUrl
         }
         projectUrl {
           target
@@ -32376,8 +32376,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       enclosure
       featuredImage {
         node {
+          __typename
           id
-          sourceUrl
         }
       }
       featuredImageDatabaseId
@@ -32427,8 +32427,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         opengraphAuthor
         opengraphDescription
         opengraphImage {
+          __typename
           id
-          sourceUrl
         }
         opengraphModifiedTime
         opengraphPublishedTime
@@ -32440,8 +32440,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         title
         twitterDescription
         twitterImage {
+          __typename
           id
-          sourceUrl
         }
         twitterTitle
       }
@@ -35061,8 +35061,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     acfProject {
       fieldGroupName
       image {
+        __typename
         id
-        sourceUrl
       }
       projectUrl {
         target
@@ -35111,8 +35111,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     enclosure
     featuredImage {
       node {
+        __typename
         id
-        sourceUrl
       }
     }
     featuredImageDatabaseId
@@ -35162,8 +35162,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -35175,8 +35175,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -37791,8 +37791,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     acfProject {
       fieldGroupName
       image {
+        __typename
         id
-        sourceUrl
       }
       projectUrl {
         target
@@ -37841,8 +37841,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     enclosure
     featuredImage {
       node {
+        __typename
         id
-        sourceUrl
       }
     }
     featuredImageDatabaseId
@@ -37892,8 +37892,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -37905,8 +37905,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -40618,8 +40618,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
             height
             id
             image {
+              __typename
               id
-              sourceUrl
             }
             length
             manageStock
@@ -40790,8 +40790,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
           height
           id
           image {
+            __typename
             id
-            sourceUrl
           }
           length
           manageStock
@@ -40957,8 +40957,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
           height
           id
           image {
+            __typename
             id
-            sourceUrl
           }
           length
           manageStock
@@ -41110,8 +41110,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         opengraphAuthor
         opengraphDescription
         opengraphImage {
+          __typename
           id
-          sourceUrl
         }
         opengraphModifiedTime
         opengraphPublishedTime
@@ -41123,8 +41123,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         title
         twitterDescription
         twitterImage {
+          __typename
           id
-          sourceUrl
         }
         twitterTitle
       }
@@ -43828,8 +43828,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -43841,8 +43841,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -46541,8 +46541,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -46554,8 +46554,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -49268,8 +49268,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
           id
 
           image {
+            __typename
             id
-            sourceUrl
           }
 
           length
@@ -49406,16 +49406,16 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
     openGraph {
       defaultImage {
+        __typename
         id
-        sourceUrl
       }
 
       frontPage {
         description
 
         image {
+          __typename
           id
-          sourceUrl
         }
 
         title
@@ -49431,8 +49431,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
     schema {
       companyLogo {
+        __typename
         id
-        sourceUrl
       }
 
       companyName
@@ -49440,13 +49440,13 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       inLanguage
 
       logo {
+        __typename
         id
-        sourceUrl
       }
 
       personLogo {
+        __typename
         id
-        sourceUrl
       }
 
       siteName
@@ -49457,8 +49457,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     social {
       facebook {
         defaultImage {
+          __typename
           id
-          sourceUrl
         }
 
         url
@@ -49540,8 +49540,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         opengraphAuthor
         opengraphDescription
         opengraphImage {
+          __typename
           id
-          sourceUrl
         }
         opengraphModifiedTime
         opengraphPublishedTime
@@ -49553,8 +49553,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         title
         twitterDescription
         twitterImage {
+          __typename
           id
-          sourceUrl
         }
         twitterTitle
       }
@@ -49601,8 +49601,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -49614,8 +49614,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -49657,8 +49657,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -49670,8 +49670,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -49771,8 +49771,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         opengraphAuthor
         opengraphDescription
         opengraphImage {
+          __typename
           id
-          sourceUrl
         }
         opengraphModifiedTime
         opengraphPublishedTime
@@ -49784,8 +49784,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         title
         twitterDescription
         twitterImage {
+          __typename
           id
-          sourceUrl
         }
         twitterTitle
       }
@@ -49852,8 +49852,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -49865,8 +49865,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -49928,8 +49928,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -49941,8 +49941,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -50154,8 +50154,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         fieldGroupName
         name
         portrait {
+          __typename
           id
-          sourceUrl
         }
         projects {
           __typename
@@ -50228,8 +50228,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       excerpt
       featuredImage {
         node {
+          __typename
           id
-          sourceUrl
         }
       }
       featuredImageDatabaseId
@@ -50288,8 +50288,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         opengraphAuthor
         opengraphDescription
         opengraphImage {
+          __typename
           id
-          sourceUrl
         }
         opengraphModifiedTime
         opengraphPublishedTime
@@ -50301,8 +50301,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         title
         twitterDescription
         twitterImage {
+          __typename
           id
-          sourceUrl
         }
         twitterTitle
       }
@@ -52929,8 +52929,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       fieldGroupName
       name
       portrait {
+        __typename
         id
-        sourceUrl
       }
       projects {
         __typename
@@ -53003,8 +53003,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     excerpt
     featuredImage {
       node {
+        __typename
         id
-        sourceUrl
       }
     }
     featuredImageDatabaseId
@@ -53063,8 +53063,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -53076,8 +53076,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -55699,8 +55699,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       fieldGroupName
       name
       portrait {
+        __typename
         id
-        sourceUrl
       }
       projects {
         __typename
@@ -55773,8 +55773,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     excerpt
     featuredImage {
       node {
+        __typename
         id
-        sourceUrl
       }
     }
     featuredImageDatabaseId
@@ -55833,8 +55833,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -55846,8 +55846,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -58511,8 +58511,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       enclosure
       featuredImage {
         node {
+          __typename
           id
-          sourceUrl
         }
       }
       featuredImageDatabaseId
@@ -58569,8 +58569,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         opengraphAuthor
         opengraphDescription
         opengraphImage {
+          __typename
           id
-          sourceUrl
         }
         opengraphModifiedTime
         opengraphPublishedTime
@@ -58582,8 +58582,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         title
         twitterDescription
         twitterImage {
+          __typename
           id
-          sourceUrl
         }
         twitterTitle
       }
@@ -61244,8 +61244,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     enclosure
     featuredImage {
       node {
+        __typename
         id
-        sourceUrl
       }
     }
     featuredImageDatabaseId
@@ -61302,8 +61302,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -61315,8 +61315,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -63972,8 +63972,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     enclosure
     featuredImage {
       node {
+        __typename
         id
-        sourceUrl
       }
     }
     featuredImageDatabaseId
@@ -64030,8 +64030,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -64043,8 +64043,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -66701,8 +66701,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       enclosure
       featuredImage {
         node {
+          __typename
           id
-          sourceUrl
         }
       }
       featuredImageDatabaseId
@@ -66752,8 +66752,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         opengraphAuthor
         opengraphDescription
         opengraphImage {
+          __typename
           id
-          sourceUrl
         }
         opengraphModifiedTime
         opengraphPublishedTime
@@ -66765,8 +66765,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         title
         twitterDescription
         twitterImage {
+          __typename
           id
-          sourceUrl
         }
         twitterTitle
       }
@@ -69424,8 +69424,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     enclosure
     featuredImage {
       node {
+        __typename
         id
-        sourceUrl
       }
     }
     featuredImageDatabaseId
@@ -69475,8 +69475,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -69488,8 +69488,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -72142,8 +72142,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     enclosure
     featuredImage {
       node {
+        __typename
         id
-        sourceUrl
       }
     }
     featuredImageDatabaseId
@@ -72193,8 +72193,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -72206,8 +72206,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -74861,8 +74861,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       enclosure
       featuredImage {
         node {
+          __typename
           id
-          sourceUrl
         }
       }
       featuredImageDatabaseId
@@ -74912,8 +74912,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         opengraphAuthor
         opengraphDescription
         opengraphImage {
+          __typename
           id
-          sourceUrl
         }
         opengraphModifiedTime
         opengraphPublishedTime
@@ -74925,8 +74925,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         title
         twitterDescription
         twitterImage {
+          __typename
           id
-          sourceUrl
         }
         twitterTitle
       }
@@ -77584,8 +77584,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     enclosure
     featuredImage {
       node {
+        __typename
         id
-        sourceUrl
       }
     }
     featuredImageDatabaseId
@@ -77635,8 +77635,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -77648,8 +77648,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -80302,8 +80302,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     enclosure
     featuredImage {
       node {
+        __typename
         id
-        sourceUrl
       }
     }
     featuredImageDatabaseId
@@ -80353,8 +80353,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -80366,8 +80366,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -83357,8 +83357,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         opengraphAuthor
         opengraphDescription
         opengraphImage {
+          __typename
           id
-          sourceUrl
         }
         opengraphModifiedTime
         opengraphPublishedTime
@@ -83370,8 +83370,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         title
         twitterDescription
         twitterImage {
+          __typename
           id
-          sourceUrl
         }
         twitterTitle
       }
@@ -83418,8 +83418,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -83431,8 +83431,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
@@ -83474,8 +83474,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       opengraphAuthor
       opengraphDescription
       opengraphImage {
+        __typename
         id
-        sourceUrl
       }
       opengraphModifiedTime
       opengraphPublishedTime
@@ -83487,8 +83487,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       title
       twitterDescription
       twitterImage {
+        __typename
         id
-        sourceUrl
       }
       twitterTitle
     }
