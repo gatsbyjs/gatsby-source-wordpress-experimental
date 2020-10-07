@@ -694,7 +694,9 @@ const replaceFileLinks = async ({
       }
     )
 
-    const findReplaceMaps = await Promise.all(
+    const findReplaceMaps = []
+
+    await Promise.all(
       mediaItemNodesBySourceUrl.map(async (node) => {
         let fileNode
         let mediaItemNode
@@ -735,10 +737,15 @@ const replaceFileLinks = async ({
           src: `${wpUrl}${path}`,
         })
 
-        return {
+        findReplaceMaps.push({
           find: `${hostname || ``}${path}`,
           replace: relativeUrl,
-        }
+        })
+
+        findReplaceMaps.push({
+          find: path,
+          replace: relativeUrl,
+        })
       })
     )
 
