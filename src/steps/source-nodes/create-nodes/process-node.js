@@ -39,7 +39,10 @@ const findReferencedImageNodeIds = ({ nodeString, pluginOptions, node }) => {
   }
 
   // get an array of all referenced media file ID's
-  const matchedIds = execall(/"id":"([^"]*)","sourceUrl"/gm, nodeString)
+  const matchedIds = execall(
+    /"__typename":"MediaItem","id":"([^"]*)"/gm,
+    nodeString
+  )
     .map((match) => match.subMatches[0])
     .filter((id) => id !== node.id)
 
