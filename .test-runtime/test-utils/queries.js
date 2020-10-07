@@ -38,7 +38,7 @@ export const queries = {
         totalCount
         nodes {
           id
-          sourceUrl
+          mediaItemUrl
         }
       }
       allWpTeamMember {
