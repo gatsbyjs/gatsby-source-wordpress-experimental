@@ -669,7 +669,7 @@ const replaceFileLinks = async ({
   wpUrl,
   pluginOptions,
 }) => {
-  if (!pluginOptions?.html?.createStaticFileLinks) {
+  if (!pluginOptions?.html?.createStaticFiles) {
     return nodeString
   }
 
