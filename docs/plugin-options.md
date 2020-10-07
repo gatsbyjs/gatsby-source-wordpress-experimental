@@ -27,6 +27,7 @@
     - [html.imageMaxWidth: Int](#htmlimagemaxwidth-int)
     - [html.fallbackImageMaxWidth: Int](#htmlfallbackimagemaxwidth-int)
     - [html.imageQuality: Int](#htmlimagequality-int)
+    - [html.createStaticFiles: Boolean](#htmlcreatestaticfiles-boolean)
   - [type: Object](#type-object)
     - [type[TypeName].exclude: Boolean](#typetypenameexclude-boolean)
     - [type[TypeName].excludeFieldNames: Array](#typetypenameexcludefieldnames-array)
@@ -468,6 +469,23 @@ Default is `90`.
 	options: {
 		html: {
       imageQuality: 90,
+    },
+  },
+},
+```
+
+### html.createStaticFiles: Boolean
+
+When this is `true`, any url's which are wrapped in "", '', or () and which contain `/wp-content/uploads` will be transformed into static files and the url's will be rewritten. This adds support for <audio>, <video>, and <a> tags which point at WP media item uploads as well as inline-html css like background-image: url().
+
+Default is `true`.
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+	options: {
+		html: {
+      createStaticFiles: true,
     },
   },
 },

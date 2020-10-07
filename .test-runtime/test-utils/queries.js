@@ -38,7 +38,7 @@ export const queries = {
         totalCount
         nodes {
           id
-          sourceUrl
+          mediaItemUrl
         }
       }
       allWpTeamMember {
@@ -282,10 +282,8 @@ export const queries = {
             attributes {
               downloadButtonText
               fileName
-              href
               id
               showDownloadButton
-              textLinkHref
               textLinkTarget
             }
           }
@@ -413,20 +411,6 @@ export const queries = {
             attributes {
               ordered
               values
-            }
-          }
-
-          ... on WpCoreAudioBlock {
-            attributes {
-              ... on WpCoreAudioBlockAttributes {
-                src
-              }
-            }
-          }
-
-          ... on WpCoreVideoBlock {
-            attributes {
-              src
             }
           }
         }
