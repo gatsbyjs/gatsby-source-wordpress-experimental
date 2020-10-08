@@ -2,6 +2,10 @@ require(`dotenv`).config({
   path: `.env.GATSBY_CONCURRENT_DOWNLOAD`,
 })
 
+require(`dotenv`).config({
+  path: `.env.WORDPRESS_BASIC_AUTH`,
+})
+
 // require .env.development or .env.production
 require(`dotenv`).config({
   path: `.env.test`,
@@ -22,9 +26,9 @@ const wpPluginOptions = !process.env.DEFAULT_PLUGIN_OPTIONS
       },
       debug: {
         graphql: {
-          showQueryOnError: false,
+          showQueryOnError: true,
           showQueryVarsOnError: false,
-          copyQueryOnError: false,
+          copyQueryOnError: true,
           panicOnError: false,
           // a critical error is a WPGraphQL query that returns an error and response data. Currently WPGQL will error if we try to access private posts so if this is false it returns a lot of irrelevant errors.
           onlyReportCriticalErrors: true,
@@ -32,6 +36,9 @@ const wpPluginOptions = !process.env.DEFAULT_PLUGIN_OPTIONS
         },
       },
       type: {
+        Cart: {
+          exclude: true,
+        },
         TypeLimitTest: {
           limit: 1,
         },
@@ -75,7 +82,13 @@ const wpPluginOptions = !process.env.DEFAULT_PLUGIN_OPTIONS
         },
       },
     }
-  : {}
+  : {
+      type: {
+        Cart: {
+          exclude: true,
+        },
+      },
+    }
 
 module.exports = {
   plugins: [
@@ -93,8 +106,8 @@ module.exports = {
         url: process.env.WPGRAPHQL_URL,
         auth: {
           htaccess: {
-            username: `gatsbyinttests`,
-            password: `13a7f30d`,
+            username: process.env.HTACCESS_USERNAME,
+            password: process.env.HTACCESS_PASSWORD,
           },
         },
         ...wpPluginOptions,
