@@ -1,5 +1,12 @@
 # Change Log
 
+## Upcoming
+
+### New Features
+
+- 404 images will no longer fail the build during `gatsby develop` but will continue to fail the build in production builds.
+- Media item fetch errors now include the name of the parent step in which the MediaItem File node was being fetched.
+
 ## 1.6.3
 
 ### Bug Fixes
