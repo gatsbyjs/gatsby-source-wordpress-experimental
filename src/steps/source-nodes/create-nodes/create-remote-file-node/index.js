@@ -1,4 +1,5 @@
 const fs = require(`fs-extra`)
+import btoa from "btoa"
 const got = require(`got`)
 const { createContentDigest } = require(`gatsby-core-utils`)
 const path = require(`path`)
@@ -248,9 +249,10 @@ async function processRemoteNode({
   // Add htaccess authentication if passed in. This isn't particularly
   // extensible. We should define a proper API that we validate.
   const httpOpts = {}
-  if (auth && (auth.htaccess_pass || auth.htaccess_user)) {
-    httpOpts.username = auth.htaccess_user
-    httpOpts.password = auth.htaccess_pass
+  if (auth?.htaccess_pass && auth?.htaccess_user) {
+    headers[`Authorization`] = `Basic ${btoa(
+      `${auth.htaccess_user}:${auth.htaccess_pass}`
+    )}`
   }
 
   // Create the temp and permanent file names for the url.

@@ -83,6 +83,10 @@ Array [
     "mediaItemUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/09/hoodie-with-zipper-2.jpg",
   },
   Object {
+    "id": "cG9zdDo4NTcz",
+    "mediaItemUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/09/hoodie-with-pocket-2.jpg",
+  },
+  Object {
     "id": "cG9zdDo4NTg1",
     "mediaItemUrl": "https://gatsbyinttests.wpengine.com/wp-content/uploads/2020/09/polo-2.jpg",
   },
@@ -327,6 +331,24 @@ Object {
           },
           "name": "main menu",
         },
+        Object {
+          "count": null,
+          "databaseId": 37,
+          "id": "dGVybTozNw==",
+          "menuItems": Object {
+            "nodes": Array [],
+          },
+          "name": "Primary",
+        },
+        Object {
+          "count": null,
+          "databaseId": 38,
+          "id": "dGVybTozOA==",
+          "menuItems": Object {
+            "nodes": Array [],
+          },
+          "name": "Social Media",
+        },
       ],
     },
   },
@@ -431,6 +453,24 @@ Object {
             ],
           },
           "name": "main menu",
+        },
+        Object {
+          "count": null,
+          "databaseId": 37,
+          "id": "dGVybTozNw==",
+          "menuItems": Object {
+            "nodes": Array [],
+          },
+          "name": "Primary",
+        },
+        Object {
+          "count": null,
+          "databaseId": 38,
+          "id": "dGVybTozOA==",
+          "menuItems": Object {
+            "nodes": Array [],
+          },
+          "name": "Social Media",
         },
       ],
     },
@@ -1640,6 +1680,26 @@ Object {
             ],
           },
         },
+        Object {
+          "databaseId": 2,
+          "name": "Test User",
+          "pages": Object {
+            "nodes": Array [],
+          },
+          "posts": Object {
+            "nodes": Array [],
+          },
+        },
+        Object {
+          "databaseId": 3,
+          "name": "gatsbyinttests",
+          "pages": Object {
+            "nodes": Array [],
+          },
+          "posts": Object {
+            "nodes": Array [],
+          },
+        },
       ],
     },
     "testUser": Object {
@@ -1755,6 +1815,26 @@ Object {
                 "title": "Gutenberg: Image Alignment",
               },
             ],
+          },
+        },
+        Object {
+          "databaseId": 2,
+          "name": "Test User",
+          "pages": Object {
+            "nodes": Array [],
+          },
+          "posts": Object {
+            "nodes": Array [],
+          },
+        },
+        Object {
+          "databaseId": 3,
+          "name": "gatsbyinttests",
+          "pages": Object {
+            "nodes": Array [],
+          },
+          "posts": Object {
+            "nodes": Array [],
           },
         },
       ],

@@ -1,17 +1,18 @@
-import { createContentDigest } from "gatsby-core-utils"
+/**
+ * @jest-environment node
+ */
+
 import { introspectionQuery } from "gatsby-source-wordpress-experimental/utils/graphql-queries"
 import fetchGraphql from "gatsby-source-wordpress-experimental/utils/fetch-graphql"
 import sortBy from "lodash/sortBy"
+import { authedWPGQLRequest } from "../../../test-utils/authed-wpgql-request"
 
 describe(`[gatsby-source-wordpress-experimental] schema integrity`, () => {
   it(`hasn't altered the remote WPGraphQL schema`, async () => {
-    const result = await fetchGraphql({
-      query: introspectionQuery,
-      url: process.env.WPGRAPHQL_URL,
-    })
+    const data = await authedWPGQLRequest(introspectionQuery)
 
     const remoteWPGQLTypeNamesWithFieldNames = sortBy(
-      result.data.__schema.types.map(type => ({
+      data.__schema.types.map(type => ({
         name: type.name,
         fields:
           type && type.fields ? type.fields.map(field => field.name) : null,
