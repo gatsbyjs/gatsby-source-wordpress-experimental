@@ -1,5 +1,13 @@
 # Change Log
 
+## 1.6.2
+
+### Bug Fixes
+
+- On later versions of node, the `got` package was erroring when fetching media items when a site used basic httaccess authentication. This was due to a deprecated option. Basic auth headers were added via the headers option instead.
+
+## 1.6.1 was an accidental publish :scream:
+
 ## 1.6.0
 
 ### New Features
