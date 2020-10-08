@@ -91,6 +91,7 @@ export const typeDefinitionFilters = [
 
           return createRemoteMediaItemNode({
             mediaItemNode,
+            parentName: `Creating File node while resolving missing MediaItem.localFile`,
           })
         },
       }
