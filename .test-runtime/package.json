@@ -2,6 +2,7 @@
   "name": "using-gatsby-source-wordpress-experimental",
   "description": "Gatsby example site using gatsby-source-wordpress@next",
   "license": "MIT",
+  "private": true,
   "version": "0.0.1",
   "author": {
     "name": "Tyler",
