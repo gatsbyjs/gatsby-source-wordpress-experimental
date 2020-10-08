@@ -1,7 +1,12 @@
+/**
+ * @jest-environment node
+ */
+
 import fetchGraphql from "gatsby-source-wordpress-experimental/utils/fetch-graphql"
 import { incrementalIt } from "../../../test-utils/incremental-it"
 import { testResolvedData } from "../../../test-utils/test-resolved-data"
 import { queries } from "../../../test-utils/queries"
+import { authedWPGQLRequest } from "../../../test-utils/authed-wpgql-request"
 
 jest.setTimeout(100000)
 
@@ -16,22 +21,21 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
 
     expect(data[`allWpMediaItem`].nodes).toBeTruthy()
     expect(data[`allWpMediaItem`].nodes).toMatchSnapshot()
-    expect(data[`allWpMediaItem`].totalCount).toBe(56)
+    expect(data[`allWpMediaItem`].totalCount).toBe(57)
 
     expect(data[`allWpTag`].totalCount).toBe(5)
-    expect(data[`allWpUser`].totalCount).toBe(1)
+    expect(data[`allWpUser`].totalCount).toBe(3)
     expect(data[`allWpPage`].totalCount).toBe(20)
     expect(data[`allWpPost`].totalCount).toBe(10)
     expect(data[`allWpComment`].totalCount).toBe(1)
     expect(data[`allWpProject`].totalCount).toBe(1)
-    expect(data[`allWpTaxonomy`].totalCount).toBe(6)
+    expect(data[`allWpTaxonomy`].totalCount).toBe(10)
     expect(data[`allWpCategory`].totalCount).toBe(9)
-    expect(data[`allWpUserRole`].totalCount).toBe(0)
-    expect(data[`allWpMenu`].totalCount).toBe(1)
+    expect(data[`allWpMenu`].totalCount).toBe(3)
     expect(data[`allWpMenuItem`].totalCount).toBe(4)
     expect(data[`allWpTeamMember`].totalCount).toBe(1)
     expect(data[`allWpPostFormat`].totalCount).toBe(0)
-    expect(data[`allWpContentType`].totalCount).toBe(9)
+    expect(data[`allWpContentType`].totalCount).toBe(16)
   })
 
   testResolvedData({
@@ -119,27 +123,24 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
       `,
     })
 
-    const WPGraphQLResult = await fetchGraphql({
-      url: process.env.WPGRAPHQL_URL,
-      query: /* GraphQL */ `
-        {
-          ${queries.yoastRootFields}
-          page(id: "cG9zdDo3ODY4") {
-            ${queries.pageYoastFields}
-          }
+    const WPGraphQLData = await authedWPGQLRequest(/* GraphQL */ `
+      {
+        ${queries.yoastRootFields}
+        page(id: "cG9zdDo3ODY4") {
+          ${queries.pageYoastFields}
         }
-      `,
-    })
+      }
+    `)
 
     const wpGraphQLPageNormalizedPaths = JSON.parse(
-      JSON.stringify(WPGraphQLResult.data.page).replace(
+      JSON.stringify(WPGraphQLData.page).replace(
         /https:\/\/gatsbyinttests.wpengine.com/gm,
         ``
       )
     )
 
     expect(gatsbyResult.data.wpPage).toStrictEqual(wpGraphQLPageNormalizedPaths)
-    expect(gatsbyResult.data.wp.seo).toStrictEqual(WPGraphQLResult.data.seo)
+    expect(gatsbyResult.data.wp.seo).toStrictEqual(WPGraphQLData.seo)
   })
 
   it(`resolves hierarchichal categories`, async () => {
