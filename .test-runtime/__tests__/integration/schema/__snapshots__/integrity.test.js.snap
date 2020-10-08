@@ -5,7 +5,6 @@ Array [
   Object {
     "fields": Array [
       "allSettings",
-      "cart",
       "defaultLanguage",
       "discussionSettings",
       "generalSettings",
@@ -250,98 +249,6 @@ Array [
   Object {
     "fields": null,
     "name": "WpBlockFilterListInput",
-  },
-  Object {
-    "fields": Array [
-      "appliedCoupons",
-      "availableShippingMethods",
-      "chosenShippingMethod",
-      "contents",
-      "contentsTax",
-      "contentsTotal",
-      "discountTax",
-      "discountTotal",
-      "displayPricesIncludeTax",
-      "feeTax",
-      "feeTotal",
-      "fees",
-      "isEmpty",
-      "needsShippingAddress",
-      "shippingTax",
-      "shippingTotal",
-      "subtotal",
-      "subtotalTax",
-      "total",
-      "totalTax",
-    ],
-    "name": "WpCart",
-  },
-  Object {
-    "fields": Array [
-      "amount",
-      "id",
-      "name",
-      "taxClass",
-      "taxable",
-      "total",
-    ],
-    "name": "WpCartFee",
-  },
-  Object {
-    "fields": null,
-    "name": "WpCartFeeFilterInput",
-  },
-  Object {
-    "fields": null,
-    "name": "WpCartFeeFilterListInput",
-  },
-  Object {
-    "fields": null,
-    "name": "WpCartFilterInput",
-  },
-  Object {
-    "fields": Array [
-      "extraData",
-      "key",
-      "product",
-      "quantity",
-      "subtotal",
-      "subtotalTax",
-      "tax",
-      "total",
-      "variation",
-    ],
-    "name": "WpCartItem",
-  },
-  Object {
-    "fields": null,
-    "name": "WpCartItemFilterInput",
-  },
-  Object {
-    "fields": null,
-    "name": "WpCartItemFilterListInput",
-  },
-  Object {
-    "fields": Array [
-      "itemCount",
-      "nodes",
-      "productCount",
-    ],
-    "name": "WpCartToCartItemConnection",
-  },
-  Object {
-    "fields": null,
-    "name": "WpCartToCartItemConnectionFilterInput",
-  },
-  Object {
-    "fields": Array [
-      "nodes",
-    ],
-    "name": "WpCartToCouponConnection",
-  },
-  Object {
-    "fields": null,
-    "name": "WpCartToCouponConnectionFilterInput",
   },
   Object {
     "fields": null,
@@ -4514,10 +4421,6 @@ Array [
     "name": "WpCouponFilterInput",
   },
   Object {
-    "fields": null,
-    "name": "WpCouponFilterListInput",
-  },
-  Object {
     "fields": Array [
       "totalCount",
       "edges",
@@ -8104,40 +8007,6 @@ Array [
   Object {
     "fields": null,
     "name": "WpShippingMethodSortInput",
-  },
-  Object {
-    "fields": Array [
-      "packageDetails",
-      "rates",
-      "supportsShippingCalculator",
-    ],
-    "name": "WpShippingPackage",
-  },
-  Object {
-    "fields": null,
-    "name": "WpShippingPackageFilterInput",
-  },
-  Object {
-    "fields": null,
-    "name": "WpShippingPackageFilterListInput",
-  },
-  Object {
-    "fields": Array [
-      "cost",
-      "id",
-      "instanceId",
-      "label",
-      "methodId",
-    ],
-    "name": "WpShippingRate",
-  },
-  Object {
-    "fields": null,
-    "name": "WpShippingRateFilterInput",
-  },
-  Object {
-    "fields": null,
-    "name": "WpShippingRateFilterListInput",
   },
   Object {
     "fields": Array [

@@ -1,4 +1,5 @@
 import fetchGraphql from "gatsby-source-wordpress-experimental/utils/fetch-graphql"
+import { authedWPGQLRequest } from "./authed-wpgql-request"
 
 const normalizeResponse = data =>
   JSON.parse(
@@ -25,13 +26,12 @@ export const testResolvedData = ({
       .replace(from, to)
       .replace(`$id: String!`, `$id: ID!`)
 
-    const WPGraphQLResult = await fetchGraphql({
+    const WPGraphQLData = await authedWPGQLRequest(wpGraphQLQuery, {
       url: process.env.WPGRAPHQL_URL,
-      query: wpGraphQLQuery,
       variables,
     })
 
-    const wpgqlNode = normalizeResponse(WPGraphQLResult.data[wpgql])
+    const wpgqlNode = normalizeResponse(WPGraphQLData[wpgql])
     expect(wpgqlNode).toBeTruthy()
 
     const gatsbyNode = normalizeResponse(gatsbyResult.data[gatsby])
