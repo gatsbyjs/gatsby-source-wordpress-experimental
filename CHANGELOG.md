@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.6.3
+
+### Bug Fixes
+
+- The new `options.html.createStaticFiles` option wasn't properly matching css background images in some cases
+
 ## 1.6.2
 
 ### Bug Fixes

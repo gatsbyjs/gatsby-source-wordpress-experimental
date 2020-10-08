@@ -292,7 +292,7 @@ exports[`[gatsby-source-wordpress-experimental] Gatsby image processing transfor
 
 
 
-<div class=\\"wp-block-cover has-background-dim\\" style=\\"/static/e5955bc79cda130173fdd04cfa193c9b/Screen-Shot-2020-07-30-at-1.34.09-PM.png);background-position:4% 50%\\"><div class=\\"wp-block-cover__inner-container\\">
+<div class=\\"wp-block-cover has-background-dim\\" style=\\"background-image:url(/static/e5955bc79cda130173fdd04cfa193c9b/Screen-Shot-2020-07-30-at-1.34.09-PM.png);background-position:4% 50%\\"><div class=\\"wp-block-cover__inner-container\\">
 <p class=\\"has-text-align-center has-large-font-size\\">This is a cover image block.</p>
 </div></div>
 

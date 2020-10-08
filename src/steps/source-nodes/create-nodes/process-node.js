@@ -677,7 +677,7 @@ const replaceFileLinks = async ({
   }
 
   const hrefMatches = execall(
-    /(\\"|\\'|\()([^'")]*)(\/wp-content\/uploads\/[^'">)]+)(\\"|\\'|>|\))/gm,
+    /(\\"|\\'|\()([^'"()]*)(\/wp-content\/uploads\/[^'">()]+)(\\"|\\'|>|\))/gm,
     nodeString
   )
 
