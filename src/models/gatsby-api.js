@@ -105,6 +105,7 @@ const defaultPluginOptions = {
         if (actionType === `CREATE` || actionType === `UPDATE`) {
           const createdMediaItem = await createRemoteMediaItemNode({
             mediaItemNode: remoteNode,
+            parentName: `Node action ${actionType}`,
           })
 
           if (createdMediaItem) {

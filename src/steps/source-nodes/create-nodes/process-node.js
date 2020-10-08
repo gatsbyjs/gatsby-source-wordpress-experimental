@@ -727,12 +727,16 @@ const replaceFileLinks = async ({
           }) => mediaItemNode.mediaItemUrl.includes(path)
         )?.matchGroup
 
+        if (!mediaItemMatchGroup) {
+          return
+        }
+
         const [
           _delimiterOpen,
           hostname,
           path,
           _delimiterClose,
-        ] = mediaItemMatchGroup.subMatches
+        ] = mediaItemMatchGroup?.subMatches
 
         cacheCreatedFileNodeBySrc({
           node: mediaItemNode,

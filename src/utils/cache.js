@@ -254,6 +254,7 @@ export const restoreHardCachedNodes = async ({ hardCachedNodes }) => {
           helpers,
           createContentDigest,
           actions,
+          parentName: `Hard cache restoration`,
           // referencedMediaItemNodeIds,
           // allMediaItemNodes = [],
         })
