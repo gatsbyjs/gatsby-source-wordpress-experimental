@@ -68,31 +68,10 @@ export const typeDefinitionFilters = [
       objectType.fields.remoteFile = {
         type: `File`,
         deprecationReason: `MediaItem.remoteFile was renamed to localFile`,
-        resolve: (mediaItemNode, _, context) => {
-          if (!mediaItemNode) {
-            return null
-          }
-
-          const remoteMediaNodeId =
-            mediaItemNode.remoteFile && mediaItemNode.remoteFile.id
-              ? mediaItemNode.remoteFile.id
-              : null
-
-          if (remoteMediaNodeId) {
-            const node = context.nodeModel.getNodeById({
-              id: mediaItemNode.remoteFile.id,
-              type: `File`,
-            })
-
-            if (node) {
-              return node
-            }
-          }
-
-          return createRemoteMediaItemNode({
-            mediaItemNode,
-            parentName: `Creating File node while resolving missing MediaItem.localFile`,
-          })
+        resolve: () => {
+          throw new Error(
+            `MediaItem.remoteFile is deprecated and has been renamed to MediaItem.localFile. Please update your code.`
+          )
         },
       }
 
@@ -118,6 +97,7 @@ export const typeDefinitionFilters = [
 
           return createRemoteMediaItemNode({
             mediaItemNode,
+            parentName: `Creating File node while resolving missing MediaItem.localFile`,
           })
         },
       }
