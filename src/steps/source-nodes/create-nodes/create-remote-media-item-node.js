@@ -66,7 +66,11 @@ export const errorPanicker = ({
     error.includes(`Response code 501`)
   ) {
     reporter.log(``)
-    reporter.info(formatLogMessage(`Unrecoverable error ${sharedError}`))
+    reporter.info(
+      formatLogMessage(
+        `Unrecoverable error ${sharedError}\n\nFailing the build to prevent deploying a broken site.`
+      )
+    )
     reporter.panic(error)
   }
 }
