@@ -164,9 +164,6 @@ export const createMediaItemNode = async ({
 
       node = {
         ...node,
-        remoteFile: {
-          id: localFileNode.id,
-        },
         localFile: {
           id: localFileNode.id,
         },

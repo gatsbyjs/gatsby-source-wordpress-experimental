@@ -109,9 +109,6 @@ const defaultPluginOptions = {
           })
 
           if (createdMediaItem) {
-            remoteNode.remoteFile = {
-              id: createdMediaItem.id,
-            }
             remoteNode.localFile = {
               id: createdMediaItem.id,
             }
