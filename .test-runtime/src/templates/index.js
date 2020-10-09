@@ -18,11 +18,11 @@ export default ({ data, pageContext }) => (
               <Grid templateColumns="1fr 2fr" gap={6}>
                 <Box>
                   {!!page.featuredImage &&
-                    !!page.featuredImage.remoteFile &&
-                    !!page.featuredImage.remoteFile.childImageSharp && (
+                    !!page.featuredImage.localFile &&
+                    !!page.featuredImage.localFile.childImageSharp && (
                       <Img
                         fluid={
-                          page.featuredImage.remoteFile.childImageSharp.fluid
+                          page.featuredImage.localFile.childImageSharp.fluid
                         }
                       />
                     )}
@@ -107,7 +107,7 @@ export const query = graphql`
         title
         featuredImage {
           node {
-            remoteFile {
+            localFile {
               ...Thumbnail
             }
           }

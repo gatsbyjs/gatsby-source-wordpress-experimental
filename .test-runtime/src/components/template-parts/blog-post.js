@@ -16,9 +16,9 @@ function BlogPost({ data }) {
         {title}
       </Heading>
 
-      {!!featuredImage?.node?.remoteFile?.childImageSharp && (
+      {!!featuredImage?.node?.localFile?.childImageSharp && (
         <Box mb={5}>
-          <Img fluid={featuredImage.node.remoteFile.childImageSharp.fluid} />
+          <Img fluid={featuredImage.node.localFile.childImageSharp.fluid} />
         </Box>
       )}
 

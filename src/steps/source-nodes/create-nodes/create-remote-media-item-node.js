@@ -28,7 +28,35 @@ export const getMediaItemEditLink = (node) => {
   return editUrl
 }
 
-export const errorPanicker = ({ error, reporter, node }) => {
+export const errorPanicker = ({
+  error,
+  reporter,
+  node,
+  fetchState,
+  parentName,
+}) => {
+  const editUrl = getMediaItemEditLink(node)
+  const sharedError = `occured while fetching media item #${node.databaseId}${
+    parentName ? ` in step:\n\n"${parentName}"` : ``
+  }\n\nMedia item link: ${node.link}\nEdit link: ${editUrl}\nFile url: ${
+    node.mediaItemUrl
+  }`
+
+  if (
+    process.env.NODE_ENV !== `production` &&
+    error.includes(`Response code 404`)
+  ) {
+    fetchState.shouldBail = true
+    reporter.log(``)
+    reporter.warn(
+      formatLogMessage(
+        `Error ${sharedError}\n\nThis error will fail production builds.`
+      )
+    )
+    reporter.log(``)
+    return
+  }
+
   if (
     error.includes(`Response code 4`) ||
     error.includes(`Response code 500`) ||
@@ -37,12 +65,10 @@ export const errorPanicker = ({ error, reporter, node }) => {
     error.includes(`Response code 505`) ||
     error.includes(`Response code 501`)
   ) {
-    const editUrl = getMediaItemEditLink(node)
-
     reporter.log(``)
     reporter.info(
       formatLogMessage(
-        `Unrecoverable error occured while fetching media item #${node.databaseId}\n\nMedia item link: ${node.link}\nEdit link: ${editUrl}\nFile url: ${node.mediaItemUrl}`
+        `Unrecoverable error ${sharedError}\n\nFailing the build to prevent deploying a broken site.`
       )
     )
     reporter.panic(error)
@@ -95,6 +121,7 @@ export const getFileNodeByMediaItemNode = async ({
 export const createRemoteMediaItemNode = async ({
   mediaItemNode,
   fixedBarTotal,
+  parentName,
 }) => {
   const state = store.getState()
   const { helpers, pluginOptions } = state.gatsbyApi
@@ -144,9 +171,16 @@ export const createRemoteMediaItemNode = async ({
     (process.env.NODE_ENV === `production` &&
       pluginOptions.production.hardCacheMediaFiles)
 
+  let fetchState = {
+    shouldBail: false,
+  }
   // Otherwise we need to download it
   const remoteFileNode = await retry(
     async () => {
+      if (fetchState.shouldBail) {
+        return null
+      }
+
       const createFileNodeRequirements = {
         parentNodeId: mediaItemNode.id,
         store: gatsbyStore,
@@ -209,9 +243,19 @@ export const createRemoteMediaItemNode = async ({
       factor: 1.1,
       minTimeout: 5000,
       onRetry: (error) =>
-        errorPanicker({ error, reporter, node: mediaItemNode }),
+        errorPanicker({
+          error,
+          reporter,
+          node: mediaItemNode,
+          fetchState,
+          parentName,
+        }),
     }
   )
+
+  if (!remoteFileNode) {
+    return null
+  }
 
   // push it's id and url to our store for caching,
   // so we can touch this node next time
