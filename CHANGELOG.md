@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.7.2
+
+### Bug Fixes
+
+- When detecting images in html and transforming them to Gatsby images, any url which had query params was being missing. For example image.jpeg?w=1024.
+
 ## 1.7.1
 
 ### Bug Fixes
