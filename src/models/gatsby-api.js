@@ -102,15 +102,17 @@ const defaultPluginOptions = {
           }
         }
 
-        if (actionType === `CREATE` || actionType === `UPDATE`) {
+        if (
+          actionType === `CREATE_ALL` ||
+          actionType === `CREATE` ||
+          actionType === `UPDATE`
+        ) {
           const createdMediaItem = await createRemoteMediaItemNode({
             mediaItemNode: remoteNode,
+            parentName: `Node action ${actionType}`,
           })
 
           if (createdMediaItem) {
-            remoteNode.remoteFile = {
-              id: createdMediaItem.id,
-            }
             remoteNode.localFile = {
               id: createdMediaItem.id,
             }

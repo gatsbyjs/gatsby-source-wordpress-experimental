@@ -109,6 +109,7 @@ export const createMediaItemNode = async ({
   createContentDigest,
   actions,
   referencedMediaItemNodeIds,
+  parentName,
   allMediaItemNodes = [],
 }) => {
   const existingNode = await helpers.getNode(node.id)
@@ -148,6 +149,7 @@ export const createMediaItemNode = async ({
         mediaItemNode: node,
         fixedBarTotal: referencedMediaItemNodeIds?.length,
         helpers,
+        parentName,
       })
 
       if (timesRetried > 1) {
@@ -162,9 +164,6 @@ export const createMediaItemNode = async ({
 
       node = {
         ...node,
-        remoteFile: {
-          id: localFileNode.id,
-        },
         localFile: {
           id: localFileNode.id,
         },
@@ -372,6 +371,7 @@ const fetchMediaItemsBySourceUrl = async ({
               createContentDigest,
               actions,
               allMediaItemNodes,
+              parentName: `Fetching referenced MediaItem nodes by sourceUrl`,
             })
           )
         )
@@ -475,6 +475,7 @@ const fetchMediaItemsById = async ({
               actions,
               allMediaItemNodes,
               referencedMediaItemNodeIds: mediaItemIds,
+              parentName: `Fetching referenced MediaItem nodes by id`,
             })
           )
         )
