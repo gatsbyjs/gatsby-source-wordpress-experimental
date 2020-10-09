@@ -249,24 +249,23 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
           createNode: helpers.actions.createNode,
         })
       } catch (e) {
+        const sharedError = `when trying to fetch\n${htmlImgSrc}\nfrom ${
+          node.__typename
+        } #${node.databaseId} "${node.title ?? node.id}"`
+        const nodeEditLink = getNodeEditLink(node)
+
         if (typeof e === `string` && e.includes(`404`)) {
-          const nodeEditLink = getNodeEditLink(node)
           helpers.reporter.log(``)
           helpers.reporter.warn(
             formatLogMessage(
-              `\n\nReceived a 404 when trying to fetch\n${htmlImgSrc}\nfrom ${
-                node.__typename
-              } #${node.databaseId} "${
-                node.title ?? node.id
-              }"\n\nMost likely this image was uploaded to this ${
-                node.__typename
-              } and then deleted from the media library.\nYou'll need to fix this and re-save this ${
-                node.__typename
-              } to remove this warning at\n${nodeEditLink}.\n\n`
+              `\n\nReceived a 404 ${sharedError}\n\nMost likely this image was uploaded to this ${node.__typename} and then deleted from the media library.\nYou'll need to fix this and re-save this ${node.__typename} to remove this warning at\n${nodeEditLink}.\n\n`
             )
           )
           imageNode = null
         } else {
+          helpers.reporter.warn(
+            `Received the below error ${sharedError}\n\n${nodeEditLink}\n\n`
+          )
           helpers.reporter.panic(formatLogMessage(e))
         }
       }
