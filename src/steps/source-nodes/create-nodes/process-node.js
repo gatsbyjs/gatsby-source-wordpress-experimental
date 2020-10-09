@@ -20,10 +20,6 @@ import fetchReferencedMediaItemsAndCreateNodes, {
 import btoa from "btoa"
 import store from "~/store"
 
-const imgSrcRemoteFileRegex = /(?:src=\\")((?:(?:https?|ftp|file):\/\/|www\.|ftp\.|\/)(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[A-Z0-9+&@#/%=~_|$])\.(?:jpeg|jpg|png|gif|ico|mpg|ogv|svg|bmp|tif|tiff))(?=\\"| |\.)/gim
-
-const imgTagRegex = /<img([\w\W]+?)[\/]?>/gim
-
 const getNodeEditLink = (node) => {
   const { protocol, hostname } = url.parse(node.link)
   const editUrl = `${protocol}//${hostname}/wp-admin/post.php?post=${node.databaseId}&action=edit`
@@ -446,6 +442,8 @@ const replaceNodeHtmlImages = async ({
     return nodeString
   }
 
+  const imgSrcRemoteFileRegex = /(?:src=\\")((?:(?:https?|ftp|file):\/\/|www\.|ftp\.|\/)(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[A-Z0-9+&@#/%=~_|$])\.(?:jpeg|jpg|png|gif|ico|mpg|ogv|svg|bmp|tif|tiff))(\?[^\\" \.]*|)(?=\\"| |\.)/gim
+
   const imageUrlMatches = execall(imgSrcRemoteFileRegex, nodeString).filter(
     ({ subMatches }) => {
       // if our match is json encoded, that means it's inside a JSON
@@ -458,7 +456,7 @@ const replaceNodeHtmlImages = async ({
   )
 
   const imgTagMatches = execall(
-    imgTagRegex,
+    /<img([\w\W]+?)[\/]?>/gim,
     nodeString
       // we don't want to match images inside pre
       .replace(/<pre([\w\W]+?)[\/]?>.*(<\/pre>)/gim, ``)
