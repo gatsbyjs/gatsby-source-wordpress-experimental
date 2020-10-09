@@ -1,7 +1,9 @@
-import { runApisInSteps } from "~/utils/run-steps"
-import * as steps from "~/steps/index"
+import { runApisInSteps } from "~/utils/run-steps";
+import * as steps from "~/steps/index";
 
 module.exports = runApisInSteps({
+  onPreInit: [steps.setErrorMap],
+
   createSchemaCustomization: [
     steps.setGatsbyApiToState,
     steps.ensurePluginRequirementsAreMet,
@@ -24,4 +26,4 @@ module.exports = runApisInSteps({
   onCreateDevServer: [
     [steps.setImageNodeIdCache, steps.startPollingForContentUpdates],
   ],
-})
+});
