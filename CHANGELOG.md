@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.7.1
+
+### Bug Fixes
+
+- Fields which had no name were causing errors. These fields are now silently excluded as they can't be used.
+
 ## 1.7.0
 
 ### New Features
