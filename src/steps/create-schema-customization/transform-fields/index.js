@@ -110,6 +110,11 @@ export const transformFields = ({
     : null
 
   const transformedFields = fields.reduce((fieldsObject, field) => {
+    // if there's no field name this field is unusable
+    if (field.name === ``) {
+      return fieldsObject
+    }
+
     const thisTypeSettings = getTypeSettingsByType(field.type)
 
     const fieldName = getAliasedFieldName({ fieldAliases, field })
