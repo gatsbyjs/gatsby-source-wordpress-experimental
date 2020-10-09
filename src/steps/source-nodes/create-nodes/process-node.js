@@ -716,6 +716,10 @@ const replaceFileLinks = async ({
           helpers
         )
 
+        if (!relativeUrl || !mediaItemNode || !fileNode) {
+          return null
+        }
+
         const mediaItemMatchGroup = mediaItemUrlsAndMatches.find(
           ({
             matchGroup: {
@@ -725,7 +729,7 @@ const replaceFileLinks = async ({
         )?.matchGroup
 
         if (!mediaItemMatchGroup) {
-          return
+          return null
         }
 
         const [

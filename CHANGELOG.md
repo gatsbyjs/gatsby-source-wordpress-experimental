@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.7.3
+
+## Bug Fixes
+
+- Protect against undefined values in process-node.jsL719
+
 ## 1.7.2
 
 ### Bug Fixes
