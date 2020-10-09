@@ -11,7 +11,7 @@ export const query = graphql`
       content
       featuredImage {
         node {
-          remoteFile {
+          localFile {
             ...HeroImage
           }
         }
