@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.7.4
+
+### Bug Fixes
+
+- The remote file downloader progress bar used to glitch due to some custom code that attempted to keep the same progress bar around for the entirety of node sourcing. To fix the glitchiness clearing the bar is now promise based.
+
 ## 1.7.3
 
 ## Bug Fixes
