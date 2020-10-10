@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.7.5
+
+### Bug Fixes
+
+- The delete node action was missing an import resulting in errors when deleting posts.
+
 ## 1.7.4
 
 ### Bug Fixes
