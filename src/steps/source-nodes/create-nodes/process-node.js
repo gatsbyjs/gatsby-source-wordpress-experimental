@@ -233,7 +233,6 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
 
         imageNode = await createRemoteFileNode({
           url: htmlImgSrc,
-          // fixedBarTotal,
           parentNodeId: node.id,
           auth: htaccessCredentials
             ? {
