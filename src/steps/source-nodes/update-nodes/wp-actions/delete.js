@@ -9,7 +9,7 @@ import {
 import { fetchGraphql } from "~/utils/fetch-graphql"
 import { getQueryInfoBySingleFieldName } from "../../helpers"
 import { CREATED_NODE_IDS } from "~/constants"
-import { setPersistentCache } from "~/utils/cache"
+import { setPersistentCache, getPersistentCache } from "~/utils/cache"
 
 const wpActionDELETE = async ({
   helpers,
