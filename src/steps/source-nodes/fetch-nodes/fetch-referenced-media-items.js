@@ -147,7 +147,6 @@ export const createMediaItemNode = async ({
     }) => {
       let localFileNode = await createRemoteMediaItemNode({
         mediaItemNode: node,
-        fixedBarTotal: referencedMediaItemNodeIds?.length,
         helpers,
         parentName,
       })
