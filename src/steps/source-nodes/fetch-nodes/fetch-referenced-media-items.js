@@ -432,7 +432,7 @@ const fetchMediaItemsById = async ({
       createContentDigest,
       actions,
       queue: mediaNodeFetchQueue,
-      retryKey: `Media Item query #${index}`,
+      retryKey: `Media Item query #${relayIds[index]}`,
       retryPromise: async () => {
         // relay id's are base64 encoded from strings like attachment:89381
         // where 89381 is the id we want for our query
