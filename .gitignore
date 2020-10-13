@@ -8,7 +8,8 @@ gatsby-node
 !jest.config.js
 !jest-preprocess.js
 !loadershim.js
-yarn.lock
+!.prettierrc.js
+!.eslintrc.js
 
 .DS_Store
 yarn-error.log
