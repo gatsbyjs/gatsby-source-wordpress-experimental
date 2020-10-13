@@ -3,13 +3,45 @@
  * Very much up for discussion.
  */
 export const CODES = {
-  UnknownError: 1,
   WordPressFilters: 2,
   BadUrl: 3,
   CustomUserCode: 4,
   Permissions: 5,
   Authentication: 6,
   Timeout: 7,
+};
+
+export const ERROR_MAP = {
+  [CODES.WordPressFilters]: {
+    text: (context) => context.message,
+    level: "ERROR",
+    category: "USER",
+  },
+  [CODES.BadUrl]: {
+    text: (context) => context.message,
+    level: "ERROR",
+    category: "USER",
+  },
+  [CODES.CustomUserCode]: {
+    text: (context) => context.message,
+    level: "ERROR",
+    category: "USER",
+  },
+  [CODES.Permissions]: {
+    text: (context) => context.message,
+    level: "ERROR",
+    category: "USER",
+  },
+  [CODES.Authentication]: {
+    text: (context) => context.message,
+    level: "ERROR",
+    category: "USER",
+  },
+  [CODES.Timeout]: {
+    text: (context) => context.message,
+    level: "ERROR",
+    category: "USER",
+  },
 };
 
 export function structuredReporter(reporter) {
@@ -36,7 +68,7 @@ export function structuredReporter(reporter) {
   return {
     panic: structuredReport("panic"),
     error: structuredReport("error"),
-    warn: structuredReport("warn"),
-    log: structuredReport("log"),
+    warn: reporter.warn,
+    log: reporter.log,
   };
 }

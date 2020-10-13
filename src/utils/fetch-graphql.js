@@ -205,7 +205,7 @@ const handleFetchErrors = async ({
   errorContext,
   isFirstRequest,
 }) => {
-  const rep = structuredReporter(reporter);
+  const structuredReported = structuredReporter(reporter);
 
   await handleErrors({
     panicOnError: false,
@@ -217,8 +217,8 @@ const handleFetchErrors = async ({
   });
 
   if (e.message.includes(`timeout of ${timeout}ms exceeded`)) {
-    rep.error(e);
-    rep.panic(
+    structuredReported.error(e);
+    structuredReported.panic(
       formatLogMessage(
         `It took too long for ${url} to respond (longer than ${
           timeout / 1000
@@ -241,7 +241,7 @@ const handleFetchErrors = async ({
     !htaccessCredentials.password || !htaccessCredentials.username;
 
   if (unauthorized && !missingCredentials) {
-    rep.panic(
+    structuredReported.panic(
       formatLogMessage(
         `Request failed with status code 401.\n\nThe HTTP Basic Auth credentials you've provided in plugin options were rejected.\nDouble check that your credentials are correct.
          \n${genericError({ url })}`,
@@ -250,7 +250,7 @@ const handleFetchErrors = async ({
       CODES.Authentication
     );
   } else if (unauthorized) {
-    rep.panic(
+    structuredReported.panic(
       formatLogMessage(
         `Request failed with status code 401.\n\n Your WordPress instance may be protected with HTTP Basic authentication.\n If it is you will need to add the following to your plugin options:
 
@@ -275,7 +275,7 @@ const handleFetchErrors = async ({
   const forbidden = e.message.includes(`Request failed with status code 403`);
 
   if (forbidden) {
-    rep.panic(
+    structuredReported.panic(
       formatLogMessage(
         `${e.message}\n\nThe GraphQL request was forbidden.\nIf you are using a security plugin like WordFence or a server firewall you may need to whitelist your IP address or adjust your firewall settings for your GraphQL endpoint.\n\n${errorContext}`
       ),
@@ -287,7 +287,7 @@ const handleFetchErrors = async ({
 
   if (redirected) {
     await handleErrorOptions({ variables, query, pluginOptions, reporter });
-    rep.panic(
+    structuredReported.panic(
       formatLogMessage(
         `${e.message}\n\n${errorContext}\n\nThis can happen due to custom code or redirection plugins which redirect the request when a post is accessed.\nThis redirection code will need to be patched to not run during GraphQL requests.\n\nThat can be achieved by adding something like the following to your WP PHP code:\n
 if ( defined( 'GRAPHQL_REQUEST' ) && true === GRAPHQL_REQUEST ) {
@@ -314,7 +314,7 @@ ${slackChannelSupportMessage}`
       } catch (e) {}
     }
 
-    rep.panic(
+    structuredReported.panic(
       formatLogMessage(
         `${errorContext || ``}\n\n${
           e.message
@@ -343,7 +343,7 @@ ${slackChannelSupportMessage}`
       CODES.BadUrl
     );
   } else if (responseReturnedHtml && !isFirstRequest) {
-    rep.panic(
+    structuredReported.panic(
       formatLogMessage(
         `${errorContext}\n\n${e.message}\n\nThere are some WordPress PHP filters in your site which are adding additional output to the GraphQL response.\nThese may have been added via custom code or via a plugin.\n\nYou will need to debug this and remove these filters during GraphQL requests using something like the following:
         
@@ -361,10 +361,12 @@ if ( defined( 'GRAPHQL_REQUEST' ) && true === GRAPHQL_REQUEST ) {
     e.message === `GraphQL request returned an empty string.`;
 
   const warnOrPanic =
-    process.env.NODE_ENV === `development` ? rep.warn : rep.panic;
+    process.env.NODE_ENV === `development`
+      ? structuredReported.warn
+      : structuredReported.panic;
 
   if (emptyStringResponse) {
-    rep.log(``);
+    structuredReported.log(``);
 
     warnOrPanic(
       formatLogMessage(sharedEmptyStringReponseError),
@@ -374,7 +376,7 @@ if ( defined( 'GRAPHQL_REQUEST' ) && true === GRAPHQL_REQUEST ) {
     return;
   }
 
-  rep.panic(
+  structuredReported.panic(
     formatLogMessage(
       `${e.message} ${
         errorContext ? `\n\n` + errorContext : ``
@@ -382,8 +384,7 @@ if ( defined( 'GRAPHQL_REQUEST' ) && true === GRAPHQL_REQUEST ) {
       {
         useVerboseStyle: true,
       }
-    ),
-    CODES.UnknownError
+    )
   );
 };
 
