@@ -323,7 +323,9 @@ const fetchMediaItemsBySourceUrl = async ({
       createContentDigest,
       actions,
       queue: mediaNodeFetchQueue,
-      retryKey: `Media Item by sourceUrl query #${index}`,
+      retryKey: `Media Item by sourceUrl query #${index}, digest: ${createContentDigest(
+        sourceUrls.join()
+      )}`,
       retryPromise: async () => {
         const query = /* GraphQL */ `
           query MEDIA_ITEMS {
@@ -432,7 +434,9 @@ const fetchMediaItemsById = async ({
       createContentDigest,
       actions,
       queue: mediaNodeFetchQueue,
-      retryKey: `Media Item query #${index}`,
+      retryKey: `Media Item query #${index}, digest: ${createContentDigest(
+        relayIds.join()
+      )}`,
       retryPromise: async () => {
         // relay id's are base64 encoded from strings like attachment:89381
         // where 89381 is the id we want for our query
