@@ -323,7 +323,7 @@ const fetchMediaItemsBySourceUrl = async ({
       createContentDigest,
       actions,
       queue: mediaNodeFetchQueue,
-      retryKey: `Media Item by sourceUrl query #${index}, url digest: ${createContentDigest(
+      retryKey: `Media Item by sourceUrl query #${index}, digest: ${createContentDigest(
         sourceUrls.join()
       )}`,
       retryPromise: async () => {
@@ -434,7 +434,7 @@ const fetchMediaItemsById = async ({
       createContentDigest,
       actions,
       queue: mediaNodeFetchQueue,
-      retryKey: `Media Item query #${index}, id digest: ${createContentDigest(
+      retryKey: `Media Item query #${index}, digest: ${createContentDigest(
         relayIds.join()
       )}`,
       retryPromise: async () => {
