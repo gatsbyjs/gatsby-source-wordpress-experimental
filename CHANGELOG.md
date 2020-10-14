@@ -1,6 +1,6 @@
 # Change Log
 
-## Upcoming
+## 1.7.6
 
 - There was a timing issue in that if 'fetchMediaItemsById' (steps/source-nodes/fetch-nodes/fetch-referenced-media-items.js)
   is called a 2nd time before the first batch completes the call to pushPromiseOntoRetryQueue overwrites keys from the first batch as the key is only an index. Then the first instance item never resolves and they all timeout.
