@@ -411,6 +411,7 @@ const fetchGraphql = async ({
   isFirstRequest = false,
 }) => {
   const { helpers, pluginOptions } = store.getState().gatsbyApi
+  const structuredReporter = makeStructuredReporter(reporter)
 
   const { url: pluginOptionsUrl } = pluginOptions
   let { reporter } = helpers
@@ -469,8 +470,6 @@ const fetchGraphql = async ({
     if (throwFetchErrors) {
       throw e
     }
-
-    const structuredReporter = makeStructuredReporter(reporter)
 
     await handleFetchErrors({
       e,
