@@ -6,7 +6,7 @@ import { formatLogMessage } from "./format-log-message"
 import store from "~/store"
 import { getPluginOptions } from "./get-gatsby-api"
 import urlUtil from "url"
-import { makeStructuredReporter, CODES } from "./report"
+import { CODES } from "./report"
 
 const http = rateLimit(axios.create(), {
   maxRPS: process.env.GATSBY_CONCURRENT_DOWNLOAD || 50,
@@ -16,14 +16,14 @@ const handleErrorOptions = async ({
   variables,
   query,
   pluginOptions,
-  structuredReporter,
+  reporter,
 }) => {
   if (
     variables &&
     Object.keys(variables).length &&
     pluginOptions.debug.graphql.showQueryVarsOnError
   ) {
-    structuredReporter.error(
+    reporter.error(
       formatLogMessage(`GraphQL vars: ${JSON.stringify(variables)}`)
     )
   }
@@ -35,7 +35,7 @@ const handleErrorOptions = async ({
   }
 
   if (pluginOptions.debug.graphql.showQueryOnError) {
-    structuredReporter.error(formatLogMessage(`GraphQL query: ${query}`))
+    reporter.error(formatLogMessage(`GraphQL query: ${query}`))
   }
 
   if (pluginOptions.debug.graphql.copyQueryOnError) {
@@ -51,7 +51,7 @@ const handleErrors = async ({
   variables,
   query,
   pluginOptions,
-  structuredReporter,
+  reporter,
   responseJSON,
   panicOnError,
   errorContext,
@@ -60,7 +60,7 @@ const handleErrors = async ({
     variables,
     query,
     pluginOptions,
-    structuredReporter,
+    reporter,
   })
 
   if (!responseJSON) {
@@ -72,11 +72,13 @@ const handleErrors = async ({
     panicOnError ||
     pluginOptions.debug.graphql.panicOnError
   ) {
-    structuredReporter.panic(
-      formatLogMessage(
-        errorContext || `Encountered errors. See above for details.`
-      )
-    )
+    reporter.panic({
+      context: {
+        sourceMessage: formatLogMessage(
+          errorContext || `Encountered errors. See above for details.`
+        ),
+      },
+    })
   }
 }
 
@@ -86,7 +88,7 @@ const handleGraphQLErrors = async ({
   response,
   errorMap,
   panicOnError,
-  structuredReporter,
+  reporter,
   errorContext,
 }) => {
   const pluginOptions = getPluginOptions()
@@ -98,7 +100,7 @@ const handleGraphQLErrors = async ({
      * 1. We're logging an undefined variable here instead of a message.
      * 2. What scenarios lead us to this point? Can we assign a code?
      */
-    structuredReporter.panic(response)
+    reporter.panic(response)
     return
   }
 
@@ -126,15 +128,19 @@ const handleGraphQLErrors = async ({
       error.message === errorMap.from
 
     if (errorWasMapped && panicOnError) {
-      structuredReporter.panic(
-        formatLogMessage(errorMap.to),
-        CODES.GQLConfiguration
-      )
+      reporter.panic({
+        id: CODES.GQLConfiguration,
+        context: {
+          sourceMessage: formatLogMessage(errorMap.to),
+        },
+      })
     } else if (errorWasMapped) {
-      structuredReporter.error(
-        formatLogMessage(errorMap.to),
-        CODES.GQLConfiguration
-      )
+      reporter.error({
+        id: CODES.GQLConfiguration,
+        context: {
+          sourceMessage: formatLogMessage(errorMap.to),
+        },
+      })
     }
 
     // convert the error path array into a string like "mediaItems.nodes[55].mediaDetails.meta.focalLength"
@@ -162,13 +168,13 @@ const handleGraphQLErrors = async ({
     }
 
     if (error.debugMessage) {
-      structuredReporter.error(
+      reporter.error(
         formatLogMessage(
           `Error category: ${error.category} \n\nError: \n  ${error.message} \n\n Debug message: \n  ${error.debugMessage} \n\n Error path: ${errorPath}`
         )
       )
     } else {
-      structuredReporter.error(
+      reporter.error(
         formatLogMessage(
           `(${error.category}) ${
             error?.locations?.length
@@ -193,7 +199,7 @@ const handleGraphQLErrors = async ({
     responseJSON: json,
     variables,
     pluginOptions,
-    structuredReporter,
+    reporter,
     query,
     panicOnError,
     errorContext,
@@ -212,7 +218,7 @@ const slackChannelSupportMessage = `If you're still having issues, please visit 
 
 const handleFetchErrors = async ({
   e,
-  structuredReporter,
+  reporter,
   url,
   timeout,
   variables,
@@ -224,7 +230,7 @@ const handleFetchErrors = async ({
 }) => {
   await handleErrors({
     panicOnError: false,
-    structuredReporter,
+    reporter,
     variables,
     pluginOptions,
     query,
@@ -232,18 +238,20 @@ const handleFetchErrors = async ({
   })
 
   if (e.message.includes(`timeout of ${timeout}ms exceeded`)) {
-    structuredReporter.error(e)
-    structuredReporter.panic(
-      formatLogMessage(
-        `It took too long for ${url} to respond (longer than ${
-          timeout / 1000
-        } seconds).\n\nEither your URL is wrong, you need to increase server resources, or you need to decrease the amount of resources each request takes.\n\nYou can configure how much resources each request takes by lowering your \`options.schema.perPage\` value from the default of 100 nodes per request.\nAlternatively you can increase the request timeout by setting a value in milliseconds to \`options.schema.timeout\`, the current setting is ${timeout}.\n\n${genericError(
-          { url }
-        )}`,
-        { useVerboseStyle: true }
-      ),
-      CODES.Timeout
-    )
+    reporter.error(e)
+    reporter.panic({
+      id: CODES.Timeout,
+      context: {
+        sourceMessage: formatLogMessage(
+          `It took too long for ${url} to respond (longer than ${
+            timeout / 1000
+          } seconds).\n\nEither your URL is wrong, you need to increase server resources, or you need to decrease the amount of resources each request takes.\n\nYou can configure how much resources each request takes by lowering your \`options.schema.perPage\` value from the default of 100 nodes per request.\nAlternatively you can increase the request timeout by setting a value in milliseconds to \`options.schema.timeout\`, the current setting is ${timeout}.\n\n${genericError(
+            { url }
+          )}`,
+          { useVerboseStyle: true }
+        ),
+      },
+    })
   }
 
   const unauthorized = e.message.includes(`Request failed with status code 401`)
@@ -254,18 +262,22 @@ const handleFetchErrors = async ({
     !htaccessCredentials.password || !htaccessCredentials.username
 
   if (unauthorized && !missingCredentials) {
-    structuredReporter.panic(
-      formatLogMessage(
-        `Request failed with status code 401.\n\nThe HTTP Basic Auth credentials you've provided in plugin options were rejected.\nDouble check that your credentials are correct.
+    reporter.panic({
+      id: CODES.Authentication,
+      context: {
+        sourceMessage: formatLogMessage(
+          `Request failed with status code 401.\n\nThe HTTP Basic Auth credentials you've provided in plugin options were rejected.\nDouble check that your credentials are correct.
          \n${genericError({ url })}`,
-        { useVerboseStyle: true }
-      ),
-      CODES.Authentication
-    )
+          { useVerboseStyle: true }
+        ),
+      },
+    })
   } else if (unauthorized) {
-    structuredReporter.panic(
-      formatLogMessage(
-        `Request failed with status code 401.\n\n Your WordPress instance may be protected with HTTP Basic authentication.\n If it is you will need to add the following to your plugin options:
+    reporter.panic({
+      id: CODES.Authentication,
+      context: {
+        sourceMessage: formatLogMessage(
+          `Request failed with status code 401.\n\n Your WordPress instance may be protected with HTTP Basic authentication.\n If it is you will need to add the following to your plugin options:
 
         {
           resolve: \`gatsby-source-wordpress-experimental\`,
@@ -279,38 +291,42 @@ const handleFetchErrors = async ({
           }
         }
          \n${genericError({ url })}`,
-        { useVerboseStyle: true }
-      ),
-      CODES.Authentication
-    )
+          { useVerboseStyle: true }
+        ),
+      },
+    })
   }
 
   const forbidden = e.message.includes(`Request failed with status code 403`)
 
   if (forbidden) {
-    structuredReporter.panic(
-      formatLogMessage(
-        `${e.message}\n\nThe GraphQL request was forbidden.\nIf you are using a security plugin like WordFence or a server firewall you may need to whitelist your IP address or adjust your firewall settings for your GraphQL endpoint.\n\n${errorContext}`
-      ),
-      CODES.Permissions
-    )
+    reporter.panic({
+      id: CODES.Permissions,
+      context: {
+        sourceMessage: formatLogMessage(
+          `${e.message}\n\nThe GraphQL request was forbidden.\nIf you are using a security plugin like WordFence or a server firewall you may need to whitelist your IP address or adjust your firewall settings for your GraphQL endpoint.\n\n${errorContext}`
+        ),
+      },
+    })
   }
 
   const redirected = e.message.includes(`GraphQL request was redirected`)
 
   if (redirected) {
     await handleErrorOptions({ variables, query, pluginOptions, reporter })
-    structuredReporter.panic(
-      formatLogMessage(
-        `${e.message}\n\n${errorContext}\n\nThis can happen due to custom code or redirection plugins which redirect the request when a post is accessed.\nThis redirection code will need to be patched to not run during GraphQL requests.\n\nThat can be achieved by adding something like the following to your WP PHP code:\n
+    reporter.panic({
+      id: CODES.CustomUserCode,
+      context: {
+        sourceMessage: formatLogMessage(
+          `${e.message}\n\n${errorContext}\n\nThis can happen due to custom code or redirection plugins which redirect the request when a post is accessed.\nThis redirection code will need to be patched to not run during GraphQL requests.\n\nThat can be achieved by adding something like the following to your WP PHP code:\n
 if ( defined( 'GRAPHQL_REQUEST' ) && true === GRAPHQL_REQUEST ) {
   return examplePreventRedirect();
 }
 
 ${slackChannelSupportMessage}`
-      ),
-      CODES.CustomUserCode
-    )
+        ),
+      },
+    })
   }
 
   const responseReturnedHtml = response?.headers[`content-type`].includes(
@@ -327,16 +343,18 @@ ${slackChannelSupportMessage}`
       } catch (e) {}
     }
 
-    structuredReporter.panic(
-      formatLogMessage(
-        `${errorContext || ``}\n\n${
-          e.message
-        } \n\nReceived HTML as a response. Are you sure ${url} is the correct URL?\n\nIf that URL redirects to the correct URL via WordPress in the browser,\nor you've entered the wrong URL in settings,\nyou might receive this error.\nVisit that URL in your browser, and if it looks good, copy/paste it from your URL bar to your config.\n\n${ensureStatementsAreTrue}${
-          copyHtmlResponseOnError
-            ? `\n\nCopied HTML response to your clipboard.`
-            : `\n\n${chalk.bold(
-                `Further debugging`
-              )}\nIf you still receive this error after following the steps above, this may be a problem with your WordPress instance.\nA plugin or theme may be adding additional output for some posts or pages.\nAdd the following plugin option to copy the html response to your clipboard for debugging.\nYou can paste the response into an html file to see what's being returned.\n
+    reporter.panic({
+      id: BadUrl,
+      context: {
+        sourceMessage: formatLogMessage(
+          `${errorContext || ``}\n\n${
+            e.message
+          } \n\nReceived HTML as a response. Are you sure ${url} is the correct URL?\n\nIf that URL redirects to the correct URL via WordPress in the browser,\nor you've entered the wrong URL in settings,\nyou might receive this error.\nVisit that URL in your browser, and if it looks good, copy/paste it from your URL bar to your config.\n\n${ensureStatementsAreTrue}${
+            copyHtmlResponseOnError
+              ? `\n\nCopied HTML response to your clipboard.`
+              : `\n\n${chalk.bold(
+                  `Further debugging`
+                )}\nIf you still receive this error after following the steps above, this may be a problem with your WordPress instance.\nA plugin or theme may be adding additional output for some posts or pages.\nAdd the following plugin option to copy the html response to your clipboard for debugging.\nYou can paste the response into an html file to see what's being returned.\n
 {
   resolve: "gatsby-source-wordpress-experimental",
   options: {
@@ -347,25 +365,27 @@ ${slackChannelSupportMessage}`
     }
   }
 }`
-        }
+          }
         `,
-        {
-          useVerboseStyle: true,
-        }
-      ),
-      CODES.BadUrl
-    )
+          {
+            useVerboseStyle: true,
+          }
+        ),
+      },
+    })
   } else if (responseReturnedHtml && !isFirstRequest) {
-    structuredReporter.panic(
-      formatLogMessage(
-        `${errorContext}\n\n${e.message}\n\nThere are some WordPress PHP filters in your site which are adding additional output to the GraphQL response.\nThese may have been added via custom code or via a plugin.\n\nYou will need to debug this and remove these filters during GraphQL requests using something like the following:
+    reporter.panic({
+      id: CODES.WordPressFilters,
+      context: {
+        sourceMessage: formatLogMessage(
+          `${errorContext}\n\n${e.message}\n\nThere are some WordPress PHP filters in your site which are adding additional output to the GraphQL response.\nThese may have been added via custom code or via a plugin.\n\nYou will need to debug this and remove these filters during GraphQL requests using something like the following:
         
 if ( defined( 'GRAPHQL_REQUEST' ) && true === GRAPHQL_REQUEST ) {
   return exampleReturnEarlyInFilter( $data );
 }\n\nYou can use the gatsby-source-wordpress-experimental debug options to determine which GraphQL request is causing this error.\nhttps://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/plugin-options.md#debuggraphql-object\n\n${slackChannelSupportMessage}`
-      ),
-      CODES.WordPressFilters
-    )
+        ),
+      },
+    })
   }
 
   const sharedEmptyStringReponseError = `\n\nAn empty string was returned instead of a response when making a GraphQL request.\nThis may indicate that you have a WordPress filter running which is causing WPGraphQL\nto return an empty string instead of a response.\nPlease open an issue with a reproduction at\nhttps://github.com/gatsbyjs/gatsby-source-wordpress-experimental/issues/new\nfor more help\n\n${errorContext}\n`
@@ -373,28 +393,33 @@ if ( defined( 'GRAPHQL_REQUEST' ) && true === GRAPHQL_REQUEST ) {
   const emptyStringResponse =
     e.message === `GraphQL request returned an empty string.`
 
-  const warnOrPanic =
-    process.env.NODE_ENV === `development`
-      ? structuredReporter.warn
-      : structuredReporter.panic
-
   if (emptyStringResponse) {
-    structuredReporter.log(``)
-    warnOrPanic(formatLogMessage(sharedEmptyStringReponseError))
+    reporter.log(``)
+    if (process.env.NODE_ENV === `development`) {
+      reporter.warn(formatLogMessage(sharedEmptyStringReponseError))
+    } else {
+      reporter.panic({
+        context: {
+          sourceMessage: formatLogMessage(sharedEmptyStringReponseError),
+        },
+      })
+    }
 
     return
   }
 
-  structuredReporter.panic(
-    formatLogMessage(
-      `${e.message} ${
-        errorContext ? `\n\n` + errorContext : ``
-      }\n\n${genericError({ url })}`,
-      {
-        useVerboseStyle: true,
-      }
-    )
-  )
+  reporter.panic({
+    context: {
+      sourceMessage: formatLogMessage(
+        `${e.message} ${
+          errorContext ? `\n\n` + errorContext : ``
+        }\n\n${genericError({ url })}`,
+        {
+          useVerboseStyle: true,
+        }
+      ),
+    },
+  })
 }
 
 const fetchGraphql = async ({
@@ -423,8 +448,6 @@ const fetchGraphql = async ({
       error: console.error,
     }
   }
-
-  const structuredReporter = makeStructuredReporter(reporter)
 
   if (!url) {
     url = pluginOptionsUrl
@@ -474,7 +497,7 @@ const fetchGraphql = async ({
 
     await handleFetchErrors({
       e,
-      structuredReporter,
+      reporter,
       url,
       timeout,
       variables,
@@ -501,7 +524,7 @@ const fetchGraphql = async ({
       response,
       errorMap,
       panicOnError,
-      structuredReporter,
+      reporter,
       url,
       timeout,
       errorContext,
