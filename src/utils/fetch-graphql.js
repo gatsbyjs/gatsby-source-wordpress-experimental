@@ -23,7 +23,7 @@ const handleErrorOptions = async ({
     Object.keys(variables).length &&
     pluginOptions.debug.graphql.showQueryVarsOnError
   ) {
-    reporter.error(
+    reporter.info(
       formatLogMessage(`GraphQL vars: ${JSON.stringify(variables)}`)
     )
   }
@@ -129,14 +129,14 @@ const handleGraphQLErrors = async ({
 
     if (errorWasMapped && panicOnError) {
       reporter.panic({
-        id: CODES.GQLConfiguration,
+        id: CODES.RemoteGraphQLError,
         context: {
           sourceMessage: formatLogMessage(errorMap.to),
         },
       })
     } else if (errorWasMapped) {
       reporter.error({
-        id: CODES.GQLConfiguration,
+        id: CODES.RemoteGraphQLError,
         context: {
           sourceMessage: formatLogMessage(errorMap.to),
         },
@@ -301,7 +301,7 @@ const handleFetchErrors = async ({
 
   if (forbidden) {
     reporter.panic({
-      id: CODES.Permissions,
+      id: CODES.RequestDenied,
       context: {
         sourceMessage: formatLogMessage(
           `${e.message}\n\nThe GraphQL request was forbidden.\nIf you are using a security plugin like WordFence or a server firewall you may need to whitelist your IP address or adjust your firewall settings for your GraphQL endpoint.\n\n${errorContext}`
@@ -315,7 +315,7 @@ const handleFetchErrors = async ({
   if (redirected) {
     await handleErrorOptions({ variables, query, pluginOptions, reporter })
     reporter.panic({
-      id: CODES.CustomUserCode,
+      id: CODES.WordPressFilters,
       context: {
         sourceMessage: formatLogMessage(
           `${e.message}\n\n${errorContext}\n\nThis can happen due to custom code or redirection plugins which redirect the request when a post is accessed.\nThis redirection code will need to be patched to not run during GraphQL requests.\n\nThat can be achieved by adding something like the following to your WP PHP code:\n
@@ -344,7 +344,7 @@ ${slackChannelSupportMessage}`
     }
 
     reporter.panic({
-      id: BadUrl,
+      id: CODES.BadResponse,
       context: {
         sourceMessage: formatLogMessage(
           `${errorContext || ``}\n\n${
