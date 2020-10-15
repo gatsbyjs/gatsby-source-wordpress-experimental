@@ -1,50 +1,44 @@
 export const CODES = {
   /* Fetch errors */
   WordPressFilters: 111001,
-  BadUrl: 111002,
-  CustomUserCode: 111003,
-  Permissions: 111004,
+  BadResponse: 111002,
+  RequestDenied: 111004,
   Authentication: 111005,
   Timeout: 111006,
 
   /* GraphQL Errors */
-  GQLConfiguration: 112001,
+  RemoteGraphQLError: 112001,
 }
 
 export const ERROR_MAP = {
   [CODES.WordPressFilters]: {
-    text: (context) => context.message,
+    text: (context) => context.sourceMessage,
     level: "ERROR",
     category: "USER",
   },
-  [CODES.BadUrl]: {
-    text: (context) => context.message,
+  [CODES.BadResponse]: {
+    text: (context) => context.sourceMessage,
     level: "ERROR",
     category: "USER",
   },
-  [CODES.CustomUserCode]: {
-    text: (context) => context.message,
-    level: "ERROR",
-    category: "USER",
-  },
-  [CODES.Permissions]: {
-    text: (context) => context.message,
+  [CODES.RequestDenied]: {
+    text: (context) => context.sourceMessage,
     level: "ERROR",
     category: "USER",
   },
   [CODES.Authentication]: {
-    text: (context) => context.message,
+    text: (context) => context.sourceMessage,
     level: "ERROR",
     category: "USER",
   },
   [CODES.Timeout]: {
-    text: (context) => context.message,
+    text: (context) => context.sourceMessage,
     level: "ERROR",
     category: "USER",
   },
-  [CODES.GQLConfiguration]: {
-    text: (context) => context.message,
+  [CODES.RemoteGraphQLError]: {
+    text: (context) => context.sourceMessage,
     level: "ERROR",
-    category: "USER",
+    category: "THIRD_PARTY",
   },
 }
