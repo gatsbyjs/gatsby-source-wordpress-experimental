@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.7.7
+
+Moved the check for wether the remote API is using WPGatsby or not to make it more consistent. It was running in parallel with some other checks and sometimes the others would finish first producing incorrect error messages.
+
+In `src/steps/check-plugin-requirements.js`, `isWpGatsby()`
+
 ## 1.7.6
 
 - There was a timing issue in that if 'fetchMediaItemsById' (steps/source-nodes/fetch-nodes/fetch-referenced-media-items.js)
