@@ -48,38 +48,3 @@ export const ERROR_MAP = {
     category: "USER",
   },
 }
-
-export function makeStructuredReporter(reporter) {
-  if (!reporter.setErrorMap) {
-    return reporter
-  }
-
-  /**
-   * Use a higher order function to create a wrapper
-   * around reporter methods. Alternively we could use
-   * an ES6 proxy.
-   */
-  function makeStructuredReport(method) {
-    return function report(message, code) {
-      reporter[method]({
-        id: code.toString(),
-        context: {
-          message,
-        },
-      })
-    }
-  }
-
-  /**
-   * The disadavantage of this approach is that we have to
-   * explicitly map every member of the reporter API that
-   * might be used.
-   */
-  return {
-    panic: makeStructuredReport("panic"),
-    error: makeStructuredReport("error"),
-    warn: reporter.warn,
-    log: reporter.log,
-    verbose: reporter.verbose,
-  }
-}
