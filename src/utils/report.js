@@ -49,7 +49,7 @@ export const ERROR_MAP = {
   },
 }
 
-export function structuredReporter(reporter) {
+export function makeStructuredReporter(reporter) {
   if (!reporter.setErrorMap) {
     return reporter
   }
@@ -62,7 +62,7 @@ export function structuredReporter(reporter) {
   function makeStructuredReport(method) {
     return function report(message, code) {
       reporter[method]({
-        id: code,
+        id: code.toString(),
         context: {
           message,
         },
