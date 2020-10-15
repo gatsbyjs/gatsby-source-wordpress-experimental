@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.7.7
+
+- Added structure error reports courtesy of @sslotsky. Thanks Sam!
+
 ## 1.7.6
 
 - There was a timing issue in that if 'fetchMediaItemsById' (steps/source-nodes/fetch-nodes/fetch-referenced-media-items.js)
