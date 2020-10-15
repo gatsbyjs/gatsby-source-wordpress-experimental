@@ -3,9 +3,12 @@
 ## 1.7.7
 
 - Added structure error reports courtesy of @sslotsky. Thanks Sam!
+
 - Moved the check for wether the remote API is using WPGatsby or not to make it more consistent. It was running in parallel with some other checks and sometimes the others would finish first producing incorrect error messages.
 
 In `src/steps/check-plugin-requirements.js`, `isWpGatsby()`
+
+- Updated the error message url for downloading WPGatsby when it's not active
 
 ## 1.7.6
 
