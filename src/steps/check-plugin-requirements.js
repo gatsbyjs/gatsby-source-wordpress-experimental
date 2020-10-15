@@ -220,7 +220,7 @@ const isWpGatsby = async () =>
     errorMap: {
       from: `Cannot query field "isWpGatsby" on type "RootQuery".`,
       // @todo replace this link with another once we're out of alpha
-      to: `WPGatsby is not active in your WordPress installation.\nTo download the latest versions of WPGatsby and WPGraphL, visit:\nhttps://github.com/TylerBarnes/using-gatsby-source-wordpress-experimental/tree/master/WordPress/plugins`,
+      to: `WPGatsby is not active in your WordPress installation.\nTo download the latest version of WPGatsby visit https://wordpress.org/plugins/wp-gatsby/`,
     },
     panicOnError: true,
     isFirstRequest: true,
