@@ -281,9 +281,9 @@ const ensurePluginRequirementsAreMet = async (helpers, _pluginOptions) => {
   }
 
   await blankGetRequest({ url, helpers })
+  await isWpGatsby()
 
   await Promise.all([
-    isWpGatsby(),
     prettyPermalinksAreEnabled({ helpers }),
     areRemotePluginVersionsSatisfied({
       helpers,
