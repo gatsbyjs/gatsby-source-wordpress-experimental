@@ -70,10 +70,16 @@ export function makeStructuredReporter(reporter) {
     }
   }
 
+  /**
+   * The disadavantage of this approach is that we have to
+   * explicitly map every member of the reporter API that
+   * might be used.
+   */
   return {
     panic: makeStructuredReport("panic"),
     error: makeStructuredReport("error"),
     warn: reporter.warn,
     log: reporter.log,
+    verbose: reporter.verbose,
   }
 }
