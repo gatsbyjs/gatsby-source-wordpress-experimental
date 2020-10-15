@@ -1,0 +1,63 @@
+version: "3.8"
+
+services:
+  db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: gtsb-wp-dckr
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: gtsb-wp-dckr-user
+    restart: always
+    volumes:
+      - "db_data:/var/lib/mysql"
+
+  wordpress:
+    depends_on:
+      - db
+    # image: duffn/wordpress-wpgraphql-wpgatsby:latest
+    # While pulling the image will be faster, if you like, you can build the
+    # image locally, but uncommenting the lines below and commenting out the
+    # `image` line above.
+    # The image above will be kept up-to-date, however, you can change WPGraphQL
+    # and WPGatsby versions below if you build yourself.
+    build:
+      context: ./docker/wordpress
+      args:
+        WPGRAPHQL_VERSION: v0.13.3
+        WPGATSBY_VERSION: v0.4.17
+        WOOGRAPHQL_VERSION: v0.6.0
+        YOAST_GRAPHQL_VERSION: v4.8.0
+        WPGRAPHQL_GUTENBERG_VERSION: v0.3.4
+        WPGRAPHQL_ACF_VERSION: v0.3.5
+    ports:
+      - "8001:8001"
+    environment:
+      WORDPRESS_DB_PASSWORD: gtsb-wp-dckr-user
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_HOST: db:3306
+    restart: always
+    volumes:
+      - wp_data:/var/www/html
+
+  wordpress-cli:
+    depends_on:
+      - db
+      - wordpress
+    # vstm: This is required to run wordpress-cli with the same
+    # user-id as wordpress. This way there are no permission problems
+    # when running the cli
+    user: xfs
+    # image: duffn/wp-cli-gatsby:latest
+    # While pulling the image will be faster, if you like, you can build the
+    # image locally, but uncommenting the lines below and commenting out the
+    # `image` line above.
+    build:
+      context: ./docker/wp-cli
+    volumes:
+      - wp_data:/var/www/html
+
+volumes:
+  db_data:
+  wp_data:
