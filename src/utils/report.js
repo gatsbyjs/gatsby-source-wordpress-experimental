@@ -1,13 +1,13 @@
 export const CODES = {
   /* Fetch errors */
-  WordPressFilters: 111001,
-  BadResponse: 111002,
-  RequestDenied: 111004,
-  Authentication: 111005,
-  Timeout: 111006,
+  WordPressFilters: `111001`,
+  BadResponse: `111002`,
+  RequestDenied: `111004`,
+  Authentication: `111005`,
+  Timeout: `111006`,
 
   /* GraphQL Errors */
-  RemoteGraphQLError: 112001,
+  RemoteGraphQLError: `112001`,
 }
 
 export const ERROR_MAP = {
