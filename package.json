@@ -77,10 +77,10 @@
     "url": "https://github.com/gatsbyjs/gatsby-source-wordpress-experimental.git"
   },
   "scripts": {
-    "build": "babel src --out-dir . --ignore **/__tests__",
+    "build": "babel src --out-dir .compiled --ignore **/__tests__",
     "prepare": "cross-env NODE_ENV=production BABEL_ENV=production npm run build",
     "prepublishOnly": "npm run test",
-    "watch": "babel -w src --out-dir . --ignore **/__tests__ --verbose",
+    "watch": "babel -w src --out-dir .compiled --ignore **/__tests__ --verbose",
     "ci": "yarn test",
     "clean-test-runtime": "cd .test-runtime && npx gatsby clean",
     "develop-test-runtime": "cd .test-runtime && yarn develop",

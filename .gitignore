@@ -1,4 +1,4 @@
-/**/*.js
+.compiled
 !src/**/*.js
 !.test-runtime/**/*.js
 gatsby-node
