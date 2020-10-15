@@ -1,5 +1,5 @@
-import { runApisInSteps } from "~/utils/run-steps"
-import * as steps from "~/steps/index"
+const { runApisInSteps } = require("./.compiled/utils/run-steps")
+const steps = require("./.compiled/steps/index")
 
 module.exports = runApisInSteps({
   onPreInit: [steps.setErrorMap],
