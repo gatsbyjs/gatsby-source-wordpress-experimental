@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.7.8
+
+- Increase supported version range for WPGatsby to allow >0.4.14 <0.6.0
+
 ## 1.7.7
 
 - Added structure error reports courtesy of @sslotsky. Thanks Sam!

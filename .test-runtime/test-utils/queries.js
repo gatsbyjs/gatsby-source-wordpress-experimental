@@ -533,7 +533,6 @@ export const queries = {
       opengraphSiteName
       opengraphTitle
       opengraphType
-      opengraphUrl
       title
       twitterDescription
       twitterImage {
