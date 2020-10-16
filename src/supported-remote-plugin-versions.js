@@ -2,16 +2,12 @@
 // it indicates which versions we will actually support AND which versions work.
 const supportedWpPluginVersions = {
   WPGraphQL: {
-    version: `>=0.10.3 <0.13.0`,
-    reason: `WPGraphQL 0.10.0 introduced a large number of changes that required internal source plugin code changes. A big feature is improved support for WordPress previews and improvements to how Menus are handled. 0.10.3 fixed a private post regression that could cause cold builds to fail.
-
-    V0.11.0 introduced breaking changes, but none that will affect Gatsby users. https://github.com/wp-graphql/wp-graphql/pull/1407
-    
-    Head to https://github.com/wp-graphql/wp-graphql/releases/tag/v0.10.0 for more information on upgrading.`,
+    version: `>=0.10.3 <0.14.0`,
+    reason: null,
   },
   WPGatsby: {
     version: `~0.4.14`,
-    reason: `WPGatsby 0.4.14 supports WPGraphQL 0.10.3. Version 0.4.13 and before had a bug where making a published post into a draft wouldn't delete the post in Gatsby.`,
+    reason: null,
   },
 }
 

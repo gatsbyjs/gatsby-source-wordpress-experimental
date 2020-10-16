@@ -29,7 +29,7 @@ This plugin is the official recommended way to use WordPress with Gatsby. We're 
 
 ## Overview :sun_with_face:
 
-This plugin works by merging the [WPGraphQL schema & data](https://docs.wpgraphql.com/guides/about-wpgraphql/) with the [Gatsby schema & Node model](https://www.gatsbyjs.org/docs/node-model/) which allows us to efficiently cache WP data in Gatsby. What this means is that incremental builds, fast builds, and previews work beautifully! :nail_care:
+This plugin works by merging the [WPGraphQL schema & data](https://docs.wpgraphql.com/guides/about-wpgraphql/) with the [Gatsby schema & Node model](https://www.gatsbyjs.org/docs/node-model/) which allows us to efficiently cache WP data in Gatsby. What this means is that incremental builds, and fast builds work beautifully! :nail_care: Preview is currently buggy in some cases but is being worked on and will work beautifully too soon! :wink:
 
 Developer & Content Creator experience are some of our main focuses with this integration. Please send us your feedback!
 
@@ -43,6 +43,7 @@ Developer & Content Creator experience are some of our main focuses with this in
 - :feet: [Features](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/features/index.md)
 - :electric_plug: [Plugin options](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/plugin-options.md)
 - :boat: [Migrating from other WP source plugins](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/migrating-from-other-wp-source-plugins.md)
+- :computer: [Using Data](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/using-data.md)
 - :house: [Hosting WordPress](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/hosting.md)
 - :athletic_shoe: [Themes, Starters, and Examples](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/themes-starters-examples.md)
 - :medal_sports: [Usage with popular WPGraphQL extensions](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/usage-with-popular-wp-graphql-extensions.md)

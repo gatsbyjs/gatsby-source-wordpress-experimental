@@ -31,46 +31,54 @@ export const transformListOfGatsbyNodes = ({ field, fieldName }) => {
   }
 }
 
-export const transformGatsbyNodeObject = ({ field, fieldName }) => {
+export const buildGatsbyNodeObjectResolver = ({ field, fieldName }) => async (
+  source,
+  _,
+  context
+) => {
+  const typeName = buildTypeName(field.type.name)
+  const nodeField = source[fieldName]
+
+  if (!nodeField || (nodeField && !nodeField.id)) {
+    return null
+  }
+
+  const existingNode = context.nodeModel.getNodeById({
+    id: nodeField.id,
+    type: typeName,
+  })
+
+  if (existingNode) {
+    return existingNode
+  }
+
+  const queryInfo = getQueryInfoByTypeName(field.type.name)
+
+  // if this node doesn't exist, fetch it and create a node
+  const { node } = await fetchAndCreateSingleNode({
+    id: nodeField.id,
+    actionType: `CREATE`,
+    singleName: queryInfo.typeInfo.singularName,
+  })
+
+  if (source.id && node) {
+    const { helpers } = getGatsbyApi()
+
+    await helpers.actions.createParentChildLink({
+      parent: source,
+      child: node,
+    })
+  }
+
+  return node || null
+}
+
+export const transformGatsbyNodeObject = (transformerApi) => {
+  const { field } = transformerApi
   const typeName = buildTypeName(field.type.name)
 
   return {
     type: typeName,
-    resolve: async (source, _, context) => {
-      const nodeField = source[fieldName]
-
-      if (!nodeField || (nodeField && !nodeField.id)) {
-        return null
-      }
-
-      const existingNode = context.nodeModel.getNodeById({
-        id: nodeField.id,
-        type: typeName,
-      })
-
-      if (existingNode) {
-        return existingNode
-      }
-
-      const queryInfo = getQueryInfoByTypeName(field.type.name)
-
-      // if this node doesn't exist, fetch it and create a node
-      const { node } = await fetchAndCreateSingleNode({
-        id: nodeField.id,
-        actionType: `CREATE`,
-        singleName: queryInfo.typeInfo.singularName,
-      })
-
-      if (source.id && node) {
-        const { helpers } = getGatsbyApi()
-
-        await helpers.actions.createParentChildLink({
-          parent: source,
-          child: node,
-        })
-      }
-
-      return node || null
-    },
+    resolve: buildGatsbyNodeObjectResolver(transformerApi),
   }
 }

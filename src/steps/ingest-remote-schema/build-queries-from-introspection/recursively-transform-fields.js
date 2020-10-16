@@ -52,18 +52,12 @@ export const transformInlineFragments = ({
       const type = typeMap.get(possibleType.name)
 
       if (!type) {
-        if (debug) {
-          dd(`here`)
-        }
         return false
       }
 
       const typeSettings = getTypeSettingsByType(type)
 
       if (typeSettings.exclude) {
-        if (debug) {
-          dd(`here2`)
-        }
         return false
       }
 
@@ -77,9 +71,6 @@ export const transformInlineFragments = ({
       )
 
       if (isAGatsbyNode && !buildGatsbyNodeFields) {
-        if (debug) {
-          dd(`here3`)
-        }
         // we use the id to link to the top level Gatsby node
         possibleType.fields = [`id`]
         return possibleType
@@ -232,6 +223,7 @@ export function transformField({
 
   if (
     fieldType.kind === `SCALAR` ||
+    fieldType.kind === `ENUM` ||
     (fieldType.kind === `NON_NULL` && ofType.kind === `SCALAR`) ||
     (fieldType.kind === `LIST` && fieldType.ofType.kind === `SCALAR`) ||
     // a list of enums has no type name, so findTypeName above finds the enum type
@@ -265,7 +257,7 @@ export function transformField({
   } else if (fieldType.kind === `LIST` && isListOfMediaItems && hasIdField) {
     return {
       fieldName: fieldName,
-      fields: [`id`, `sourceUrl`],
+      fields: [`__typename`, `id`],
       fieldType,
     }
   } else if (fieldType.kind === `LIST`) {
@@ -322,25 +314,21 @@ export function transformField({
 
   const isAMediaItemNode = isAGatsbyNode && typeName === `MediaItem`
 
-  // pull the id and sourceUrl for connections to media item gatsby nodes
+  // pull the id and __typename for connections to media item gatsby nodes
   if (isAMediaItemNode && hasIdField) {
     return {
       fieldName: fieldName,
-      fields: [`id`, `sourceUrl`],
+      fields: [`__typename`, `id`],
       fieldType,
     }
   } else if (isAGatsbyNode && hasIdField) {
-    const isAnInterfaceTypeOfGatsbyNodes =
+    const isAnInterfaceType =
       // if this is an interface
-      typeKind === `INTERFACE` &&
-      // and every possible type is a future gatsby node
-      fieldType?.possibleTypes?.every((possibleType) =>
-        gatsbyNodesInfo.typeNames.includes(possibleType.name)
-      )
+      typeKind === `INTERFACE` || fieldType.kind === `INTERFACE`
 
     return {
       fieldName: fieldName,
-      fields: isAnInterfaceTypeOfGatsbyNodes
+      fields: isAnInterfaceType
         ? // we need the typename for interfaces
           [`id`, `__typename`]
         : // or just the id for 1:1 connections to gatsby nodes

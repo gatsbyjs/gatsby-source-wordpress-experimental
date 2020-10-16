@@ -23,6 +23,9 @@ export const writeQueriesToDisk = async ({ reporter }, pluginOptions) => {
   activity.start()
   const wordPressGraphQLDirectory = `${process.cwd()}/WordPress/GraphQL`
 
+  // remove before writing in case there are old types
+  await fs.remove(wordPressGraphQLDirectory)
+
   for (const {
     nodeListQueries,
     nodeQuery,

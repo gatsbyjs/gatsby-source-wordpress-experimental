@@ -1,13 +1,14 @@
 import fetchGraphql from "gatsby-source-wordpress-experimental/utils/fetch-graphql"
 
-export const authedWPGQLRequest = async query => {
+export const authedWPGQLRequest = async (query, { variables } = {}) => {
   if (!process.env.WPGRAPHQL_URL) {
     console.error(`No process.env.WPGRAPHQL_URL url found`)
     process.exit(1)
   }
   const { errors, data } = await fetchGraphql({
-    url: process.env.WPGRAPHQL_URL,
     query,
+    variables,
+    url: process.env.WPGRAPHQL_URL,
     headers: {
       Authorization: `Basic ${process.env.WORDPRESS_BASIC_AUTH}`,
     },

@@ -2,6 +2,10 @@ require(`dotenv`).config({
   path: `.env.GATSBY_CONCURRENT_DOWNLOAD`,
 })
 
+require(`dotenv`).config({
+  path: `.env.WORDPRESS_BASIC_AUTH`,
+})
+
 // require .env.development or .env.production
 require(`dotenv`).config({
   path: `.env.test`,
@@ -12,9 +16,7 @@ require(`dotenv`).config({
 const wpPluginOptions = !process.env.DEFAULT_PLUGIN_OPTIONS
   ? {
       verbose: true,
-      // for wp-graphql-gutenberg, attributes currently breaks due
-      // to the origin schema. It works if we exclude attributes
-      excludeFieldNames: [`commentCount`, `attributes`, `commentCount`],
+      excludeFieldNames: [`commentCount`, `commentCount`],
       schema: {
         queryDepth: 5,
         typePrefix: `Wp`,
@@ -24,9 +26,9 @@ const wpPluginOptions = !process.env.DEFAULT_PLUGIN_OPTIONS
       },
       debug: {
         graphql: {
-          showQueryOnError: false,
+          showQueryOnError: true,
           showQueryVarsOnError: false,
-          copyQueryOnError: false,
+          copyQueryOnError: true,
           panicOnError: false,
           // a critical error is a WPGraphQL query that returns an error and response data. Currently WPGQL will error if we try to access private posts so if this is false it returns a lot of irrelevant errors.
           onlyReportCriticalErrors: true,
@@ -34,6 +36,9 @@ const wpPluginOptions = !process.env.DEFAULT_PLUGIN_OPTIONS
         },
       },
       type: {
+        Cart: {
+          exclude: true,
+        },
         TypeLimitTest: {
           limit: 1,
         },
@@ -50,8 +55,14 @@ const wpPluginOptions = !process.env.DEFAULT_PLUGIN_OPTIONS
             }
           },
         },
+        Comment: {
+          excludeFieldNames: [`databaseId`],
+        },
         Page: {
           excludeFieldNames: [`enclosure`],
+        },
+        DatabaseIdentifier: {
+          exclude: true,
         },
         User: {
           excludeFieldNames: [
@@ -71,7 +82,13 @@ const wpPluginOptions = !process.env.DEFAULT_PLUGIN_OPTIONS
         },
       },
     }
-  : {}
+  : {
+      type: {
+        Cart: {
+          exclude: true,
+        },
+      },
+    }
 
 module.exports = {
   plugins: [
@@ -87,6 +104,12 @@ module.exports = {
       resolve: require.resolve(`../package.json`),
       options: {
         url: process.env.WPGRAPHQL_URL,
+        auth: {
+          htaccess: {
+            username: process.env.HTACCESS_USERNAME,
+            password: process.env.HTACCESS_PASSWORD,
+          },
+        },
         ...wpPluginOptions,
       },
     },

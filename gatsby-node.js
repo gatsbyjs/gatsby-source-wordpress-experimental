@@ -1,21 +1,16 @@
-import { runApisInSteps } from "~/utils/run-steps"
-import { emitter } from "gatsby/dist/redux"
-import express from "express"
-import * as steps from "~/steps/index"
-import { Server as WebSocketServer } from "ws"
-import moment from "moment"
+const { emitter } = require("gatsby/dist/redux")
+const express = require("express")
+const { Server: WebSocketServer } = require("ws")
+const moment = require("moment")
 
 const listeningToNodes = {}
 
-const sourceNodes = [
-  steps.setGatsbyApiToState,
-  steps.persistPreviouslyCachedImages,
-  steps.sourcePreviews,
-  steps.sourceNodes,
-  steps.setImageNodeIdCache,
-]
+const { runApisInSteps } = require("./dist/utils/run-steps")
+const steps = require("./dist/steps/index")
 
 module.exports = runApisInSteps({
+  onPreInit: [steps.setErrorMap],
+
   createSchemaCustomization: [
     steps.setGatsbyApiToState,
     steps.ensurePluginRequirementsAreMet,
@@ -23,19 +18,36 @@ module.exports = runApisInSteps({
     steps.createSchemaCustomization,
   ],
 
-  sourceNodes,
+  sourceNodes: [
+    steps.setGatsbyApiToState,
+    [
+      steps.persistPreviouslyCachedImages,
+      steps.sourcePreviews,
+      steps.sourceNodes,
+    ],
+    steps.setImageNodeIdCache,
+  ],
 
   onPostBuild: [steps.setImageNodeIdCache],
+
+  onCreatePage: [
+    (something, somethingelse) => {
+      something
+      somethingelse
+    },
+  ],
 
   onCreateNode: [
     ({ node }) => {
       if (
         node.internal.type === `SitePage` &&
-        listeningToNodes[node?.context?.id]
+        node.context &&
+        node.context.id &&
+        listeningToNodes[node.context.id]
       ) {
-        listeningToNodes[node.context.id]?.(node)
-      } else {
-        listeningToNodes[node.id]?.(node)
+        listeningToNodes[node.context.id](node)
+      } else if (node && node.id && listeningToNodes[node.id]) {
+        listeningToNodes[node.id](node)
       }
     },
   ],
@@ -73,7 +85,7 @@ module.exports = runApisInSteps({
           const pageNodes = getNodesByType(`SitePage`)
           const pageNodeForDesiredNode = pageNodes.find((pageNode) => {
             // if there's a page with a matching node id in it's context
-            if (pageNode?.context?.id === message.nodeId) {
+            if (pageNode.context && pageNode.context.id === message.nodeId) {
               // get that node
               const node = getNode(message.nodeId)
 
@@ -118,7 +130,8 @@ module.exports = runApisInSteps({
                 const pageNodes = getNodesByType(`SitePage`)
 
                 pageNode = pageNodes.find(
-                  (pageNode) => pageNode?.context?.id === message.nodeId
+                  (pageNode) =>
+                    pageNode.context && pageNode.context.id === message.nodeId
                 )
               }
               console.log(`sending created pageNode to connection`)

@@ -1,14 +1,17 @@
 import store from "~/store"
+import { setPersistentCache, getPersistentCache } from "~/utils/cache"
 import fetchGraphql from "~/utils/fetch-graphql"
 import { introspectionQuery } from "~/utils/graphql-queries"
 
 const introspectAndStoreRemoteSchema = async () => {
   const state = store.getState()
-  const { pluginOptions, helpers } = state.gatsbyApi
+  const { pluginOptions } = state.gatsbyApi
   const { schemaWasChanged } = state.remoteSchema
 
   const INTROSPECTION_CACHE_KEY = `${pluginOptions.url}--introspection-data`
-  let introspectionData = await helpers.cache.get(INTROSPECTION_CACHE_KEY)
+  let introspectionData = await getPersistentCache({
+    key: INTROSPECTION_CACHE_KEY,
+  })
 
   if (!introspectionData || schemaWasChanged) {
     const { data } = await fetchGraphql({
@@ -18,7 +21,10 @@ const introspectAndStoreRemoteSchema = async () => {
     introspectionData = data
 
     // cache introspection response
-    await helpers.cache.set(INTROSPECTION_CACHE_KEY, introspectionData)
+    await setPersistentCache({
+      key: INTROSPECTION_CACHE_KEY,
+      value: introspectionData,
+    })
   }
 
   const typeMap = new Map(

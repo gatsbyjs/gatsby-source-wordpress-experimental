@@ -1,56 +1,183 @@
+/**
+ * @jest-environment node
+ */
+
 import fetchGraphql from "gatsby-source-wordpress-experimental/utils/fetch-graphql"
 import { incrementalIt } from "../../../test-utils/incremental-it"
+import { testResolvedData } from "../../../test-utils/test-resolved-data"
+import { queries } from "../../../test-utils/queries"
+import { authedWPGQLRequest } from "../../../test-utils/authed-wpgql-request"
 
 jest.setTimeout(100000)
 
+const url = `http://localhost:8000/___graphql`
+
 describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
-  incrementalIt(`resolves menus`, async () => {
-    const result = await fetchGraphql({
-      url: `http://localhost:8000/___graphql`,
+  it(`resolves correct number of nodes`, async () => {
+    const { data } = await fetchGraphql({
+      url,
+      query: queries.nodeCounts,
+    })
+
+    expect(data[`allWpMediaItem`].nodes).toBeTruthy()
+    expect(data[`allWpMediaItem`].nodes).toMatchSnapshot()
+    expect(data[`allWpMediaItem`].totalCount).toBe(58)
+
+    expect(data[`allWpTag`].totalCount).toBe(5)
+    expect(data[`allWpUser`].totalCount).toBe(3)
+    expect(data[`allWpPage`].totalCount).toBe(20)
+    expect(data[`allWpPost`].totalCount).toBe(10)
+    expect(data[`allWpComment`].totalCount).toBe(1)
+    expect(data[`allWpProject`].totalCount).toBe(1)
+    expect(data[`allWpTaxonomy`].totalCount).toBe(10)
+    expect(data[`allWpCategory`].totalCount).toBe(9)
+    expect(data[`allWpMenu`].totalCount).toBe(3)
+    expect(data[`allWpMenuItem`].totalCount).toBe(4)
+    expect(data[`allWpTeamMember`].totalCount).toBe(1)
+    expect(data[`allWpPostFormat`].totalCount).toBe(0)
+    expect(data[`allWpContentType`].totalCount).toBe(16)
+  })
+
+  testResolvedData({
+    url,
+    title: `resolves wp-graphql-acf data`,
+    gatsbyQuery: queries.acfData,
+    queryReplace: {
+      from: `wpPage(title: { eq: "ACF Field Test" }) {`,
+      to: `page(id: "cG9zdDo3NjQ2") {`,
+    },
+    fields: {
+      gatsby: `wpPage`,
+      wpgql: `page`,
+    },
+  })
+
+  testResolvedData({
+    url,
+    title: `resolves wp-graphql-gutenberg columns`,
+    gatsbyQuery: queries.gutenbergColumns,
+    queryReplace: {
+      from: `wpPost(title: { eq: "Gutenberg: Columns" }) {`,
+      to: `post(id: "cG9zdDoxMjg=") {`,
+    },
+    fields: {
+      gatsby: `wpPost`,
+      wpgql: `post`,
+    },
+  })
+
+  testResolvedData({
+    url,
+    title: `resolves wp-graphql-gutenberg layout elements`,
+    gatsbyQuery: queries.gutenbergLayoutElements,
+    queryReplace: {
+      from: `wpPost(id: { eq: "cG9zdDoxMjU=" }) {`,
+      to: `post(id: "cG9zdDoxMjU=") {`,
+    },
+    fields: {
+      gatsby: `wpPost`,
+      wpgql: `post`,
+    },
+  })
+
+  testResolvedData({
+    url,
+    title: `resolves wp-graphql-gutenberg formatting blocks`,
+    gatsbyQuery: queries.gutenbergFormattingBlocks,
+    queryReplace: {
+      from: `wpPost(id: { eq: "cG9zdDoxMjI=" }) {`,
+      to: `post(id: "cG9zdDoxMjI=") {`,
+    },
+    fields: {
+      gatsby: `wpPost`,
+      wpgql: `post`,
+    },
+  })
+
+  testResolvedData({
+    url,
+    title: `resolves wp-graphql-gutenberg common blocks`,
+    gatsbyQuery: queries.gutenbergCommonBlocks,
+    queryReplace: {
+      from: `wpPost(id: { eq: "cG9zdDo5NA==" }) {`,
+      to: `post(id: "cG9zdDo5NA==") {`,
+    },
+    fields: {
+      gatsby: `wpPost`,
+      wpgql: `post`,
+    },
+  })
+
+  it(`resolves Yoast SEO data`, async () => {
+    const gatsbyResult = await fetchGraphql({
+      url,
       query: /* GraphQL */ `
         {
-          allWpMenu {
+          wp {
+            ${queries.yoastRootFields}
+          }
+          wpPage(title: {eq: "Yoast SEO"}) {
+            ${queries.pageYoastFields}
+          }
+        }
+      `,
+    })
+
+    const WPGraphQLData = await authedWPGQLRequest(/* GraphQL */ `
+      {
+        ${queries.yoastRootFields}
+        page(id: "cG9zdDo3ODY4") {
+          ${queries.pageYoastFields}
+        }
+      }
+    `)
+
+    const wpGraphQLPageNormalizedPaths = JSON.parse(
+      JSON.stringify(WPGraphQLData.page).replace(
+        /https:\/\/gatsbyinttests.wpengine.com/gm,
+        ``
+      )
+    )
+
+    expect(gatsbyResult.data.wpPage).toStrictEqual(wpGraphQLPageNormalizedPaths)
+    expect(gatsbyResult.data.wp.seo).toStrictEqual(WPGraphQLData.seo)
+  })
+
+  it(`resolves hierarchichal categories`, async () => {
+    const gatsbyResult = await fetchGraphql({
+      url,
+      query: /* GraphQL */ `
+        fragment NestedCats on WpCategory {
+          name
+          wpChildren {
             nodes {
               name
-              count
-              id
-              databaseId
-              menuItems {
+              wpChildren {
                 nodes {
-                  id
-                  label
-                  databaseId
-                  nodeType
-                  target
-                  title
-                  url
-                  childItems {
+                  name
+                  wpChildren {
                     nodes {
-                      label
-                      id
-                      databaseId
-                      connectedNode {
-                        node {
-                          ... on WpPost {
-                            title
-                            uri
-                            featuredImage {
-                              node {
-                                title
-                              }
-                            }
-                          }
-                        }
-                      }
-                      childItems {
-                        nodes {
-                          label
-                          url
-                        }
-                      }
+                      name
                     }
                   }
                 }
+              }
+            }
+          }
+        }
+
+        {
+          allWpCategory {
+            nodes {
+              name
+            }
+          }
+          wpPost(id: { eq: "cG9zdDo5MzYx" }) {
+            id
+            title
+            categories {
+              nodes {
+                ...NestedCats
               }
             }
           }
@@ -58,123 +185,28 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
       `,
     })
 
+    const categoryNodes = gatsbyResult.data.allWpCategory.nodes
+    const categoryNames = categoryNodes.map(({ name }) => name)
+
+    expect(categoryNames.includes(`h1`)).toBeTruthy()
+    expect(categoryNames.includes(`h2`)).toBeTruthy()
+    expect(categoryNames.includes(`h3`)).toBeTruthy()
+    expect(categoryNames.includes(`h4`)).toBeTruthy()
+  })
+
+  incrementalIt(`resolves menus`, async () => {
+    const result = await fetchGraphql({
+      url,
+      query: queries.menus,
+    })
+
     expect(result).toMatchSnapshot()
   })
 
   incrementalIt(`resolves pages`, async () => {
     const result = await fetchGraphql({
-      url: `http://localhost:8000/___graphql`,
-      query: /* GraphQL */ `
-        {
-          testPage: wpPage(id: { eq: "cG9zdDoy" }) {
-            title
-          }
-          allWpPage(sort: { fields: date }) {
-            nodes {
-              uri
-              title
-              wpChildren {
-                nodes {
-                  ... on WpNodeWithTitle {
-                    title
-                  }
-                }
-              }
-              author {
-                node {
-                  name
-                }
-              }
-              translations {
-                title
-              }
-              acfPageFields {
-                flex {
-                  __typename
-                  ... on WpPage_Acfpagefields_Flex_Header {
-                    header
-                  }
-                  ... on WpPage_Acfpagefields_Flex_TeamMembers {
-                    teamMembers {
-                      teamMember {
-                        __typename
-                        ... on WpTeamMember {
-                          acfData {
-                            name
-                            title
-                            twitterlink {
-                              target
-                              title
-                              url
-                            }
-                            webSite {
-                              target
-                              title
-                              url
-                            }
-                            portrait {
-                              sourceUrl
-                              altText
-                              caption
-                              commentStatus
-                              date
-                              databaseId
-                              description
-                              desiredSlug
-                            }
-                            fieldGroupName
-                            projects {
-                              ... on WpProject {
-                                id
-                                content
-                                date
-                                databaseId
-                                slug
-                                status
-                                title
-                                uri
-                              }
-                            }
-                          }
-                          content
-                          databaseId
-                          date
-                          desiredSlug
-                          enclosure
-                          excerpt
-                          id
-                          link
-                          menuOrder
-                          pingStatus
-                          seo {
-                            focuskw
-                            metaDesc
-                            metaKeywords
-                            metaRobotsNofollow
-                            title
-                          }
-                          slug
-                          status
-                          terms {
-                            nodes {
-                              name
-                              slug
-                            }
-                          }
-                          title
-                          toPing
-                          uri
-                        }
-                      }
-                    }
-                  }
-                }
-                fieldGroupName
-              }
-            }
-          }
-        }
-      `,
+      url,
+      query: queries.pages,
     })
 
     expect(result).toMatchSnapshot()
@@ -186,37 +218,8 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
 
   incrementalIt(`resolves posts`, async () => {
     const result = await fetchGraphql({
-      url: `http://localhost:8000/___graphql`,
-      query: /* GraphQL */ `
-        {
-          testPost: wpPost(id: { eq: "cG9zdDox" }) {
-            title
-          }
-          allWpPost(sort: { fields: date }) {
-            nodes {
-              title
-              featuredImage {
-                node {
-                  altText
-                  sourceUrl
-                }
-              }
-              author {
-                node {
-                  avatar {
-                    url
-                  }
-                  comments {
-                    nodes {
-                      content
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      `,
+      url,
+      query: queries.posts,
     })
 
     expect(result).toMatchSnapshot()
@@ -228,30 +231,8 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
 
   incrementalIt(`resolves users`, async () => {
     const result = await fetchGraphql({
-      url: `http://localhost:8000/___graphql`,
-      query: /* GraphQL */ `
-        {
-          testUser: wpUser(id: { eq: "dXNlcjox" }) {
-            firstName
-          }
-          allWpUser {
-            nodes {
-              name
-              databaseId
-              pages {
-                nodes {
-                  title
-                }
-              }
-              posts {
-                nodes {
-                  title
-                }
-              }
-            }
-          }
-        }
-      `,
+      url,
+      query: queries.users,
     })
 
     expect(result).toMatchSnapshot()
@@ -263,35 +244,8 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
 
   incrementalIt(`resolves root fields`, async () => {
     const result = await fetchGraphql({
-      url: `http://localhost:8000/___graphql`,
-      query: /* GraphQL */ `
-        {
-          wp {
-            allSettings {
-              discussionSettingsDefaultCommentStatus
-              discussionSettingsDefaultPingStatus
-              generalSettingsDateFormat
-              generalSettingsDescription
-              generalSettingsLanguage
-              generalSettingsStartOfWeek
-              generalSettingsTimeFormat
-              generalSettingsTimezone
-              generalSettingsTitle
-              generalSettingsUrl
-              readingSettingsPostsPerPage
-              writingSettingsDefaultCategory
-              writingSettingsDefaultPostFormat
-              writingSettingsUseSmilies
-            }
-            nodeType
-            writingSettings {
-              defaultCategory
-              defaultPostFormat
-              useSmilies
-            }
-          }
-        }
-      `,
+      url,
+      query: queries.rootFields,
     })
 
     expect(result).toMatchSnapshot()

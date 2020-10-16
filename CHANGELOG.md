@@ -1,5 +1,180 @@
 # Change Log
 
+## 1.7.7
+
+- Added structure error reports courtesy of @sslotsky. Thanks Sam!
+
+- Moved the check for wether the remote API is using WPGatsby or not to make it more consistent. It was running in parallel with some other checks and sometimes the others would finish first producing incorrect error messages.
+
+In `src/steps/check-plugin-requirements.js`, `isWpGatsby()`
+
+- Updated the error message url for downloading WPGatsby when it's not active
+
+## 1.7.6
+
+- There was a timing issue in that if 'fetchMediaItemsById' (steps/source-nodes/fetch-nodes/fetch-referenced-media-items.js)
+  is called a 2nd time before the first batch completes the call to pushPromiseOntoRetryQueue overwrites keys from the first batch as the key is only an index. Then the first instance item never resolves and they all timeout.
+
+## 1.7.5
+
+### Bug Fixes
+
+- The delete node action was missing an import resulting in errors when deleting posts.
+
+## 1.7.4
+
+### Bug Fixes
+
+- The remote file downloader progress bar used to glitch due to some custom code that attempted to keep the same progress bar around for the entirety of node sourcing. To fix the glitchiness clearing the bar is now promise based.
+
+## 1.7.3
+
+## Bug Fixes
+
+- Protect against undefined values in process-node.jsL719
+
+## 1.7.2
+
+### Bug Fixes
+
+- When detecting images in html and transforming them to Gatsby images, any url which had query params was being missing. For example image.jpeg?w=1024.
+
+## 1.7.1
+
+### Bug Fixes
+
+- Fields which had no name were causing errors. These fields are now silently excluded as they can't be used.
+
+## 1.7.0
+
+### New Features
+
+- 404 images will no longer fail the build during `gatsby develop` but will continue to fail the build in production builds.
+- Media item fetch errors now include the name of the parent step in which the MediaItem File node was being fetched.
+- When fetching html media item files, non-404 error codes now return more helpful information about which media item is having the problem.
+- 404ing images in production now have an extra line to the error message explaining that the build failed to prevent deploying a broken site.
+
+### Changes
+
+- MediaItem.remoteFile has been deprecated for a few months, querying for it now throws an error.
+
+## 1.6.3
+
+### Bug Fixes
+
+- The new `options.html.createStaticFiles` option wasn't properly matching css background images in some cases
+
+## 1.6.2
+
+### Bug Fixes
+
+- On later versions of node, the `got` package was erroring when fetching media items when a site used basic httaccess authentication. This was due to a deprecated option. Basic auth headers were added via the headers option instead.
+
+## 1.6.1 was an accidental publish :scream:
+
+## 1.6.0
+
+### New Features
+
+- A new plugin option `options.html.createStaticFiles` was added. When this is `true`, any url's which are wrapped in "", '', or () and which contain `/wp-content/uploads` will be transformed into static files and the url's will be rewritten. This adds support for <audio>, <video>, and <a> tags which point at WP media item uploads as well as inline-html css like background-image: url(). It will also transform any plain text like "https://yoursite.com/wp-content/uploads/image.png" as long as it's wrapped in "", '', or ().
+
+### Changes
+
+- Connected media item id's are analyzed in non media item nodes to determine which nodes to fetch. That was previously being done by finding connections that had an `id` and a `sourceUrl` field on the fetched node data. This was switched to use `id` and `__typename` to save bytes across the wire, slightly reduce the number of db lookups that need to be done on the WPGQL side during node sourcing, and prevent the `createStaticFiles` option from detecting and transforming `sourceUrl` fields.
+
+## 1.5.4
+
+### Bug Fixes
+
+- the `options.type[typename]type.beforeChangeNode` api was not running when creating all nodes, just when updating nodes. This now runs before all node updates (create, update, delete).
+- When replacing images with Gatsby images in html fields, only the first instance of an image was being replaced if there were more than 1 identical HTML <img /> strings.
+
+## 1.5.3
+
+### Bug Fixes
+
+- In some cases, an attempt to iterate over `undefined` was occurring and throwing errors.
+- When using the writeQueriesToDisk debugging option, old types were not being removed before new ones were generated. This means types that no longer existed in your schema would hang around there forever.
+
+## 1.5.2
+
+### Bug Fixes
+
+- MediaItem sourceUrl's that were encoded on the server were being double encoded and producing a 404 error when the image really did exist. Now there's a check to see if the sourceUrl is already encoded, and is only encoded if it hasn't already been by the server.
+
+## 1.5.1
+
+### Bug Fixes
+
+- The boot up blank get request to WPGraphQL to find debug messages didn't account for situations where debug mode wasn't enabled. That's now accounted for. For example if you install WPGraphQL for CPTUI and don't configure your post types properly, we were missing those errors. The plugin now fails the build with the start up errors.
+
+## 1.5.0
+
+### New Features
+
+- Added `options.develop.hardCacheData` plugin option. This option allows hard caching data between Gatsby cache clears in development. This will speed up development when installing npm packages or modifying gatsby-node. Normally doing either of those things would mean you have to re-fetch all data. This experimental option syncs the data cache outside of the Gatsby cache to help streamline development.
+
+## 1.4.6
+
+### Bug Fixes
+
+- Fixed a bug where a Preview safeguard was preventing the usage of Preview with bedrock/roots (or any other setup that requires the gql endpoint to be used as /?graphql).
+
+## 1.4.5
+
+### Bug Fixes
+
+- In situations where MediaItem.sourceUrl is returned as an absolute path without the WP url, File nodes were unable to be fetched from MediaItem nodes because the URL was wrong.
+- Images with `-scaled` as part of the sourceUrl were cached properly but were not being restored from the cache properly when html url's included the full size url instead of the `-scaled` url.
+- There was duplicative cache logic running for media item node id's which was unneccessary.
+
+## 1.4.4
+
+- Improved the compatibility API error message to make it clearer that you may need to upgrade OR downgrade WPGraphQL, WPGatsby, or gatsby-source-wordpress-experimental
+
+## 1.4.3
+
+- Added a warning in the terminal output if pretty permalinks are not enabled in WP.
+
+## 1.4.2
+
+- Fixed a race condition / logic error in Gatsby image html processing. Thanks for PR #158 @rburgst!
+
+## 1.4.1
+
+- Added support for WPGraphQL ~0.13.0
+
+## 1.4.0
+
+### New Features
+
+- Previously not all nodes were being fetched in flat lists. This meant extra logic was being run to recursively fetch category nodes, and it meant that custom taxonomies could not have hierarchical data. All core nodes are now fetched as flat lists, enabling hierarchical custom taxonomies and speeding up data sourcing for Category nodes.
+
+## 1.3.10
+
+### Bug Fixes
+
+- Gatsby image's in html blocks were not always being picked up or cached properly.
+
+## 1.3.9
+
+### Bug Fixes
+
+- JSON encoded strings as fields were being processed for <img> tags while gatsby-image in html transformations were taking place. This caused errors and shouldn't have been happening in the first place. This release excludes JSON encoded img src's from being processed.
+- The WPGQL Node type is an interface type of all possible WPGQL node types. Since not all of those are Gatsby node types, fields of this type were not being registered properly as Gatsby node connections. This PR adds a check to the default resolver to see if a connected node exists as well as adding the \_\_typename field to all interface fields during query generation and node sourcing. This means connections of the Node type work properly in Gatsby.
+
+## 1.3.8
+
+### Bug Fixes
+
+- Enum type fields were not being picked up by this plugin prior to this release.
+
+## 1.3.7
+
+### Bug Fixes
+
+- When using https hosting but the WordPress general settings url is set to http, images and other links may still point to https. This was causing images to not be picked up and transformed into Gatsby imgs. This release provides a warning and safeguards against this by not comparing the protocol when determining wether an image should be fetched or not.
+
 ## 1.3.6
 
 ### Bug Fixes
