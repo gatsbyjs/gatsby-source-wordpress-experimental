@@ -1,15 +1,3 @@
-.compiled
-!src/**/*.js
-!.test-runtime/**/*.js
-gatsby-node
-!src/gatsby-node
-!src
-!jsconfig.json
-!jest.config.js
-!jest-preprocess.js
-!loadershim.js
-!.prettierrc.js
-!.eslintrc.js
 dist
 
 .DS_Store
