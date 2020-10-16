@@ -50,7 +50,6 @@
     "babel-jest": "^25.1.0",
     "babel-plugin-import-globals": "^2.0.0",
     "babel-plugin-root-import": "^6.4.1",
-    "babel-plugin-source-map-support": "^2.1.2",
     "babel-preset-gatsby": "^0.2.29",
     "babel-preset-gatsby-package": "^0.2.9",
     "cross-env": "^5.2.1",
