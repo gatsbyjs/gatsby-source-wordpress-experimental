@@ -10,6 +10,7 @@ gatsby-node
 !loadershim.js
 !.prettierrc.js
 !.eslintrc.js
+dist
 
 .DS_Store
 yarn-error.log
