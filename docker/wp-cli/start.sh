@@ -1,27 +1,34 @@
 #!/bin/bash
-
 set -e
 
-if ! $(wp core is-installed); then
-  wp core install \
+echo "heyyyy"
+
+echo "heyyyy"
+wp core install \
     --path="/var/www/html" \
     --url="http://localhost:8001" \
     --title="Gatsby & WordPress" \
     --admin_user=admin \
     --admin_password=secret \
-    --admin_email=foo@bar.com
+    --admin_email=admin@admin.com
 
-  # install plugins that the wpgraphql plugins build on
-  wp plugin install woocommerce bbpress gutenberg advanced-custom-fields wordpress-seo
+wp search-replace 'https://gatsbyinttests.wpengine.com' 'http://localhost:8081'
 
-  # activate plugins
-  wp plugin activate basic-auth woocommerce \
-   gutenberg wordpress-seo advanced-custom-fields bbpress wp-graphql \
-   wp-gatsby wp-graphql-yoast-seo \
-   wp-graphql-gutenberg wp-graphql-acf
-  
-  # set path rewrite structure
-  wp rewrite structure '/%year%/%monthnum%/%day%/%postname%/' 
-else
-  echo "WordPress is already installed."
-fi
+wp user update admin --user_pass="secret"
+# install plugins that the wpgraphql plugins build on
+wp plugin install gutenberg advanced-custom-fields wordpress-seo
+
+# activate plugins
+wp plugin activate advanced-custom-fields basic-auth gutenberg wordpress-seo wp-graphql
+
+wp plugin activate wp-graphql-yoast-seo \
+  wp-graphql-gutenberg wp-graphql-acf
+
+wp plugin activate wp-gatsby
+
+# set path rewrite structure
+wp rewrite structure '/%year%/%monthnum%/%day%/%postname%/'
+
+wp cache flush
+
+wp plugin upadte advanced-custom-fields wp-graphql-acf

@@ -59,6 +59,6 @@ RUN chown -R www-data:www-data wp-content && chmod -R 777 wp-content;
 
 EXPOSE 8001
 
-CMD ["wait-for-it", "db:3306", "--", "/usr/local/bin/start.sh"]
+CMD ["wait-for-it", "-t", "40", "db:3306", "--", "/usr/local/bin/start.sh"]
 
 
