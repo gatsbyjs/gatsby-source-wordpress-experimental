@@ -1,6 +1,4 @@
-import fetchAndApplyNodeUpdates, {
-  touchValidNodes,
-} from "./update-nodes/fetch-node-updates"
+import fetchAndApplyNodeUpdates from "./update-nodes/fetch-node-updates"
 
 import { fetchAndCreateAllNodes } from "./fetch-nodes/fetch-nodes"
 
@@ -10,16 +8,7 @@ import fetchAndCreateNonNodeRootFields from "./create-nodes/fetch-and-create-non
 import { allowFileDownloaderProgressBarToClear } from "./create-nodes/create-remote-file-node/progress-bar-promise"
 
 const sourceNodes = async (helpers, _pluginOptions) => {
-  const {
-    cache,
-    webhookBody: { preview },
-  } = helpers
-
-  if (preview) {
-    await touchValidNodes()
-
-    return
-  }
+  const { cache } = helpers
 
   // fetch non-node root fields such as settings.
   // For now, we're refetching them on every build

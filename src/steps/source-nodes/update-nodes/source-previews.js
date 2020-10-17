@@ -2,8 +2,11 @@ import { fetchAndCreateSingleNode } from "~/steps/source-nodes/update-nodes/wp-a
 import { formatLogMessage } from "~/utils/format-log-message"
 import chalk from "chalk"
 import urlUtil from "url"
+import { touchValidNodes } from "./fetch-node-updates"
 
 export const sourcePreviews = async ({ webhookBody, reporter }, { url }) => {
+  await touchValidNodes()
+
   if (
     !webhookBody ||
     !webhookBody.preview ||
