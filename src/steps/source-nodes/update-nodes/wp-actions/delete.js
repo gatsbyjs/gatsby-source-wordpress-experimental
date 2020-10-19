@@ -9,16 +9,17 @@ import {
 import { fetchGraphql } from "~/utils/fetch-graphql"
 import { getQueryInfoBySingleFieldName } from "../../helpers"
 import { CREATED_NODE_IDS } from "~/constants"
+import { setPersistentCache, getPersistentCache } from "~/utils/cache"
 
 const wpActionDELETE = async ({
   helpers,
   // cachedNodeIds,
   wpAction,
 }) => {
-  const { reporter, actions, getNode, cache } = helpers
+  const { reporter, actions, getNode } = helpers
 
   try {
-    let cachedNodeIds = await cache.get(CREATED_NODE_IDS)
+    let cachedNodeIds = await getPersistentCache({ key: CREATED_NODE_IDS })
 
     // get the node ID from the WPGQL id
     const nodeId = wpAction.referencedNodeGlobalRelayID
@@ -84,7 +85,7 @@ const wpActionDELETE = async ({
     // Remove this from cached node id's so we don't try to touch it
     const validNodeIds = cachedNodeIds.filter((cachedId) => cachedId !== nodeId)
 
-    await cache.set(CREATED_NODE_IDS, validNodeIds)
+    await setPersistentCache({ key: CREATED_NODE_IDS, value: validNodeIds })
 
     // return validNodeIds
   } catch (e) {

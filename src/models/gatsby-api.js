@@ -1,12 +1,12 @@
 import merge from "lodash/merge"
 import { createRemoteMediaItemNode } from "~/steps/source-nodes/create-nodes/create-remote-media-item-node"
 import { menuBeforeChangeNode } from "~/steps/source-nodes/before-change-node/menu"
-import { categoryBeforeChangeNode } from "~/steps/source-nodes/before-change-node/category"
 
 const defaultPluginOptions = {
   url: null,
   verbose: true,
   debug: {
+    throwRefetchErrors: false,
     graphql: {
       showQueryOnError: false,
       showQueryVarsOnError: false,
@@ -22,6 +22,7 @@ const defaultPluginOptions = {
   develop: {
     nodeUpdateInterval: 300,
     hardCacheMediaFiles: false,
+    hardCacheData: false,
   },
   production: {
     hardCacheMediaFiles: false,
@@ -51,6 +52,10 @@ const defaultPluginOptions = {
     // if the image is smaller than this, the images width will be used instead
     fallbackImageMaxWidth: 100, // @todo this value is too low of a default
     imageQuality: 90,
+    //
+    // Transforms anchor links, video src's, and audio src's (that point to wp-content files) into local file static links
+    // Also fetches those files if they don't already exist
+    createStaticFiles: true,
   },
   type: {
     __all: {
@@ -97,15 +102,17 @@ const defaultPluginOptions = {
           }
         }
 
-        if (actionType === `CREATE` || actionType === `UPDATE`) {
+        if (
+          actionType === `CREATE_ALL` ||
+          actionType === `CREATE` ||
+          actionType === `UPDATE`
+        ) {
           const createdMediaItem = await createRemoteMediaItemNode({
             mediaItemNode: remoteNode,
+            parentName: `Node action ${actionType}`,
           })
 
           if (createdMediaItem) {
-            remoteNode.remoteFile = {
-              id: createdMediaItem.id,
-            }
             remoteNode.localFile = {
               id: createdMediaItem.id,
             }
@@ -126,10 +133,6 @@ const defaultPluginOptions = {
     },
     TermNode: {
       nodeInterface: true,
-    },
-    Category: {
-      // @todo remove this when categories are a flat list in WPGQL
-      beforeChangeNode: categoryBeforeChangeNode,
     },
     Menu: {
       /**

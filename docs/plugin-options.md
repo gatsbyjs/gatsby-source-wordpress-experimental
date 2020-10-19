@@ -12,6 +12,7 @@
   - [develop: Object](#develop-object)
     - [develop.nodeUpdateInterval: Int](#developnodeupdateinterval-int)
     - [develop.hardCacheMediaFiles: Boolean](#develophardcachemediafiles-boolean)
+    - [develop.hardCacheData: Boolean](#develophardcachedata-boolean)
   - [auth: Object](#auth-object)
     - [auth.htaccess: Object](#authhtaccess-object)
       - [auth.htaccess.username: String](#authhtaccessusername-string)
@@ -26,6 +27,7 @@
     - [html.imageMaxWidth: Int](#htmlimagemaxwidth-int)
     - [html.fallbackImageMaxWidth: Int](#htmlfallbackimagemaxwidth-int)
     - [html.imageQuality: Int](#htmlimagequality-int)
+    - [html.createStaticFiles: Boolean](#htmlcreatestaticfiles-boolean)
   - [type: Object](#type-object)
     - [type[TypeName].exclude: Boolean](#typetypenameexclude-boolean)
     - [type[TypeName].excludeFieldNames: Array](#typetypenameexcludefieldnames-array)
@@ -200,7 +202,8 @@ Default is `300`.
 
 ### develop.hardCacheMediaFiles: Boolean
 
-When true, media files will be hard-cached outside the Gatsby cache in a `./.wordpress-cache/path/to/media/file.jpeg` . This is useful for preventing media files from being re-downloaded when the Gatsby cache automatically clears.
+This option is experimental. When set to true, media files will be hard-cached outside the Gatsby cache at `./.wordpress-cache/path/to/media/file.jpeg`. This is useful for preventing media files from being re-downloaded when the Gatsby cache automatically clears.
+When using this option, be sure to gitignore the `wordpress-cache` directory in the root of your project.
 
 Default is false.
 
@@ -210,6 +213,25 @@ Default is false.
 	options: {
 		develop: {
       hardCacheMediaFiles: true,
+    },
+  },
+},
+```
+
+### develop.hardCacheData: Boolean
+
+This option is experimental. When set to true, WordPress data will be hard-cached outside the Gatsby cache in `./.wordpress-cache/caches`. This is useful for preventing the need to re-fetch all data when the Gatsby cache automatically clears. This hard cache will automatically clear itself when your remote WPGraphQL schema changes, or when you change your plugin options.
+
+When using this option, be sure to gitignore the `wordpress-cache` directory in the root of your project.
+
+Default is false.
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+	options: {
+		develop: {
+      hardCacheData: false,
     },
   },
 },
@@ -453,6 +475,23 @@ Default is `90`.
 },
 ```
 
+### html.createStaticFiles: Boolean
+
+When this is `true`, any url's which are wrapped in "", '', or () and which contain `/wp-content/uploads` will be transformed into static files and the url's will be rewritten. This adds support for <audio>, <video>, and <a> tags which point at WP media item uploads as well as inline-html css like background-image: url().
+
+Default is `true`.
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+	options: {
+		html: {
+      createStaticFiles: true,
+    },
+  },
+},
+```
+
 ## type: Object
 
 Options related to specific types in the remote schema. See below for options.
@@ -604,6 +643,7 @@ Options to search and replace strings in nodes. See below for options.
 # Up Next :point_right:
 
 - :boat: [Migrating from other WP source plugins](./migrating-from-other-wp-source-plugins.md)
+- :computer: [Using Data](./using-data.md)
 - :house: [Hosting WordPress](./hosting.md)
 - :athletic_shoe: [Themes, Starters, and Examples](./themes-starters-examples.md)
 - :medal_sports: [Usage with popular WPGraphQL extensions](./usage-with-popular-wp-graphql-extensions.md)

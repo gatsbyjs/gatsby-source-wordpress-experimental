@@ -2,15 +2,18 @@ import store from "~/store"
 import { typeIsExcluded } from "~/steps/ingest-remote-schema/is-excluded"
 import { typeIsABuiltInScalar } from "../create-schema-customization/helpers"
 import { findTypeName } from "~/steps/create-schema-customization/helpers"
+import { getPersistentCache } from "~/utils/cache"
 
 const identifyAndStoreIngestableFieldsAndTypes = async () => {
   const nodeListFilter = (field) => field.name === `nodes`
 
   const state = store.getState()
   const { introspectionData, fieldBlacklist, typeMap } = state.remoteSchema
-  const { helpers, pluginOptions } = state.gatsbyApi
+  const { pluginOptions } = state.gatsbyApi
 
-  const cachedFetchedTypes = await helpers.cache.get(`previously-fetched-types`)
+  const cachedFetchedTypes = await getPersistentCache({
+    key: `previously-fetched-types`,
+  })
 
   if (cachedFetchedTypes) {
     const restoredFetchedTypesMap = new Map(cachedFetchedTypes)

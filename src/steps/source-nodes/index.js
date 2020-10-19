@@ -7,6 +7,7 @@ import { fetchAndCreateAllNodes } from "./fetch-nodes/fetch-nodes"
 import { LAST_COMPLETED_SOURCE_TIME } from "~/constants"
 import store from "~/store"
 import fetchAndCreateNonNodeRootFields from "./create-nodes/fetch-and-create-non-node-root-fields"
+import { allowFileDownloaderProgressBarToClear } from "./create-nodes/create-remote-file-node/progress-bar-promise"
 
 const sourceNodes = async (helpers, _pluginOptions) => {
   const {
@@ -20,11 +21,19 @@ const sourceNodes = async (helpers, _pluginOptions) => {
     return
   }
 
+  // fetch non-node root fields such as settings.
+  // For now, we're refetching them on every build
+  const nonNodeRootFieldsPromise = fetchAndCreateNonNodeRootFields()
+
   const lastCompletedSourceTime = await cache.get(LAST_COMPLETED_SOURCE_TIME)
 
-  const { schemaWasChanged } = store.getState().remoteSchema
+  const {
+    schemaWasChanged,
+    foundUsableHardCachedData,
+  } = store.getState().remoteSchema
 
-  const fetchEverything = !lastCompletedSourceTime || schemaWasChanged
+  const fetchEverything =
+    foundUsableHardCachedData || !lastCompletedSourceTime || schemaWasChanged
 
   // If this is an uncached build,
   // or our initial build to fetch and cache everything didn't complete,
@@ -32,7 +41,7 @@ const sourceNodes = async (helpers, _pluginOptions) => {
   if (fetchEverything) {
     await fetchAndCreateAllNodes()
 
-    await cache.set(LAST_COMPLETED_SOURCE_TIME, Date.now())
+    await helpers.cache.set(LAST_COMPLETED_SOURCE_TIME, Date.now())
   }
 
   // If we've already successfully pulled everything from WPGraphQL
@@ -43,9 +52,9 @@ const sourceNodes = async (helpers, _pluginOptions) => {
     })
   }
 
-  // fetch non-node root fields such as settings.
-  // For now, we're refetching them on every build
-  await fetchAndCreateNonNodeRootFields()
+  await nonNodeRootFieldsPromise
+
+  allowFileDownloaderProgressBarToClear()
 }
 
 export { sourceNodes }

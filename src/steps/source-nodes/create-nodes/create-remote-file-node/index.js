@@ -1,4 +1,6 @@
 const fs = require(`fs-extra`)
+import btoa from "btoa"
+const { remoteFileDownloaderBarPromise } = require("./progress-bar-promise")
 const got = require(`got`)
 const { createContentDigest } = require(`gatsby-core-utils`)
 const path = require(`path`)
@@ -78,8 +80,18 @@ const queue = new Queue(pushToQueue, {
 
 let doneQueueTimeout
 
+let awaitingCreateRemoteFileNodePromise
+
 // when the queue is empty we stop the progressbar
-queue.on(`drain`, () => {
+queue.on(`drain`, async () => {
+  if (awaitingCreateRemoteFileNodePromise) {
+    return
+  }
+
+  awaitingCreateRemoteFileNodePromise = true
+  await remoteFileDownloaderBarPromise
+  awaitingCreateRemoteFileNodePromise = false
+
   if (bar) {
     // this is to give us a little time to wait and see if there
     // will be more jobs added with a break between
@@ -132,14 +144,7 @@ async function pushToQueue(task, cb) {
  * @param  {number}   attempt
  * @return {Promise<Object>}  Resolves with the [http Result Object]{@link https://nodejs.org/api/http.html#http_class_http_serverresponse}
  */
-const requestRemoteNode = (
-  url,
-  headers,
-  tmpFilename,
-  httpOpts,
-  attempt = 1,
-  fixedBarTotal
-) =>
+const requestRemoteNode = (url, headers, tmpFilename, httpOpts, attempt = 1) =>
   new Promise((resolve, reject) => {
     let timeout
 
@@ -155,9 +160,7 @@ const requestRemoteNode = (
       } else {
         processingCache[url] = null
         totalJobs -= 1
-        if (!fixedBarTotal) {
-          bar.total = totalJobs
-        }
+        bar.total = totalJobs
         reject(`Failed to download ${url} after ${STALL_RETRY_LIMIT} attempts`)
       }
     }
@@ -184,9 +187,7 @@ const requestRemoteNode = (
       }
       processingCache[url] = null
       totalJobs -= 1
-      if (!fixedBarTotal) {
-        bar.total = totalJobs
-      }
+      bar.total = totalJobs
       fs.removeSync(tmpFilename)
       reject(error)
     })
@@ -197,9 +198,7 @@ const requestRemoteNode = (
       }
       processingCache[url] = null
       totalJobs -= 1
-      if (!fixedBarTotal) {
-        bar.total = totalJobs
-      }
+      bar.total = totalJobs
       reject(error)
     })
 
@@ -233,7 +232,6 @@ async function processRemoteNode({
   createNodeId,
   ext,
   name,
-  fixedBarTotal,
 }) {
   const pluginCacheDir = cache.directory
   // See if there's response headers for this url
@@ -248,8 +246,10 @@ async function processRemoteNode({
   // Add htaccess authentication if passed in. This isn't particularly
   // extensible. We should define a proper API that we validate.
   const httpOpts = {}
-  if (auth && (auth.htaccess_pass || auth.htaccess_user)) {
-    httpOpts.auth = `${auth.htaccess_user}:${auth.htaccess_pass}`
+  if (auth?.htaccess_pass && auth?.htaccess_user) {
+    headers[`Authorization`] = `Basic ${btoa(
+      `${auth.htaccess_user}:${auth.htaccess_pass}`
+    )}`
   }
 
   // Create the temp and permanent file names for the url.
@@ -264,13 +264,7 @@ async function processRemoteNode({
   const tmpFilename = createFilePath(pluginCacheDir, `tmp-${digest}`, ext)
 
   // Fetch the file.
-  const response = await requestRemoteNode(
-    url,
-    headers,
-    tmpFilename,
-    httpOpts,
-    fixedBarTotal
-  )
+  const response = await requestRemoteNode(url, headers, tmpFilename, httpOpts)
 
   if (response.statusCode == 200) {
     // Save the response headers for future requests.
@@ -299,9 +293,9 @@ async function processRemoteNode({
   } else {
     processingCache[url] = null
     totalJobs -= 1
-    if (!fixedBarTotal) {
-      bar.total = totalJobs
-    }
+
+    bar.total = totalJobs
+
     await fs.remove(tmpFilename)
   }
 
@@ -364,7 +358,6 @@ module.exports = ({
   cache,
   createNode,
   getCache,
-  fixedBarTotal,
   parentNodeId = null,
   auth = {},
   httpHeaders = {},
@@ -379,8 +372,13 @@ module.exports = ({
     clearTimeout(doneQueueTimeout)
   }
 
-  // this accounts for special characters in filenames
-  url = encodeURI(url)
+  // if the url isn't already encoded
+  // so decoding it doesn't do anything
+  if (decodeURI(url) === url) {
+    // encode the uri
+    // this accounts for special characters in filenames
+    url = encodeURI(url)
+  }
 
   // validation of the input
   // without this it's notoriously easy to pass in the wrong `createNodeId`
@@ -422,11 +420,7 @@ module.exports = ({
 
   totalJobs += 1
 
-  if (fixedBarTotal) {
-    bar.total = fixedBarTotal
-  } else {
-    bar.total = totalJobs
-  }
+  bar.total = totalJobs
 
   const fileDownloadPromise = pushTask({
     url,
@@ -438,7 +432,6 @@ module.exports = ({
     httpHeaders,
     ext,
     name,
-    fixedBarTotal,
   })
 
   processingCache[url] = fileDownloadPromise.then((node) => {

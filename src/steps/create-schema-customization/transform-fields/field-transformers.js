@@ -10,7 +10,7 @@ import { getPluginOptions } from "~/utils/get-gatsby-api"
 
 export const fieldTransformers = [
   {
-    // non null scalars
+    description: `NON_NULL Scalar`,
     test: (field) =>
       field.type.kind === `NON_NULL` && field.type.ofType.kind === `SCALAR`,
 
@@ -24,7 +24,7 @@ export const fieldTransformers = [
   },
 
   {
-    // non null lists
+    description: `NON_NULL list type`,
     test: (field) =>
       field.type.kind === `NON_NULL` &&
       field.type.ofType.kind === `LIST` &&
@@ -41,7 +41,7 @@ export const fieldTransformers = [
   },
 
   {
-    // non null lists of non null types
+    description: `NON_NULL lists of NON_NULL types`,
     test: (field) =>
       field.type.kind === `NON_NULL` &&
       field.type.ofType.kind === `LIST` &&
@@ -76,7 +76,7 @@ export const fieldTransformers = [
   },
 
   {
-    // lists of non null builtin types
+    description: `Lists of NON_NULL builtin types`,
     test: (field) =>
       field.type.kind === `LIST` &&
       field.type.ofType.kind === `NON_NULL` &&
@@ -87,7 +87,7 @@ export const fieldTransformers = [
   },
 
   {
-    // lists of non null types
+    description: `Lists of NON_NULL types`,
     test: (field) =>
       field.type.kind === `LIST` &&
       field.type.ofType.kind === `NON_NULL` &&
@@ -97,7 +97,13 @@ export const fieldTransformers = [
   },
 
   {
-    // scalars
+    description: `ENUM type`,
+    test: (field) => field.type.kind === `ENUM`,
+    transform: ({ field }) => buildTypeName(field.type.name),
+  },
+
+  {
+    description: `Scalar type`,
     test: (field) => field.type.kind === `SCALAR`,
     transform: ({ field }) => {
       if (typeIsABuiltInScalar(field.type)) {
@@ -112,7 +118,7 @@ export const fieldTransformers = [
   },
 
   {
-    // Gatsby node Objects OR Interfaces where all possible types are Gatsby nodes
+    description: `Gatsby Node Objects or Gatsby Node Interfaces where all possible types are Gatsby Nodes`,
     test: (field) => {
       const gatsbyNodeTypes = getGatsbyNodeTypeNames()
 
@@ -149,7 +155,7 @@ export const fieldTransformers = [
   },
 
   {
-    // lists of gatsby-node objects
+    description: `Lists of Gatsby Node Object types`,
     test: (field) => {
       const gatsbyNodeTypes = getGatsbyNodeTypeNames()
 
@@ -177,13 +183,13 @@ export const fieldTransformers = [
   },
 
   {
-    // non-gatsby-node objects
+    description: `Non-Gatsby Node Objects`,
     test: (field) => field.type.kind === `OBJECT`,
     transform: ({ field }) => buildTypeName(field.type.name),
   },
 
   {
-    // lists of non-gatsby-node objects
+    description: `Lists of Non Gatsby Node Objects`,
     test: (field) =>
       field.type.kind === `LIST` &&
       (field.type.ofType.kind === `OBJECT` ||
@@ -193,7 +199,7 @@ export const fieldTransformers = [
   },
 
   {
-    // lists of unions
+    description: `Lists of Union types`,
     test: (field) =>
       field.type.kind === `LIST` && field.type.ofType.kind === `UNION`,
 
@@ -201,7 +207,7 @@ export const fieldTransformers = [
   },
 
   {
-    // list of scalars
+    description: `Lists of Scalar types`,
     test: (field) =>
       field.type.kind === `LIST` && field.type.ofType.kind === `SCALAR`,
 
@@ -215,7 +221,7 @@ export const fieldTransformers = [
   },
 
   {
-    // lists of interfaces
+    description: `Lists of Interface types`,
     test: (field) =>
       field.type.kind === `LIST` && field.type.ofType.kind === `INTERFACE`,
 
@@ -223,18 +229,19 @@ export const fieldTransformers = [
   },
 
   {
-    // unions
+    description: `Union type`,
     test: (field) => field.type.kind === `UNION`,
     transform: transformUnion,
   },
 
   {
-    // interfaces
+    description: `Interface type`,
     test: (field) => field.type.kind === `INTERFACE`,
     transform: ({ field }) => buildTypeName(field.type.name),
   },
 
   {
+    description: `Lists of NON_NULL types`,
     test: (field) =>
       findTypeKind(field.type) !== `LIST` && field.type.kind === `NON_NULL`,
     transform: ({ field }) => `${buildTypeName(findTypeName(field.type))}!`,
@@ -242,6 +249,7 @@ export const fieldTransformers = [
 
   // for finding unhandled types
   // {
+  //   description: `Unhandled type`,
   //   test: () => true,
   //   transform: ({ field }) => dd(field),
   // },

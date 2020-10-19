@@ -1,15 +1,26 @@
+import url from "url"
 import fetchGraphql from "~/utils/fetch-graphql"
 import store from "~/store"
 import gql from "~/utils/gql"
 import { formatLogMessage } from "~/utils/format-log-message"
-import { LAST_COMPLETED_SOURCE_TIME } from "~/constants"
+import { LAST_COMPLETED_SOURCE_TIME, MD5_CACHE_KEY } from "~/constants"
+
+import { createContentDigest } from "gatsby-core-utils"
+
+import {
+  clearHardCache,
+  getHardCachedData,
+  getHardCachedNodes,
+  setPersistentCache,
+  getPersistentCache,
+} from "~/utils/cache"
 
 const checkIfSchemaHasChanged = async (_, pluginOptions) => {
   const state = store.getState()
 
   const { helpers } = state.gatsbyApi
 
-  const lastCompletedSourceTime = await helpers.cache.get(
+  let lastCompletedSourceTime = await helpers.cache.get(
     LAST_COMPLETED_SOURCE_TIME
   )
 
@@ -20,8 +31,6 @@ const checkIfSchemaHasChanged = async (_, pluginOptions) => {
   if (pluginOptions.verbose && lastCompletedSourceTime) {
     activity.start()
   }
-
-  const MD5_CACHE_KEY = `introspection-node-query-md5`
 
   const { data } = await fetchGraphql({
     query: gql`
@@ -41,11 +50,60 @@ const checkIfSchemaHasChanged = async (_, pluginOptions) => {
     generalSettings: { url: wpUrl },
   } = data
 
-  const cachedSchemaMd5 = await helpers.cache.get(MD5_CACHE_KEY)
+  if (url.parse(wpUrl).protocol !== url.parse(pluginOptions.url).protocol) {
+    helpers.reporter.log(``)
+    helpers.reporter.warn(
+      formatLogMessage(`
 
-  await helpers.cache.set(MD5_CACHE_KEY, schemaMd5)
+The Url set in plugin options has a different protocol than the Url saved in WordPress general settings.
+
+options.url: ${pluginOptions.url}
+WordPress settings: ${wpUrl}
+
+This may cause subtle bugs, or it may be fine.
+Please consider addressing this issue by changing your WordPress settings or plugin options accordingly.
+
+`)
+    )
+  }
+
+  let cachedSchemaMd5 = await helpers.cache.get(MD5_CACHE_KEY)
+
+  let foundUsableHardCachedData
+
+  if (!cachedSchemaMd5) {
+    cachedSchemaMd5 = await getHardCachedData({
+      key: MD5_CACHE_KEY,
+    })
+
+    foundUsableHardCachedData =
+      cachedSchemaMd5 && !!(await getHardCachedNodes())
+  }
+
+  await setPersistentCache({ key: MD5_CACHE_KEY, value: schemaMd5 })
 
   const schemaWasChanged = schemaMd5 !== cachedSchemaMd5
+
+  const pluginOptionsMD5Key = `plugin-options-md5`
+  const lastPluginOptionsMD5 = await getPersistentCache({
+    key: pluginOptionsMD5Key,
+  })
+
+  const pluginOptionsMD5 = createContentDigest(pluginOptions)
+
+  const shouldClearHardCache =
+    schemaWasChanged || lastPluginOptionsMD5 !== pluginOptionsMD5
+
+  if (shouldClearHardCache && foundUsableHardCachedData) {
+    await clearHardCache()
+
+    foundUsableHardCachedData = false
+  }
+
+  await setPersistentCache({
+    key: pluginOptionsMD5Key,
+    value: pluginOptionsMD5,
+  })
 
   if (
     lastCompletedSourceTime &&
@@ -75,7 +133,11 @@ const checkIfSchemaHasChanged = async (_, pluginOptions) => {
 
   // record wether the schema changed so other logic can beware
   // as well as the wpUrl because we need this sometimes :p
-  store.dispatch.remoteSchema.setState({ schemaWasChanged, wpUrl })
+  store.dispatch.remoteSchema.setState({
+    schemaWasChanged,
+    wpUrl,
+    foundUsableHardCachedData,
+  })
 
   if (pluginOptions.verbose && lastCompletedSourceTime) {
     activity.end()

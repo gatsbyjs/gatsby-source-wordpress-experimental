@@ -1,5 +1,6 @@
 import fetchGraphql from "~/utils/fetch-graphql"
 import store from "~/store"
+import { formatLogMessage } from "~/utils/format-log-message"
 
 export const normalizeNode = ({ node, nodeTypeName }) => {
   const normalizedNodeTypeName = node.__typename || nodeTypeName
@@ -54,6 +55,8 @@ const paginatedWpNodeFetch = async ({
     variables.first = settings.limit
   }
 
+  const errorContext = `Error occured while fetching nodes of the "${nodeTypeName}" type.`
+
   const response = await fetchGraphql({
     query,
     throwFetchErrors,
@@ -62,12 +65,12 @@ const paginatedWpNodeFetch = async ({
       ...variables,
       after,
     },
-    errorContext: `Error occured while fetching nodes of the "${nodeTypeName}" type.`,
+    errorContext,
   })
 
   const { data } = response
 
-  if (!data[contentTypePlural] || !data[contentTypePlural].nodes) {
+  if (!data?.[contentTypePlural]?.nodes) {
     return allContentNodes
   }
 

@@ -4,14 +4,17 @@ import { formatLogMessage } from "~/utils/format-log-message"
 import { createNodeWithSideEffects } from "./create-nodes"
 import fetchReferencedMediaItemsAndCreateNodes from "../fetch-nodes/fetch-referenced-media-items"
 import { CREATED_NODE_IDS } from "~/constants"
+import { getPersistentCache, setPersistentCache } from "~/utils/cache"
 
 const fetchAndCreateNonNodeRootFields = async () => {
+  const state = store.getState()
+
   const {
     remoteSchema: { nonNodeQuery, wpUrl },
     gatsbyApi: { helpers, pluginOptions },
-  } = store.getState()
+  } = state
 
-  const { actions, createContentDigest, cache, reporter } = helpers
+  const { actions, createContentDigest, reporter } = helpers
 
   const activity = reporter.activityTimer(formatLogMessage(`fetch root fields`))
 
@@ -36,15 +39,11 @@ const fetchAndCreateNonNodeRootFields = async () => {
 
   const createRootNode = createNodeWithSideEffects({
     node,
-    actions,
-    createContentDigest,
-    pluginOptions,
+    state,
     referencedMediaItemNodeIds,
-    helpers,
     createdNodeIds,
-    // totalSideEffectNodes,
-    wpUrl,
     type,
+    // totalSideEffectNodes,
   })
 
   createRootNode()
@@ -70,18 +69,20 @@ const fetchAndCreateNonNodeRootFields = async () => {
       referencedMediaItemNodeIds: newMediaItemIds,
     })
 
-    const previouslyCachedNodeIds = await cache.get(CREATED_NODE_IDS)
+    const previouslyCachedNodeIds = await getPersistentCache({
+      key: CREATED_NODE_IDS,
+    })
 
     const createdNodeIds = [
       ...new Set([
-        ...previouslyCachedNodeIds,
+        ...(previouslyCachedNodeIds || []),
         ...referencedMediaItemNodeIdsArray,
       ]),
     ]
 
     // save the node id's so we can touch them on the next build
     // so that we don't have to refetch all nodes
-    await cache.set(CREATED_NODE_IDS, createdNodeIds)
+    await setPersistentCache({ key: CREATED_NODE_IDS, value: createdNodeIds })
 
     store.dispatch.logger.stopActivityTimer({
       typeName: `MediaItems`,
