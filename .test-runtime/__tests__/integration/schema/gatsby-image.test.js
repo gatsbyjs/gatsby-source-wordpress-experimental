@@ -37,10 +37,10 @@ describe(`[gatsby-source-wordpress-experimental] Gatsby image processing`, () =>
               wysiwygEditorField
             }
           }
-          # Gutenberg: Common Blocks #94
-          gute: wpPost(id: { eq: "cG9zdDo5NA==" }) {
-            content
-          }
+          # # Gutenberg: Common Blocks #94
+          # gute: wpPost(id: { eq: "cG9zdDo5NA==" }) {
+          #   content
+          # }
           # Page with img src hardcoded to http isntead of https
           httpProtocolPage: wpPage(databaseId: { eq: 10513 }) {
             content

@@ -52,63 +52,63 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
     },
   })
 
-  testResolvedData({
-    url,
-    title: `resolves wp-graphql-gutenberg columns`,
-    gatsbyQuery: queries.gutenbergColumns,
-    queryReplace: {
-      from: `wpPost(title: { eq: "Gutenberg: Columns" }) {`,
-      to: `post(id: "cG9zdDoxMjg=") {`,
-    },
-    fields: {
-      gatsby: `wpPost`,
-      wpgql: `post`,
-    },
-  })
+  // testResolvedData({
+  //   url,
+  //   title: `resolves wp-graphql-gutenberg columns`,
+  //   gatsbyQuery: queries.gutenbergColumns,
+  //   queryReplace: {
+  //     from: `wpPost(title: { eq: "Gutenberg: Columns" }) {`,
+  //     to: `post(id: "cG9zdDoxMjg=") {`,
+  //   },
+  //   fields: {
+  //     gatsby: `wpPost`,
+  //     wpgql: `post`,
+  //   },
+  // })
 
-  testResolvedData({
-    url,
-    title: `resolves wp-graphql-gutenberg layout elements`,
-    gatsbyQuery: queries.gutenbergLayoutElements,
-    queryReplace: {
-      from: `wpPost(id: { eq: "cG9zdDoxMjU=" }) {`,
-      to: `post(id: "cG9zdDoxMjU=") {`,
-    },
-    fields: {
-      gatsby: `wpPost`,
-      wpgql: `post`,
-    },
-  })
+  // testResolvedData({
+  //   url,
+  //   title: `resolves wp-graphql-gutenberg layout elements`,
+  //   gatsbyQuery: queries.gutenbergLayoutElements,
+  //   queryReplace: {
+  //     from: `wpPost(id: { eq: "cG9zdDoxMjU=" }) {`,
+  //     to: `post(id: "cG9zdDoxMjU=") {`,
+  //   },
+  //   fields: {
+  //     gatsby: `wpPost`,
+  //     wpgql: `post`,
+  //   },
+  // })
 
-  testResolvedData({
-    url,
-    title: `resolves wp-graphql-gutenberg formatting blocks`,
-    gatsbyQuery: queries.gutenbergFormattingBlocks,
-    queryReplace: {
-      from: `wpPost(id: { eq: "cG9zdDoxMjI=" }) {`,
-      to: `post(id: "cG9zdDoxMjI=") {`,
-    },
-    fields: {
-      gatsby: `wpPost`,
-      wpgql: `post`,
-    },
-  })
+  // testResolvedData({
+  //   url,
+  //   title: `resolves wp-graphql-gutenberg formatting blocks`,
+  //   gatsbyQuery: queries.gutenbergFormattingBlocks,
+  //   queryReplace: {
+  //     from: `wpPost(id: { eq: "cG9zdDoxMjI=" }) {`,
+  //     to: `post(id: "cG9zdDoxMjI=") {`,
+  //   },
+  //   fields: {
+  //     gatsby: `wpPost`,
+  //     wpgql: `post`,
+  //   },
+  // })
 
-  testResolvedData({
-    url,
-    title: `resolves wp-graphql-gutenberg common blocks`,
-    gatsbyQuery: queries.gutenbergCommonBlocks,
-    queryReplace: {
-      from: `wpPost(id: { eq: "cG9zdDo5NA==" }) {`,
-      to: `post(id: "cG9zdDo5NA==") {`,
-    },
-    fields: {
-      gatsby: `wpPost`,
-      wpgql: `post`,
-    },
-  })
+  // testResolvedData({
+  //   url,
+  //   title: `resolves wp-graphql-gutenberg common blocks`,
+  //   gatsbyQuery: queries.gutenbergCommonBlocks,
+  //   queryReplace: {
+  //     from: `wpPost(id: { eq: "cG9zdDo5NA==" }) {`,
+  //     to: `post(id: "cG9zdDo5NA==") {`,
+  //   },
+  //   fields: {
+  //     gatsby: `wpPost`,
+  //     wpgql: `post`,
+  //   },
+  // })
 
-  it(`resolves Yoast SEO data`, async () => {
+  it.skip(`resolves Yoast SEO data`, async () => {
     const gatsbyResult = await fetchGraphql({
       url,
       query: /* GraphQL */ `

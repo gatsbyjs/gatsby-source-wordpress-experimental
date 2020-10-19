@@ -12,23 +12,18 @@ wp core install \
     --admin_password=secret \
     --admin_email=admin@admin.com
 
-wp search-replace 'https://gatsbyinttests.wpengine.com' 'http://localhost:8081'
+wp search-replace 'https://devgatsbyint.wpengine.com' 'http://localhost:8001'
 
 wp user update admin --user_pass="secret"
-# install plugins that the wpgraphql plugins build on
-wp plugin install gutenberg advanced-custom-fields wordpress-seo
-
+wp plugin install custom-post-type-ui --version=$CPT_UI_VERSION
 # activate plugins
-wp plugin activate advanced-custom-fields basic-auth gutenberg wordpress-seo wp-graphql
+wp plugin activate wp-graphql custom-post-type-ui wp-graphql-custom-post-type-ui advanced-custom-fields-pro basic-auth
 
-wp plugin activate wp-graphql-yoast-seo \
-  wp-graphql-gutenberg wp-graphql-acf
+wp plugin activate wp-graphql-acf
 
 wp plugin activate wp-gatsby
+wp cache flush
 
 # set path rewrite structure
 wp rewrite structure '/%year%/%monthnum%/%day%/%postname%/'
-
-wp cache flush
-
-wp plugin upadte advanced-custom-fields wp-graphql-acf
+wp rewrite flush
