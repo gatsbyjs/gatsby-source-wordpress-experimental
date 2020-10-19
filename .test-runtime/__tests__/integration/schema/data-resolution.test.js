@@ -134,7 +134,7 @@ describe(`[gatsby-source-wordpress-experimental] data resolution`, () => {
 
     const wpGraphQLPageNormalizedPaths = JSON.parse(
       JSON.stringify(WPGraphQLData.page).replace(
-        /https:\/\/gatsbyinttests.wpengine.com/gm,
+        /https:\/\/localhost:8001/gm,
         ``
       )
     )

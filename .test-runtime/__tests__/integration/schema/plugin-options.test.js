@@ -117,7 +117,7 @@ describe(`[gatsby-source-wordpress-experimental] plugin options`, () => {
     expect(wpPostCommentCountField && wpPageCommentCountField).toBeFalsy()
   })
 
-  test(`Type.where option works when set to filter for French posts`, async () => {
+  test.skip(`Type.where option works when set to filter for French posts`, async () => {
     const result = await fetchGraphql({
       url: `http://localhost:8000/___graphql`,
       query: /* GraphQL */ `

@@ -181,367 +181,367 @@ export const queries = {
       }
     }
   `,
-  gutenbergColumns: /* GraphQL */ `
-    fragment WpCoreColumnBlock on WpCoreColumnBlock {
-      name
-      isDynamic
-      order
-      originalContent
-      parentNode {
-        id
-        ... on WpPost {
-          title
-        }
-      }
-      parentNodeDatabaseId
-      dynamicContent
-      attributes {
-        className
-        verticalAlignment
-        width
-      }
-    }
+//   gutenbergColumns: /* GraphQL */ `
+//     fragment WpCoreColumnBlock on WpCoreColumnBlock {
+//       name
+//       isDynamic
+//       order
+//       originalContent
+//       parentNode {
+//         id
+//         ... on WpPost {
+//           title
+//         }
+//       }
+//       parentNodeDatabaseId
+//       dynamicContent
+//       attributes {
+//         className
+//         verticalAlignment
+//         width
+//       }
+//     }
 
-    fragment WpCoreColumnsBlock on WpCoreColumnsBlock {
-      name
-      order
-      originalContent
-      parentNode {
-        id
-        ... on WpPost {
-          title
-        }
-      }
-      parentNodeDatabaseId
-      dynamicContent
-      attributes {
-        ... on WpCoreColumnsBlockAttributes {
-          align
-          backgroundColor
-          className
-          textColor
-          verticalAlignment
-        }
-      }
-      # saveContent
-    }
+//     fragment WpCoreColumnsBlock on WpCoreColumnsBlock {
+//       name
+//       order
+//       originalContent
+//       parentNode {
+//         id
+//         ... on WpPost {
+//           title
+//         }
+//       }
+//       parentNodeDatabaseId
+//       dynamicContent
+//       attributes {
+//         ... on WpCoreColumnsBlockAttributes {
+//           align
+//           backgroundColor
+//           className
+//           textColor
+//           verticalAlignment
+//         }
+//       }
+//       # saveContent
+//     }
 
-    fragment InnerBlocks on WpBlock {
-      ... on WpCoreColumnBlock {
-        ...WpCoreColumnBlock
-      }
-      ... on WpCoreColumnsBlock {
-        ...WpCoreColumnsBlock
-      }
-    }
+//     fragment InnerBlocks on WpBlock {
+//       ... on WpCoreColumnBlock {
+//         ...WpCoreColumnBlock
+//       }
+//       ... on WpCoreColumnsBlock {
+//         ...WpCoreColumnsBlock
+//       }
+//     }
 
-    query POST_QUERY {
-      wpPost(title: { eq: "Gutenberg: Columns" }) {
-        blocks {
-          ... on WpCoreColumnsBlock {
-            ...WpCoreColumnsBlock
-          }
-          innerBlocks {
-            ...InnerBlocks
-            innerBlocks {
-              ...InnerBlocks
-              innerBlocks {
-                ...InnerBlocks
-              }
-            }
-          }
-        }
-      }
-    }
-  `,
-  gutenbergLayoutElements: /* GraphQL */ `
-    {
-      wpPost(id: { eq: "cG9zdDoxMjU=" }) {
-        title
-        blocks {
-          name
-          ... on WpCoreButtonBlock {
-            attributes {
-              ... on WpCoreButtonBlockAttributes {
-                align
-                backgroundColor
-                borderRadius
-                className
-                gradient
-                linkTarget
-                placeholder
-                rel
-                text
-                textColor
-                title
-                url
-              }
-            }
-          }
-          ... on WpCoreFileBlock {
-            attributes {
-              downloadButtonText
-              fileName
-              id
-              showDownloadButton
-              textLinkTarget
-            }
-          }
-          ... on WpCoreSpacerBlock {
-            attributes {
-              height
-            }
-          }
-          ... on WpCoreSeparatorBlock {
-            attributes {
-              color
-              customColor
-              className
-            }
-          }
-        }
-      }
-    }
-  `,
-  gutenbergFormattingBlocks: /* GraphQL */ `
-    {
-      wpPost(id: { eq: "cG9zdDoxMjI=" }) {
-        title
-        blocks {
-          name
-          ... on WpCoreCodeBlock {
-            originalContent
-            attributes {
-              content
-            }
-          }
-          ... on WpCoreFreeformBlock {
-            attributes {
-              content
-            }
-          }
-          ... on WpCoreHtmlBlock {
-            attributes {
-              content
-            }
-          }
-          ... on WpCorePullquoteBlock {
-            attributes {
-              ... on WpCorePullquoteBlockAttributes {
-                citation
-                value
-              }
-            }
-          }
-          ... on WpCoreTableBlock {
-            attributes {
-              ... on WpCoreTableBlockAttributes {
-                body {
-                  cells {
-                    content
-                    scope
-                    tag
-                  }
-                }
-                caption
-                foot {
-                  cells {
-                    content
-                    scope
-                    tag
-                  }
-                }
-                hasFixedLayout
-                head {
-                  cells {
-                    content
-                    scope
-                    tag
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  `,
-  gutenbergCommonBlocks: /* GraphQL */ `
-    {
-      wpPost(id: { eq: "cG9zdDo5NA==" }) {
-        blocks {
-          name
-          ... on WpCoreParagraphBlock {
-            attributes {
-              ... on WpCoreParagraphBlockAttributes {
-                content
-              }
-            }
-          }
+//     query POST_QUERY {
+//       wpPost(title: { eq: "Gutenberg: Columns" }) {
+//         blocks {
+//           ... on WpCoreColumnsBlock {
+//             ...WpCoreColumnsBlock
+//           }
+//           innerBlocks {
+//             ...InnerBlocks
+//             innerBlocks {
+//               ...InnerBlocks
+//               innerBlocks {
+//                 ...InnerBlocks
+//               }
+//             }
+//           }
+//         }
+//       }
+//     }
+//   `,
+//   gutenbergLayoutElements: /* GraphQL */ `
+//     {
+//       wpPost(id: { eq: "cG9zdDoxMjU=" }) {
+//         title
+//         blocks {
+//           name
+//           ... on WpCoreButtonBlock {
+//             attributes {
+//               ... on WpCoreButtonBlockAttributes {
+//                 align
+//                 backgroundColor
+//                 borderRadius
+//                 className
+//                 gradient
+//                 linkTarget
+//                 placeholder
+//                 rel
+//                 text
+//                 textColor
+//                 title
+//                 url
+//               }
+//             }
+//           }
+//           ... on WpCoreFileBlock {
+//             attributes {
+//               downloadButtonText
+//               fileName
+//               id
+//               showDownloadButton
+//               textLinkTarget
+//             }
+//           }
+//           ... on WpCoreSpacerBlock {
+//             attributes {
+//               height
+//             }
+//           }
+//           ... on WpCoreSeparatorBlock {
+//             attributes {
+//               color
+//               customColor
+//               className
+//             }
+//           }
+//         }
+//       }
+//     }
+//   `,
+//   gutenbergFormattingBlocks: /* GraphQL */ `
+//     {
+//       wpPost(id: { eq: "cG9zdDoxMjI=" }) {
+//         title
+//         blocks {
+//           name
+//           ... on WpCoreCodeBlock {
+//             originalContent
+//             attributes {
+//               content
+//             }
+//           }
+//           ... on WpCoreFreeformBlock {
+//             attributes {
+//               content
+//             }
+//           }
+//           ... on WpCoreHtmlBlock {
+//             attributes {
+//               content
+//             }
+//           }
+//           ... on WpCorePullquoteBlock {
+//             attributes {
+//               ... on WpCorePullquoteBlockAttributes {
+//                 citation
+//                 value
+//               }
+//             }
+//           }
+//           ... on WpCoreTableBlock {
+//             attributes {
+//               ... on WpCoreTableBlockAttributes {
+//                 body {
+//                   cells {
+//                     content
+//                     scope
+//                     tag
+//                   }
+//                 }
+//                 caption
+//                 foot {
+//                   cells {
+//                     content
+//                     scope
+//                     tag
+//                   }
+//                 }
+//                 hasFixedLayout
+//                 head {
+//                   cells {
+//                     content
+//                     scope
+//                     tag
+//                   }
+//                 }
+//               }
+//             }
+//           }
+//         }
+//       }
+//     }
+//   `,
+//   gutenbergCommonBlocks: /* GraphQL */ `
+//     {
+//       wpPost(id: { eq: "cG9zdDo5NA==" }) {
+//         blocks {
+//           name
+//           ... on WpCoreParagraphBlock {
+//             attributes {
+//               ... on WpCoreParagraphBlockAttributes {
+//                 content
+//               }
+//             }
+//           }
 
-          ... on WpCoreHeadingBlock {
-            attributes {
-              ... on WpCoreHeadingBlockAttributes {
-                content
-                level
-              }
-            }
-          }
+//           ... on WpCoreHeadingBlock {
+//             attributes {
+//               ... on WpCoreHeadingBlockAttributes {
+//                 content
+//                 level
+//               }
+//             }
+//           }
 
-          ... on WpCoreImageBlock {
-            attributes {
-              ... on WpCoreImageBlockAttributes {
-                url
-              }
-            }
-          }
+//           ... on WpCoreImageBlock {
+//             attributes {
+//               ... on WpCoreImageBlockAttributes {
+//                 url
+//               }
+//             }
+//           }
 
-          ... on WpCoreGalleryBlock {
-            attributes {
-              ... on WpCoreGalleryBlockAttributes {
-                images {
-                  id
-                  url
-                }
-              }
-            }
-          }
+//           ... on WpCoreGalleryBlock {
+//             attributes {
+//               ... on WpCoreGalleryBlockAttributes {
+//                 images {
+//                   id
+//                   url
+//                 }
+//               }
+//             }
+//           }
 
-          ... on WpCoreListBlock {
-            attributes {
-              ordered
-              values
-            }
-          }
-        }
-      }
-    }
-  `,
-  yoastRootFields: /* GraphQL */ `
-  seo {
-    breadcrumbs {
-      archivePrefix
-      boldLast
-      enabled
-      homeText
-      notFoundText
-      prefix
-      searchPrefix
-      separator
-      showBlogPage
-    }
-    openGraph {
-      defaultImage {
-        id
-        title
-      }
-      frontPage {
-        description
-        image {
-          id
-          title
-        }
-        title
-      }
-    }
-    redirects {
-      format
-      origin
-      target
-      type
-    }
-    schema {
-      companyLogo {
-        id
-        title
-      }
-      companyName
-      companyOrPerson
-      inLanguage
-      logo {
-        id
-        title
-      }
-      siteName
-      siteUrl
-      wordpressSiteName
-      personLogo {
-        id
-        title
-      }
-    }
-    social {
-      facebook {
-        url
-        defaultImage {
-          title
-          id
-        }
-      }
-      instagram {
-        url
-      }
-      linkedIn {
-        url
-      }
-      mySpace {
-        url
-      }
-      pinterest {
-        url
-        metaTag
-      }
-      twitter {
-        cardType
-        username
-      }
-      wikipedia {
-        url
-      }
-      youTube {
-        url
-      }
-    }
-    webmaster {
-      baiduVerify
-      googleVerify
-      msVerify
-      yandexVerify
-    }
-  }
-`,
-  pageYoastFields: /* GraphQL */ `
-    seo {
-      breadcrumbs {
-        text
-      }
-      canonical
-      focuskw
-      metaDesc
-      metaKeywords
-      metaRobotsNofollow
-      metaRobotsNoindex
-      opengraphAuthor
-      opengraphDescription
-      opengraphImage {
-        id
-        title
-      }
-      opengraphModifiedTime
-      opengraphPublishedTime
-      opengraphPublisher
-      opengraphSiteName
-      opengraphTitle
-      opengraphType
-      title
-      twitterDescription
-      twitterImage {
-        id
-        title
-      }
-      twitterTitle
-    }
-  `,
+//           ... on WpCoreListBlock {
+//             attributes {
+//               ordered
+//               values
+//             }
+//           }
+//         }
+//       }
+//     }
+//   `,
+//   yoastRootFields: /* GraphQL */ `
+//   seo {
+//     breadcrumbs {
+//       archivePrefix
+//       boldLast
+//       enabled
+//       homeText
+//       notFoundText
+//       prefix
+//       searchPrefix
+//       separator
+//       showBlogPage
+//     }
+//     openGraph {
+//       defaultImage {
+//         id
+//         title
+//       }
+//       frontPage {
+//         description
+//         image {
+//           id
+//           title
+//         }
+//         title
+//       }
+//     }
+//     redirects {
+//       format
+//       origin
+//       target
+//       type
+//     }
+//     schema {
+//       companyLogo {
+//         id
+//         title
+//       }
+//       companyName
+//       companyOrPerson
+//       inLanguage
+//       logo {
+//         id
+//         title
+//       }
+//       siteName
+//       siteUrl
+//       wordpressSiteName
+//       personLogo {
+//         id
+//         title
+//       }
+//     }
+//     social {
+//       facebook {
+//         url
+//         defaultImage {
+//           title
+//           id
+//         }
+//       }
+//       instagram {
+//         url
+//       }
+//       linkedIn {
+//         url
+//       }
+//       mySpace {
+//         url
+//       }
+//       pinterest {
+//         url
+//         metaTag
+//       }
+//       twitter {
+//         cardType
+//         username
+//       }
+//       wikipedia {
+//         url
+//       }
+//       youTube {
+//         url
+//       }
+//     }
+//     webmaster {
+//       baiduVerify
+//       googleVerify
+//       msVerify
+//       yandexVerify
+//     }
+//   }
+// `,
+//   pageYoastFields: /* GraphQL */ `
+//     seo {
+//       breadcrumbs {
+//         text
+//       }
+//       canonical
+//       focuskw
+//       metaDesc
+//       metaKeywords
+//       metaRobotsNofollow
+//       metaRobotsNoindex
+//       opengraphAuthor
+//       opengraphDescription
+//       opengraphImage {
+//         id
+//         title
+//       }
+//       opengraphModifiedTime
+//       opengraphPublishedTime
+//       opengraphPublisher
+//       opengraphSiteName
+//       opengraphTitle
+//       opengraphType
+//       title
+//       twitterDescription
+//       twitterImage {
+//         id
+//         title
+//       }
+//       twitterTitle
+//     }
+//   `,
   menus: /* GraphQL */ `
     {
       allWpMenu {
