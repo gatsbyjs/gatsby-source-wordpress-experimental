@@ -25,6 +25,8 @@ services:
     build:
       context: ./docker/wordpress
       args:
+        # specify version updates here
+        # this is for plugins installed via git or tar
         WPGRAPHQL_VERSION: v0.13.3
         WPGATSBY_VERSION: v0.4.17
         WPGRAPHQL_ACF_VERSION: v0.3.1
@@ -46,6 +48,9 @@ services:
     depends_on:
       - db
       - wordpress
+    # Specify versions for wp cli or composer here
+    environment: 
+      CPT_UI_VERSION: 1.8.1
     env_file:
       - ./.test-runtime/.env.test
     # image: duffn/wp-cli-gatsby:latest
