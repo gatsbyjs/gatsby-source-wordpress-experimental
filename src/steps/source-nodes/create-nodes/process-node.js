@@ -837,7 +837,6 @@ const processNodeString = async ({
 }) => {
   const nodeStringFilters = [
     replaceNodeHtmlImages,
-    replaceNodeHtmlLinks,
     findAndReplaceNodeHtmlString,
     replaceFileLinks,
     replaceNodeHtmlLinks,
