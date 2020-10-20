@@ -35,7 +35,7 @@ export const sourcePreviews = async ({ webhookBody, reporter }, { url }) => {
     )
   }
 
-  await new Promise((resolve) => setTimeout(resolve, 5000))
+  // await new Promise((resolve) => setTimeout(resolve, 5000))
   await fetchAndCreateSingleNode({
     actionType: `PREVIEW`,
     ...webhookBody,
