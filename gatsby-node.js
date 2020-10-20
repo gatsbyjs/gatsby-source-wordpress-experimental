@@ -25,7 +25,10 @@ module.exports = runApisInSteps({
 
   onPostBuild: [steps.setImageNodeIdCache],
 
-  onCreatePage: [steps.respondToPreviewWebsocket],
+  onCreatePage: [
+    steps.savePreviewNodeIdToPageDependency,
+    steps.onCreatePageRespondToPreviewWebsocket,
+  ],
 
   onCreateDevServer: [
     steps.setupPreviewRefresher,

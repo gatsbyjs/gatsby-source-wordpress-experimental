@@ -12,5 +12,6 @@ export { setErrorMap } from "~/steps/set-error-map"
 
 export {
   setupPreviewRefresher,
-  respondToPreviewWebsocket,
+  onCreatePageRespondToPreviewWebsocket,
+  savePreviewNodeIdToPageDependency,
 } from "~/steps/start-preview-refresher"

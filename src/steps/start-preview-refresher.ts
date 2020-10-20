@@ -11,21 +11,51 @@ const listenToWebsocket = ({ app, getNodesByType, getNode }): void => {
   const webSocket = websocketManager.getSocket()
 
   webSocket.on(`connection`, (socket) => {
-    socket.on(`subscribeToNodePages`, (nodeId: string) => {
-      store.dispatch.previewStore.subscribeToPagesCreatedFromNodeById({
-        nodeId,
-        onPageCreatedCallback: (node) => {
-          socket.send({ type: `wpPreviewReady`, payload: node })
-        },
-      })
-    })
+    function onPageCreatedCallback({ node, pageNode }) {
+      console.log(`sending back to ${node.id}`)
+      socket.emit(`wpPreviewReady`, { payload: { node, pageNode } })
+    }
+
+    socket.on(
+      `subscribeToNodePages`,
+      ({ nodeId, modified }: { nodeId: string; modified: string }) => {
+        console.log(`subscribing to ${nodeId}`)
+        const existingNode = getNode(nodeId)
+
+        if (existingNode && existingNode.modified === modified) {
+          // if this node was already updated, we need to check the last time it had a page created for it. If that time was before now, send back early, otherwise we need to subscribe to updates on that page.
+
+          const { page } =
+            store.getState().previewStore.nodePageCreatedStateByNodeId[
+              nodeId
+            ] ?? {}
+
+          if (page && page.updatedAt < Date.now()) {
+            // this node was already updated, no need to subcribe
+            // just send the node back
+            console.log(`sending back early`)
+            onPageCreatedCallback({ node: existingNode, pageNode: page })
+
+            return
+          }
+        }
+
+        console.log(`setting up subscriber`)
+        // if this node & page haven't been updated yet, set up a subscriber callback
+        store.dispatch.previewStore.subscribeToPagesCreatedFromNodeById({
+          nodeId,
+          onPageCreatedCallback,
+        })
+      }
+    )
   })
 }
 
-export const responseToPreviewWebsocket = (helpers, pluginOptions) => {
-  const { nodePageCreatedCallbacks } = store.getState().previewStore
-
-  if (!nodePageCreatedCallbacks) {
+// onCreatePage we want to figure out which node the page is dependant on
+// and then store that page in state
+export const savePreviewNodeIdToPageDependency = (helpers) => {
+  // if we're not in preview mode we don't want to track this
+  if (!process.env.ENABLE_GATSBY_REFRESH_ENDPOINT) {
     return
   }
 
@@ -38,6 +68,7 @@ export const responseToPreviewWebsocket = (helpers, pluginOptions) => {
 
   // we want to try to get the node by context id
   // because otherwise we need to look it up expensively in componentDataDependencies
+  // by finding the map key (nodeId) where the map value is an array containing page.path 😱 not good
   if (!nodeThatCreatedThisPage) {
     const state = gatsbyState.getState()
 
@@ -60,12 +91,46 @@ export const responseToPreviewWebsocket = (helpers, pluginOptions) => {
     nodeThatCreatedThisPage = getNode(nodeId)
   }
 
+  if (nodeThatCreatedThisPage) {
+    store.dispatch.previewStore.saveNodePageState({
+      nodeId: nodeThatCreatedThisPage.id,
+      page,
+    })
+  }
+}
+
+export const onCreatePageRespondToPreviewWebsocket = (
+  helpers,
+  pluginOptions
+) => {
+  const {
+    nodePageCreatedCallbacks,
+    pageIdToNodeDependencyId,
+  } = store.getState().previewStore
+  const { page, getNode } = helpers
+
+  if (!nodePageCreatedCallbacks) {
+    return
+  }
+
+  const nodeIdThatCreatedThisPage = pageIdToNodeDependencyId[page.id]
+
+  if (!nodeIdThatCreatedThisPage) {
+    console.log(`no node id that created this page`)
+    return
+  }
+
+  const nodeThatCreatedThisPage = getNode(nodeIdThatCreatedThisPage)
+
   const nodePageCreatedCallback =
     nodeThatCreatedThisPage &&
     nodePageCreatedCallbacks[nodeThatCreatedThisPage.id]
 
-  if (typeof nodePageCreatedCallback === `function`) {
-    nodePageCreatedCallback(nodeThatCreatedThisPage)
+  if (
+    nodeThatCreatedThisPage &&
+    typeof nodePageCreatedCallback === `function`
+  ) {
+    nodePageCreatedCallback({ node: nodeThatCreatedThisPage, pageNode: page })
   }
 }
 
