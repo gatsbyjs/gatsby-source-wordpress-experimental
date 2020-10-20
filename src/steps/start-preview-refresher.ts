@@ -1,6 +1,7 @@
 import express from "express"
 import { websocketManager } from "gatsby/dist/utils/websocket-manager"
 import { sourcePreviews } from "~/steps/source-nodes/update-nodes/source-previews"
+import store from "~/store"
 
 // import { emitter } from "gatsby/dist/redux"
 // import { Server as WebSocketServer } from "ws"
@@ -11,25 +12,76 @@ const listenToWebsocket = ({ app, getNodesByType, getNode }): void => {
 
   webSocket.on(`connection`, (socket) => {
     socket.on(`subscribeToNodePages`, (nodeId: string) => {
-      //   subscribeToPagesCreatedFromNodeById(nodeId, (node) => {
-      //       socket.send({ type: `wpPreviewReady`, payload: node })
-      //   })
+      store.dispatch.previewStore.subscribeToPagesCreatedFromNodeById({
+        nodeId,
+        onPageCreatedCallback: (node) => {
+          socket.send({ type: `wpPreviewReady`, payload: node })
+        },
+      })
     })
   })
 }
 
+export const responseToPreviewWebsocket = (helpers, pluginOptions) => {
+  const { nodePageCreatedCallbacks } = store.getState().previewStore
+
+  if (!nodePageCreatedCallbacks) {
+    return
+  }
+
+  const { page, store: gatsbyState, getNode } = helpers
+
+  const contextNode =
+    page.context && page.context.id && getNode(page.context.id)
+
+  let nodeThatCreatedThisPage = contextNode
+
+  // we want to try to get the node by context id
+  // because otherwise we need to look it up expensively in componentDataDependencies
+  if (!nodeThatCreatedThisPage) {
+    const state = gatsbyState.getState()
+
+    const getMapKeyByValue = (val) => {
+      /**
+       * this is expensive because we're looking up a map key (node id) by wether our value exists within it's value which is an array of page paths
+       */
+      const returnedEntries = [
+        ...state.componentDataDependencies.nodes,
+      ].find(([, value]) => [...value].includes(val))
+
+      if (returnedEntries && returnedEntries.length) {
+        return returnedEntries[0]
+      }
+
+      return null
+    }
+
+    const nodeId = getMapKeyByValue(page.path)
+    nodeThatCreatedThisPage = getNode(nodeId)
+  }
+
+  const nodePageCreatedCallback =
+    nodeThatCreatedThisPage &&
+    nodePageCreatedCallbacks[nodeThatCreatedThisPage.id]
+
+  if (typeof nodePageCreatedCallback === `function`) {
+    nodePageCreatedCallback(nodeThatCreatedThisPage)
+  }
+}
+
 export const setupPreviewRefresher = (helpers, pluginOptions) => {
-  refreshSourceNodes(helpers, pluginOptions)
+  previewRefreshWebhook(helpers, pluginOptions)
   getWebsocket(helpers)
 }
 
-const getWebsocket = async (helpers) => {
+const getWebsocket = (helpers) => {
   // the socket is initialized directly after onCreateDevServer
   // so we need to wait a moment
-  setTimeout(() => listenToWebsocket(helpers), 1000)
+  // this is hacky. @todo either setup a new websocket server or PR core to pass the socket to onCreateDevServer
+  setTimeout(() => listenToWebsocket(helpers), 5000)
 }
 
-const refreshSourceNodes = (helpers, pluginOptions) => {
+const previewRefreshWebhook = (helpers, pluginOptions) => {
   const { app } = helpers
 
   const refreshEndpoint = `/__wpgatsby-refresh`

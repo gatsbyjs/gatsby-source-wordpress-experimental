@@ -9,4 +9,8 @@ export { setImageNodeIdCache } from "~/steps/set-image-node-id-cache"
 export { startPollingForContentUpdates } from "~/steps/source-nodes/update-nodes/content-update-interval"
 export { checkIfSchemaHasChanged } from "~/steps/ingest-remote-schema/diff-schemas"
 export { setErrorMap } from "~/steps/set-error-map"
-export { setupPreviewRefresher } from "~/steps/start-preview-refresher"
+
+export {
+  setupPreviewRefresher,
+  respondToPreviewWebsocket,
+} from "~/steps/start-preview-refresher"
