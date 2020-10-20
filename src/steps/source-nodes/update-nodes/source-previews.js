@@ -5,8 +5,6 @@ import urlUtil from "url"
 import { touchValidNodes } from "./fetch-node-updates"
 
 export const sourcePreviews = async ({ webhookBody, reporter }, { url }) => {
-  await touchValidNodes()
-
   if (
     !webhookBody ||
     !webhookBody.preview ||
@@ -16,6 +14,8 @@ export const sourcePreviews = async ({ webhookBody, reporter }, { url }) => {
   ) {
     return
   }
+
+  await touchValidNodes()
 
   const { hostname: settingsHostname } = urlUtil.parse(url)
   const { hostname: remoteHostname } = urlUtil.parse(webhookBody.remoteUrl)
