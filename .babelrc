@@ -37,5 +37,11 @@
         }
       }
     ]
+  ],
+  "overrides": [
+    {
+      "test": ["./src/**/*.ts", "./src/**/*.tsx"],
+      "plugins": [["@babel/plugin-transform-typescript", { "isTSX": true }]]
+    }
   ]
 }
