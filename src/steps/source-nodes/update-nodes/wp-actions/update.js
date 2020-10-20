@@ -37,7 +37,7 @@ const normalizeUri = ({ uri, id, singleName }) => {
   if (uri?.startsWith(`/?`)) {
     const dbId = getDbIdFromRelayId(id)
 
-    return `/${singleName}/${dbId}/`
+    return `/generated-preview-path/${singleName}/${dbId}/`
   }
 
   return uri
@@ -60,8 +60,7 @@ export const fetchAndCreateSingleNode = async ({
   // if it's a preview but it's the initial blank node
   // then use the regular node query as the preview query wont
   // return anything
-  const query =
-    previewId && !isNewPostDraft && !isDraft ? previewQuery : nodeQuery
+  const query = previewId ? previewQuery : nodeQuery
 
   const {
     helpers: { reporter },
@@ -137,19 +136,13 @@ export const fetchAndCreateSingleNode = async ({
     cachedNodeIds,
   })
 
-  if (previewId && !isNewPostDraft) {
+  if (previewId) {
     reporter.log(``)
     reporter.info(
       formatLogMessage(
-        `Preview for ${singleName} ${previewId} was updated at ${node.uri}.`
-      )
-    )
-    reporter.log(``)
-  } else if (isNewPostDraft) {
-    reporter.log(``)
-    reporter.info(
-      formatLogMessage(
-        `Blank node for ${singleName} draft ${previewId} was created at ${node.uri}.`
+        `Preview for ${singleName}/${node.id} ${previewId} was updated at ${
+          node.uri || remoteNode.uri
+        }.`
       )
     )
     reporter.log(``)

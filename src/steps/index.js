@@ -14,4 +14,4 @@ export {
   setupPreviewRefresher,
   onCreatePageRespondToPreviewWebsocket,
   savePreviewNodeIdToPageDependency,
-} from "~/steps/start-preview-refresher"
+} from "~/steps/gatsby-preview"

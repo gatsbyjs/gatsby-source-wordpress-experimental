@@ -32,7 +32,6 @@
     "got": "^11.7.0",
     "graphql-query-compress": "^1.2.2",
     "lodash": "^4.17.19",
-    "moment": "^2.27.0",
     "node-fetch": "^2.6.0",
     "p-queue": "^6.3.0",
     "prettier": "^2.0.5",
@@ -41,8 +40,7 @@
     "read-chunk": "^3.2.0",
     "replaceall": "^0.1.6",
     "semver": "^7.3.2",
-    "valid-url": "^1.0.9",
-    "ws": "^7.3.1"
+    "valid-url": "^1.0.9"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.4",

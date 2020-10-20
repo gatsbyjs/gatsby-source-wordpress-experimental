@@ -2,6 +2,7 @@
 type OnPageCreatedCallback = (node: any) => void
 
 interface IPreviewState {
+  inPreviewMode: boolean
   nodePageCreatedCallbacks: {
     [nodeId: string]: OnPageCreatedCallback
   }
@@ -19,9 +20,20 @@ interface IPreviewState {
 }
 
 type PreviewReducers = {
+  enablePreviewMode: (state: IPreviewState) => IPreviewState
   subscribeToPagesCreatedFromNodeById: (
     state: IPreviewState,
-    payload: { nodeId: string; onPageCreatedCallback: OnPageCreatedCallback }
+    payload: {
+      nodeId: string
+      onPageCreatedCallback: OnPageCreatedCallback
+      modified: string
+    }
+  ) => IPreviewState
+  unSubscribeToPagesCreatedFromNodeById: (
+    state: IPreviewState,
+    payload: {
+      nodeId: string
+    }
   ) => IPreviewState
   saveNodePageState: (
     state: IPreviewState,
@@ -36,12 +48,31 @@ interface IPreviewStore {
 
 const previewStore: IPreviewStore = {
   state: {
+    inPreviewMode: false,
     nodePageCreatedCallbacks: {},
     nodePageCreatedStateByNodeId: {},
     pageIdToNodeDependencyId: {},
   },
 
   reducers: {
+    enablePreviewMode(state) {
+      if (!state.inPreviewMode) {
+        console.log(`enabling preview mode!`)
+      }
+
+      state.inPreviewMode = true
+
+      return state
+    },
+
+    unSubscribeToPagesCreatedFromNodeById(state, { nodeId }) {
+      if (state.nodePageCreatedCallbacks?.[nodeId]) {
+        delete state.nodePageCreatedCallbacks[nodeId]
+      }
+
+      return state
+    },
+
     subscribeToPagesCreatedFromNodeById(
       state,
       { nodeId, onPageCreatedCallback }
@@ -59,7 +90,7 @@ const previewStore: IPreviewStore = {
         page,
       }
 
-      state.pageIdToNodeDependencyId[page.id] = {
+      state.pageIdToNodeDependencyId[page.path] = {
         nodeId,
       }
 
