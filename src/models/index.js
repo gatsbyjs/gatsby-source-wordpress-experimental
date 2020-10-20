@@ -3,6 +3,7 @@ import gatsbyApi from "./gatsby-api"
 import logger from "./logger"
 import imageNodes from "./image-nodes"
 import wpHooks from "./wp-hooks"
+import previewStore from "./preview"
 
 export default {
   remoteSchema,
@@ -10,4 +11,5 @@ export default {
   logger,
   imageNodes,
   wpHooks,
+  previewStore,
 }
