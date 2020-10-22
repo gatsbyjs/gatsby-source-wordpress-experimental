@@ -6,6 +6,7 @@ ARG WPGRAPHQL_ACF_VERSION=v0.3.1
 ARG WPGRAPHQL_CPT_UI_VERSION=v1.1
 ARG ACF_VERSION=v5.8.7
 ARG PLUGIN_DIR=/usr/src/wordpress/wp-content/plugins
+ARG UPLOADS_DIR=/usr/src/wordpress/wp-content/uploads/
 
 LABEL maintainer="duffn@outlook.com" 
 
@@ -51,7 +52,11 @@ RUN git clone --depth 1 https://github.com/WP-API/Basic-Auth.git ${PLUGIN_DIR}/b
 
 RUN apt-get remove git -y
 
-RUN chown -R www-data:www-data wp-content && chmod -R 777 wp-content;
+COPY uploads ${UPLOADS_DIR}
+
+RUN chown -R www-data:www-data ${UPLOADS_DIR}
+
+RUN ls -latr ${UPLOADS_DIR}
 
 EXPOSE 8001
 

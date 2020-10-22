@@ -53,9 +53,9 @@ describe(`[gatsby-source-wordpress-experimental] Gatsby image processing`, () =>
     expect(countGatsbyImgs(wpPage.content)).toBe(2)
     expect(wpPage.content).toMatchSnapshot()
 
-    expect(gute.content).toBeTruthy()
-    expect(countGatsbyImgs(gute.content)).toBe(8)
-    expect(gute.content).toMatchSnapshot()
+    // expect(gute.content).toBeTruthy()
+    // expect(countGatsbyImgs(gute.content)).toBe(8)
+    // expect(gute.content).toMatchSnapshot()
 
     expect(editedInline.content).toBeTruthy()
     expect(countGatsbyImgs(editedInline.content)).toBe(1)

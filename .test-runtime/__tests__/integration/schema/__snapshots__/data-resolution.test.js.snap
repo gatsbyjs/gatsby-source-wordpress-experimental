@@ -4,235 +4,147 @@ exports[`[gatsby-source-wordpress-experimental] data resolution resolves correct
 Array [
   Object {
     "id": "cG9zdDo3NzQ0",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/08/101-2621x1747-1-scaled.jpg",
+    "mediaItemUrl": "http://localhost:8001/wp-content/uploads/2020/08/101-2621x1747-1-scaled.jpg",
   },
   Object {
     "id": "cG9zdDo3NzQ4",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/08/1002-4312x2868-1-scaled.jpg",
+    "mediaItemUrl": "http://localhost:8001/wp-content/uploads/2020/08/1002-4312x2868-1-scaled.jpg",
   },
   Object {
     "id": "cG9zdDo3NzQw",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/08/file-sample_1MB.doc",
+    "mediaItemUrl": "http://localhost:8001/wp-content/uploads/2020/08/file-sample_1MB.doc",
   },
   Object {
     "id": "cG9zdDo3NzU2",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/08/1001-5616x3744-1-scaled.jpg",
+    "mediaItemUrl": "http://localhost:8001/wp-content/uploads/2020/08/1001-5616x3744-1-scaled.jpg",
   },
   Object {
     "id": "cG9zdDo3NzUy",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/08/1003-1181x1772-1.jpg",
+    "mediaItemUrl": "http://localhost:8001/wp-content/uploads/2020/08/1003-1181x1772-1.jpg",
   },
   Object {
     "id": "cG9zdDo3NzY0",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/08/1004-5616x3744-1-scaled.jpg",
+    "mediaItemUrl": "http://localhost:8001/wp-content/uploads/2020/08/1004-5616x3744-1-scaled.jpg",
   },
   Object {
     "id": "cG9zdDo3NzYw",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/08/10-2500x1667-1.jpg",
-  },
-  Object {
-    "id": "cG9zdDo4NTI1",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/09/vneck-tee-2.jpg",
-  },
-  Object {
-    "id": "cG9zdDo4NTI5",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/09/vnech-tee-green-1.jpg",
-  },
-  Object {
-    "id": "cG9zdDo4NTM3",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/09/hoodie-2.jpg",
-  },
-  Object {
-    "id": "cG9zdDo4NTMz",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/09/vnech-tee-blue-1.jpg",
-  },
-  Object {
-    "id": "cG9zdDo4NTQ1",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/09/hoodie-green-1.jpg",
-  },
-  Object {
-    "id": "cG9zdDo4NTQ5",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/09/hoodie-with-logo-2.jpg",
-  },
-  Object {
-    "id": "cG9zdDo4NTQx",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/09/hoodie-blue-1.jpg",
-  },
-  Object {
-    "id": "cG9zdDo4NTU3",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/09/beanie-2.jpg",
-  },
-  Object {
-    "id": "cG9zdDo4NTUz",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/09/tshirt-2.jpg",
-  },
-  Object {
-    "id": "cG9zdDo4NTY1",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/09/cap-2.jpg",
-  },
-  Object {
-    "id": "cG9zdDo4NTY5",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/09/sunglasses-2.jpg",
-  },
-  Object {
-    "id": "cG9zdDo4NTYx",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/09/belt-2.jpg",
-  },
-  Object {
-    "id": "cG9zdDo4NTc3",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/09/hoodie-with-zipper-2.jpg",
-  },
-  Object {
-    "id": "cG9zdDo4NTcz",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/09/hoodie-with-pocket-2.jpg",
-  },
-  Object {
-    "id": "cG9zdDo4NTg1",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/09/polo-2.jpg",
-  },
-  Object {
-    "id": "cG9zdDo4NTg5",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/09/album-1.jpg",
-  },
-  Object {
-    "id": "cG9zdDo4NTgx",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/09/long-sleeve-tee-2.jpg",
-  },
-  Object {
-    "id": "cG9zdDo4NTk3",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/09/t-shirt-with-logo-1.jpg",
-  },
-  Object {
-    "id": "cG9zdDo4NTkz",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/09/single-1.jpg",
-  },
-  Object {
-    "id": "cG9zdDo4NjA1",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/09/logo-1.jpg",
-  },
-  Object {
-    "id": "cG9zdDo4NjA5",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/09/pennant-1.jpg",
-  },
-  Object {
-    "id": "cG9zdDo4NjAx",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/09/beanie-with-logo-1.jpg",
+    "mediaItemUrl": "http://localhost:8001/wp-content/uploads/2020/08/10-2500x1667-1.jpg",
   },
   Object {
     "id": "cG9zdDo5MjA0",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/09/windows-W1N58KDE8r0-unsplash-1-scaled-e1600819839939.jpg",
+    "mediaItemUrl": "http://localhost:8001/wp-content/uploads/2020/09/windows-W1N58KDE8r0-unsplash-1-scaled-e1600819839939.jpg",
   },
   Object {
     "id": "cG9zdDo5MjEw",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/09/windows-W1N58KDE8r0-unsplash-scaled-e1600819062167.jpg",
+    "mediaItemUrl": "http://localhost:8001/wp-content/uploads/2020/09/windows-W1N58KDE8r0-unsplash-scaled-e1600819062167.jpg",
   },
   Object {
     "id": "cG9zdDo5NQ==",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2018/10/aperture-vintage-346923-unsplash-scaled.jpg",
+    "mediaItemUrl": "http://localhost:8001/wp-content/uploads/2018/10/aperture-vintage-346923-unsplash-scaled.jpg",
   },
   Object {
     "id": "cG9zdDo5Ng==",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2018/10/brandon-siu-608784-unsplash-scaled.jpg",
+    "mediaItemUrl": "http://localhost:8001/wp-content/uploads/2018/10/brandon-siu-608784-unsplash-scaled.jpg",
   },
   Object {
     "id": "cG9zdDo5Nw==",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2018/10/casey-horner-512022-unsplash-scaled.jpg",
+    "mediaItemUrl": "http://localhost:8001/wp-content/uploads/2018/10/casey-horner-512022-unsplash-scaled.jpg",
   },
   Object {
     "id": "cG9zdDo5NzIy",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/09/imagename-300x163-1-scaled.jpg",
+    "mediaItemUrl": "http://localhost:8001/wp-content/uploads/2020/09/imagename-300x163-1-scaled.jpg",
   },
   Object {
     "id": "cG9zdDo5ODI3",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/09/5642fae96ade14100be5-scaled.jpg",
+    "mediaItemUrl": "http://localhost:8001/wp-content/uploads/2020/09/5642fae96ade14100be5-scaled.jpg",
   },
   Object {
     "id": "cG9zdDo5OQ==",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/03/avatar.jpg",
+    "mediaItemUrl": "http://localhost:8001/wp-content/uploads/2020/03/avatar.jpg",
   },
   Object {
     "id": "cG9zdDoxMDA=",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2018/10/federico-bottos-442265-unsplash-scaled.jpg",
+    "mediaItemUrl": "http://localhost:8001/wp-content/uploads/2018/10/federico-bottos-442265-unsplash-scaled.jpg",
   },
   Object {
     "id": "cG9zdDoxMDE=",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2018/10/jordan-steranka-504707-unsplash-scaled.jpg",
+    "mediaItemUrl": "http://localhost:8001/wp-content/uploads/2018/10/jordan-steranka-504707-unsplash-scaled.jpg",
   },
   Object {
     "id": "cG9zdDoxMDI=",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2018/10/kristopher-roller-110203-unsplash-scaled.jpg",
+    "mediaItemUrl": "http://localhost:8001/wp-content/uploads/2018/10/kristopher-roller-110203-unsplash-scaled.jpg",
   },
   Object {
     "id": "cG9zdDoxMDM=",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2018/10/zoltan-tasi-482489-unsplash-scaled.jpg",
+    "mediaItemUrl": "http://localhost:8001/wp-content/uploads/2018/10/zoltan-tasi-482489-unsplash-scaled.jpg",
   },
   Object {
     "id": "cG9zdDoxMDQ0NQ==",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/10/sample.doc",
+    "mediaItemUrl": "http://localhost:8001/wp-content/uploads/2020/10/sample.doc",
   },
   Object {
     "id": "cG9zdDoxMDQ0OQ==",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/10/sample-mp4-file.mp4",
+    "mediaItemUrl": "http://localhost:8001/wp-content/uploads/2020/10/sample-mp4-file.mp4",
   },
   Object {
     "id": "cG9zdDoxMDQ1Mw==",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/10/sample-mov-file.mov",
+    "mediaItemUrl": "http://localhost:8001/wp-content/uploads/2020/10/sample-mov-file.mov",
   },
   Object {
     "id": "cG9zdDoxMDQ2Nw==",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/10/sampleinline-html.doc",
+    "mediaItemUrl": "http://localhost:8001/wp-content/uploads/2020/10/sampleinline-html.doc",
   },
   Object {
     "id": "cG9zdDoxMDQ3MQ==",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/10/sample-avi-fileinline-html.avi",
+    "mediaItemUrl": "http://localhost:8001/wp-content/uploads/2020/10/sample-avi-fileinline-html.avi",
   },
   Object {
     "id": "cG9zdDoxMDQ3NQ==",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/10/sample-mp4-fileinline-html.mp4",
+    "mediaItemUrl": "http://localhost:8001/wp-content/uploads/2020/10/sample-mp4-fileinline-html.mp4",
   },
   Object {
     "id": "cG9zdDoxMDQ3OQ==",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/10/sample-mov-fileinline-html.mov",
+    "mediaItemUrl": "http://localhost:8001/wp-content/uploads/2020/10/sample-mov-fileinline-html.mov",
   },
   Object {
     "id": "cG9zdDoxMDQ=",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2018/10/wordpress-logotype-standard.pdf",
+    "mediaItemUrl": "http://localhost:8001/wp-content/uploads/2018/10/wordpress-logotype-standard.pdf",
   },
   Object {
     "id": "cG9zdDoxMDQzOQ==",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/10/sample.pdf",
+    "mediaItemUrl": "http://localhost:8001/wp-content/uploads/2020/10/sample.pdf",
   },
   Object {
     "id": "cG9zdDoxMDUxNQ==",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/10/jessie-mccall-a9_8YKoqIYo-unsplash-scaled.jpg",
+    "mediaItemUrl": "http://localhost:8001/wp-content/uploads/2020/10/jessie-mccall-a9_8YKoqIYo-unsplash-scaled.jpg",
   },
   Object {
     "id": "cG9zdDoxMDYyMQ==",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/10/mattmullenweg-interview.mp3",
+    "mediaItemUrl": "http://localhost:8001/wp-content/uploads/2020/10/mattmullenweg-interview.mp3",
   },
   Object {
     "id": "cG9zdDoxMDYyNw==",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/10/giphy.mp4",
+    "mediaItemUrl": "http://localhost:8001/wp-content/uploads/2020/10/giphy.mp4",
   },
   Object {
     "id": "cG9zdDoxMDcwNQ==",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/10/BabyElephantWalk60.wav",
+    "mediaItemUrl": "http://localhost:8001/wp-content/uploads/2020/10/BabyElephantWalk60.wav",
   },
   Object {
     "id": "cG9zdDoxMDcxNQ==",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/10/Screen-Shot-2020-07-30-at-1.34.09-PM.png",
+    "mediaItemUrl": "http://localhost:8001/wp-content/uploads/2020/10/Screen-Shot-2020-07-30-at-1.34.09-PM.png",
   },
   Object {
     "id": "cG9zdDoxMDkyNw==",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/10/karsten-winegeart-5zzY1WvIRRQ-unsplash-scaled.jpg",
+    "mediaItemUrl": "http://localhost:8001/wp-content/uploads/2020/10/karsten-winegeart-5zzY1WvIRRQ-unsplash-scaled.jpg",
   },
   Object {
     "id": "cG9zdDoxOTU=",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/03/1024x1024-300x300-1.png",
+    "mediaItemUrl": "http://localhost:8001/wp-content/uploads/2020/03/1024x1024-300x300-1.png",
   },
   Object {
     "id": "cG9zdDozNjI=",
-    "mediaItemUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/03/84-1000x1000-1.jpg",
+    "mediaItemUrl": "http://localhost:8001/wp-content/uploads/2020/03/84-1000x1000-1.jpg",
   },
 ]
 `;
@@ -334,24 +246,6 @@ Object {
             ],
           },
           "name": "main menu",
-        },
-        Object {
-          "count": null,
-          "databaseId": 37,
-          "id": "dGVybTozNw==",
-          "menuItems": Object {
-            "nodes": Array [],
-          },
-          "name": "Primary",
-        },
-        Object {
-          "count": null,
-          "databaseId": 38,
-          "id": "dGVybTozOA==",
-          "menuItems": Object {
-            "nodes": Array [],
-          },
-          "name": "Social Media",
         },
       ],
     },
@@ -498,7 +392,6 @@ Object {
             },
           },
           "title": "Sample Page",
-          "translations": Array [],
           "uri": "/sample-page/",
           "wpChildren": Object {
             "nodes": Array [
@@ -518,11 +411,6 @@ Object {
             },
           },
           "title": "Members",
-          "translations": Array [
-            Object {
-              "title": "French home page",
-            },
-          ],
           "uri": "/",
           "wpChildren": Object {
             "nodes": Array [],
@@ -538,7 +426,6 @@ Object {
             },
           },
           "title": "Activity",
-          "translations": Array [],
           "uri": "/activity/",
           "wpChildren": Object {
             "nodes": Array [],
@@ -554,7 +441,6 @@ Object {
             },
           },
           "title": "Child page",
-          "translations": Array [],
           "uri": "/sample-page/child-page/",
           "wpChildren": Object {
             "nodes": Array [],
@@ -570,12 +456,7 @@ Object {
             },
           },
           "title": "French home page",
-          "translations": Array [
-            Object {
-              "title": "Members",
-            },
-          ],
-          "uri": "/fr/french-home-page/",
+          "uri": "/french-home-page/",
           "wpChildren": Object {
             "nodes": Array [],
           },
@@ -590,7 +471,6 @@ Object {
             },
           },
           "title": "ACF Field Test",
-          "translations": Array [],
           "uri": "/acf-field-test/",
           "wpChildren": Object {
             "nodes": Array [],
@@ -606,7 +486,6 @@ Object {
             },
           },
           "title": "Yoast SEO",
-          "translations": Array [],
           "uri": "/beautiful_slug/",
           "wpChildren": Object {
             "nodes": Array [],
@@ -622,7 +501,6 @@ Object {
             },
           },
           "title": "Cart",
-          "translations": Array [],
           "uri": "/cart/",
           "wpChildren": Object {
             "nodes": Array [],
@@ -638,7 +516,6 @@ Object {
             },
           },
           "title": "Shop",
-          "translations": Array [],
           "uri": "/shop/",
           "wpChildren": Object {
             "nodes": Array [],
@@ -654,7 +531,6 @@ Object {
             },
           },
           "title": "My account",
-          "translations": Array [],
           "uri": "/my-account/",
           "wpChildren": Object {
             "nodes": Array [],
@@ -670,7 +546,6 @@ Object {
             },
           },
           "title": "Checkout",
-          "translations": Array [],
           "uri": "/checkout/",
           "wpChildren": Object {
             "nodes": Array [],
@@ -686,7 +561,6 @@ Object {
             },
           },
           "title": "Inline gatsby-image Gutenberg test",
-          "translations": Array [],
           "uri": "/inline-gatsby-image-test/",
           "wpChildren": Object {
             "nodes": Array [],
@@ -702,7 +576,6 @@ Object {
             },
           },
           "title": "Edited inline html image test",
-          "translations": Array [],
           "uri": "/edited-inline-html-image-test/",
           "wpChildren": Object {
             "nodes": Array [],
@@ -718,7 +591,6 @@ Object {
             },
           },
           "title": "inline html image edited after this post was saved",
-          "translations": Array [],
           "uri": "/inline-html-image-edited-after-this-post-was-saved/",
           "wpChildren": Object {
             "nodes": Array [],
@@ -734,11 +606,6 @@ Object {
             },
           },
           "title": "Image test 1",
-          "translations": Array [
-            Object {
-              "title": "Image test 1 french",
-            },
-          ],
           "uri": "/image-test-1/",
           "wpChildren": Object {
             "nodes": Array [],
@@ -754,7 +621,6 @@ Object {
             },
           },
           "title": "Image test 1 duplicate",
-          "translations": Array [],
           "uri": "/image-test-1-duplicate/",
           "wpChildren": Object {
             "nodes": Array [],
@@ -770,12 +636,7 @@ Object {
             },
           },
           "title": "Image test 1 french",
-          "translations": Array [
-            Object {
-              "title": "Image test 1",
-            },
-          ],
-          "uri": "/fr/image-test-1-french/",
+          "uri": "/image-test-1-french/",
           "wpChildren": Object {
             "nodes": Array [],
           },
@@ -790,7 +651,6 @@ Object {
             },
           },
           "title": "Relative image path",
-          "translations": Array [],
           "uri": "/relative-image-path/",
           "wpChildren": Object {
             "nodes": Array [],
@@ -806,7 +666,6 @@ Object {
             },
           },
           "title": "Inline image with http protocol",
-          "translations": Array [],
           "uri": "/inline-image-with-http-protocol/",
           "wpChildren": Object {
             "nodes": Array [],
@@ -822,7 +681,6 @@ Object {
             },
           },
           "title": "Inline html non-image media items",
-          "translations": Array [],
           "uri": "/inline-html-non-image-media-items/",
           "wpChildren": Object {
             "nodes": Array [],
@@ -1202,7 +1060,7 @@ Object {
           "author": Object {
             "node": Object {
               "avatar": Object {
-                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+                "url": "http://2.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
               },
               "comments": Object {
                 "nodes": Array [],
@@ -1216,7 +1074,7 @@ Object {
           "author": Object {
             "node": Object {
               "avatar": Object {
-                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+                "url": "http://2.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
               },
               "comments": Object {
                 "nodes": Array [],
@@ -1230,7 +1088,7 @@ Object {
           "author": Object {
             "node": Object {
               "avatar": Object {
-                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+                "url": "http://2.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
               },
               "comments": Object {
                 "nodes": Array [],
@@ -1244,7 +1102,7 @@ Object {
           "author": Object {
             "node": Object {
               "avatar": Object {
-                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+                "url": "http://2.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
               },
               "comments": Object {
                 "nodes": Array [],
@@ -1258,7 +1116,7 @@ Object {
           "author": Object {
             "node": Object {
               "avatar": Object {
-                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+                "url": "http://2.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
               },
               "comments": Object {
                 "nodes": Array [],
@@ -1272,7 +1130,7 @@ Object {
           "author": Object {
             "node": Object {
               "avatar": Object {
-                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+                "url": "http://2.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
               },
               "comments": Object {
                 "nodes": Array [],
@@ -1286,7 +1144,7 @@ Object {
           "author": Object {
             "node": Object {
               "avatar": Object {
-                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+                "url": "http://2.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
               },
               "comments": Object {
                 "nodes": Array [],
@@ -1300,7 +1158,7 @@ Object {
           "author": Object {
             "node": Object {
               "avatar": Object {
-                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+                "url": "http://2.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
               },
               "comments": Object {
                 "nodes": Array [],
@@ -1314,7 +1172,7 @@ Object {
           "author": Object {
             "node": Object {
               "avatar": Object {
-                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+                "url": "http://2.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
               },
               "comments": Object {
                 "nodes": Array [],
@@ -1324,7 +1182,7 @@ Object {
           "featuredImage": Object {
             "node": Object {
               "altText": "",
-              "sourceUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/03/84-1000x1000-1.jpg",
+              "sourceUrl": "http://localhost:8001/wp-content/uploads/2020/03/84-1000x1000-1.jpg",
             },
           },
           "title": "Hello world!",
@@ -1333,7 +1191,7 @@ Object {
           "author": Object {
             "node": Object {
               "avatar": Object {
-                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+                "url": "http://2.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
               },
               "comments": Object {
                 "nodes": Array [],
@@ -1527,7 +1385,7 @@ Object {
         "generalSettingsTimeFormat": "g:i a",
         "generalSettingsTimezone": "",
         "generalSettingsTitle": "Automated testing for Gatsby source WordPress V4",
-        "generalSettingsUrl": "https://devgatsbyint.wpengine.com",
+        "generalSettingsUrl": "http://localhost:8001",
         "readingSettingsPostsPerPage": 10,
         "writingSettingsDefaultCategory": 23,
         "writingSettingsDefaultPostFormat": "",
@@ -1682,36 +1540,6 @@ Object {
                 "title": "Gutenberg: Image Alignment",
               },
             ],
-          },
-        },
-        Object {
-          "databaseId": 2,
-          "name": "Test User",
-          "pages": Object {
-            "nodes": Array [],
-          },
-          "posts": Object {
-            "nodes": Array [],
-          },
-        },
-        Object {
-          "databaseId": 3,
-          "name": "gatsbyinttests",
-          "pages": Object {
-            "nodes": Array [],
-          },
-          "posts": Object {
-            "nodes": Array [],
-          },
-        },
-        Object {
-          "databaseId": 4,
-          "name": "devgatsbyint",
-          "pages": Object {
-            "nodes": Array [],
-          },
-          "posts": Object {
-            "nodes": Array [],
           },
         },
       ],

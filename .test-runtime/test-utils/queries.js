@@ -612,9 +612,9 @@ export const queries = {
               name
             }
           }
-          translations {
-            title
-          }
+          # translations {
+          #   title
+          # }
           acfPageFields {
             fieldGroupName
           }
