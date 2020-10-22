@@ -84,7 +84,7 @@
     "prepare": "cross-env NODE_ENV=production BABEL_ENV=production npm run build",
     "prepublishOnly": "npm run test",
     "watch": "babel -w src --out-dir dist --ignore **/__tests__ --verbose --extensions \".ts,.js\" --source-maps",
-    "docker-start": "sudo docker-compose up -d --build",
+    "docker-start": "sudo docker-compose up --build",
     "ci": "start-server-and-test docker-start http://localhost:8001",
     "clean-test-runtime": "cd .test-runtime && npx gatsby clean",
     "develop-test-runtime": "cd .test-runtime && yarn develop",
