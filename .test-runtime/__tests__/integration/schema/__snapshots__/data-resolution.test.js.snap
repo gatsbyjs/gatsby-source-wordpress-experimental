@@ -352,24 +352,6 @@ Object {
           },
           "name": "main menu",
         },
-        Object {
-          "count": null,
-          "databaseId": 37,
-          "id": "dGVybTozNw==",
-          "menuItems": Object {
-            "nodes": Array [],
-          },
-          "name": "Primary",
-        },
-        Object {
-          "count": null,
-          "databaseId": 38,
-          "id": "dGVybTozOA==",
-          "menuItems": Object {
-            "nodes": Array [],
-          },
-          "name": "Social Media",
-        },
       ],
     },
   },
@@ -711,7 +693,6 @@ Object {
             },
           },
           "title": "Sample Page DELTA SYNC",
-          "translations": Array [],
           "uri": "/sample-page/",
           "wpChildren": Object {
             "nodes": Array [
@@ -731,11 +712,6 @@ Object {
             },
           },
           "title": "Members",
-          "translations": Array [
-            Object {
-              "title": "French home page",
-            },
-          ],
           "uri": "/",
           "wpChildren": Object {
             "nodes": Array [],
@@ -751,7 +727,6 @@ Object {
             },
           },
           "title": "Activity",
-          "translations": Array [],
           "uri": "/activity/",
           "wpChildren": Object {
             "nodes": Array [],
@@ -767,7 +742,6 @@ Object {
             },
           },
           "title": "Child page",
-          "translations": Array [],
           "uri": "/sample-page/child-page/",
           "wpChildren": Object {
             "nodes": Array [],
@@ -783,12 +757,7 @@ Object {
             },
           },
           "title": "French home page",
-          "translations": Array [
-            Object {
-              "title": "Members",
-            },
-          ],
-          "uri": "/fr/french-home-page/",
+          "uri": "/french-home-page/",
           "wpChildren": Object {
             "nodes": Array [],
           },
@@ -803,7 +772,6 @@ Object {
             },
           },
           "title": "ACF Field Test",
-          "translations": Array [],
           "uri": "/acf-field-test/",
           "wpChildren": Object {
             "nodes": Array [],
@@ -819,7 +787,6 @@ Object {
             },
           },
           "title": "Yoast SEO",
-          "translations": Array [],
           "uri": "/beautiful_slug/",
           "wpChildren": Object {
             "nodes": Array [],
@@ -835,7 +802,6 @@ Object {
             },
           },
           "title": "Cart",
-          "translations": Array [],
           "uri": "/cart/",
           "wpChildren": Object {
             "nodes": Array [],
@@ -851,7 +817,6 @@ Object {
             },
           },
           "title": "Shop",
-          "translations": Array [],
           "uri": "/shop/",
           "wpChildren": Object {
             "nodes": Array [],
@@ -867,7 +832,6 @@ Object {
             },
           },
           "title": "My account",
-          "translations": Array [],
           "uri": "/my-account/",
           "wpChildren": Object {
             "nodes": Array [],
@@ -883,7 +847,6 @@ Object {
             },
           },
           "title": "Checkout",
-          "translations": Array [],
           "uri": "/checkout/",
           "wpChildren": Object {
             "nodes": Array [],
@@ -899,7 +862,6 @@ Object {
             },
           },
           "title": "Inline gatsby-image Gutenberg test",
-          "translations": Array [],
           "uri": "/inline-gatsby-image-test/",
           "wpChildren": Object {
             "nodes": Array [],
@@ -915,7 +877,6 @@ Object {
             },
           },
           "title": "Edited inline html image test",
-          "translations": Array [],
           "uri": "/edited-inline-html-image-test/",
           "wpChildren": Object {
             "nodes": Array [],
@@ -931,7 +892,6 @@ Object {
             },
           },
           "title": "inline html image edited after this post was saved",
-          "translations": Array [],
           "uri": "/inline-html-image-edited-after-this-post-was-saved/",
           "wpChildren": Object {
             "nodes": Array [],
@@ -947,11 +907,6 @@ Object {
             },
           },
           "title": "Image test 1",
-          "translations": Array [
-            Object {
-              "title": "Image test 1 french",
-            },
-          ],
           "uri": "/image-test-1/",
           "wpChildren": Object {
             "nodes": Array [],
@@ -967,7 +922,6 @@ Object {
             },
           },
           "title": "Image test 1 duplicate",
-          "translations": Array [],
           "uri": "/image-test-1-duplicate/",
           "wpChildren": Object {
             "nodes": Array [],
@@ -983,12 +937,7 @@ Object {
             },
           },
           "title": "Image test 1 french",
-          "translations": Array [
-            Object {
-              "title": "Image test 1",
-            },
-          ],
-          "uri": "/fr/image-test-1-french/",
+          "uri": "/image-test-1-french/",
           "wpChildren": Object {
             "nodes": Array [],
           },
@@ -1003,7 +952,6 @@ Object {
             },
           },
           "title": "Relative image path",
-          "translations": Array [],
           "uri": "/relative-image-path/",
           "wpChildren": Object {
             "nodes": Array [],
@@ -1019,7 +967,6 @@ Object {
             },
           },
           "title": "Inline image with http protocol",
-          "translations": Array [],
           "uri": "/inline-image-with-http-protocol/",
           "wpChildren": Object {
             "nodes": Array [],
@@ -1035,7 +982,6 @@ Object {
             },
           },
           "title": "Inline html non-image media items",
-          "translations": Array [],
           "uri": "/inline-html-non-image-media-items/",
           "wpChildren": Object {
             "nodes": Array [],
@@ -1220,7 +1166,7 @@ Object {
           "author": Object {
             "node": Object {
               "avatar": Object {
-                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+                "url": "http://2.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
               },
               "comments": Object {
                 "nodes": Array [],
@@ -1234,7 +1180,7 @@ Object {
           "author": Object {
             "node": Object {
               "avatar": Object {
-                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+                "url": "http://2.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
               },
               "comments": Object {
                 "nodes": Array [],
@@ -1248,7 +1194,7 @@ Object {
           "author": Object {
             "node": Object {
               "avatar": Object {
-                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+                "url": "http://2.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
               },
               "comments": Object {
                 "nodes": Array [],
@@ -1262,7 +1208,7 @@ Object {
           "author": Object {
             "node": Object {
               "avatar": Object {
-                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+                "url": "http://2.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
               },
               "comments": Object {
                 "nodes": Array [],
@@ -1276,7 +1222,7 @@ Object {
           "author": Object {
             "node": Object {
               "avatar": Object {
-                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+                "url": "http://2.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
               },
               "comments": Object {
                 "nodes": Array [],
@@ -1290,7 +1236,7 @@ Object {
           "author": Object {
             "node": Object {
               "avatar": Object {
-                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+                "url": "http://2.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
               },
               "comments": Object {
                 "nodes": Array [],
@@ -1304,7 +1250,7 @@ Object {
           "author": Object {
             "node": Object {
               "avatar": Object {
-                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+                "url": "http://2.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
               },
               "comments": Object {
                 "nodes": Array [],
@@ -1318,7 +1264,7 @@ Object {
           "author": Object {
             "node": Object {
               "avatar": Object {
-                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+                "url": "http://2.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
               },
               "comments": Object {
                 "nodes": Array [],
@@ -1332,7 +1278,7 @@ Object {
           "author": Object {
             "node": Object {
               "avatar": Object {
-                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+                "url": "http://2.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
               },
               "comments": Object {
                 "nodes": Array [],
@@ -1342,7 +1288,7 @@ Object {
           "featuredImage": Object {
             "node": Object {
               "altText": "",
-              "sourceUrl": "https://devgatsbyint.wpengine.com/wp-content/uploads/2020/03/84-1000x1000-1.jpg",
+              "sourceUrl": "http://localhost:8001/wp-content/uploads/2020/03/84-1000x1000-1.jpg",
             },
           },
           "title": "Hello world! DELTA SYNC",
@@ -1351,7 +1297,7 @@ Object {
           "author": Object {
             "node": Object {
               "avatar": Object {
-                "url": "https://secure.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
+                "url": "http://2.gravatar.com/avatar/5fc9a2065017733c9d5f49a5ecd71d64?s=96&d=mm&r=g",
               },
               "comments": Object {
                 "nodes": Array [],
@@ -1417,7 +1363,7 @@ Object {
         "generalSettingsTimeFormat": "g:i a",
         "generalSettingsTimezone": "",
         "generalSettingsTitle": "Automated testing for Gatsby source WordPress V4",
-        "generalSettingsUrl": "https://devgatsbyint.wpengine.com",
+        "generalSettingsUrl": "http://localhost:8001",
         "readingSettingsPostsPerPage": 10,
         "writingSettingsDefaultCategory": 23,
         "writingSettingsDefaultPostFormat": "",
@@ -1657,36 +1603,6 @@ Object {
                 "title": "Gutenberg: Image Alignment",
               },
             ],
-          },
-        },
-        Object {
-          "databaseId": 2,
-          "name": "Test User",
-          "pages": Object {
-            "nodes": Array [],
-          },
-          "posts": Object {
-            "nodes": Array [],
-          },
-        },
-        Object {
-          "databaseId": 3,
-          "name": "gatsbyinttests",
-          "pages": Object {
-            "nodes": Array [],
-          },
-          "posts": Object {
-            "nodes": Array [],
-          },
-        },
-        Object {
-          "databaseId": 4,
-          "name": "devgatsbyint",
-          "pages": Object {
-            "nodes": Array [],
-          },
-          "posts": Object {
-            "nodes": Array [],
           },
         },
       ],
