@@ -3,8 +3,21 @@ import { websocketManager } from "gatsby/dist/utils/websocket-manager"
 import { sourcePreviews } from "~/steps/source-nodes/update-nodes/source-previews"
 import store from "~/store"
 
-const listenToWebsocket = ({ getNode }): void => {
-  const webSocket = websocketManager.getSocket()
+const listenToWebsocket = async ({ getNode }): void => {
+  let webSocket = websocketManager.getSocket()
+
+  if (!webSocket.on) {
+    // wait for websocket :(
+    await new Promise((resolve) => {
+      setInterval(() => {
+        webSocket = websocketManager.getSocket()
+
+        if (webSocket.on) {
+          resolve()
+        }
+      }, 1000)
+    })
+  }
 
   webSocket.on(`connection`, (socket) => {
     socket.on(
@@ -160,13 +173,13 @@ export const savePreviewNodeIdToPageDependency = (helpers) => {
     return
   }
 
-  // the following code could be used to remove the requirement that
-  // node.id is passed to pageContext when creating pages.
-  // Unfortunately it was really buggy in the current implementation
-  // So folks can just add the id to pageContext and it will work
-  // Leaving this in case someone comes here trying to remove the pageContext.id
-  // requirement in the future
-  //
+  // // the following code could be used to remove the requirement that
+  // // node.id is passed to pageContext when creating pages.
+  // // Unfortunately it was really buggy in the current implementation
+  // // So folks can just add the id to pageContext and it will work
+  // // Leaving this in case someone comes here trying to remove the pageContext.id
+  // // requirement in the future
+  // //
   // // we want to try to get the node by context id
   // // because otherwise we need to look it up expensively in componentDataDependencies
   // // by finding the map key (nodeId) where the map value is an array containing page.path 😱 not good
@@ -189,11 +202,9 @@ export const savePreviewNodeIdToPageDependency = (helpers) => {
   //   }
 
   //   const nodeId = getMapKeyByValue(page.path)
+
   //   // console.log(`state node id ${nodeId}`)
   //   nodeThatCreatedThisPage = getNode(nodeId)
-  //   if (inPreviewMode()) {
-  //     debugger
-  //   }
   // }
 
   if (nodeThatCreatedThisPage) {
