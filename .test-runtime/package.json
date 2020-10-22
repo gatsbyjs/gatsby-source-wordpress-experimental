@@ -11,8 +11,8 @@
   "scripts": {
     "develop": "gatsby develop",
     "build": "gatsby build",
-    "clean-develop": "npx gatsby clean && yarn develop",
-    "clean-build": "npx gatsby clean && yarn build",
+    "clean-develop": "gatsby clean && yarn develop",
+    "clean-build": "gatsby clean && yarn build",
     "serve": "gatsby serve"
   },
   "dependencies": {
@@ -29,7 +29,7 @@
     "gatsby-plugin-sharp": "2.6.43",
     "gatsby-source-filesystem": "^2.3.35",
     "gatsby-source-wordpress-experimental": "file:../",
-    "gatsby-transformer-sharp": "2.5.19",
+    "gatsby-transformer-sharp": "2.5.19   ",
     "parse-path": "^4.0.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
