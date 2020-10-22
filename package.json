@@ -59,6 +59,7 @@
     "jest": "^25.1.0",
     "react-test-renderer": "^16.12.0",
     "rimraf": "^3.0.2",
+    "start-server-and-test": "^1.11.5",
     "tree-kill": "^1.2.2",
     "wait-on": "^4.0.0"
   },
@@ -83,7 +84,8 @@
     "prepare": "cross-env NODE_ENV=production BABEL_ENV=production npm run build",
     "prepublishOnly": "npm run test",
     "watch": "babel -w src --out-dir dist --ignore **/__tests__ --verbose --extensions \".ts,.js\" --source-maps",
-    "ci": "yarn test",
+    "docker-start": "sudo docker-compose up -d --build",
+    "ci": "start-server-and-test docker-start http://localhost:8001",
     "clean-test-runtime": "cd .test-runtime && npx gatsby clean",
     "develop-test-runtime": "cd .test-runtime && yarn develop",
     "build-test-runtime": "cd .test-runtime && yarn build",
