@@ -2,17 +2,16 @@
 type OnPageCreatedCallback = (node: any) => void
 
 interface IPreviewState {
-  inPreviewMode: boolean
   nodePageCreatedCallbacks: {
     [nodeId: string]: OnPageCreatedCallback
   }
-  nodePageCreatedStateByNodeId: {
+  nodeIdsToCreatedPages: {
     [nodeId: string]: {
       // gatsby node page type
       page: any
     }
   }
-  pageIdToNodeDependencyId: {
+  pagePathToNodeDependencyId: {
     [pageId: string]: {
       nodeId: string
     }
@@ -20,7 +19,6 @@ interface IPreviewState {
 }
 
 type PreviewReducers = {
-  enablePreviewMode: (state: IPreviewState) => IPreviewState
   subscribeToPagesCreatedFromNodeById: (
     state: IPreviewState,
     payload: {
@@ -48,23 +46,12 @@ interface IPreviewStore {
 
 const previewStore: IPreviewStore = {
   state: {
-    inPreviewMode: false,
     nodePageCreatedCallbacks: {},
-    nodePageCreatedStateByNodeId: {},
-    pageIdToNodeDependencyId: {},
+    nodeIdsToCreatedPages: {},
+    pagePathToNodeDependencyId: {},
   },
 
   reducers: {
-    enablePreviewMode(state) {
-      if (!state.inPreviewMode) {
-        console.log(`enabling preview mode!`)
-      }
-
-      state.inPreviewMode = true
-
-      return state
-    },
-
     unSubscribeToPagesCreatedFromNodeById(state, { nodeId }) {
       if (state.nodePageCreatedCallbacks?.[nodeId]) {
         delete state.nodePageCreatedCallbacks[nodeId]
@@ -86,11 +73,11 @@ const previewStore: IPreviewStore = {
     },
 
     saveNodePageState(state, { page, nodeId }) {
-      state.nodePageCreatedStateByNodeId[nodeId] = {
+      state.nodeIdsToCreatedPages[nodeId] = {
         page,
       }
 
-      state.pageIdToNodeDependencyId[page.path] = {
+      state.pagePathToNodeDependencyId[page.path] = {
         nodeId,
       }
 

@@ -15,11 +15,7 @@ module.exports = runApisInSteps({
 
   sourceNodes: [
     steps.setGatsbyApiToState,
-    [
-      steps.persistPreviouslyCachedImages,
-      steps.sourcePreviews,
-      steps.sourceNodes,
-    ],
+    [steps.persistPreviouslyCachedImages, steps.sourceNodes],
     steps.setImageNodeIdCache,
   ],
 
@@ -27,7 +23,7 @@ module.exports = runApisInSteps({
 
   onCreatePage: [
     steps.savePreviewNodeIdToPageDependency,
-    steps.onCreatePageRespondToPreviewWebsocket,
+    steps.onCreatePageRespondToPreviewStatusQuery,
   ],
 
   onCreateDevServer: [

@@ -3,7 +3,6 @@ import { formatLogMessage } from "~/utils/format-log-message"
 import chalk from "chalk"
 import urlUtil from "url"
 import { touchValidNodes } from "./fetch-node-updates"
-import store from "~/store"
 
 export const sourcePreviews = async ({ webhookBody, reporter }, { url }) => {
   if (
@@ -15,8 +14,6 @@ export const sourcePreviews = async ({ webhookBody, reporter }, { url }) => {
   ) {
     return
   }
-
-  store.dispatch.previewStore.enablePreviewMode()
 
   await touchValidNodes()
 
@@ -35,7 +32,6 @@ export const sourcePreviews = async ({ webhookBody, reporter }, { url }) => {
     )
   }
 
-  // await new Promise((resolve) => setTimeout(resolve, 5000))
   await fetchAndCreateSingleNode({
     actionType: `PREVIEW`,
     ...webhookBody,
