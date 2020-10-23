@@ -7,11 +7,7 @@
 - Using `gatsby-image` is difficult and the images can't be cached and need to be constantly refetched during every build.
 - Because the Gatsby node model is bypassed and queries are made directly to WPGraphQL, there's no simple way to build Gatsby plugins that transform data as it's sourced. Things like image replacement and link handling sometimes needed to be done client-side which added unnecessary bloat in the browser.
 
-
-
 All of the above issues are fixed by using this plugin! :smile_cat:
-
-
 
 # Up Next :point_right:
 
@@ -22,8 +18,7 @@ All of the above issues are fixed by using this plugin! :smile_cat:
 - :boat: [Migrating from other WP source plugins](./migrating-from-other-wp-source-plugins.md)
 - :house: [Hosting WordPress](./hosting.md)
 - :athletic_shoe: [Themes, Starters, and Examples](./themes-starters-examples.md)
--  :medal_sports: [Usage with popular WPGraphQL extensions](./usage-with-popular-wp-graphql-extensions.md)
+- :medal_sports: [Usage with popular WPGraphQL extensions](./usage-with-popular-wp-graphql-extensions.md)
 - :hammer_and_wrench: [Debugging and troubleshooting](./debugging-and-troubleshooting.md)
 - :national_park: [Community and Support](./community-and-support.md)
 - :point_left: [Back to README.md](../README.md)
-

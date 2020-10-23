@@ -474,7 +474,7 @@ const fetchGraphql = async ({
 
     response = await http.post(url, { query, variables }, requestOptions)
 
-    if (response.data === "") {
+    if (response.data === ``) {
       throw new Error(`GraphQL request returned an empty string.`)
     }
 

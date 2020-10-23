@@ -105,7 +105,7 @@ const pickNodeBySourceUrlOrCheerioImg = ({
     stripImageSizesFromUrl(url),
   ]
 
-  let imageNode = mediaItemNodes.find(
+  const imageNode = mediaItemNodes.find(
     (mediaItemNode) =>
       // either find our node by the source url
       possibleHtmlSrcs.includes(mediaItemNode.sourceUrl) ||
@@ -169,7 +169,7 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
     })
     // get remaining urls
     .map(({ cheerioImg }) => {
-      let src = ensureSrcHasHostname({
+      const src = ensureSrcHasHostname({
         src: cheerioImg.attribs.src,
         wpUrl,
       })
@@ -409,7 +409,7 @@ const filterMatches = (wpUrl) => ({ match }) => {
     // if it has the full WP url
     match.includes(wpHostname) ||
     // or it's an absolute path
-    match.includes('src=\\"/wp-content')
+    match.includes(`src=\\"/wp-content`)
 
   // six backslashes means we're looking for three backslashes
   // since we're looking for JSON encoded strings inside of our JSON encoded string
@@ -606,7 +606,7 @@ const replaceNodeHtmlImages = async ({
           // these styles make it so that the image wont be stretched
           // beyond it's max width, but it also wont exceed the width
           // of it's parent element
-          maxWidth: "100%",
+          maxWidth: `100%`,
           width: `${maxWidth}px`,
         },
         placeholderStyle: {
@@ -614,7 +614,7 @@ const replaceNodeHtmlImages = async ({
         },
         className: cheerioImg?.attribs?.class,
         // Force show full image instantly
-        loading: "eager",
+        loading: `eager`,
         alt: cheerioImg?.attribs?.alt,
         fadeIn: true,
         imgStyle: {
@@ -678,10 +678,12 @@ const replaceFileLinks = async ({
   )
 
   if (hrefMatches.length) {
-    const mediaItemUrlsAndMatches = hrefMatches.map((matchGroup) => ({
-      matchGroup,
-      url: `${wpUrl}${matchGroup.subMatches[2]}`,
-    }))
+    const mediaItemUrlsAndMatches = hrefMatches.map((matchGroup) => {
+      return {
+        matchGroup,
+        url: `${wpUrl}${matchGroup.subMatches[2]}`,
+      }
+    })
 
     const mediaItemUrls = mediaItemUrlsAndMatches
       .map(({ url }) => url)

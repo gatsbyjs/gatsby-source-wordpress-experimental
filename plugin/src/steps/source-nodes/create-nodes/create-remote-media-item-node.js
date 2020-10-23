@@ -170,7 +170,7 @@ export const createRemoteMediaItemNode = async ({
     (process.env.NODE_ENV === `production` &&
       pluginOptions.production.hardCacheMediaFiles)
 
-  let fetchState = {
+  const fetchState = {
     shouldBail: false,
   }
   // Otherwise we need to download it

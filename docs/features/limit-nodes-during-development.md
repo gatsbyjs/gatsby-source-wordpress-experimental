@@ -2,11 +2,7 @@
 
 For very large sites it may take quite a while to start `gatsby develop` when you start working on a project. To mitigate this annoyance, we've added a plugin option to limit the number of nodes that will be pulled on any type.
 
-
-
 Lets say you have 1000 or even 10,000 posts. You can do the following to only fetch the latest 50!
-
-
 
 gatsby-config.js:
 
@@ -31,13 +27,8 @@ module.exports = {
     },
   ],
 }
-
 ```
 
-
-
 Now when you run `gatsby develop` you can start working in 20 seconds instead of 20 minutes!
-
-
 
 :point_left: [Back to Features](./index.md)

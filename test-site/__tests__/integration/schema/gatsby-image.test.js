@@ -1,7 +1,7 @@
 import fetchGraphql from "gatsby-source-wordpress-experimental/utils/fetch-graphql"
 import execall from "execall"
 
-const countGatsbyImgs = string =>
+const countGatsbyImgs = (string) =>
   execall(/gatsby-image-wrapper/gim, string).length
 
 describe(`[gatsby-source-wordpress-experimental] Gatsby image processing`, () => {

@@ -12,11 +12,13 @@ describe(`[gatsby-source-wordpress-experimental] schema integrity`, () => {
     const data = await authedWPGQLRequest(introspectionQuery)
 
     const remoteWPGQLTypeNamesWithFieldNames = sortBy(
-      data.__schema.types.map(type => ({
-        name: type.name,
-        fields:
-          type && type.fields ? type.fields.map(field => field.name) : null,
-      })),
+      data.__schema.types.map((type) => {
+        return {
+          name: type.name,
+          fields:
+            type && type.fields ? type.fields.map((field) => field.name) : null,
+        }
+      }),
       [`name`]
     )
 
@@ -32,11 +34,15 @@ describe(`[gatsby-source-wordpress-experimental] schema integrity`, () => {
     const localWPTypeNamesWithFieldNames = sortBy(
       result.data.__schema.types
         .filter(({ name }) => name.startsWith(`Wp`))
-        .map(type => ({
-          name: type.name,
-          fields:
-            type && type.fields ? type.fields.map(field => field.name) : null,
-        })),
+        .map((type) => {
+          return {
+            name: type.name,
+            fields:
+              type && type.fields
+                ? type.fields.map((field) => field.name)
+                : null,
+          }
+        }),
       [`name`]
     )
 

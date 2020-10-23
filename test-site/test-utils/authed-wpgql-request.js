@@ -15,7 +15,7 @@ export const authedWPGQLRequest = async (query, { variables } = {}) => {
   })
 
   if (errors && errors.length) {
-    errors.forEach(error => console.error(error))
+    errors.forEach((error) => console.error(error))
     throw new Error(
       `There were some problems making a request to WPGQL. See above for more info`
     )

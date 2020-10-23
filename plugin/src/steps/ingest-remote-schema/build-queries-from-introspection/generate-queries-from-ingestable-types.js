@@ -137,7 +137,7 @@ const generateNodeQueriesFromIngestibleFields = async () => {
 
   const rootFields = typeMap.get(`RootQuery`).fields
 
-  let nodeQueries = {}
+  const nodeQueries = {}
 
   for (const { type, name } of nodeListRootFields) {
     if (fieldBlacklist.includes(name)) {

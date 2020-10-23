@@ -41,7 +41,7 @@ export const fetchWPGQLContentNodes = async ({ queryInfo }) => {
 
   // there's normally just one query here, but more can be added using the settings.nodeListQueries api
   for (const nodeListQuery of nodeListQueries) {
-    let contentNodes = await paginatedWpNodeFetch({
+    const contentNodes = await paginatedWpNodeFetch({
       first: perPage,
       after: null,
       contentTypePlural: typeInfo.pluralName,

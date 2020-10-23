@@ -8,19 +8,12 @@ There are no other other services which can provide true incremental builds weth
 
 You can expect proper inc-build times to be between 4 - 12 seconds depending on your setup.
 
-
-
 ## Setting up Incremental Builds
 
 You can find our tutorial on setting up WPGatsby [here](../tutorials/configuring-wp-gatsby.md#setting-up-preview). Part-way down the page there are instructions you can follow on setting up Builds. If you're using Gatsby Cloud, setting up your Builds webhook will automatically enable Incremental Builds after your first successful uncached build has completed.
-
-
 
 ## Will it Build
 
 See [Willit.build](https://willit.build/details/type/blog/source/wordpress/page-count/8192) for historical incremental, cached, and uncached build time benchmarking data! We have test data ranging from 512 pages to 8192 pages (and counting).
 
-
-
 :point_left: [Back to Features](./index.md)
-

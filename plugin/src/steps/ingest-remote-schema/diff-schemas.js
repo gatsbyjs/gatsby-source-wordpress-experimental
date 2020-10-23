@@ -20,7 +20,7 @@ const checkIfSchemaHasChanged = async (_, pluginOptions) => {
 
   const { helpers } = state.gatsbyApi
 
-  let lastCompletedSourceTime = await helpers.cache.get(
+  const lastCompletedSourceTime = await helpers.cache.get(
     LAST_COMPLETED_SOURCE_TIME
   )
 

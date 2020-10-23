@@ -28,8 +28,6 @@ Currently the cache isn't selectively invalidated for every possible user intera
   - editing
   - deleting
 
-
-
 ## Unsupported Admin Actions
 
 For example following events will not yet properly update the cache:
@@ -42,7 +40,4 @@ For example following events will not yet properly update the cache:
 
 As we continue to support this plugin, these actions will be moved into the supported list. If you need one of these sooner than later, please open an issue with a feature request.
 
-
-
 :point_left: [Back to Features](./index.md)
-

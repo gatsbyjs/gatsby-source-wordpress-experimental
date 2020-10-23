@@ -704,7 +704,7 @@ const recursivelyTransformFields = ({
 
   parentAncestorTypeNames.push(typeName)
 
-  let recursivelyTransformedFields = transformFields({
+  const recursivelyTransformedFields = transformFields({
     fields,
     parentType,
     mainType,

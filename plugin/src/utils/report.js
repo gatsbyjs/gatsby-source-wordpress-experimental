@@ -13,32 +13,32 @@ export const CODES = {
 export const ERROR_MAP = {
   [CODES.WordPressFilters]: {
     text: (context) => context.sourceMessage,
-    level: "ERROR",
-    category: "USER",
+    level: `ERROR`,
+    category: `USER`,
   },
   [CODES.BadResponse]: {
     text: (context) => context.sourceMessage,
-    level: "ERROR",
-    category: "USER",
+    level: `ERROR`,
+    category: `USER`,
   },
   [CODES.RequestDenied]: {
     text: (context) => context.sourceMessage,
-    level: "ERROR",
-    category: "USER",
+    level: `ERROR`,
+    category: `USER`,
   },
   [CODES.Authentication]: {
     text: (context) => context.sourceMessage,
-    level: "ERROR",
-    category: "USER",
+    level: `ERROR`,
+    category: `USER`,
   },
   [CODES.Timeout]: {
     text: (context) => context.sourceMessage,
-    level: "ERROR",
-    category: "USER",
+    level: `ERROR`,
+    category: `USER`,
   },
   [CODES.RemoteGraphQLError]: {
     text: (context) => context.sourceMessage,
-    level: "ERROR",
-    category: "THIRD_PARTY",
+    level: `ERROR`,
+    category: `THIRD_PARTY`,
   },
 }

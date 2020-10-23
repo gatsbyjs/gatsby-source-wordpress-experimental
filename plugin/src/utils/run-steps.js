@@ -49,10 +49,12 @@ const runApiSteps = (steps, apiName) => async (helpers, pluginOptions) =>
 
 const runApisInSteps = (nodeApis) =>
   Object.entries(nodeApis).reduce(
-    (gatsbyNodeExportObject, [apiName, apiSteps]) => ({
-      ...gatsbyNodeExportObject,
-      [apiName]: runApiSteps(apiSteps, apiName),
-    }),
+    (gatsbyNodeExportObject, [apiName, apiSteps]) => {
+      return {
+        ...gatsbyNodeExportObject,
+        [apiName]: runApiSteps(apiSteps, apiName),
+      }
+    },
     {}
   )
 

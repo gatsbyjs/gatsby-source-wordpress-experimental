@@ -96,7 +96,7 @@ export const menuBeforeChangeNode = async (api) => {
     return null
   }
 
-  let additionalNodeIds = []
+  const additionalNodeIds = []
 
   menuItemFetchQueue.add(fetchChildMenuItems({ ...api, additionalNodeIds }))
 
