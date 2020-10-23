@@ -7,22 +7,26 @@ const listenToWebsocket = async ({ getNode }): void => {
   let webSocket = websocketManager.getSocket()
 
   if (!webSocket.on) {
+    let interval
     // wait for websocket :(
     await new Promise((resolve) => {
-      setInterval(() => {
+      interval = setInterval(() => {
         webSocket = websocketManager.getSocket()
 
-        if (webSocket.on) {
+        if (webSocket?.on) {
           resolve()
         }
       }, 1000)
     })
+
+    clearInterval(interval)
   }
 
   webSocket.on(`connection`, (socket) => {
     socket.on(
       `subscribeToNodePages`,
       ({ nodeId, modified }: { nodeId: string; modified: string }) => {
+        console.log(`subscribeToNodePages ${nodeId}`)
         const { inPreviewMode } = store.getState().previewStore
 
         if (!inPreviewMode) {
