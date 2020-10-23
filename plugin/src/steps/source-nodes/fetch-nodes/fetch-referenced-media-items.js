@@ -195,7 +195,7 @@ export const stripImageSizesFromUrl = (url) => {
   const fileExtension = urlToFileExtension(url)
 
   const imageSizesPattern = new RegExp(
-    `(?:[-_]([0-9]+)x([0-9]+))${fileExtension ? `\.${fileExtension}` : ``}`
+    `(?:[-_]([0-9]+)x([0-9]+))${fileExtension ? `.${fileExtension}` : ``}`
   )
 
   let urlWithoutSizes = url.replace(imageSizesPattern, ``)

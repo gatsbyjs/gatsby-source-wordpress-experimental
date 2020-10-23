@@ -161,7 +161,11 @@ const requestRemoteNode = (url, headers, tmpFilename, httpOpts, attempt = 1) =>
         processingCache[url] = null
         totalJobs -= 1
         bar.total = totalJobs
-        reject(`Failed to download ${url} after ${STALL_RETRY_LIMIT} attempts`)
+        reject(
+          new Error(
+            `Failed to download ${url} after ${STALL_RETRY_LIMIT} attempts`
+          )
+        )
       }
     }
 
@@ -334,7 +338,7 @@ const pushTask = (task) =>
         resolve(task)
       })
       .on(`failed`, (err) => {
-        reject(`failed to process ${task.url}\n${err}`)
+        reject(new Error(`failed to process ${task.url}\n${err}`))
       })
   })
 
@@ -409,7 +413,9 @@ module.exports = ({
 
   if (!url || isWebUri(url) === undefined) {
     return Promise.reject(
-      `url passed to create-remote-file-node is either missing or not a proper web uri: ${url}`
+      new Error(
+        `url passed to create-remote-file-node is either missing or not a proper web uri: ${url}`
+      )
     )
   }
 

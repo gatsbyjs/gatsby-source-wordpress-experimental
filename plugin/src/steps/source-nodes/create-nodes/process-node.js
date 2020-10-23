@@ -441,7 +441,7 @@ const replaceNodeHtmlImages = async ({
     return nodeString
   }
 
-  const imgSrcRemoteFileRegex = /(?:src=\\")((?:(?:https?|ftp|file):\/\/|www\.|ftp\.|\/)(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[A-Z0-9+&@#/%=~_|$])\.(?:jpeg|jpg|png|gif|ico|mpg|ogv|svg|bmp|tif|tiff))(\?[^\\" \.]*|)(?=\\"| |\.)/gim
+  const imgSrcRemoteFileRegex = /(?:src=\\")((?:(?:https?|ftp|file):\/\/|www\.|ftp\.|\/)(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[A-Z0-9+&@#/%=~_|$])\.(?:jpeg|jpg|png|gif|ico|mpg|ogv|svg|bmp|tif|tiff))(\?[^\\" .]*|)(?=\\"| |\.)/gim
 
   const imageUrlMatches = execall(imgSrcRemoteFileRegex, nodeString).filter(
     ({ subMatches }) => {
@@ -455,12 +455,12 @@ const replaceNodeHtmlImages = async ({
   )
 
   const imgTagMatches = execall(
-    /<img([\w\W]+?)[\/]?>/gim,
+    /<img([\w\W]+?)[/]?>/gim,
     nodeString
       // we don't want to match images inside pre
-      .replace(/<pre([\w\W]+?)[\/]?>.*(<\/pre>)/gim, ``)
+      .replace(/<pre([\w\W]+?)[/]?>.*(<\/pre>)/gim, ``)
       // and code tags, so temporarily remove those tags and everything inside them
-      .replace(/<code([\w\W]+?)[\/]?>.*(<\/code>)/gim, ``)
+      .replace(/<code([\w\W]+?)[/]?>.*(<\/code>)/gim, ``)
   ).filter(filterMatches(wpUrl))
 
   if (imageUrlMatches.length && imgTagMatches.length) {
@@ -678,12 +678,11 @@ const replaceFileLinks = async ({
   )
 
   if (hrefMatches.length) {
-    const mediaItemUrlsAndMatches = hrefMatches.map((matchGroup) => {
-      return {
-        matchGroup,
-        url: `${wpUrl}${matchGroup.subMatches[2]}`,
-      }
-    })
+    // eslint-disable-next-line arrow-body-style
+    const mediaItemUrlsAndMatches = hrefMatches.map((matchGroup) => ({
+      matchGroup,
+      url: `${wpUrl}${matchGroup.subMatches[2]}`,
+    }))
 
     const mediaItemUrls = mediaItemUrlsAndMatches
       .map(({ url }) => url)
@@ -733,12 +732,7 @@ const replaceFileLinks = async ({
           return null
         }
 
-        const [
-          _delimiterOpen,
-          hostname,
-          path,
-          _delimiterClose,
-        ] = mediaItemMatchGroup?.subMatches
+        const [, hostname, path] = mediaItemMatchGroup?.subMatches
 
         cacheCreatedFileNodeBySrc({
           node: mediaItemNode,

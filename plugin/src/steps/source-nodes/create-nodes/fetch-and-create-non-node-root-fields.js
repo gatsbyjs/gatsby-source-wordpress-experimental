@@ -10,11 +10,11 @@ const fetchAndCreateNonNodeRootFields = async () => {
   const state = store.getState()
 
   const {
-    remoteSchema: { nonNodeQuery, wpUrl },
+    remoteSchema: { nonNodeQuery },
     gatsbyApi: { helpers, pluginOptions },
   } = state
 
-  const { actions, createContentDigest, reporter } = helpers
+  const { reporter } = helpers
 
   const activity = reporter.activityTimer(formatLogMessage(`fetch root fields`))
 

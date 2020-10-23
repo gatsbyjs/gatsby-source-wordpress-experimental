@@ -340,7 +340,9 @@ ${slackChannelSupportMessage}`
     if (copyHtmlResponseOnError) {
       try {
         clipboardy?.writeSync(response.data)
-      } catch (e) {}
+      } catch (e) {
+        // do nothing
+      }
     }
 
     reporter.panic({
