@@ -101,7 +101,7 @@ module.exports = {
       },
     },
     {
-      resolve: require.resolve(`../package.json`),
+      resolve: require.resolve(`../plugin/package.json`),
       options: {
         url: process.env.WPGRAPHQL_URL,
         auth: {
