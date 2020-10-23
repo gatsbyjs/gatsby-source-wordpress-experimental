@@ -1,8 +1,13 @@
 # Change Log
 
+## 1.7.9
+
+- Add empty index.js to the root of the project to fix lerna errors that the last release introduced
+
 ## 1.7.8
 
 - Increase supported version range for WPGatsby to allow >0.4.14 <0.6.0
+- Updated project build setup to build to `dist` instead of to the project root.
 
 ## 1.7.7
 
