@@ -7,11 +7,11 @@ import { mutateSchema, resetSchema } from "./increment-remote-data"
 
 // require .env.development or .env.production
 require(`dotenv`).config({
-  path: path.resolve(process.cwd(), `.test-runtime/.env.test`),
+  path: path.resolve(process.cwd(), `test-site/.env.test`),
 })
 
 require(`dotenv`).config({
-  path: path.resolve(process.cwd(), `.test-runtime/.env.WORDPRESS_BASIC_AUTH`),
+  path: path.resolve(process.cwd(), `test-site/.env.WORDPRESS_BASIC_AUTH`),
 })
 
 module.exports = async function globalSetup() {

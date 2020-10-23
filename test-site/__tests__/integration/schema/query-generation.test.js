@@ -2,7 +2,7 @@ import globula from "glob"
 import fs from "fs-extra"
 
 describe(`[gatsby-source-wordpress-experimental] query generation`, () => {
-  const gqlDirectory = `${process.cwd()}/.test-runtime/WordPress/GraphQL`
+  const gqlDirectory = `${process.cwd()}/test-site/WordPress/GraphQL`
 
   const graphqlFilePaths = globula.sync(`${gqlDirectory}/**/*.graphql`)
 

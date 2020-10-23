@@ -77,21 +77,10 @@
     "url": "https://github.com/gatsbyjs/gatsby-source-wordpress-experimental.git"
   },
   "scripts": {
-    "build": "rimraf dist && babel src --out-dir dist --ignore **/__tests__ --extensions \".ts,.js\" --source-maps",
-    "prepare": "cross-env NODE_ENV=production BABEL_ENV=production npm run build",
+    "build": "rimraf dist && babel src --out-dir dist --ignore **/__tests__ --extensions \".ts,.js\" --source-maps --root-mode upward",
     "prepublishOnly": "npm run test",
     "watch": "babel -w src --out-dir dist --ignore **/__tests__ --verbose --extensions \".ts,.js\" --source-maps",
-    "ci": "yarn test",
-    "clean-test-runtime": "cd .test-runtime && npx gatsby clean",
-    "develop-test-runtime": "cd .test-runtime && yarn develop",
-    "build-test-runtime": "cd .test-runtime && yarn build",
-    "serve-test-runtime": "cd .test-runtime && yarn serve",
-    "test-schema": "yarn clean-test-runtime && START_SERVER=true jest ./.test-runtime/__tests__/integration/schema && WPGQL_INCREMENT=true START_SERVER=true jest ./.test-runtime/__tests__/integration/schema",
-    "test-build": "yarn clean-test-runtime && jest ./.test-runtime/__tests__/integration/build && WPGQL_INCREMENT=true jest ./.test-runtime/__tests__/integration/build",
-    "test-build-default-options": "yarn clean-test-runtime && DEFAULT_PLUGIN_OPTIONS=true jest ./.test-runtime/__tests__/integration/build && WPGQL_INCREMENT=true DEFAULT_PLUGIN_OPTIONS=true jest ./.test-runtime/__tests__/integration/build",
-    "test": "yarn prepare && yarn test-schema && yarn test-build && yarn test-build-default-options && yarn clean-test-runtime",
-    "test-schema-watch": "SHOW_GATSBY_PROCESS_STDOUT=true jest --watch ./.test-runtime/__tests__/integration/schema",
-    "test-build-watch": "SHOW_GATSBY_PROCESS_STDOUT=true jest --watch ./.test-runtime/__tests__/integration/build"
+    "ci": "yarn test"
   },
   "engines": {
     "node": ">=10.0.0"
