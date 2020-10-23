@@ -3,7 +3,7 @@
 
 ## 1.7.9
 
-- Add empty package.json to the root of the project to fix lerna errors that the last release introduced
+- Add empty index.js to the root of the project to fix lerna errors that the last release introduced
 
 ## 1.7.8
 
