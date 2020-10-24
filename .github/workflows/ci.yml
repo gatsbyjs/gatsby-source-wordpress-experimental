@@ -8,10 +8,24 @@ jobs:
       - uses: actions/checkout@v2
       - uses: bahmutov/npm-install@v1
       - run: yarn lint
-  test:
-    name: Integration Tests
+  test-schema:
+    name: Integration Tests - Schema
     runs-on: ubuntu-16.04
     steps:
       - uses: actions/checkout@v2
       - uses: bahmutov/npm-install@v1
-      - run: yarn ci-test
+      - run: yarn build && yarn ci-test 'yarn test-schema'
+  test-build:
+    name: Integration Tests - Build
+    runs-on: ubuntu-16.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: bahmutov/npm-install@v1
+      - run: yarn build && yarn ci-test 'yarn test-build'
+  test-build-defaults:
+    name: Integration Tests - Build w. Defaults
+    runs-on: ubuntu-16.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: bahmutov/npm-install@v1
+      - run: yarn build && yarn ci-test 'yarn test-build-default-options'

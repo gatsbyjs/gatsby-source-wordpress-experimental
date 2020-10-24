@@ -32,6 +32,7 @@ services:
         WPGRAPHQL_ACF_VERSION: v0.3.1
         WPGRAPHQL_CPT_UI_VERSION: v1.1
         ACF_VERSION: 5.8.7
+    image: ghcr.io/acao/wpgraphql-testing-wp:latest
     ports:
       - "8001:8001"
     environment:
@@ -59,6 +60,7 @@ services:
     # `image` line above.
     build:
       context: ./docker/wp-cli
+    # image: ghcr.io/acao/wpgraphql-testing-wp-cli:latest
     volumes:
       - wp_data:/var/www/html
 
