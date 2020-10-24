@@ -2,14 +2,14 @@ name: CI
 on: [push, pull_request]
 jobs:
   lint:
-    name: Lint & Test
+    name: Lint
     runs-on: ubuntu-16.04
     steps:
       - uses: actions/checkout@v2
       - uses: bahmutov/npm-install@v1
       - run: yarn lint
   test:
-    name: Lint & Test
+    name: Integration Tests
     runs-on: ubuntu-16.04
     steps:
       - uses: actions/checkout@v2
