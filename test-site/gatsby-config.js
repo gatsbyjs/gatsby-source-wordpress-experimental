@@ -36,25 +36,25 @@ const wpPluginOptions = !process.env.DEFAULT_PLUGIN_OPTIONS
         },
       },
       type: {
-        Cart: {
-          exclude: true,
-        },
+        // Cart: {
+        //   exclude: true,
+        // },
         TypeLimitTest: {
           limit: 1,
         },
         TypeLimit0Test: {
           limit: 0,
         },
-        TranslationFilterTest: {
-          where: `language: FR`,
-          beforeChangeNode: async ({ remoteNode, type }) => {
-            if (remoteNode.language && remoteNode.language.slug !== `fr`) {
-              return {
-                cancelUpdate: true,
-              }
-            }
-          },
-        },
+        // TranslationFilterTest: {
+        //   where: `language: FR`,
+        //   beforeChangeNode: async ({ remoteNode, type }) => {
+        //     if (remoteNode.language && remoteNode.language.slug !== `fr`) {
+        //       return {
+        //         cancelUpdate: true,
+        //       }
+        //     }
+        //   },
+        // },
         Comment: {
           excludeFieldNames: [`databaseId`],
         },

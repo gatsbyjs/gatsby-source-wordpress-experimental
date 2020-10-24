@@ -1,7 +1,7 @@
 import fetchGraphql from "gatsby-source-wordpress-experimental/utils/fetch-graphql"
 import execall from "execall"
 
-const countGatsbyImgs = (string) =>
+const countGatsbyImgs = string =>
   execall(/gatsby-image-wrapper/gim, string).length
 
 describe(`[gatsby-source-wordpress-experimental] Gatsby image processing`, () => {
@@ -9,7 +9,7 @@ describe(`[gatsby-source-wordpress-experimental] Gatsby image processing`, () =>
     const {
       data: {
         wpPage,
-        gute,
+        // gute,
         editedInline,
         editedMediaLibrary,
         acfPage,
@@ -37,10 +37,10 @@ describe(`[gatsby-source-wordpress-experimental] Gatsby image processing`, () =>
               wysiwygEditorField
             }
           }
-          # Gutenberg: Common Blocks #94
-          gute: wpPost(id: { eq: "cG9zdDo5NA==" }) {
-            content
-          }
+          # # Gutenberg: Common Blocks #94
+          # gute: wpPost(id: { eq: "cG9zdDo5NA==" }) {
+          #   content
+          # }
           # Page with img src hardcoded to http isntead of https
           httpProtocolPage: wpPage(databaseId: { eq: 10513 }) {
             content
@@ -53,9 +53,9 @@ describe(`[gatsby-source-wordpress-experimental] Gatsby image processing`, () =>
     expect(countGatsbyImgs(wpPage.content)).toBe(2)
     expect(wpPage.content).toMatchSnapshot()
 
-    expect(gute.content).toBeTruthy()
-    expect(countGatsbyImgs(gute.content)).toBe(8)
-    expect(gute.content).toMatchSnapshot()
+    // expect(gute.content).toBeTruthy()
+    // expect(countGatsbyImgs(gute.content)).toBe(8)
+    // expect(gute.content).toMatchSnapshot()
 
     expect(editedInline.content).toBeTruthy()
     expect(countGatsbyImgs(editedInline.content)).toBe(1)
