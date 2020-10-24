@@ -6,7 +6,6 @@ import fetchGraphql from "gatsby-source-wordpress-experimental/utils/fetch-graph
 import { incrementalIt } from "../../../test-utils/incremental-it"
 import { testResolvedData } from "../../../test-utils/test-resolved-data"
 import { queries } from "../../../test-utils/queries"
-import { authedWPGQLRequest } from "../../../test-utils/authed-wpgql-request"
 
 jest.setTimeout(100000)
 
