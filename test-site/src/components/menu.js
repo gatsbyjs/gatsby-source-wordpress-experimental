@@ -23,7 +23,11 @@ export default () => {
       <Menu>
         <Grid autoFlow="column">
           {wpMenu.menuItems.nodes.map((menuItem, i) => (
-            <Link style={{ display: `block` }} to={getUrlPath(menuItem.url)}>
+            <Link
+              key={`menu-${i}`}
+              style={{ display: `block` }}
+              to={getUrlPath(menuItem.url)}
+            >
               <Button w="100%" key={i + menuItem.url} as={Button}>
                 {menuItem.label}
               </Button>

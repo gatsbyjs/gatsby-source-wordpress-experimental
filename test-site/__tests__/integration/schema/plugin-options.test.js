@@ -26,9 +26,11 @@ describe(`[gatsby-source-wordpress-experimental] plugin options`, () => {
 
     // make sure our schema doesn't have any of the default excluded types
     // in ../../src/models/gatsby-api
-    excludedTypes.forEach(typeName => {
+    excludedTypes.forEach((typeName) => {
       expect(
-        !!result.data.__schema.types.find(type => type.name === `Wp${typeName}`)
+        !!result.data.__schema.types.find(
+          (type) => type.name === `Wp${typeName}`
+        )
       ).toBe(false)
     })
   })
@@ -49,7 +51,7 @@ describe(`[gatsby-source-wordpress-experimental] plugin options`, () => {
         {
           ${excludeFieldsOnTypesGroups
             .map(
-              group => `
+              (group) => `
                 ${group.typeName}: __type(name: "Wp${group.typeName}") {
                   fields {
                     name
@@ -67,16 +69,16 @@ describe(`[gatsby-source-wordpress-experimental] plugin options`, () => {
     })
 
     // for all our test type names
-    excludeFieldsOnTypesGroups.forEach(excludeGroup => {
+    excludeFieldsOnTypesGroups.forEach((excludeGroup) => {
       // get that type from the Gatsby schema
       const typeInSchema = result.data[excludeGroup.typeName]
 
       // for each excluded field on our type
-      excludeGroup.fieldNames.forEach(fieldName => {
+      excludeGroup.fieldNames.forEach((fieldName) => {
         // expect that the type in our Gatsby schema doesn't have a field
         // with this excluded name
         const fieldNameExistsOnType = !!typeInSchema.fields
-          .map(field => field.name)
+          .map((field) => field.name)
           .includes(fieldName)
 
         expect(fieldNameExistsOnType).toBe(false)

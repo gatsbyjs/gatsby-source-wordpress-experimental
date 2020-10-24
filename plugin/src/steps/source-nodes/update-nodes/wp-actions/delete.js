@@ -19,7 +19,7 @@ const wpActionDELETE = async ({
   const { reporter, actions, getNode } = helpers
 
   try {
-    let cachedNodeIds = await getPersistentCache({ key: CREATED_NODE_IDS })
+    const cachedNodeIds = await getPersistentCache({ key: CREATED_NODE_IDS })
 
     // get the node ID from the WPGQL id
     const nodeId = wpAction.referencedNodeGlobalRelayID

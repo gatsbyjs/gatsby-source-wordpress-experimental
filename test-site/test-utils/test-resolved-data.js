@@ -1,7 +1,7 @@
 import fetchGraphql from "gatsby-source-wordpress-experimental/utils/fetch-graphql"
 import { authedWPGQLRequest } from "./authed-wpgql-request"
 
-const normalizeResponse = data =>
+const normalizeResponse = (data) =>
   JSON.parse(
     JSON.stringify(data).replace(/https:\/\/gatsbyinttests.wpengine.com/gm, ``)
   )

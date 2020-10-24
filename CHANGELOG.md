@@ -1,6 +1,5 @@
 # Change Log
 
-
 ## 1.7.9
 
 - Add empty index.js to the root of the project to fix lerna errors that the last release introduced

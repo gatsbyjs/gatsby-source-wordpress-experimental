@@ -105,7 +105,7 @@ const pickNodeBySourceUrlOrCheerioImg = ({
     stripImageSizesFromUrl(url),
   ]
 
-  let imageNode = mediaItemNodes.find(
+  const imageNode = mediaItemNodes.find(
     (mediaItemNode) =>
       // either find our node by the source url
       possibleHtmlSrcs.includes(mediaItemNode.sourceUrl) ||
@@ -169,7 +169,7 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
     })
     // get remaining urls
     .map(({ cheerioImg }) => {
-      let src = ensureSrcHasHostname({
+      const src = ensureSrcHasHostname({
         src: cheerioImg.attribs.src,
         wpUrl,
       })
@@ -409,7 +409,7 @@ const filterMatches = (wpUrl) => ({ match }) => {
     // if it has the full WP url
     match.includes(wpHostname) ||
     // or it's an absolute path
-    match.includes('src=\\"/wp-content')
+    match.includes(`src=\\"/wp-content`)
 
   // six backslashes means we're looking for three backslashes
   // since we're looking for JSON encoded strings inside of our JSON encoded string
@@ -441,7 +441,7 @@ const replaceNodeHtmlImages = async ({
     return nodeString
   }
 
-  const imgSrcRemoteFileRegex = /(?:src=\\")((?:(?:https?|ftp|file):\/\/|www\.|ftp\.|\/)(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[A-Z0-9+&@#/%=~_|$])\.(?:jpeg|jpg|png|gif|ico|mpg|ogv|svg|bmp|tif|tiff))(\?[^\\" \.]*|)(?=\\"| |\.)/gim
+  const imgSrcRemoteFileRegex = /(?:src=\\")((?:(?:https?|ftp|file):\/\/|www\.|ftp\.|\/)(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[A-Z0-9+&@#/%=~_|$])\.(?:jpeg|jpg|png|gif|ico|mpg|ogv|svg|bmp|tif|tiff))(\?[^\\" .]*|)(?=\\"| |\.)/gim
 
   const imageUrlMatches = execall(imgSrcRemoteFileRegex, nodeString).filter(
     ({ subMatches }) => {
@@ -455,12 +455,12 @@ const replaceNodeHtmlImages = async ({
   )
 
   const imgTagMatches = execall(
-    /<img([\w\W]+?)[\/]?>/gim,
+    /<img([\w\W]+?)[/]?>/gim,
     nodeString
       // we don't want to match images inside pre
-      .replace(/<pre([\w\W]+?)[\/]?>.*(<\/pre>)/gim, ``)
+      .replace(/<pre([\w\W]+?)[/]?>.*(<\/pre>)/gim, ``)
       // and code tags, so temporarily remove those tags and everything inside them
-      .replace(/<code([\w\W]+?)[\/]?>.*(<\/code>)/gim, ``)
+      .replace(/<code([\w\W]+?)[/]?>.*(<\/code>)/gim, ``)
   ).filter(filterMatches(wpUrl))
 
   if (imageUrlMatches.length && imgTagMatches.length) {
@@ -606,7 +606,7 @@ const replaceNodeHtmlImages = async ({
           // these styles make it so that the image wont be stretched
           // beyond it's max width, but it also wont exceed the width
           // of it's parent element
-          maxWidth: "100%",
+          maxWidth: `100%`,
           width: `${maxWidth}px`,
         },
         placeholderStyle: {
@@ -614,7 +614,7 @@ const replaceNodeHtmlImages = async ({
         },
         className: cheerioImg?.attribs?.class,
         // Force show full image instantly
-        loading: "eager",
+        loading: `eager`,
         alt: cheerioImg?.attribs?.alt,
         fadeIn: true,
         imgStyle: {
@@ -678,6 +678,7 @@ const replaceFileLinks = async ({
   )
 
   if (hrefMatches.length) {
+    // eslint-disable-next-line arrow-body-style
     const mediaItemUrlsAndMatches = hrefMatches.map((matchGroup) => ({
       matchGroup,
       url: `${wpUrl}${matchGroup.subMatches[2]}`,
@@ -731,12 +732,7 @@ const replaceFileLinks = async ({
           return null
         }
 
-        const [
-          _delimiterOpen,
-          hostname,
-          path,
-          _delimiterClose,
-        ] = mediaItemMatchGroup?.subMatches
+        const [, hostname, path] = mediaItemMatchGroup?.subMatches
 
         cacheCreatedFileNodeBySrc({
           node: mediaItemNode,

@@ -1,6 +1,5 @@
 import fetchGraphql from "~/utils/fetch-graphql"
 import store from "~/store"
-import { formatLogMessage } from "~/utils/format-log-message"
 
 export const normalizeNode = ({ node, nodeTypeName }) => {
   const normalizedNodeTypeName = node.__typename || nodeTypeName

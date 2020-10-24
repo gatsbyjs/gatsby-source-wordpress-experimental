@@ -181,13 +181,11 @@ export const buildSelectionSet = (
 
   if (transformedInlineFragments?.length) {
     inlineFragmentsSelectionSet = transformedInlineFragments.map(
-      (inlineFragment) => {
-        return `... on ${inlineFragment.name} {
+      (inlineFragment) => `... on ${inlineFragment.name} {
         ${inlineFragment.fields.map(buildFieldSelectionSet).filter(Boolean)
           .join(`
         `)}
       }`
-      }
     )
   }
 

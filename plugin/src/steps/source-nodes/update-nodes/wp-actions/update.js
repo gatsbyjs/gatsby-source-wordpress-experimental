@@ -88,7 +88,7 @@ export const fetchAndCreateSingleNode = async ({
       }
     : {}
 
-  let { data } = await fetchGraphql({
+  const { data } = await fetchGraphql({
     headers,
     query,
     variables: {
@@ -97,7 +97,7 @@ export const fetchAndCreateSingleNode = async ({
     errorContext: `Error occured while updating a single "${singleName}" node.`,
   })
 
-  let remoteNode = data[singleName]
+  const remoteNode = data[singleName]
 
   if (remoteNode?.title === `Auto Draft` && isNewPostDraft) {
     // for UX reasons we don't want to display Auto Draft as a title
@@ -300,7 +300,7 @@ const wpActionUPDATE = async ({
 
   const { reporter, actions } = helpers
 
-  let cachedNodeIds = await getPersistentCache({ key: CREATED_NODE_IDS })
+  const cachedNodeIds = await getPersistentCache({ key: CREATED_NODE_IDS })
 
   const state = store.getState()
   const {

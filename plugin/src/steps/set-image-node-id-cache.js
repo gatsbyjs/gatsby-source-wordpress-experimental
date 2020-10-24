@@ -8,7 +8,7 @@ import { setPersistentCache } from "~/utils/cache"
 // so they don't get garbage collected by Gatsby
 const setImageNodeIdCache = async () => {
   const state = await store.getState()
-  const { imageNodes, gatsbyApi } = state
+  const { imageNodes } = state
 
   if (imageNodes.nodeIds && imageNodes.nodeIds.length) {
     await setPersistentCache({

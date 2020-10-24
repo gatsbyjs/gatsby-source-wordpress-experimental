@@ -15,7 +15,7 @@ require(`dotenv`).config({
 })
 
 describe(`[gatsby-source-wordpress-experimental] build`, () => {
-  incrementalIt(`builds successfully`, async done => {
+  incrementalIt(`builds successfully`, async (done) => {
     const gatsbyProcess = execa(`yarn`, [`build-test-runtime`])
 
     gatsbyProcess.stdout.pipe(process.stdout)

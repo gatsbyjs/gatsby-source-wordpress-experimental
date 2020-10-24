@@ -1,3 +1,4 @@
+/* eslint-disable filenames/match-regex */
 import React from "react"
 import { graphql } from "gatsby"
 import BlogPost from "../../components/template-parts/blog-post"

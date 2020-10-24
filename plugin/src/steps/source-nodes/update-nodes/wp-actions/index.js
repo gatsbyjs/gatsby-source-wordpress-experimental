@@ -92,7 +92,7 @@ export const getWpActions = async ({
  * the latest WP changes
  */
 export const handleWpActions = async (api) => {
-  let { cachedNodeIds, helpers } = api
+  const { cachedNodeIds, helpers } = api
 
   switch (api.wpAction.actionType) {
     case `DELETE`:

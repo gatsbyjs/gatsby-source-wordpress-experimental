@@ -1,6 +1,6 @@
 const fs = require(`fs-extra`)
 import btoa from "btoa"
-const { remoteFileDownloaderBarPromise } = require("./progress-bar-promise")
+const { remoteFileDownloaderBarPromise } = require(`./progress-bar-promise`)
 const got = require(`got`)
 const { createContentDigest } = require(`gatsby-core-utils`)
 const path = require(`path`)
@@ -22,7 +22,7 @@ let bar
 // Keep track of the total number of jobs we push in the queue
 let totalJobs = 0
 
-/********************
+/** ******************
  * Type Definitions *
  ********************/
 
@@ -62,7 +62,7 @@ const STALL_TIMEOUT = 30000
 const CONNECTION_RETRY_LIMIT = 5
 const CONNECTION_TIMEOUT = 30000
 
-/********************
+/** ******************
  * Queue Management *
  ********************/
 
@@ -128,7 +128,7 @@ async function pushToQueue(task, cb) {
   }
 }
 
-/******************
+/** ****************
  * Core Functions *
  ******************/
 
@@ -161,7 +161,11 @@ const requestRemoteNode = (url, headers, tmpFilename, httpOpts, attempt = 1) =>
         processingCache[url] = null
         totalJobs -= 1
         bar.total = totalJobs
-        reject(`Failed to download ${url} after ${STALL_RETRY_LIMIT} attempts`)
+        reject(
+          new Error(
+            `Failed to download ${url} after ${STALL_RETRY_LIMIT} attempts`
+          )
+        )
       }
     }
 
@@ -334,11 +338,11 @@ const pushTask = (task) =>
         resolve(task)
       })
       .on(`failed`, (err) => {
-        reject(`failed to process ${task.url}\n${err}`)
+        reject(new Error(`failed to process ${task.url}\n${err}`))
       })
   })
 
-/***************
+/** *************
  * Entry Point *
  ***************/
 
@@ -409,7 +413,9 @@ module.exports = ({
 
   if (!url || isWebUri(url) === undefined) {
     return Promise.reject(
-      `url passed to create-remote-file-node is either missing or not a proper web uri: ${url}`
+      new Error(
+        `url passed to create-remote-file-node is either missing or not a proper web uri: ${url}`
+      )
     )
   }
 

@@ -41,7 +41,7 @@ export const fetchWPGQLContentNodes = async ({ queryInfo }) => {
 
   // there's normally just one query here, but more can be added using the settings.nodeListQueries api
   for (const nodeListQuery of nodeListQueries) {
-    let contentNodes = await paginatedWpNodeFetch({
+    const contentNodes = await paginatedWpNodeFetch({
       first: perPage,
       after: null,
       contentTypePlural: typeInfo.pluralName,
@@ -163,7 +163,7 @@ export const fetchWPGQLContentNodesByContentType = async () => {
  * fetch and create Gatsby nodes from any lists of nodes in the remote schema
  */
 export const fetchAndCreateAllNodes = async () => {
-  const { helpers, pluginOptions } = getGatsbyApi()
+  const { helpers } = getGatsbyApi()
   const { reporter } = helpers
 
   //

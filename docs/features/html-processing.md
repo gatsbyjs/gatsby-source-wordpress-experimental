@@ -16,7 +16,4 @@ Anchor tag src's in html that are links to your WP instance are automatically re
 
 Anchor tags in html that are relative links automatically become `gatsby-link`'s so that navigation via html links are blazing fast.
 
-
-
 :point_left: [Back to Features](./index.md)
-

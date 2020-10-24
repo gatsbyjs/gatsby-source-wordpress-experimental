@@ -1,25 +1,28 @@
 import { buildTypeName } from "~/steps/create-schema-customization/helpers"
 
-export const transformUnion = ({ field, fieldName }) => ({
-  type: buildTypeName(field.type.name),
-  resolve: (source, _, context) => {
-    const resolvedField =
-      source[fieldName] || source[`${field.name}__typename_${field.type.name}`]
+export const transformUnion = ({ field, fieldName }) => {
+  return {
+    type: buildTypeName(field.type.name),
+    resolve: (source, _, context) => {
+      const resolvedField =
+        source[fieldName] ||
+        source[`${field.name}__typename_${field.type.name}`]
 
-    if (resolvedField && resolvedField.id) {
-      const gatsbyNode = context.nodeModel.getNodeById({
-        id: resolvedField.id,
-        type: resolvedField.type,
-      })
+      if (resolvedField && resolvedField.id) {
+        const gatsbyNode = context.nodeModel.getNodeById({
+          id: resolvedField.id,
+          type: resolvedField.type,
+        })
 
-      if (gatsbyNode) {
-        return gatsbyNode
+        if (gatsbyNode) {
+          return gatsbyNode
+        }
       }
-    }
 
-    return resolvedField
-  },
-})
+      return resolvedField
+    },
+  }
+}
 
 export const transformListOfUnions = ({ field, fieldName }) => {
   const typeName = buildTypeName(field.type.ofType.name)

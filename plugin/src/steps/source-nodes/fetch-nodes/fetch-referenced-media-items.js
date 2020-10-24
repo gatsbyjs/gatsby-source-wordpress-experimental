@@ -126,7 +126,7 @@ export const createMediaItemNode = async ({
   allMediaItemNodes.push(node)
 
   let resolveFutureNode
-  let futureNode = new Promise((resolve) => {
+  const futureNode = new Promise((resolve) => {
     resolveFutureNode = resolve
   })
 
@@ -145,7 +145,7 @@ export const createMediaItemNode = async ({
       retryKey,
       timesRetried,
     }) => {
-      let localFileNode = await createRemoteMediaItemNode({
+      const localFileNode = await createRemoteMediaItemNode({
         mediaItemNode: node,
         helpers,
         parentName,
@@ -195,10 +195,10 @@ export const stripImageSizesFromUrl = (url) => {
   const fileExtension = urlToFileExtension(url)
 
   const imageSizesPattern = new RegExp(
-    `(?:[-_]([0-9]+)x([0-9]+))${fileExtension ? `\.${fileExtension}` : ``}`
+    `(?:[-_]([0-9]+)x([0-9]+))${fileExtension ? `.${fileExtension}` : ``}`
   )
 
-  let urlWithoutSizes = url.replace(imageSizesPattern, "")
+  let urlWithoutSizes = url.replace(imageSizesPattern, ``)
 
   if (urlWithoutSizes !== url && fileExtension) {
     urlWithoutSizes = `${urlWithoutSizes}${fileExtension}`
@@ -303,7 +303,7 @@ const fetchMediaItemsBySourceUrl = async ({
   // we pass this resolve function into the queue function so it can let us
   // know when it's finished
   let resolveFutureNodes
-  let futureNodes = new Promise((resolve) => {
+  const futureNodes = new Promise((resolve) => {
     resolveFutureNodes = (nodes = []) =>
       // combine our resolved nodes we fetched with our cached nodes
       resolve([...nodes, ...previouslyCachedMediaItemNodes])
@@ -418,7 +418,7 @@ const fetchMediaItemsById = async ({
   const chunkedIds = chunk(newMediaItemIds, nodesPerFetch)
 
   let resolveFutureNodes
-  let futureNodes = new Promise((resolve) => {
+  const futureNodes = new Promise((resolve) => {
     resolveFutureNodes = resolve
   })
 
@@ -426,7 +426,7 @@ const fetchMediaItemsById = async ({
     resolveFutureNodes([])
   }
 
-  let allMediaItemNodes = []
+  const allMediaItemNodes = []
 
   for (const [index, relayIds] of chunkedIds.entries()) {
     pushPromiseOntoRetryQueue({

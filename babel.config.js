@@ -1,41 +1,41 @@
 module.exports = {
-  "presets": [["babel-preset-gatsby-package"]],
-  "plugins": [
+  presets: [[`babel-preset-gatsby-package`]],
+  plugins: [
     [
-      "babel-plugin-root-import",
+      `babel-plugin-root-import`,
       {
-        "rootPathSuffix": "./src/",
-        "rootPathPrefix": "~/"
-      }
+        rootPathSuffix: `./src/`,
+        rootPathPrefix: `~/`,
+      },
     ],
     [
-      "@babel/plugin-proposal-private-methods",
+      `@babel/plugin-proposal-private-methods`,
       {
-        "loose": true
-      }
+        loose: true,
+      },
     ],
     [
-      "@babel/plugin-proposal-class-properties",
+      `@babel/plugin-proposal-class-properties`,
       {
-        "loose": true
-      }
+        loose: true,
+      },
     ],
     [
-      "import-globals",
+      `import-globals`,
       {
-        "dd": {
-          "moduleName": "dumper.js",
-          "exportName": "dd"
+        dd: {
+          moduleName: `dumper.js`,
+          exportName: `dd`,
         },
-        "dump": {
-          "moduleName": "dumper.js",
-          "exportName": "dump"
+        dump: {
+          moduleName: `dumper.js`,
+          exportName: `dump`,
         },
-        "clipboardy": {
-          "moduleName": "clipboardy",
-          "exportName": "default"
-        }
-      }
-    ]
-  ]
+        clipboardy: {
+          moduleName: `clipboardy`,
+          exportName: `default`,
+        },
+      },
+    ],
+  ],
 }

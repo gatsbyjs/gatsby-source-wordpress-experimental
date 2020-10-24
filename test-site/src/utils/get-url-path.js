@@ -1,5 +1,5 @@
-import parsePath from 'parse-path'
-export const normalizePath = path => {
+import parsePath from "parse-path"
+export const normalizePath = (path) => {
   if (path.endsWith(`/`)) {
     path = path.slice(0, -1)
   }
@@ -16,7 +16,7 @@ export const normalizePath = path => {
  *
  * https://stackoverflow.com/questions/736513/how-do-i-parse-a-url-into-hostname-and-path-in-javascript
  */
-export const getUrlPath = url => {
+export const getUrlPath = (url) => {
   const parsedUrl = parsePath(url)
 
   return normalizePath(parsedUrl.pathname)

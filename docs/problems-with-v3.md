@@ -12,11 +12,7 @@
 - Being that the WP REST API is part of WordPress core, developments, bug fixes, and improvements to it move very slowly. There has been an open issue about broken media items for 4 years with no resolution in sight. This bug occasionally breaks Gatsby builds due to improperly missing media items. This leads to poor DX and cryptic error messages. Fixing this bug in a WP instance requires opening an SQL client and manually patching your DB each time this bug occurs.
 - The WP REST API does not support many basic types of WP data such as menus, previews, plugins, themes.
 
-
-
 All of the above points are fixed by using this plugin and WPGraphQL :smile_cat:
-
-
 
 # Up Next :point_right:
 
@@ -27,8 +23,7 @@ All of the above points are fixed by using this plugin and WPGraphQL :smile_cat:
 - :boat: [Migrating from other WP source plugins](./migrating-from-other-wp-source-plugins.md)
 - :house: [Hosting WordPress](./hosting.md)
 - :athletic_shoe: [Themes, Starters, and Examples](./themes-starters-examples.md)
--  :medal_sports: [Usage with popular WPGraphQL extensions](./usage-with-popular-wp-graphql-extensions.md)
+- :medal_sports: [Usage with popular WPGraphQL extensions](./usage-with-popular-wp-graphql-extensions.md)
 - :hammer_and_wrench: [Debugging and troubleshooting](./debugging-and-troubleshooting.md)
 - :national_park: [Community and Support](./community-and-support.md)
 - :point_left: [Back to README.md](../README.md)
-

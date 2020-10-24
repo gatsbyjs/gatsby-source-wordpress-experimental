@@ -23,7 +23,7 @@ const customizeSchema = async ({ actions, schema }) => {
     ingestibles: { nonNodeRootFields },
   } = remoteSchema
 
-  let typeDefs = []
+  const typeDefs = []
 
   const gatsbyNodeTypes = getGatsbyNodeTypeNames()
 
