@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.0.1
+
+- Added missing README.md from the last publish!
+
 ## 2.0.0
 
 - First publish with new monorepo structure
