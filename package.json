@@ -23,7 +23,7 @@
     "test": "yarn build && yarn test-schema && yarn test-build && yarn test-build-default-options && yarn clean-test-runtime",
     "test-schema-watch": "SHOW_GATSBY_PROCESS_STDOUT=true jest --watch ./test-site/__tests__/integration/schema",
     "test-build-watch": "SHOW_GATSBY_PROCESS_STDOUT=true jest --watch ./test-site/__tests__/integration/build",
-    "npm-publish": "yarn run lint && yarn test && cd plugin && npm publish"
+    "npm-publish": "yarn run lint && yarn test && cp README.md plugin/README.md cd plugin && npm publish"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.4",
