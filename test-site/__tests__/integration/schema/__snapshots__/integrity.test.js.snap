@@ -176,7 +176,6 @@ Array [
       "slug",
       "status",
       "template",
-      "terms",
       "title",
       "uri",
       "nodeType",
@@ -262,6 +261,7 @@ Array [
     "fields": Array [
       "ancestors",
       "wpChildren",
+      "contentNodes",
       "count",
       "databaseId",
       "description",
@@ -353,6 +353,16 @@ Array [
   Object {
     "fields": null,
     "name": "WpCategoryToCategoryConnectionFilterInput",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpCategoryToContentNodeConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpCategoryToContentNodeConnectionFilterInput",
   },
   Object {
     "fields": Array [
@@ -540,7 +550,6 @@ Array [
       "modifiedGmt",
       "slug",
       "status",
-      "terms",
       "uri",
       "nodeType",
     ],
@@ -608,16 +617,6 @@ Array [
       "node",
     ],
     "name": "WpContentNodeToEditLockConnectionEdge",
-  },
-  Object {
-    "fields": Array [
-      "nodes",
-    ],
-    "name": "WpContentNodeToTermNodeConnection",
-  },
-  Object {
-    "fields": null,
-    "name": "WpContentNodeToTermNodeConnectionFilterInput",
   },
   Object {
     "fields": Array [
@@ -5026,21 +5025,31 @@ Array [
     "fields": Array [
       "nodes",
     ],
-    "name": "WpHierarchicalContentNodeToContentNodeConnection",
+    "name": "WpHierarchicalContentNodeToContentNodeAncestorsConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpHierarchicalContentNodeToContentNodeAncestorsConnectionFilterInput",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpHierarchicalContentNodeToContentNodeChildrenConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpHierarchicalContentNodeToContentNodeChildrenConnectionFilterInput",
   },
   Object {
     "fields": Array [
       "node",
     ],
-    "name": "WpHierarchicalContentNodeToContentNodeConnectionEdge",
+    "name": "WpHierarchicalContentNodeToParentContentNodeConnectionEdge",
   },
   Object {
     "fields": null,
-    "name": "WpHierarchicalContentNodeToContentNodeConnectionEdgeFilterInput",
-  },
-  Object {
-    "fields": null,
-    "name": "WpHierarchicalContentNodeToContentNodeConnectionFilterInput",
+    "name": "WpHierarchicalContentNodeToParentContentNodeConnectionEdgeFilterInput",
   },
   Object {
     "fields": Array [
@@ -5284,6 +5293,16 @@ Array [
   Object {
     "fields": null,
     "name": "WpMediaItemToContentTypeConnectionEdgeFilterInput",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpMediaItemToTermNodeConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpMediaItemToTermNodeConnectionFilterInput",
   },
   Object {
     "fields": Array [
@@ -5819,6 +5838,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "contentNodes",
       "count",
       "databaseId",
       "description",
@@ -5890,6 +5910,16 @@ Array [
     "fields": Array [
       "nodes",
     ],
+    "name": "WpPaColorToContentNodeConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpPaColorToContentNodeConnectionFilterInput",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
     "name": "WpPaColorToProductConnection",
   },
   Object {
@@ -5918,6 +5948,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "contentNodes",
       "count",
       "databaseId",
       "description",
@@ -5984,6 +6015,16 @@ Array [
   Object {
     "fields": null,
     "name": "WpPaSizeSortInput",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpPaSizeToContentNodeConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpPaSizeToContentNodeConnectionFilterInput",
   },
   Object {
     "fields": Array [
@@ -6135,6 +6176,16 @@ Array [
   },
   Object {
     "fields": Array [
+      "nodes",
+    ],
+    "name": "WpPageToTermNodeConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpPageToTermNodeConnectionFilterInput",
+  },
+  Object {
+    "fields": Array [
       "buttonGroupField",
       "checkboxField",
       "colorPickerField",
@@ -6272,6 +6323,7 @@ Array [
       "guid",
       "id",
       "isRevision",
+      "isSticky",
       "language",
       "lastEditedBy",
       "link",
@@ -6332,6 +6384,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "contentNodes",
       "count",
       "databaseId",
       "description",
@@ -6398,6 +6451,16 @@ Array [
   Object {
     "fields": null,
     "name": "WpPostFormatSortInput",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpPostFormatToContentNodeConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpPostFormatToContentNodeConnectionFilterInput",
   },
   Object {
     "fields": Array [
@@ -6497,6 +6560,16 @@ Array [
   Object {
     "fields": null,
     "name": "WpPostToTagConnectionFilterInput",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpPostToTermNodeConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpPostToTermNodeConnectionFilterInput",
   },
   Object {
     "fields": Array [
@@ -6608,6 +6681,7 @@ Array [
     "fields": Array [
       "ancestors",
       "wpChildren",
+      "contentNodes",
       "count",
       "databaseId",
       "description",
@@ -6687,6 +6761,16 @@ Array [
   Object {
     "fields": null,
     "name": "WpProductCategoryToAncestorsProductCategoryConnectionFilterInput",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpProductCategoryToContentNodeConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductCategoryToContentNodeConnectionFilterInput",
   },
   Object {
     "fields": Array [
@@ -6797,6 +6881,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "contentNodes",
       "count",
       "databaseId",
       "description",
@@ -6862,6 +6947,16 @@ Array [
   Object {
     "fields": null,
     "name": "WpProductTagSortInput",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpProductTagToContentNodeConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductTagToContentNodeConnectionFilterInput",
   },
   Object {
     "fields": Array [
@@ -7026,6 +7121,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "contentNodes",
       "count",
       "databaseId",
       "description",
@@ -7090,6 +7186,16 @@ Array [
   Object {
     "fields": null,
     "name": "WpProductTypeSortInput",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpProductTypeToContentNodeConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpProductTypeToContentNodeConnectionFilterInput",
   },
   Object {
     "fields": Array [
@@ -7278,7 +7384,6 @@ Array [
       "slug",
       "status",
       "template",
-      "terms",
       "title",
       "uri",
       "nodeType",
@@ -7540,6 +7645,16 @@ Array [
   Object {
     "fields": null,
     "name": "WpReusableBlockToContentTypeConnectionEdgeFilterInput",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpReusableBlockToTermNodeConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpReusableBlockToTermNodeConnectionFilterInput",
   },
   Object {
     "fields": Array [
@@ -7856,6 +7971,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "contentNodes",
       "count",
       "databaseId",
       "description",
@@ -7920,6 +8036,16 @@ Array [
   Object {
     "fields": null,
     "name": "WpShippingClassSortInput",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpShippingClassToContentNodeConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpShippingClassToContentNodeConnectionFilterInput",
   },
   Object {
     "fields": Array [
@@ -8161,6 +8287,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "contentNodes",
       "count",
       "databaseId",
       "description",
@@ -8229,6 +8356,16 @@ Array [
   Object {
     "fields": null,
     "name": "WpTagSortInput",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpTagToContentNodeConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpTagToContentNodeConnectionFilterInput",
   },
   Object {
     "fields": Array [
@@ -8596,6 +8733,16 @@ Array [
   },
   Object {
     "fields": Array [
+      "nodes",
+    ],
+    "name": "WpTeamMemberToTermNodeConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpTeamMemberToTermNodeConnectionFilterInput",
+  },
+  Object {
+    "fields": Array [
       "fieldGroupName",
       "name",
       "portrait",
@@ -8710,7 +8857,6 @@ Array [
       "slug",
       "status",
       "template",
-      "terms",
       "title",
       "translations",
       "uri",
@@ -8806,7 +8952,6 @@ Array [
       "slug",
       "status",
       "template",
-      "terms",
       "title",
       "uri",
       "nodeType",
@@ -8901,7 +9046,6 @@ Array [
       "slug",
       "status",
       "template",
-      "terms",
       "title",
       "uri",
       "nodeType",
@@ -9373,6 +9517,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "contentNodes",
       "count",
       "databaseId",
       "description",
@@ -9437,6 +9582,16 @@ Array [
   Object {
     "fields": null,
     "name": "WpVisibleProductSortInput",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpVisibleProductToContentNodeConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpVisibleProductToContentNodeConnectionFilterInput",
   },
   Object {
     "fields": Array [
@@ -10603,7 +10758,6 @@ Array [
       "slug",
       "status",
       "template",
-      "terms",
       "title",
       "uri",
     ],
@@ -10770,7 +10924,6 @@ Array [
       "slug",
       "status",
       "template",
-      "terms",
       "title",
       "uri",
     ],
@@ -10902,6 +11055,7 @@ Array [
     "fields": Array [
       "ancestors",
       "children",
+      "contentNodes",
       "count",
       "databaseId",
       "description",
@@ -10965,6 +11119,25 @@ Array [
   Object {
     "fields": null,
     "name": "CategoryToCategoryConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "CategoryToContentNodeConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "CategoryToContentNodeConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "CategoryToContentNodeConnectionWhereArgs",
   },
   Object {
     "fields": Array [
@@ -11139,7 +11312,6 @@ Array [
       "previewRevisionId",
       "slug",
       "status",
-      "terms",
       "uri",
     ],
     "name": "ContentNode",
@@ -11190,25 +11362,6 @@ Array [
       "node",
     ],
     "name": "ContentNodeToEnqueuedStylesheetConnectionEdge",
-  },
-  Object {
-    "fields": Array [
-      "edges",
-      "nodes",
-      "pageInfo",
-    ],
-    "name": "ContentNodeToTermNodeConnection",
-  },
-  Object {
-    "fields": Array [
-      "cursor",
-      "node",
-    ],
-    "name": "ContentNodeToTermNodeConnectionEdge",
-  },
-  Object {
-    "fields": null,
-    "name": "ContentNodeToTermNodeConnectionWhereArgs",
   },
   Object {
     "fields": null,
@@ -16065,17 +16218,43 @@ Array [
       "nodes",
       "pageInfo",
     ],
-    "name": "HierarchicalContentNodeToContentNodeConnection",
+    "name": "HierarchicalContentNodeToContentNodeAncestorsConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "HierarchicalContentNodeToContentNodeAncestorsConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "HierarchicalContentNodeToContentNodeAncestorsConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "HierarchicalContentNodeToContentNodeChildrenConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "HierarchicalContentNodeToContentNodeChildrenConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "HierarchicalContentNodeToContentNodeChildrenConnectionWhereArgs",
   },
   Object {
     "fields": Array [
       "node",
     ],
-    "name": "HierarchicalContentNodeToContentNodeConnectionEdge",
-  },
-  Object {
-    "fields": null,
-    "name": "HierarchicalContentNodeToContentNodeConnectionWhereArgs",
+    "name": "HierarchicalContentNodeToParentContentNodeConnectionEdge",
   },
   Object {
     "fields": Array [
@@ -16271,6 +16450,25 @@ Array [
       "node",
     ],
     "name": "MediaItemToContentTypeConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "MediaItemToTermNodeConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "MediaItemToTermNodeConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "MediaItemToTermNodeConnectionWhereArgs",
   },
   Object {
     "fields": Array [
@@ -16705,6 +16903,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "contentNodes",
       "count",
       "databaseId",
       "description",
@@ -16728,6 +16927,25 @@ Array [
   Object {
     "fields": null,
     "name": "PaColorIdType",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "PaColorToContentNodeConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "PaColorToContentNodeConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "PaColorToContentNodeConnectionWhereArgs",
   },
   Object {
     "fields": Array [
@@ -16775,6 +16993,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "contentNodes",
       "count",
       "databaseId",
       "description",
@@ -16798,6 +17017,25 @@ Array [
   Object {
     "fields": null,
     "name": "PaSizeIdType",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "PaSizeToContentNodeConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "PaSizeToContentNodeConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "PaSizeToContentNodeConnectionWhereArgs",
   },
   Object {
     "fields": Array [
@@ -16960,6 +17198,25 @@ Array [
   },
   Object {
     "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "PageToTermNodeConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "PageToTermNodeConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "PageToTermNodeConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
       "buttonGroupField",
       "checkboxField",
       "colorPickerField",
@@ -17101,6 +17358,7 @@ Array [
       "isPreview",
       "isRestricted",
       "isRevision",
+      "isSticky",
       "language",
       "lastEditedBy",
       "link",
@@ -17140,6 +17398,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "contentNodes",
       "count",
       "databaseId",
       "description",
@@ -17163,6 +17422,25 @@ Array [
   Object {
     "fields": null,
     "name": "PostFormatIdType",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "PostFormatToContentNodeConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "PostFormatToContentNodeConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "PostFormatToContentNodeConnectionWhereArgs",
   },
   Object {
     "fields": Array [
@@ -17361,6 +17639,25 @@ Array [
   },
   Object {
     "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "PostToTermNodeConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "PostToTermNodeConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "PostToTermNodeConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
       "addNew",
       "addNewItem",
       "allItems",
@@ -17473,6 +17770,7 @@ Array [
     "fields": Array [
       "ancestors",
       "children",
+      "contentNodes",
       "count",
       "databaseId",
       "description",
@@ -17514,6 +17812,25 @@ Array [
       "node",
     ],
     "name": "ProductCategoryToAncestorsProductCategoryConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "ProductCategoryToContentNodeConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "ProductCategoryToContentNodeConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "ProductCategoryToContentNodeConnectionWhereArgs",
   },
   Object {
     "fields": Array [
@@ -17584,6 +17901,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "contentNodes",
       "count",
       "databaseId",
       "description",
@@ -17606,6 +17924,25 @@ Array [
   Object {
     "fields": null,
     "name": "ProductTagIdType",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "ProductTagToContentNodeConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "ProductTagToContentNodeConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "ProductTagToContentNodeConnectionWhereArgs",
   },
   Object {
     "fields": Array [
@@ -17901,6 +18238,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "contentNodes",
       "count",
       "databaseId",
       "description",
@@ -17922,6 +18260,25 @@ Array [
   Object {
     "fields": null,
     "name": "ProductTypeIdType",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "ProductTypeToContentNodeConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "ProductTypeToContentNodeConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "ProductTypeToContentNodeConnectionWhereArgs",
   },
   Object {
     "fields": Array [
@@ -18091,7 +18448,6 @@ Array [
       "slug",
       "status",
       "template",
-      "terms",
       "title",
       "uri",
     ],
@@ -18321,6 +18677,25 @@ Array [
       "node",
     ],
     "name": "ReusableBlockToPreviewConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "ReusableBlockToTermNodeConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "ReusableBlockToTermNodeConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "ReusableBlockToTermNodeConnectionWhereArgs",
   },
   Object {
     "fields": Array [
@@ -19546,6 +19921,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "contentNodes",
       "count",
       "databaseId",
       "description",
@@ -19567,6 +19943,25 @@ Array [
   Object {
     "fields": null,
     "name": "ShippingClassIdType",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "ShippingClassToContentNodeConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "ShippingClassToContentNodeConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "ShippingClassToContentNodeConnectionWhereArgs",
   },
   Object {
     "fields": Array [
@@ -19740,6 +20135,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "contentNodes",
       "count",
       "databaseId",
       "description",
@@ -19766,6 +20162,25 @@ Array [
   Object {
     "fields": null,
     "name": "TagIdType",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "TagToContentNodeConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "TagToContentNodeConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "TagToContentNodeConnectionWhereArgs",
   },
   Object {
     "fields": Array [
@@ -20111,6 +20526,25 @@ Array [
   },
   Object {
     "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "TeamMemberToTermNodeConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "TeamMemberToTermNodeConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "TeamMemberToTermNodeConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
       "fieldGroupName",
       "name",
       "portrait",
@@ -20243,7 +20677,6 @@ Array [
       "slug",
       "status",
       "template",
-      "terms",
       "title",
       "translation",
       "translations",
@@ -20304,7 +20737,6 @@ Array [
       "slug",
       "status",
       "template",
-      "terms",
       "title",
       "uri",
     ],
@@ -20363,7 +20795,6 @@ Array [
       "slug",
       "status",
       "template",
-      "terms",
       "title",
       "uri",
     ],
@@ -21041,6 +21472,10 @@ Array [
     "name": "UsersConnectionOrderbyInput",
   },
   Object {
+    "fields": null,
+    "name": "UsersConnectionSearchColumnEnum",
+  },
+  Object {
     "fields": Array [
       "attributes",
       "averageRating",
@@ -21172,6 +21607,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "contentNodes",
       "count",
       "databaseId",
       "description",
@@ -21193,6 +21629,25 @@ Array [
   Object {
     "fields": null,
     "name": "VisibleProductIdType",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "VisibleProductToContentNodeConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "VisibleProductToContentNodeConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "VisibleProductToContentNodeConnectionWhereArgs",
   },
   Object {
     "fields": Array [
@@ -22340,8 +22795,9 @@ Array [
     "fields": Array [
       "name",
       "description",
-      "locations",
       "args",
+      "isRepeatable",
+      "locations",
     ],
     "name": "__Directive",
   },
