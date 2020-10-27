@@ -5,13 +5,11 @@ module.exports = {
   extends: [
     "google",
     "eslint:recommended",
-    "plugin:flowtype/recommended",
     "plugin:react/recommended",
     "prettier",
-    "prettier/flowtype",
     "prettier/react",
   ],
-  plugins: ["flowtype", "prettier", "react", "filenames"],
+  plugins: ["prettier", "react", "filenames"],
   parserOptions: {
     ecmaVersion: 2016,
     sourceType: "module",

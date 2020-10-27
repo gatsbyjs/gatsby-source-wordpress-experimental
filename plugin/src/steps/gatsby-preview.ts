@@ -1,7 +1,8 @@
 import express from "express"
 import store from "~/store"
 
-export const inPreviewMode = () => process.env.ENABLE_GATSBY_REFRESH_ENDPOINT
+export const inPreviewMode = (): boolean =>
+  !!process.env.ENABLE_GATSBY_REFRESH_ENDPOINT
 
 // onCreatePage we want to figure out which node the page is dependant on
 // and then store that page in state
