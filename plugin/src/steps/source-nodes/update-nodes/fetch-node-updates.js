@@ -8,7 +8,7 @@ export const touchValidNodes = async () => {
   const { helpers } = getGatsbyApi()
   const { actions } = helpers
 
-  let validNodeIds = await getPersistentCache({ key: CREATED_NODE_IDS })
+  const validNodeIds = await getPersistentCache({ key: CREATED_NODE_IDS })
 
   if (validNodeIds?.length) {
     validNodeIds.forEach((nodeId) => actions.touchNode({ nodeId }))
