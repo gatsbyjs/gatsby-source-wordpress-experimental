@@ -1,12 +1,17 @@
 import express from "express"
+// import { IPluginOptions } from "~/models/gatsby-api"
 import store from "~/store"
+
+import type { GatsbyHelpers } from "~/utils/gatsby-types"
 
 export const inPreviewMode = (): boolean =>
   !!process.env.ENABLE_GATSBY_REFRESH_ENDPOINT
 
 // onCreatePage we want to figure out which node the page is dependant on
 // and then store that page in state
-export const savePreviewNodeIdToPageDependency = (helpers): void => {
+export const savePreviewNodeIdToPageDependency = (
+  helpers: GatsbyHelpers
+): void => {
   // if we're not in preview mode we don't want to track this
   if (!inPreviewMode()) {
     return
@@ -69,7 +74,9 @@ export const savePreviewNodeIdToPageDependency = (helpers): void => {
   }
 }
 
-export const onCreatePageRespondToPreviewStatusQuery = (helpers): void => {
+export const onCreatePageRespondToPreviewStatusQuery = (
+  helpers: GatsbyHelpers
+): void => {
   // if we're not in preview mode we don't want to set this up
   if (!inPreviewMode()) {
     console.log(`not in preview mode`)
@@ -115,11 +122,21 @@ export const onCreatePageRespondToPreviewStatusQuery = (helpers): void => {
   }
 }
 
-export const setupPreviewRefresher = (helpers, pluginOptions) => {
-  previewRefreshWebhook(helpers, pluginOptions)
+export const setupPreviewRefresher = (
+  helpers: GatsbyHelpers
+  // pluginOptions: IPluginOptions
+): void => {
+  previewRefreshWebhook(
+    helpers
+    // pluginOptions
+  )
 }
 
-function wasNodeUpdated({ node: possiblyUpdatedNode, modifiedDate, context }) {
+function wasNodeUpdated({
+  node: possiblyUpdatedNode,
+  modifiedDate,
+  context,
+}): boolean {
   const nodeWasUpdated = !!(
     possiblyUpdatedNode &&
     // if the modifiedDate is after or equal to the modified date of the node
@@ -138,7 +155,10 @@ function wasNodeUpdated({ node: possiblyUpdatedNode, modifiedDate, context }) {
   return nodeWasUpdated
 }
 
-const previewRefreshWebhook = (helpers, pluginOptions) => {
+const previewRefreshWebhook = (
+  helpers: GatsbyHelpers
+  // pluginOptions: IPluginOptions
+): void => {
   const { app, getNode } = helpers
 
   const previewStatusEndpoint = `/__wpgatsby-preview-status`
@@ -161,7 +181,7 @@ const previewRefreshWebhook = (helpers, pluginOptions) => {
 
     const existingNode = getNode(nodeId)
 
-    function onPageCreatedCallback({ passedNode, pageNode, context }) {
+    function onPageCreatedCallback({ passedNode, pageNode, context }): boolean {
       if (
         !wasNodeUpdated({
           node: passedNode,
@@ -215,7 +235,6 @@ const previewRefreshWebhook = (helpers, pluginOptions) => {
         return
       } else {
         console.log(`existing node preview was not loaded`)
-        nodePagesCreatedByNodeIds
       }
     }
 
