@@ -42,7 +42,7 @@ module.exports = {
     ],
     "no-unused-expressions": "off",
     "@typescript-eslint/no-unused-expressions": "error",
-    "filenames/match-regex": ["error", "^[a-z-\\d\\.]+$", true],
+    // "filenames/match-regex": ["error", "^[a-z-\\d\\.]+$", true],
     "no-console": "off",
     "no-inner-declarations": "off",
     "prettier/prettier": "error",
