@@ -6,7 +6,7 @@ export const inPreviewMode = (): boolean =>
 
 // onCreatePage we want to figure out which node the page is dependant on
 // and then store that page in state
-export const savePreviewNodeIdToPageDependency = (helpers) => {
+export const savePreviewNodeIdToPageDependency = (helpers): void => {
   // if we're not in preview mode we don't want to track this
   if (!inPreviewMode()) {
     return
@@ -17,7 +17,7 @@ export const savePreviewNodeIdToPageDependency = (helpers) => {
   const contextNode =
     page.context && page.context.id && getNode(page.context.id)
 
-  let nodeThatCreatedThisPage = contextNode
+  const nodeThatCreatedThisPage = contextNode
 
   if (!contextNode) {
     return
@@ -69,7 +69,7 @@ export const savePreviewNodeIdToPageDependency = (helpers) => {
   }
 }
 
-export const onCreatePageRespondToPreviewStatusQuery = (helpers) => {
+export const onCreatePageRespondToPreviewStatusQuery = (helpers): void => {
   // if we're not in preview mode we don't want to set this up
   if (!inPreviewMode()) {
     console.log(`not in preview mode`)
