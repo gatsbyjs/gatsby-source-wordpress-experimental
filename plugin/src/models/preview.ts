@@ -1,7 +1,3 @@
-// @todo: not sure why these were throwing errors because these function are typed
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-
 // `node` here is a Gatsby node
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type OnPageCreatedCallback = (node: any) => void
@@ -93,7 +89,7 @@ const previewStore: IPreviewStore = {
 
       return state
     },
-  },
+  } as PreviewReducers,
 }
 
 export default previewStore
