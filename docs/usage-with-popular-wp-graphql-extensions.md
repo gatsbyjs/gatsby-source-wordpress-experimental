@@ -2,13 +2,11 @@
 
 An ideal for this source plugin is for any WPGraphQL extension to become a Gatsby plugin. In practise we haven't yet had time to thoroughly test that all extensions work.
 
-Below is a list of "Confirmed" and "Unconfirmed" extensions. 
+Below is a list of "Confirmed" and "Unconfirmed" extensions.
 
 Confirmed simply means we've installed it and tried sourcing the data and it worked! All of the confirmed extensions are being used in this source plugin in production sites. The unconfirmed extensions simply haven't been fully tested and may or may not work.
 
 If you find a bug when using an extension please open an issue and let us know.
-
-
 
 ## Confirmed Extensions
 
@@ -18,17 +16,12 @@ If you find a bug when using an extension please open an issue and let us know.
 - [WPGraphQL Polylang](https://github.com/valu-digital/wp-graphql-polylang)
 - [Add yours to this list!](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/edit/master/docs/usage-with-popular-wp-graphql-extensions.md)
 
-
-
 ## Unconfirmed Extensions (might still work)
 
 - [WPGraphQL WooCommerce](https://woographql.com/)
-
-
 
 # Up Next :point_right:
 
 - :hammer_and_wrench: [Debugging and troubleshooting](./debugging-and-troubleshooting.md)
 - :national_park: [Community and Support](./community-and-support.md)
 - :point_left: [Back to README.md](../README.md)
-

@@ -32,6 +32,9 @@ module.exports = {
     __PATH_PREFIX__: true,
     __BASE_PATH__: true,
     __ASSET_PREFIX__: true,
+    dd: "readonly",
+    dump: "readonly",
+    clipboardy: "readonly",
   },
   rules: {
     "arrow-body-style": [
@@ -39,13 +42,8 @@ module.exports = {
       "as-needed",
       { requireReturnForObjectLiteral: true },
     ],
-    "no-unused-expressions": [
-      "error",
-      {
-        allowTaggedTemplates: true,
-      },
-    ],
-    "consistent-return": ["error"],
+    "no-unused-expressions": "off",
+    "@typescript-eslint/no-unused-expressions": "error",
     "filenames/match-regex": ["error", "^[a-z-\\d\\.]+$", true],
     "no-console": "off",
     "no-inner-declarations": "off",
@@ -103,10 +101,10 @@ module.exports = {
         // This ensures all interfaces are named with an I as a prefix
         // e.g.,
         // interface IFoo {}
-        "@typescript-eslint/interface-name-prefix": [
-          "error",
-          { prefixWithI: "always" },
-        ],
+        // "@typescript-eslint/interface-name-prefix": [
+        //   "error",
+        //   { prefixWithI: "always" },
+        // ],
         "@typescript-eslint/no-empty-function": "off",
         // This ensures that we always type the return type of functions
         // a high level focus of our TS setup is typing fn inputs and outputs.

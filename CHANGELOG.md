@@ -1,8 +1,22 @@
 # Change Log
 
+## 2.0.1
+
+- Added missing README.md from the last publish!
+
+## 2.0.0
+
+- First publish with new monorepo structure
+- Bumped minimum WPGraphQL and WPGatsby versions because latest WPGraphQL (v0.14.0) introduced a breaking change disabling introspection by default. Latest WPGatsby re-enables introspection via a filter. Since you need a minimum WPGatsby version for WPGraphQL 0.14.0 to work, this package set those 2 versions to minimum as a breaking change to reduce confusion when upgrading packages.
+
+## 1.7.9
+
+- Add empty index.js to the root of the project to fix lerna errors that the last release introduced
+
 ## 1.7.8
 
 - Increase supported version range for WPGatsby to allow >0.4.14 <0.6.0
+- Updated project build setup to build to `dist` instead of to the project root.
 
 ## 1.7.7
 

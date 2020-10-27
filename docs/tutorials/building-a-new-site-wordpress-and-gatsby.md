@@ -1,12 +1,8 @@
 ## Creating a new site from scratch
 
-
-
 ### What this tutorial covers:
 
 In this tutorial, you will install the `gatsby-source-wordpress-experimental` plugin in order to pull blog and image data from a WordPress install into your Gatsby site and render that data. This [Gatsby + WordPress starter](https://github.com/henrikwirth/gatsby-starter-wordpress-twenty-twenty) shows you the source code for an example site similar to what you’re going to be building in this tutorial.
-
-
 
 ### Creating a site with the `gatsby-source-wordpress-experimental` plugin
 
@@ -79,8 +75,6 @@ module.exports = {
 }
 ```
 
-
-
 ### Creating GraphQL queries that pull data from WordPress
 
 Now you are ready to create a GraphQL query to pull in some data from the WordPress site. You will create a query that pulls in the title of the blog posts, date they were posted, and blogpost content.
@@ -93,7 +87,7 @@ gatsby develop
 
 In your browser, open `http://localhost:8000` to see your site, and `http://localhost:8000/___graphql` to see Graphiql. You can use Graphiql to create your GraphQL queries.
 
-As an exercise, try re-creating the following queries in your GraphiQL explorer. 
+As an exercise, try re-creating the following queries in your GraphiQL explorer.
 
 Tip: If you've never used Graphiql before, try pressing `shift+space` to be given a list of available fields you can query for. Press up and down on your keyboard to select a field and press enter to write it to your query. Alternatively you can use the explorer pane to the left side of the page. If your explorer pane isn't open, you can open it by clicking "Explorer" at the top of the screen.
 
@@ -101,15 +95,15 @@ This first query will pull in the blogpost content from WordPress:
 
 ```graphql
 query {
-    allWpPost {
-        nodes {
-            id
-            title
-            excerpt
-            slug
-            date(formatString: "MMMM DD, YYYY")
-        }
+  allWpPost {
+    nodes {
+      id
+      title
+      excerpt
+      slug
+      date(formatString: "MMMM DD, YYYY")
     }
+  }
 }
 ```
 
@@ -117,17 +111,15 @@ This next query will pull in a sorted list of the blog posts:
 
 ```graphql
 {
-    allWpPost(sort: { fields: [date] }) {
-        nodes {
-            title
-            excerpt
-            slug
-        }
+  allWpPost(sort: { fields: [date] }) {
+    nodes {
+      title
+      excerpt
+      slug
     }
+  }
 }
 ```
-
-
 
 ## Rendering the blog posts to `index.js`
 
@@ -143,39 +135,37 @@ export default function Home({ data }) {
   //highlight-line
   return (
     <Layout>
-        <SEO title="home" />
-        {/* highlight-start */}
-        <h1>My WordPress Blog</h1>
-        <h4>Posts</h4>
-        {data.allWpPost.nodes.map((node) => (
-            <div>
-            <p>{node.title}</p>
-            <div dangerouslySetInnerHTML={{ __html: node.excerpt }} />
-            </div>
-        ))}
-        {/* highlight-end */}
+      <SEO title="home" />
+      {/* highlight-start */}
+      <h1>My WordPress Blog</h1>
+      <h4>Posts</h4>
+      {data.allWpPost.nodes.map((node) => (
+        <div>
+          <p>{node.title}</p>
+          <div dangerouslySetInnerHTML={{ __html: node.excerpt }} />
+        </div>
+      ))}
+      {/* highlight-end */}
     </Layout>
   )
 }
 
 //highlight-start
 export const pageQuery = graphql`
-    query {
-        allWpPost(sort: { fields: [date] }) {
-            nodes {
-                title
-                excerpt
-                slug
-            }
-        }
+  query {
+    allWpPost(sort: { fields: [date] }) {
+      nodes {
+        title
+        excerpt
+        slug
+      }
     }
+  }
 `
 //highlight-end
 ```
 
 Save these changes and look at `http://localhost:8000` to see your new homepage with a list of sorted blog posts!
-
-
 
 ## Create pages for each blog post and link to them
 
@@ -187,8 +177,6 @@ To do this, you need to:
 2. Link up the title on the index page with the post page.
 
 If you haven't already, please read through [Part 7](https://www.gatsbyjs.org/tutorial/part-seven/) of the foundational tutorial, as it goes through the concept and examples of this process with Markdown instead of WordPress.
-
-
 
 ### Creating pages for each blog post
 
@@ -205,14 +193,14 @@ exports.createPages = ({ graphql, actions }) => {
     {
       allWpPost(sort: { fields: [date] }) {
         nodes {
-            title
-            excerpt
-            content
-            slug
+          title
+          excerpt
+          content
+          slug
         }
       }
     }
-  `).then(result => {
+  `).then((result) => {
     console.log(JSON.stringify(result, null, 4))
     process.exit()
   })
@@ -247,10 +235,10 @@ export default function BlogPost({ data }) {
 export const query = graphql`
   query($slug: String!) {
     allWpPost(filter: { slug: { eq: $slug } }) {
-        nodes {
-          title
-          content
-        }
+      nodes {
+        title
+        content
+      }
     }
   }
 `
@@ -269,14 +257,14 @@ exports.createPages = ({ graphql, actions }) => {
     {
       allWpPost(sort: { fields: [date] }) {
         nodes {
-            title
-            excerpt
-            content
-            slug
+          title
+          excerpt
+          content
+          slug
         }
       }
     }
-  `).then(result => {
+  `).then((result) => {
     //highlight-start
     result.data.allWpPost.nodes.forEach((node) => {
       createPage({
@@ -297,8 +285,6 @@ exports.createPages = ({ graphql, actions }) => {
 You will need to stop and start your environment again using `gatsby develop`. When you do, you will not see a change on the index page of the site, but if you navigate to a 404 page, like `http://localhost:8000/asdf`, you should see the two sample posts created and be able to click on them to go to the sample posts.
 
 But nobody likes to go to a 404 page to find a blog post! So, let's link these up from the home page.
-
-
 
 ### Linking to posts from the homepage
 
@@ -335,11 +321,11 @@ export default function Home({ data }) {
 export const pageQuery = graphql`
   query {
     allWpPost(sort: { fields: [date] }) {
-        nodes {
-            title
-            excerpt
-            slug
-        }
+      nodes {
+        title
+        excerpt
+        slug
+      }
     }
   }
 `
@@ -347,20 +333,16 @@ export const pageQuery = graphql`
 
 And that's it! When you wrap the title in the `Link` component and reference the slug of the post, Gatsby will add some magic to the link, preload it, and make the transition between pages incredibly fast
 
-
-
 ### Wrapping up
 
 You can apply the same procedure to calling and creating pages, custom post types, custom fields, taxonomies, and all the fun and flexible content WordPress is known for. This can be as simple or as complex as you would like it to be, so explore and have fun with it!
-
-
 
 # Up Next :point_right:
 
 - :boat: [Migrating from other WP source plugins](../migrating-from-other-wp-source-plugins.md)
 - :house: [Hosting WordPress](../hosting.md)
 - :athletic_shoe: [Themes, Starters, and Examples](../themes-starters-examples.md)
--  :medal_sports: [Usage with popular WPGraphQL extensions](../usage-with-popular-wp-graphql-extensions.md)
+- :medal_sports: [Usage with popular WPGraphQL extensions](../usage-with-popular-wp-graphql-extensions.md)
 - :hammer_and_wrench: [Debugging and troubleshooting](../debugging-and-troubleshooting.md)
 - :national_park: [Community and Support](../community-and-support.md)
 - :point_left: [Back to README.md](../../README.md)
