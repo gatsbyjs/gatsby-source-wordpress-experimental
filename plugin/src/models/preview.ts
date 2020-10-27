@@ -1,4 +1,9 @@
+// @todo: not sure why these were throwing errors because these function are typed
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+
 // `node` here is a Gatsby node
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type OnPageCreatedCallback = (node: any) => void
 
 interface IPreviewState {
@@ -8,6 +13,7 @@ interface IPreviewState {
   nodeIdsToCreatedPages: {
     [nodeId: string]: {
       // gatsby node page type
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       page: any
     }
   }
@@ -18,7 +24,7 @@ interface IPreviewState {
   }
 }
 
-type PreviewReducers = {
+interface PreviewReducers {
   subscribeToPagesCreatedFromNodeById: (
     state: IPreviewState,
     payload: {
@@ -35,7 +41,11 @@ type PreviewReducers = {
   ) => IPreviewState
   saveNodePageState: (
     state: IPreviewState,
-    payload: { nodeId: string; page: any }
+    payload: {
+      nodeId: string
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      page: any
+    }
   ) => IPreviewState
 }
 
