@@ -140,9 +140,7 @@ export const fetchAndCreateSingleNode = async ({
     reporter.log(``)
     reporter.info(
       formatLogMessage(
-        `Preview for ${singleName}/${node.id} ${previewId} was updated at ${
-          node.uri || remoteNode.uri
-        }.`
+        `Preview for ${singleName}/${node.id} ${previewId} was updated.`
       )
     )
     reporter.log(``)
