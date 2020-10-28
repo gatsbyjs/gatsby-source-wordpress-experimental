@@ -2,15 +2,18 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type OnPageCreatedCallback = (node: any) => void
 
+interface StoredPage {
+  path: string
+  updatedAt: number
+}
+
 interface IPreviewState {
   nodePageCreatedCallbacks: {
     [nodeId: string]: OnPageCreatedCallback
   }
   nodeIdsToCreatedPages: {
     [nodeId: string]: {
-      // gatsby node page type
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      page: any
+      page: StoredPage
     }
   }
   pagePathToNodeDependencyId: {
@@ -39,8 +42,7 @@ interface PreviewReducers {
     state: IPreviewState,
     payload: {
       nodeId: string
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      page: any
+      page: StoredPage
     }
   ) => IPreviewState
 }
