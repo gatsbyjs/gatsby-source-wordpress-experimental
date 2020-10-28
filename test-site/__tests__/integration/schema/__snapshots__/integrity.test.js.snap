@@ -75,6 +75,7 @@ Array [
     "fields": Array [
       "ancestors",
       "wpChildren",
+      "contentNodes",
       "count",
       "databaseId",
       "description",
@@ -166,6 +167,16 @@ Array [
   },
   Object {
     "fields": Array [
+      "nodes",
+    ],
+    "name": "WpCategoryToContentNodeConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpCategoryToContentNodeConnectionFilterInput",
+  },
+  Object {
+    "fields": Array [
       "node",
     ],
     "name": "WpCategoryToParentCategoryConnectionEdge",
@@ -212,6 +223,7 @@ Array [
       "authorIp",
       "commentedOn",
       "content",
+      "databaseId",
       "date",
       "dateGmt",
       "id",
@@ -315,6 +327,7 @@ Array [
   Object {
     "fields": Array [
       "databaseId",
+      "email",
       "id",
       "name",
       "url",
@@ -342,6 +355,7 @@ Array [
       "date",
       "dateGmt",
       "desiredSlug",
+      "enclosure",
       "guid",
       "id",
       "lastEditedBy",
@@ -350,7 +364,6 @@ Array [
       "modifiedGmt",
       "slug",
       "status",
-      "terms",
       "uri",
       "nodeType",
     ],
@@ -418,16 +431,6 @@ Array [
       "node",
     ],
     "name": "WpContentNodeToEditLockConnectionEdge",
-  },
-  Object {
-    "fields": Array [
-      "nodes",
-    ],
-    "name": "WpContentNodeToTermNodeConnection",
-  },
-  Object {
-    "fields": null,
-    "name": "WpContentNodeToTermNodeConnectionFilterInput",
   },
   Object {
     "fields": Array [
@@ -554,6 +557,12 @@ Array [
   },
   Object {
     "fields": Array [
+      "databaseId",
+    ],
+    "name": "WpDatabaseIdentifier",
+  },
+  Object {
+    "fields": Array [
       "templateFile",
       "templateName",
     ],
@@ -636,21 +645,31 @@ Array [
     "fields": Array [
       "nodes",
     ],
-    "name": "WpHierarchicalContentNodeToContentNodeConnection",
+    "name": "WpHierarchicalContentNodeToContentNodeAncestorsConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpHierarchicalContentNodeToContentNodeAncestorsConnectionFilterInput",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpHierarchicalContentNodeToContentNodeChildrenConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpHierarchicalContentNodeToContentNodeChildrenConnectionFilterInput",
   },
   Object {
     "fields": Array [
       "node",
     ],
-    "name": "WpHierarchicalContentNodeToContentNodeConnectionEdge",
+    "name": "WpHierarchicalContentNodeToParentContentNodeConnectionEdge",
   },
   Object {
     "fields": null,
-    "name": "WpHierarchicalContentNodeToContentNodeConnectionEdgeFilterInput",
-  },
-  Object {
-    "fields": null,
-    "name": "WpHierarchicalContentNodeToContentNodeConnectionFilterInput",
+    "name": "WpHierarchicalContentNodeToParentContentNodeConnectionEdgeFilterInput",
   },
   Object {
     "fields": Array [
@@ -682,6 +701,7 @@ Array [
       "authorId",
       "caption",
       "wpChildren",
+      "commentCount",
       "commentStatus",
       "comments",
       "contentType",
@@ -711,7 +731,6 @@ Array [
       "srcSet",
       "status",
       "template",
-      "terms",
       "title",
       "uri",
       "nodeType",
@@ -1045,6 +1064,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "commentCount",
       "commentStatus",
     ],
     "name": "WpNodeWithComments",
@@ -1119,6 +1139,7 @@ Array [
       "authorDatabaseId",
       "authorId",
       "wpChildren",
+      "commentCount",
       "commentStatus",
       "comments",
       "content",
@@ -1127,6 +1148,7 @@ Array [
       "date",
       "dateGmt",
       "desiredSlug",
+      "enclosure",
       "featuredImage",
       "featuredImageDatabaseId",
       "featuredImageId",
@@ -1146,7 +1168,6 @@ Array [
       "slug",
       "status",
       "template",
-      "terms",
       "title",
       "uri",
       "nodeType",
@@ -1334,6 +1355,7 @@ Array [
       "authorDatabaseId",
       "authorId",
       "categories",
+      "commentCount",
       "commentStatus",
       "comments",
       "content",
@@ -1350,6 +1372,7 @@ Array [
       "guid",
       "id",
       "isRevision",
+      "isSticky",
       "lastEditedBy",
       "link",
       "modified",
@@ -1405,6 +1428,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "contentNodes",
       "count",
       "databaseId",
       "description",
@@ -1470,6 +1494,16 @@ Array [
   Object {
     "fields": null,
     "name": "WpPostFormatSortInput",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpPostFormatToContentNodeConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpPostFormatToContentNodeConnectionFilterInput",
   },
   Object {
     "fields": Array [
@@ -1572,6 +1606,16 @@ Array [
   },
   Object {
     "fields": Array [
+      "nodes",
+    ],
+    "name": "WpPostToTermNodeConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpPostToTermNodeConnectionFilterInput",
+  },
+  Object {
+    "fields": Array [
       "addNew",
       "addNewItem",
       "allItems",
@@ -1629,7 +1673,6 @@ Array [
       "slug",
       "status",
       "template",
-      "terms",
       "title",
       "uri",
       "nodeType",
@@ -1747,6 +1790,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "contentNodes",
       "count",
       "databaseId",
       "description",
@@ -1812,6 +1856,16 @@ Array [
   Object {
     "fields": null,
     "name": "WpTagSortInput",
+  },
+  Object {
+    "fields": Array [
+      "nodes",
+    ],
+    "name": "WpTagToContentNodeConnection",
+  },
+  Object {
+    "fields": null,
+    "name": "WpTagToContentNodeConnectionFilterInput",
   },
   Object {
     "fields": Array [
@@ -1935,6 +1989,7 @@ Array [
       "authorDatabaseId",
       "authorId",
       "categories",
+      "commentCount",
       "commentStatus",
       "comments",
       "content",
@@ -1963,7 +2018,6 @@ Array [
       "status",
       "tags",
       "template",
-      "terms",
       "title",
       "toPing",
       "uri",
@@ -2180,7 +2234,6 @@ Array [
       "slug",
       "status",
       "template",
-      "terms",
       "title",
       "uri",
       "nodeType",
@@ -2270,7 +2323,6 @@ Array [
       "slug",
       "status",
       "template",
-      "terms",
       "title",
       "uri",
       "nodeType",
@@ -2360,7 +2412,6 @@ Array [
       "slug",
       "status",
       "template",
-      "terms",
       "title",
       "uri",
       "nodeType",
@@ -2436,10 +2487,13 @@ Array [
   Object {
     "fields": Array [
       "avatar",
+      "capKey",
       "capabilities",
       "comments",
       "databaseId",
       "description",
+      "email",
+      "extraCapabilities",
       "firstName",
       "id",
       "lastName",
@@ -2450,6 +2504,7 @@ Array [
       "pages",
       "posts",
       "projects",
+      "registeredDate",
       "roles",
       "slug",
       "teamMembers",
@@ -2741,7 +2796,6 @@ Array [
       "slug",
       "status",
       "template",
-      "terms",
       "title",
       "uri",
     ],
@@ -2791,6 +2845,7 @@ Array [
     "fields": Array [
       "ancestors",
       "children",
+      "contentNodes",
       "count",
       "databaseId",
       "description",
@@ -2850,6 +2905,25 @@ Array [
   Object {
     "fields": null,
     "name": "CategoryToCategoryConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "CategoryToContentNodeConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "CategoryToContentNodeConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "CategoryToContentNodeConnectionWhereArgs",
   },
   Object {
     "fields": Array [
@@ -3010,7 +3084,6 @@ Array [
       "previewRevisionId",
       "slug",
       "status",
-      "terms",
       "uri",
     ],
     "name": "ContentNode",
@@ -3061,25 +3134,6 @@ Array [
       "node",
     ],
     "name": "ContentNodeToEnqueuedStylesheetConnectionEdge",
-  },
-  Object {
-    "fields": Array [
-      "edges",
-      "nodes",
-      "pageInfo",
-    ],
-    "name": "ContentNodeToTermNodeConnection",
-  },
-  Object {
-    "fields": Array [
-      "cursor",
-      "node",
-    ],
-    "name": "ContentNodeToTermNodeConnectionEdge",
-  },
-  Object {
-    "fields": null,
-    "name": "ContentNodeToTermNodeConnectionWhereArgs",
   },
   Object {
     "fields": null,
@@ -3605,17 +3659,43 @@ Array [
       "nodes",
       "pageInfo",
     ],
-    "name": "HierarchicalContentNodeToContentNodeConnection",
+    "name": "HierarchicalContentNodeToContentNodeAncestorsConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "HierarchicalContentNodeToContentNodeAncestorsConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "HierarchicalContentNodeToContentNodeAncestorsConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "HierarchicalContentNodeToContentNodeChildrenConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "HierarchicalContentNodeToContentNodeChildrenConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "HierarchicalContentNodeToContentNodeChildrenConnectionWhereArgs",
   },
   Object {
     "fields": Array [
       "node",
     ],
-    "name": "HierarchicalContentNodeToContentNodeConnectionEdge",
-  },
-  Object {
-    "fields": null,
-    "name": "HierarchicalContentNodeToContentNodeConnectionWhereArgs",
+    "name": "HierarchicalContentNodeToParentContentNodeConnectionEdge",
   },
   Object {
     "fields": Array [
@@ -3688,7 +3768,6 @@ Array [
       "srcSet",
       "status",
       "template",
-      "terms",
       "title",
       "uri",
     ],
@@ -4015,7 +4094,6 @@ Array [
       "slug",
       "status",
       "template",
-      "terms",
       "title",
       "uri",
     ],
@@ -4207,6 +4285,7 @@ Array [
       "isPreview",
       "isRestricted",
       "isRevision",
+      "isSticky",
       "lastEditedBy",
       "link",
       "modified",
@@ -4240,6 +4319,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "contentNodes",
       "count",
       "databaseId",
       "description",
@@ -4262,6 +4342,25 @@ Array [
   Object {
     "fields": null,
     "name": "PostFormatIdType",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "PostFormatToContentNodeConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "PostFormatToContentNodeConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "PostFormatToContentNodeConnectionWhereArgs",
   },
   Object {
     "fields": Array [
@@ -4460,6 +4559,25 @@ Array [
   },
   Object {
     "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "PostToTermNodeConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "PostToTermNodeConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "PostToTermNodeConnectionWhereArgs",
+  },
+  Object {
+    "fields": Array [
       "addNew",
       "addNewItem",
       "allItems",
@@ -4521,7 +4639,6 @@ Array [
       "slug",
       "status",
       "template",
-      "terms",
       "title",
       "uri",
     ],
@@ -5217,6 +5334,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "contentNodes",
       "count",
       "databaseId",
       "description",
@@ -5239,6 +5357,25 @@ Array [
   Object {
     "fields": null,
     "name": "TagIdType",
+  },
+  Object {
+    "fields": Array [
+      "edges",
+      "nodes",
+      "pageInfo",
+    ],
+    "name": "TagToContentNodeConnection",
+  },
+  Object {
+    "fields": Array [
+      "cursor",
+      "node",
+    ],
+    "name": "TagToContentNodeConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "TagToContentNodeConnectionWhereArgs",
   },
   Object {
     "fields": Array [
@@ -5379,7 +5516,6 @@ Array [
       "status",
       "tags",
       "template",
-      "terms",
       "title",
       "toPing",
       "uri",
@@ -5649,7 +5785,6 @@ Array [
       "slug",
       "status",
       "template",
-      "terms",
       "title",
       "uri",
     ],
@@ -5703,7 +5838,6 @@ Array [
       "slug",
       "status",
       "template",
-      "terms",
       "title",
       "uri",
     ],
@@ -5757,7 +5891,6 @@ Array [
       "slug",
       "status",
       "template",
-      "terms",
       "title",
       "uri",
     ],
@@ -6256,6 +6389,10 @@ Array [
     "name": "UsersConnectionOrderbyInput",
   },
   Object {
+    "fields": null,
+    "name": "UsersConnectionSearchColumnEnum",
+  },
+  Object {
     "fields": Array [
       "arePrettyPermalinksEnabled",
     ],
@@ -6295,8 +6432,9 @@ Array [
     "fields": Array [
       "name",
       "description",
-      "locations",
       "args",
+      "isRepeatable",
+      "locations",
     ],
     "name": "__Directive",
   },

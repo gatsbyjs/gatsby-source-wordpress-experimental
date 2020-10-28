@@ -14,6 +14,12 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
           id
         }
       }
+      contentNodes(first: 100) {
+        nodes {
+          id
+          __typename
+        }
+      }
       count
       databaseId
       description
@@ -70,6 +76,12 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         id
       }
     }
+    contentNodes(first: 100) {
+      nodes {
+        id
+        __typename
+      }
+    }
     count
     databaseId
     description
@@ -119,6 +131,12 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     wpChildren: children(first: 100) {
       nodes {
         id
+      }
+    }
+    contentNodes(first: 100) {
+      nodes {
+        id
+        __typename
       }
     }
     count
@@ -615,12 +633,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         templateName
         __typename
       }
-      terms(first: 100) {
-        nodes {
-          id
-          __typename
-        }
-      }
       title
       uri
       __typename
@@ -735,12 +747,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       templateName
       __typename
     }
-    terms(first: 100) {
-      nodes {
-        id
-        __typename
-      }
-    }
     title
     uri
     __typename
@@ -849,12 +855,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       templateFile
       templateName
       __typename
-    }
-    terms(first: 100) {
-      nodes {
-        id
-        __typename
-      }
     }
     title
     uri
@@ -1402,12 +1402,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         templateName
         __typename
       }
-      terms(first: 100) {
-        nodes {
-          id
-          __typename
-        }
-      }
       title
       uri
       __typename
@@ -1769,12 +1763,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       templateName
       __typename
     }
-    terms(first: 100) {
-      nodes {
-        id
-        __typename
-      }
-    }
     title
     uri
     __typename
@@ -2131,12 +2119,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       templateName
       __typename
     }
-    terms(first: 100) {
-      nodes {
-        id
-        __typename
-      }
-    }
     title
     uri
     __typename
@@ -2190,6 +2172,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       guid
       id
       isRevision
+      isSticky
       lastEditedBy {
         node {
           id
@@ -2281,6 +2264,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     guid
     id
     isRevision
+    isSticky
     lastEditedBy {
       node {
         id
@@ -2367,6 +2351,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
     guid
     id
     isRevision
+    isSticky
     lastEditedBy {
       node {
         id
@@ -2413,6 +2398,12 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
   postFormats(first: $first, after: $after) {
     nodes {
+      contentNodes(first: 100) {
+        nodes {
+          id
+          __typename
+        }
+      }
       count
       databaseId
       description
@@ -2452,6 +2443,12 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] PostFormat node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
   postFormat(id: $id, idType: ID, asPreview: true) {
+    contentNodes(first: 100) {
+      nodes {
+        id
+        __typename
+      }
+    }
     count
     databaseId
     description
@@ -2486,6 +2483,12 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] PostFormat node single query hasn't changed 1`] = `
 "query SINGLE_CONTENT_QUERY($id: ID!) {
   postFormat(id: $id) {
+    contentNodes(first: 100) {
+      nodes {
+        id
+        __typename
+      }
+    }
     count
     databaseId
     description
@@ -2576,12 +2579,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         templateName
         __typename
       }
-      terms(first: 100) {
-        nodes {
-          id
-          __typename
-        }
-      }
       title
       uri
       __typename
@@ -2653,12 +2650,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       templateName
       __typename
     }
-    terms(first: 100) {
-      nodes {
-        id
-        __typename
-      }
-    }
     title
     uri
     __typename
@@ -2724,12 +2715,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       templateFile
       templateName
       __typename
-    }
-    terms(first: 100) {
-      nodes {
-        id
-        __typename
-      }
     }
     title
     uri
@@ -2797,6 +2782,12 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 "query NODE_LIST_QUERY($first: Int!, $after: String) {
   tags(first: $first, after: $after) {
     nodes {
+      contentNodes(first: 100) {
+        nodes {
+          id
+          __typename
+        }
+      }
       count
       databaseId
       description
@@ -2836,6 +2827,12 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Tag node preview query hasn't changed 1`] = `
 "query PREVIEW_QUERY($id: ID!) {
   tag(id: $id, idType: ID, asPreview: true) {
+    contentNodes(first: 100) {
+      nodes {
+        id
+        __typename
+      }
+    }
     count
     databaseId
     description
@@ -2870,6 +2867,12 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-wordpress-experimental] Tag node single query hasn't changed 1`] = `
 "query SINGLE_CONTENT_QUERY($id: ID!) {
   tag(id: $id) {
+    contentNodes(first: 100) {
+      nodes {
+        id
+        __typename
+      }
+    }
     count
     databaseId
     description
@@ -3104,12 +3107,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         templateName
         __typename
       }
-      terms(first: 100) {
-        nodes {
-          id
-          __typename
-        }
-      }
       title
       toPing
       uri
@@ -3221,12 +3218,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       templateName
       __typename
     }
-    terms(first: 100) {
-      nodes {
-        id
-        __typename
-      }
-    }
     title
     toPing
     uri
@@ -3333,12 +3324,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       templateName
       __typename
     }
-    terms(first: 100) {
-      nodes {
-        id
-        __typename
-      }
-    }
     title
     toPing
     uri
@@ -3394,12 +3379,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         templateFile
         templateName
         __typename
-      }
-      terms(first: 100) {
-        nodes {
-          id
-          __typename
-        }
       }
       title
       uri
@@ -3460,12 +3439,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       templateName
       __typename
     }
-    terms(first: 100) {
-      nodes {
-        id
-        __typename
-      }
-    }
     title
     uri
     __typename
@@ -3519,12 +3492,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       templateFile
       templateName
       __typename
-    }
-    terms(first: 100) {
-      nodes {
-        id
-        __typename
-      }
     }
     title
     uri
@@ -3580,12 +3547,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         templateFile
         templateName
         __typename
-      }
-      terms(first: 100) {
-        nodes {
-          id
-          __typename
-        }
       }
       title
       uri
@@ -3646,12 +3607,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       templateName
       __typename
     }
-    terms(first: 100) {
-      nodes {
-        id
-        __typename
-      }
-    }
     title
     uri
     __typename
@@ -3705,12 +3660,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       templateFile
       templateName
       __typename
-    }
-    terms(first: 100) {
-      nodes {
-        id
-        __typename
-      }
     }
     title
     uri
@@ -3766,12 +3715,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         templateFile
         templateName
         __typename
-      }
-      terms(first: 100) {
-        nodes {
-          id
-          __typename
-        }
       }
       title
       uri
@@ -3832,12 +3775,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       templateName
       __typename
     }
-    terms(first: 100) {
-      nodes {
-        id
-        __typename
-      }
-    }
     title
     uri
     __typename
@@ -3891,12 +3828,6 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
       templateFile
       templateName
       __typename
-    }
-    terms(first: 100) {
-      nodes {
-        id
-        __typename
-      }
     }
     title
     uri
