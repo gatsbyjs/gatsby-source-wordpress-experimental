@@ -1,9 +1,15 @@
 import express from "express"
+import * as chalk from "chalk"
+import * as urlUtil from "url"
+
 import store from "~/store"
 
+import { fetchAndCreateSingleNode } from "~/steps/source-nodes/update-nodes/wp-actions/update"
 import { formatLogMessage } from "~/utils/format-log-message"
+import { touchValidNodes } from "./source-nodes/update-nodes/fetch-node-updates"
 
 import type { GatsbyHelpers } from "~/utils/gatsby-types"
+import { IPluginOptions } from "~/models/gatsby-api"
 
 export const inPreviewMode = (): boolean =>
   !!process.env.ENABLE_GATSBY_REFRESH_ENDPOINT
@@ -240,5 +246,60 @@ export const setupPreviewRefresher = (helpers: GatsbyHelpers): void => {
     } else {
       helpers.reporter.log(formatLogMessage(`ignore no indication of sourcing`))
     }
+  })
+}
+
+export const sourcePreviews = async (
+  {
+    webhookBody,
+    reporter,
+  }: {
+    webhookBody: {
+      preview: boolean
+      previewId: string
+      token: string
+      remoteUrl: string
+    }
+    // this comes from Gatsby
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    reporter: any
+  },
+  { url }: IPluginOptions
+): Promise<void> => {
+  if (
+    !webhookBody ||
+    !webhookBody.preview ||
+    !webhookBody.previewId ||
+    !webhookBody.token ||
+    !webhookBody.remoteUrl
+  ) {
+    reporter.warn(
+      formatLogMessage(
+        `sourcePreviews was called but the required webhookBody properties weren't provided.`
+      )
+    )
+    return
+  }
+
+  await touchValidNodes()
+
+  const { hostname: settingsHostname } = urlUtil.parse(url)
+  const { hostname: remoteHostname } = urlUtil.parse(webhookBody.remoteUrl)
+
+  if (settingsHostname !== remoteHostname) {
+    reporter.panic(
+      formatLogMessage(
+        `Received preview data from a different remote URL than the one specified in plugin options. \n\n ${chalk.bold(
+          `Remote URL:`
+        )} ${webhookBody.remoteUrl}\n ${chalk.bold(
+          `Plugin options URL:`
+        )} ${url}`
+      )
+    )
+  }
+
+  await fetchAndCreateSingleNode({
+    actionType: `PREVIEW`,
+    ...webhookBody,
   })
 }

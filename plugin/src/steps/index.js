@@ -13,4 +13,4 @@ export {
   setupPreviewRefresher,
   onCreatePageRespondToPreviewStatusQuery,
   savePreviewNodeIdToPageDependency,
-} from "~/steps/gatsby-preview"
+} from "~/steps/preview"

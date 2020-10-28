@@ -6,13 +6,12 @@ import { LAST_COMPLETED_SOURCE_TIME } from "~/constants"
 import store from "~/store"
 import fetchAndCreateNonNodeRootFields from "./create-nodes/fetch-and-create-non-node-root-fields"
 import { allowFileDownloaderProgressBarToClear } from "./create-nodes/create-remote-file-node/progress-bar-promise"
-import { sourcePreviews } from "~/steps/source-nodes/update-nodes/source-previews"
+import { sourcePreviews } from "~/steps/preview"
 
 const sourceNodes = async (helpers, pluginOptions) => {
   const { cache, webhookBody } = helpers
 
   if (webhookBody.preview) {
-    console.log(`sourcing previews`)
     await sourcePreviews(helpers, pluginOptions)
     return
   }
