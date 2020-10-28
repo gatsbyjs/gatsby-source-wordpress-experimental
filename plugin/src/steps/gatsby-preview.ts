@@ -1,6 +1,8 @@
 import express from "express"
 import store from "~/store"
 
+import { formatLogMessage } from "~/utils/format-log-message"
+
 import type { GatsbyHelpers } from "~/utils/gatsby-types"
 
 export const inPreviewMode = (): boolean =>
@@ -104,6 +106,7 @@ function wasNodeUpdated({
   node: possiblyUpdatedNode,
   modifiedDate,
   context,
+  helpers,
 }): boolean {
   const nodeWasUpdated = !!(
     possiblyUpdatedNode &&
@@ -113,12 +116,20 @@ function wasNodeUpdated({
       new Date(modifiedDate).getTime()
   )
 
-  console.log({
-    foundNodeModifiedTime: possiblyUpdatedNode.modified,
-    recievedModifiedTime: modifiedDate,
-    nodeWasUpdated,
-    context,
-  })
+  helpers.reporter.log(
+    formatLogMessage(
+      `Check if node was updated:\n\n${JSON.stringify(
+        {
+          foundNodeModifiedTime: possiblyUpdatedNode.modified,
+          recievedModifiedTime: modifiedDate,
+          nodeWasUpdated,
+          context,
+        },
+        null,
+        2
+      )}\n`
+    )
+  )
 
   return nodeWasUpdated
 }
@@ -131,10 +142,17 @@ export const setupPreviewRefresher = (helpers: GatsbyHelpers): void => {
   app.use(previewStatusEndpoint, express.json())
   app.post(previewStatusEndpoint, (req, res) => {
     const { nodeId, modified, ignoreNoIndicationOfSourcing } = req.body || {}
-    console.log(`asking for the preview status of Node ${nodeId}`)
+
+    helpers.reporter.log(
+      formatLogMessage(`asking for the preview status of Node ${nodeId}`)
+    )
 
     if (!inPreviewMode()) {
-      console.log(`not in preview mode`)
+      helpers.reporter.log(
+        formatLogMessage(
+          `Not in preview mode but ${previewStatusEndpoint} was requested.`
+        )
+      )
 
       // preview mode is enabled via the ENABLE_GATSBY_REFRESH_ENDPOINT env var
       // If it's not enabled, we let WP know so it can display an error message
@@ -155,6 +173,7 @@ export const setupPreviewRefresher = (helpers: GatsbyHelpers): void => {
           node: passedNode,
           modifiedDate: modified,
           context,
+          helpers,
         })
       ) {
         return false
@@ -163,7 +182,11 @@ export const setupPreviewRefresher = (helpers: GatsbyHelpers): void => {
       // if a page node exists and was updated now or before now
       // then we should respond
       if (pageNode && pageNode.updatedAt <= Date.now()) {
-        console.log(`sending back to ${passedNode.id} from ${context}`)
+        helpers.reporter.log(
+          formatLogMessage(
+            `Sending response to Preview status request for Node ${passedNode.id} from ${context}`
+          )
+        )
 
         res.json({ type: `PREVIEW_READY`, payload: { pageNode } })
 
@@ -173,12 +196,6 @@ export const setupPreviewRefresher = (helpers: GatsbyHelpers): void => {
           nodeId: passedNode.id,
         })
         return true
-      } else {
-        console.log(`not sending back to ${passedNode.id} from ${context}`)
-        console.log({
-          pageNode,
-          now: Date.now(),
-        })
       }
 
       return false
@@ -215,11 +232,13 @@ export const setupPreviewRefresher = (helpers: GatsbyHelpers): void => {
       const { lastAction } = helpers.store.getState()
 
       if (lastAction.type === `CLEAR_PENDING_PAGE_DATA_WRITES`) {
-        console.log(`returning no indication of sourcing`)
+        helpers.reporter.log(
+          formatLogMessage(`returning no indication of sourcing`)
+        )
         return res.json({ type: `NO_INDICATION_OF_SOURCING` })
       }
     } else {
-      console.log(`ignore no indication of sourcing`)
+      helpers.reporter.log(formatLogMessage(`ignore no indication of sourcing`))
     }
   })
 }
