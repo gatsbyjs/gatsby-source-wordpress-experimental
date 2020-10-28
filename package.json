@@ -23,10 +23,10 @@
     "test-schema-first": "START_SERVER=true jest ./test-site/__tests__/integration/schema",
     "test-schema-increment": "WPGQL_INCREMENT=true START_SERVER=true jest ./test-site/__tests__/integration/schema",
     "test-schema": "yarn clean-test-runtime && yarn test-schema-first && yarn test-schema-increment",
-    "test-build": "jest ./test-site/__tests__/integration/build",
+    "test-build": "DEFAULT_PLUGIN_OPTIONS=true jest ./test-site/__tests__/integration/build",
     "test": "yarn build && yarn test-schema && yarn test-build && yarn clean-test-runtime",
-    "test-schema-watch": "SHOW_GATSBY_PROCESS_STDOUT=true jest --watch ./test-site/__tests__/integration/schema",
-    "test-build-watch": "SHOW_GATSBY_PROCESS_STDOUT=true jest --watch ./test-site/__tests__/integration/build",
+    "test-schema-watch": "SHOW_GATSBY_PROCESS_STDOUT=true yarn test-schema-first --watch",
+    "test-build-watch": "SHOW_GATSBY_PROCESS_STDOUT=true yarn test-build --watch",
     "test-update": "yarn test-schema-first -u && yarn test-schema-increment -u && yarn test-build -u",
     "npm-publish": "yarn run lint && yarn test && cp README.md plugin/README.md cd plugin && npm publish"
   },
