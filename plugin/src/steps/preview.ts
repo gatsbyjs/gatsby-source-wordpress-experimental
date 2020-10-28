@@ -34,14 +34,8 @@ export const savePreviewNodeIdToPageDependency = (
 
   const { page, getNode } = helpers
 
-  const contextNode =
+  const nodeThatCreatedThisPage =
     page.context && page.context.id && getNode(page.context.id)
-
-  const nodeThatCreatedThisPage = contextNode
-
-  if (!contextNode) {
-    return
-  }
 
   if (nodeThatCreatedThisPage) {
     store.dispatch.previewStore.saveNodePageState({
