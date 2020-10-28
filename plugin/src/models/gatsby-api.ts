@@ -161,8 +161,8 @@ const defaultPluginOptions: IPluginOptions = {
         remoteNode,
         actionType,
         typeSettings,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         // @todo type this
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       }): Promise<any> => {
         // we fetch lazy nodes files in resolvers, no need to fetch them here.
         if (typeSettings.lazyNodes) {
