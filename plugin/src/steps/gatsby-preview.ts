@@ -1,5 +1,4 @@
 import express from "express"
-// import { IPluginOptions } from "~/models/gatsby-api"
 import store from "~/store"
 
 import type { GatsbyHelpers } from "~/utils/gatsby-types"
@@ -7,8 +6,16 @@ import type { GatsbyHelpers } from "~/utils/gatsby-types"
 export const inPreviewMode = (): boolean =>
   !!process.env.ENABLE_GATSBY_REFRESH_ENDPOINT
 
-// onCreatePage we want to figure out which node the page is dependant on
-// and then store that page in state
+/**
+ * onCreatePage we want to figure out which node the page is dependant on
+and then store that page in state so we can return info about the page to WordPress
+when the page is updated during Previews.
+We do that by finding the node id on pageContext.id
+Ideally we could detect this without the need for pageContext.id.
+There was an attempt to use store.componentDataDependencies but my implementation 
+was buggy and unreliable. @todo it's worth trying to remove the need for 
+pageContext.id again in the future.
+ */
 export const savePreviewNodeIdToPageDependency = (
   helpers: GatsbyHelpers
 ): void => {
@@ -28,58 +35,29 @@ export const savePreviewNodeIdToPageDependency = (
     return
   }
 
-  // // the following code could be used to remove the requirement that
-  // // node.id is passed to pageContext when creating pages.
-  // // Unfortunately it was really buggy in the current implementation
-  // // So folks can just add the id to pageContext and it will work
-  // // Leaving this in case someone comes here trying to remove the pageContext.id
-  // // requirement in the future
-  // //
-  // // we want to try to get the node by context id
-  // // because otherwise we need to look it up expensively in componentDataDependencies
-  // // by finding the map key (nodeId) where the map value is an array containing page.path 😱 not good
-  // if (!nodeThatCreatedThisPage) {
-  //   const state = gatsbyState.getState()
-
-  //   const getMapKeyByValue = (val) => {
-  //     /**
-  //      * this is expensive because we're looking up a map key (node id) by wether our value exists within it's value which is an array of page paths
-  //      */
-  //     const returnedEntries = [
-  //       ...state.componentDataDependencies.nodes,
-  //     ].find(([, value]) => [...value].includes(val))
-
-  //     if (returnedEntries && returnedEntries.length) {
-  //       return returnedEntries[0]
-  //     }
-
-  //     return null
-  //   }
-
-  //   const nodeId = getMapKeyByValue(page.path)
-
-  //   // console.log(`state node id ${nodeId}`)
-  //   nodeThatCreatedThisPage = getNode(nodeId)
-  // }
-
   if (nodeThatCreatedThisPage) {
     store.dispatch.previewStore.saveNodePageState({
       nodeId: nodeThatCreatedThisPage.id,
-      page,
+      page: {
+        path: page.path,
+        updatedAt: page.updatedAt,
+      },
     })
-    // console.log(`node created this page`)
-    // console.log(nodeThatCreatedThisPage)
-  } else {
-    // console.log(`no node that created this page`)
   }
 }
 
+/**
+ *
+ * onCreatePage we check if the node this page was created from
+ * has been updated and if it has a callback waiting for it
+ * if both of those things are true we invoke the callback to
+ * respond to the WP instance preview client
+ */
 export const onCreatePageRespondToPreviewStatusQuery = (
   helpers: GatsbyHelpers
 ): void => {
   // if we're not in preview mode we don't want to set this up
   if (!inPreviewMode()) {
-    console.log(`not in preview mode`)
     return
   }
 
@@ -122,16 +100,6 @@ export const onCreatePageRespondToPreviewStatusQuery = (
   }
 }
 
-export const setupPreviewRefresher = (
-  helpers: GatsbyHelpers
-  // pluginOptions: IPluginOptions
-): void => {
-  previewRefreshWebhook(
-    helpers
-    // pluginOptions
-  )
-}
-
 function wasNodeUpdated({
   node: possiblyUpdatedNode,
   modifiedDate,
@@ -155,32 +123,32 @@ function wasNodeUpdated({
   return nodeWasUpdated
 }
 
-const previewRefreshWebhook = (
-  helpers: GatsbyHelpers
-  // pluginOptions: IPluginOptions
-): void => {
+export const setupPreviewRefresher = (helpers: GatsbyHelpers): void => {
   const { app, getNode } = helpers
 
   const previewStatusEndpoint = `/__wpgatsby-preview-status`
 
   app.use(previewStatusEndpoint, express.json())
   app.post(previewStatusEndpoint, (req, res) => {
-    const { nodeId, modified } = req.body
-    console.log(`asking for ${nodeId} preview info`)
+    const { nodeId, modified, ignoreNoIndicationOfSourcing } = req.body || {}
+    console.log(`asking for the preview status of Node ${nodeId}`)
 
     if (!inPreviewMode()) {
       console.log(`not in preview mode`)
 
-      // preview mode is enabled via the refresh webhook.
-      // we should wait a bit and then check if it's become enabled.
-      // if it's still not enabled we should send an event back to the browser saying to press preview again.
-      res.json({ type: `wpNotInPreviewMode` })
+      // preview mode is enabled via the ENABLE_GATSBY_REFRESH_ENDPOINT env var
+      // If it's not enabled, we let WP know so it can display an error message
+      res.json({ type: `NOT_IN_PREVIEW_MODE` })
 
       return
     }
 
     const existingNode = getNode(nodeId)
 
+    /**
+     * This callback is invoked to respond to the WP preview client
+     * and report back on the status of the page being previewed
+     */
     function onPageCreatedCallback({ passedNode, pageNode, context }): boolean {
       if (
         !wasNodeUpdated({
@@ -189,18 +157,15 @@ const previewRefreshWebhook = (
           context,
         })
       ) {
-        console.log(
-          `node was not updated yet but onPageCreatedCallback was called from "${context}"`
-        )
         return false
       }
 
+      // if a page node exists and was updated now or before now
+      // then we should respond
       if (pageNode && pageNode.updatedAt <= Date.now()) {
-        // this node was already updated, no need to subcribe
-        // just send the node back
         console.log(`sending back to ${passedNode.id} from ${context}`)
 
-        res.json({ type: `wpPreviewReady`, payload: { passedNode, pageNode } })
+        res.json({ type: `PREVIEW_READY`, payload: { pageNode } })
 
         // we can remove our subscriber when we emit previewReady because
         // WP only allows 1 user to edit/preview any post or page at a time
@@ -209,10 +174,14 @@ const previewRefreshWebhook = (
         })
         return true
       } else {
-        console.log(`node was updated but no pageNode?`)
-        console.log({ pageNode })
-        return false
+        console.log(`not sending back to ${passedNode.id} from ${context}`)
+        console.log({
+          pageNode,
+          now: Date.now(),
+        })
       }
+
+      return false
     }
 
     const nodePagesCreatedByNodeIds = store.getState().previewStore
@@ -231,25 +200,9 @@ const previewRefreshWebhook = (
       })
 
       if (wasPreviewLoaded) {
-        console.log(`existing node preview was loaded`)
         return
-      } else {
-        console.log(`existing node preview was not loaded`)
       }
     }
-
-    if (!page) {
-      console.log(`no existing page for ${nodeId}`)
-    } else {
-      console.log(`node page exists`)
-    }
-    if (!existingNode) {
-      console.log(`no existing node for ${nodeId}`)
-    } else {
-      console.log(`node exists`)
-    }
-
-    console.log(`setting up subscriber`)
 
     // if this node & page haven't been updated yet, set up a subscriber callback
     store.dispatch.previewStore.subscribeToPagesCreatedFromNodeById({
@@ -257,5 +210,16 @@ const previewRefreshWebhook = (
       onPageCreatedCallback,
       modified,
     })
+
+    if (!ignoreNoIndicationOfSourcing) {
+      const { lastAction } = helpers.store.getState()
+
+      if (lastAction.type === `CLEAR_PENDING_PAGE_DATA_WRITES`) {
+        console.log(`returning no indication of sourcing`)
+        return res.json({ type: `NO_INDICATION_OF_SOURCING` })
+      }
+    } else {
+      console.log(`ignore no indication of sourcing`)
+    }
   })
 }
