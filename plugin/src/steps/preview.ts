@@ -110,7 +110,7 @@ function wasNodeUpdated({
 }): boolean {
   const nodeWasUpdated = !!(
     possiblyUpdatedNode &&
-    // if the modifiedDate is after or equal to the modified date of the node
+    // if the modifiedDate is equal to the modified date of the node
     // then the node was updated already
     new Date(possiblyUpdatedNode.modified).getTime() ===
       new Date(modifiedDate).getTime()
