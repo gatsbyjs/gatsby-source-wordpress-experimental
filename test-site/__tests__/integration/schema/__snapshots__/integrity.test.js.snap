@@ -223,7 +223,6 @@ Array [
       "authorIp",
       "commentedOn",
       "content",
-      "databaseId",
       "date",
       "dateGmt",
       "id",
@@ -327,7 +326,6 @@ Array [
   Object {
     "fields": Array [
       "databaseId",
-      "email",
       "id",
       "name",
       "url",
@@ -355,7 +353,6 @@ Array [
       "date",
       "dateGmt",
       "desiredSlug",
-      "enclosure",
       "guid",
       "id",
       "lastEditedBy",
@@ -557,12 +554,6 @@ Array [
   },
   Object {
     "fields": Array [
-      "databaseId",
-    ],
-    "name": "WpDatabaseIdentifier",
-  },
-  Object {
-    "fields": Array [
       "templateFile",
       "templateName",
     ],
@@ -701,7 +692,6 @@ Array [
       "authorId",
       "caption",
       "wpChildren",
-      "commentCount",
       "commentStatus",
       "comments",
       "contentType",
@@ -1064,7 +1054,6 @@ Array [
   },
   Object {
     "fields": Array [
-      "commentCount",
       "commentStatus",
     ],
     "name": "WpNodeWithComments",
@@ -1139,7 +1128,6 @@ Array [
       "authorDatabaseId",
       "authorId",
       "wpChildren",
-      "commentCount",
       "commentStatus",
       "comments",
       "content",
@@ -1148,7 +1136,6 @@ Array [
       "date",
       "dateGmt",
       "desiredSlug",
-      "enclosure",
       "featuredImage",
       "featuredImageDatabaseId",
       "featuredImageId",
@@ -1355,7 +1342,6 @@ Array [
       "authorDatabaseId",
       "authorId",
       "categories",
-      "commentCount",
       "commentStatus",
       "comments",
       "content",
@@ -1989,7 +1975,6 @@ Array [
       "authorDatabaseId",
       "authorId",
       "categories",
-      "commentCount",
       "commentStatus",
       "comments",
       "content",
@@ -2487,13 +2472,10 @@ Array [
   Object {
     "fields": Array [
       "avatar",
-      "capKey",
       "capabilities",
       "comments",
       "databaseId",
       "description",
-      "email",
-      "extraCapabilities",
       "firstName",
       "id",
       "lastName",
@@ -2504,7 +2486,6 @@ Array [
       "pages",
       "posts",
       "projects",
-      "registeredDate",
       "roles",
       "slug",
       "teamMembers",
