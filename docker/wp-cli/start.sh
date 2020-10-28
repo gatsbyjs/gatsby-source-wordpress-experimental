@@ -1,9 +1,6 @@
 #!/bin/bash
 set -e
 
-echo "heyyyy"
-
-echo "heyyyy"
 wp core install \
     --path="/var/www/html" \
     --url="http://localhost:8001" \
