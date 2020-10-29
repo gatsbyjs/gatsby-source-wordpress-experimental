@@ -1,6 +1,6 @@
 module.exports = {
   transform: {
-    "^.+\\.jsx?$": `<rootDir>/jest-preprocess.js`,
+    "^.+\\.[jt]sx?$": `<rootDir>/jest-preprocess.js`,
   },
   // moduleNameMapper: {
   //   ".+\\.(css|styl|less|sass|scss)$": `identity-obj-proxy`,
@@ -16,4 +16,6 @@ module.exports = {
   globalSetup: `./test-site/test-utils/global-setup-jest.js`,
   globalTeardown: `./test-site/test-utils/global-teardown-jest.js`,
   setupFilesAfterEnv: [`./test-site/test-utils/jest.setup.js`],
+  collectCoverageFrom: [`plugin/src/**/*`],
+  moduleFileExtensions: [`js`, `jsx`, `ts`, `tsx`, `json`],
 }
