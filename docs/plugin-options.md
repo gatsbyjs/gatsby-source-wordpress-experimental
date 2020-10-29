@@ -46,7 +46,7 @@ This should be the full url of your GraphQL endpoint.
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
-	options: {
+  options: {
     url: `https://yoursite.com/graphql`
   },
 },
@@ -59,8 +59,8 @@ Wether there will be verbose output in the terminal. Set to `false` to turn off.
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
-	options: {
-		verbose: true,
+  options: {
+    verbose: true,
   },
 },
 ```
@@ -72,8 +72,8 @@ An object which contains options related to debugging. See below for options.
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
-	options: {
-  	debug: {
+  options: {
+    debug: {
 
     },
   },
@@ -87,8 +87,8 @@ An object which contains GraphQL debugging options. See below for options.
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
-	options: {
-		debug: {
+  options: {
+    debug: {
       graphql: {
 
       },
@@ -104,10 +104,10 @@ When a GraphQL error is returned and the process exits, this plugin option deter
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
-	options: {
-		debug: {
+  options: {
+    debug: {
       graphql: {
-      	showQueryVarsOnError: true,
+        showQueryVarsOnError: true,
       },
     },
   },
@@ -123,10 +123,10 @@ Default is false because sometimes non-critical errors are returned alongside va
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
-	options: {
-		debug: {
+  options: {
+    debug: {
       graphql: {
-      	panicOnError: false,
+        panicOnError: false,
       },
     },
   },
@@ -140,10 +140,10 @@ Determines wether or not to log non-critical errors. A non-critical error is any
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
-	options: {
-		debug: {
+  options: {
+    debug: {
       graphql: {
-      	onlyReportCriticalErrors: true,
+        onlyReportCriticalErrors: true,
       },
     },
   },
@@ -157,10 +157,10 @@ When true, all internal GraphQL queries generated during node sourcing will be w
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
-	options: {
-		debug: {
+  options: {
+    debug: {
       graphql: {
-      	writeQueriesToDisk: true,
+        writeQueriesToDisk: true,
       },
     },
   },
@@ -174,8 +174,8 @@ Options related to the `gatsby develop` process.
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
-	options: {
-		develop: {
+  options: {
+    develop: {
       // options related to `gatsby develop`
     },
   },
@@ -191,8 +191,8 @@ Default is `300`.
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
-	options: {
-		develop: {
+  options: {
+    develop: {
       nodeUpdateInterval: 300
     },
   },
@@ -209,8 +209,8 @@ Default is false.
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
-	options: {
-		develop: {
+  options: {
+    develop: {
       hardCacheMediaFiles: true,
     },
   },
@@ -228,8 +228,8 @@ Default is false.
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
-	options: {
-		develop: {
+  options: {
+    develop: {
       hardCacheData: false,
     },
   },
@@ -243,8 +243,8 @@ Options related to authentication. See below for options.
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
-	options: {
-		auth: {
+  options: {
+    auth: {
 
     },
   },
@@ -258,8 +258,8 @@ Options related to htaccess authentication. See below for options.
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
-	options: {
-		auth: {
+  options: {
+    auth: {
       htaccess: {
 
       },
@@ -277,8 +277,8 @@ Default is `null`
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
-	options: {
-		auth: {
+  options: {
+    auth: {
       htaccess: {
         username: `admin`,
       },
@@ -296,8 +296,8 @@ Default is `null`
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
-	options: {
-		auth: {
+  options: {
+    auth: {
       htaccess: {
         password: `1234strong_password`,
       },
@@ -313,8 +313,8 @@ Options related to fetching and ingesting the remote schema. See below for optio
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
-	options: {
-		schema: {
+  options: {
+    schema: {
 
     },
   },
@@ -330,8 +330,8 @@ Default is `Wp` .
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
-	options: {
-		schema: {
+  options: {
+    schema: {
       typePrefix: `Wp`,
     },
   },
@@ -347,8 +347,8 @@ Default is `30 * 1000 // 30 seconds`
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
-	options: {
-		schema: {
+  options: {
+    schema: {
       timeout: 30000,
     },
   },
@@ -364,8 +364,8 @@ Default is `100`.
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
-	options: {
-		schema: {
+  options: {
+    schema: {
       perPage: 100,
     },
   },
@@ -381,8 +381,8 @@ Default is `[]`.
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
-	options: {
-		excludeFieldNames: [`viewer`],
+  options: {
+    excludeFieldNames: [`viewer`],
   },
 },
 ```
@@ -394,8 +394,8 @@ Options related to html field processing. See below for options.
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
-	options: {
-		html: {
+  options: {
+    html: {
 
     },
   },
@@ -411,8 +411,8 @@ Default is `true`.
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
-	options: {
-		html: {
+  options: {
+    html: {
       useGatsbyImage: true,
     },
   },
@@ -430,8 +430,8 @@ Default is `null`.
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
-	options: {
-		html: {
+  options: {
+    html: {
       imageMaxWidth: 1024,
     },
   },
@@ -449,8 +449,8 @@ Default is `100`. @todo this is too low..
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
-	options: {
-		html: {
+  options: {
+    html: {
       fallbackImageMaxWidth: 800,
     },
   },
@@ -466,8 +466,8 @@ Default is `90`.
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
-	options: {
-		html: {
+  options: {
+    html: {
       imageQuality: 90,
     },
   },
@@ -483,8 +483,8 @@ Default is `true`.
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
-	options: {
-		html: {
+  options: {
+    html: {
       createStaticFiles: true,
     },
   },
@@ -498,8 +498,8 @@ Options related to specific types in the remote schema. See below for options.
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
-	options: {
-		type: {
+  options: {
+    type: {
 
     },
   },
@@ -515,8 +515,8 @@ Default is `undefined`.
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
-	options: {
-		type: {
+  options: {
+    type: {
       Page: {
         exclude: true,
       },
@@ -532,8 +532,8 @@ Excludes fields on a type by field name. Default is `undefined`.
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
-	options: {
-		type: {
+  options: {
+    type: {
       Page: {
         excludeFieldNames: [`dateGmt`, `parent`],
       },
@@ -551,8 +551,8 @@ Default is `undefined`.
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
-	options: {
-		type: {
+  options: {
+    type: {
       __all: {
         limit: 10,
       },
@@ -570,8 +570,8 @@ Default is `{ excludeFieldNames: ['viewer', 'node', 'schemaMd5'], },`
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
-	options: {
-		type: {
+  options: {
+    type: {
       RootQuery: {
         excludeFieldNames: [`viewer`]
       },
@@ -589,8 +589,8 @@ Default is `false`.
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
-	options: {
-		type: {
+  options: {
+    type: {
       MediaItem: {
         lazyNodes: true,
       },
@@ -608,8 +608,8 @@ Default is `[]`.
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
-	options: {
-		type: {
+  options: {
+    type: {
       MediaItem: {
         localFile: {
           excludeByMimeTypes: [`video/mp4`]
