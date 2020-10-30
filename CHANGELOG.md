@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.0.2
+
+- Fixes a case where an error object was being treated as a string. Thanks @rgburst!
+
 ## 2.0.1
 
 - Added missing README.md from the last publish!
