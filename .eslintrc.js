@@ -7,6 +7,7 @@ module.exports = {
     "eslint:recommended",
     "plugin:flowtype/recommended",
     "plugin:react/recommended",
+    "plugin:prettier/recommended",
     "prettier",
     "prettier/flowtype",
     "prettier/react",

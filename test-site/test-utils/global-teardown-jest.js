@@ -7,10 +7,16 @@ module.exports = async function globalTeardown() {
     return
   }
 
-  const gatsbyProcess = global.__GATSBY_PROCESS
-
-  kill(gatsbyProcess.pid)
-  console.log(`\nkilled Gatsby`)
+  const p = global.__GATSBY_PROCESS
+  kill(p.pid, `SIGTERM`, (err) => {
+    if (err) {
+      throw err
+    } else {
+      console.log(
+        `\nSuccessfuly terminated the the gatsby process tree for pid ${p.pid}`
+      )
+    }
+  })
 
   if (process.env.WPGQL_INCREMENT) {
     await resetSchema()
