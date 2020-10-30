@@ -51,7 +51,7 @@
     "babel-plugin-import-globals": "^2.0.0",
     "babel-plugin-root-import": "^6.4.1",
     "babel-preset-gatsby": "^0.2.29",
-    "babel-preset-gatsby-package": "^0.2.9",
+    "babel-preset-gatsby-package": "^0.5.3",
     "cross-env": "^5.2.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^25.1.0",
