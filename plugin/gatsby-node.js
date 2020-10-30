@@ -8,8 +8,10 @@ module.exports = runApisInSteps({
     steps.setGatsbyApiToState,
     steps.ensurePluginRequirementsAreMet,
     steps.ingestRemoteSchema,
-    steps.createSchemaCustomization,
+    [steps.createSchemaCustomization, steps.addPreviewStatusField],
   ],
+
+  createResolvers: [steps.addPreviewStatusResolver],
 
   sourceNodes: [
     steps.setGatsbyApiToState,
@@ -25,7 +27,6 @@ module.exports = runApisInSteps({
   ],
 
   onCreateDevServer: [
-    steps.setupPreviewRefresher,
     steps.setImageNodeIdCache,
     steps.startPollingForContentUpdates,
   ],

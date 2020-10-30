@@ -51,6 +51,7 @@ export const fetchAndCreateSingleNode = async ({
   isNewPostDraft,
   isDraft,
   previewId = null,
+  previewParentId = null,
   token = null,
 }) => {
   const { nodeQuery, previewQuery } =
@@ -125,6 +126,11 @@ export const fetchAndCreateSingleNode = async ({
     id,
   })
 
+  if (previewParentId) {
+    dump(`found previewParentId ${previewParentId}`)
+    remoteNode.databaseId = previewParentId
+  }
+
   data[singleName] = remoteNode
 
   // returns an object
@@ -140,7 +146,7 @@ export const fetchAndCreateSingleNode = async ({
     reporter.log(``)
     reporter.info(
       formatLogMessage(
-        `Preview for ${singleName}/${node.id} ${previewId} was updated.`
+        `Preview for ${singleName} ${node.id} ${previewId} was updated.`
       )
     )
     reporter.log(``)

@@ -1,6 +1,7 @@
 import express from "express"
-import * as chalk from "chalk"
-import * as urlUtil from "url"
+import chalk from "chalk"
+import urlUtil from "url"
+import fetchGraphql from "~/utils/fetch-graphql"
 
 import store from "~/store"
 
@@ -134,113 +135,167 @@ function wasNodeUpdated({
   return nodeWasUpdated
 }
 
-export const setupPreviewRefresher = (helpers: GatsbyHelpers): void => {
-  const { app, getNode } = helpers
+export const addPreviewStatusResolver = (helpers: GatsbyHelpers): void => {
+  return
 
-  const previewStatusEndpoint = `/__wpgatsby-preview-status`
+  const { createResolvers, getNode } = helpers
 
-  app.use(previewStatusEndpoint, express.json())
-  app.post(previewStatusEndpoint, (req, res) => {
-    const { nodeId, modified, ignoreNoIndicationOfSourcing } = req.body || {}
+  createResolvers({
+    Query: {
+      wpPreviewStatus: {
+        type: `WpPreviewStatus`,
+        args: {
+          nodeId: `String!`,
+          modified: `String!`,
+        },
+        resolve(source, args, context, info) {
+          let previewStatusResolve
 
-    helpers.reporter.log(
-      formatLogMessage(`asking for the preview status of Node ${nodeId}`)
-    )
+          const previewStatusPromise = new Promise((resolve) => {
+            previewStatusResolve = resolve
+          })
 
-    if (!inPreviewMode()) {
-      helpers.reporter.log(
-        formatLogMessage(
-          `Not in preview mode but ${previewStatusEndpoint} was requested.`
-        )
-      )
+          const {
+            nodeId,
+            modified,
+            // ignoreNoIndicationOfSourcing
+          } = args
 
-      // preview mode is enabled via the ENABLE_GATSBY_REFRESH_ENDPOINT env var
-      // If it's not enabled, we let WP know so it can display an error message
-      res.json({ type: `NOT_IN_PREVIEW_MODE` })
-
-      return
-    }
-
-    const existingNode = getNode(nodeId)
-
-    /**
-     * This callback is invoked to respond to the WP preview client
-     * and report back on the status of the page being previewed
-     */
-    function onPageCreatedCallback({ passedNode, pageNode, context }): boolean {
-      if (
-        !wasNodeUpdated({
-          node: passedNode,
-          modifiedDate: modified,
-          context,
-          helpers,
-        })
-      ) {
-        return false
-      }
-
-      // if a page node exists and was updated now or before now
-      // then we should respond
-      if (pageNode && pageNode.updatedAt <= Date.now()) {
-        helpers.reporter.log(
-          formatLogMessage(
-            `Sending response to Preview status request for Node ${passedNode.id} from ${context}`
+          helpers.reporter.log(
+            formatLogMessage(`asking for the preview status of Node ${nodeId}`)
           )
-        )
 
-        res.json({ type: `PREVIEW_READY`, payload: { pageNode } })
+          if (!inPreviewMode()) {
+            helpers.reporter.log(
+              formatLogMessage(
+                `Not in preview mode but wpPreviewStatus was queried.`
+              )
+            )
 
-        // we can remove our subscriber when we emit previewReady because
-        // WP only allows 1 user to edit/preview any post or page at a time
-        store.dispatch.previewStore.unSubscribeToPagesCreatedFromNodeById({
-          nodeId: passedNode.id,
-        })
-        return true
-      }
+            // preview mode is enabled via the ENABLE_GATSBY_REFRESH_ENDPOINT env var
+            // If it's not enabled, we let WP know so it can display an error message
+            previewStatusResolve({ statusType: `NOT_IN_PREVIEW_MODE` })
 
-      return false
-    }
+            return previewStatusPromise
+          }
 
-    const nodePagesCreatedByNodeIds = store.getState().previewStore
-      .nodeIdsToCreatedPages
+          const existingNode = getNode(nodeId)
 
-    const thisNodePage = nodePagesCreatedByNodeIds?.[nodeId]
+          /**
+           * This callback is invoked to respond to the WP preview client
+           * and report back on the status of the page being previewed
+           */
+          function onPageCreatedCallback({
+            passedNode,
+            pageNode,
+            context,
+          }): boolean {
+            if (
+              !wasNodeUpdated({
+                node: passedNode,
+                modifiedDate: modified,
+                context,
+                helpers,
+              })
+            ) {
+              return false
+            }
 
-    const { page } = thisNodePage ?? {}
+            // if a page node exists and was updated now or before now
+            // then we should respond
+            if (pageNode && pageNode.updatedAt <= Date.now()) {
+              helpers.reporter.log(
+                formatLogMessage(
+                  `Sending response to Preview status query for Node ${passedNode.id} from ${context}`
+                )
+              )
 
-    if (existingNode && page) {
-      // call the callback immediately. It's internal checks will determine wether it's the right time or not.
-      const wasPreviewLoaded = onPageCreatedCallback({
-        passedNode: existingNode,
-        pageNode: page,
-        context: `existing node callback`,
-      })
+              previewStatusResolve({
+                statusType: `PREVIEW_READY`,
+                pageNode,
+              })
 
-      if (wasPreviewLoaded) {
-        return
-      }
-    }
+              // we can remove our subscriber when we emit previewReady because
+              // WP only allows 1 user to edit/preview any post or page at a time
+              store.dispatch.previewStore.unSubscribeToPagesCreatedFromNodeById(
+                {
+                  nodeId: passedNode.id,
+                }
+              )
+              return true
+            }
 
-    // if this node & page haven't been updated yet, set up a subscriber callback
-    store.dispatch.previewStore.subscribeToPagesCreatedFromNodeById({
-      nodeId,
-      onPageCreatedCallback,
-      modified,
-    })
+            return false
+          }
 
-    if (!ignoreNoIndicationOfSourcing) {
-      const { lastAction } = helpers.store.getState()
+          const nodePagesCreatedByNodeIds = store.getState().previewStore
+            .nodeIdsToCreatedPages
 
-      if (lastAction.type === `CLEAR_PENDING_PAGE_DATA_WRITES`) {
-        helpers.reporter.log(
-          formatLogMessage(`returning no indication of sourcing`)
-        )
-        return res.json({ type: `NO_INDICATION_OF_SOURCING` })
-      }
-    } else {
-      helpers.reporter.log(formatLogMessage(`ignore no indication of sourcing`))
-    }
+          const thisNodePage = nodePagesCreatedByNodeIds?.[nodeId]
+
+          const { page } = thisNodePage ?? {}
+
+          if (existingNode && page) {
+            // call the callback immediately. It's internal checks will determine wether it's the right time or not.
+            const wasPreviewLoaded = onPageCreatedCallback({
+              passedNode: existingNode,
+              pageNode: page,
+              context: `existing node callback`,
+            })
+
+            if (wasPreviewLoaded) {
+              return previewStatusPromise
+            }
+          }
+
+          // if this node & page haven't been updated yet, set up a subscriber callback
+          store.dispatch.previewStore.subscribeToPagesCreatedFromNodeById({
+            nodeId,
+            onPageCreatedCallback,
+            modified,
+          })
+
+          // if (!ignoreNoIndicationOfSourcing) {
+          //   const { lastAction } = helpers.store.getState()
+
+          //   if (lastAction.type === `CLEAR_PENDING_PAGE_DATA_WRITES`) {
+          //     helpers.reporter.log(
+          //       formatLogMessage(`returning no indication of sourcing`)
+          //     )
+          //     return res.json({ statusType: `NO_INDICATION_OF_SOURCING` })
+          //   }
+          // } else {
+          //   helpers.reporter.log(formatLogMessage(`ignore no indication of sourcing`))
+          // }
+
+          return previewStatusPromise
+        },
+      },
+    },
   })
+}
+
+export const addPreviewStatusField = (helpers: GatsbyHelpers): void => {
+  const { actions } = helpers
+
+  actions.createTypes([
+    /* GraphQL */ `
+      enum WpPreviewStatusTypeEnum {
+        PREVIEW_READY
+        NOT_IN_PREVIEW_MODE
+        NO_INDICATION_OF_SOURCING
+      }
+
+      type WpPreviewStatusPageNode {
+        path: String
+      }
+
+      type WpPreviewStatus {
+        statusType: WpPreviewStatusTypeEnum
+        pageNode: WpPreviewStatusPageNode
+      }
+    `,
+  ])
 }
 
 export const sourcePreviews = async (
@@ -253,6 +308,9 @@ export const sourcePreviews = async (
       previewId: string
       token: string
       remoteUrl: string
+      modified: string
+      parentId: string
+      id: string
     }
     // this comes from Gatsby
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -264,8 +322,11 @@ export const sourcePreviews = async (
     !webhookBody ||
     !webhookBody.preview ||
     !webhookBody.previewId ||
+    !webhookBody.id ||
     !webhookBody.token ||
-    !webhookBody.remoteUrl
+    !webhookBody.remoteUrl ||
+    !webhookBody.parentId ||
+    !webhookBody.modified
   ) {
     reporter.warn(
       formatLogMessage(
@@ -292,8 +353,60 @@ export const sourcePreviews = async (
     )
   }
 
+  store.dispatch.previewStore.subscribeToPagesCreatedFromNodeById({
+    nodeId: webhookBody.id,
+    modified: webhookBody.modified,
+    onPageCreatedCallback: async ({ passedNode, pageNode, context }) => {
+      // mutate WP post to add Gatsby page path
+
+      const { data } = await fetchGraphql({
+        query: /* GraphQL */ `
+          mutation MUTATE_PREVIEW_NODE(
+            $modified: String!
+            $pagePath: String!
+            $parentId: Float!
+          ) {
+            wpGatsbyRevisionStatus(
+              input: {
+                clientMutationId: $modified
+                modified: $modified
+                pagePath: $pagePath
+                parentId: $parentId
+              }
+            ) {
+              success
+            }
+          }
+        `,
+        variables: {
+          modified: passedNode.modified,
+          pagePath: pageNode.path,
+          parentId: passedNode.databaseId,
+        },
+        errorContext: `Error occured while mutating WordPress Preview node meta.`,
+      })
+
+      dump(passedNode.databaseId)
+
+      if (data.wpGatsbyRevisionStatus.success) {
+        reporter.log(
+          formatLogMessage(
+            `Successfully mutated WordPress post during preview onCreatePage`
+          )
+        )
+      } else {
+        reporter.log(
+          formatLogMessage(
+            `failed to mutate WordPress post during preview onCreatePage.\nCheck your WP server logs for more information.`
+          )
+        )
+      }
+    },
+  })
+
   await fetchAndCreateSingleNode({
     actionType: `PREVIEW`,
     ...webhookBody,
+    previewParentId: webhookBody.parentId,
   })
 }

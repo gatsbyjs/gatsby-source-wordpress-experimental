@@ -10,7 +10,8 @@ export { checkIfSchemaHasChanged } from "~/steps/ingest-remote-schema/diff-schem
 export { setErrorMap } from "~/steps/set-error-map"
 
 export {
-  setupPreviewRefresher,
+  addPreviewStatusField,
+  addPreviewStatusResolver,
   onCreatePageRespondToPreviewStatusQuery,
   savePreviewNodeIdToPageDependency,
 } from "~/steps/preview"
