@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.0.3
+
+- While moving our repo into a monorepo to support CI tests, an index.js was misplaced, causing workspace installations of this plugin to fail.
+
 ## 2.0.2
 
 - Fixes a case where an error object was being treated as a string. Thanks @rgburst!
