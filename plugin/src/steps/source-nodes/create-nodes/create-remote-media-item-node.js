@@ -41,11 +41,12 @@ export const errorPanicker = ({
   }\n\nMedia item link: ${node.link}\nEdit link: ${editUrl}\nFile url: ${
     node.mediaItemUrl
   }`
-  const errorStr = typeof error === `string` ? error : error && error.toString()
+  const errorString =
+    typeof error === `string` ? error : error && error.toString()
 
   if (
     process.env.NODE_ENV !== `production` &&
-    errorStr.includes(`Response code 404`)
+    errorString.includes(`Response code 404`)
   ) {
     fetchState.shouldBail = true
     reporter.log(``)
@@ -59,12 +60,12 @@ export const errorPanicker = ({
   }
 
   if (
-    errorStr.includes(`Response code 4`) ||
-    errorStr.includes(`Response code 500`) ||
-    errorStr.includes(`Response code 511`) ||
-    errorStr.includes(`Response code 508`) ||
-    errorStr.includes(`Response code 505`) ||
-    errorStr.includes(`Response code 501`)
+    errorString.includes(`Response code 4`) ||
+    errorString.includes(`Response code 500`) ||
+    errorString.includes(`Response code 511`) ||
+    errorString.includes(`Response code 508`) ||
+    errorString.includes(`Response code 505`) ||
+    errorString.includes(`Response code 501`)
   ) {
     reporter.log(``)
     reporter.info(
