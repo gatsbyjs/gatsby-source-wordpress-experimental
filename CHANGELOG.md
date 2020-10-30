@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.0.4
+
+- `pluginOptions.schema.perPage` was not being passed through when fetching referenced media items in html.
+
 ## 2.0.3
 
 - While moving our repo into a monorepo to support CI tests, an index.js was misplaced, causing workspace installations of this plugin to fail.
