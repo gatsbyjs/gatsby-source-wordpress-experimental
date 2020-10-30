@@ -55,9 +55,9 @@ export const savePreviewNodeIdToPageDependency = (
  * if both of those things are true we invoke the callback to
  * respond to the WP instance preview client
  */
-export const onCreatePageRespondToPreviewStatusQuery = (
+export const onCreatePageRespondToPreviewStatusQuery = async (
   helpers: GatsbyHelpers
-): void => {
+): Promise<void> => {
   // if we're not in preview mode we don't want to set this up
   if (!inPreviewMode()) {
     return
@@ -106,10 +106,14 @@ export const onCreatePageRespondToPreviewStatusQuery = (
     return
   }
 
-  nodePageCreatedCallback({
+  await nodePageCreatedCallback({
     passedNode: nodeThatCreatedThisPage,
     pageNode: page,
     context: `onCreatePage`,
+  })
+
+  store.dispatch.previewStore.unSubscribeToPagesCreatedFromNodeById({
+    nodeId: nodeIdThatCreatedThisPage,
   })
 }
 
