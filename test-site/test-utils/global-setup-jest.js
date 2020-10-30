@@ -39,6 +39,7 @@ module.exports = async function globalSetup() {
   console.log(`\nstarting Gatsby`)
 
   const gatsbyProcess = spawn(`yarn`, [`develop-test-runtime`], {
+    detached: true,
     env: {
       ...process.env,
       NODE_ENV: `development`,

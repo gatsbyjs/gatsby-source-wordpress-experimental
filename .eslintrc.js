@@ -6,6 +6,7 @@ module.exports = {
     "google",
     "eslint:recommended",
     "plugin:react/recommended",
+    "plugin:prettier/recommended",
     "prettier",
     "prettier/react",
   ],
