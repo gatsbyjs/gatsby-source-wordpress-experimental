@@ -16,12 +16,6 @@ services:
   wordpress:
     depends_on:
       - db
-    # image: duffn/wordpress-wpgraphql-wpgatsby:latest
-    # While pulling the image will be faster, if you like, you can build the
-    # image locally, but uncommenting the lines below and commenting out the
-    # `image` line above.
-    # The image above will be kept up-to-date, however, you can change WPGraphQL
-    # and WPGatsby versions below if you build yourself.
     build:
       context: ./docker/wordpress
       args:
@@ -32,7 +26,6 @@ services:
         WPGRAPHQL_ACF_VERSION: v0.3.1
         WPGRAPHQL_CPT_UI_VERSION: v1.1
         ACF_VERSION: 5.8.7
-    image: ghcr.io/acao/wpgraphql-testing-wp:latest
     ports:
       - "8001:8001"
     environment:
@@ -54,13 +47,8 @@ services:
       CPT_UI_VERSION: 1.8.1
     env_file:
       - ./test-site/.env.test
-    # image: duffn/wp-cli-gatsby:latest
-    # While pulling the image will be faster, if you like, you can build the
-    # image locally, but uncommenting the lines below and commenting out the
-    # `image` line above.
     build:
       context: ./docker/wp-cli
-    # image: ghcr.io/acao/wpgraphql-testing-wp-cli:latest
     volumes:
       - wp_data:/var/www/html
 

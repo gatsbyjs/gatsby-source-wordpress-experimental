@@ -612,6 +612,7 @@ export const queries = {
               name
             }
           }
+          # TODO: re-enable translations tests once a test plugin support it
           # translations {
           #   title
           # }

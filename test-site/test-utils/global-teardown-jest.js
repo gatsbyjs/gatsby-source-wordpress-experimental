@@ -12,11 +12,11 @@ module.exports = async function globalTeardown() {
     if (err) {
       throw err
     } else {
-      console.log(`\nSuccessfuly terminated the process tree for pid ${p.pid}`)
+      console.log(
+        `\nSuccessfuly terminated the the gatsby process tree for pid ${p.pid}`
+      )
     }
   })
-
-  console.log(`\nkilled Gatsby`)
 
   if (process.env.WPGQL_INCREMENT) {
     await resetSchema()
