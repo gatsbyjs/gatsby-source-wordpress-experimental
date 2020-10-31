@@ -53,6 +53,7 @@ export const fetchAndCreateSingleNode = async ({
   previewId = null,
   previewParentId = null,
   token = null,
+  isPreview = false,
 }) => {
   const { nodeQuery, previewQuery } =
     getQueryInfoBySingleFieldName(singleName) || {}
@@ -61,7 +62,7 @@ export const fetchAndCreateSingleNode = async ({
   // if it's a preview but it's the initial blank node
   // then use the regular node query as the preview query wont
   // return anything
-  const query = previewId ? previewQuery : nodeQuery
+  const query = isPreview && !isDraft ? previewQuery : nodeQuery
 
   const {
     helpers: { reporter },
@@ -127,7 +128,6 @@ export const fetchAndCreateSingleNode = async ({
   })
 
   if (previewParentId) {
-    dump(`found previewParentId ${previewParentId}`)
     remoteNode.databaseId = previewParentId
   }
 
