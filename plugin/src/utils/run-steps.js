@@ -47,10 +47,8 @@ const runSteps = async (steps, helpers, pluginOptions, apiName) => {
 const runApiSteps = (steps, apiName) => async (helpers, pluginOptions) =>
   runSteps(steps, helpers, pluginOptions, apiName)
 
-const runApisInSteps = (nodeApis) => {
-  global.isWpSourcePluginInstalled = true
-
-  return Object.entries(nodeApis).reduce(
+const runApisInSteps = (nodeApis) =>
+  Object.entries(nodeApis).reduce(
     (gatsbyNodeExportObject, [apiName, apiSteps]) => {
       return {
         ...gatsbyNodeExportObject,
@@ -59,6 +57,5 @@ const runApisInSteps = (nodeApis) => {
     },
     {}
   )
-}
 
 export { runSteps, runApisInSteps }
