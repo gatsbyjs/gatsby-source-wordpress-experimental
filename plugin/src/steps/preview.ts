@@ -137,19 +137,34 @@ export const sourcePreviews = async (
   },
   { url }: IPluginOptions
 ): Promise<void> => {
-  if (
-    !webhookBody ||
-    !webhookBody.preview ||
-    !webhookBody.previewId ||
-    !webhookBody.id ||
-    !webhookBody.token ||
-    !webhookBody.remoteUrl ||
-    !webhookBody.parentId ||
-    !webhookBody.modified
-  ) {
+  const requiredProperties = [
+    `preview`,
+    `previewId`,
+    `id`,
+    `token`,
+    `remoteUrl`,
+    `parentId`,
+    `modified`,
+  ]
+
+  const missingProperties = requiredProperties.filter(
+    (property) => !(property in webhookBody)
+  )
+
+  if (!webhookBody || missingProperties.length) {
     reporter.warn(
       formatLogMessage(
         `sourcePreviews was called but the required webhookBody properties weren't provided.`
+      )
+    )
+    reporter.info(
+      formatLogMessage(
+        `Missing properties: \n${JSON.stringify(missingProperties, null, 2)}`
+      )
+    )
+    reporter.log(
+      formatLogMessage(
+        `Webhook body: \n${JSON.stringify(webhookBody, null, 2)}`
       )
     )
     return
@@ -172,7 +187,7 @@ export const sourcePreviews = async (
     )
   }
 
-  // this will wait until the page is created for this node
+  // this will wait until the page is created/updated for this node
   // then it'll send a mutation to WPGraphQL so that WP knows the preview is ready
   store.dispatch.previewStore.subscribeToPagesCreatedFromNodeById({
     nodeId: webhookBody.id,
@@ -225,5 +240,6 @@ export const sourcePreviews = async (
     actionType: `PREVIEW`,
     ...webhookBody,
     previewParentId: webhookBody.parentId,
+    isPreview: true,
   })
 }
