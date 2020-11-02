@@ -1,17 +1,17 @@
-export { setGatsbyApiToState } from "~/steps/set-gatsby-api-to-state"
-export { ensurePluginRequirementsAreMet } from "~/steps/check-plugin-requirements"
-export { ingestRemoteSchema } from "~/steps/ingest-remote-schema"
-export { persistPreviouslyCachedImages } from "~/steps/persist-cached-images"
-export { sourceNodes } from "~/steps/source-nodes"
-export { createSchemaCustomization } from "~/steps/create-schema-customization"
-export { setImageNodeIdCache } from "~/steps/set-image-node-id-cache"
-export { startPollingForContentUpdates } from "~/steps/source-nodes/update-nodes/content-update-interval"
-export { checkIfSchemaHasChanged } from "~/steps/ingest-remote-schema/diff-schemas"
-export { setErrorMap } from "~/steps/set-error-map"
+export { setGatsbyApiToState } from "./set-gatsby-api-to-state"
+export { ensurePluginRequirementsAreMet } from "./check-plugin-requirements"
+export { ingestRemoteSchema } from "./ingest-remote-schema"
+export { persistPreviouslyCachedImages } from "./persist-cached-images"
+export { sourceNodes } from "./source-nodes"
+export { createSchemaCustomization } from "./create-schema-customization"
+export { setImageNodeIdCache } from "./set-image-node-id-cache"
+export { startPollingForContentUpdates } from "./source-nodes/update-nodes/content-update-interval"
+export { checkIfSchemaHasChanged } from "./ingest-remote-schema/diff-schemas"
+export { setErrorMap } from "./set-error-map"
 
 export {
   addPreviewStatusField,
   addPreviewStatusResolver,
   onCreatePageRespondToPreviewStatusQuery,
   savePreviewNodeIdToPageDependency,
-} from "~/steps/preview"
+} from "./preview"
