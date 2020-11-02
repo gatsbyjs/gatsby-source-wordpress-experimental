@@ -50,42 +50,27 @@ export function declarePluginOptionsSchema({ Joi }) {
         (k) => !reservedKeys.includes(k)
       )
 
+      const baseSchema = Joi.object({
+        nodeInterface: Joi.boolean(),
+        exclude: Joi.boolean(),
+        excludeFieldNames: Joi.array().items(Joi.string()),
+        beforeChangeNode: Joi.function().arity(1),
+      })
+
       Joi.assert(
         value.MediaItem,
-        Joi.object({
-          exclude: Joi.boolean(),
-          excludeFieldNames: Joi.array().items(Joi.string()),
+        baseSchema.append({
           lazyNodes: Joi.boolean().default(false),
+          exclude: Joi.boolean().valid(false),
           localFile: Joi.object({
             excludeByMimeTypes: Joi.array().items(Joi.string()),
           }),
-          beforeChangeNode: Joi.function().arity(1),
         }),
         `type.MediaItem`
       )
 
-      const nodeSchema = Joi.object({
-        nodeInterface: Joi.boolean().default(true),
-      })
-
-      Joi.assert(value.ContentNode, nodeSchema, `type.ContentNode`)
-      Joi.assert(value.TermNode, nodeSchema, `type.TermNode`)
-      Joi.assert(
-        value.Menu,
-        Joi.object({
-          beforeChangeNode: Joi.function().arity(1),
-        }),
-        `type.Menu`
-      )
-
       dynamicKeys.forEach((k) => {
-        Joi.assert(
-          value[k],
-          Joi.object({
-            exclude: Joi.boolean(),
-            excludeFieldNames: Joi.array().items(Joi.string()),
-          })
-        )
+        Joi.assert(value[k], baseSchema, `type.${k}`)
       })
     }),
   })
