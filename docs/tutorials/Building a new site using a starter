@@ -1,0 +1,25 @@
+Part 1: One-time first set-up
+First we’ll create the Starter Site itself.
+
+It needs a permanent home—somewhere you’ll install the Starter Site and keep it maintained and updated.
+
+I suggest you create a ‘subdomain’ of a domain you already own. A subdomain is just a way of creating new websites under your main website domain.
+
+For example: If your main domain was mydomain.com then you could create subdomains of it (totally separate websites), like test.mydomain.com and clientname.mydomain.com. Handy!
+
+As cPanel is a very common hosting control panel, I’ll give you instructions for that. It’s also the control panel on my absolute favourite WordPress hosting company.
+
+If your host has a different control panel, I’m sure the process is easy. Just ask them.
+
+1.1 Create a subdomain for your Starter Site:
+1. Login to your cPanel.
+
+2. Click ‘Subdomains‘.
+3. Give your subdomain a name.I chose to call mine ‘starter‘ (see screenshot below).
+
+By default, the Document Root will be filled in automatically for you like this:
+
+public_html/starter
+
+This will create a folder in the ‘root’ of your server called ‘starter‘.
+
