@@ -15,10 +15,10 @@ import {
   getPersistentCache,
 } from "~/utils/cache"
 
-const checkIfSchemaHasChanged = async (_, pluginOptions) => {
+const checkIfSchemaHasChanged = async () => {
   const state = store.getState()
 
-  const { helpers } = state.gatsbyApi
+  const { helpers, pluginOptions } = state.gatsbyApi
 
   const lastCompletedSourceTime = await helpers.cache.get(
     LAST_COMPLETED_SOURCE_TIME
@@ -114,7 +114,7 @@ Please consider addressing this issue by changing your WordPress settings or plu
     helpers.reporter.log(``)
     helpers.reporter.warn(
       formatLogMessage(
-        `The remote schema has changed since the last build, re-fetching all data`
+        `The remote schema has changed, updating the local schema.`
       )
     )
     helpers.reporter.info(

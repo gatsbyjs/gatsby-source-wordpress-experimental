@@ -1,3 +1,5 @@
+import { customizeSchema } from "gatsby/dist/services/customize-schema"
+
 import fetchGraphql from "~/utils/fetch-graphql"
 import store from "~/store"
 import { formatLogMessage } from "~/utils/format-log-message"
@@ -15,6 +17,7 @@ import {
 } from "~/steps/create-schema-customization/helpers"
 import { processNode } from "~/steps/source-nodes/create-nodes/process-node"
 import { getPersistentCache, setPersistentCache } from "~/utils/cache"
+import { ingestRemoteSchema } from "../../../ingest-remote-schema"
 
 const getDbIdFromRelayId = (relayId) => atob(relayId).split(`:`).reverse()[0]
 
@@ -43,6 +46,20 @@ const normalizeUri = ({ uri, id, singleName }) => {
   return uri
 }
 
+export const updateSchema = async (args = {}) => {
+  store.dispatch.remoteSchema.toggleAllowRefreshSchemaUpdate()
+
+  // re-run schema customization so this node type is added to the schema
+  await customizeSchema({
+    parentSpan: null,
+    deferNodeMutation: true,
+    refresh: false,
+    ...args,
+  })
+
+  store.dispatch.remoteSchema.toggleAllowRefreshSchemaUpdate()
+}
+
 export const fetchAndCreateSingleNode = async ({
   singleName,
   id,
@@ -55,29 +72,55 @@ export const fetchAndCreateSingleNode = async ({
   token = null,
   isPreview = false,
 }) => {
-  const { nodeQuery, previewQuery } =
-    getQueryInfoBySingleFieldName(singleName) || {}
+  function getNodeQuery() {
+    const { nodeQuery, previewQuery } =
+      getQueryInfoBySingleFieldName(singleName) || {}
 
-  // if this is a preview use the preview query
-  // if it's a preview but it's the initial blank node
-  // then use the regular node query as the preview query wont
-  // return anything
-  const query = isPreview && !isDraft ? previewQuery : nodeQuery
+    // if this is a preview use the preview query
+    // if it's a preview but it's the initial blank node
+    // then use the regular node query as the preview query wont
+    // return anything
+    const query = isPreview && !isDraft ? previewQuery : nodeQuery
 
-  const {
-    helpers: { reporter },
-  } = getGatsbyApi()
+    return query
+  }
+
+  let query = getNodeQuery()
+
+  const { helpers } = getGatsbyApi()
+
+  const { reporter } = helpers
 
   if (!query) {
+    // try fetching the query before failing
+    // this post type may have been added to WP while Gatsby was already running
     reporter.log(``)
-    reporter.warn(
+    reporter.info(
       formatLogMessage(
         `A ${singleName} was updated, but no query was found for this node type.`
       )
     )
-    reporter.log(``)
+    reporter.info(
+      formatLogMessage(
+        `Re-running createSchemaCustomization to check for updates.`
+      )
+    )
 
-    return { node: null }
+    await updateSchema()
+
+    // now that the queries have updated, grab the latest query for this node
+    query = getNodeQuery()
+
+    if (!query) {
+      reporter.log(``)
+      reporter.warn(
+        formatLogMessage(
+          `Still couldn't find a query for ${singleName}. Please open an issue as this is likely a bug.`
+        )
+      )
+      reporter.log(``)
+      return { node: null }
+    }
   }
 
   const headers = token
@@ -89,14 +132,45 @@ export const fetchAndCreateSingleNode = async ({
       }
     : {}
 
-  const { data } = await fetchGraphql({
-    headers,
-    query,
-    variables: {
-      id,
-    },
-    errorContext: `Error occured while updating a single "${singleName}" node.`,
-  })
+  let data
+
+  async function fetchNodeData(args = {}) {
+    const { data } = await fetchGraphql({
+      headers,
+      query,
+      variables: {
+        id,
+      },
+      errorContext: `Error occured while updating a single "${singleName}" node.`,
+      ...args,
+    })
+
+    return data
+  }
+
+  try {
+    // first we try to fetch and throw gql errors
+    // the reason for this is we can catch those errors,
+    // diff the schema, and regenerate our gql queries if needed
+    data = await fetchNodeData({ throwGqlErrors: true })
+  } catch (e) {
+    reporter.log(``)
+    reporter.warn(
+      formatLogMessage(
+        `${id} ${singleName} produced GraphQL errors while sourcing preview data.\nUpdating internal preview queries and trying again...`
+      )
+    )
+
+    await updateSchema()
+
+    // now that the queries have updated, grab the latest query for this node
+    const updatedQuery = getNodeQuery()
+
+    // if this fails this second time, this fn will handle the error internally
+    data = await fetchNodeData({
+      query: updatedQuery,
+    })
+  }
 
   const remoteNode = data[singleName]
 

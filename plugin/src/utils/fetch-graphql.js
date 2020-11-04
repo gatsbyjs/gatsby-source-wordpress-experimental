@@ -93,17 +93,6 @@ const handleGraphQLErrors = async ({
 }) => {
   const pluginOptions = getPluginOptions()
 
-  if (!response) {
-    /**
-     * FIXME
-     *
-     * 1. We're logging an undefined variable here instead of a message.
-     * 2. What scenarios lead us to this point? Can we assign a code?
-     */
-    reporter.panic(response)
-    return
-  }
-
   const json = response.data
   const { errors } = json
 
