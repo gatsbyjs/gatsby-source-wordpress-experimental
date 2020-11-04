@@ -10,12 +10,13 @@ import { touchValidNodes } from "./source-nodes/update-nodes/fetch-node-updates"
 
 import type { GatsbyHelpers } from "~/utils/gatsby-types"
 import { IPluginOptions } from "~/models/gatsby-api"
+import { OnPageCreatedCallback } from "../models/preview"
 
 export const inPreviewMode = (): boolean =>
   !!process.env.ENABLE_GATSBY_REFRESH_ENDPOINT
 
 /**
- * onCreatePage we want to figure out which node the page is dependant on
+ * during onCreatePage we want to figure out which node the page is dependant on
 and then store that page in state so we can return info about the page to WordPress
 when the page is updated during Previews.
 We do that by finding the node id on pageContext.id
@@ -49,8 +50,7 @@ export const savePreviewNodeIdToPageDependency = (
 }
 
 /**
- *
- * onCreatePage we check if the node this page was created from
+ * during onCreatePage we check if the node this page was created from
  * has been updated and if it has a callback waiting for it
  * if both of those things are true we invoke the callback to
  * respond to the WP instance preview client
@@ -109,7 +109,8 @@ export const onCreatePageRespondToPreviewStatusQuery = async (
   await nodePageCreatedCallback({
     passedNode: nodeThatCreatedThisPage,
     pageNode: page,
-    context: `onCreatePage`,
+    context: `onCreatePage Preview callback invokation`,
+    status: `PREVIEW_SUCCESS`,
   })
 
   store.dispatch.previewStore.unSubscribeToPagesCreatedFromNodeById({
@@ -117,6 +118,10 @@ export const onCreatePageRespondToPreviewStatusQuery = async (
   })
 }
 
+/**
+ * This is called when the /__refresh endpoint is posted to from WP previews.
+ * It should only ever run in Preview mode, which is process.env.ENABLE_GATSBY_REFRESH_ENDPOINT = true
+ */
 export const sourcePreviews = async (
   {
     webhookBody,
@@ -187,53 +192,63 @@ export const sourcePreviews = async (
     )
   }
 
-  // this will wait until the page is created/updated for this node
+  const onPageCreatedCallback = async ({
+    passedNode,
+    pageNode,
+    context,
+    status,
+  }): Promise<void> => {
+    const { data } = await fetchGraphql({
+      query: /* GraphQL */ `
+        mutation MUTATE_PREVIEW_NODE(
+          $modified: String!
+          $parentId: Float!
+          $pagePath: String
+          $status: WPGatsbyRemotePreviewStatusEnum!
+        ) {
+          wpGatsbyRemotePreviewStatus(
+            input: {
+              clientMutationId: $modified
+              modified: $modified
+              pagePath: $pagePath
+              parentId: $parentId
+              status: $status
+            }
+          ) {
+            success
+          }
+        }
+      `,
+      variables: {
+        modified: passedNode.modified,
+        pagePath: pageNode.path,
+        parentId: passedNode.databaseId,
+        status,
+      },
+      errorContext: `Error occured while mutating WordPress Preview node meta.`,
+    })
+
+    if (data.wpGatsbyRemotePreviewStatus.success) {
+      reporter.log(
+        formatLogMessage(
+          `Successfully sent Preview status back to WordPress post ${webhookBody.id} during ${context}`
+        )
+      )
+    } else {
+      reporter.log(
+        formatLogMessage(
+          `failed to mutate WordPress post ${webhookBody.id} during Preview ${context}.\nCheck your WP server logs for more information.`
+        )
+      )
+    }
+  }
+
+  // this callback will be invoked when the page is created/updated for this node
   // then it'll send a mutation to WPGraphQL so that WP knows the preview is ready
   store.dispatch.previewStore.subscribeToPagesCreatedFromNodeById({
     nodeId: webhookBody.id,
     modified: webhookBody.modified,
-    onPageCreatedCallback: async ({ passedNode, pageNode, context }) => {
-      const { data } = await fetchGraphql({
-        query: /* GraphQL */ `
-          mutation MUTATE_PREVIEW_NODE(
-            $modified: String!
-            $pagePath: String!
-            $parentId: Float!
-          ) {
-            wpGatsbyRevisionStatus(
-              input: {
-                clientMutationId: $modified
-                modified: $modified
-                pagePath: $pagePath
-                parentId: $parentId
-              }
-            ) {
-              success
-            }
-          }
-        `,
-        variables: {
-          modified: passedNode.modified,
-          pagePath: pageNode.path,
-          parentId: passedNode.databaseId,
-        },
-        errorContext: `Error occured while mutating WordPress Preview node meta.`,
-      })
-
-      if (data.wpGatsbyRevisionStatus.success) {
-        reporter.log(
-          formatLogMessage(
-            `Successfully mutated WordPress post ${webhookBody.id} during Preview ${context}`
-          )
-        )
-      } else {
-        reporter.log(
-          formatLogMessage(
-            `failed to mutate WordPress post ${webhookBody.id} during Preview ${context}.\nCheck your WP server logs for more information.`
-          )
-        )
-      }
-    },
+    onPageCreatedCallback,
   })
 
   await fetchAndCreateSingleNode({
@@ -241,5 +256,62 @@ export const sourcePreviews = async (
     ...webhookBody,
     previewParentId: webhookBody.parentId,
     isPreview: true,
+  })
+}
+
+/**
+ * Preview callbacks are usually invoked during onCreatePage in Gatsby Preview
+ * so that we can send back the preview status of a created page to WP
+ * In the case that no page is created for the node we're previewing, we'll
+ * have callbacks hanging around and WP will not know the status of the preview
+ * So in onPreExtractQueries (which runs after pages are created), we check which
+ * preview callbacks haven't been invoked, and invoke them with a "NO_PAGE_CREATED_FOR_PREVIEWED_NODE" status, which sends that status to WP
+ * After invoking all these leftovers, we clear them out from the store so they aren't called again later.
+ */
+export const invokeAndCleanupLeftoverPreviewCallbacks = async ({
+  getNode,
+}: GatsbyHelpers): Promise<void> => {
+  // check for any onCreatePageCallbacks that weren't called during createPages
+  // we need to tell WP that a page wasn't created for the preview
+  const leftoverCallbacks = store.getState().previewStore
+    .nodePageCreatedCallbacks
+
+  const leftoverCallbacksExist = Object.keys(leftoverCallbacks).length
+
+  if (leftoverCallbacksExist) {
+    await invokeLeftoverPreviewCallbacks({ getNode, leftoverCallbacks })
+
+    // after processing our callbacks, we need to remove them all so they don't get called again in the future
+    store.dispatch.previewStore.clearPreviewCallbacks()
+  }
+}
+
+const invokeLeftoverPreviewCallbacks = async ({
+  getNode,
+  leftoverCallbacks,
+}): Promise<void[]> =>
+  Promise.all(
+    Object.entries(leftoverCallbacks).map(
+      invokeLeftoverPreviewCallback({ getNode })
+    )
+  )
+
+/**
+ * This callback is invoked to send WP the preview status. In this case the status
+ * is that we couldn't find a page for the node being previewed
+ */
+const invokeLeftoverPreviewCallback = ({ getNode }) => async ([
+  nodeId,
+  callback,
+]: [string, OnPageCreatedCallback]): Promise<void> => {
+  const passedNode = getNode(nodeId)
+
+  await callback({
+    passedNode,
+    // we pass null as the path because no page was created for this node.
+    // if it had been, this callback would've been removed earlier in the process
+    pageNode: { path: null },
+    status: `NO_PAGE_CREATED_FOR_PREVIEWED_NODE`,
+    context: `onPreExtractQueries check for previewed nodes without pages`,
   })
 }

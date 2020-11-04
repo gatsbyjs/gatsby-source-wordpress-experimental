@@ -113,9 +113,7 @@ Please consider addressing this issue by changing your WordPress settings or plu
   ) {
     helpers.reporter.log(``)
     helpers.reporter.warn(
-      formatLogMessage(
-        `The remote schema has changed, updating the local schema.`
-      )
+      formatLogMessage(`The remote schema has changed, updating local schema.`)
     )
     helpers.reporter.info(
       formatLogMessage(`Cached schema md5: ${cachedSchemaMd5}`)

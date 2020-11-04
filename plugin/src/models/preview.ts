@@ -1,6 +1,6 @@
 // `node` here is a Gatsby node
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type OnPageCreatedCallback = (node: any) => void
+export type OnPageCreatedCallback = (node: any) => Promise<void>
 
 interface StoredPage {
   path: string
@@ -38,6 +38,7 @@ interface PreviewReducers {
       nodeId: string
     }
   ) => IPreviewState
+  clearPreviewCallbacks: (state: IPreviewState) => IPreviewState
   saveNodePageState: (
     state: IPreviewState,
     payload: {
@@ -76,6 +77,12 @@ const previewStore: IPreviewStore = {
       // when a page is created from a node that has this id,
       // the callback will be invoked
       state.nodePageCreatedCallbacks[nodeId] = onPageCreatedCallback
+
+      return state
+    },
+
+    clearPreviewCallbacks(state) {
+      state.nodePageCreatedCallbacks = {}
 
       return state
     },
