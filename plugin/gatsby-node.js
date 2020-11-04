@@ -28,12 +28,17 @@ module.exports = runApisInSteps({
   ],
 })
 
-exports.pluginOptionsSchema = ({ Joi }) => {
+module.exports.pluginOptionsSchema = ({ Joi }) => {
   const getTypeOptions = () =>
     Joi.object({
       exclude: Joi.boolean().description(
         `Completely excludes a type from node sourcing and from the ingested schema.`
       ),
+      limit: Joi.number()
+        .integer()
+        .description(
+          `The maximum amount of objects of this type to fetch from WordPress.`
+        ),
       excludeFieldNames: Joi.array()
         .items(Joi.string())
         .description(`Excludes fields on a type by field name.`),
@@ -53,6 +58,8 @@ exports.pluginOptionsSchema = ({ Joi }) => {
           .description(
             `When a GraphQL error is returned and the process exits, this plugin option determines wether or not to log out the query vars that were used in the query that returned GraphQL errors.`
           ),
+        showQueryOnError: Joi.boolean().default(false),
+        copyQueryOnError: Joi.boolean().default(false),
         panicOnError: Joi.boolean()
           .default(false)
           .description(
@@ -99,6 +106,10 @@ exports.pluginOptionsSchema = ({ Joi }) => {
       }).description(`Options related to htaccess authentication.`),
     }).description(`Options related to htaccess authentication.`),
     schema: Joi.object({
+      queryDepth: Joi.number()
+        .integer()
+        .positive()
+        .description(`The maximum schema depth.`),
       typePrefix: Joi.string()
         .default(`Wp`)
         .description(
