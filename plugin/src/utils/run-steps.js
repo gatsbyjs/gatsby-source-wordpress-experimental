@@ -1,4 +1,5 @@
 import { formatLogMessage } from "~/utils/format-log-message"
+import { invokeAndCleanupLeftoverPreviewCallbacks } from "../steps/preview"
 
 const runSteps = async (steps, helpers, pluginOptions, apiName) => {
   for (const step of steps) {
@@ -31,12 +32,20 @@ const runSteps = async (steps, helpers, pluginOptions, apiName) => {
         activity.end()
       }
     } catch (e) {
+      const sharedError = `Encountered a critical error when running the ${
+        apiName ? `${apiName}.` : ``
+      }${step.name} build step.`
+
+      // on errors, invoke any preview callbacks to send news of this error back to the WP Preview window.
+      await invokeAndCleanupLeftoverPreviewCallbacks({
+        status: `GATSBY_PREVIEW_PROCESS_ERROR`,
+        context: sharedError,
+      })
+
       helpers.reporter.error(e)
       helpers.reporter.panic(
         formatLogMessage(
-          `\n\n\tEncountered a critical error when running the ${
-            apiName ? `${apiName}.` : ``
-          }${step.name} build step.\n\tSee above for more information.`,
+          `\n\n\t${sharedError}\n\tSee above for more information.`,
           { useVerboseStyle: true }
         )
       )

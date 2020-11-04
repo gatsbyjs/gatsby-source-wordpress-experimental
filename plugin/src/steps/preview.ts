@@ -205,6 +205,7 @@ export const sourcePreviews = async (
           $parentId: Float!
           $pagePath: String
           $status: WPGatsbyRemotePreviewStatusEnum!
+          $context: String
         ) {
           wpGatsbyRemotePreviewStatus(
             input: {
@@ -213,6 +214,7 @@ export const sourcePreviews = async (
               pagePath: $pagePath
               parentId: $parentId
               status: $status
+              statusContext: $context
             }
           ) {
             success
@@ -224,6 +226,7 @@ export const sourcePreviews = async (
         pagePath: pageNode.path,
         parentId: passedNode.databaseId,
         status,
+        context,
       },
       errorContext: `Error occured while mutating WordPress Preview node meta.`,
     })
@@ -268,39 +271,48 @@ export const sourcePreviews = async (
  * preview callbacks haven't been invoked, and invoke them with a "NO_PAGE_CREATED_FOR_PREVIEWED_NODE" status, which sends that status to WP
  * After invoking all these leftovers, we clear them out from the store so they aren't called again later.
  */
-export const invokeAndCleanupLeftoverPreviewCallbacks = async ({
-  getNode,
-}: GatsbyHelpers): Promise<void> => {
+export const onPreExtractQueriesInvokeLeftoverPreviewCallbacks = async (): Promise<
+  void
+> =>
   // check for any onCreatePageCallbacks that weren't called during createPages
   // we need to tell WP that a page wasn't created for the preview
-  const leftoverCallbacks = store.getState().previewStore
-    .nodePageCreatedCallbacks
+  invokeAndCleanupLeftoverPreviewCallbacks({
+    status: `NO_PAGE_CREATED_FOR_PREVIEWED_NODE`,
+    context: `onPreExtractQueries check for previewed nodes without pages`,
+  })
+
+export const invokeAndCleanupLeftoverPreviewCallbacks = async ({
+  status,
+  context,
+}: {
+  status: string
+  context: string
+}): Promise<void> => {
+  const state = store.getState()
+
+  const { getNode } = state.gatsbyApi.helpers
+
+  const leftoverCallbacks = state.previewStore.nodePageCreatedCallbacks
 
   const leftoverCallbacksExist = Object.keys(leftoverCallbacks).length
 
   if (leftoverCallbacksExist) {
-    await invokeLeftoverPreviewCallbacks({ getNode, leftoverCallbacks })
+    await Promise.all(
+      Object.entries(leftoverCallbacks).map(
+        invokeLeftoverPreviewCallback({ getNode, status, context })
+      )
+    )
 
     // after processing our callbacks, we need to remove them all so they don't get called again in the future
     store.dispatch.previewStore.clearPreviewCallbacks()
   }
 }
 
-const invokeLeftoverPreviewCallbacks = async ({
-  getNode,
-  leftoverCallbacks,
-}): Promise<void[]> =>
-  Promise.all(
-    Object.entries(leftoverCallbacks).map(
-      invokeLeftoverPreviewCallback({ getNode })
-    )
-  )
-
 /**
  * This callback is invoked to send WP the preview status. In this case the status
  * is that we couldn't find a page for the node being previewed
  */
-const invokeLeftoverPreviewCallback = ({ getNode }) => async ([
+const invokeLeftoverPreviewCallback = ({ getNode, status, context }) => async ([
   nodeId,
   callback,
 ]: [string, OnPageCreatedCallback]): Promise<void> => {
@@ -311,7 +323,7 @@ const invokeLeftoverPreviewCallback = ({ getNode }) => async ([
     // we pass null as the path because no page was created for this node.
     // if it had been, this callback would've been removed earlier in the process
     pageNode: { path: null },
-    status: `NO_PAGE_CREATED_FOR_PREVIEWED_NODE`,
-    context: `onPreExtractQueries check for previewed nodes without pages`,
+    status,
+    context,
   })
 }

@@ -19,7 +19,9 @@ module.exports = runApisInSteps({
     steps.setImageNodeIdCache,
   ],
 
-  onPreExtractQueries: [steps.invokeAndCleanupLeftoverPreviewCallbacks],
+  onPreExtractQueries: [
+    steps.onPreExtractQueriesInvokeLeftoverPreviewCallbacks,
+  ],
 
   onPostBuild: [steps.setImageNodeIdCache],
 

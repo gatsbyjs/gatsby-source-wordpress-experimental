@@ -14,5 +14,5 @@ export {
   addPreviewStatusResolver,
   onCreatePageRespondToPreviewStatusQuery,
   savePreviewNodeIdToPageDependency,
-  invokeAndCleanupLeftoverPreviewCallbacks,
+  onPreExtractQueriesInvokeLeftoverPreviewCallbacks,
 } from "./preview"
