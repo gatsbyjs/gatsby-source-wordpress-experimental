@@ -229,9 +229,13 @@ export const sourcePreviews = async (
         context,
       },
       errorContext: `Error occured while mutating WordPress Preview node meta.`,
+      forceReportCriticalErrors: true,
+      headers: {
+        WPGatsbyPreview: webhookBody.token,
+      },
     })
 
-    if (data.wpGatsbyRemotePreviewStatus.success) {
+    if (data?.wpGatsbyRemotePreviewStatus?.success) {
       reporter.log(
         formatLogMessage(
           `Successfully sent Preview status back to WordPress post ${webhookBody.id} during ${context}`

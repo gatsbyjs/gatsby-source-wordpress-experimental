@@ -90,6 +90,7 @@ const handleGraphQLErrors = async ({
   panicOnError,
   reporter,
   errorContext,
+  forceReportCriticalErrors = false,
 }) => {
   const pluginOptions = getPluginOptions()
 
@@ -104,7 +105,11 @@ const handleGraphQLErrors = async ({
   if (
     json &&
     json.data &&
-    pluginOptions.debug.graphql.onlyReportCriticalErrors
+    pluginOptions.debug.graphql.onlyReportCriticalErrors &&
+    // only return if we're not force disabling this.
+    // this is used when we make GraphQL requests intentionally rather than programmatically
+    // for ex during the Preview process
+    !forceReportCriticalErrors
   ) {
     return
   }
@@ -425,6 +430,7 @@ const fetchGraphql = async ({
   headers = {},
   errorContext = false,
   isFirstRequest = false,
+  forceReportCriticalErrors = false,
 }) => {
   const { helpers, pluginOptions } = store.getState().gatsbyApi
 
@@ -520,6 +526,7 @@ const fetchGraphql = async ({
       timeout,
       errorContext,
       isFirstRequest,
+      forceReportCriticalErrors,
     })
   }
 
