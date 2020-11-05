@@ -109,7 +109,7 @@ export const onCreatePageRespondToPreviewStatusQuery = async (
   await nodePageCreatedCallback({
     passedNode: nodeThatCreatedThisPage,
     pageNode: page,
-    context: `onCreatePage Preview callback invokation`,
+    context: `onCreatePage Preview callback invocation`,
     status: `PREVIEW_SUCCESS`,
   })
 
