@@ -17,7 +17,6 @@ import {
 } from "~/steps/create-schema-customization/helpers"
 import { processNode } from "~/steps/source-nodes/create-nodes/process-node"
 import { getPersistentCache, setPersistentCache } from "~/utils/cache"
-import { ingestRemoteSchema } from "../../../ingest-remote-schema"
 
 const getDbIdFromRelayId = (relayId) => atob(relayId).split(`:`).reverse()[0]
 
