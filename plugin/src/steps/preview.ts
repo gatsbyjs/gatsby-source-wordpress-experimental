@@ -282,7 +282,6 @@ export const onPreExtractQueriesInvokeLeftoverPreviewCallbacks = async (): Promi
   // we need to tell WP that a page wasn't created for the preview
   invokeAndCleanupLeftoverPreviewCallbacks({
     status: `NO_PAGE_CREATED_FOR_PREVIEWED_NODE`,
-    context: `onPreExtractQueries check for previewed nodes without pages`,
   })
 
 export const invokeAndCleanupLeftoverPreviewCallbacks = async ({
@@ -290,7 +289,7 @@ export const invokeAndCleanupLeftoverPreviewCallbacks = async ({
   context,
 }: {
   status: string
-  context: string
+  context?: string
 }): Promise<void> => {
   const state = store.getState()
 
