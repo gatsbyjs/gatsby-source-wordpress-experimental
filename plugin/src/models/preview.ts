@@ -28,7 +28,7 @@ interface PreviewReducers {
     state: IPreviewState,
     payload: {
       nodeId: string
-      onPageCreatedCallback: OnPageCreatedCallback
+      sendPreviewStatus: OnPageCreatedCallback
       modified: string
     }
   ) => IPreviewState
@@ -69,14 +69,11 @@ const previewStore: IPreviewStore = {
       return state
     },
 
-    subscribeToPagesCreatedFromNodeById(
-      state,
-      { nodeId, onPageCreatedCallback }
-    ) {
+    subscribeToPagesCreatedFromNodeById(state, { nodeId, sendPreviewStatus }) {
       // save the callback for this nodeId
       // when a page is created from a node that has this id,
       // the callback will be invoked
-      state.nodePageCreatedCallbacks[nodeId] = onPageCreatedCallback
+      state.nodePageCreatedCallbacks[nodeId] = sendPreviewStatus
 
       return state
     },

@@ -118,6 +118,12 @@ export const onCreatePageRespondToPreviewStatusQuery = async (
   })
 }
 
+type PreviewStatusUnion =
+  | `PREVIEW_SUCCESS`
+  | `NO_PAGE_CREATED_FOR_PREVIEWED_NODE`
+  | `GATSBY_PREVIEW_PROCESS_ERROR`
+  | `RECEIVED_PREVIEW_DATA_FROM_WRONG_URL`
+
 /**
  * This is called when the /__refresh endpoint is posted to from WP previews.
  * It should only ever run in Preview mode, which is process.env.ENABLE_GATSBY_REFRESH_ENDPOINT = true
@@ -129,11 +135,11 @@ export const sourcePreviews = async (
   }: {
     webhookBody: {
       preview: boolean
-      previewId: string
+      previewId: number
       token: string
       remoteUrl: string
       modified: string
-      parentId: string
+      parentId: number
       id: string
     }
     // this comes from Gatsby
@@ -180,53 +186,45 @@ export const sourcePreviews = async (
   const { hostname: settingsHostname } = urlUtil.parse(url)
   const { hostname: remoteHostname } = urlUtil.parse(webhookBody.remoteUrl)
 
-  if (settingsHostname !== remoteHostname) {
-    reporter.panic(
-      formatLogMessage(
-        `Received preview data from a different remote URL than the one specified in plugin options. \n\n ${chalk.bold(
-          `Remote URL:`
-        )} ${webhookBody.remoteUrl}\n ${chalk.bold(
-          `Plugin options URL:`
-        )} ${url}`
-      )
-    )
+  interface OnPreviewStatusInput {
+    status: PreviewStatusUnion
+    context?: string
+    passedNode?: {
+      modified?: string
+      databaseId: number
+    }
+    pageNode?: {
+      path: string
+    }
+    graphqlEndpoint?: string
   }
 
-  const onPageCreatedCallback = async ({
+  const sendPreviewStatus = async ({
     passedNode,
     pageNode,
     context,
     status,
-  }): Promise<void> => {
+    graphqlEndpoint,
+  }: OnPreviewStatusInput): Promise<void> => {
     const { data } = await fetchGraphql({
+      url: graphqlEndpoint,
       query: /* GraphQL */ `
         mutation MUTATE_PREVIEW_NODE(
-          $modified: String!
-          $parentId: Float!
-          $pagePath: String
-          $status: WPGatsbyRemotePreviewStatusEnum!
-          $context: String
+          $input: WpGatsbyRemotePreviewStatusInput!
         ) {
-          wpGatsbyRemotePreviewStatus(
-            input: {
-              clientMutationId: $modified
-              modified: $modified
-              pagePath: $pagePath
-              parentId: $parentId
-              status: $status
-              statusContext: $context
-            }
-          ) {
+          wpGatsbyRemotePreviewStatus(input: $input) {
             success
           }
         }
       `,
       variables: {
-        modified: passedNode.modified,
-        pagePath: pageNode.path,
-        parentId: passedNode.databaseId,
-        status,
-        context,
+        input: {
+          clientMutationId: `sendPreviewStatus`,
+          modified: passedNode?.modified,
+          pagePath: pageNode?.path,
+          parentId: passedNode.databaseId,
+          status,
+        },
       },
       errorContext: `Error occured while mutating WordPress Preview node meta.`,
       forceReportCriticalErrors: true,
@@ -250,12 +248,34 @@ export const sourcePreviews = async (
     }
   }
 
+  if (settingsHostname !== remoteHostname) {
+    await sendPreviewStatus({
+      status: `RECEIVED_PREVIEW_DATA_FROM_WRONG_URL`,
+      context: `check that the preview data came from the right URL.`,
+      passedNode: {
+        modified: webhookBody.modified,
+        databaseId: webhookBody.parentId,
+      },
+      graphqlEndpoint: webhookBody.remoteUrl,
+    })
+
+    reporter.panic(
+      formatLogMessage(
+        `Received preview data from a different remote URL than the one specified in plugin options. \n\n ${chalk.bold(
+          `Remote URL:`
+        )} ${webhookBody.remoteUrl}\n ${chalk.bold(
+          `Plugin options URL:`
+        )} ${url}`
+      )
+    )
+  }
+
   // this callback will be invoked when the page is created/updated for this node
   // then it'll send a mutation to WPGraphQL so that WP knows the preview is ready
   store.dispatch.previewStore.subscribeToPagesCreatedFromNodeById({
     nodeId: webhookBody.id,
     modified: webhookBody.modified,
-    onPageCreatedCallback,
+    sendPreviewStatus,
   })
 
   await fetchAndCreateSingleNode({
