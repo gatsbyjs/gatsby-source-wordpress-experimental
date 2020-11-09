@@ -361,6 +361,7 @@ Array [
       "modifiedGmt",
       "slug",
       "status",
+      "template",
       "uri",
       "nodeType",
     ],
@@ -431,7 +432,6 @@ Array [
   },
   Object {
     "fields": Array [
-      "templateFile",
       "templateName",
     ],
     "name": "WpContentTemplate",
@@ -547,14 +547,12 @@ Array [
   },
   Object {
     "fields": Array [
-      "templateFile",
       "templateName",
     ],
-    "name": "WpCoverTemplateTemplate",
+    "name": "WpCoverTemplate",
   },
   Object {
     "fields": Array [
-      "templateFile",
       "templateName",
     ],
     "name": "WpDefaultTemplate",
@@ -588,10 +586,9 @@ Array [
   },
   Object {
     "fields": Array [
-      "templateFile",
       "templateName",
     ],
-    "name": "WpFullWidthTemplateTemplate",
+    "name": "WpFullWidthTemplate",
   },
   Object {
     "fields": Array [
@@ -1105,6 +1102,12 @@ Array [
       "node",
     ],
     "name": "WpNodeWithRevisionsToContentNodeConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "template",
+    ],
+    "name": "WpNodeWithTemplate",
   },
   Object {
     "fields": Array [
@@ -3065,6 +3068,7 @@ Array [
       "previewRevisionId",
       "slug",
       "status",
+      "template",
       "uri",
     ],
     "name": "ContentNode",
@@ -3122,7 +3126,6 @@ Array [
   },
   Object {
     "fields": Array [
-      "templateFile",
       "templateName",
     ],
     "name": "ContentTemplate",
@@ -3207,10 +3210,9 @@ Array [
   },
   Object {
     "fields": Array [
-      "templateFile",
       "templateName",
     ],
-    "name": "CoverTemplateTemplate",
+    "name": "CoverTemplate",
   },
   Object {
     "fields": null,
@@ -3383,7 +3385,6 @@ Array [
   },
   Object {
     "fields": Array [
-      "templateFile",
       "templateName",
     ],
     "name": "DefaultTemplate",
@@ -3605,10 +3606,9 @@ Array [
   },
   Object {
     "fields": Array [
-      "templateFile",
       "templateName",
     ],
-    "name": "FullWidthTemplateTemplate",
+    "name": "FullWidthTemplate",
   },
   Object {
     "fields": Array [
@@ -4009,6 +4009,12 @@ Array [
       "node",
     ],
     "name": "NodeWithRevisionsToContentNodeConnectionEdge",
+  },
+  Object {
+    "fields": Array [
+      "template",
+    ],
+    "name": "NodeWithTemplate",
   },
   Object {
     "fields": Array [

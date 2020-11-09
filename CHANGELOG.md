@@ -1,5 +1,10 @@
 # Change Log
 
+## 2.1.1
+
+- Increased the supported version range of WPGraphQL to support the recently released v0.15.0.
+- Simplified the compatibility API error message for plugins out of range to clarify next steps for the user.
+
 ## 2.1.0
 
 - Multiple instances of the source plugin in 1 Gatsby site have been disallowed and an error will be thrown if there are more than 1 added. Previously this was allowed by the plugin, but each instance would overwrite each others state. This is not considered a breaking change because adding multiple instances would result in buggy sites with missing data. Follow https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/issues/58 for more info on why this is the case and when this feature will be available.
