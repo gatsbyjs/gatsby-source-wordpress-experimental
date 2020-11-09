@@ -10,6 +10,7 @@ import { getFileNodeMetaBySourceUrl } from "~/steps/source-nodes/create-nodes/cr
 import uniq from "lodash/uniq"
 import urlUtil from "url"
 import path from "path"
+import { getPluginOptions } from "~/utils/get-gatsby-api"
 
 const nodeFetchConcurrency = 2
 
@@ -267,7 +268,6 @@ const fetchMediaItemsBySourceUrl = async ({
   helpers,
   allMediaItemNodes = [],
 }) => {
-  const perPage = 100
   const processedMediaItemUrls = processAndDedupeImageUrls(mediaItemUrls)
 
   const {
@@ -295,6 +295,10 @@ const fetchMediaItemsBySourceUrl = async ({
   const previouslyCachedMediaItemNodes = await Promise.all(
     cachedMediaItemNodeIds.map(async (nodeId) => helpers.getNode(nodeId))
   )
+
+  const {
+    schema: { perPage },
+  } = getPluginOptions()
 
   // chunk up all our uncached media items
   const mediaItemUrlsPages = chunk(uncachedMediaItemUrls, perPage)
@@ -414,8 +418,11 @@ const fetchMediaItemsById = async ({
 }) => {
   const newMediaItemIds = mediaItemIds.filter((id) => !helpers.getNode(id))
 
-  const nodesPerFetch = 100
-  const chunkedIds = chunk(newMediaItemIds, nodesPerFetch)
+  const {
+    schema: { perPage },
+  } = getPluginOptions()
+
+  const chunkedIds = chunk(newMediaItemIds, perPage)
 
   let resolveFutureNodes
   const futureNodes = new Promise((resolve) => {
@@ -446,7 +453,7 @@ const fetchMediaItemsById = async ({
 
         const query = `
           query MEDIA_ITEMS($in: [ID]) {
-            mediaItems(first: ${nodesPerFetch}, where:{ in: $in }) {
+            mediaItems(first: ${perPage}, where:{ in: $in }) {
               nodes {
                 ${selectionSet}
               }
@@ -457,7 +464,7 @@ const fetchMediaItemsById = async ({
         `
 
         const allNodesOfContentType = await paginatedWpNodeFetch({
-          first: nodesPerFetch,
+          first: perPage,
           contentTypePlural: typeInfo.pluralName,
           nodeTypeName: typeInfo.nodesTypeName,
           query,

@@ -121,7 +121,7 @@ const areRemotePluginVersionsSatisfied = async ({
   let message = ``
 
   if (!wpgqlIsSatisfied) {
-    const { message: rangeMessage, minVersion, maxVersion } = parseRange(
+    const { minVersion, maxVersion } = parseRange(
       supportedWpPluginVersions.WPGraphQL.version
     )
 
@@ -129,15 +129,13 @@ const areRemotePluginVersionsSatisfied = async ({
       supportedWpPluginVersions.WPGraphQL.version
     }).
 
-${rangeMessage}
-
-If the version of WPGraphQL in your WordPress instance is lower than ${minVersion}
-it means you need to upgrade your version of WPGraphQL.
-
 If the version of WPGraphQL in your WordPress instance is higher than ${
       maxVersion || minVersion
     }
 it may mean you need to upgrade your version of gatsby-source-wordpress.
+
+If the version of WPGraphQL in your WordPress instance is lower than ${minVersion}
+it means you need to upgrade your version of WPGraphQL.
 
 You can find a matching WPGraphQL version at https://github.com/wp-graphql/wp-graphql/releases`
   }
@@ -147,7 +145,7 @@ You can find a matching WPGraphQL version at https://github.com/wp-graphql/wp-gr
   }
 
   if (!wpGatsbyIsSatisfied) {
-    const { message: rangeMessage, minVersion, maxVersion } = parseRange(
+    const { minVersion, maxVersion } = parseRange(
       supportedWpPluginVersions.WPGatsby.version
     )
 
@@ -157,15 +155,13 @@ You can find a matching WPGraphQL version at https://github.com/wp-graphql/wp-gr
       supportedWpPluginVersions.WPGatsby.version
     })
 
-${rangeMessage}
-
-If the version of WPGatsby in your WordPress instance is lower than ${minVersion}
-it means you need to upgrade your version of WPGatsby.
-
 If the version of WPGatsby in your WordPress instance is higher than ${
       maxVersion || minVersion
     }
 it may mean you need to upgrade your version of gatsby-source-wordpress.
+
+If the version of WPGatsby in your WordPress instance is lower than ${minVersion}
+it means you need to upgrade your version of WPGatsby.
 
 Download a matching version at https://github.com/gatsbyjs/wp-gatsby/releases
 or update via ${protocol}//${hostname}/wp-admin/plugins.php`

@@ -30,7 +30,7 @@
     "test-schema-watch": "SHOW_GATSBY_PROCESS_STDOUT=true yarn test-schema-first --watch",
     "test-build-watch": "SHOW_GATSBY_PROCESS_STDOUT=true yarn test-build --watch",
     "test-update": "yarn test-schema-first -u && yarn test-schema-increment -u && yarn test-build -u",
-    "npm-publish": "yarn run lint && cp README.md plugin/README.md && cd plugin && npm publish"
+    "npm-publish": "yarn run lint && yarn test && (rm plugin/README.md || true) && cp README.md plugin/README.md && cd plugin && npm publish"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.4",
