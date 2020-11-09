@@ -2,7 +2,7 @@ import { runApisInSteps } from "./utils/run-steps"
 import * as steps from "./steps"
 
 module.exports = runApisInSteps({
-  onPreInit: [steps.setErrorMap],
+  onPreInit: [steps.setErrorMap, steps.tempPreventMultipleInstances],
 
   createSchemaCustomization: [
     steps.setGatsbyApiToState,
