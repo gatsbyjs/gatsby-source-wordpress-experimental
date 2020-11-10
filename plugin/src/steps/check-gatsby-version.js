@@ -3,7 +3,7 @@ const fs = require(`fs`)
 
 export function checkGatsbyVersion({ reporter }) {
   const packageJson = JSON.parse(
-    fs.readFileSync(`${__dirname}/package.json`, { encoding: `utf8` })
+    fs.readFileSync(`${process.cwd()}/package.json`, { encoding: `utf8` })
   )
 
   const deps = {
