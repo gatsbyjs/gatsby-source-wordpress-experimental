@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.1.2
+
+- Inverted the background and foreground colours for the formatLogMessage helper to help increase contrast across more terminal themes.
+
 ## 2.1.1
 
 - Increased the supported version range of WPGraphQL to support the recently released v0.15.0.
