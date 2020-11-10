@@ -26,7 +26,7 @@ module.exports = runApisInSteps({
   onPostBuild: [steps.setImageNodeIdCache],
 
   onCreatePage: [
-    steps.savePreviewNodeIdToPageDependency,
+    steps.onCreatepageSavePreviewNodeIdToPageDependency,
     steps.onCreatePageRespondToPreviewStatusQuery,
   ],
 

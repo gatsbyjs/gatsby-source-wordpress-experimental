@@ -10,10 +10,11 @@ export { checkIfSchemaHasChanged } from "~/steps/ingest-remote-schema/diff-schem
 export { setErrorMap } from "~/steps/set-error-map"
 export { tempPreventMultipleInstances } from "~/steps/temp-prevent-multiple-instances"
 
+export { addPreviewStatusField, addPreviewStatusResolver } from "./preview"
+
+export { onPreExtractQueriesInvokeLeftoverPreviewCallbacks } from "./preview/cleanup"
+
 export {
-  addPreviewStatusField,
-  addPreviewStatusResolver,
   onCreatePageRespondToPreviewStatusQuery,
-  savePreviewNodeIdToPageDependency,
-  onPreExtractQueriesInvokeLeftoverPreviewCallbacks,
-} from "./preview"
+  onCreatepageSavePreviewNodeIdToPageDependency,
+} from "./preview/on-create-page"

@@ -1,5 +1,5 @@
 import { formatLogMessage } from "~/utils/format-log-message"
-import { invokeAndCleanupLeftoverPreviewCallbacks } from "../steps/preview"
+import { invokeAndCleanupLeftoverPreviewCallbacks } from "../steps/preview/cleanup"
 
 const runSteps = async (steps, helpers, pluginOptions, apiName) => {
   for (const step of steps) {
