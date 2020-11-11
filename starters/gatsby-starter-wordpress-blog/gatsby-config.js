@@ -1,79 +1,49 @@
+/**
+ * 👋 Hey there!
+ * This file is the starting point for your new WordPress/Gatsby site! 🚀
+ * For more information about what this file is and does, see
+ * https://www.gatsbyjs.com/docs/gatsby-config/
+ *
+ */
+
 module.exports = {
-  siteMetadata: {
-    title: `Gatsby Starter Blog`,
-    author: {
-      name: `Kyle Mathews`,
-      summary: `who lives and works in San Francisco building useful things.`,
-    },
-    description: `A starter blog demonstrating what Gatsby can do.`,
-    siteUrl: `https://gatsby-starter-blog-demo.netlify.app/`,
-    social: {
-      twitter: `kylemathews`,
-    },
-  },
+  /**
+   * Adding plugins to this array adds them to your Gatsby site.
+   *
+   * Gatsby has a rich ecosystem of plugins.
+   * If you need any more you can search here: https://www.gatsbyjs.com/plugins/
+   */
   plugins: [
     {
+      /**
+       * First up is the WordPress source plugin that connects Gatsby
+       * to your WordPress site.
+       *
+       * visit the plugin docs to learn more
+       * https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/README.md
+       *
+       */
       resolve: `gatsby-source-wordpress-experimental`,
       options: {
+        // the only required plugin option for WordPress is the GraphQL url.
         url: `https://wpgatsbydemo.wpengine.com/graphql`,
-        develop: {
-          // This option will hard-cache media files outside the Gatsby cache
-          // that means you wont need to re-fetch them when your Gatsby cache clears
-          // this takes 2x as much space as when it's set to false
-          hardCacheMediaFiles: true,
-        },
       },
     },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `${__dirname}/content/blog`,
-        name: `blog`,
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `${__dirname}/content/assets`,
-        name: `assets`,
-      },
-    },
-    {
-      resolve: `gatsby-transformer-remark`,
-      options: {
-        plugins: [
-          {
-            resolve: `gatsby-remark-images`,
-            options: {
-              maxWidth: 630,
-            },
-          },
-          {
-            resolve: `gatsby-remark-responsive-iframe`,
-            options: {
-              wrapperStyle: `margin-bottom: 1.0725rem`,
-            },
-          },
-          `gatsby-remark-prismjs`,
-          `gatsby-remark-copy-linked-files`,
-          `gatsby-remark-smartypants`,
-        ],
-      },
-    },
+
+    /**
+     * The following two plugins are required if you want to use Gatsby image
+     * See https://www.gatsbyjs.com/docs/gatsby-image/#setting-up-gatsby-image
+     * if you're curious about it.
+     */
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+
     {
-      resolve: `gatsby-plugin-google-analytics`,
-      options: {
-        //trackingId: `ADD YOUR TRACKING ID HERE`,
-      },
-    },
-    `gatsby-plugin-feed`,
-    {
+      // See https://www.gatsbyjs.com/plugins/gatsby-plugin-manifest/?=gatsby-plugin-manifest
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Gatsby Starter Blog`,
-        short_name: `GatsbyJS`,
+        name: `Gatsby Starter WordPress Blog`,
+        short_name: `GatsbyJS & WP`,
         start_url: `/`,
         background_color: `#ffffff`,
         theme_color: `#663399`,
@@ -81,9 +51,14 @@ module.exports = {
         icon: `content/assets/gatsby-icon.png`,
       },
     },
+
+    // See https://www.gatsbyjs.com/plugins/gatsby-plugin-react-helmet/?=gatsby-plugin-react-helmet
     `gatsby-plugin-react-helmet`,
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
+
+    /**
+     * this (optional) plugin enables Progressive Web App + Offline functionality
+     * To learn more, visit: https://gatsby.dev/offline
+     */
     // `gatsby-plugin-offline`,
   ],
 }

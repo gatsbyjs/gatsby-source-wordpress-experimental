@@ -7,57 +7,44 @@
 
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
-import Image from "gatsby-image"
 
 const Bio = () => {
-  const data = useStaticQuery(graphql`
+  const { author } = useStaticQuery(graphql`
     query BioQuery {
-      avatar: file(absolutePath: { regex: "/profile-pic.jpg/" }) {
-        childImageSharp {
-          fixed(width: 50, height: 50, quality: 95) {
-            ...GatsbyImageSharpFixed
-          }
-        }
-      }
-      site {
-        siteMetadata {
-          author {
-            name
-            summary
-          }
-          social {
-            twitter
-          }
+      # if there was more than one user, this would need to be filtered
+      author: wpUser {
+        firstName
+        twitter: name
+        description
+        avatar {
+          url
         }
       }
     }
   `)
 
-  // Set these values by editing "siteMetadata" in gatsby-config.js
-  const author = data.site.siteMetadata?.author
-  const social = data.site.siteMetadata?.social
-
-  const avatar = data?.avatar?.childImageSharp?.fixed
+  const avatarUrl = author?.avatar?.url
 
   return (
     <div className="bio">
-      {avatar && (
-        <Image
-          fixed={avatar}
-          alt={author?.name || ``}
+      {avatarUrl && (
+        <img
+          alt={author?.firstName || ``}
           className="bio-avatar"
-          imgStyle={{
-            borderRadius: `50%`,
-          }}
+          src={avatarUrl}
         />
       )}
-      {author?.name && (
+      {author?.firstName && (
         <p>
-          Written by <strong>{author.name}</strong> {author?.summary || null}
+          Written by <strong>{author.firstName}</strong>
           {` `}
-          <a href={`https://twitter.com/${social?.twitter || ``}`}>
-            You should follow them on Twitter
-          </a>
+          {author?.description || null}
+          {` `}
+          {author?.twitter && (
+            <a href={`https://twitter.com/${author?.twitter || ``}`}>
+              You should follow them on Twitter
+            </a>
+          )}
         </p>
       )}
     </div>

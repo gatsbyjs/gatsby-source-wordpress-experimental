@@ -231,6 +231,7 @@ table thead tr th {
 
 a {
   color: var(--color-primary);
+  word-break: break-word;
 }
 
 a:hover,
@@ -298,7 +299,8 @@ a:focus {
 .bio-avatar {
   margin-right: var(--spacing-4);
   margin-bottom: var(--spacing-0);
-  min-width: 50px;
+  max-width: 80px;
+  height: auto;
   border-radius: 100%;
 }
 

@@ -5,34 +5,37 @@ import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
-const BlogIndex = ({ data, location }) => {
-  const siteTitle = data.site.siteMetadata?.title || `Title`
-  const posts = data.allMarkdownRemark.nodes
+const BlogIndex = ({
+  data,
+  pageContext: { nextPagePath, previousPagePath },
+}) => {
+  const posts = data.allWpPost.nodes
 
-  if (posts.length === 0) {
+  if (!posts.length) {
     return (
-      <Layout location={location} title={siteTitle}>
+      <Layout isHomePage>
         <SEO title="All posts" />
         <Bio />
         <p>
-          No blog posts found. Add markdown posts to "content/blog" (or the
-          directory you specified for the "gatsby-source-filesystem" plugin in
-          gatsby-config.js).
+          No blog posts found. Add posts to your WordPress site and they'll
+          appear here!
         </p>
       </Layout>
     )
   }
 
   return (
-    <Layout location={location} title={siteTitle}>
+    <Layout isHomePage>
       <SEO title="All posts" />
+
       <Bio />
+
       <ol style={{ listStyle: `none` }}>
         {posts.map(post => {
-          const title = post.frontmatter.title || post.fields.slug
+          const title = post.title
 
           return (
-            <li key={post.fields.slug}>
+            <li key={post.uri}>
               <article
                 className="post-list-item"
                 itemScope
@@ -40,16 +43,19 @@ const BlogIndex = ({ data, location }) => {
               >
                 <header>
                   <h2>
-                    <Link to={post.fields.slug} itemProp="url">
-                      <span itemProp="headline">{title}</span>
+                    <Link to={post.uri} itemProp="url">
+                      <span
+                        itemProp="headline"
+                        dangerouslySetInnerHTML={{ __html: title }}
+                      />
                     </Link>
                   </h2>
-                  <small>{post.frontmatter.date}</small>
+                  <small>{post.date}</small>
                 </header>
                 <section>
                   <p
                     dangerouslySetInnerHTML={{
-                      __html: post.frontmatter.description || post.excerpt,
+                      __html: post.excerpt,
                     }}
                     itemProp="description"
                   />
@@ -59,6 +65,14 @@ const BlogIndex = ({ data, location }) => {
           )
         })}
       </ol>
+
+      {previousPagePath && (
+        <>
+          <Link to={previousPagePath}>Previous page</Link>
+          <br />
+        </>
+      )}
+      {nextPagePath && <Link to={nextPagePath}>Next page</Link>}
     </Layout>
   )
 }
@@ -66,23 +80,18 @@ const BlogIndex = ({ data, location }) => {
 export default BlogIndex
 
 export const pageQuery = graphql`
-  query {
-    site {
-      siteMetadata {
-        title
-      }
-    }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+  query WordPressPostArchive($offset: Int!, $postsPerPage: Int!) {
+    allWpPost(
+      sort: { fields: [date], order: DESC }
+      limit: $postsPerPage
+      skip: $offset
+    ) {
       nodes {
         excerpt
-        fields {
-          slug
-        }
-        frontmatter {
-          date(formatString: "MMMM DD, YYYY")
-          title
-          description
-        }
+        uri
+        date(formatString: "MMMM DD, YYYY")
+        title
+        excerpt
       }
     }
   }
