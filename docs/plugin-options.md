@@ -35,6 +35,7 @@
     - [type.RootQuery: Object](#typerootquery-object)
     - [type.MediaItem.lazyNodes: Boolean](#typemediaitemlazynodes-boolean)
     - [type.MediaItem.localFile.excludeByMimeTypes: Array](#typemediaitemlocalfileexcludebymimetypes-array)
+    - [type.MediaItem.localFile.maxFileSizeBytes: Number](#typemediaitemlocalfilemaxfilesizebytes-number)
 - [Up Next :point_right:](#up-next-point_right)
 
 ## url: String
@@ -613,6 +614,27 @@ Default is `[]`.
       MediaItem: {
         localFile: {
           excludeByMimeTypes: [`video/mp4`]
+        },
+      },
+    },
+  },
+},
+```
+
+### type.MediaItem.localFile.maxFileSizeBytes: Number
+
+Allows preventing the download of files that are above a certain file size (in bytes).
+
+Default is `10485760` which is 10Mb.
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+  options: {
+    type: {
+      MediaItem: {
+        localFile: {
+          maxFileSizeBytes: 10485760
         },
       },
     },
