@@ -93,6 +93,7 @@ const defaultPluginOptions = {
       lazyNodes: false,
       localFile: {
         excludeByMimeTypes: [],
+        maxFileSizeBytes: 10485760, // 10Mb
       },
       beforeChangeNode: async ({ remoteNode, actionType, typeSettings }) => {
         // we fetch lazy nodes files in resolvers, no need to fetch them here.
