@@ -625,7 +625,7 @@ Default is `[]`.
 
 Allows preventing the download of files that are above a certain file size (in bytes).
 
-Default is `10485760` which is 10Mb.
+Default is `15728640` which is 15Mb.
 
 ```js
 {
@@ -634,7 +634,7 @@ Default is `10485760` which is 10Mb.
     type: {
       MediaItem: {
         localFile: {
-          maxFileSizeBytes: 10485760
+          maxFileSizeBytes: 10485760 // 10Mb
         },
       },
     },
