@@ -1,6 +1,7 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
 import Image from "gatsby-image"
+import parse from "html-react-parser"
 
 // We're using Gutenberg so we need the block styles
 import "@wordpress/block-library/build-style/style.css"
@@ -26,7 +27,7 @@ const BlogPostTemplate = ({ data: { previous, next, post } }) => {
         itemType="http://schema.org/Article"
       >
         <header>
-          <h1 itemProp="headline">{post.title}</h1>
+          <h1 itemProp="headline">{parse(post.title)}</h1>
 
           <p>{post.date}</p>
 
@@ -40,10 +41,9 @@ const BlogPostTemplate = ({ data: { previous, next, post } }) => {
           )}
         </header>
 
-        <section
-          dangerouslySetInnerHTML={{ __html: post.content }}
-          itemProp="articleBody"
-        />
+        {!!post.content && (
+          <section itemProp="articleBody">{parse(post.content)}</section>
+        )}
 
         <hr />
 
@@ -65,7 +65,7 @@ const BlogPostTemplate = ({ data: { previous, next, post } }) => {
           <li>
             {previous && (
               <Link to={previous.uri} rel="prev">
-                ← {previous.title}
+                ← {parse(previous.title)}
               </Link>
             )}
           </li>
@@ -73,7 +73,7 @@ const BlogPostTemplate = ({ data: { previous, next, post } }) => {
           <li>
             {next && (
               <Link to={next.uri} rel="next">
-                {next.title} →
+                {parse(next.title)} →
               </Link>
             )}
           </li>

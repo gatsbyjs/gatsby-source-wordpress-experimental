@@ -1,5 +1,6 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
+import parse from "html-react-parser"
 
 import Bio from "../components/bio"
 import Layout from "../components/layout"
@@ -44,22 +45,12 @@ const BlogIndex = ({
                 <header>
                   <h2>
                     <Link to={post.uri} itemProp="url">
-                      <span
-                        itemProp="headline"
-                        dangerouslySetInnerHTML={{ __html: title }}
-                      />
+                      <span itemProp="headline">{parse(title)}</span>
                     </Link>
                   </h2>
                   <small>{post.date}</small>
                 </header>
-                <section>
-                  <p
-                    dangerouslySetInnerHTML={{
-                      __html: post.excerpt,
-                    }}
-                    itemProp="description"
-                  />
-                </section>
+                <section itemProp="description">{parse(post.excerpt)}</section>
               </article>
             </li>
           )
