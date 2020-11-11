@@ -13,6 +13,18 @@ module.exports = {
   },
   plugins: [
     {
+      resolve: `gatsby-source-wordpress-experimental`,
+      options: {
+        url: `https://wpgatsbydemo.wpengine.com/graphql`,
+        develop: {
+          // This option will hard-cache media files outside the Gatsby cache
+          // that means you wont need to re-fetch them when your Gatsby cache clears
+          // this takes 2x as much space as when it's set to false
+          hardCacheMediaFiles: true,
+        },
+      },
+    },
+    {
       resolve: `gatsby-source-filesystem`,
       options: {
         path: `${__dirname}/content/blog`,
