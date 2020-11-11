@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.1.3
+
+- Added a `MediaItem.localFile.maxFileSizeBytes` option with a default of `15728640` which is 15Mb. This is not considered a breaking change because Gatsby currently has a hard time processing large files. It's very unlikely that anyone with files larger than this were able to run a build previously which means this will fix a bug for most users who have very large files in their WP instance.
+
 ## 2.1.2
 
 - Inverted the background and foreground colours for the formatLogMessage helper to help increase contrast across more terminal themes.
