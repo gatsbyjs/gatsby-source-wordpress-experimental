@@ -1,6 +1,7 @@
 import chunk from "lodash/chunk"
 import store from "~/store"
 import atob from "atob"
+import filesize from "filesize"
 import PQueue from "p-queue"
 import { createRemoteMediaItemNode } from "../create-nodes/create-remote-media-item-node"
 import { paginatedWpNodeFetch, normalizeNode } from "./fetch-nodes-paginated"
@@ -11,6 +12,7 @@ import uniq from "lodash/uniq"
 import urlUtil from "url"
 import path from "path"
 import { getPluginOptions } from "~/utils/get-gatsby-api"
+import { formatLogMessage } from "~/utils/format-log-message"
 
 const nodeFetchConcurrency = 2
 
@@ -146,11 +148,25 @@ export const createMediaItemNode = async ({
       retryKey,
       timesRetried,
     }) => {
+      const fetchTimeout = setTimeout(() => {
+        helpers.reporter.log(
+          formatLogMessage(
+            `Fetching ${
+              node.mediaItemUrl
+            } is taking a long time time (longer than 15 seconds). This file is ${filesize(
+              node.fileSize
+            )}`
+          )
+        )
+      }, 15000)
+
       const localFileNode = await createRemoteMediaItemNode({
         mediaItemNode: node,
         helpers,
         parentName,
       })
+
+      clearTimeout(fetchTimeout)
 
       if (timesRetried > 1) {
         helpers.reporter.info(
