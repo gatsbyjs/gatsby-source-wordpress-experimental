@@ -1,4 +1,4 @@
-import fetchGraphql from "gatsby-source-wordpress-experimental/utils/fetch-graphql"
+import fetchGraphql from "gatsby-source-wordpress-experimental/dist/utils/fetch-graphql"
 import execall from "execall"
 
 const countGatsbyImgs = (string) =>

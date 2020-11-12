@@ -445,7 +445,7 @@ const fetchGraphql = async ({
   if (!reporter || typeof reporter === `undefined`) {
     reporter = {
       panic: (message) => {
-        throw new Error(message)
+        throw new Error(message.context.sourceMessage)
       },
       error: console.error,
     }
@@ -482,8 +482,7 @@ const fetchGraphql = async ({
 
     const { path } = urlUtil.parse(url)
     const responsePath = response.request.path
-
-    if (path !== responsePath) {
+    if (path !== responsePath && responsePath !== undefined) {
       throw new Error(`GraphQL request was redirected to ${responsePath}`)
     }
 
