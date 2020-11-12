@@ -532,7 +532,7 @@ const replaceNodeHtmlImages = async ({
           fallbackImageMaxWidth = mediaItemNodeWidth
         }
 
-        const maxWidth =
+        let maxWidth =
           // if we inferred a maxwidth from html
           (imgTagMaxWidth &&
           // and we have a media item node to know it's full size max width
@@ -549,6 +549,14 @@ const replaceNodeHtmlImages = async ({
           // if we don't have a media item node and we inferred no width
           // from html, then use the fallback max width from plugin options
           fallbackImageMaxWidth
+
+        const configuredMaxWidth = pluginOptions?.html?.imageMaxWidth
+
+        // if the configured html.maxWidth property is less than the result, then
+        // override the resultant width
+        if (configuredMaxWidth && configuredMaxWidth < maxWidth) {
+          maxWidth = configuredMaxWidth
+        }
 
         const quality = pluginOptions?.html?.imageQuality
 
