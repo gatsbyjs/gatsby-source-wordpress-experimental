@@ -28,69 +28,79 @@ describe(`pluginOptionsSchema`, () => {
     const { isValid, errors } = await testPluginOptionsSchema(
       pluginOptionsSchema,
       {
-        url: `http://fake:8000/graphql`,
+        url: `https://fakeurl.com/graphql`,
+        verbose: false,
+        debug: {
+          throwRefetchErrors: true,
+          graphql: {
+            showQueryOnError: false,
+            showQueryVarsOnError: false,
+            copyQueryOnError: false,
+            panicOnError: false,
+            onlyReportCriticalErrors: true,
+            copyNodeSourcingQueryAndExit: false,
+            writeQueriesToDisk: false,
+          },
+          timeBuildSteps: false,
+          disableCompatibilityCheck: false,
+        },
+        develop: {
+          nodeUpdateInterval: 300,
+          hardCacheMediaFiles: false,
+          hardCacheData: false,
+        },
+        production: {
+          hardCacheMediaFiles: false,
+        },
         auth: {
           htaccess: {
             username: `test`,
             password: `test`,
           },
         },
-        verbose: true,
-        excludeFieldNames: [`commentCount`, `commentCount`],
         schema: {
-          queryDepth: 5,
+          queryDepth: 15,
+          circularQueryLimit: 5,
           typePrefix: `Wp`,
+          timeout: 30 * 1000, // 30 seconds
+          perPage: 100,
         },
-        develop: {
-          nodeUpdateInterval: 3000,
-        },
-        debug: {
-          graphql: {
-            showQueryOnError: true,
-            showQueryVarsOnError: false,
-            copyQueryOnError: true,
-            panicOnError: false,
-            // a critical error is a WPGraphQL query that returns an error and response data. Currently WPGQL will error if we try to access private posts so if this is false it returns a lot of irrelevant errors.
-            onlyReportCriticalErrors: true,
-            writeQueriesToDisk: true,
-          },
+        excludeFieldNames: [],
+        html: {
+          useGatsbyImage: true,
+          imageMaxWidth: null,
+          fallbackImageMaxWidth: 100,
+          imageQuality: 90,
+          createStaticFiles: true,
         },
         type: {
-          TypeLimitTest: {
-            limit: 1,
+          __all: {
+            excludeFieldNames: [`viewer`],
           },
-          TypeLimit0Test: {
-            limit: 0,
-          },
-          Comment: {
-            excludeFieldNames: [`databaseId`],
-          },
-          Page: {
-            excludeFieldNames: [`enclosure`],
-          },
-          DatabaseIdentifier: {
-            exclude: true,
-          },
-          User: {
-            excludeFieldNames: [
-              `extraCapabilities`,
-              `capKey`,
-              `email`,
-              `registeredDate`,
-            ],
-          },
-          Post: {
-            limit:
-              process.env.NODE_ENV === `development`
-                ? // Lets just pull 50 posts in development to make it easy on ourselves.
-                  50
-                : // and we don't actually need more than 1000 in production
-                  1000,
+          RootQuery: {
+            excludeFieldNames: [`schemaMd5`],
           },
           MediaItem: {
+            lazyNodes: true,
             localFile: {
-              maxFileSizeBytes: 10485760,
+              excludeByMimeTypes: [`video/mp4`],
+              maxFileSizeBytes: 1400000,
             },
+          },
+          ContentNode: {
+            nodeInterface: true,
+          },
+          Menu: {
+            beforeChangeNode: () => {},
+          },
+          MenuItem: {
+            beforeChangeNode: null,
+          },
+          EnqueuedScript: {
+            exclude: true,
+          },
+          EnqueuedThing: {
+            exclude: null,
           },
         },
       }
