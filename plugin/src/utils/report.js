@@ -41,4 +41,9 @@ export const ERROR_MAP = {
     level: `ERROR`,
     category: `THIRD_PARTY`,
   },
+  [CODES.MissingAppendedPath]: {
+    text: (context) => context.sourceMessage,
+    level: `ERROR`,
+    category: `THIRD_PARTY`,
+  },
 }

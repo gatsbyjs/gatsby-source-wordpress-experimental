@@ -227,6 +227,7 @@ const handleFetchErrors = async ({
   response,
   errorContext,
   isFirstRequest,
+  headers,
 }) => {
   await handleErrors({
     panicOnError: false,
@@ -334,6 +335,44 @@ ${slackChannelSupportMessage}`
   )
 
   if (responseReturnedHtml && isFirstRequest) {
+    const requestOptions = {
+      timeout,
+      headers,
+    }
+
+    if (!missingCredentials) {
+      requestOptions.auth = htaccessCredentials
+    }
+    try {
+      const urlWithoutTrailingSlash = url.replace(/\/$/, ``)
+      const response = await http.post(
+        [urlWithoutTrailingSlash, `/graphql`].join(``),
+        { query, variables },
+        requestOptions
+      )
+      const contentType = response?.headers[`content-type`]
+      if (contentType?.includes(`application/json;`)) {
+        const docsLink = `https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/plugin-options.md#url-string`
+        // if adding `/graphql` works, panic with a useful message
+        reporter.panic({
+          id: CODES.missingAppendedPath,
+          context: {
+            sourceMessage: formatLogMessage(
+              `${errorContext}\n\nThe supplied url ${chalk.bold(
+                urlWithoutTrailingSlash
+              )} is invalid,\nhowever ${chalk.bold(
+                urlWithoutTrailingSlash + `/graphql`
+              )} works!\n\nFor this plugin to consume the wp-graphql schema, you'll need to specify the full URL\n(${chalk.bold(
+                urlWithoutTrailingSlash + `/graphql`
+              )}) in your gatsby-config.\n\nYou can learn more about configuring the source plugin URL here:\n${docsLink}\n\n`
+            ),
+          },
+        })
+      }
+    } catch (err) {
+      // elsewise, continue to handle HTML response as normal
+    }
+
     const copyHtmlResponseOnError =
       pluginOptions?.debug?.graphql?.copyHtmlResponseOnError
 
