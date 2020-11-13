@@ -170,7 +170,7 @@ export function pluginOptionsSchema({ Joi }) {
           ),
         localFile: Joi.object({
           excludeByMimeTypes: Joi.array()
-            .items(`string`)
+            .items(Joi.string())
             .default([])
             .description(
               `Allows preventing the download of files associated with MediaItem nodes by their mime types.`
