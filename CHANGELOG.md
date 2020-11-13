@@ -1,5 +1,9 @@
 # Change Log
 
+## 3.0.0
+
+- Implemented the new Gatsby core node API `pluginOptionsSchema` to validate user options. Thanks @mxstbr and @sslotsky!
+
 ## 2.1.1
 
 - Increased the supported version range of WPGraphQL to support the recently released v0.15.0.
