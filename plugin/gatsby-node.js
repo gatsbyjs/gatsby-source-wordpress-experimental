@@ -2,11 +2,7 @@ const { runApisInSteps } = require(`./dist/utils/run-steps`)
 const steps = require(`./dist/steps/index`)
 
 module.exports = runApisInSteps({
-  onPreInit: [
-    steps.checkGatsbyVersion,
-    steps.setErrorMap,
-    steps.tempPreventMultipleInstances,
-  ],
+  onPreInit: [steps.setErrorMap, steps.tempPreventMultipleInstances],
 
   pluginOptionsSchema: [steps.pluginOptionsSchema],
 

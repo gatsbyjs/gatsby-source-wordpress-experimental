@@ -11,4 +11,3 @@ export { checkIfSchemaHasChanged } from "~/steps/ingest-remote-schema/diff-schem
 export { setErrorMap } from "~/steps/set-error-map"
 export { tempPreventMultipleInstances } from "~/steps/temp-prevent-multiple-instances"
 export { pluginOptionsSchema } from "~/steps/declare-plugin-options-schema"
-export { checkGatsbyVersion } from "~/steps/check-gatsby-version"
