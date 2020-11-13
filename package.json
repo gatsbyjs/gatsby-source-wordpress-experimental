@@ -5,7 +5,8 @@
   "license": "MIT",
   "workspaces": [
     "test-site",
-    "plugin"
+    "plugin",
+    "starters/*"
   ],
   "scripts": {
     "prettier": "prettier . --write",

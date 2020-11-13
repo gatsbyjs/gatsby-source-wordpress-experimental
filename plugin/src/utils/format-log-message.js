@@ -16,7 +16,7 @@ const formatLogMessage = (input, { useVerboseStyle } = {}) => {
   }
 
   return verbose || useVerboseStyle
-    ? `${chalk.bgBlue.white(` gatsby-source-wordpress `)} ${message}`
+    ? `${chalk.blue(` gatsby-source-wordpress `)} ${message}`
     : `[gatsby-source-wordpress] ${message}`
 }
 

@@ -4,6 +4,18 @@
 
 - Implemented the new Gatsby core node API `pluginOptionsSchema` to validate user options. Thanks @mxstbr and @sslotsky!
 
+## 2.1.4
+
+- Fixed issue #151 where the `html.imageMaxWidth` option was not being properly respected. Thanks @acao!
+
+## 2.1.3
+
+- Added a `MediaItem.localFile.maxFileSizeBytes` option with a default of `15728640` which is 15Mb. This is not considered a breaking change because Gatsby currently has a hard time processing large files. It's very unlikely that anyone with files larger than this were able to run a build previously which means this will fix a bug for most users who have very large files in their WP instance.
+
+## 2.1.2
+
+- Inverted the background and foreground colours for the formatLogMessage helper to help increase contrast across more terminal themes.
+
 ## 2.1.1
 
 - Increased the supported version range of WPGraphQL to support the recently released v0.15.0.
@@ -23,7 +35,7 @@
 
 ## 2.0.2
 
-- Fixes a case where an error object was being treated as a string. Thanks @rgburst!
+- Fixes a case where an error object was being treated as a string. Thanks @rburgst!
 
 ## 2.0.1
 
