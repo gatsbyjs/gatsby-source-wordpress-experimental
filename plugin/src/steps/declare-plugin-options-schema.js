@@ -175,6 +175,12 @@ export function pluginOptionsSchema({ Joi }) {
             .description(
               `Allows preventing the download of files associated with MediaItem nodes by their mime types.`
             ),
+          maxFileSizeBytes: Joi.number()
+            .integer()
+            .default(15728640)
+            .description(
+              `Allows preventing the download of files that are above a certain file size (in bytes).`
+            ),
         }),
       }),
     })

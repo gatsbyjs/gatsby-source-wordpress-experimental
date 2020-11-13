@@ -62,17 +62,6 @@ describe(`pluginOptionsSchema`, () => {
           TypeLimit0Test: {
             limit: 0,
           },
-          // TODO: test translation support using our own test wp graphql plugin
-          // TranslationFilterTest: {
-          //   where: `language: FR`,
-          //   beforeChangeNode: async ({ remoteNode, type }) => {
-          //     if (remoteNode.language && remoteNode.language.slug !== `fr`) {
-          //       return {
-          //         cancelUpdate: true,
-          //       }
-          //     }
-          //   },
-          // },
           Comment: {
             excludeFieldNames: [`databaseId`],
           },
@@ -97,6 +86,11 @@ describe(`pluginOptionsSchema`, () => {
                   50
                 : // and we don't actually need more than 1000 in production
                   1000,
+          },
+          MediaItem: {
+            localFile: {
+              maxFileSizeBytes: 10485760,
+            },
           },
         },
       }
