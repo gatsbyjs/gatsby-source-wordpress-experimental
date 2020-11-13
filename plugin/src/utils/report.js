@@ -8,6 +8,7 @@ export const CODES = {
 
   /* GraphQL Errors */
   RemoteGraphQLError: `112001`,
+  MissingAppendedPath: `112002`,
 }
 
 export const ERROR_MAP = {
