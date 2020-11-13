@@ -10,5 +10,5 @@ export { startPollingForContentUpdates } from "~/steps/source-nodes/update-nodes
 export { checkIfSchemaHasChanged } from "~/steps/ingest-remote-schema/diff-schemas"
 export { setErrorMap } from "~/steps/set-error-map"
 export { tempPreventMultipleInstances } from "~/steps/temp-prevent-multiple-instances"
-export { declarePluginOptionsSchema } from "~/steps/declare-plugin-options-schema"
+export { pluginOptionsSchema } from "~/steps/declare-plugin-options-schema"
 export { checkGatsbyVersion } from "~/steps/check-gatsby-version"

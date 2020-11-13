@@ -8360,6 +8360,13 @@ gatsby-plugin-utils@^0.2.40:
   dependencies:
     joi "^17.2.1"
 
+gatsby-plugin-utils@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-utils/-/gatsby-plugin-utils-0.3.0.tgz#1d10d3c6423603c391d31bcd12bd683bf40d7037"
+  integrity sha512-z0FgEM/uU/7IgDYLaNHmUK0m09TJwYaaiefSrj7NWyavF8uEyOd+52qI9TsK2Exv4DYiQI/L7zsC28iKtPbW1g==
+  dependencies:
+    joi "^17.2.1"
+
 gatsby-react-router-scroll@^3.0.15:
   version "3.0.15"
   resolved "https://registry.yarnpkg.com/gatsby-react-router-scroll/-/gatsby-react-router-scroll-3.0.15.tgz#0d081941f63894a3b6f2e7c2986091e187875bbd"

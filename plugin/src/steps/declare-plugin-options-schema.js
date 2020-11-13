@@ -1,4 +1,4 @@
-export function declarePluginOptionsSchema({ Joi }) {
+export function pluginOptionsSchema({ Joi }) {
   const getTypeOptions = () =>
     Joi.object({
       exclude: Joi.boolean().description(
