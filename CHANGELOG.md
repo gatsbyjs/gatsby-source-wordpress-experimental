@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.3.1
+
+- Deleting a post in WordPress which had been excluded in plugin options in Gatsby would fail the build previously. There are now checks in place that prevent and info about what's happening is logged to the terminal output.
+
 ## 2.3.0
 
 - Added a check where if html is returned from the GraphQL endpoint, we append `/graphql` to the url and try again. If that returns JSON, we panic and display an error telling the developer to update the url to include `/graphql`. Thanks @acao!!
