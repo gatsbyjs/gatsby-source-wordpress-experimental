@@ -345,14 +345,18 @@ ${slackChannelSupportMessage}`
     }
     try {
       const urlWithoutTrailingSlash = url.replace(/\/$/, ``)
+
       const response = await http.post(
         [urlWithoutTrailingSlash, `/graphql`].join(``),
         { query, variables },
         requestOptions
       )
+
       const contentType = response?.headers[`content-type`]
+
       if (contentType?.includes(`application/json;`)) {
         const docsLink = `https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/plugin-options.md#url-string`
+
         // if adding `/graphql` works, panic with a useful message
         reporter.panic({
           id: CODES.missingAppendedPath,
