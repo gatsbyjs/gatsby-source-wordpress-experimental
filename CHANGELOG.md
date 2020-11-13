@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.2.1
+
+- Fixed a bug where the new `pluginOptionsSchema` would display a warning instead of working properly. `pluginOptionsSchema` works differently than other Gatsby node API's in that this API cannot have a nested function returned to it which will be called. All other Node API's allow this but pluginOptionsSchema does not. This is now fixed though!
+
 ## 2.2.0
 
 - Implemented the new Gatsby core node API `pluginOptionsSchema` to validate user options. Thanks @mxstbr and @sslotsky!

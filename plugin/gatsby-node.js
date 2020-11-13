@@ -4,7 +4,7 @@ const steps = require(`./dist/steps/index`)
 module.exports = runApisInSteps({
   onPreInit: [steps.setErrorMap, steps.tempPreventMultipleInstances],
 
-  pluginOptionsSchema: [steps.pluginOptionsSchema],
+  pluginOptionsSchema: steps.pluginOptionsSchema,
 
   createSchemaCustomization: [
     steps.setGatsbyApiToState,

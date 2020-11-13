@@ -52,7 +52,10 @@ const runApisInSteps = (nodeApis) =>
     (gatsbyNodeExportObject, [apiName, apiSteps]) => {
       return {
         ...gatsbyNodeExportObject,
-        [apiName]: runApiSteps(apiSteps, apiName),
+        [apiName]:
+          typeof apiSteps === `function`
+            ? apiSteps
+            : runApiSteps(apiSteps, apiName),
       }
     },
     {}
