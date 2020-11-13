@@ -1,6 +1,6 @@
 # Change Log
 
-## 2.1.5
+## 2.2.0
 
 - Implemented the new Gatsby core node API `pluginOptionsSchema` to validate user options. Thanks @mxstbr and @sslotsky!
 
