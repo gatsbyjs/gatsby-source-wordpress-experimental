@@ -2,7 +2,7 @@
   "name": "gatsby-source-wordpress-experimental",
   "description": "Source data from WPGraphQL in an efficient and scalable way.",
   "author": "Tyler Barnes <tylerdbarnes@gmail.com>",
-  "version": "2.1.4",
+  "version": "2.2.0",
   "bugs": {
     "url": "https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/issues"
   },
@@ -69,7 +69,7 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "gatsby": "^2.0.15",
+    "gatsby": "^2.24.74",
     "gatsby-plugin-sharp": "^2.6.8",
     "gatsby-transformer-sharp": "^2.5.10"
   },

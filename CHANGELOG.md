@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.2.0
+
+- Implemented the new Gatsby core node API `pluginOptionsSchema` to validate user options. Thanks @mxstbr and @sslotsky!
+
 ## 2.1.4
 
 - Fixed issue #151 where the `html.imageMaxWidth` option was not being properly respected. Thanks @acao!
