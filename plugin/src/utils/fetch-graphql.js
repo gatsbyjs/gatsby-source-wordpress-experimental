@@ -358,7 +358,9 @@ ${slackChannelSupportMessage}`
           id: CODES.missingAppendedPath,
           context: {
             sourceMessage: formatLogMessage(
-              `${errorContext}\n\nThe supplied url ${chalk.bold(
+              `${
+                errorContext ? `${errorContext}` : ``
+              }\n\nThe supplied url ${chalk.bold(
                 urlWithoutTrailingSlash
               )} is invalid,\nhowever ${chalk.bold(
                 urlWithoutTrailingSlash + `/graphql`
