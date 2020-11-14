@@ -68,14 +68,12 @@ export const fetchAndCreateSingleNode = async ({
   } = getGatsbyApi()
 
   if (!query) {
-    reporter.log(``)
-    reporter.warn(
+    reporter.info(
       formatLogMessage(
-        `A ${singleName} was updated, but no query was found for this node type.`
+        `A ${singleName} was updated, but this node type is excluded in plugin options.`
       )
     )
     reporter.log(``)
-
     return { node: null }
   }
 
