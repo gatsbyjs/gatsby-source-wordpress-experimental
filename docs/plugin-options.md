@@ -1,7 +1,6 @@
 # Plugin Options
 
 - [Plugin Options](#plugin-options)
-
   - [url: String](#url-string)
   - [verbose: Boolean](#verbose-boolean)
   - [debug: Object](#debug-object)
