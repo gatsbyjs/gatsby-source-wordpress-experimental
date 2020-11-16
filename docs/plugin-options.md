@@ -632,15 +632,6 @@ Default is `15728640` which is 15Mb.
 
 ```js
 {
-  resolve: `gatsby-source-wordpress-experimental`,
-	options: {
-	  searchAndReplace: [
-      {
-        find: '',
-        replace: ''
-      },
-      ...
-    ],
   options: {
     type: {
       MediaItem: {
