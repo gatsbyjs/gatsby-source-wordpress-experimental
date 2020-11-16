@@ -1,99 +1,79 @@
 {
-  "name": "gatsby-source-wordpress-experimental",
-  "description": "Source data from WPGraphQL in an efficient and scalable way.",
-  "author": "Tyler Barnes <tylerdbarnes@gmail.com>",
-  "version": "1.7.8",
-  "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/issues"
-  },
-  "dependencies": {
-    "@babel/runtime": "^7.6.3",
-    "@rematch/core": "^1.3.0",
-    "@rematch/immer": "^1.2.0",
-    "async-retry": "^1.3.1",
-    "atob": "^2.1.2",
-    "axios": "^0.19.0",
-    "axios-rate-limit": "^1.2.1",
-    "better-queue": "^3.8.10",
-    "btoa": "^1.2.1",
-    "chalk": "^4.1.0",
-    "cheerio": "^1.0.0-rc.3",
-    "clipboardy": "^2.1.0",
-    "dumper.js": "^1.3.1",
-    "execall": "^2.0.0",
-    "fast-json-stable-stringify": "^2.1.0",
-    "file-type": "^15.0.1",
-    "fs-extra": "^9.0.1",
-    "gatsby-core-utils": "^1.3.20",
-    "gatsby-image": "^2.4.14",
-    "gatsby-plugin-catch-links": "^2.3.11",
-    "gatsby-source-filesystem": "^2.3.23",
-    "glob": "^7.1.6",
-    "got": "^11.7.0",
-    "graphql-query-compress": "^1.2.2",
-    "lodash": "^4.17.19",
-    "node-fetch": "^2.6.0",
-    "p-queue": "^6.3.0",
-    "prettier": "^2.0.5",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "read-chunk": "^3.2.0",
-    "replaceall": "^0.1.6",
-    "semver": "^7.3.2",
-    "valid-url": "^1.0.9"
+  "name": "gatsby-wordpress-workspace",
+  "private": true,
+  "version": "0.0.1",
+  "license": "MIT",
+  "workspaces": [
+    "test-site",
+    "plugin",
+    "starters/*"
+  ],
+  "scripts": {
+    "prettier": "prettier . --write",
+    "eslint": "eslint . --ext .ts,.js,.jsx,.tsx",
+    "prettier-check": "prettier . --check",
+    "lint": "yarn prettier-check && yarn eslint",
+    "build": "yarn workspace gatsby-source-wordpress-experimental run build",
+    "clean-test-runtime": "cd test-site && gatsby clean",
+    "develop-test-runtime": "cd test-site && yarn develop",
+    "build-test-runtime": "cd test-site && yarn build",
+    "serve-test-runtime": "cd test-site && yarn serve",
+    "ci-test": "server-test 'yarn docker-start' http://localhost:8001",
+    "ci": "yarn lint && yarn ci-test",
+    "docker-start": "docker-compose up --build --force-recreate -V",
+    "test-schema-first": "START_SERVER=true jest ./test-site/__tests__/integration/schema",
+    "test-schema-increment": "WPGQL_INCREMENT=true START_SERVER=true jest ./test-site/__tests__/integration/schema",
+    "test-schema": "yarn clean-test-runtime && yarn test-schema-first && yarn test-schema-increment",
+    "test-build": "yarn clean-test-runtime && DEFAULT_PLUGIN_OPTIONS=true jest ./test-site/__tests__/integration/build && jest ./test-site/__tests__/integration/build/plugin-options-schema",
+    "test": "yarn build && yarn test-schema && yarn test-build && yarn clean-test-runtime",
+    "test-schema-watch": "SHOW_GATSBY_PROCESS_STDOUT=true yarn test-schema-first --watch",
+    "test-build-watch": "SHOW_GATSBY_PROCESS_STDOUT=true yarn test-build --watch",
+    "test-update": "yarn test-schema-first -u && yarn test-schema-increment -u && yarn test-build -u",
+    "npm-publish": "yarn run lint && yarn test && (rm plugin/README.md || true) && cp README.md plugin/README.md && cd plugin && npm publish"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.4",
     "@babel/core": "^7.6.4",
     "@babel/plugin-proposal-class-properties": "^7.10.1",
     "@babel/plugin-proposal-private-methods": "^7.10.1",
+    "@typescript-eslint/eslint-plugin": "^4.5.0",
+    "@typescript-eslint/parser": "^4.5.0",
+    "babel-eslint": "^10.1.0",
     "babel-jest": "^25.1.0",
     "babel-plugin-import-globals": "^2.0.0",
     "babel-plugin-root-import": "^6.4.1",
     "babel-preset-gatsby": "^0.2.29",
     "babel-preset-gatsby-package": "^0.2.9",
     "cross-env": "^5.2.1",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^6.14.0",
+    "eslint-plugin-filenames": "^1.3.2",
+    "eslint-plugin-prettier": "^3.1.4",
+    "husky": "^4.3.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^25.1.0",
+    "lint-staged": "^10.4.2",
+    "prettier": "^2.1.2",
     "react-test-renderer": "^16.12.0",
     "rimraf": "^3.0.2",
+    "start-server-and-test": "^1.11.5",
     "tree-kill": "^1.2.2",
-    "wait-on": "^4.0.0"
+    "typescript": "^4.0.3",
+    "wait-on": "^4.0.0",
+    "gatsby-plugin-utils": "^0.3.0"
   },
-  "homepage": "https://github.com/gatsbyjs/gatsby-source-wordpress-experimental",
-  "keywords": [
-    "gatsby",
-    "gatsby-plugin",
-    "gatsby-plugin-wordpress"
-  ],
-  "license": "MIT",
-  "peerDependencies": {
-    "gatsby": "^2.0.15",
-    "gatsby-plugin-sharp": "^2.6.8",
-    "gatsby-transformer-sharp": "^2.5.10"
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-source-wordpress-experimental.git"
-  },
-  "scripts": {
-    "build": "rimraf dist && babel src --out-dir dist --ignore **/__tests__ --extensions \".ts,.js\" --source-maps",
-    "prepare": "cross-env NODE_ENV=production BABEL_ENV=production npm run build",
-    "prepublishOnly": "npm run test",
-    "watch": "babel -w src --out-dir dist --ignore **/__tests__ --verbose --extensions \".ts,.js\" --source-maps",
-    "ci": "yarn test",
-    "clean-test-runtime": "cd .test-runtime && npx gatsby clean",
-    "develop-test-runtime": "cd .test-runtime && yarn develop",
-    "build-test-runtime": "cd .test-runtime && yarn build",
-    "serve-test-runtime": "cd .test-runtime && yarn serve",
-    "test-schema": "yarn clean-test-runtime && START_SERVER=true jest ./.test-runtime/__tests__/integration/schema && WPGQL_INCREMENT=true START_SERVER=true jest ./.test-runtime/__tests__/integration/schema",
-    "test-build": "yarn clean-test-runtime && jest ./.test-runtime/__tests__/integration/build && WPGQL_INCREMENT=true jest ./.test-runtime/__tests__/integration/build",
-    "test-build-default-options": "yarn clean-test-runtime && DEFAULT_PLUGIN_OPTIONS=true jest ./.test-runtime/__tests__/integration/build && WPGQL_INCREMENT=true DEFAULT_PLUGIN_OPTIONS=true jest ./.test-runtime/__tests__/integration/build",
-    "test": "yarn prepare && yarn test-schema && yarn test-build && yarn test-build-default-options && yarn clean-test-runtime",
-    "test-schema-watch": "SHOW_GATSBY_PROCESS_STDOUT=true jest --watch ./.test-runtime/__tests__/integration/schema",
-    "test-build-watch": "SHOW_GATSBY_PROCESS_STDOUT=true jest --watch ./.test-runtime/__tests__/integration/build"
-  },
-  "engines": {
-    "node": ">=10.0.0"
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx}": [
+      "eslint",
+      "prettier --write"
+    ],
+    "*.{md,json,yml}": [
+      "prettier --write"
+    ]
   }
 }

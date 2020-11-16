@@ -5,8 +5,6 @@ WPGatsby is a required plugin which modifies WPGraphQL and WordPress to work wit
 1. [Setting up Builds](#setting-up-builds)
 2. [Setting up Preview](#setting-up-preview)
 
-
-
 ## Setting Up Builds
 
 Wether you're using a regular CI service like Netlify (I would encourage you to try the free tier of Gatsby Cloud if you are!), or you're using a supercharged CI service like Gatsby Cloud with Incremental Builds, you will set things up the same way.
@@ -27,19 +25,13 @@ Below your "Preview Webhook" you should see your "Builds Webhook". Copy this web
 
 Now that your Builds webhook is set up, when content is updated in WordPress your content will update in 4 to 12 seconds if you're using Gatsby Cloud with Incremental Builds, and in 45 seconds to a few minutes (and beyond) if you're using other services! :rocket:
 
-
-
 ## Setting Up Preview
 
 Once configured in the GatsbyJS settings page in wp-admin, Previews will work out of the box as long as you're using WordPress page/post uri's to build your Gatsby pages. See [this starter's gatsby-node.js](https://github.com/TylerBarnes/using-gatsby-source-wordpress-experimental/tree/master/gatsby-node.js) for an example of how to set up your Gatsby pages. See the [feature page on Preview](../features/preview.md) for more information about how Preview works, considerations you should keep in mind while writing Preview-ready templates, and how to debug Preview templates.
 
-
-
 ### Connecting Preview
 
 To get started, set up a Preview instance on [Gatsby Cloud](https://www.gatsbyjs.com/) or set up your [self-hosted Preview instance](https://www.gatsbyjs.org/docs/running-a-gatsby-preview-server/). If you want to try out Preview but aren't sure wether you want to subscribe to Gatsby Cloud or self-host, you can start a free 2 week Gatsby Cloud trial with no credit card to help you make up your mind!
-
-
 
 #### WordPress Settings
 
@@ -65,7 +57,7 @@ To find your **Preview Instance URL**, navigate to the "Preview" tab in [Gatsby 
 
 #### 3. Fill the "Preview Webhook" Field
 
-You can find your **Preview webhook** by navigating to "Site Settings" in Gatsby Cloud and then navigating to "Webhooks" via the left-side menu. 
+You can find your **Preview webhook** by navigating to "Site Settings" in Gatsby Cloud and then navigating to "Webhooks" via the left-side menu.
 
 ![Gatsby Cloud Preview Webhook URL](/docs/assets/gatsby-cloud-preview-webhook-url.png)
 
@@ -75,12 +67,8 @@ This field should be filled for you automatically with a cryptocraphically secur
 
 This secret key is used to authenticate short-lived JWT tokens when you're viewing previews from WordPress so a very strong key should be used to prevent security issues.
 
-
-
 ### Using your Preview
 
 Now that you've configured WPGatsby for your Preview instance, visit a page or post you'd like to preview, edit it, and press "preview" in the top right corner of the edit screen like you usually would in WordPress. You should see a new tab pop open with your Preview instance and previewed content visible!
-
-
 
 :point_left: [Back to Features](./index.md)

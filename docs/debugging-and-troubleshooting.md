@@ -3,13 +3,11 @@
 - [Node sourcing](#node-sourcing)
   - [Missing data in Gatsby](#missing-data-in-gatsby)
   - [GraphQL errors](#node-sourcing-graphql-errors)
-  - [WordPress 50* errors](#wordpress-50-errors)
+  - [WordPress 50\* errors](#wordpress-50-errors)
   - [Timeouts](#node-sourcing-timeouts)
 - [Media File Download Errors](#media-file-download-errors)
 - [Broken Preview templates](#broken-preview-templates)
 - [Previews don't update](#previews-dont-update)
-
-
 
 ## Node sourcing
 
@@ -21,29 +19,29 @@ If some fields are returning null or an empty array when you think they should b
 
 For example if pages weren't returning titles for some reason and the following was your query in Gatsby:
 
-   ```js
-   {
-     allWpPage {
-       nodes {
-         id
-         title
-       }
-     }
-   }
-   ```
+```js
+{
+  allWpPage {
+    nodes {
+      id
+      title
+    }
+  }
+}
+```
 
-   Take that query and make the query directly to your WP instance GraphQL API like so:
+Take that query and make the query directly to your WP instance GraphQL API like so:
 
-   ```js
-   {
-     pages {
-       nodes {
-       	id
-         title
-       }
-     }
-   }
-   ```
+```js
+{
+  pages {
+    nodes {
+    	id
+      title
+    }
+  }
+}
+```
 
 2. Does the returned data look the same in GraphQL playground as it did in Gatsby?
    If it does but data should exist there is likely a bug in WPGraphQL or in a WPGraphQL extension you're using. Be sure to double check that these fields should actually be returning data and that that data isn't missing when you go to edit your post in WordPress.
@@ -75,8 +73,8 @@ For example if pages weren't returning titles for some reason and the following 
 
    ```json
    {
-   	"first": 100,
-   	"after": null
+     "first": 100,
+     "after": null
    }
    ```
 
@@ -86,16 +84,14 @@ For example if pages weren't returning titles for some reason and the following 
 
     #### If it does have missing data:
 
-     this means you're experiencing a bug on the WPGraphQL side of things. Seek help in the [WPGraphQL Slack](https://wpgql-slack.herokuapp.com/) or open an issue in the [WPGraphQL Github repo](https://github.com/wp-graphql/wp-graphql), or the Github repo for the WPGraphQL extension that manages the fields you're having trouble with.
+    this means you're experiencing a bug on the WPGraphQL side of things. Seek help in the [WPGraphQL Slack](https://wpgql-slack.herokuapp.com/) or open an issue in the [WPGraphQL Github repo](https://github.com/wp-graphql/wp-graphql), or the Github repo for the WPGraphQL extension that manages the fields you're having trouble with.
     To help them debug you should narrow down exactly which combination of fields in the generated query you copied is causing issues. Comment out fields 1 by 1 until the problem goes away to determine which combination of fields isn't working.
 
     **Note:** A common cause of this problem is that you're using ACF and you've named multiple fields with the same name but in different field groups. Identify conflicting field names and rename them.
 
-    #### If it does not have missing data: 
+    #### If it does not have missing data:
 
     This means it's a `gatsby-source-wordpress-experimental` bug. Open an issue in the [Github repo](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/issues/new).
-
-
 
 ### Node Sourcing GraphQL errors
 
@@ -120,15 +116,11 @@ Within this file will be the query made during node sourcing to fetch data from 
 
 You can use this query to reproduce your error message and debug your error message outside of Gatsby. If you're stuck seek help in the [WPGraphQL Slack](https://wpgql-slack.herokuapp.com/) or open an issue in the [WPGraphQL Github repo](https://github.com/wp-graphql/wp-graphql), or the Github repo for the WPGraphQL extension that manages the fields you're having trouble with.
 
-
-
-### WordPress 50* errors
+### WordPress 50\* errors
 
 If you're running into these errors during node sourcing, the plugin may be trying to fetch more data from your WordPress instance than your WP server can handle. Try lowering the [`schema.perPage`](./plugin-options.md#schema.perpage-int) plugin option from it's default of 100 and re-run your build process. If you still get errors, try setting this very low to rule out wether or not this is your problem.
 
 Another reason this can happen is that one of your GraphQL queries causes an unrecoverable error on your WordPress server. See the section on [debugging GraphQL errors](#graphql-errors) for debugging steps.
-
-
 
 ### Node Sourcing Timeouts
 
@@ -155,13 +147,9 @@ Count upwards from the last type that seems to be frozen to the top of the list.
 
 Follow this Gatsby guide on [setting environment variables](https://www.gatsbyjs.org/docs/environment-variables/) to set the `GATSBY_CONCURRENT_DOWNLOAD` env variable to this number.
 
-
-
 ## Media File Download Errors
 
 The main error that occurs while fetching media files is overwhelming the remote server due to too many concurrent requests. Follow this Gatsby guide on [setting environment variables](https://www.gatsbyjs.org/docs/environment-variables/) to set the `GATSBY_CONCURRENT_DOWNLOAD` env variable below it's default of `200`. You will need to experiment a bit to determine what the maximum number of concurrent requests for media files your server can handle is. I like to first drop it to `100` and if it works I will raise it to `150` and try again and adjust. If `100` still fails, I would try setting it very low to `10` and raising the number from there until you find the maximum.
-
-
 
 ## Broken Preview templates
 
@@ -180,7 +168,6 @@ You can proactively protect against broken Preview templates by using [optional 
 
 Check in your `wp-config.php` to determine wether or not post revisions are disabled. Look for `define( 'WP_POST_REVISIONS', FALSE );` and if you find it, remove it. This appears to be a WPGraphQL bug and we're working on fixing it. If you're interested in the status of that check https://github.com/wp-graphql/wp-graphql/issues/1408.
 If post revisions are enabled on your site and previews are still not working, please open a [new issue](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/issues).
-
 
 # Up Next :point_right:
 

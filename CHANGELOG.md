@@ -1,8 +1,71 @@
 # Change Log
 
+## 2.3.1
+
+- Deleting a post in WordPress which had been excluded in plugin options in Gatsby would fail the build previously. There are now checks in place that prevent and info about what's happening is logged to the terminal output.
+
+## 2.3.0
+
+- Added a check where if html is returned from the GraphQL endpoint, we append `/graphql` to the url and try again. If that returns JSON, we panic and display an error telling the developer to update the url to include `/graphql`. Thanks @acao!!
+
+## 2.2.1
+
+- Fixed a bug where the new `pluginOptionsSchema` would display a warning instead of working properly. `pluginOptionsSchema` works differently than other Gatsby node API's in that this API cannot have a nested function returned to it which will be called. All other Node API's allow this but pluginOptionsSchema does not. This is now fixed though!
+
+## 2.2.0
+
+- Implemented the new Gatsby core node API `pluginOptionsSchema` to validate user options. Thanks @mxstbr and @sslotsky!
+
+## 2.1.4
+
+- Fixed issue #151 where the `html.imageMaxWidth` option was not being properly respected. Thanks @acao!
+
+## 2.1.3
+
+- Added a `MediaItem.localFile.maxFileSizeBytes` option with a default of `15728640` which is 15Mb. This is not considered a breaking change because Gatsby currently has a hard time processing large files. It's very unlikely that anyone with files larger than this were able to run a build previously which means this will fix a bug for most users who have very large files in their WP instance.
+
+## 2.1.2
+
+- Inverted the background and foreground colours for the formatLogMessage helper to help increase contrast across more terminal themes.
+
+## 2.1.1
+
+- Increased the supported version range of WPGraphQL to support the recently released v0.15.0.
+- Simplified the compatibility API error message for plugins out of range to clarify next steps for the user.
+
+## 2.1.0
+
+- Multiple instances of the source plugin in 1 Gatsby site have been disallowed and an error will be thrown if there are more than 1 added. Previously this was allowed by the plugin, but each instance would overwrite each others state. This is not considered a breaking change because adding multiple instances would result in buggy sites with missing data. Follow https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/issues/58 for more info on why this is the case and when this feature will be available.
+
+## 2.0.4
+
+- `pluginOptions.schema.perPage` was not being passed through when fetching referenced media items in html.
+
+## 2.0.3
+
+- While moving our repo into a monorepo to support CI tests, an index.js was misplaced, causing workspace installations of this plugin to fail.
+
+## 2.0.2
+
+- Fixes a case where an error object was being treated as a string. Thanks @rburgst!
+
+## 2.0.1
+
+- Added missing README.md from the last publish!
+
+## 2.0.0
+
+- First publish with new monorepo structure
+- Bumped minimum WPGraphQL and WPGatsby versions because latest WPGraphQL (v0.14.0) introduced a breaking change disabling introspection by default. Latest WPGatsby re-enables introspection via a filter. Since you need a minimum WPGatsby version for WPGraphQL 0.14.0 to work, this package set those 2 versions to minimum as a breaking change to reduce confusion when upgrading packages.
+
+## 1.7.9
+
+- Add empty index.js to the root of the project to fix lerna errors that the last release introduced
+
 ## 1.7.8
 
 - Increase supported version range for WPGatsby to allow >0.4.14 <0.6.0
+- Updated project build setup to build to `dist` instead of to the project root.
 
 ## 1.7.7
 
