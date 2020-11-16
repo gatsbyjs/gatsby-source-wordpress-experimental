@@ -804,8 +804,12 @@ const replaceNodeHtmlLinks = ({ wpUrl, nodeString, node }) => {
 }
 
 // replaces specific string with a given string from the plugin options config
-const findAndReplaceNodeHtmlString = ({ nodeString, node, pluginOptions }) => {
-  if (pluginOptions?.findAndReplace?.length) {
+const searchAndReplaceNodeHtmlString = ({
+  nodeString,
+  node,
+  pluginOptions,
+}) => {
+  if (Array.isArray(pluginOptions?.searchAndReplace)) {
     pluginOptions.findAndReplace.forEach(({ find, replace }) => {
       const replaceLinkRegex = new RegExp(find, "g")
 
@@ -841,7 +845,7 @@ const processNodeString = async ({
 }) => {
   const nodeStringFilters = [
     replaceNodeHtmlImages,
-    findAndReplaceNodeHtmlString,
+    searchAndReplaceNodeHtmlString,
     replaceFileLinks,
     replaceNodeHtmlLinks,
   ]
