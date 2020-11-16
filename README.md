@@ -6,7 +6,7 @@
   <a href="https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="Gatsby and gatsby-source-wordpress-experimental are released under the MIT license." />
   </a>
-  <a href="https://www.npmjs.org/package/gatsby-source-wordpress-experimental">
+  <a href="https://www.npmjs.com/package/gatsby-source-wordpress-experimental">
     <img src="https://img.shields.io/npm/v/gatsby-source-wordpress-experimental.svg" alt="Current npm package version." />
   </a>
   <a href="https://npmcharts.com/compare/gatsby-source-wordpress-experimental?minimal=true">
@@ -15,7 +15,7 @@
   <a href="https://npmcharts.com/compare/gatsby-source-wordpress-experimental?minimal=true">
     <img src="https://img.shields.io/npm/dt/gatsby-source-wordpress-experimental.svg" alt="Total downloads on npm." />
   </a>
-  <a href="https://gatsbyjs.org/contributing/how-to-contribute/">
+  <a href="https://gatsbyjs.com/contributing/how-to-contribute/">
     <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs welcome!" />
   </a>
   <a href="https://twitter.com/intent/follow?screen_name=gatsbyjs">
@@ -29,7 +29,7 @@ This plugin is the official recommended way to use WordPress with Gatsby. We're 
 
 ## Overview :sun_with_face:
 
-This plugin works by merging the [WPGraphQL schema & data](https://docs.wpgraphql.com/guides/about-wpgraphql/) with the [Gatsby schema & Node model](https://www.gatsbyjs.org/docs/node-model/) which allows us to efficiently cache WP data in Gatsby. What this means is that incremental builds, and fast builds work beautifully! :nail_care: Preview is currently buggy in some cases but is being worked on and will work beautifully too soon! :wink:
+This plugin works by merging the [WPGraphQL schema & data](https://docs.wpgraphql.com/guides/about-wpgraphql/) with the [Gatsby schema & Node model](https://www.gatsbyjs.com/docs/node-model/) which allows us to efficiently cache WP data in Gatsby. What this means is that incremental builds, and fast builds work beautifully! :nail_care: Preview is currently buggy in some cases but is being worked on and will work beautifully too soon! :wink:
 
 Developer & Content Creator experience are some of our main focuses with this integration. Please send us your feedback!
 
@@ -57,5 +57,5 @@ Developer & Content Creator experience are some of our main focuses with this in
 - [License](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/LICENSE)
 - [WPGatsby](https://github.com/gatsbyjs/wp-gatsby)
 - [WPGraphQL](https://github.com/wp-graphql/wp-graphql)
-- [Gatsby](https://www.gatsbyjs.org/)
-- [WordPress](https://wordpress.org/)
+- [Gatsby](https://www.gatsbyjs.com/)
+- [WordPress](https://wordpress.com/)
