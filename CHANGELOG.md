@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.4.0
+
+Added support for WPGraphQL 1.0.0! https://github.com/wp-graphql/wp-graphql/releases/tag/v1.0
+
 ## 2.3.1
 
 - Deleting a post in WordPress which had been excluded in plugin options in Gatsby would fail the build previously. There are now checks in place that prevent and info about what's happening is logged to the terminal output.

@@ -21,7 +21,7 @@ services:
       args:
         # specify version updates here
         # this is for plugins installed via git or tar
-        WPGRAPHQL_VERSION: v0.15.0
+        WPGRAPHQL_VERSION: v1.0
         WPGATSBY_VERSION: v0.5.4
         WPGRAPHQL_ACF_VERSION: v0.3.1
         WPGRAPHQL_CPT_UI_VERSION: v1.1
