@@ -36,7 +36,7 @@
     - [type.MediaItem.lazyNodes: Boolean](#typemediaitemlazynodes-boolean)
     - [type.MediaItem.localFile.excludeByMimeTypes: Array](#typemediaitemlocalfileexcludebymimetypes-array)
     - [type.MediaItem.localFile.maxFileSizeBytes: Number](#typemediaitemlocalfilemaxfilesizebytes-number)
-  - [searchAndReplay: Array](#searchandreplace-array)
+  - [searchAndReplace: Array](#searchandreplace-array)
 
 - [Up Next :point_right:](#up-next-point_right)
 
