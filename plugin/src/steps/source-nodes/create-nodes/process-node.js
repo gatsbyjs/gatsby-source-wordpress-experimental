@@ -810,7 +810,7 @@ const searchAndReplaceNodeHtmlString = ({
   pluginOptions,
 }) => {
   if (Array.isArray(pluginOptions?.searchAndReplace)) {
-    pluginOptions.findAndReplace.forEach(({ find, replace }) => {
+    pluginOptions.searchAndReplace.forEach(({ find, replace }) => {
       const replaceLinkRegex = new RegExp(find, "g")
 
       const stringMatches = execall(replaceLinkRegex, nodeString)
