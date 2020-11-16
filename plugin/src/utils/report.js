@@ -8,6 +8,7 @@ export const CODES = {
 
   /* GraphQL Errors */
   RemoteGraphQLError: `112001`,
+  MissingAppendedPath: `112002`,
 }
 
 export const ERROR_MAP = {
@@ -37,6 +38,11 @@ export const ERROR_MAP = {
     category: `USER`,
   },
   [CODES.RemoteGraphQLError]: {
+    text: (context) => context.sourceMessage,
+    level: `ERROR`,
+    category: `THIRD_PARTY`,
+  },
+  [CODES.MissingAppendedPath]: {
     text: (context) => context.sourceMessage,
     level: `ERROR`,
     category: `THIRD_PARTY`,

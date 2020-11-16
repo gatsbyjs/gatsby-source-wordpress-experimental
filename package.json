@@ -5,7 +5,8 @@
   "license": "MIT",
   "workspaces": [
     "test-site",
-    "plugin"
+    "plugin",
+    "starters/*"
   ],
   "scripts": {
     "prettier": "prettier . --write",
@@ -25,7 +26,7 @@
     "test-schema-first": "START_SERVER=true jest ./test-site/__tests__/integration/schema",
     "test-schema-increment": "WPGQL_INCREMENT=true START_SERVER=true jest ./test-site/__tests__/integration/schema",
     "test-schema": "yarn clean-test-runtime && yarn test-schema-first && yarn test-schema-increment",
-    "test-build": "yarn clean-test-runtime && DEFAULT_PLUGIN_OPTIONS=true jest ./test-site/__tests__/integration/build",
+    "test-build": "yarn clean-test-runtime && DEFAULT_PLUGIN_OPTIONS=true jest ./test-site/__tests__/integration/build && jest ./test-site/__tests__/integration/build/plugin-options-schema",
     "test": "yarn build && yarn test-schema && yarn test-build && yarn clean-test-runtime",
     "test-schema-watch": "SHOW_GATSBY_PROCESS_STDOUT=true yarn test-schema-first --watch",
     "test-build-watch": "SHOW_GATSBY_PROCESS_STDOUT=true yarn test-build --watch",
@@ -60,7 +61,8 @@
     "start-server-and-test": "^1.11.5",
     "tree-kill": "^1.2.2",
     "typescript": "^4.0.3",
-    "wait-on": "^4.0.0"
+    "wait-on": "^4.0.0",
+    "gatsby-plugin-utils": "^0.3.0"
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": [

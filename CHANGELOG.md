@@ -28,6 +28,37 @@ So for example you can now add a new acf field while `gatsby develop` is running
 
 - Gutenberg and ACF do not work together for WP Previews. Gutenberg breaks ACF preview (this is not a Gatsby or WPGatsby problem), so if you want to preview ACF, you cannot use Gutenberg.
 - You must add a node id to pageContext when creating pages if you want to be able to preview that page. If you don't do this, you'll see a misconfiguration error in the preview window.
+## 2.4.0
+
+Added support for WPGraphQL 1.0.0! https://github.com/wp-graphql/wp-graphql/releases/tag/v1.0
+
+## 2.3.1
+
+- Deleting a post in WordPress which had been excluded in plugin options in Gatsby would fail the build previously. There are now checks in place that prevent and info about what's happening is logged to the terminal output.
+
+## 2.3.0
+
+- Added a check where if html is returned from the GraphQL endpoint, we append `/graphql` to the url and try again. If that returns JSON, we panic and display an error telling the developer to update the url to include `/graphql`. Thanks @acao!!
+
+## 2.2.1
+
+- Fixed a bug where the new `pluginOptionsSchema` would display a warning instead of working properly. `pluginOptionsSchema` works differently than other Gatsby node API's in that this API cannot have a nested function returned to it which will be called. All other Node API's allow this but pluginOptionsSchema does not. This is now fixed though!
+
+## 2.2.0
+
+- Implemented the new Gatsby core node API `pluginOptionsSchema` to validate user options. Thanks @mxstbr and @sslotsky!
+
+## 2.1.4
+
+- Fixed issue #151 where the `html.imageMaxWidth` option was not being properly respected. Thanks @acao!
+
+## 2.1.3
+
+- Added a `MediaItem.localFile.maxFileSizeBytes` option with a default of `15728640` which is 15Mb. This is not considered a breaking change because Gatsby currently has a hard time processing large files. It's very unlikely that anyone with files larger than this were able to run a build previously which means this will fix a bug for most users who have very large files in their WP instance.
+
+## 2.1.2
+
+- Inverted the background and foreground colours for the formatLogMessage helper to help increase contrast across more terminal themes.
 
 ## 2.1.1
 
@@ -48,7 +79,7 @@ So for example you can now add a new acf field while `gatsby develop` is running
 
 ## 2.0.2
 
-- Fixes a case where an error object was being treated as a string. Thanks @rgburst!
+- Fixes a case where an error object was being treated as a string. Thanks @rburgst!
 
 ## 2.0.1
 

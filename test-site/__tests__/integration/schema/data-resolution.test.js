@@ -2,7 +2,7 @@
  * @jest-environment node
  */
 
-import fetchGraphql from "gatsby-source-wordpress-experimental/utils/fetch-graphql"
+import fetchGraphql from "gatsby-source-wordpress-experimental/dist/utils/fetch-graphql"
 import { incrementalIt } from "../../../test-utils/incremental-it"
 import { testResolvedData } from "../../../test-utils/test-resolved-data"
 import { queries } from "../../../test-utils/queries"

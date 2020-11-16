@@ -96,7 +96,7 @@ export const fetchAndCreateSingleNode = async ({
     reporter.log(``)
     reporter.info(
       formatLogMessage(
-        `A ${singleName} was updated, but no query was found for this node type.`
+        `A ${singleName} was updated, but this node type is excluded in plugin options.`
       )
     )
     reporter.info(
@@ -113,9 +113,7 @@ export const fetchAndCreateSingleNode = async ({
     if (!query) {
       reporter.log(``)
       reporter.warn(
-        formatLogMessage(
-          `Still couldn't find a query for ${singleName}. Please open an issue as this is likely a bug.`
-        )
+        formatLogMessage(`Still couldn't find a query for ${singleName}.`)
       )
       reporter.log(``)
       return { node: null }

@@ -4,7 +4,7 @@ import kill from "tree-kill"
 
 import { incrementalIt } from "../../../test-utils/incremental-it"
 
-jest.setTimeout(100000)
+jest.setTimeout(150000)
 
 require(`dotenv`).config({
   path: `./test-runtime/.env.production`,

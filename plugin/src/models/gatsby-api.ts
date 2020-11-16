@@ -156,6 +156,7 @@ const defaultPluginOptions: IPluginOptions = {
       lazyNodes: false,
       localFile: {
         excludeByMimeTypes: [],
+        maxFileSizeBytes: 15728640, // 15Mb
       },
       beforeChangeNode: async ({
         remoteNode,
