@@ -1,5 +1,34 @@
 # Change Log
 
+## 3.0.0
+
+This major release rolls out a new Preview experience which is faster, more reliable, and includes remote error handling!
+
+## New features
+
+- Previews of brand new drafts now work properly. Previously they would be iffy and could show a 404 until Gatsby finished sourcing data.
+- A loading screen is displayed in WordPress until the Preview is ready in Gatsby, this solves the case mentioned above where WP couldn't be aware which state Gatsby is in and would display 404's or stale preview data.
+- Removing unused fields from your WPGraphQL schema will no longer cause preview errors. Previously this would require a re-start of the preview server.
+- In both Preview and regular `gatsby develop`, updating the schema (for ex adding new acf fields) will be picked up and the schema and node sourcing queries will be re-built on the fly. This means you don't need to re-start `gatsby develop` while developing sites! It also makes Preview much more resilient 👍 Previously this would also clear the entire cache when you restarted gatsby develop, making development less enjoyable and making it take longer to develop sites.
+  So for example you can now add a new acf field while `gatsby develop` is running and the updated schema will immediately be available to query in your Gatsby site (so in page templates or in graphiql). As soon as a post is updated with new data, that new data will resolve in Gatsby.
+- Adding new post types previously required a re-start of `gatsby develop` (so also a re-start of Preview), new post types are now automatically picked up during Preview and development. If developers build their pages using the `WpContentNode` interface (which is a type that encompasses all post types), Preview will work for all new post types without developer intervention! This means that in the future, themes can be constructed in a way in which they could be implemented entirely without a developers help.
+- Webhook calls are limited (per-post) to one call every 5 seconds. This fixes the issue where Gutenberg will call save_post multiple times when pressing "preview". Previously this resulted in duplicate Preview builds.
+- Previously, if you had revisions disabled, Preview would not work in some cases. Preview now works wether or not revisions are disabled.
+- The WPGatsby Preview template client now supports all widely used browsers including IE11 with backwards compatible CSS and JS with polyfills and transpilation.
+- Remote error handling with steps on how to fix the problem has been added! Handled errors include:
+  - No page created for previewed node (need to create a page for nodes of this type in gatsby-node.js)
+  - Preview instance received data from the wrong URL (Gatsby is configured to source data from a different WordPress instance. Compare your WPGatsby and gatsby-source-wordpress-experimental settings)
+  - General Gatsby Preview process errors are caught and a generic error about which step the error occured in is sent back to WP. WP displays the generic error and encourages the user to check their preview logs for a more detailed error
+  - When posting to the preview instance, wether or not the webhook is online is recorded, if it's offline the preview template will display an error about this. If it's online, the preview template will optimistically try to load the preview. In both cases (it's online & offline), the preview template will simultaneously check again in browser if Cloud is online or not, and react accordingly (display an error or load the preview if it hasn't already). This is good because not every load of the preview template will trigger a webhook (if no data has changed), so we need a solid way to handle errors if the preview server goes down in this case and an admin re-loads the preview window on the WP side.
+- WPGatsby misconfiguration handling. Both of the following will display an error with steps on how to fix.
+  - No preview frontend url is set but Gatsby Preview is enabled in WPGatsby settings.
+  - The post type being previewed is not set to show in GraphQL (so is not previewable. includes a link to the WPGraphQL docs to remedy this as well as steps on how to make any future post types previewable without developer intervention).
+
+## Caveats
+
+- Gutenberg and ACF do not work together for WP Previews. Gutenberg breaks ACF preview (this is not a Gatsby or WPGatsby problem), so if you want to preview ACF, you cannot use Gutenberg.
+- You must add a node id to pageContext when creating pages if you want to be able to preview that page. If you don't do this, you'll see a misconfiguration error in the preview window.
+
 ## 2.4.0
 
 Added support for WPGraphQL 1.0.0! https://github.com/wp-graphql/wp-graphql/releases/tag/v1.0

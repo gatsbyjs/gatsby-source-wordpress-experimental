@@ -14,6 +14,7 @@ const remoteSchema = {
       nodeInterfaceTypes: null,
       nonNodeRootFields: [],
     },
+    allowRefreshSchemaUpdate: false,
     fetchedTypes: new Map(),
     fieldBlacklist: [
       `isWpGatsby`,
@@ -45,6 +46,12 @@ const remoteSchema = {
   },
 
   reducers: {
+    toggleAllowRefreshSchemaUpdate(state) {
+      state.allowRefreshSchemaUpdate = !state.allowRefreshSchemaUpdate
+
+      return state
+    },
+
     setSchemaWasChanged(state, payload) {
       state.schemaWasChanged = !!payload
 
