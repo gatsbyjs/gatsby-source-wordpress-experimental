@@ -3,6 +3,7 @@
 ## 3.0.1
 
 - Logs `got` HTTPErrors before rejecting because in some cases this error appeared to be completely swallowed somewhere before our `errorPanicker` function could access it.
+
 ## 3.0.0
 
 This major release rolls out a new Preview experience which is faster, more reliable, and includes remote error handling!
