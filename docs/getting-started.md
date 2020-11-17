@@ -7,6 +7,7 @@ If you've had previous experience with Gatsby or you like to move fast, you can 
 1. [Install Node, Gatsby, and gatsby-cli](https://www.gatsbyjs.org/docs/)
 2. Install [a starter](https://github.com/gatsbyjs/gatsby-starter-wordpress-blog) `gatsby new my-wordpress-gatsby-site https://github.com/gatsbyjs/gatsby-starter-wordpress-blog`
 3. Install and activate both of the following plugins in a live WordPress instance.
+
    - [WPGraphQL](https://wordpress.org/plugins/wp-graphql/)
    - [WPGatsby](https://wordpress.org/plugins/wp-gatsby/)
 
