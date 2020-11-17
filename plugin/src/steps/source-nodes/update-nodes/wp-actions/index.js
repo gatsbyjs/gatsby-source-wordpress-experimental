@@ -4,7 +4,6 @@ import wpActionUPDATE from "./update"
 import { LAST_COMPLETED_SOURCE_TIME } from "~/constants"
 import { paginatedWpNodeFetch } from "~/steps/source-nodes/fetch-nodes/fetch-nodes-paginated"
 
-import { checkIfSchemaHasChanged } from "../../../ingest-remote-schema/diff-schemas"
 import { updateSchema } from "./update"
 
 import fetchAndCreateNonNodeRootFields from "~/steps/source-nodes/create-nodes/fetch-and-create-non-node-root-fields"
