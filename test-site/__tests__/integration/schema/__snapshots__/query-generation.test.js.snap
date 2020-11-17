@@ -206,6 +206,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
           id
         }
       }
+      parentDatabaseId
+      parentId
       replies(first: 100) {
         nodes {
           id
@@ -251,6 +253,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         id
       }
     }
+    parentDatabaseId
+    parentId
     replies(first: 100) {
       nodes {
         id
@@ -291,6 +295,8 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
         id
       }
     }
+    parentDatabaseId
+    parentId
     replies(first: 100) {
       nodes {
         id

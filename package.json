@@ -14,8 +14,10 @@
     "prettier-check": "prettier . --check",
     "lint": "yarn prettier-check && yarn eslint",
     "build": "yarn workspace gatsby-source-wordpress-experimental run build",
+    "watch": "yarn workspace gatsby-source-wordpress-experimental run watch",
     "clean-test-runtime": "cd test-site && gatsby clean",
     "develop-test-runtime": "cd test-site && yarn develop",
+    "develop-preview": "cd test-site && ENABLE_GATSBY_REFRESH_ENDPOINT=true yarn develop",
     "build-test-runtime": "cd test-site && yarn build",
     "serve-test-runtime": "cd test-site && yarn serve",
     "ci-test": "server-test 'yarn docker-start' http://localhost:8001",
@@ -61,11 +63,6 @@
     "typescript": "^4.0.3",
     "wait-on": "^4.0.0",
     "gatsby-plugin-utils": "^0.3.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": [

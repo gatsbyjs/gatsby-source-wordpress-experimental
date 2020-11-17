@@ -2,9 +2,11 @@
 
 Currently there are none! We will be creating some soon. In the meantime check out the awesome work form the community below.
 
-# Community Starters
+# Official Starters
 
-[using-gatsby-source-wordpress-experimental](https://github.com/TylerBarnes/using-gatsby-source-wordpress-experimental)
+[gatsby-starter-wordpress-blog](https://github.com/gatsbyjs/gatsby-starter-wordpress-blog)
+
+# Community Starters
 
 [gatsby-starter-wordpress-twenty-twenty](https://github.com/henrikwirth/gatsby-starter-wordpress-twenty-twenty)
 
