@@ -4753,6 +4753,7 @@ Array [
       "updateTypeLimit0Test",
       "updateTypeLimitTest",
       "updateUser",
+      "wpGatsbyRemotePreviewStatus",
     ],
     "name": "RootMutation",
   },
@@ -6386,6 +6387,7 @@ Array [
   Object {
     "fields": Array [
       "arePrettyPermalinksEnabled",
+      "gatsbyPreviewStatus",
     ],
     "name": "WPGatsby",
   },
@@ -6397,10 +6399,35 @@ Array [
   },
   Object {
     "fields": Array [
+      "path",
+    ],
+    "name": "WPGatsbyPageNode",
+  },
+  Object {
+    "fields": Array [
+      "modifiedLocal",
+      "modifiedRemote",
+      "pageNode",
+      "remoteStatus",
+      "statusContext",
+      "statusType",
+    ],
+    "name": "WPGatsbyPreviewStatus",
+  },
+  Object {
+    "fields": null,
+    "name": "WPGatsbyRemotePreviewStatusEnum",
+  },
+  Object {
+    "fields": Array [
       "wpGQL",
       "wpGatsby",
     ],
     "name": "WPGatsbySatisfies",
+  },
+  Object {
+    "fields": null,
+    "name": "WPGatsbyWPPreviewedNodeStatus",
   },
   Object {
     "fields": Array [
@@ -6410,6 +6437,17 @@ Array [
       "startCursor",
     ],
     "name": "WPPageInfo",
+  },
+  Object {
+    "fields": null,
+    "name": "WpGatsbyRemotePreviewStatusInput",
+  },
+  Object {
+    "fields": Array [
+      "clientMutationId",
+      "success",
+    ],
+    "name": "WpGatsbyRemotePreviewStatusPayload",
   },
   Object {
     "fields": Array [
