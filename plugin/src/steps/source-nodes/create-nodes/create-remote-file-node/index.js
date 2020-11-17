@@ -175,6 +175,7 @@ const requestRemoteNode = (url, headers, tmpFilename, httpOpts, attempt = 1) =>
       }
       timeout = setTimeout(handleTimeout, STALL_TIMEOUT)
     }
+
     const responseStream = got.stream(url, {
       headers,
       timeout: CONNECTION_TIMEOUT,
@@ -193,6 +194,7 @@ const requestRemoteNode = (url, headers, tmpFilename, httpOpts, attempt = 1) =>
       totalJobs -= 1
       bar.total = totalJobs
       fs.removeSync(tmpFilename)
+      console.error(error)
       reject(error)
     })
 
