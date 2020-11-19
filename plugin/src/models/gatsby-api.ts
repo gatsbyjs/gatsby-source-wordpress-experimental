@@ -114,7 +114,7 @@ const defaultPluginOptions: IPluginOptions = {
     imageMaxWidth: null,
     // if a max width can't be inferred from html, this value will be passed to Sharp
     // if the image is smaller than this, the images width will be used instead
-    fallbackImageMaxWidth: 100, // @todo this value is too low of a default
+    fallbackImageMaxWidth: 1024,
     imageQuality: 90,
     //
     // Transforms anchor links, video src's, and audio src's (that point to wp-content files) into local file static links
