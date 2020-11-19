@@ -3,6 +3,7 @@
 ## 3.1.0
 
 - Adds WPGraphQL type and field descriptions to the Gatsby schema.
+
 ## 3.0.4
 
 - Gatsby image's in inline html were being created with divs. This is problematic because div's, being block elements, cannot be descendants of paragraphs, which WP often puts inline html images into. They are now spans that are set to `display: inline-block` via a style.css file.
