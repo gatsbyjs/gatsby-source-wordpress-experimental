@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.0.4
+
+- Gatsby image's in inline html were being created with divs. This is problematic because div's, being block elements, cannot be descendants of paragraphs, which WP often puts inline html images into. They are now spans that are set to `display: inline-block` via a style.css file.
+- The inline-html image widths were not always being properly carried through to the gatsby image style prop and were in many cases too small. This is now fixed.
+- The default fallback max image width in inline html has been increased from 100 to 1024. Usually we can infer the width but when we cannot, 100px is far too small. For images that are smaller than 1024px, we will use their max width returned from GraphQL instead.
+
 ## 3.0.3
 
 - `reporter.error()` now expects a string to be passed to it and wont accept an error object. Passing an error object will throw Joi errors and obscure the real error. I've updated `fetchGraphQL` to pass the error message instead of the error object to `reporter.error`
