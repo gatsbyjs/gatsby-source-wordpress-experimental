@@ -620,8 +620,9 @@ const replaceNodeHtmlImages = async ({
         placeholderStyle: {
           opacity: 0,
         },
-        className: cheerioImg?.attribs?.class,
-        // Force show full image instantly
+        className: `${
+          cheerioImg?.attribs?.class || ``
+        } inline-gatsby-image-wrapper`,
         loading: `eager`,
         alt: cheerioImg?.attribs?.alt,
         fadeIn: true,
@@ -654,6 +655,8 @@ const replaceNodeHtmlImages = async ({
 
       const gatsbyImageStringJSON = JSON.stringify(
         ReactDOMServer.renderToString(ReactGatsbyImage)
+          .replace(/<div/gm, `<span`)
+          .replace(/<\/div/gm, `</span`)
       )
 
       // need to remove the JSON stringify quotes around our image since we're
