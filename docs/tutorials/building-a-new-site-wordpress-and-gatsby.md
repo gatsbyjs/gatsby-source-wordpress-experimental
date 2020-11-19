@@ -41,7 +41,7 @@ module.exports = {
          * The full URL of the WordPress site's GraphQL API.
          * Example : 'https://www.example-site.com/graphql'
          */
-        url: `https://gatsbypreview.wpengine.com/graphql`,
+        url: `https://wpgatsbydemo.wpengine.com/graphql`,
       },
     },
     // highlight-end
