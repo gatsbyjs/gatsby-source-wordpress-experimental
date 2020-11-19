@@ -8,6 +8,7 @@ interface StoredPage {
 }
 
 interface IPreviewState {
+  inPreviewMode: boolean
   nodePageCreatedCallbacks: {
     [nodeId: string]: OnPageCreatedCallback
   }
@@ -55,12 +56,19 @@ interface IPreviewStore {
 
 const previewStore: IPreviewStore = {
   state: {
+    inPreviewMode: false,
     nodePageCreatedCallbacks: {},
     nodeIdsToCreatedPages: {},
     pagePathToNodeDependencyId: {},
   },
 
   reducers: {
+    setInPreviewMode(state, inPreviewMode) {
+      state.inPreviewMode = inPreviewMode
+
+      return state
+    },
+
     unSubscribeToPagesCreatedFromNodeById(state, { nodeId }) {
       if (state.nodePageCreatedCallbacks?.[nodeId]) {
         delete state.nodePageCreatedCallbacks[nodeId]

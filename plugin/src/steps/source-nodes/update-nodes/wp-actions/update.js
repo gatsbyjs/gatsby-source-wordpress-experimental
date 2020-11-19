@@ -57,6 +57,7 @@ export const updateSchema = async (args = {}) => {
   })
 
   store.dispatch.remoteSchema.toggleAllowRefreshSchemaUpdate()
+  store.dispatch.remoteSchema.setSchemaWasChanged(false)
 }
 
 export const fetchAndCreateSingleNode = async ({
@@ -99,24 +100,27 @@ export const fetchAndCreateSingleNode = async ({
         `A ${singleName} was updated, but this node type is excluded in plugin options.`
       )
     )
-    reporter.info(
-      formatLogMessage(
-        `Re-running createSchemaCustomization to check for updates.`
+
+    if (process.env.NODE_ENV === `development`) {
+      reporter.info(
+        formatLogMessage(
+          `Re-running createSchemaCustomization to check for updates.`
+        )
       )
-    )
 
-    await updateSchema()
+      await updateSchema()
 
-    // now that the queries have updated, grab the latest query for this node
-    query = getNodeQuery()
+      // now that the queries have updated, grab the latest query for this node
+      query = getNodeQuery()
 
-    if (!query) {
-      reporter.log(``)
-      reporter.warn(
-        formatLogMessage(`Still couldn't find a query for ${singleName}.`)
-      )
-      reporter.log(``)
-      return { node: null }
+      if (!query) {
+        reporter.log(``)
+        reporter.warn(
+          formatLogMessage(`Still couldn't find a query for ${singleName}.`)
+        )
+        reporter.log(``)
+        return { node: null }
+      }
     }
   }
 
@@ -149,7 +153,11 @@ export const fetchAndCreateSingleNode = async ({
     // first we try to fetch and throw gql errors
     // the reason for this is we can catch those errors,
     // diff the schema, and regenerate our gql queries if needed
-    data = await fetchNodeData({ throwGqlErrors: true })
+    // only do this in development though. In production we need to fail the build.
+    // in production the schema has already been diffed, so if it fails here, something else is afoot
+    data = await fetchNodeData({
+      throwGqlErrors: !!process.env.NODE_ENV === `development`,
+    })
   } catch (e) {
     reporter.log(``)
     reporter.warn(
