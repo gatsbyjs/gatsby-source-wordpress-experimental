@@ -615,7 +615,7 @@ const replaceNodeHtmlImages = async ({
           // beyond it's max width, but it also wont exceed the width
           // of it's parent element
           maxWidth: `100%`,
-          width: `${maxWidth}px`,
+          width: `${imageResize?.presentationWidth || maxWidth}px`,
         },
         placeholderStyle: {
           opacity: 0,
