@@ -60,6 +60,7 @@ export interface IPluginOptions {
       lazyNodes?: boolean
       localFile?: {
         excludeByMimeTypes?: string[]
+        maxFileSizeBytes?: number
       }
     }
   }
