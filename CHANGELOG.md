@@ -1,5 +1,9 @@
 # Change Log
 
+## 3.1.1
+
+- The type limit option could potentiall throw GraphQL errors about non-null fields that are queried on connections to nodes that don't exist (due to the limit option). This release changes things so it returns null for the entire node or omits it from a list when it's missing.
+
 ## 3.1.0
 
 - Adds WPGraphQL type and field descriptions to the Gatsby schema.
