@@ -11,7 +11,8 @@ import { touchValidNodes } from "../source-nodes/update-nodes/fetch-node-updates
 import { IPluginOptions } from "~/models/gatsby-api"
 
 export const inPreviewMode = (): boolean =>
-  !!process.env.ENABLE_GATSBY_REFRESH_ENDPOINT
+  !!process.env.ENABLE_GATSBY_REFRESH_ENDPOINT &&
+  !!store.getState().previewStore.inPreviewMode
 
 type PreviewStatusUnion =
   | `PREVIEW_SUCCESS`
@@ -164,6 +165,8 @@ export const sourcePreviews = async (
       )
     )
   }
+
+  store.dispatch.previewStore.setInPreviewMode(true)
 
   // this callback will be invoked when the page is created/updated for this node
   // then it'll send a mutation to WPGraphQL so that WP knows the preview is ready

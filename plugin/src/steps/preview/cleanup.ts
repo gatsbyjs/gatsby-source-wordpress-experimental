@@ -1,3 +1,4 @@
+import { inPreviewMode } from "."
 import { OnPageCreatedCallback } from "~/models/preview"
 import store from "~/store"
 
@@ -12,12 +13,20 @@ import store from "~/store"
  */
 export const onPreExtractQueriesInvokeLeftoverPreviewCallbacks = async (): Promise<
   void
-> =>
+> => {
+  if (!inPreviewMode()) {
+    return invokeAndCleanupLeftoverPreviewCallbacks({
+      status: `GATSBY_PREVIEW_PROCESS_ERROR`,
+      context: `Gatsby is not in Preview mode.`,
+    })
+  }
+
   // check for any onCreatePageCallbacks that weren't called during createPages
   // we need to tell WP that a page wasn't created for the preview
-  invokeAndCleanupLeftoverPreviewCallbacks({
+  return invokeAndCleanupLeftoverPreviewCallbacks({
     status: `NO_PAGE_CREATED_FOR_PREVIEWED_NODE`,
   })
+}
 
 export const invokeAndCleanupLeftoverPreviewCallbacks = async ({
   status,
