@@ -4,7 +4,7 @@
 
 - Incremental builds were not properly fetching delta updates because the inc builds runner keeps around plugin state, and this plugin was assuming it didn't.
 - ENABLE_GATSBY_REFRESH_ENDPOINT was being used to determine wether or not we were in preview mode. Inc builds also uses this env variable which was causing problems. We now track wether we're in preview mode using internal state instead.
-- `updateSchema` was being called outside development which was causing problems where it would freeze Gatsby's state machine. This was only meant to be called in development and so has been scoped to NODE_ENV=development. 
+- `updateSchema` was being called outside development which was causing problems where it would freeze Gatsby's state machine. This was only meant to be called in development and so has been scoped to NODE_ENV=development.
 
 ## 3.0.1
 
