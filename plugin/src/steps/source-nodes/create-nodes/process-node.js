@@ -784,7 +784,10 @@ const replaceNodeHtmlLinks = ({ wpUrl, nodeString, node }) => {
       if (path) {
         try {
           // remove \, " and ' characters from match
-          const normalizedMatch = match.replace(/['"\\]/g, ``)
+          const normalizedMatch = match
+            .replace(/['"\\]/g, ``)
+            // ensure that query params are properly quoted
+            .replace(/\?/, `\\?`)
 
           const normalizedPath = path.replace(/\\/g, ``)
 
