@@ -1,5 +1,9 @@
 # Change Log
 
+## 3.0.3
+
+- `reporter.error()` now expects a string to be passed to it and wont accept an error object. Passing an error object will throw Joi errors and obscure the real error. I've updated `fetchGraphQL` to pass the error message instead of the error object to `reporter.error`
+
 ## 3.0.2
 
 - Incremental builds were not properly fetching delta updates because the inc builds runner keeps around plugin state, and this plugin was assuming it didn't.

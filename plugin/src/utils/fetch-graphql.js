@@ -233,7 +233,7 @@ const handleFetchErrors = async ({
   })
 
   if (e.message.includes(`timeout of ${timeout}ms exceeded`)) {
-    reporter.error(e)
+    reporter.error(e.message)
     reporter.panic({
       id: CODES.Timeout,
       context: {
