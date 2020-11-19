@@ -57,6 +57,7 @@ export const updateSchema = async (args = {}) => {
   })
 
   store.dispatch.remoteSchema.toggleAllowRefreshSchemaUpdate()
+  store.dispatch.remoteSchema.setSchemaWasChanged(false)
 }
 
 export const fetchAndCreateSingleNode = async ({

@@ -13,6 +13,7 @@ const sourceNodes = async (helpers, pluginOptions) => {
 
   if (webhookBody.preview) {
     await sourcePreviews(helpers, pluginOptions)
+
     return
   }
 
@@ -50,6 +51,8 @@ const sourceNodes = async (helpers, pluginOptions) => {
   await nonNodeRootFieldsPromise
 
   allowFileDownloaderProgressBarToClear()
+
+  store.dispatch.remoteSchema.setSchemaWasChanged(false)
 }
 
 export { sourceNodes }
