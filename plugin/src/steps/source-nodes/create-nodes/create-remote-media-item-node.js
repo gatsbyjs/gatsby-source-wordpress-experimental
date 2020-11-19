@@ -144,7 +144,7 @@ export const createRemoteMediaItemNode = async ({
     actions: { createNode },
   } = helpers
 
-  let { mediaItemUrl, modifiedGmt, mimeType, title } = mediaItemNode
+  let { mediaItemUrl, modifiedGmt, mimeType, title, fileSize } = mediaItemNode
 
   if (!mediaItemUrl) {
     return null
@@ -153,7 +153,15 @@ export const createRemoteMediaItemNode = async ({
   const { wpUrl } = state.remoteSchema
   mediaItemUrl = ensureSrcHasHostname({ wpUrl, src: mediaItemUrl })
 
-  const { excludeByMimeTypes } = pluginOptions.type?.MediaItem?.localFile
+  const {
+    excludeByMimeTypes,
+    maxFileSizeBytes,
+  } = pluginOptions.type?.MediaItem?.localFile
+
+  // if this file is larger than maxFileSizeBytes, don't fetch the remote file
+  if (fileSize > maxFileSizeBytes) {
+    return null
+  }
 
   // if this type of file is excluded, don't fetch the remote file
   if (excludeByMimeTypes.includes(mimeType)) {

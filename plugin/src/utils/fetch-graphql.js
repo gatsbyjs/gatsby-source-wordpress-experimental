@@ -90,19 +90,9 @@ const handleGraphQLErrors = async ({
   panicOnError,
   reporter,
   errorContext,
+  forceReportCriticalErrors = false,
 }) => {
   const pluginOptions = getPluginOptions()
-
-  if (!response) {
-    /**
-     * FIXME
-     *
-     * 1. We're logging an undefined variable here instead of a message.
-     * 2. What scenarios lead us to this point? Can we assign a code?
-     */
-    reporter.panic(response)
-    return
-  }
 
   const json = response.data
   const { errors } = json
@@ -115,7 +105,11 @@ const handleGraphQLErrors = async ({
   if (
     json &&
     json.data &&
-    pluginOptions.debug.graphql.onlyReportCriticalErrors
+    pluginOptions.debug.graphql.onlyReportCriticalErrors &&
+    // only return if we're not force disabling this.
+    // this is used when we make GraphQL requests intentionally rather than programmatically
+    // for ex during the Preview process
+    !forceReportCriticalErrors
   ) {
     return
   }
@@ -227,6 +221,7 @@ const handleFetchErrors = async ({
   response,
   errorContext,
   isFirstRequest,
+  headers,
 }) => {
   await handleErrors({
     panicOnError: false,
@@ -238,7 +233,7 @@ const handleFetchErrors = async ({
   })
 
   if (e.message.includes(`timeout of ${timeout}ms exceeded`)) {
-    reporter.error(e)
+    reporter.error(e.message)
     reporter.panic({
       id: CODES.Timeout,
       context: {
@@ -334,6 +329,50 @@ ${slackChannelSupportMessage}`
   )
 
   if (responseReturnedHtml && isFirstRequest) {
+    const requestOptions = {
+      timeout,
+      headers,
+    }
+
+    if (!missingCredentials) {
+      requestOptions.auth = htaccessCredentials
+    }
+    try {
+      const urlWithoutTrailingSlash = url.replace(/\/$/, ``)
+
+      const response = await http.post(
+        [urlWithoutTrailingSlash, `/graphql`].join(``),
+        { query, variables },
+        requestOptions
+      )
+
+      const contentType = response?.headers[`content-type`]
+
+      if (contentType?.includes(`application/json;`)) {
+        const docsLink = `https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/plugin-options.md#url-string`
+
+        // if adding `/graphql` works, panic with a useful message
+        reporter.panic({
+          id: CODES.missingAppendedPath,
+          context: {
+            sourceMessage: formatLogMessage(
+              `${
+                errorContext ? `${errorContext}` : ``
+              }\n\nThe supplied url ${chalk.bold(
+                urlWithoutTrailingSlash
+              )} is invalid,\nhowever ${chalk.bold(
+                urlWithoutTrailingSlash + `/graphql`
+              )} works!\n\nFor this plugin to consume the wp-graphql schema, you'll need to specify the full URL\n(${chalk.bold(
+                urlWithoutTrailingSlash + `/graphql`
+              )}) in your gatsby-config.\n\nYou can learn more about configuring the source plugin URL here:\n${docsLink}\n\n`
+            ),
+          },
+        })
+      }
+    } catch (err) {
+      // elsewise, continue to handle HTML response as normal
+    }
+
     const copyHtmlResponseOnError =
       pluginOptions?.debug?.graphql?.copyHtmlResponseOnError
 
@@ -436,6 +475,7 @@ const fetchGraphql = async ({
   headers = {},
   errorContext = false,
   isFirstRequest = false,
+  forceReportCriticalErrors = false,
 }) => {
   const { helpers, pluginOptions } = store.getState().gatsbyApi
 
@@ -445,7 +485,7 @@ const fetchGraphql = async ({
   if (!reporter || typeof reporter === `undefined`) {
     reporter = {
       panic: (message) => {
-        throw new Error(message)
+        throw new Error(message.context.sourceMessage)
       },
       error: console.error,
     }
@@ -482,8 +522,7 @@ const fetchGraphql = async ({
 
     const { path } = urlUtil.parse(url)
     const responsePath = response.request.path
-
-    if (path !== responsePath) {
+    if (path !== responsePath && responsePath !== undefined) {
       throw new Error(`GraphQL request was redirected to ${responsePath}`)
     }
 
@@ -531,6 +570,7 @@ const fetchGraphql = async ({
       timeout,
       errorContext,
       isFirstRequest,
+      forceReportCriticalErrors,
     })
   }
 

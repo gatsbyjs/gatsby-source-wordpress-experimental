@@ -30,14 +30,13 @@ const wpActionDELETE = async ({
       getQueryInfoBySingleFieldName(wpAction.referencedNodeSingularName) || {}
 
     if (!typeInfo) {
-      Object.entries(wpAction).forEach(([key, value]) =>
-        reporter.warn(`${key} -> ${value}`)
-      )
-      reporter.panic(
+      reporter.info(
         formatLogMessage(
-          `Unable to perform above action. Data may be unsynched. Clear your cache and run the build process again to resync all data.`
+          `A ${wpAction.referencedNodeSingularName} was deleted, but this node type is excluded in plugin options.`
         )
       )
+      reporter.log(``)
+      return
     }
 
     const typeSettings = getTypeSettingsByType({

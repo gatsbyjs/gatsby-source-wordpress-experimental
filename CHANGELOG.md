@@ -1,5 +1,103 @@
 # Change Log
 
+## 3.1.1
+
+- The type limit option could potentiall throw GraphQL errors about non-null fields that are queried on connections to nodes that don't exist (due to the limit option). This release changes things so it returns null for the entire node or omits it from a list when it's missing.
+
+## 3.1.0
+
+- Adds WPGraphQL type and field descriptions to the Gatsby schema.
+
+## 3.0.4
+
+- Gatsby image's in inline html were being created with divs. This is problematic because div's, being block elements, cannot be descendants of paragraphs, which WP often puts inline html images into. They are now spans that are set to `display: inline-block` via a style.css file.
+- The inline-html image widths were not always being properly carried through to the gatsby image style prop and were in many cases too small. This is now fixed.
+- The default fallback max image width in inline html has been increased from 100 to 1024. Usually we can infer the width but when we cannot, 100px is far too small. For images that are smaller than 1024px, we will use their max width returned from GraphQL instead.
+
+## 3.0.3
+
+- `reporter.error()` now expects a string to be passed to it and wont accept an error object. Passing an error object will throw Joi errors and obscure the real error. I've updated `fetchGraphQL` to pass the error message instead of the error object to `reporter.error`
+
+## 3.0.2
+
+- Incremental builds were not properly fetching delta updates because the inc builds runner keeps around plugin state, and this plugin was assuming it didn't.
+- ENABLE_GATSBY_REFRESH_ENDPOINT was being used to determine wether or not we were in preview mode. Inc builds also uses this env variable which was causing problems. We now track wether we're in preview mode using internal state instead.
+- `updateSchema` was being called outside development which was causing problems where it would freeze Gatsby's state machine. This was only meant to be called in development and so has been scoped to NODE_ENV=development.
+
+## 3.0.1
+
+- Logs `got` HTTPErrors before rejecting because in some cases this error appeared to be completely swallowed somewhere before our `errorPanicker` function could access it.
+
+## 3.0.0
+
+This major release rolls out a new Preview experience which is faster, more reliable, and includes remote error handling!
+
+## New features
+
+- Previews of brand new drafts now work properly. Previously they would be iffy and could show a 404 until Gatsby finished sourcing data.
+- A loading screen is displayed in WordPress until the Preview is ready in Gatsby, this solves the case mentioned above where WP couldn't be aware which state Gatsby is in and would display 404's or stale preview data.
+- Removing unused fields from your WPGraphQL schema will no longer cause preview errors. Previously this would require a re-start of the preview server.
+- In both Preview and regular `gatsby develop`, updating the schema (for ex adding new acf fields) will be picked up and the schema and node sourcing queries will be re-built on the fly. This means you don't need to re-start `gatsby develop` while developing sites! It also makes Preview much more resilient 👍 Previously this would also clear the entire cache when you restarted gatsby develop, making development less enjoyable and making it take longer to develop sites.
+  So for example you can now add a new acf field while `gatsby develop` is running and the updated schema will immediately be available to query in your Gatsby site (so in page templates or in graphiql). As soon as a post is updated with new data, that new data will resolve in Gatsby.
+- Adding new post types previously required a re-start of `gatsby develop` (so also a re-start of Preview), new post types are now automatically picked up during Preview and development. If developers build their pages using the `WpContentNode` interface (which is a type that encompasses all post types), Preview will work for all new post types without developer intervention! This means that in the future, themes can be constructed in a way in which they could be implemented entirely without a developers help.
+- Webhook calls are limited (per-post) to one call every 5 seconds. This fixes the issue where Gutenberg will call save_post multiple times when pressing "preview". Previously this resulted in duplicate Preview builds.
+- Previously, if you had revisions disabled, Preview would not work in some cases. Preview now works wether or not revisions are disabled.
+- The WPGatsby Preview template client now supports all widely used browsers including IE11 with backwards compatible CSS and JS with polyfills and transpilation.
+- Remote error handling with steps on how to fix the problem has been added! Handled errors include:
+  - No page created for previewed node (need to create a page for nodes of this type in gatsby-node.js)
+  - Preview instance received data from the wrong URL (Gatsby is configured to source data from a different WordPress instance. Compare your WPGatsby and gatsby-source-wordpress-experimental settings)
+  - General Gatsby Preview process errors are caught and a generic error about which step the error occured in is sent back to WP. WP displays the generic error and encourages the user to check their preview logs for a more detailed error
+  - When posting to the preview instance, wether or not the webhook is online is recorded, if it's offline the preview template will display an error about this. If it's online, the preview template will optimistically try to load the preview. In both cases (it's online & offline), the preview template will simultaneously check again in browser if Cloud is online or not, and react accordingly (display an error or load the preview if it hasn't already). This is good because not every load of the preview template will trigger a webhook (if no data has changed), so we need a solid way to handle errors if the preview server goes down in this case and an admin re-loads the preview window on the WP side.
+- WPGatsby misconfiguration handling. Both of the following will display an error with steps on how to fix.
+  - No preview frontend url is set but Gatsby Preview is enabled in WPGatsby settings.
+  - The post type being previewed is not set to show in GraphQL (so is not previewable. includes a link to the WPGraphQL docs to remedy this as well as steps on how to make any future post types previewable without developer intervention).
+
+## Caveats
+
+- Gutenberg and ACF do not work together for WP Previews. Gutenberg breaks ACF preview (this is not a Gatsby or WPGatsby problem), so if you want to preview ACF, you cannot use Gutenberg.
+- You must add a node id to pageContext when creating pages if you want to be able to preview that page. If you don't do this, you'll see a misconfiguration error in the preview window.
+
+## 2.4.0
+
+Added support for WPGraphQL 1.0.0! https://github.com/wp-graphql/wp-graphql/releases/tag/v1.0
+
+## 2.3.1
+
+- Deleting a post in WordPress which had been excluded in plugin options in Gatsby would fail the build previously. There are now checks in place that prevent and info about what's happening is logged to the terminal output.
+
+## 2.3.0
+
+- Added a check where if html is returned from the GraphQL endpoint, we append `/graphql` to the url and try again. If that returns JSON, we panic and display an error telling the developer to update the url to include `/graphql`. Thanks @acao!!
+
+## 2.2.1
+
+- Fixed a bug where the new `pluginOptionsSchema` would display a warning instead of working properly. `pluginOptionsSchema` works differently than other Gatsby node API's in that this API cannot have a nested function returned to it which will be called. All other Node API's allow this but pluginOptionsSchema does not. This is now fixed though!
+
+## 2.2.0
+
+- Implemented the new Gatsby core node API `pluginOptionsSchema` to validate user options. Thanks @mxstbr and @sslotsky!
+
+## 2.1.4
+
+- Fixed issue #151 where the `html.imageMaxWidth` option was not being properly respected. Thanks @acao!
+
+## 2.1.3
+
+- Added a `MediaItem.localFile.maxFileSizeBytes` option with a default of `15728640` which is 15Mb. This is not considered a breaking change because Gatsby currently has a hard time processing large files. It's very unlikely that anyone with files larger than this were able to run a build previously which means this will fix a bug for most users who have very large files in their WP instance.
+
+## 2.1.2
+
+- Inverted the background and foreground colours for the formatLogMessage helper to help increase contrast across more terminal themes.
+
+## 2.1.1
+
+- Increased the supported version range of WPGraphQL to support the recently released v0.15.0.
+- Simplified the compatibility API error message for plugins out of range to clarify next steps for the user.
+
+## 2.1.0
+
+- Multiple instances of the source plugin in 1 Gatsby site have been disallowed and an error will be thrown if there are more than 1 added. Previously this was allowed by the plugin, but each instance would overwrite each others state. This is not considered a breaking change because adding multiple instances would result in buggy sites with missing data. Follow https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/issues/58 for more info on why this is the case and when this feature will be available.
+
 ## 2.0.4
 
 - `pluginOptions.schema.perPage` was not being passed through when fetching referenced media items in html.
@@ -10,7 +108,7 @@
 
 ## 2.0.2
 
-- Fixes a case where an error object was being treated as a string. Thanks @rgburst!
+- Fixes a case where an error object was being treated as a string. Thanks @rburgst!
 
 ## 2.0.1
 

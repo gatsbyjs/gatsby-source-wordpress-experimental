@@ -532,7 +532,7 @@ const replaceNodeHtmlImages = async ({
           fallbackImageMaxWidth = mediaItemNodeWidth
         }
 
-        const maxWidth =
+        let maxWidth =
           // if we inferred a maxwidth from html
           (imgTagMaxWidth &&
           // and we have a media item node to know it's full size max width
@@ -549,6 +549,14 @@ const replaceNodeHtmlImages = async ({
           // if we don't have a media item node and we inferred no width
           // from html, then use the fallback max width from plugin options
           fallbackImageMaxWidth
+
+        const configuredMaxWidth = pluginOptions?.html?.imageMaxWidth
+
+        // if the configured html.maxWidth property is less than the result, then
+        // override the resultant width
+        if (configuredMaxWidth && configuredMaxWidth < maxWidth) {
+          maxWidth = configuredMaxWidth
+        }
 
         const quality = pluginOptions?.html?.imageQuality
 
@@ -607,13 +615,14 @@ const replaceNodeHtmlImages = async ({
           // beyond it's max width, but it also wont exceed the width
           // of it's parent element
           maxWidth: `100%`,
-          width: `${maxWidth}px`,
+          width: `${imageResize?.presentationWidth || maxWidth}px`,
         },
         placeholderStyle: {
           opacity: 0,
         },
-        className: cheerioImg?.attribs?.class,
-        // Force show full image instantly
+        className: `${
+          cheerioImg?.attribs?.class || ``
+        } inline-gatsby-image-wrapper`,
         loading: `eager`,
         alt: cheerioImg?.attribs?.alt,
         fadeIn: true,
@@ -646,6 +655,8 @@ const replaceNodeHtmlImages = async ({
 
       const gatsbyImageStringJSON = JSON.stringify(
         ReactDOMServer.renderToString(ReactGatsbyImage)
+          .replace(/<div/gm, `<span`)
+          .replace(/<\/div/gm, `</span`)
       )
 
       // need to remove the JSON stringify quotes around our image since we're

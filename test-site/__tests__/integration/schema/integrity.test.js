@@ -2,10 +2,22 @@
  * @jest-environment node
  */
 
-import { introspectionQuery } from "gatsby-source-wordpress-experimental/utils/graphql-queries"
-import fetchGraphql from "gatsby-source-wordpress-experimental/utils/fetch-graphql"
+import fetchGraphql from "gatsby-source-wordpress-experimental/dist/utils/fetch-graphql"
 import sortBy from "lodash/sortBy"
 import { authedWPGQLRequest } from "../../../test-utils/authed-wpgql-request"
+
+const introspectionQuery = /* GraphQL */ `
+  {
+    __schema {
+      types {
+        name
+        fields {
+          name
+        }
+      }
+    }
+  }
+`
 
 describe(`[gatsby-source-wordpress-experimental] schema integrity`, () => {
   it(`hasn't altered the remote WPGraphQL schema`, async () => {

@@ -1,8 +1,72 @@
+import { GatsbyHelpers } from "~/utils/gatsby-types"
 import merge from "lodash/merge"
 import { createRemoteMediaItemNode } from "~/steps/source-nodes/create-nodes/create-remote-media-item-node"
 import { menuBeforeChangeNode } from "~/steps/source-nodes/before-change-node/menu"
 
-const defaultPluginOptions = {
+export interface IPluginOptions {
+  url: string
+  verbose: boolean
+  debug: {
+    throwRefetchErrors: boolean
+    graphql: {
+      showQueryOnError: boolean
+      showQueryVarsOnError: boolean
+      copyQueryOnError: boolean
+      panicOnError: boolean
+      onlyReportCriticalErrors: boolean
+      copyNodeSourcingQueryAndExit: boolean
+      writeQueriesToDisk: boolean
+    }
+    timeBuildSteps: boolean
+    disableCompatibilityCheck: boolean
+  }
+  develop: {
+    nodeUpdateInterval: number
+    hardCacheMediaFiles: boolean
+    hardCacheData: boolean
+  }
+  production: {
+    hardCacheMediaFiles: boolean
+  }
+  auth: {
+    htaccess: {
+      username: string | null
+      password: string | null
+    }
+  }
+  schema: {
+    queryDepth: number
+    circularQueryLimit: number
+    typePrefix: string
+    timeout: number // 30 seconds
+    perPage: number
+  }
+  excludeFieldNames: []
+  html: {
+    useGatsbyImage: boolean
+    imageMaxWidth: number
+    fallbackImageMaxWidth: number
+    imageQuality: number
+    createStaticFiles: boolean
+  }
+  type: {
+    [typename: string]: {
+      excludeFieldNames?: string[]
+      exclude?: boolean
+      // @todo type this
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      beforeChangeNode?: (any) => Promise<any>
+      nodeInterface?: boolean
+      lazyNodes?: boolean
+      localFile?: {
+        excludeByMimeTypes?: string[]
+        maxFileSizeBytes?: number
+      }
+    }
+  }
+}
+
+const defaultPluginOptions: IPluginOptions = {
   url: null,
   verbose: true,
   debug: {
@@ -50,7 +114,7 @@ const defaultPluginOptions = {
     imageMaxWidth: null,
     // if a max width can't be inferred from html, this value will be passed to Sharp
     // if the image is smaller than this, the images width will be used instead
-    fallbackImageMaxWidth: 100, // @todo this value is too low of a default
+    fallbackImageMaxWidth: 1024,
     imageQuality: 90,
     //
     // Transforms anchor links, video src's, and audio src's (that point to wp-content files) into local file static links
@@ -93,8 +157,15 @@ const defaultPluginOptions = {
       lazyNodes: false,
       localFile: {
         excludeByMimeTypes: [],
+        maxFileSizeBytes: 15728640, // 15Mb
       },
-      beforeChangeNode: async ({ remoteNode, actionType, typeSettings }) => {
+      beforeChangeNode: async ({
+        remoteNode,
+        actionType,
+        typeSettings,
+        // @todo type this
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      }): Promise<any> => {
         // we fetch lazy nodes files in resolvers, no need to fetch them here.
         if (typeSettings.lazyNodes) {
           return {
@@ -215,14 +286,22 @@ const defaultPluginOptions = {
   },
 }
 
+interface IGatsbyApiState {
+  helpers: GatsbyHelpers
+  pluginOptions: IPluginOptions
+}
+
 const gatsbyApi = {
   state: {
     helpers: {},
     pluginOptions: defaultPluginOptions,
-  },
+  } as IGatsbyApiState,
 
   reducers: {
-    setState(state, payload) {
+    setState(
+      state: IGatsbyApiState,
+      payload: IGatsbyApiState
+    ): IGatsbyApiState {
       return merge(state, payload)
     },
   },

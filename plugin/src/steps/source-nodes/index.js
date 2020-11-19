@@ -1,6 +1,4 @@
-import fetchAndApplyNodeUpdates, {
-  touchValidNodes,
-} from "./update-nodes/fetch-node-updates"
+import fetchAndApplyNodeUpdates from "./update-nodes/fetch-node-updates"
 
 import { fetchAndCreateAllNodes } from "./fetch-nodes/fetch-nodes"
 
@@ -8,15 +6,13 @@ import { LAST_COMPLETED_SOURCE_TIME } from "~/constants"
 import store from "~/store"
 import fetchAndCreateNonNodeRootFields from "./create-nodes/fetch-and-create-non-node-root-fields"
 import { allowFileDownloaderProgressBarToClear } from "./create-nodes/create-remote-file-node/progress-bar-promise"
+import { sourcePreviews } from "~/steps/preview"
 
-const sourceNodes = async (helpers, _pluginOptions) => {
-  const {
-    cache,
-    webhookBody: { preview },
-  } = helpers
+const sourceNodes = async (helpers, pluginOptions) => {
+  const { cache, webhookBody } = helpers
 
-  if (preview) {
-    await touchValidNodes()
+  if (webhookBody.preview) {
+    await sourcePreviews(helpers, pluginOptions)
 
     return
   }
@@ -55,6 +51,8 @@ const sourceNodes = async (helpers, _pluginOptions) => {
   await nonNodeRootFieldsPromise
 
   allowFileDownloaderProgressBarToClear()
+
+  store.dispatch.remoteSchema.setSchemaWasChanged(false)
 }
 
 export { sourceNodes }

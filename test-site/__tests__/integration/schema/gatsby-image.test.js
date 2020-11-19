@@ -1,8 +1,9 @@
-import fetchGraphql from "gatsby-source-wordpress-experimental/utils/fetch-graphql"
+import fetchGraphql from "gatsby-source-wordpress-experimental/dist/utils/fetch-graphql"
 import execall from "execall"
 
 const countGatsbyImgs = (string) =>
-  execall(/gatsby-image-wrapper/gim, string).length
+  // divide by 2 because we now have two classes gatsby-image-wrapper and inline-gatsby-image-wrapper
+  execall(/gatsby-image-wrapper/gim, string).length / 2
 
 describe(`[gatsby-source-wordpress-experimental] Gatsby image processing`, () => {
   it(`transforms inline-html images properly`, async () => {

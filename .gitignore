@@ -8,3 +8,5 @@ node_modules
 public
 .cache
 plugin/README.md
+
+.inc-builds
