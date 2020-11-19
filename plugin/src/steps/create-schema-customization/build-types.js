@@ -141,6 +141,7 @@ const objectType = (typeBuilderApi) => {
   let objectType = {
     name: buildTypeName(type.name),
     fields: transformedFields,
+    description: type.description,
     extensions: {
       infer: false,
     },

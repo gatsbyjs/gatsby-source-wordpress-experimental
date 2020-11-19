@@ -184,7 +184,10 @@ export const transformFields = ({
         transformedField = {
           type: transformedField,
           resolve: buildDefaultResolver(transformerApi),
+          description: field.description,
         }
+      } else {
+        transformedField.description = field.description
       }
 
       fieldsObject[fieldName] = transformedField
