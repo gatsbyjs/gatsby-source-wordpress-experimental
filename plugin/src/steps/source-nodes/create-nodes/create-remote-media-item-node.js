@@ -1,6 +1,7 @@
 import fs from "fs-extra"
 import path from "path"
 import url from "url"
+import { bold as b } from "chalk"
 
 import retry from "async-retry"
 
@@ -59,18 +60,40 @@ export const errorPanicker = ({
     return
   }
 
-  if (
-    errorString.includes(`Response code 4`) ||
-    errorString.includes(`Response code 500`) ||
-    errorString.includes(`Response code 511`) ||
-    errorString.includes(`Response code 508`) ||
-    errorString.includes(`Response code 505`) ||
-    errorString.includes(`Response code 501`)
-  ) {
+  if (errorString.includes(`Response code 4`)) {
     reporter.log(``)
     reporter.info(
       formatLogMessage(
         `Unrecoverable error ${sharedError}\n\nFailing the build to prevent deploying a broken site.`
+      )
+    )
+    reporter.panic(error)
+  } else if (errorString.includes(`Response code 5`)) {
+    reporter.log(``)
+    reporter.info(
+      formatLogMessage(
+        [
+          `Unrecoverable error ${sharedError}`,
+          `\nYour wordpress host appears to be overloaded by our requests for images`,
+          `\nIn ${b(`gatsby-config.js`)}, try lowering the ${b(
+            `requestConcurrency`
+          )} for MediaItems:`,
+          `\nplugins: [
+  {
+    resolve: 'gatsby-source-wordpress-experimental',
+    options: {
+      url: 'https://mysite.com/graphql',
+      type: {
+        MediaItem: {
+          localFile: {
+            requestConcurrency: 50
+          }
+        }
+      }
+    },
+  }
+]`,
+        ].join(`\n`)
       )
     )
     reporter.panic(error)

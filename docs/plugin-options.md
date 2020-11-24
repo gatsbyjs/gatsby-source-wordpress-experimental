@@ -36,6 +36,7 @@
     - [type.MediaItem.lazyNodes: Boolean](#typemediaitemlazynodes-boolean)
     - [type.MediaItem.localFile.excludeByMimeTypes: Array](#typemediaitemlocalfileexcludebymimetypes-array)
     - [type.MediaItem.localFile.maxFileSizeBytes: Number](#typemediaitemlocalfilemaxfilesizebytes-number)
+    - [type.MediaItem.localFile.requestConcurrency: Number](#typemediaitemlocalfilerequestconcurrency-number)
 - [Up Next :point_right:](#up-next-point_right)
 
 ## url: String
@@ -635,6 +636,25 @@ Default is `15728640` which is 15Mb.
       MediaItem: {
         localFile: {
           maxFileSizeBytes: 10485760 // 10Mb
+        },
+      },
+    },
+  },
+},
+```
+
+### type.MediaItem.localFile.requestConcurrency: Number
+
+Allows controls how many images are downloaded at a time. Try lowering this if your wordpress server is giving 500 or 408 errors.
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+  options: {
+    type: {
+      MediaItem: {
+        localFile: {
+          requestConcurrency: 50 // 100 by default
         },
       },
     },

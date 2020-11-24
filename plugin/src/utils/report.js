@@ -5,6 +5,7 @@ export const CODES = {
   RequestDenied: `111004`,
   Authentication: `111005`,
   Timeout: `111006`,
+  WordPress500ishError: `111007`,
 
   /* GraphQL Errors */
   RemoteGraphQLError: `112001`,
