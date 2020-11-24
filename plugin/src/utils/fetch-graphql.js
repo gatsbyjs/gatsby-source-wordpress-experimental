@@ -373,7 +373,7 @@ ${slackChannelSupportMessage}`
     try {
       const urlWithoutTrailingSlash = url.replace(/\/$/, ``)
 
-      const response = await getgetHttp(limit).post(
+      const response = await getHttp(limit).post(
         [urlWithoutTrailingSlash, `/graphql`].join(``),
         { query, variables },
         requestOptions
