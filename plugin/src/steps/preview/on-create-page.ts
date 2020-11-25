@@ -94,6 +94,18 @@ export const onCreatePageRespondToPreviewStatusQuery = async (
     return
   }
 
+  // We need to add the modified time to pageContext so we can read it in WP
+  // This way can tell when the updated page has been deployed
+  if (!page.context.__wpGatsbyNodeModified) {
+    const pageCopy = { ...page }
+    pageCopy.context.__wpGatsbyNodeModified = nodeThatCreatedThisPage.modified
+
+    const { deletePage, createPage } = helpers.actions
+
+    deletePage(page)
+    createPage(pageCopy)
+  }
+
   await nodePageCreatedCallback({
     passedNode: nodeThatCreatedThisPage,
     pageNode: page,
@@ -107,6 +119,4 @@ export const onCreatePageRespondToPreviewStatusQuery = async (
 
   // manual test pinc builds timing issue
   // await new Promise((resolve) => setTimeout(resolve, 4000))
-
-  await writeNodeModifiedToPublicDirectory({ node: nodeThatCreatedThisPage })
 }

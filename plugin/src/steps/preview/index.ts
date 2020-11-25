@@ -186,18 +186,3 @@ export const sourcePreviews = async (
     isPreview: true,
   })
 }
-
-/**
- * This function writes out the modified time to the public directory
- * WPGatsby checks for this file to know wether or not the currently previewed node
- * has been deployed yet.
- */
-export async function writeNodeModifiedToPublicDirectory({
-  node,
-}: {
-  node: { databaseId: number; modified: string }
-}): Promise<void> {
-  const directory = process.cwd() + `/public/__wp-preview/${node.databaseId}/`
-  await fs.ensureDir(directory)
-  await fs.writeFile(directory + `modified`, node.modified)
-}
