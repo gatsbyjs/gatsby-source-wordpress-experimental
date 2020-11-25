@@ -155,7 +155,7 @@ export const sourcePreviews = async (
       graphqlEndpoint: webhookBody.remoteUrl,
     })
 
-    reporter.panic(
+    reporter.warn(
       formatLogMessage(
         `Received preview data from a different remote URL than the one specified in plugin options. \n\n ${chalk.bold(
           `Remote URL:`
@@ -164,6 +164,8 @@ export const sourcePreviews = async (
         )} ${url}`
       )
     )
+
+    return
   }
 
   store.dispatch.previewStore.setInPreviewMode(true)
