@@ -3,6 +3,7 @@
 ## 3.1.3
 
 - Gatsby core recently removed cache-manager-fs-hash which this plugin was importing. Unfortunately this plugin didn't have it declared as a dependency. This is now fixed!
+
 ## 3.1.2
 
 - Inline html links which had query params were not being made into relative Gatsby paths. This release fixes that. Thanks @rburgst!
