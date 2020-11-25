@@ -70,7 +70,10 @@ const refetcher = async (
  * so we can update Gatsby nodes when data changes
  */
 const startPollingForContentUpdates = (helpers, pluginOptions) => {
-  if (process.env.WP_DISABLE_POLLING) {
+  if (
+    process.env.WP_DISABLE_POLLING ||
+    process.env.ENABLE_GATSBY_REFRESH_ENDPOINT
+  ) {
     return
   }
 
