@@ -1,7 +1,7 @@
 import { formatLogMessage } from "~/utils/format-log-message"
 import store from "~/store"
 import { GatsbyHelpers } from "~/utils/gatsby-types"
-import { inPreviewMode } from "."
+import { inPreviewMode, writeNodeModifiedToPublicDirectory } from "."
 
 /**
  * during onCreatePage we want to figure out which node the page is dependant on
@@ -104,4 +104,9 @@ export const onCreatePageRespondToPreviewStatusQuery = async (
   store.dispatch.previewStore.unSubscribeToPagesCreatedFromNodeById({
     nodeId: nodeIdThatCreatedThisPage,
   })
+
+  // manual test pinc builds timing issue
+  // await new Promise((resolve) => setTimeout(resolve, 4000))
+
+  await writeNodeModifiedToPublicDirectory({ node: nodeThatCreatedThisPage })
 }
