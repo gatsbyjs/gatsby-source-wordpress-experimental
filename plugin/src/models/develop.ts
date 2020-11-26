@@ -1,5 +1,5 @@
 interface IDevelopState {
-  pauseRefreshPolling: boolean
+  refreshPollingIsPaused: boolean
 }
 
 interface IDevelopReducers {
@@ -14,7 +14,7 @@ interface IPreviewStore {
 
 const developStore: IPreviewStore = {
   state: {
-    pauseRefreshPolling: false,
+    refreshPollingIsPaused: false,
   },
 
   reducers: {
@@ -23,7 +23,7 @@ const developStore: IPreviewStore = {
         process.env.NODE_ENV === `development` &&
         !process.env.ENABLE_GATSBY_REFRESH_ENDPOINT
       ) {
-        state.pauseRefreshPolling = true
+        state.refreshPollingIsPaused = true
       }
 
       return state
@@ -33,7 +33,7 @@ const developStore: IPreviewStore = {
         process.env.NODE_ENV === `development` &&
         !process.env.ENABLE_GATSBY_REFRESH_ENDPOINT
       ) {
-        state.pauseRefreshPolling = false
+        state.refreshPollingIsPaused = false
       }
 
       return state

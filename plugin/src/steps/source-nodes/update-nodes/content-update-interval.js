@@ -64,9 +64,9 @@ const refetcher = async (
   { reconnectionActivity = null, retryCount = 1 } = {}
 ) => {
   try {
-    const { pauseRefreshPolling } = store.getState().develop
+    const { refreshPollingIsPaused } = store.getState().develop
 
-    if (!pauseRefreshPolling) {
+    if (!refreshPollingIsPaused) {
       await checkForNodeUpdates(helpers)
     }
 
