@@ -34,7 +34,12 @@ const sourceNodes = async (helpers, pluginOptions) => {
   const fetchEverything =
     foundUsableHardCachedData ||
     !lastCompletedSourceTime ||
-    (!webhookBody.refreshing && schemaWasChanged)
+    // don't refetch everything in development
+    ((process.env.NODE_ENV !== `development` ||
+      // unless we're in preview mode
+      process.env.ENABLE_GATSBY_REFRESH_ENDPOINT) &&
+      // and the schema was changed
+      schemaWasChanged)
 
   // If this is an uncached build,
   // or our initial build to fetch and cache everything didn't complete,
