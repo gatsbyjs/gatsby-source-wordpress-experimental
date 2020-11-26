@@ -2,7 +2,9 @@
 
 ## 3.2.1
 
-- Version 3.0.0 made an attempt to remove expensive schema diffing at the beginning of each preview or delta update. The strategy was that when a GraphQL query to WPGraphQL failed, it would try to re-run createSchemaCustomization internally to recover and rebuild our internal sourcing queries before trying to make the query again. Unfortunately this caused issues because more recent versions of Gatsby does not allow createSchemaCustomization to be called in this way. This version reverts to the earlier behaviour where the remote schema md5 is diffed on every build or preview.
+- Version 3.0.0 made an attempt to remove expensive schema diffing at the beginning of each preview or delta update. The strategy was that when a GraphQL query to WPGraphQL failed, it would try to re-run createSchemaCustomization internally to recover and rebuild our internal sourcing queries before trying to make the query again. Unfortunately this caused issues because more recent versions of Gatsby do not allow createSchemaCustomization to be called in this way. This version reverts to the earlier behaviour where the remote schema md5 is diffed on every build or preview.
+- Because of the above issue, automatic schema updates during `gatsby develop` also failed to keep working. We now use the Gatsby refresh API to re-trigger node sourcing and schema customization in our develop watcher as this is a public API and will be more stable than Gatsby internals.
+- `ensurePluginRequirementsAreMet` is called once on a cold cache but never again on a warm cache. We now call this again when the schema changes on a warm cache.
 ## 3.2.0
 
 - Fixes a timing issue between PINC builds and WPGatsby. Also improves the timing of regular Preview. In this plugin all that's done is the preview node modified time is added to the pageContext of the page being previewed.
