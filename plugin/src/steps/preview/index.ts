@@ -1,7 +1,6 @@
 import chalk from "chalk"
 import urlUtil from "url"
 import fetchGraphql from "~/utils/fetch-graphql"
-import fs from "fs-extra"
 
 import store from "~/store"
 
