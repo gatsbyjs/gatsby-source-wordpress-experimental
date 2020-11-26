@@ -24,7 +24,6 @@ export const touchValidNodes = async () => {
  */
 const fetchAndApplyNodeUpdates = async ({
   since,
-  intervalRefetching,
   throwFetchErrors = false,
   throwGqlErrors = false,
 }) => {
@@ -34,12 +33,10 @@ const fetchAndApplyNodeUpdates = async ({
 
   let activity
 
-  if (!intervalRefetching) {
-    activity = reporter.activityTimer(
-      formatLogMessage(`pull updates since last build`)
-    )
-    activity.start()
-  }
+  activity = reporter.activityTimer(
+    formatLogMessage(`pull updates since last build`)
+  )
+  activity.start()
 
   if (!since) {
     since = await cache.get(LAST_COMPLETED_SOURCE_TIME)
@@ -48,27 +45,15 @@ const fetchAndApplyNodeUpdates = async ({
   // Check with WPGQL to create, delete, or update cached WP nodes
   const { wpActions, didUpdate } = await fetchAndRunWpActions({
     since,
-    intervalRefetching,
     helpers,
     pluginOptions,
     throwFetchErrors,
     throwGqlErrors,
   })
 
-  if (
-    // if we're refetching, we only want to touch all nodes
-    // if something changed
-    didUpdate ||
-    // if this is a regular build, we want to touch all nodes
-    // so they don't get garbage collected
-    !intervalRefetching
-  ) {
-    await touchValidNodes()
-  }
+  await touchValidNodes()
 
-  if (!intervalRefetching) {
-    activity.end()
-  }
+  activity.end()
 
   return { wpActions, didUpdate }
 }

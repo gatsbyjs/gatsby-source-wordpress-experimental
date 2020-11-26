@@ -45,21 +45,6 @@ const normalizeUri = ({ uri, id, singleName }) => {
   return uri
 }
 
-export const updateSchema = async (args = {}) => {
-  store.dispatch.remoteSchema.toggleAllowRefreshSchemaUpdate()
-
-  // re-run schema customization so this node type is added to the schema
-  await customizeSchema({
-    parentSpan: null,
-    deferNodeMutation: true,
-    refresh: false,
-    ...args,
-  })
-
-  store.dispatch.remoteSchema.toggleAllowRefreshSchemaUpdate()
-  store.dispatch.remoteSchema.setSchemaWasChanged(false)
-}
-
 export const fetchAndCreateSingleNode = async ({
   singleName,
   id,
@@ -299,11 +284,7 @@ export const createSingleNode = async ({
   return { additionalNodeIds, node: remoteNode }
 }
 
-const wpActionUPDATE = async ({
-  helpers,
-  wpAction,
-  // intervalRefetching,
-}) => {
+const wpActionUPDATE = async ({ helpers, wpAction }) => {
   const reportUpdate = ({ setAction } = {}) => {
     const actionType = setAction || wpAction.actionType
 
