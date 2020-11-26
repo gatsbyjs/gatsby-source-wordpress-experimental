@@ -1,8 +1,14 @@
 # Change Log
 
+## Upcoming
+
+- Fixes a timing issue between PINC builds and WPGatsby. Also improves the timing of regular Preview. In this plugin all that's done is the preview node modified time is added to the pageContext of the page being previewed.
+- When receiving preview data from the wrong url, it no longer fails the build and outputs a warning instead.
+
 ## 3.1.3
 
 - Gatsby core recently removed cache-manager-fs-hash which this plugin was importing. Unfortunately this plugin didn't have it declared as a dependency. This is now fixed!
+
 ## 3.1.2
 
 - Inline html links which had query params were not being made into relative Gatsby paths. This release fixes that. Thanks @rburgst!
