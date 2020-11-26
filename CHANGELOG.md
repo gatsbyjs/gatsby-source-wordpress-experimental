@@ -1,6 +1,6 @@
 # Change Log
 
-## Upcoming
+## 3.2.0
 
 - Fixes a timing issue between PINC builds and WPGatsby. Also improves the timing of regular Preview. In this plugin all that's done is the preview node modified time is added to the pageContext of the page being previewed.
 - When receiving preview data from the wrong url, it no longer fails the build and outputs a warning instead.
