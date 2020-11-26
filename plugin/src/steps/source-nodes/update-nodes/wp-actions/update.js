@@ -1,5 +1,3 @@
-import { customizeSchema } from "gatsby/dist/services/customize-schema"
-
 import fetchGraphql from "~/utils/fetch-graphql"
 import store from "~/store"
 import { formatLogMessage } from "~/utils/format-log-message"
