@@ -4,8 +4,6 @@ import wpActionUPDATE from "./update"
 import { LAST_COMPLETED_SOURCE_TIME } from "~/constants"
 import { paginatedWpNodeFetch } from "~/steps/source-nodes/fetch-nodes/fetch-nodes-paginated"
 
-import { updateSchema } from "./update"
-
 import fetchAndCreateNonNodeRootFields from "~/steps/source-nodes/create-nodes/fetch-and-create-non-node-root-fields"
 import { setHardCachedNodes } from "~/utils/cache"
 
@@ -122,7 +120,6 @@ export const handleWpActions = async (api) => {
 export const fetchAndRunWpActions = async ({
   helpers,
   pluginOptions,
-  intervalRefetching,
   since,
   throwFetchErrors = false,
   throwGqlErrors = false,
@@ -139,23 +136,12 @@ export const fetchAndRunWpActions = async ({
 
   const didUpdate = !!wpActions.length
 
-  if (didUpdate && intervalRefetching) {
-    /**
-    if we're not interval refetching, we don't need to update the schema here
-    this is just for development.
-    In production, the schemas will be diffed on every build before it gets to this point. but when we're interval refetching, schema customization wont be running so we need to run it ourselves before updating 
-    `refresh: true` is added to clear the schema completely before rebuilding incase fields have been removed.
-     */
-    await updateSchema({ refresh: true })
-  }
-
   if (didUpdate) {
     for (const wpAction of wpActions) {
       // Create, update, and delete nodes
       await handleWpActions({
         helpers,
         pluginOptions,
-        intervalRefetching,
         wpAction,
       })
     }

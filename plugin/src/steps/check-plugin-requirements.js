@@ -254,10 +254,16 @@ ${data.generalSettings.url}/wp-admin/options-permalink.php.
   }
 }
 
-const ensurePluginRequirementsAreMet = async (helpers, _pluginOptions) => {
+const ensurePluginRequirementsAreMet = async (helpers) => {
   if (helpers.traceId === `refresh-createSchemaCustomization`) {
     return
   }
+
+  const activity = helpers.reporter.activityTimer(
+    formatLogMessage(`ensuring plugin requiremenst are met`)
+  )
+
+  activity.start()
 
   const {
     gatsbyApi: {
@@ -272,7 +278,12 @@ const ensurePluginRequirementsAreMet = async (helpers, _pluginOptions) => {
   // if we don't have a cached remote schema MD5, this is a cold build
   const isFirstBuild = !(await getPersistentCache({ key: MD5_CACHE_KEY }))
 
-  if (!schemaWasChanged && !isFirstBuild) {
+  if (
+    !schemaWasChanged &&
+    !isFirstBuild &&
+    helpers.traceId !== `schemaWasChanged`
+  ) {
+    activity.end()
     return
   }
 
@@ -287,6 +298,8 @@ const ensurePluginRequirementsAreMet = async (helpers, _pluginOptions) => {
       disableCompatibilityCheck,
     }),
   ])
+
+  activity.end()
 }
 
 export { ensurePluginRequirementsAreMet }

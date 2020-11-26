@@ -84,7 +84,7 @@ const defaultPluginOptions: IPluginOptions = {
     disableCompatibilityCheck: false,
   },
   develop: {
-    nodeUpdateInterval: 300,
+    nodeUpdateInterval: 5000,
     hardCacheMediaFiles: false,
     hardCacheData: false,
   },

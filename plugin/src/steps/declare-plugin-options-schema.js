@@ -96,7 +96,7 @@ export function pluginOptionsSchema({ Joi }) {
     develop: Joi.object({
       nodeUpdateInterval: Joi.number()
         .integer()
-        .default(300)
+        .default(5000)
         .description(
           `Specifies in milliseconds how often Gatsby will ask WP if data has changed during development. If you want to see data update in near-realtime while you're developing, set this low. Your server may have trouble responding to too many requests over a long period of time and in that case, set this high. Setting it higher saves electricity too ⚡️🌲`
         ),

@@ -1,7 +1,62 @@
-import fetchAndApplyNodeUpdates from "./fetch-node-updates"
 import { formatLogMessage } from "~/utils/format-log-message"
 import store from "~/store"
 import { getGatsbyApi } from "~/utils/get-gatsby-api"
+import { contentPollingQuery } from "../../../utils/graphql-queries"
+import fetchGraphql from "../../../utils/fetch-graphql"
+import { LAST_COMPLETED_SOURCE_TIME } from "../../../constants"
+
+const previouslyFoundActionIds = new Set()
+
+/**
+ * This function checks wether there is atleast 1 WPGatsby action ready to be processed by Gatsby
+ * If there is, it calls the refresh webhook so that schema customization and source nodes run again.
+ */
+const checkForNodeUpdates = async ({ cache, emitter }) => {
+  // get the last sourced time
+  const since = await cache.get(LAST_COMPLETED_SOURCE_TIME)
+
+  // make a graphql request for any actions that have happened since
+  const {
+    data: {
+      actionMonitorActions: { nodes },
+    },
+  } = await fetchGraphql({
+    query: contentPollingQuery,
+    variables: {
+      since,
+    },
+    // throw fetch errors and graphql errors so we can auto recover in refetcher()
+    throwGqlErrors: true,
+    throwFetchErrors: true,
+  })
+
+  // a very simple cache to make sure we don't process the same action twice within
+  // the same `gatsby develop` process.
+  const newActions = nodes.filter(({ id }) => {
+    if (previouslyFoundActionIds.has(id)) {
+      return false
+    } else {
+      previouslyFoundActionIds.add(id)
+      return true
+    }
+  })
+
+  if (newActions.length) {
+    // if there's atleast 1 new action, pause polling,
+    // refresh Gatsby schema+nodes and continue on
+    store.dispatch.develop.pauseRefreshPolling()
+
+    emitter.emit(`WEBHOOK_RECEIVED`, {
+      webhookBody: {
+        since,
+        refreshing: true,
+      },
+    })
+  } else {
+    // set new last completed source time and move on
+    await cache.set(LAST_COMPLETED_SOURCE_TIME, Date.now())
+  }
+}
 
 const refetcher = async (
   msRefetchInterval,
@@ -9,11 +64,11 @@ const refetcher = async (
   { reconnectionActivity = null, retryCount = 1 } = {}
 ) => {
   try {
-    await fetchAndApplyNodeUpdates({
-      intervalRefetching: true,
-      throwFetchErrors: true,
-      throwGqlErrors: true,
-    })
+    const { refreshPollingIsPaused } = store.getState().develop
+
+    if (!refreshPollingIsPaused) {
+      await checkForNodeUpdates(helpers)
+    }
 
     if (reconnectionActivity) {
       reconnectionActivity.end()
@@ -69,7 +124,7 @@ const refetcher = async (
  * Starts constantly refetching the latest WordPress changes
  * so we can update Gatsby nodes when data changes
  */
-const startPollingForContentUpdates = (helpers, pluginOptions) => {
+const startPollingForContentUpdates = (helpers) => {
   if (
     process.env.WP_DISABLE_POLLING ||
     process.env.ENABLE_GATSBY_REFRESH_ENDPOINT
@@ -77,14 +132,9 @@ const startPollingForContentUpdates = (helpers, pluginOptions) => {
     return
   }
 
-  const { verbose } = store.getState().gatsbyApi.pluginOptions
+  const { verbose, develop } = store.getState().gatsbyApi.pluginOptions
 
-  const msRefetchInterval =
-    pluginOptions &&
-    pluginOptions.develop &&
-    pluginOptions.develop.nodeUpdateInterval
-      ? pluginOptions.develop.nodeUpdateInterval
-      : 300
+  const msRefetchInterval = develop.nodeUpdateInterval
 
   if (verbose) {
     helpers.reporter.log(``)
