@@ -53,7 +53,10 @@ RUN git clone --depth 1 https://github.com/WP-API/Basic-Auth.git ${PLUGIN_DIR}/b
 
 # TODO: import uploads directory from remote zip file
 
-RUN curl -L https://storage.googleapis.com/gatsby-source-wordpress-v4-wordpress-test-files/gatsby-source-wordpress-test-uploads.zip > /tmp/archive.zip
+# This location is temporary because our Google Cloud account isn't working right now
+# and everyone is out on holiday 😅
+RUN curl -L https://gatsbyinttests.wpengine.com/wp-content/uploads/gatsby-source-wordpress-test-uploads.zip > /tmp/archive.zip
+# RUN curl -L https://storage.googleapis.com/gatsby-source-wordpress-v4-wordpress-test-files/gatsby-source-wordpress-test-uploads.zip > /tmp/archive.zip
 
 RUN unzip -a -d ${WP_CONTENT_DIR} /tmp/archive.zip
 RUN rm -rf ${WP_CONTENT_DIR}/__MACOSX && mv ${WP_CONTENT_DIR}/gatsby-source-wordpress-test-uploads/wp-content/uploads ${UPLOADS_DIR}
