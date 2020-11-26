@@ -134,7 +134,7 @@ const startPollingForContentUpdates = (helpers) => {
 
   const { verbose, develop } = store.getState().gatsbyApi.pluginOptions
 
-  const msRefetchInterval = develop?.nodeUpdateInterval ?? 300
+  const msRefetchInterval = develop.nodeUpdateInterval
 
   if (verbose) {
     helpers.reporter.log(``)
