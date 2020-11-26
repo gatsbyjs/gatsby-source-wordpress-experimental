@@ -5,6 +5,8 @@ import gql from "~/utils/gql"
 import { formatLogMessage } from "~/utils/format-log-message"
 import { LAST_COMPLETED_SOURCE_TIME, MD5_CACHE_KEY } from "~/constants"
 
+import { ensurePluginRequirementsAreMet } from "../check-plugin-requirements"
+
 import { createContentDigest } from "gatsby-core-utils"
 
 import {
@@ -15,7 +17,7 @@ import {
   getPersistentCache,
 } from "~/utils/cache"
 
-const checkIfSchemaHasChanged = async () => {
+const checkIfSchemaHasChanged = async ({ traceId }) => {
   const state = store.getState()
 
   const { helpers, pluginOptions } = state.gatsbyApi
@@ -83,6 +85,22 @@ Please consider addressing this issue by changing your WordPress settings or plu
   await setPersistentCache({ key: MD5_CACHE_KEY, value: schemaMd5 })
 
   const schemaWasChanged = schemaMd5 !== cachedSchemaMd5
+
+  // if the schema was changed and we had a cached schema
+  // we need to re-check to see if all plugin requirements are met
+  // this is also run as a step in gatsby-node.js but is skipped
+  // during refreshes. If the schema changes and this is a refresh
+  // we do want to re-check to make sure everything's good.
+  if (
+    schemaWasChanged &&
+    cachedSchemaMd5 &&
+    traceId !== `initial-createSchemaCustomization`
+  ) {
+    await ensurePluginRequirementsAreMet({
+      ...helpers,
+      traceId: `schemaWasChanged`,
+    })
+  }
 
   const pluginOptionsMD5Key = `plugin-options-md5`
   const lastPluginOptionsMD5 = await getPersistentCache({

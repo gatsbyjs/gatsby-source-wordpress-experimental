@@ -85,7 +85,7 @@ export const fetchAndCreateSingleNode = async ({
     return query
   }
 
-  let query = getNodeQuery()
+  const query = getNodeQuery()
 
   const { helpers } = getGatsbyApi()
 
@@ -97,31 +97,10 @@ export const fetchAndCreateSingleNode = async ({
     reporter.log(``)
     reporter.info(
       formatLogMessage(
-        `A ${singleName} was updated, but this node type is excluded in plugin options.`
+        `A ${singleName} was updated, but no query was found for this node type. This node type is either excluded in plugin options or this is a bug.`
       )
     )
-
-    if (process.env.NODE_ENV === `development`) {
-      reporter.info(
-        formatLogMessage(
-          `Re-running createSchemaCustomization to check for updates.`
-        )
-      )
-
-      await updateSchema()
-
-      // now that the queries have updated, grab the latest query for this node
-      query = getNodeQuery()
-
-      if (!query) {
-        reporter.log(``)
-        reporter.warn(
-          formatLogMessage(`Still couldn't find a query for ${singleName}.`)
-        )
-        reporter.log(``)
-        return { node: null }
-      }
-    }
+    return { node: null }
   }
 
   const headers = token
@@ -133,49 +112,14 @@ export const fetchAndCreateSingleNode = async ({
       }
     : {}
 
-  let data
-
-  async function fetchNodeData(args = {}) {
-    const { data } = await fetchGraphql({
-      headers,
-      query,
-      variables: {
-        id,
-      },
-      errorContext: `Error occured while updating a single "${singleName}" node.`,
-      ...args,
-    })
-
-    return data
-  }
-
-  try {
-    // first we try to fetch and throw gql errors
-    // the reason for this is we can catch those errors,
-    // diff the schema, and regenerate our gql queries if needed
-    // only do this in development though. In production we need to fail the build.
-    // in production the schema has already been diffed, so if it fails here, something else is afoot
-    data = await fetchNodeData({
-      throwGqlErrors: !!process.env.NODE_ENV === `development`,
-    })
-  } catch (e) {
-    reporter.log(``)
-    reporter.warn(
-      formatLogMessage(
-        `${id} ${singleName} produced GraphQL errors while sourcing preview data.\nUpdating internal preview queries and trying again...`
-      )
-    )
-
-    await updateSchema()
-
-    // now that the queries have updated, grab the latest query for this node
-    const updatedQuery = getNodeQuery()
-
-    // if this fails this second time, this fn will handle the error internally
-    data = await fetchNodeData({
-      query: updatedQuery,
-    })
-  }
+  const { data } = await fetchGraphql({
+    headers,
+    query,
+    variables: {
+      id,
+    },
+    errorContext: `Error occured while updating a single "${singleName}" node.`,
+  })
 
   const remoteNode = data[singleName]
 

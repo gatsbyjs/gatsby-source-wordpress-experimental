@@ -9,16 +9,7 @@ import { buildNodeQueries } from "./build-queries-from-introspection/build-node-
 import { cacheFetchedTypes } from "./cache-fetched-types"
 import { writeQueriesToDisk } from "./write-queries-to-disk"
 
-import store from "../../store"
-
 const ingestRemoteSchema = async (helpers, pluginOptions) => {
-  if (
-    helpers.traceId === `refresh-createSchemaCustomization` &&
-    !store.getState().remoteSchema.allowRefreshSchemaUpdate
-  ) {
-    return
-  }
-
   const activity = helpers.reporter.activityTimer(
     formatLogMessage(`ingest WPGraphQL schema`)
   )
