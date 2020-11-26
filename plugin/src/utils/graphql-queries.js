@@ -1,14 +1,25 @@
 import gql from "./gql"
 
 /**
+ * Used to check if there have been any updates at all. A single action is enough to trigger refreshing in gatsby develop
+ */
+export const contentPollingQuery = gql`
+  query GET_SINGLE_ACTION_MONITOR_ACTION($since: Float!) {
+    actionMonitorActions(where: { sinceTimestamp: $since }, first: 1) {
+      nodes {
+        id
+      }
+    }
+  }
+`
+
+/**
  * Used to fetch WP changes since a unix timestamp
  * so we can do incremental data fetches
  */
 export const actionMonitorQuery = gql`
   query GET_ACTION_MONITOR_ACTIONS($since: Float!, $after: String) {
-    # @todo add pagination in case there are more than 100 actions since the last build
     actionMonitorActions(
-      # @todo the orderby args aren't actually doing anything here. need to fix this
       where: { sinceTimestamp: $since, orderby: { field: DATE, order: DESC } }
       first: 100
       after: $after

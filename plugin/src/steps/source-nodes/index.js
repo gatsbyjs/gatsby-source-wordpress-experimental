@@ -21,7 +21,10 @@ const sourceNodes = async (helpers, pluginOptions) => {
   // For now, we're refetching them on every build
   const nonNodeRootFieldsPromise = fetchAndCreateNonNodeRootFields()
 
-  const lastCompletedSourceTime = await cache.get(LAST_COMPLETED_SOURCE_TIME)
+  const lastCompletedSourceTime =
+    webhookBody.refreshing && webhookBody.since
+      ? webhookBody.since
+      : await cache.get(LAST_COMPLETED_SOURCE_TIME)
 
   const {
     schemaWasChanged,
@@ -29,7 +32,9 @@ const sourceNodes = async (helpers, pluginOptions) => {
   } = store.getState().remoteSchema
 
   const fetchEverything =
-    foundUsableHardCachedData || !lastCompletedSourceTime || schemaWasChanged
+    foundUsableHardCachedData ||
+    !lastCompletedSourceTime ||
+    (!webhookBody.refreshing && schemaWasChanged)
 
   // If this is an uncached build,
   // or our initial build to fetch and cache everything didn't complete,
@@ -52,7 +57,9 @@ const sourceNodes = async (helpers, pluginOptions) => {
 
   allowFileDownloaderProgressBarToClear()
 
-  store.dispatch.remoteSchema.setSchemaWasChanged(false)
+  const { dispatch } = store
+  dispatch.remoteSchema.setSchemaWasChanged(false)
+  dispatch.develop.resumeRefreshPolling()
 }
 
 export { sourceNodes }
