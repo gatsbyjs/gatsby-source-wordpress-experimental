@@ -31,7 +31,7 @@
     "test-schema-watch": "SHOW_GATSBY_PROCESS_STDOUT=true yarn test-schema-first --watch",
     "test-build-watch": "SHOW_GATSBY_PROCESS_STDOUT=true yarn test-build --watch",
     "test-update": "yarn test-schema-first -u && yarn test-schema-increment -u && yarn test-build -u",
-    "npm-publish": "yarn run lint && yarn test && (rm plugin/README.md || true) && cp README.md plugin/README.md && cd plugin && npm publish"
+    "npm-publish": "yarn run lint && (rm plugin/README.md || true) && cp README.md plugin/README.md && cd plugin && yarn run build && npm publish"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.4",
@@ -51,18 +51,18 @@
     "eslint-config-prettier": "^6.14.0",
     "eslint-plugin-filenames": "^1.3.2",
     "eslint-plugin-prettier": "^3.1.4",
+    "gatsby-plugin-utils": "^0.3.0",
     "husky": "^4.3.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^25.1.0",
     "lint-staged": "^10.4.2",
-    "prettier": "^2.1.2",
+    "prettier": "^2.2.0",
     "react-test-renderer": "^16.12.0",
     "rimraf": "^3.0.2",
     "start-server-and-test": "^1.11.5",
     "tree-kill": "^1.2.2",
     "typescript": "^4.0.3",
-    "wait-on": "^4.0.0",
-    "gatsby-plugin-utils": "^0.3.0"
+    "wait-on": "^4.0.0"
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": [

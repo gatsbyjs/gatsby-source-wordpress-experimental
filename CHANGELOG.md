@@ -6,6 +6,7 @@
 - Because of the above issue, automatic schema updates during `gatsby develop` also failed to keep working. We now use the Gatsby refresh API to re-trigger node sourcing and schema customization in our develop watcher as this is a public API and will be more stable than Gatsby internals.
 - `ensurePluginRequirementsAreMet` is called once on a cold cache but never again on a warm cache. We now call this again when the schema changes on a warm cache to make sure that if the schema changes because the remote plugin versions changed, we recheck to make sure they're still in-range.
 - The default value of `options.develop.nodeUpdateInterval` has been increased from `300` to `5000`. Due to the time it takes everything to work across Gatsby and WP, as well as the fact that content is rarely updated at the exact start of the interval, this change is barely perceptible but will ease up some strain on WP when many developers are working on the same site or when `gatsby develop` is running for hours at a time.
+- There was a DX inconsistency around the clearing of the cache when the schema gets updated. Previously if your schema updated while `gatsby develop` was running, your cache would not clear, but if it updated while `gatsby develop` was not running, starting gatsby would cause the cache to clear. Both of these cases now no longer clear the cache in development and warning is displayed that if your schema change included a data change, you will need to run `gatsby clean && gatsby develop`
 
 ## 3.2.0
 
