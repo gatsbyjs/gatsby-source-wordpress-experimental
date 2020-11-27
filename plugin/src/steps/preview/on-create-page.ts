@@ -1,7 +1,7 @@
 import { formatLogMessage } from "~/utils/format-log-message"
 import store from "~/store"
 import { GatsbyHelpers } from "~/utils/gatsby-types"
-import { inPreviewMode } from "."
+import { inPreviewMode } from "~/steps/preview"
 
 /**
  * during onCreatePage we want to figure out which node the page is dependant on
