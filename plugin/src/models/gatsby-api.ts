@@ -40,6 +40,7 @@ export interface IPluginOptions {
     typePrefix: string
     timeout: number // 30 seconds
     perPage: number
+    requestConcurrency?: number
   }
   excludeFieldNames: []
   html: {
@@ -61,6 +62,7 @@ export interface IPluginOptions {
       localFile?: {
         excludeByMimeTypes?: string[]
         maxFileSizeBytes?: number
+        requestConcurrency?: number
       }
     }
   }
@@ -103,6 +105,7 @@ const defaultPluginOptions: IPluginOptions = {
     typePrefix: `Wp`,
     timeout: 30 * 1000, // 30 seconds
     perPage: 100,
+    requestConcurrency: 50,
   },
   excludeFieldNames: [],
   html: {
@@ -158,6 +161,7 @@ const defaultPluginOptions: IPluginOptions = {
       localFile: {
         excludeByMimeTypes: [],
         maxFileSizeBytes: 15728640, // 15Mb
+        requestConcurrency: 100,
       },
       beforeChangeNode: async ({
         remoteNode,

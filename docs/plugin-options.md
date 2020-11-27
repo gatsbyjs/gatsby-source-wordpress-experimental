@@ -21,6 +21,7 @@
     - [schema.typePrefix: String](#schematypeprefix-string)
     - [schema.timeout: Int](#schematimeout-int)
     - [schema.perPage: Int](#schemaperpage-int)
+    - [schema.requestConcurrency: Int](#schemarequestconcurrency-int)
   - [excludeFieldNames: Array](#excludefieldnames-array)
   - [html: Object](#html-object)
     - [html.useGatsbyImage: Boolean](#htmlusegatsbyimage-boolean)
@@ -374,6 +375,23 @@ Default is `100`.
 },
 ```
 
+### schema.requestConcurrency: Int
+
+The number of graphql requests to make per second.
+
+Default is `50`.
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+  options: {
+    schema: {
+      requestConcurrency: 50,
+    },
+  },
+},
+```
+
 ## excludeFieldNames: Array
 
 A list of field names to globally exclude from the ingested schema.
@@ -647,6 +665,8 @@ Default is `15728640` which is 15Mb.
 
 Allows controls how many images are downloaded at a time. Try lowering this if your wordpress server is giving 500 or 408 errors.
 
+Default is `100`
+
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
@@ -654,7 +674,7 @@ Allows controls how many images are downloaded at a time. Try lowering this if y
     type: {
       MediaItem: {
         localFile: {
-          requestConcurrency: 50 // 100 by default
+          requestConcurrency: 50
         },
       },
     },

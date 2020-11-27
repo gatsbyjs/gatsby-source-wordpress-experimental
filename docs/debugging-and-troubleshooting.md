@@ -1,13 +1,15 @@
 # Debugging and Troubleshooting
 
-- [Node sourcing](#node-sourcing)
-  - [Missing data in Gatsby](#missing-data-in-gatsby)
-  - [GraphQL errors](#node-sourcing-graphql-errors)
-  - [WordPress 50\* errors](#wordpress-50-errors)
-  - [Timeouts](#node-sourcing-timeouts)
-- [Media File Download Errors](#media-file-download-errors)
-- [Broken Preview templates](#broken-preview-templates)
-- [Previews don't update](#previews-dont-update)
+- [Debugging and Troubleshooting](#debugging-and-troubleshooting)
+  - [Node sourcing](#node-sourcing)
+    - [Missing data in Gatsby](#missing-data-in-gatsby)
+    - [Node Sourcing GraphQL errors](#node-sourcing-graphql-errors)
+    - [WordPress 50\* errors](#wordpress-50-errors)
+    - [Node Sourcing Timeouts](#node-sourcing-timeouts)
+  - [Media File Download Errors](#media-file-download-errors)
+  - [Broken Preview templates](#broken-preview-templates)
+  - [Previews Don't Update](#previews-dont-update)
+- [Up Next :point_right:](#up-next-point_right)
 
 ## Node sourcing
 
@@ -118,7 +120,9 @@ You can use this query to reproduce your error message and debug your error mess
 
 ### WordPress 50\* errors
 
-If you're running into these errors during node sourcing, the plugin may be trying to fetch more data from your WordPress instance than your WP server can handle. Try lowering the [`schema.perPage`](./plugin-options.md#schema.perpage-int) plugin option from it's default of 100 and re-run your build process. If you still get errors, try setting this very low to rule out wether or not this is your problem.
+If you're running into these errors during node sourcing, the plugin may be trying to fetch more data from your WordPress instance than your WP server can handle. Try lowering the [`schema.perPage`](./plugin-options.md#schema.perpage-int) plugin option from it's default of 100 and re-run your build process.
+
+You can also try setting [`schema.requestConcurrency`](./plugin-options.md#schema.requestconcurrency-int) to limit the amount of GraphQL requests made per second from the default of 50.
 
 Another reason this can happen is that one of your GraphQL queries causes an unrecoverable error on your WordPress server. See the section on [debugging GraphQL errors](#graphql-errors) for debugging steps.
 
