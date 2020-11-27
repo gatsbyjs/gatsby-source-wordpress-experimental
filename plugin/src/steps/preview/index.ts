@@ -1,3 +1,5 @@
+import path from "path"
+import fs from "fs-extra"
 import chalk from "chalk"
 import urlUtil from "url"
 import fetchGraphql from "~/utils/fetch-graphql"
@@ -7,6 +9,7 @@ import store from "~/store"
 import { fetchAndCreateSingleNode } from "~/steps/source-nodes/update-nodes/wp-actions/update"
 import { formatLogMessage } from "~/utils/format-log-message"
 import { touchValidNodes } from "../source-nodes/update-nodes/fetch-node-updates"
+import { getDbIdFromRelayId } from "../source-nodes/update-nodes/wp-actions/update"
 
 import { IPluginOptions } from "~/models/gatsby-api"
 
@@ -20,6 +23,25 @@ type PreviewStatusUnion =
   | `GATSBY_PREVIEW_PROCESS_ERROR`
   | `RECEIVED_PREVIEW_DATA_FROM_WRONG_URL`
 
+interface IWebhookBody {
+  preview: boolean
+  previewId: number
+  token: string
+  remoteUrl: string
+  modified: string
+  parentId: number
+  id: string
+  isDraft: boolean
+  isNewPostDraft: boolean
+  singleName: string
+  isRevision: boolean
+  revisionsAreDisabled: boolean
+}
+
+interface IPageNode {
+  path: string
+}
+
 /**
  * This is called when the /__refresh endpoint is posted to from WP previews.
  * It should only ever run in Preview mode, which is process.env.ENABLE_GATSBY_REFRESH_ENDPOINT = true
@@ -29,15 +51,7 @@ export const sourcePreviews = async (
     webhookBody,
     reporter,
   }: {
-    webhookBody: {
-      preview: boolean
-      previewId: number
-      token: string
-      remoteUrl: string
-      modified: string
-      parentId: number
-      id: string
-    }
+    webhookBody: IWebhookBody
     // this comes from Gatsby
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     reporter: any
@@ -81,18 +95,17 @@ export const sourcePreviews = async (
 
   const { hostname: settingsHostname } = urlUtil.parse(url)
   const { hostname: remoteHostname } = urlUtil.parse(webhookBody.remoteUrl)
-
   interface OnPreviewStatusInput {
     status: PreviewStatusUnion
     context?: string
+    nodeId?: string
     passedNode?: {
       modified?: string
       databaseId: number
     }
-    pageNode?: {
-      path: string
-    }
+    pageNode?: IPageNode
     graphqlEndpoint?: string
+    error?: Error
   }
 
   const sendPreviewStatus = async ({
@@ -101,7 +114,19 @@ export const sourcePreviews = async (
     context,
     status,
     graphqlEndpoint,
+    error,
   }: OnPreviewStatusInput): Promise<void> => {
+    if (status === `PREVIEW_SUCCESS`) {
+      // we might need to write a dummy page-data.json so that
+      // Gatsby doesn't throw 404 errors when WPGatsby tries to read this file
+      // that maybe doesn't exist yet
+      await writeDummyPageDataJsonIfNeeded({ webhookBody, pageNode })
+    }
+
+    const statusContext = error?.message
+      ? `${context}\n\n${error.message}`
+      : context
+
     const { data } = await fetchGraphql({
       url: graphqlEndpoint,
       query: /* GraphQL */ `
@@ -118,8 +143,9 @@ export const sourcePreviews = async (
           clientMutationId: `sendPreviewStatus`,
           modified: passedNode?.modified,
           pagePath: pageNode?.path,
-          parentId: passedNode.databaseId,
+          parentId: webhookBody.parentId || webhookBody.previewId, // if the parentId is 0 we want to use the previewId
           status,
+          statusContext,
         },
       },
       errorContext: `Error occured while mutating WordPress Preview node meta.`,
@@ -184,4 +210,42 @@ export const sourcePreviews = async (
     previewParentId: webhookBody.parentId,
     isPreview: true,
   })
+}
+
+/**
+ * For previews of draft posts, gatsby develop will throw a bunch of 404 errors
+ * while WPGatsby is trying to read page-data.json
+ * So we can write a dummy page-data.json if one doesn't exist.
+ * that way there will be no 404's and Gatsby will overwrite our dummy file when it
+ * needs to.
+ */
+const writeDummyPageDataJsonIfNeeded = async ({
+  webhookBody,
+  pageNode,
+}: {
+  webhookBody: IWebhookBody
+  pageNode: IPageNode
+}): Promise<void> => {
+  if (!webhookBody.isDraft) {
+    return
+  }
+
+  const pageDataDirectory = path.join(
+    process.cwd(),
+    `public/page-data`,
+    pageNode.path
+  )
+
+  await fs.ensureDir(pageDataDirectory)
+
+  const pageDataPath = path.join(pageDataDirectory, `page-data.json`)
+
+  const pageDataExists = await fs.exists(pageDataPath)
+
+  if (!pageDataExists) {
+    await fs.writeJSON(pageDataPath, {
+      isNewPostDraft: webhookBody.isNewPostDraft,
+      isDraft: webhookBody.isDraft,
+    })
+  }
 }
