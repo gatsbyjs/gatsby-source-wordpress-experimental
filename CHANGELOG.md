@@ -1,6 +1,6 @@
 # Change Log
 
-## Upcoming
+## 3.3.1
 
 - Preview errors for brand new draft posts were not being passed back to Gatsby properly. This is now fixed :)
 - The full error message is now passed back to the Gatsby preview template instead of just the generic name of the step in which the error ocurred.
