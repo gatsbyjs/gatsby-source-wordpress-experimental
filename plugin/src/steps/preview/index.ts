@@ -7,6 +7,7 @@ import store from "~/store"
 import { fetchAndCreateSingleNode } from "~/steps/source-nodes/update-nodes/wp-actions/update"
 import { formatLogMessage } from "~/utils/format-log-message"
 import { touchValidNodes } from "../source-nodes/update-nodes/fetch-node-updates"
+import { getDbIdFromRelayId } from "../source-nodes/update-nodes/wp-actions/update"
 
 import { IPluginOptions } from "~/models/gatsby-api"
 
@@ -85,6 +86,7 @@ export const sourcePreviews = async (
   interface OnPreviewStatusInput {
     status: PreviewStatusUnion
     context?: string
+    nodeId?: string
     passedNode?: {
       modified?: string
       databaseId: number
@@ -93,6 +95,7 @@ export const sourcePreviews = async (
       path: string
     }
     graphqlEndpoint?: string
+    error?: Error
   }
 
   const sendPreviewStatus = async ({
@@ -101,7 +104,12 @@ export const sourcePreviews = async (
     context,
     status,
     graphqlEndpoint,
+    error,
   }: OnPreviewStatusInput): Promise<void> => {
+    const statusContext = error?.message
+      ? `${context}\n\n${error.message}`
+      : context
+
     const { data } = await fetchGraphql({
       url: graphqlEndpoint,
       query: /* GraphQL */ `
@@ -118,8 +126,9 @@ export const sourcePreviews = async (
           clientMutationId: `sendPreviewStatus`,
           modified: passedNode?.modified,
           pagePath: pageNode?.path,
-          parentId: passedNode.databaseId,
+          parentId: webhookBody.parentId || webhookBody.previewId, // if the parentId is 0 we want to use the previewId
           status,
+          statusContext,
         },
       },
       errorContext: `Error occured while mutating WordPress Preview node meta.`,

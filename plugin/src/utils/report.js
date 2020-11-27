@@ -9,6 +9,9 @@ export const CODES = {
   /* GraphQL Errors */
   RemoteGraphQLError: `112001`,
   MissingAppendedPath: `112002`,
+
+  /* CodeErrors */
+  SourcePluginCodeError: `112003`,
 }
 
 export const ERROR_MAP = {
@@ -46,5 +49,10 @@ export const ERROR_MAP = {
     text: (context) => context.sourceMessage,
     level: `ERROR`,
     category: `THIRD_PARTY`,
+  },
+  [CODES.SourcePluginCodeError]: {
+    text: (context) => context.sourceMessage,
+    level: `ERROR`,
+    category: `SYSTEM`,
   },
 }
