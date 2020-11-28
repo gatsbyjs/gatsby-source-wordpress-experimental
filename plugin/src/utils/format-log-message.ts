@@ -1,7 +1,10 @@
 import chalk from "chalk"
 import store from "~/store"
 
-const formatLogMessage = (input, { useVerboseStyle } = {}) => {
+const formatLogMessage = (
+  input: string | string[],
+  { useVerboseStyle }: { useVerboseStyle?: boolean } = {}
+): string => {
   let verbose = false
 
   if (typeof useVerboseStyle === `undefined`) {
