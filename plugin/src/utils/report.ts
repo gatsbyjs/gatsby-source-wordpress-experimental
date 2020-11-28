@@ -1,3 +1,5 @@
+import { IErrorMapEntry } from "gatsby-cli/lib/structured-errors/error-map"
+
 export const CODES = {
   /* Fetch errors */
   WordPressFilters: `111001`,
@@ -14,44 +16,51 @@ export const CODES = {
   SourcePluginCodeError: `112003`,
 }
 
-export const ERROR_MAP = {
+interface IErrorMap {
+  [code: string]: IErrorMapEntry
+}
+
+const getErrorText = (context: { sourceMessage: string }): string =>
+  context.sourceMessage
+
+export const ERROR_MAP: IErrorMap = {
   [CODES.WordPressFilters]: {
-    text: (context) => context.sourceMessage,
+    text: getErrorText,
     level: `ERROR`,
     category: `USER`,
   },
   [CODES.BadResponse]: {
-    text: (context) => context.sourceMessage,
+    text: getErrorText,
     level: `ERROR`,
     category: `USER`,
   },
   [CODES.RequestDenied]: {
-    text: (context) => context.sourceMessage,
+    text: getErrorText,
     level: `ERROR`,
     category: `USER`,
   },
   [CODES.Authentication]: {
-    text: (context) => context.sourceMessage,
+    text: getErrorText,
     level: `ERROR`,
     category: `USER`,
   },
   [CODES.Timeout]: {
-    text: (context) => context.sourceMessage,
+    text: getErrorText,
     level: `ERROR`,
     category: `USER`,
   },
   [CODES.RemoteGraphQLError]: {
-    text: (context) => context.sourceMessage,
+    text: getErrorText,
     level: `ERROR`,
     category: `THIRD_PARTY`,
   },
   [CODES.MissingAppendedPath]: {
-    text: (context) => context.sourceMessage,
+    text: getErrorText,
     level: `ERROR`,
     category: `THIRD_PARTY`,
   },
   [CODES.SourcePluginCodeError]: {
-    text: (context) => context.sourceMessage,
+    text: getErrorText,
     level: `ERROR`,
     category: `SYSTEM`,
   },
