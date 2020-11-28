@@ -1,4 +1,4 @@
-import { GatsbyHelpers } from "~/utils/gatsby-types"
+import { GatsbyNodeApiHelpers } from "~/utils/gatsby-types"
 import merge from "lodash/merge"
 import { createRemoteMediaItemNode } from "~/steps/source-nodes/create-nodes/create-remote-media-item-node"
 import { menuBeforeChangeNode } from "~/steps/source-nodes/before-change-node/menu"
@@ -286,8 +286,8 @@ const defaultPluginOptions: IPluginOptions = {
   },
 }
 
-interface IGatsbyApiState {
-  helpers: GatsbyHelpers
+export interface IGatsbyApiState {
+  helpers: GatsbyNodeApiHelpers
   pluginOptions: IPluginOptions
 }
 

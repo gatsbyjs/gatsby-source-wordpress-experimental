@@ -1,6 +1,6 @@
 import { formatLogMessage } from "~/utils/format-log-message"
 import store from "~/store"
-import { GatsbyHelpers } from "~/utils/gatsby-types"
+import { GatsbyNodeApiHelpers } from "~/utils/gatsby-types"
 import { inPreviewMode } from "."
 
 /**
@@ -14,7 +14,7 @@ was buggy and unreliable. @todo it's worth trying to remove the need for
 pageContext.id again in the future.
  */
 export const onCreatepageSavePreviewNodeIdToPageDependency = (
-  helpers: GatsbyHelpers
+  helpers: GatsbyNodeApiHelpers
 ): void => {
   // if we're not in preview mode we don't want to track this
   if (!inPreviewMode()) {
@@ -44,7 +44,7 @@ export const onCreatepageSavePreviewNodeIdToPageDependency = (
  * respond to the WP instance preview client
  */
 export const onCreatePageRespondToPreviewStatusQuery = async (
-  helpers: GatsbyHelpers
+  helpers: GatsbyNodeApiHelpers
 ): Promise<void> => {
   // if we're not in preview mode we don't want to set this up
   if (!inPreviewMode()) {
