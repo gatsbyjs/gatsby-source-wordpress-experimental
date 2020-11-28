@@ -1,7 +1,6 @@
 import url from "url"
 import fetchGraphql from "~/utils/fetch-graphql"
 import store from "~/store"
-import gql from "~/utils/gql"
 import { formatLogMessage } from "~/utils/format-log-message"
 import { LAST_COMPLETED_SOURCE_TIME, MD5_CACHE_KEY } from "~/constants"
 
@@ -35,7 +34,7 @@ const checkIfSchemaHasChanged = async ({ traceId }) => {
   }
 
   const { data } = await fetchGraphql({
-    query: gql`
+    query: /* GraphQL */ `
       {
         schemaMd5
         # also get the wpUrl to save on # of requests
