@@ -1,5 +1,8 @@
+import { IPluginOptions } from "~/models/gatsby-api"
+import { GatsbyReporter } from "./gatsby-types"
 import prettier from "prettier"
-import axios from "axios"
+import clipboardy from "clipboardy"
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios"
 import rateLimit from "axios-rate-limit"
 import chalk from "chalk"
 import { formatLogMessage } from "./format-log-message"
@@ -8,16 +11,23 @@ import { getPluginOptions } from "./get-gatsby-api"
 import urlUtil from "url"
 import { CODES } from "./report"
 
-const http = rateLimit(axios.create(), {
+const http: AxiosInstance = rateLimit(axios.create(), {
   maxRPS: process.env.GATSBY_CONCURRENT_DOWNLOAD || 50,
 })
+
+interface IHandleErrorOptionsInput {
+  variables: JSON
+  query: string
+  pluginOptions: IPluginOptions
+  reporter: GatsbyReporter
+}
 
 const handleErrorOptions = async ({
   variables,
   query,
   pluginOptions,
   reporter,
-}) => {
+}: IHandleErrorOptionsInput): Promise<void> => {
   if (
     variables &&
     Object.keys(variables).length &&
@@ -47,6 +57,16 @@ const handleErrorOptions = async ({
   }
 }
 
+interface IHandleErrors {
+  variables: JSON
+  query: string
+  pluginOptions: IPluginOptions
+  reporter: GatsbyReporter
+  responseJSON: JSON
+  panicOnError: boolean
+  errorContext: string
+}
+
 const handleErrors = async ({
   variables,
   query,
@@ -55,7 +75,7 @@ const handleErrors = async ({
   responseJSON,
   panicOnError,
   errorContext,
-}) => {
+}: IHandleErrors): Promise<void> => {
   await handleErrorOptions({
     variables,
     query,
@@ -82,6 +102,17 @@ const handleErrors = async ({
   }
 }
 
+interface IHandleGraphQLErrorsInput {
+  query: string
+  variables: JSON
+  response: AxiosResponse
+  errorMap: IErrorMap
+  panicOnError: boolean
+  reporter: GatsbyReporter
+  errorContext: string
+  forceReportCriticalErrors: boolean
+}
+
 const handleGraphQLErrors = async ({
   query,
   variables,
@@ -91,7 +122,7 @@ const handleGraphQLErrors = async ({
   reporter,
   errorContext,
   forceReportCriticalErrors = false,
-}) => {
+}: IHandleGraphQLErrorsInput): Promise<void> => {
   const pluginOptions = getPluginOptions()
 
   const json = response.data
@@ -205,10 +236,24 @@ const ensureStatementsAreTrue = `${chalk.bold(
 )} \n  - your WordPress URL is correct in gatsby-config.js\n  - your server is responding to requests \n  - WPGraphQL and WPGatsby are installed in your WordPress backend`
 
 // @todo add a link to docs page for debugging
-const genericError = ({ url }) =>
+const genericError = ({ url }: { url: string }): string =>
   `GraphQL request to ${chalk.bold(url)} failed.\n\n${ensureStatementsAreTrue}`
 
 const slackChannelSupportMessage = `If you're still having issues, please visit https://www.wpgraphql.com/community-and-support/\nand follow the link to join the WPGraphQL Slack.\nThere are a lot of folks there in the #gatsby channel who are happy to help with debugging.`
+
+interface IHandleFetchErrors {
+  e: Error
+  reporter: GatsbyReporter
+  url: string
+  timeout: number
+  pluginOptions: IPluginOptions
+  query: string
+  response: AxiosResponse
+  errorContext: string
+  variables?: JSON
+  isFirstRequest?: boolean
+  headers?: IFetchGraphQLHeaders
+}
 
 const handleFetchErrors = async ({
   e,
@@ -222,7 +267,7 @@ const handleFetchErrors = async ({
   errorContext,
   isFirstRequest,
   headers,
-}) => {
+}: IHandleFetchErrors): Promise<void> => {
   await handleErrors({
     panicOnError: false,
     reporter,
@@ -230,6 +275,7 @@ const handleFetchErrors = async ({
     pluginOptions,
     query,
     errorContext,
+    responseJSON: null,
   })
 
   if (e.message.includes(`timeout of ${timeout}ms exceeded`)) {
@@ -324,12 +370,12 @@ ${slackChannelSupportMessage}`
     })
   }
 
-  const responseReturnedHtml = response?.headers[`content-type`].includes(
+  const responseReturnedHtml = !!response?.headers[`content-type`].includes(
     `text/html;`
   )
 
   if (responseReturnedHtml && isFirstRequest) {
-    const requestOptions = {
+    const requestOptions: AxiosRequestConfig = {
       timeout,
       headers,
     }
@@ -340,7 +386,7 @@ ${slackChannelSupportMessage}`
     try {
       const urlWithoutTrailingSlash = url.replace(/\/$/, ``)
 
-      const response = await http.post(
+      const response: AxiosResponse = await http.post(
         [urlWithoutTrailingSlash, `/graphql`].join(``),
         { query, variables },
         requestOptions
@@ -380,7 +426,11 @@ ${slackChannelSupportMessage}`
       try {
         clipboardy?.writeSync(response.data)
       } catch (e) {
-        // do nothing
+        reporter.error(
+          formatLogMessage(
+            `Unable to copy html response on error.\n\n${e.message ?? ``}`
+          )
+        )
       }
     }
 
@@ -463,6 +513,39 @@ if ( defined( 'GRAPHQL_REQUEST' ) && true === GRAPHQL_REQUEST ) {
   })
 }
 
+interface JSON {
+  // these will always be different depending on where this is used
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any
+}
+
+interface IFetchGraphQLHeaders {
+  WPGatsbyPreview?: string
+  Authorization?: string
+}
+
+interface IErrorMap {
+  from: string
+  to: string
+}
+
+interface IFetchGraphQLInput {
+  url: string
+  query: string
+  errorContext: string
+  ignoreGraphQLErrors: boolean
+  panicOnError: boolean
+  throwGqlErrors: boolean
+  throwFetchErrors: boolean
+  isFirstRequest: boolean
+  forceReportCriticalErrors: boolean
+  errorMap: IErrorMap
+  variables: JSON
+  headers: IFetchGraphQLHeaders
+}
+
+type IGraphQLDataResponse = JSON
+
 const fetchGraphql = async ({
   query,
   errorMap,
@@ -470,13 +553,13 @@ const fetchGraphql = async ({
   panicOnError = false,
   throwGqlErrors = false,
   throwFetchErrors = false,
-  url = false,
+  url = null,
   variables = {},
   headers = {},
-  errorContext = false,
+  errorContext = null,
   isFirstRequest = false,
   forceReportCriticalErrors = false,
-}) => {
+}: IFetchGraphQLInput): Promise<IGraphQLDataResponse> => {
   const { helpers, pluginOptions } = store.getState().gatsbyApi
 
   const { url: pluginOptionsUrl } = pluginOptions
@@ -484,7 +567,7 @@ const fetchGraphql = async ({
 
   if (!reporter || typeof reporter === `undefined`) {
     reporter = {
-      panic: (message) => {
+      panic: (message: { context: { sourceMessage: string } }): void => {
         throw new Error(message.context.sourceMessage)
       },
       error: console.error,
@@ -502,10 +585,10 @@ const fetchGraphql = async ({
   const missingCredentials =
     !htaccessCredentials.password || !htaccessCredentials.username
 
-  let response
+  let response: AxiosResponse
 
   try {
-    const requestOptions = {
+    const requestOptions: AxiosRequestConfig = {
       timeout,
       headers,
     }
@@ -520,13 +603,15 @@ const fetchGraphql = async ({
       throw new Error(`GraphQL request returned an empty string.`)
     }
 
-    const { path } = urlUtil.parse(url)
+    const { path }: { path: string } = urlUtil.parse(url)
+
     const responsePath = response.request.path
+
     if (path !== responsePath && responsePath !== undefined) {
       throw new Error(`GraphQL request was redirected to ${responsePath}`)
     }
 
-    const contentType = response.headers[`content-type`]
+    const contentType: string = response.headers[`content-type`]
 
     if (!contentType.includes(`application/json;`)) {
       throw new Error(`Unable to connect to WPGraphQL.`)
@@ -551,7 +636,7 @@ const fetchGraphql = async ({
   }
 
   if (throwGqlErrors && response.data.errors) {
-    const stringifiedErrors = response.data.errors
+    const stringifiedErrors: string = response.data.errors
       .map((error) => error.message)
       .join(`\n\n`)
 
@@ -566,10 +651,7 @@ const fetchGraphql = async ({
       errorMap,
       panicOnError,
       reporter,
-      url,
-      timeout,
       errorContext,
-      isFirstRequest,
       forceReportCriticalErrors,
     })
   }

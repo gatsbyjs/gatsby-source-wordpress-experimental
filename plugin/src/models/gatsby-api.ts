@@ -16,6 +16,7 @@ export interface IPluginOptions {
       onlyReportCriticalErrors: boolean
       copyNodeSourcingQueryAndExit: boolean
       writeQueriesToDisk: boolean
+      copyHtmlResponseOnError: boolean
     }
     timeBuildSteps: boolean
     disableCompatibilityCheck: boolean
@@ -79,6 +80,7 @@ const defaultPluginOptions: IPluginOptions = {
       onlyReportCriticalErrors: true,
       copyNodeSourcingQueryAndExit: false,
       writeQueriesToDisk: false,
+      copyHtmlResponseOnError: false,
     },
     timeBuildSteps: false,
     disableCompatibilityCheck: false,
