@@ -1,8 +1,20 @@
+import { GatsbyReporter, GatsbyNodeApiHelpers } from "./gatsby-types"
+import { IPluginOptions } from "~/models/gatsby-api"
 import { formatLogMessage } from "~/utils/format-log-message"
 import { invokeAndCleanupLeftoverPreviewCallbacks } from "../steps/preview/cleanup"
 import { CODES } from "./report"
 
-const runSteps = async (steps, helpers, pluginOptions, apiName) => {
+type Step = (
+  helpers: GatsbyNodeApiHelpers,
+  pluginOptions: IPluginOptions
+) => Promise<void>
+
+const runSteps = async (
+  steps: Step[],
+  helpers: GatsbyNodeApiHelpers,
+  pluginOptions: IPluginOptions,
+  apiName: string
+): Promise<void> => {
   for (const step of steps) {
     try {
       const { timeBuildSteps } = pluginOptions?.debug ?? {}
@@ -12,7 +24,7 @@ const runSteps = async (steps, helpers, pluginOptions, apiName) => {
           : timeBuildSteps?.includes(step.name) ||
             timeBuildSteps?.includes(apiName)
 
-      let activity
+      let activity: GatsbyReporter
 
       if (timeStep) {
         activity = helpers.reporter.activityTimer(
@@ -58,10 +70,14 @@ const runSteps = async (steps, helpers, pluginOptions, apiName) => {
   }
 }
 
-const runApiSteps = (steps, apiName) => async (helpers, pluginOptions) =>
-  runSteps(steps, helpers, pluginOptions, apiName)
+const runApiSteps = (steps: Step[], apiName: string) => async (
+  helpers: GatsbyNodeApiHelpers,
+  pluginOptions: IPluginOptions
+): Promise<void> => runSteps(steps, helpers, pluginOptions, apiName)
 
-const runApisInSteps = (nodeApis) =>
+const runApisInSteps = (nodeApis: {
+  [apiName: string]: Step | Step[]
+}): { [apiName: string]: Promise<void> } =>
   Object.entries(nodeApis).reduce(
     (gatsbyNodeExportObject, [apiName, apiSteps]) => {
       return {
