@@ -513,8 +513,10 @@ if ( defined( 'GRAPHQL_REQUEST' ) && true === GRAPHQL_REQUEST ) {
   })
 }
 
-interface JSON {
+export interface JSON {
   // these will always be different depending on where this is used
+  // we need this for GraphQL results and the node filter api
+  // which can be used in any way by users
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any
 }
