@@ -764,7 +764,7 @@ const replaceFileLinks = async ({
 }
 
 // replaces any url which is a front-end WP url with a relative path
-const replaceNodeHtmlLinks = ({ wpUrl, nodeString, node }) => {
+const replaceNodeHtmlLinks = ({ wpUrl, nodeString, node, helpers, pluginOptions }) => {
   const wpLinkRegex = new RegExp(
     `["']${wpUrl}(?!/wp-content|/wp-admin|/wp-includes)(/[^'"]+)["']`,
     `gim`
@@ -777,7 +777,10 @@ const replaceNodeHtmlLinks = ({ wpUrl, nodeString, node }) => {
       if (path) {
         try {
           // remove \, " and ' characters from match
-          const normalizedMatch = match.replace(/['"\\]/g, ``)
+          const normalizedMatch = match
+            .replace(/['"\\]/g, ``)
+            // ensure that query params are properly quoted
+            .replace(/\?/, `\\?`)
 
           const normalizedPath = path.replace(/\\/g, ``)
 
@@ -789,6 +792,41 @@ const replaceNodeHtmlLinks = ({ wpUrl, nodeString, node }) => {
           console.warning(
             formatLogMessage(
               `Failed to process inline html links in ${node.__typename} ${node.id}`
+            )
+          )
+        }
+      }
+    })
+  }
+
+  // early return if no pathPrefix is used or plugin options deactivate behavior
+  if(!helpers.pathPrefix || !pluginOptions.html.prefixRelativeUrls) return nodeString
+
+  // Links inside nodeString look like: <a href=\\"/example\/link/\\">Example</a>
+  // Includes string starting with href=\\" or href=\" or href=\\' or href=\'
+  // excludes links starting with the prefix or with double slash (//)
+  // includes relative links starting with one slash (/)
+  // groups everything inside href
+  const relativeLinkRegex = new RegExp(`href=[\\\\]{0,2}["']((?!${helpers.pathPrefix}|/wp-content|/wp-admin|/wp-includes|//)/[^'"]+)[\\\\]{0,2}["']`, `gim`)
+  const relativeLinkMatches = execall(relativeLinkRegex, nodeString)
+
+  if (relativeLinkMatches.length) {
+    relativeLinkMatches.forEach(({ match, subMatches: [path] }) => {
+      if (path) {
+        try {
+          // remove \, " and ' characters from match
+          const normalizedPath = path.replace(/\\/g, ``)
+          // compare lower-cased version of the prefix
+          const prefixedPath = `${!normalizedPath.toLowerCase().startsWith(helpers.pathPrefix.toLowerCase()) ? helpers.pathPrefix : ``}${normalizedPath}`
+          // group the surrounding to use in replace $1 and $3
+          const relativeMatchRegex = new RegExp(`(href=[\\\\]{0,2}["'])((?!${helpers.pathPrefix}|/wp-content|/wp-admin|/wp-includes|//)${normalizedPath})([\\\\]{0,2}["'])`, `g`)
+          // replace normalized match with prefixed path
+          nodeString = nodeString.replace(relativeMatchRegex, `$1${prefixedPath}$3`)
+        } catch (e) {
+          console.error(e)
+          console.warning(
+            formatLogMessage(
+              `Failed to process relative inline html links in ${node.__typename} ${node.id}`
             )
           )
         }
