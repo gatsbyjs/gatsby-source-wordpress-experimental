@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.7.11
+
+- Added support for prefixing the homepage (related to the last version). Thanks Henrik!
+
 ## 1.7.10
 
 - Added the site path prefix to inline html links. Thanks Henrik!
