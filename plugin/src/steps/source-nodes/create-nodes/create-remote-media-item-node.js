@@ -1,7 +1,7 @@
 import fs from "fs-extra"
 import path from "path"
 import url from "url"
-import { bold as b } from "chalk"
+import { bold } from "chalk"
 
 import retry from "async-retry"
 
@@ -75,7 +75,7 @@ export const errorPanicker = ({
         [
           `Unrecoverable error ${sharedError}`,
           `\nYour wordpress host appears to be overloaded by our requests for images`,
-          `\nIn ${b(`gatsby-config.js`)}, try lowering the ${b(
+          `\nIn ${bold(`gatsby-config.js`)}, try lowering the ${bold(
             `requestConcurrency`
           )} for MediaItems:`,
           `\nplugins: [
@@ -93,6 +93,7 @@ export const errorPanicker = ({
     },
   }
 ]`,
+          `\nnote that GATSBY_CONCURRENT_REQUEST environment variable has been retired for these options`,
         ].join(`\n`)
       )
     )

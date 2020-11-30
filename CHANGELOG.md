@@ -1,5 +1,8 @@
 # Change Log
 
+## 3.3.2
+- replace usage of `GATSBY_CONCURRENT_REQUEST` with two seperate plugin options: `schema.requestConcurrency` for fetching content, and `type.MediaItem.localFile.requestConcurrency` for media items.
+
 ## 3.3.1
 
 - Preview errors for brand new draft posts were not being passed back to Gatsby properly. This is now fixed :)

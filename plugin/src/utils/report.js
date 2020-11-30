@@ -56,4 +56,9 @@ export const ERROR_MAP = {
     level: `ERROR`,
     category: `SYSTEM`,
   },
+  [CODES.WordPress500ishError]: {
+    text: (context) => context.sourceMessage,
+    level: `ERROR`,
+    category: `THIRD_PARTY`,
+  },
 }

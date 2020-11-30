@@ -274,6 +274,11 @@ const handleFetchErrors = async ({
     }
   },
 }`,
+            `\nnote that ${bold(
+              `GATSBY_CONCURRENT_REQUEST`
+            )} environment variable has been retired for this option and ${bold(
+              `schema.requestConcurrency`
+            )}`,
           ],
           { useVerboseStyle: true }
         ),
