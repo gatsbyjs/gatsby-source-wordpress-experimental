@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.7.10
+
+- Added the site path prefix to inline html links. Thanks Henrik!
+
 
 ## 1.7.9
 

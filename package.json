@@ -2,7 +2,7 @@
   "name": "gatsby-source-wordpress-experimental",
   "description": "Source data from WPGraphQL in an efficient and scalable way.",
   "author": "Tyler Barnes <tylerdbarnes@gmail.com>",
-  "version": "1.7.9",
+  "version": "1.7.10",
   "bugs": {
     "url": "https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/issues"
   },
@@ -79,7 +79,6 @@
   "scripts": {
     "build": "rimraf dist && babel src --out-dir dist --ignore **/__tests__ --extensions \".ts,.js\" --source-maps",
     "prepare": "cross-env NODE_ENV=production BABEL_ENV=production npm run build",
-    "prepublishOnly": "npm run test",
     "watch": "babel -w src --out-dir dist --ignore **/__tests__ --verbose --extensions \".ts,.js\" --source-maps",
     "ci": "yarn test",
     "clean-test-runtime": "cd .test-runtime && npx gatsby clean",
