@@ -807,7 +807,7 @@ const replaceNodeHtmlLinks = ({ wpUrl, nodeString, node, helpers, pluginOptions 
   // excludes links starting with the prefix or with double slash (//)
   // includes relative links starting with one slash (/)
   // groups everything inside href
-  const relativeLinkRegex = new RegExp(`href=[\\\\]{0,2}["']((?!${helpers.pathPrefix}|/wp-content|/wp-admin|/wp-includes|//)/[^'"]+)[\\\\]{0,2}["']`, `gim`)
+  const relativeLinkRegex = new RegExp(`href=[\\\\]{0,2}["']((?!${helpers.pathPrefix}|/wp-content|/wp-admin|/wp-includes|//)/[^'"]*)[\\\\]{0,2}["']`, `gim`)
   const relativeLinkMatches = execall(relativeLinkRegex, nodeString)
 
   if (relativeLinkMatches.length) {
