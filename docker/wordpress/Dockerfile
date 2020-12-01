@@ -32,7 +32,7 @@ COPY install-plugin.sh /usr/local/bin/install-plugin
 RUN install-plugin wp-graphql wp-graphql/wp-graphql ${WPGRAPHQL_VERSION}
 
 # Install wp-gatsby using git, and apply a diff
-RUN git clone https://github.com/gatsbyjs/wp-gatsby ${PLUGIN_DIR}/wp-gatsby
+RUN git clone --depth 1 -b ${WPGATSBY_VERSION} https://github.com/gatsbyjs/wp-gatsby.git ${PLUGIN_DIR}/wp-gatsby 
 
 # WP GraphQL ACF from github release
 RUN install-plugin wp-graphql-acf wp-graphql/wp-graphql-acf ${WPGRAPHQL_ACF_VERSION}
