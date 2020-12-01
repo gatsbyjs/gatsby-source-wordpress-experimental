@@ -2,7 +2,7 @@ import { IPluginOptions } from "~/models/gatsby-api"
 import { GatsbyReporter } from "./gatsby-types"
 import prettier from "prettier"
 import clipboardy from "clipboardy"
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios"
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios"
 import rateLimit from "axios-rate-limit"
 import chalk from "chalk"
 import { formatLogMessage } from "./format-log-message"
@@ -11,8 +11,8 @@ import { getPluginOptions } from "./get-gatsby-api"
 import urlUtil from "url"
 import { CODES } from "./report"
 
-const http: AxiosInstance = rateLimit(axios.create(), {
-  maxRPS: process.env.GATSBY_CONCURRENT_DOWNLOAD || 50,
+const http = rateLimit(axios.create(), {
+  maxRPS: parseInt(process.env.GATSBY_CONCURRENT_DOWNLOAD, 10) || 50,
 })
 
 interface IHandleErrorOptionsInput {

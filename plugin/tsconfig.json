@@ -1,9 +1,14 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    "esModuleInterop": true,
+    "baseUrl": "./src",
     "paths": {
-      "~/*": ["src/*"]
-    }
-  }
+      "~/*": ["*"]
+    },
+    "outDir": "../dist",
+    "lib": ["ESNext", "DOM"],
+    "target": "ES6",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["src"]
 }
