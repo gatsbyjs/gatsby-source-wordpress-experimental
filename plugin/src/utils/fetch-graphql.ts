@@ -399,7 +399,7 @@ ${slackChannelSupportMessage}`
 
         // if adding `/graphql` works, panic with a useful message
         reporter.panic({
-          id: CODES.missingAppendedPath,
+          id: CODES.MissingAppendedPath,
           context: {
             sourceMessage: formatLogMessage(
               `${
@@ -534,14 +534,14 @@ interface IErrorMap {
 interface IFetchGraphQLInput {
   url: string
   query: string
-  errorContext: string
-  ignoreGraphQLErrors: boolean
-  panicOnError: boolean
-  throwGqlErrors: boolean
-  throwFetchErrors: boolean
-  isFirstRequest: boolean
+  errorContext?: string
+  ignoreGraphQLErrors?: boolean
+  panicOnError?: boolean
+  throwGqlErrors?: boolean
+  throwFetchErrors?: boolean
+  isFirstRequest?: boolean
   forceReportCriticalErrors: boolean
-  errorMap: IErrorMap
+  errorMap?: IErrorMap
   variables: JSON
   headers: IFetchGraphQLHeaders
 }
