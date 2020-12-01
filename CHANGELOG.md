@@ -2,7 +2,7 @@
 
 ## 3.3.2
 
-- replace usage of `GATSBY_CONCURRENT_REQUEST` with two seperate plugin options: `schema.requestConcurrency` for fetching content, and `type.MediaItem.localFile.requestConcurrency` for media items.
+- replace usage of `GATSBY_CONCURRENT_REQUEST` with two seperate plugin options: `schema.requestConcurrency` for fetching content via graphql (default: 10), and `type.MediaItem.localFile.requestConcurrency` for media items (default: 100).
 
 ## 3.3.1
 
