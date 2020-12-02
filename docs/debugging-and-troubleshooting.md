@@ -122,7 +122,7 @@ You can use this query to reproduce your error message and debug your error mess
 
 If you're running into these errors during node sourcing, the plugin may be trying to fetch more data from your WordPress instance than your WP server can handle. Try lowering the [`schema.perPage`](./plugin-options.md#schema.perpage-int) plugin option from it's default of 100 and re-run your build process.
 
-You can also try changing the [`schema.requestConcurrency`](./plugin-options.md#schema.requestconcurrency-int) option to limit the amount of GraphQL requests concurrent GraphQL requests made at any time when sourcing data from WPGraphQL. It's default is 10 concurrent requests.
+You can also try changing the [`schema.requestConcurrency`](./plugin-options.md#schema.requestconcurrency-int) option to limit the amount of GraphQL requests concurrent GraphQL requests made at any time when sourcing data from WPGraphQL. It's default is 15 concurrent requests.
 
 Another reason this can happen is that one of your GraphQL queries causes an unrecoverable error on your WordPress server. See the section on [debugging GraphQL errors](#graphql-errors) for debugging steps.
 

@@ -120,7 +120,7 @@ export const getGatsbyNodeTypeNames = () => {
 export const runFnForEachNodeQuery = async (fn) => {
   const nodeQueries = getContentTypeQueryInfos()
 
-  const chunkSize = getPluginOptions()?.schema?.requestConcurrency || 10
+  const chunkSize = getPluginOptions()?.schema?.requestConcurrency || 15
   const chunkedQueries = chunk(nodeQueries, chunkSize)
 
   for (const queries of chunkedQueries) {

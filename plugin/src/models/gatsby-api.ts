@@ -105,7 +105,7 @@ const defaultPluginOptions: IPluginOptions = {
     typePrefix: `Wp`,
     timeout: 30 * 1000, // 30 seconds
     perPage: 100,
-    requestConcurrency: 10,
+    requestConcurrency: 15,
   },
   excludeFieldNames: [],
   html: {
