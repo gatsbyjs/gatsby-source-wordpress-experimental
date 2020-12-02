@@ -6,7 +6,8 @@
   "workspaces": [
     "test-site",
     "plugin",
-    "starters/*"
+    "starters/*",
+    "cli"
   ],
   "scripts": {
     "prettier": "prettier . --write",
