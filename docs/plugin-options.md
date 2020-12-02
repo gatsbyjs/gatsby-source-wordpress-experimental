@@ -377,9 +377,9 @@ Default is `100`.
 
 ### schema.requestConcurrency: Int
 
-The number of graphql requests to make per second.
+The GraphQL request concurrency limit when sourcing data from WPGraphQL.
 
-Default is `50`.
+Default is `10`.
 
 ```js
 {
@@ -663,7 +663,7 @@ Default is `15728640` which is 15Mb.
 
 ### type.MediaItem.localFile.requestConcurrency: Number
 
-Allows controls how many images are downloaded at a time. Try lowering this if your wordpress server is giving 500 or 408 errors.
+Controls how many images are downloaded concurrently at any time. Try lowering this if your WordPress server is returning 500 or 408 errors during MediaItem file sourcing.
 
 Default is `100`
 

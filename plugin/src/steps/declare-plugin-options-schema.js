@@ -157,9 +157,9 @@ export function pluginOptionsSchema({ Joi }) {
         ),
       requestConcurrency: Joi.number()
         .integer()
-        .default(50)
+        .default(10)
         .description(
-          `Amount of content nodes to download per second. Try lowering this if wordpress server crashes on import`
+          `The number of concurrent GraphQL requests to make at any time during node sourcing. Try lowering this if WordPress server crashes on import`
         ),
     }).description(
       `Options related to fetching and ingesting the remote schema.`

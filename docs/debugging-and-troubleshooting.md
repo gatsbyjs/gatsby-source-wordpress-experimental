@@ -122,7 +122,7 @@ You can use this query to reproduce your error message and debug your error mess
 
 If you're running into these errors during node sourcing, the plugin may be trying to fetch more data from your WordPress instance than your WP server can handle. Try lowering the [`schema.perPage`](./plugin-options.md#schema.perpage-int) plugin option from it's default of 100 and re-run your build process.
 
-You can also try setting [`schema.requestConcurrency`](./plugin-options.md#schema.requestconcurrency-int) to limit the amount of GraphQL requests made per second from the default of 10.
+You can also try changing the [`schema.requestConcurrency`](./plugin-options.md#schema.requestconcurrency-int) option to limit the amount of GraphQL requests concurrent GraphQL requests made at any time when sourcing data from WPGraphQL. It's default is 10 concurrent requests.
 
 Another reason this can happen is that one of your GraphQL queries causes an unrecoverable error on your WordPress server. See the section on [debugging GraphQL errors](#graphql-errors) for debugging steps.
 
@@ -153,7 +153,7 @@ Note that `GATSBY_CONCURRENCT_DOWNLOAD` has been retired, now [`schema.requestCo
 
 ## Media File Download Errors
 
-The main error that occurs while fetching media files is overwhelming the remote server due to too many concurrent requests. You can set the [`schema.requestConcurrecy`](./plugin-options.md#schema.requestconcurrency-int) plugin option below it's default of `10`. You will need to experiment a bit to determine what the maximum number of concurrent requests for media files your server can handle is.
+The main error that occurs while fetching media files is overwhelming the remote server due to too many concurrent requests. You can set the [`schema.requestConcurrency`](./plugin-options.md#schema.requestconcurrency-int) plugin option below it's default of `100`. You will need to experiment a bit to determine what the maximum number of concurrent requests for media files your server can handle is.
 
 ## Broken Preview templates
 
