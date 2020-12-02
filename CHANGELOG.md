@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.0.0
+
+### Breaking changes
+
+- Actions are no longer deduped when watching for WP changes. This is a breaking change because WPGatsby had to change in order to make this happen. So we need to change our compatibility API ranges to ensure regular functionality around this keeps working. If only WPGatsby was updated but not the source plugin, content updates would stop working. This makes it a breaking change even though for a user everything seems the same. Under the hood this is a huge improvement for the amount of resources the source plugin and WPGatsby are consuming and will result in less build failures.
+
 ## 3.3.1
 
 - Preview errors for brand new draft posts were not being passed back to Gatsby properly. This is now fixed :)
