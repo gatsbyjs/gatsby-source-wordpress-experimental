@@ -21,6 +21,7 @@
     - [schema.typePrefix: String](#schematypeprefix-string)
     - [schema.timeout: Int](#schematimeout-int)
     - [schema.perPage: Int](#schemaperpage-int)
+    - [schema.requestConcurrency: Int](#schemarequestconcurrency-int)
   - [excludeFieldNames: Array](#excludefieldnames-array)
   - [html: Object](#html-object)
     - [html.useGatsbyImage: Boolean](#htmlusegatsbyimage-boolean)
@@ -36,6 +37,7 @@
     - [type.MediaItem.lazyNodes: Boolean](#typemediaitemlazynodes-boolean)
     - [type.MediaItem.localFile.excludeByMimeTypes: Array](#typemediaitemlocalfileexcludebymimetypes-array)
     - [type.MediaItem.localFile.maxFileSizeBytes: Number](#typemediaitemlocalfilemaxfilesizebytes-number)
+    - [type.MediaItem.localFile.requestConcurrency: Number](#typemediaitemlocalfilerequestconcurrency-number)
 - [Up Next :point_right:](#up-next-point_right)
 
 ## url: String
@@ -373,6 +375,23 @@ Default is `100`.
 },
 ```
 
+### schema.requestConcurrency: Int
+
+The GraphQL request concurrency limit when sourcing data from WPGraphQL.
+
+Default is `15`.
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+  options: {
+    schema: {
+      requestConcurrency: 50,
+    },
+  },
+},
+```
+
 ## excludeFieldNames: Array
 
 A list of field names to globally exclude from the ingested schema.
@@ -635,6 +654,27 @@ Default is `15728640` which is 15Mb.
       MediaItem: {
         localFile: {
           maxFileSizeBytes: 10485760 // 10Mb
+        },
+      },
+    },
+  },
+},
+```
+
+### type.MediaItem.localFile.requestConcurrency: Number
+
+Controls how many images are downloaded concurrently at any time. Try lowering this if your WordPress server is returning 500 or 408 errors during MediaItem file sourcing.
+
+Default is `100`
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+  options: {
+    type: {
+      MediaItem: {
+        localFile: {
+          requestConcurrency: 50
         },
       },
     },

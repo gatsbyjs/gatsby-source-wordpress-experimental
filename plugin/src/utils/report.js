@@ -5,6 +5,7 @@ export const CODES = {
   RequestDenied: `111004`,
   Authentication: `111005`,
   Timeout: `111006`,
+  WordPress500ishError: `111007`,
 
   /* GraphQL Errors */
   RemoteGraphQLError: `112001`,
@@ -54,5 +55,10 @@ export const ERROR_MAP = {
     text: (context) => context.sourceMessage,
     level: `ERROR`,
     category: `SYSTEM`,
+  },
+  [CODES.WordPress500ishError]: {
+    text: (context) => context.sourceMessage,
+    level: `ERROR`,
+    category: `THIRD_PARTY`,
   },
 }
