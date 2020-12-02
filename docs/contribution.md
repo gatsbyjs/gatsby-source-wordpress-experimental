@@ -29,7 +29,7 @@ To run tests and do development work with this repo, you'll need:
 - `yarn test-build-watch` will watch the build integration suite
 - `yarn test-update` will run `-u` for all schema and build integration suites.
 
-### Changing wordpress plugin versions
+### Changing WordPress plugin versions
 
 if you're bumping plugin versions, you can:
 

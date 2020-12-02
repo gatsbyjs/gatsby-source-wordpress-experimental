@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.0.0
+
+### Breaking Changes
+
+- replaced usage of `GATSBY_CONCURRENT_REQUEST` with two seperate plugin options: `schema.requestConcurrency` for fetching content via graphql (default: 15), and `type.MediaItem.localFile.requestConcurrency` for media items (default: 100). If you were previously using `GATSBY_CONCURRENT_REQUEST` to limit either the request concurrency of either of these things, you'll need to use one of these new plugin options.
+
 ## 3.3.1
 
 - Preview errors for brand new draft posts were not being passed back to Gatsby properly. This is now fixed :)

@@ -1,13 +1,15 @@
 # Debugging and Troubleshooting
 
-- [Node sourcing](#node-sourcing)
-  - [Missing data in Gatsby](#missing-data-in-gatsby)
-  - [GraphQL errors](#node-sourcing-graphql-errors)
-  - [WordPress 50\* errors](#wordpress-50-errors)
-  - [Timeouts](#node-sourcing-timeouts)
-- [Media File Download Errors](#media-file-download-errors)
-- [Broken Preview templates](#broken-preview-templates)
-- [Previews don't update](#previews-dont-update)
+- [Debugging and Troubleshooting](#debugging-and-troubleshooting)
+  - [Node sourcing](#node-sourcing)
+    - [Missing data in Gatsby](#missing-data-in-gatsby)
+    - [Node Sourcing GraphQL errors](#node-sourcing-graphql-errors)
+    - [WordPress 50\* errors](#wordpress-50-errors)
+    - [Node Sourcing Timeouts](#node-sourcing-timeouts)
+  - [Media File Download Errors](#media-file-download-errors)
+  - [Broken Preview templates](#broken-preview-templates)
+  - [Previews Don't Update](#previews-dont-update)
+- [Up Next :point_right:](#up-next-point_right)
 
 ## Node sourcing
 
@@ -118,13 +120,15 @@ You can use this query to reproduce your error message and debug your error mess
 
 ### WordPress 50\* errors
 
-If you're running into these errors during node sourcing, the plugin may be trying to fetch more data from your WordPress instance than your WP server can handle. Try lowering the [`schema.perPage`](./plugin-options.md#schema.perpage-int) plugin option from it's default of 100 and re-run your build process. If you still get errors, try setting this very low to rule out wether or not this is your problem.
+If you're running into these errors during node sourcing, the plugin may be trying to fetch more data from your WordPress instance than your WP server can handle. Try lowering the [`schema.perPage`](./plugin-options.md#schema.perpage-int) plugin option from it's default of 100 and re-run your build process.
+
+You can also try changing the [`schema.requestConcurrency`](./plugin-options.md#schema.requestconcurrency-int) option to limit the amount of GraphQL requests concurrent GraphQL requests made at any time when sourcing data from WPGraphQL. It's default is 15 concurrent requests.
 
 Another reason this can happen is that one of your GraphQL queries causes an unrecoverable error on your WordPress server. See the section on [debugging GraphQL errors](#graphql-errors) for debugging steps.
 
 ### Node Sourcing Timeouts
 
-If you're running into timeouts during node sourcing, it is likely that your WordPress server is limiting the number of concurrent requests to a number lower than the number of different types that this source plugin is attempting to source from your WordPress server. You can either increase the number of concurrent connections your WordPress server can handle by tuning or replacing your server, or you can lower the env variable `GATSBY_CONCURRENT_DOWNLOAD` to a lower number than the number of concurrent GraphQL requests your WordPress server can handle.
+If you're running into timeouts during node sourcing, it is likely that your WordPress server is limiting the number of concurrent requests to a number lower than the number of different types that this source plugin is attempting to source from your WordPress server. You can either increase the number of concurrent connections your WordPress server can handle by tuning or replacing your server, or you can lower the plugin option [`schema.requestConcurrency`](./plugin-options.md#schema.requestconcurrency-int) to a lower number than the number of concurrent GraphQL requests your WordPress server can handle.
 
 To determine how many concurrent GraphQL requests your server can handle, enable verbose mode with the `verbose` plugin option:
 
@@ -145,11 +149,11 @@ You will see that at the bottom of the list there are some types which aren't ye
 
 Count upwards from the last type that seems to be frozen to the top of the list. This is the number of concurrent GraphQL requests your server can handle.
 
-Follow this Gatsby guide on [setting environment variables](https://www.gatsbyjs.org/docs/environment-variables/) to set the `GATSBY_CONCURRENT_DOWNLOAD` env variable to this number.
+Note that `GATSBY_CONCURRENCT_DOWNLOAD` has been retired, now [`schema.requestConcurrency`](./plugin-options.md#schema.requestconcurrency-int) plugin option is used.
 
 ## Media File Download Errors
 
-The main error that occurs while fetching media files is overwhelming the remote server due to too many concurrent requests. Follow this Gatsby guide on [setting environment variables](https://www.gatsbyjs.org/docs/environment-variables/) to set the `GATSBY_CONCURRENT_DOWNLOAD` env variable below it's default of `200`. You will need to experiment a bit to determine what the maximum number of concurrent requests for media files your server can handle is. I like to first drop it to `100` and if it works I will raise it to `150` and try again and adjust. If `100` still fails, I would try setting it very low to `10` and raising the number from there until you find the maximum.
+The main error that occurs while fetching media files is overwhelming the remote server due to too many concurrent requests. You can set the [`schema.requestConcurrency`](./plugin-options.md#schema.requestconcurrency-int) plugin option below it's default of `100`. You will need to experiment a bit to determine what the maximum number of concurrent requests for media files your server can handle is.
 
 ## Broken Preview templates
 
