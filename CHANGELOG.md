@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.3.1
+
+- Preview errors for brand new draft posts were not being passed back to Gatsby properly. This is now fixed :)
+- The full error message is now passed back to the Gatsby preview template instead of just the generic name of the step in which the error ocurred.
+- In order to make new post draft previews not cause 404 errors in Gatsby, a dummy page-data.json is generated before PREVIEW_SUCCESS is sent back to WPGatsby. Now WPGatsby will read this dummy file instead of getting a 404. This speeds up new post draft previews and eliminates a long trail of 404 errors in the Gatsby Preview instance logs.
+
 ## 3.3.0
 
 - Version 3.0.0 made an attempt to remove expensive schema diffing at the beginning of each preview or delta update. The strategy was that when a GraphQL query to WPGraphQL failed, it would try to re-run createSchemaCustomization internally to recover and rebuild our internal sourcing queries before trying to make the query again. Unfortunately this caused issues because more recent versions of Gatsby do not allow createSchemaCustomization to be called in this way. This version reverts to the earlier behaviour where the remote schema md5 is diffed on every build or preview.

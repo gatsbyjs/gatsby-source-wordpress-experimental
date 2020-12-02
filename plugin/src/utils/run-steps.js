@@ -1,5 +1,6 @@
 import { formatLogMessage } from "~/utils/format-log-message"
 import { invokeAndCleanupLeftoverPreviewCallbacks } from "../steps/preview/cleanup"
+import { CODES } from "./report"
 
 const runSteps = async (steps, helpers, pluginOptions, apiName) => {
   for (const step of steps) {
@@ -40,15 +41,19 @@ const runSteps = async (steps, helpers, pluginOptions, apiName) => {
       await invokeAndCleanupLeftoverPreviewCallbacks({
         status: `GATSBY_PREVIEW_PROCESS_ERROR`,
         context: sharedError,
+        error: e,
       })
 
-      helpers.reporter.error(e)
-      helpers.reporter.panic(
-        formatLogMessage(
-          `\n\n\t${sharedError}\n\tSee above for more information.`,
-          { useVerboseStyle: true }
-        )
-      )
+      helpers.reporter.error(e.message)
+      helpers.reporter.panic({
+        id: CODES.SourcePluginCodeError,
+        context: {
+          sourceMessage: formatLogMessage(
+            `\n\n\t${sharedError}\n\tSee above for more information.`,
+            { useVerboseStyle: true }
+          ),
+        },
+      })
     }
   }
 }

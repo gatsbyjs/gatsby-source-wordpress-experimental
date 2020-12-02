@@ -29,9 +29,11 @@ export const onPreExtractQueriesInvokeLeftoverPreviewCallbacks = async (): Promi
 export const invokeAndCleanupLeftoverPreviewCallbacks = async ({
   status,
   context,
+  error,
 }: {
   status: string
   context?: string
+  error?: Error
 }): Promise<void> => {
   const state = store.getState()
 
@@ -44,7 +46,7 @@ export const invokeAndCleanupLeftoverPreviewCallbacks = async ({
   if (leftoverCallbacksExist) {
     await Promise.all(
       Object.entries(leftoverCallbacks).map(
-        invokeLeftoverPreviewCallback({ getNode, status, context })
+        invokeLeftoverPreviewCallback({ getNode, status, context, error })
       )
     )
 
@@ -57,18 +59,25 @@ export const invokeAndCleanupLeftoverPreviewCallbacks = async ({
  * This callback is invoked to send WP the preview status. In this case the status
  * is that we couldn't find a page for the node being previewed
  */
-const invokeLeftoverPreviewCallback = ({ getNode, status, context }) => async ([
-  nodeId,
-  callback,
-]: [string, OnPageCreatedCallback]): Promise<void> => {
+const invokeLeftoverPreviewCallback = ({
+  getNode,
+  status,
+  context,
+  error,
+}) => async ([nodeId, callback]: [
+  string,
+  OnPageCreatedCallback
+]): Promise<void> => {
   const passedNode = getNode(nodeId)
 
   await callback({
     passedNode,
+    nodeId,
     // we pass null as the path because no page was created for this node.
     // if it had been, this callback would've been removed earlier in the process
     pageNode: { path: null },
     status,
     context,
+    error,
   })
 }
