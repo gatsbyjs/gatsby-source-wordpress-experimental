@@ -4,7 +4,7 @@ import { formatLogMessage } from "~/utils/format-log-message"
 import { CREATED_NODE_IDS } from "~/constants"
 
 import store from "~/store"
-import { getGatsbyApi } from "~/utils/get-gatsby-api"
+import { getGatsbyApi, getPluginOptions } from "~/utils/get-gatsby-api"
 import chunk from "lodash/chunk"
 
 import {
@@ -120,7 +120,7 @@ export const getGatsbyNodeTypeNames = () => {
 export const runFnForEachNodeQuery = async (fn) => {
   const nodeQueries = getContentTypeQueryInfos()
 
-  const chunkSize = process.env.GATSBY_CONCURRENT_DOWNLOAD || 50
+  const chunkSize = getPluginOptions()?.schema?.requestConcurrency || 15
   const chunkedQueries = chunk(nodeQueries, chunkSize)
 
   for (const queries of chunkedQueries) {
