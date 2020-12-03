@@ -2,7 +2,9 @@
 
 ## 4.0.0
 
-### Breaking Changes
+### Breaking changes
+
+- Actions are no longer deduped when watching for WP changes. This is a breaking change because WPGatsby had to change in order to make this happen. So we need to change our compatibility API ranges to ensure regular functionality around this keeps working. If only WPGatsby was updated but not the source plugin, content updates would stop working. This makes it a breaking change even though for a user everything seems the same. Under the hood this is a huge improvement for the amount of resources the source plugin and WPGatsby are consuming and will result in less build failures.
 
 - replaced usage of `GATSBY_CONCURRENT_REQUEST` with two seperate plugin options: `schema.requestConcurrency` for fetching content via graphql (default: 15), and `type.MediaItem.localFile.requestConcurrency` for media items (default: 100). If you were previously using `GATSBY_CONCURRENT_REQUEST` to limit either the request concurrency of either of these things, you'll need to use one of these new plugin options.
 

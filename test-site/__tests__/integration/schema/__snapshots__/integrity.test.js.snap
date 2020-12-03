@@ -2701,6 +2701,7 @@ Array [
   Object {
     "fields": Array [
       "arePrettyPermalinksEnabled",
+      "isPreviewFrontendOnline",
     ],
     "name": "WpWPGatsby",
   },
@@ -2754,6 +2755,7 @@ Array [
   Object {
     "fields": Array [
       "actionType",
+      "content",
       "contentType",
       "databaseId",
       "date",
@@ -6388,6 +6390,7 @@ Array [
     "fields": Array [
       "arePrettyPermalinksEnabled",
       "gatsbyPreviewStatus",
+      "isPreviewFrontendOnline",
     ],
     "name": "WPGatsby",
   },
