@@ -2,7 +2,10 @@ dist
 
 .DS_Store
 yarn-error.log
+
+# IDEs
 .vscode
+.idea
 
 node_modules
 public

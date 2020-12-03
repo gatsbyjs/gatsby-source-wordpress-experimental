@@ -49,6 +49,7 @@ export interface IPluginOptions {
     fallbackImageMaxWidth: number
     imageQuality: number
     createStaticFiles: boolean
+    prefixRelativeUrls: boolean
   }
   type: {
     [typename: string]: {
@@ -123,6 +124,9 @@ const defaultPluginOptions: IPluginOptions = {
     // Transforms anchor links, video src's, and audio src's (that point to wp-content files) into local file static links
     // Also fetches those files if they don't already exist
     createStaticFiles: true,
+    // If pathPrefix is used, relative links that don't start with the prefix will get prefixed.
+    // Example: <a href="/relative/url/"></a> will be <a href="/path-prefix/relative/url/">
+    prefixRelativeUrls: true,
   },
   type: {
     __all: {
