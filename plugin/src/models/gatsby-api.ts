@@ -3,38 +3,77 @@ import merge from "lodash/merge"
 import { createRemoteMediaItemNode } from "~/steps/source-nodes/create-nodes/create-remote-media-item-node"
 import { menuBeforeChangeNode } from "~/steps/source-nodes/before-change-node/menu"
 
+export interface PluginOptionsPreset {
+  presetName: string
+  useIf: (helpers: GatsbyHelpers, pluginOptions: IPluginOptions) => boolean
+  options: IPluginOptions
+}
+
+const inDevelopPreview =
+  process.env.NODE_ENV === `development` &&
+  !!process.env.ENABLE_GATSBY_REFRESH_ENDPOINT
+
+const inPreviewRunner = process.env.RUNNER_TYPE === `PREVIEW`
+
+export const previewOptimizationPreset: PluginOptionsPreset = {
+  presetName: `PREVIEW_OPTIMIZATION`,
+  useIf: (): boolean => inDevelopPreview || inPreviewRunner,
+  options: {
+    html: {
+      useGatsbyImage: false,
+      createStaticFiles: false,
+    },
+    type: {
+      __all: {
+        limit: 50,
+      },
+      Comment: {
+        limit: 0,
+      },
+      Menu: {
+        limit: null,
+      },
+      MenuItem: {
+        limit: null,
+      },
+      User: {
+        limit: null,
+      },
+    },
+  },
+}
 export interface IPluginOptions {
-  url: string
-  verbose: boolean
-  debug: {
-    throwRefetchErrors: boolean
-    graphql: {
-      showQueryOnError: boolean
-      showQueryVarsOnError: boolean
-      copyQueryOnError: boolean
-      panicOnError: boolean
-      onlyReportCriticalErrors: boolean
-      copyNodeSourcingQueryAndExit: boolean
-      writeQueriesToDisk: boolean
+  url?: string
+  verbose?: boolean
+  debug?: {
+    throwRefetchErrors?: boolean
+    graphql?: {
+      showQueryOnError?: boolean
+      showQueryVarsOnError?: boolean
+      copyQueryOnError?: boolean
+      panicOnError?: boolean
+      onlyReportCriticalErrors?: boolean
+      copyNodeSourcingQueryAndExit?: boolean
+      writeQueriesToDisk?: boolean
     }
-    timeBuildSteps: boolean
-    disableCompatibilityCheck: boolean
+    timeBuildSteps?: boolean
+    disableCompatibilityCheck?: boolean
   }
-  develop: {
-    nodeUpdateInterval: number
-    hardCacheMediaFiles: boolean
-    hardCacheData: boolean
+  develop?: {
+    nodeUpdateInterval?: number
+    hardCacheMediaFiles?: boolean
+    hardCacheData?: boolean
   }
-  production: {
-    hardCacheMediaFiles: boolean
+  production?: {
+    hardCacheMediaFiles?: boolean
   }
-  auth: {
+  auth?: {
     htaccess: {
       username: string | null
       password: string | null
     }
   }
-  schema: {
+  schema?: {
     queryDepth: number
     circularQueryLimit: number
     typePrefix: string
@@ -42,16 +81,18 @@ export interface IPluginOptions {
     perPage: number
     requestConcurrency?: number
   }
-  excludeFieldNames: []
-  html: {
-    useGatsbyImage: boolean
-    imageMaxWidth: number
-    fallbackImageMaxWidth: number
-    imageQuality: number
-    createStaticFiles: boolean
+  excludeFieldNames?: []
+  html?: {
+    useGatsbyImage?: boolean
+    imageMaxWidth?: number
+    fallbackImageMaxWidth?: number
+    imageQuality?: number
+    createStaticFiles?: boolean
   }
-  type: {
+  presets?: PluginOptionsPreset[]
+  type?: {
     [typename: string]: {
+      limit?: number
       excludeFieldNames?: string[]
       exclude?: boolean
       // @todo type this
@@ -124,6 +165,7 @@ const defaultPluginOptions: IPluginOptions = {
     // Also fetches those files if they don't already exist
     createStaticFiles: true,
   },
+  presets: [previewOptimizationPreset],
   type: {
     __all: {
       // @todo make dateFields into a plugin option?? It's not currently
@@ -293,6 +335,7 @@ const defaultPluginOptions: IPluginOptions = {
 interface IGatsbyApiState {
   helpers: GatsbyHelpers
   pluginOptions: IPluginOptions
+  activePluginOptionsPresets: PluginOptionsPreset[]
 }
 
 const gatsbyApi = {
@@ -306,7 +349,31 @@ const gatsbyApi = {
       state: IGatsbyApiState,
       payload: IGatsbyApiState
     ): IGatsbyApiState {
-      return merge(state, payload)
+      const initialState: IGatsbyApiState = merge(state, payload)
+
+      /**
+       * Presets are plugin option configurations that are conditionally
+       * applied based on a `useIf` function (which returns a boolean)
+       * If it returns true, that preset is used.
+       */
+      const optionsPresets = initialState.pluginOptions?.presets?.filter(
+        (preset) =>
+          preset.useIf(initialState.helpers, initialState.pluginOptions)
+      )
+
+      if (optionsPresets?.length) {
+        state.activePluginOptionsPresets = optionsPresets
+
+        let presetModifiedOptions = initialState.pluginOptions
+
+        for (const preset of optionsPresets) {
+          presetModifiedOptions = merge(presetModifiedOptions, preset.options)
+        }
+
+        state.pluginOptions = presetModifiedOptions
+      }
+
+      return state
     },
   },
 }
