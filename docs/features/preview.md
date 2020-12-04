@@ -35,6 +35,7 @@ In order to speed up previews, there are some built in default plugin options fo
 ```
 
 The preset (as found in src/models/gatsby-api.ts) is:
+
 ```ts
 {
   // this is an internal name
