@@ -1,5 +1,11 @@
 # Change Log
 
+## Upcoming
+
+### New Features
+
+- Added a plugin options presets API and added some defaults for Preview in order to speed previews up.
+
 ## 4.0.0
 
 ### Breaking changes

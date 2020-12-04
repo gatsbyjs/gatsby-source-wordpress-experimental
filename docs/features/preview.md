@@ -20,6 +20,19 @@ To guard against this you can use optional chaining by writing `wpPost?.acfField
 
 Note that if you use these two together, you cannot preview ACF data. This is a core WordPress Gutenberg issue. Follow https://github.com/WordPress/gutenberg/issues/16006 for more information. If you use ACF and would like to preview data changes, use the Classic Editor plugin for now.
 
+## Built in Preview plugin options presets
+
+In order to speed up previews, there are some built in default plugin options for when your Gatsby site is in Preview mode. This preset disables static asset transformations in html fields and limits the number of nodes initially fetched during a cold build. You can disable this preset by passing `null` to the preset option.
+
+```js
+{
+    resolve: `gatsby-source-wordpress-experimental`,
+    options: {
+        presets: null
+    }
+}
+```
+
 ## Debugging Previews
 
 Since a Previewed post might have a lot less data attached to it than what you're testing with during development, you might get errors in previews when that data is missing. You can debug your previews by running Gatsby in preview mode locally.

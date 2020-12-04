@@ -32,10 +32,7 @@ export function pluginOptionsSchema({ Joi }) {
         ),
     })
 
-  return Joi.object({
-    url: Joi.string()
-      .required()
-      .description(`The full url of your GraphQL endpoint`),
+  const joiSchema = Joi.object({
     verbose: Joi.boolean()
       .default(true)
       .description(`Wether there will be verbose output in the terminal`),
@@ -246,5 +243,17 @@ export function pluginOptionsSchema({ Joi }) {
     })
       .pattern(Joi.string(), getTypeOptions())
       .description(`Options related to specific types in the remote schema.`),
+  })
+
+  return joiSchema.append({
+    url: Joi.string()
+      .required()
+      .description(`The full url of your GraphQL endpoint`),
+    presets: Joi.array()
+      .items(joiSchema)
+      .allow(null)
+      .description(
+        `A preset of plugin options to be applied under some circumstance determined by the useIf function property.`
+      ),
   })
 }
