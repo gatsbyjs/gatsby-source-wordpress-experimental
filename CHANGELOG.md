@@ -1,6 +1,6 @@
 # Change Log
 
-## Upcoming
+## 4.0.1
 
 - MediaItem nodes fetched while converting html <img /> tags to Gatsby images were not always being properly cached. This release fixes that.
 
