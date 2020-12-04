@@ -162,7 +162,7 @@ Since a Previewed post might have a lot less data attached to it than what you'r
 - Run Gatsby in refresh mode with `ENABLE_GATSBY_REFRESH_ENDPOINT=true gatsby develop`
 - Install ngrok with `npm i -g ngrok`
 - In a new terminal window run `ngrok http 8000`
-- In your WP instances GatsbyJS settings, set your Preview instance URL to `https://your-ngrok-url.ngrok.io/8000` and your preview refresh endpoint `https://your-ngrok-url.ngrok.io/8000/__refresh`
+- In your WP instances GatsbyJS settings, set your Preview instance URL to `https://your-ngrok-url.ngrok.io` and your preview refresh endpoint `https://your-ngrok-url.ngrok.io/__refresh`
 
 Now when you click preview in `wp-admin` it will use your local instance of Gatsby. You can inspect the preview template to see which Gatsby path is being loaded in the preview iframe and open it directly to do further debugging.
 
