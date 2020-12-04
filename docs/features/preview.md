@@ -20,16 +20,56 @@ To guard against this you can use optional chaining by writing `wpPost?.acfField
 
 Note that if you use these two together, you cannot preview ACF data. This is a core WordPress Gutenberg issue. Follow https://github.com/WordPress/gutenberg/issues/16006 for more information. If you use ACF and would like to preview data changes, use the Classic Editor plugin for now.
 
-## Built in Preview plugin options presets
+## Built in Preview plugin options preset
 
-In order to speed up previews, there are some built in default plugin options for when your Gatsby site is in Preview mode. This preset disables static asset transformations in html fields and limits the number of nodes initially fetched during a cold build. You can disable this preset by passing `null` to the preset option.
+In order to speed up previews, there are some built in default plugin options for when your Gatsby site is in Preview mode. This preset disables static asset transformations in html fields and limits the number of nodes initially fetched during a cold build. You can disable this preset by passing `null` to the preset option. Any options you've set yourself will override the preset options.
 
 ```js
 {
     resolve: `gatsby-source-wordpress-experimental`,
     options: {
+        url: `https://your-site.com/graphql`,
         presets: null
     }
+}
+```
+
+The preset (as found in src/models/gatsby-api.ts) is:
+```ts
+{
+  // this is an internal name
+  presetName: `PREVIEW_OPTIMIZATION`,
+
+  // these are the conditions the preset will be added under
+  useIf: () => inDevelopPreview || inPreviewRunner,
+
+  // these options will be merged into the global default options and your options will be merged into these options
+  options: {
+    html: {
+      useGatsbyImage: false,
+      createStaticFiles: false,
+    },
+    type: {
+      __all: {
+        //   all nodes are limited to 50 in cold builds
+        limit: 50,
+      },
+      Comment: {
+        //   all comments are excluded
+        limit: 0,
+      },
+      //   there's no limit to the following three types in cold builds
+      Menu: {
+        limit: null,
+      },
+      MenuItem: {
+        limit: null,
+      },
+      User: {
+        limit: null,
+      },
+    },
+  },
 }
 ```
 

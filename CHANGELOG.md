@@ -4,7 +4,51 @@
 
 ### New Features
 
-- Added a plugin options presets API and added some defaults for Preview in order to speed previews up.
+- Added a plugin options presets API and added some defaults for Preview in order to speed previews up. 
+The default plugin options that are now added in Preview mode are:
+
+in src/models/gatsby-api.ts
+```ts
+{
+  presetName: `PREVIEW_OPTIMIZATION`,
+  useIf: (): boolean => inDevelopPreview || inPreviewRunner,
+  options: {
+    html: {
+      useGatsbyImage: false,
+      createStaticFiles: false,
+    },
+    type: {
+      __all: {
+        limit: 50,
+      },
+      Comment: {
+        limit: 0,
+      },
+      Menu: {
+        limit: null,
+      },
+      MenuItem: {
+        limit: null,
+      },
+      User: {
+        limit: null,
+      },
+    },
+  },
+}
+```
+
+If you don't like this and want to remove it, you can either override any options by setting them in your plugin options, or remove the preset like so:
+
+```js
+{
+    resolve: `gatsby-source-wordpress-experimental`,
+    options: {
+        url: `https://your-site.com/graphql`,
+        presets: null
+    }
+}
+```
 
 ## 4.0.1
 
