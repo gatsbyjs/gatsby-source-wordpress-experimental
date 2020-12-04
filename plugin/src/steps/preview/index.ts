@@ -9,7 +9,6 @@ import store from "~/store"
 import { fetchAndCreateSingleNode } from "~/steps/source-nodes/update-nodes/wp-actions/update"
 import { formatLogMessage } from "~/utils/format-log-message"
 import { touchValidNodes } from "../source-nodes/update-nodes/fetch-node-updates"
-import { getDbIdFromRelayId } from "../source-nodes/update-nodes/wp-actions/update"
 
 import { IPluginOptions } from "~/models/gatsby-api"
 
