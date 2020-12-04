@@ -10,13 +10,6 @@ const setImageNodeIdCache = async () => {
   const state = await store.getState()
   const { imageNodes } = state
 
-  if (imageNodes.nodeIds && imageNodes.nodeIds.length) {
-    await setPersistentCache({
-      key: `image-node-ids`,
-      value: imageNodes.nodeIds,
-    })
-  }
-
   if (imageNodes.nodeMetaByUrl) {
     await setPersistentCache({
       key: `image-node-meta-by-url`,

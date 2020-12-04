@@ -6,6 +6,10 @@
 
 - Added a plugin options presets API and added some defaults for Preview in order to speed previews up.
 
+## 4.0.1
+
+- MediaItem nodes fetched while converting html <img /> tags to Gatsby images were not always being properly cached. This release fixes that.
+
 ## 4.0.0
 
 ### Breaking changes

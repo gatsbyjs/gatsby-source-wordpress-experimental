@@ -3,25 +3,16 @@ import { getGatsbyApi } from "~/utils/get-gatsby-api"
 import { getPersistentCache } from "~/utils/cache"
 
 const persistPreviouslyCachedImages = async () => {
-  const { helpers } = getGatsbyApi()
+  const { helpers, pluginOptions } = getGatsbyApi()
 
-  // load up image node id's from cache
-  const imageNodeIds = await getPersistentCache({ key: `image-node-ids` })
+  // get all existing media item nodes
+  const mediaItemNodes = helpers.getNodesByType(
+    `${pluginOptions.schema.typePrefix}MediaItem`
+  )
 
-  // if they exist,
-  if (imageNodeIds && imageNodeIds.length) {
-    // touch them all so they don't get garbage collected by Gatsby
-    imageNodeIds.forEach((nodeId) =>
-      helpers.actions.touchNode({
-        nodeId,
-      })
-    )
-
-    // and set them to state to set back to cache later
-    // since we may append more image id's to the store down the line
-    // in onPostBuild, all imageNodeIds in state are cached for the next build
-    store.dispatch.imageNodes.setNodeIds(imageNodeIds)
-  }
+  // and touch them so they aren't garbage collected.
+  // we will remove them as needed when receiving DELETE events from WP
+  mediaItemNodes.forEach(({ id }) => helpers.actions.touchNode({ nodeId: id }))
 
   const imageNodeMetaByUrl = await getPersistentCache({
     key: `image-node-meta-by-url`,
