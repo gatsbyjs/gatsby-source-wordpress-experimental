@@ -35,12 +35,12 @@ export async function previewCurrentPost(input: {
   return new Promise(async (resolve, reject) => {
     const { page, title, browser, index } = input
 
-    await new Promise(resolve => setTimeout(resolve, index * 1000))
+    await new Promise((resolve) => setTimeout(resolve, index * 1000))
 
     await page.waitForSelector(`.edit-post-layout`)
 
-    const previewPagePromise: Promise<Page> = new Promise(resolve =>
-      browser.once(`targetcreated`, target => resolve(target.page()))
+    const previewPagePromise: Promise<Page> = new Promise((resolve) =>
+      browser.once(`targetcreated`, (target) => resolve(target.page()))
     )
 
     await page.evaluate(
@@ -63,7 +63,7 @@ export async function previewCurrentPost(input: {
 
     const previewPage = await previewPagePromise
 
-    await previewPage.exposeFunction(`onCustomEvent`, e => {
+    await previewPage.exposeFunction(`onCustomEvent`, (e) => {
       console.log(`${e.type} fired`, e.detail || ``)
     })
 
@@ -73,8 +73,8 @@ export async function previewCurrentPost(input: {
      * @returns {!Promise}
      */
     function listenFor(type): Promise<void> {
-      return previewPage.evaluateOnNewDocument(type => {
-        document.addEventListener(type, e => {
+      return previewPage.evaluateOnNewDocument((type) => {
+        document.addEventListener(type, (e) => {
           window.onCustomEvent({ type, detail: e.detail })
         })
       }, type)
@@ -106,7 +106,8 @@ export async function previewCurrentPost(input: {
     await listenFor(`wp-gatsby-preview-ready`)
     clearTimeout(tooLongTimeout)
 
-    await new Promise(resolve => setTimeout(resolve, 15000))
+    await new Promise((resolve) => setTimeout(resolve, 2500))
+    // await new Promise(resolve => setTimeout(resolve, 15000))
     if (!rejected) {
       console.log(`preview ready!!2`)
       await previewPage.close()
