@@ -8,6 +8,13 @@ jobs:
       - uses: actions/checkout@v2
       - uses: bahmutov/npm-install@v1
       - run: yarn lint
+  test-plugin:
+    name: Plugin Unit Tests
+    runs-on: ubuntu-16.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: bahmutov/npm-install@v1
+      - run: yarn build && yarn ci-test 'yarn test-plugin'
   test-schema:
     name: Integration Tests - Schema
     runs-on: ubuntu-16.04
