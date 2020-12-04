@@ -2,6 +2,7 @@ import { GatsbyHelpers } from "~/utils/gatsby-types"
 import merge from "lodash/merge"
 import { createRemoteMediaItemNode } from "~/steps/source-nodes/create-nodes/create-remote-media-item-node"
 import { menuBeforeChangeNode } from "~/steps/source-nodes/before-change-node/menu"
+import { cloneDeep } from "lodash"
 
 export interface PluginOptionsPreset {
   presetName: string
@@ -349,22 +350,27 @@ const gatsbyApi = {
       state: IGatsbyApiState,
       payload: IGatsbyApiState
     ): IGatsbyApiState {
-      const initialState: IGatsbyApiState = merge(state, payload)
+      const stateCopy = cloneDeep(state)
+
+      const defaultPresets = stateCopy.pluginOptions?.presets || []
+      const userPresets = payload.pluginOptions?.presets || []
 
       /**
        * Presets are plugin option configurations that are conditionally
        * applied based on a `useIf` function (which returns a boolean)
        * If it returns true, that preset is used.
        */
-      const optionsPresets = initialState.pluginOptions?.presets?.filter(
-        (preset) =>
-          preset.useIf(initialState.helpers, initialState.pluginOptions)
+      const optionsPresets = [
+        ...defaultPresets,
+        ...userPresets,
+      ]?.filter((preset) =>
+        preset.useIf(payload.helpers, payload.pluginOptions)
       )
 
       if (optionsPresets?.length) {
         state.activePluginOptionsPresets = optionsPresets
 
-        let presetModifiedOptions = initialState.pluginOptions
+        let presetModifiedOptions = state.pluginOptions
 
         for (const preset of optionsPresets) {
           presetModifiedOptions = merge(presetModifiedOptions, preset.options)
@@ -372,6 +378,9 @@ const gatsbyApi = {
 
         state.pluginOptions = presetModifiedOptions
       }
+
+      // add the user defined plugin options last so they override any presets
+      state = merge(state, payload)
 
       return state
     },
