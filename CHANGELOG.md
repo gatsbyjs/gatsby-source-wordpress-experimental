@@ -1,8 +1,8 @@
 # Change Log
 
-## Upcoming
+## 5.0.0
 
-### New Features
+### New Features / Breaking Changes
 
 - Added a plugin options presets API and added some defaults for Preview in order to speed previews up.
   The default plugin options that are now added in Preview mode are:
