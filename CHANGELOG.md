@@ -1,5 +1,68 @@
 # Change Log
 
+## 5.0.0
+
+### New Features / Breaking Changes
+
+- Added a plugin options presets API and added some default plugin optionss for Preview in order to speed previews up.
+  The default plugin options that are now added in Preview mode are:
+
+in src/models/gatsby-api.ts
+
+```ts
+{
+  presetName: `PREVIEW_OPTIMIZATION`,
+  useIf: (): boolean => inDevelopPreview || inPreviewRunner,
+  options: {
+    html: {
+      useGatsbyImage: false,
+      createStaticFiles: false,
+    },
+    type: {
+      __all: {
+        limit: 50,
+      },
+      Comment: {
+        limit: 0,
+      },
+      Menu: {
+        limit: null,
+      },
+      MenuItem: {
+        limit: null,
+      },
+      User: {
+        limit: null,
+      },
+    },
+  },
+}
+```
+
+If you don't like this and want to remove it, you can either override any options by setting them in your plugin options, or remove the preset like so:
+
+```js
+{
+    resolve: `gatsby-source-wordpress-experimental`,
+    options: {
+        url: `https://your-site.com/graphql`,
+        presets: null
+    }
+}
+```
+
+## 4.0.1
+
+- MediaItem nodes fetched while converting html <img /> tags to Gatsby images were not always being properly cached. This release fixes that.
+
+## 4.0.0
+
+### Breaking changes
+
+- Actions are no longer deduped when watching for WP changes. This is a breaking change because WPGatsby had to change in order to make this happen. So we need to change our compatibility API ranges to ensure regular functionality around this keeps working. If only WPGatsby was updated but not the source plugin, content updates would stop working. This makes it a breaking change even though for a user everything seems the same. Under the hood this is a huge improvement for the amount of resources the source plugin and WPGatsby are consuming and will result in less build failures.
+
+- replaced usage of `GATSBY_CONCURRENT_REQUEST` with two seperate plugin options: `schema.requestConcurrency` for fetching content via graphql (default: 15), and `type.MediaItem.localFile.requestConcurrency` for media items (default: 100). If you were previously using `GATSBY_CONCURRENT_REQUEST` to limit either the request concurrency of either of these things, you'll need to use one of these new plugin options.
+
 ## 3.3.1
 
 - Preview errors for brand new draft posts were not being passed back to Gatsby properly. This is now fixed :)

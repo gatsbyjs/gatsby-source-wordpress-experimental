@@ -127,9 +127,10 @@ const pickNodeBySourceUrlOrCheerioImg = ({
   return imageNode
 }
 
+let displayedFailedToRestoreMessage = false
+
 const fetchNodeHtmlImageMediaItemNodes = async ({
   cheerioImages,
-  nodeString,
   node,
   helpers,
   pluginOptions,
@@ -147,9 +148,24 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
 
         sourceUrl = ensureSrcHasHostname({ wpUrl, src: sourceUrl })
 
+        const existingNode = helpers.getNode(id)
+
+        if (!existingNode) {
+          if (!displayedFailedToRestoreMessage) {
+            helpers.reporter.warn(
+              formatLogMessage(
+                `File node failed to restore from cache. This is a bug in gatsby-source-wordpress. Please open an issue so we can help you out :)`
+              )
+            )
+            displayedFailedToRestoreMessage = true
+          }
+
+          return null
+        }
+
         return {
           sourceUrl,
-          ...(helpers.getNode(id) ?? {}),
+          ...existingNode,
         }
       })
     )
@@ -207,9 +223,9 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
     referencedMediaItemNodeIds: mediaItemRelayIds,
   })
 
-  const createdNodeIds = [...mediaItemNodesById, ...mediaItemNodesBySourceUrl]
+  const createdNodes = [...mediaItemNodesById, ...mediaItemNodesBySourceUrl]
 
-  const mediaItemNodes = [...createdNodeIds, ...previouslyCachedNodesByUrl]
+  const mediaItemNodes = [...createdNodes, ...previouslyCachedNodesByUrl]
 
   const htmlMatchesToMediaItemNodesMap = new Map()
   for (const { cheerioImg, match } of cheerioImages) {

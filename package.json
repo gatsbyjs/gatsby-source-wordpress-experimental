@@ -28,11 +28,12 @@
     "test-schema-increment": "WPGQL_INCREMENT=true START_SERVER=true jest ./test-site/__tests__/integration/schema",
     "test-schema": "yarn clean-test-runtime && yarn test-schema-first && yarn test-schema-increment",
     "test-build": "yarn clean-test-runtime && DEFAULT_PLUGIN_OPTIONS=true jest ./test-site/__tests__/integration/build && jest ./test-site/__tests__/integration/build/plugin-options-schema",
-    "test": "yarn build && yarn test-schema && yarn test-build && yarn clean-test-runtime",
+    "test": "yarn test-plugin && yarn build && yarn test-schema && yarn test-build && yarn clean-test-runtime",
     "test-schema-watch": "SHOW_GATSBY_PROCESS_STDOUT=true yarn test-schema-first --watch",
     "test-build-watch": "SHOW_GATSBY_PROCESS_STDOUT=true yarn test-build --watch",
     "test-update": "yarn test-schema-first -u && yarn test-schema-increment -u && yarn test-build -u",
-    "npm-publish": "yarn run lint && (rm plugin/README.md || true) && cp README.md plugin/README.md && cd plugin && yarn run build && npm publish"
+    "npm-publish": "yarn run lint && (rm plugin/README.md || true) && cp README.md plugin/README.md && cd plugin && yarn run build && npm publish",
+    "test-plugin": "jest ./plugin/src/.*.test.js"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.4",

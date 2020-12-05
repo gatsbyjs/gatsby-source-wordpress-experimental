@@ -5,8 +5,6 @@ import { contentPollingQuery } from "../../../utils/graphql-queries"
 import fetchGraphql from "../../../utils/fetch-graphql"
 import { LAST_COMPLETED_SOURCE_TIME } from "../../../constants"
 
-const previouslyFoundActionIds = new Set()
-
 /**
  * This function checks wether there is atleast 1 WPGatsby action ready to be processed by Gatsby
  * If there is, it calls the refresh webhook so that schema customization and source nodes run again.
@@ -18,7 +16,7 @@ const checkForNodeUpdates = async ({ cache, emitter }) => {
   // make a graphql request for any actions that have happened since
   const {
     data: {
-      actionMonitorActions: { nodes },
+      actionMonitorActions: { nodes: newActions },
     },
   } = await fetchGraphql({
     query: contentPollingQuery,
@@ -28,17 +26,6 @@ const checkForNodeUpdates = async ({ cache, emitter }) => {
     // throw fetch errors and graphql errors so we can auto recover in refetcher()
     throwGqlErrors: true,
     throwFetchErrors: true,
-  })
-
-  // a very simple cache to make sure we don't process the same action twice within
-  // the same `gatsby develop` process.
-  const newActions = nodes.filter(({ id }) => {
-    if (previouslyFoundActionIds.has(id)) {
-      return false
-    } else {
-      previouslyFoundActionIds.add(id)
-      return true
-    }
   })
 
   if (newActions.length) {
