@@ -30,91 +30,91 @@ export async function previewCurrentPost(input: {
   content?: string
   page: Page
   browser: Browser
-  index: number
 }): Promise<{ success: boolean }> {
-  return new Promise(async (resolve, reject) => {
-    const { page, title, browser, index } = input
+  const { page, title, browser } = input
 
-    await new Promise((resolve) => setTimeout(resolve, index * 1000))
+  await page.waitForSelector(`.edit-post-layout`)
 
-    await page.waitForSelector(`.edit-post-layout`)
+  const previewPagePromise: Promise<Page> = new Promise((resolve) =>
+    browser.once(`targetcreated`, (target) => resolve(target.page()))
+  )
 
-    const previewPagePromise: Promise<Page> = new Promise((resolve) =>
-      browser.once(`targetcreated`, (target) => resolve(target.page()))
-    )
+  // press "preview"
+  await page.evaluate(
+    ({ title }) => {
+      window.wp.data.dispatch(`core/editor`).editPost({ title })
 
-    await page.evaluate(
-      ({ title }) => {
-        window.wp.data.dispatch(`core/editor`).editPost({ title })
-        console.log(
-          document.querySelector(`.block-editor-post-preview__button-toggle`)
-        )
-        setTimeout(() => {
-          ;(document.querySelector(
-            `.block-editor-post-preview__button-toggle`
-          ) as HTMLElement).click()
-          ;(document.querySelector(
-            `.edit-post-header-preview__button-external`
-          ) as HTMLElement).click()
-        }, 1000)
-      },
-      { title }
-    )
+      setTimeout(() => {
+        (document.querySelector(
+          `.block-editor-post-preview__button-toggle`
+        ) as HTMLElement).click()
+        ;(document.querySelector(
+          `.edit-post-header-preview__button-external`
+        ) as HTMLElement).click()
+      }, 100)
+    },
+    { title }
+  )
 
-    const previewPage = await previewPagePromise
+  const previewPage = await previewPagePromise
 
-    await previewPage.exposeFunction(`onCustomEvent`, (e) => {
-      console.log(`${e.type} fired`, e.detail || ``)
-    })
+  let rejected = false
 
-    /**
-     * Attach an event listener to page to capture a custom event on page load/navigation.
-     * @param {string} type Event name.
-     * @returns {!Promise}
-     */
-    function listenFor(type): Promise<void> {
-      return previewPage.evaluateOnNewDocument((type) => {
-        document.addEventListener(type, (e) => {
-          window.onCustomEvent({ type, detail: e.detail })
-        })
-      }, type)
+  const tooLongTimeout = setTimeout(async () => {
+    rejected = true
+
+    // console.log(`preview took too long`)
+
+    if (previewPage) {
+      await previewPage.close()
     }
+  }, 5000)
 
-    let rejected = false
+  // console.log(`waiting for preview`)
+  try {
+    await previewPage.waitForFunction(
+      () =>
+        new Promise((resolve) => {
+          document.addEventListener(`wp-gatsby-preview-ready`, () => {
+            // console.log(`wp-gatsby-preview-ready`)
 
-    const tooLongTimeout = setTimeout(async () => {
-      rejected = true
-      // console.log(`preview took too long`)
-      if (previewPage) {
-        await previewPage.close()
-      }
+            const loader: HTMLElement = document.getElementById(`loader`)
 
-      return reject(Error(`preview took too long`))
-    }, 5000)
+            loader.classList.add(`loaded`)
+            loader.style.display = `none`
 
-    previewPage.evaluate(() => {
-      document.addEventListener(`wp-gatsby-preview-ready`, () => {
-        console.log(`wp-gatsby-preview-ready`)
+            return resolve(true)
+          })
+        })
+    )
+  } catch (e) {
+    // console.log(e.message)
+    rejected = true
+  }
 
-        const loader: HTMLElement = document.getElementById(`loader`)
+  if (!rejected) {
+    // console.log(`previewed!`)
 
-        loader.classList.add(`loaded`)
-        loader.style.display = `none`
-      })
-    })
+    await previewPage.waitForFunction(
+      `document.getElementById("preview").src !== ""`
+    )
 
-    await listenFor(`wp-gatsby-preview-ready`)
+    await new Promise((resolve) => setTimeout(resolve, 1000))
+
+    const frameHandle = await previewPage.$(`iframe[id='preview']`)
+    const frame = await frameHandle.contentFrame()
+
+    await frame.waitForFunction(
+      `document.querySelector("h1") && document.querySelector("h1").innerText.includes("${title}")`
+    )
+
     clearTimeout(tooLongTimeout)
 
-    await new Promise((resolve) => setTimeout(resolve, 2500))
-    // await new Promise(resolve => setTimeout(resolve, 15000))
-    if (!rejected) {
-      console.log(`preview ready!!2`)
-      await previewPage.close()
+    // console.log(`preview ready!`)
+    await previewPage.close()
 
-      return resolve({ success: true })
-    }
-
-    return resolve({ success: false })
-  })
+    return { success: true }
+  } else {
+    return { success: false }
+  }
 }
