@@ -32,6 +32,7 @@
   "dependencies": {
     "@wordpress/e2e-test-utils": "^4.15.0",
     "@wordpress/keycodes": "^2.16.0",
+    "draftlog": "^1.0.12",
     "fs-extra": "^9.0.1",
     "gluegun": "latest",
     "lodash": "^4.17.20",
