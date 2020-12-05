@@ -45,7 +45,7 @@ export async function previewCurrentPost(input: {
       window.wp.data.dispatch(`core/editor`).editPost({ title })
 
       setTimeout(() => {
-        (document.querySelector(
+        ;(document.querySelector(
           `.block-editor-post-preview__button-toggle`
         ) as HTMLElement).click()
         ;(document.querySelector(
@@ -68,7 +68,7 @@ export async function previewCurrentPost(input: {
     if (previewPage) {
       await previewPage.close()
     }
-  }, 5000)
+  }, 10000)
 
   // console.log(`waiting for preview`)
   try {
