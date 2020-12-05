@@ -30,8 +30,9 @@ export async function previewCurrentPost(input: {
   content?: string
   page: Page
   browser: Browser
+  previewTimeout: number
 }): Promise<{ success: boolean }> {
-  const { page, title, browser } = input
+  const { page, title, browser, previewTimeout = 10000 } = input
 
   await page.waitForSelector(`.edit-post-layout`)
 
@@ -63,21 +64,16 @@ export async function previewCurrentPost(input: {
   const tooLongTimeout = setTimeout(async () => {
     rejected = true
 
-    // console.log(`preview took too long`)
-
     if (previewPage) {
       await previewPage.close()
     }
-  }, 10000)
+  }, previewTimeout)
 
-  // console.log(`waiting for preview`)
   try {
     await previewPage.waitForFunction(
       () =>
         new Promise((resolve) => {
           document.addEventListener(`wp-gatsby-preview-ready`, () => {
-            // console.log(`wp-gatsby-preview-ready`)
-
             const loader: HTMLElement = document.getElementById(`loader`)
 
             loader.classList.add(`loaded`)
@@ -88,13 +84,10 @@ export async function previewCurrentPost(input: {
         })
     )
   } catch (e) {
-    // console.log(e.message)
     rejected = true
   }
 
   if (!rejected) {
-    // console.log(`previewed!`)
-
     await previewPage.waitForFunction(
       `document.getElementById("preview").src !== ""`
     )
@@ -110,7 +103,6 @@ export async function previewCurrentPost(input: {
 
     clearTimeout(tooLongTimeout)
 
-    // console.log(`preview ready!`)
     await previewPage.close()
 
     return { success: true }
