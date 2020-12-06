@@ -56,13 +56,15 @@ const command: GluegunCommand = {
 
     const users = await fs.readJson(wpUsersJsonPath)
 
-    await runPreviewSwarm({
+    const swarmStats = await runPreviewSwarm({
       headless: false,
       maxPreviewsEach: 10,
       previewTimeout: 10000,
       users,
       wpUrl,
     })
+
+    return swarmStats
   },
 }
 
