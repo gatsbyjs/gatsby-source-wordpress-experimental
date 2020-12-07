@@ -41,8 +41,8 @@ export async function runPreviewSwarm({
   const startTime = Date.now()
   const total = users.length * maxPreviewsEach
 
-  const successTimes = [0]
-  const failureTimes = [0]
+  const successTimes = []
+  const failureTimes = []
 
   const getDraft = (): string =>
     `
