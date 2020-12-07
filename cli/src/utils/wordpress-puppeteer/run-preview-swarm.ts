@@ -6,6 +6,7 @@ import * as puppeteer from "puppeteer"
 import { createNewPost } from "./create-new-post"
 import { loginUser } from "./login-user"
 import { previewCurrentPost } from "./preview-post"
+import { visitAdminPage } from "./visit-admin-page"
 
 export interface WpPreviewUser {
   username: string
@@ -31,6 +32,32 @@ export interface PreviewSwarmStats {
   swarmDurationSeconds: number
 }
 
+// Input progess goes from 0 to 100
+function progressBar(progress: number): string {
+  // Make it 50 characters length
+  let units = Math.round(progress / 2)
+
+  if (units > 50) {
+    units = 50
+  }
+
+  return (
+    `[` +
+    `=`.repeat(units) +
+    ` `.repeat(50 - units) +
+    `] ` +
+    Math.ceil(progress) +
+    `%`
+  )
+}
+
+function getAverageSecondsFromListOfMsTimes(times: number[]): number {
+  const sum = times.reduce((a, b) => a + b, 0)
+  const average = sum / times.length || 0
+
+  return Math.ceil(average) / 1000
+}
+
 export async function runPreviewSwarm({
   users,
   wpUrl,
@@ -49,10 +76,10 @@ export async function runPreviewSwarm({
     Preview Swarming ${wpUrl}
     with ${users.length} users making ${maxPreviewsEach} previews each
     ---
-    %SUCCESS_NUMBER% Successes (${getAverageFromListOfTimes(
+    %SUCCESS_NUMBER% Successes (${getAverageSecondsFromListOfMsTimes(
       successTimes
     )}s average duration)
-    %FAILURE_NUMBER% Failures (${getAverageFromListOfTimes(
+    %FAILURE_NUMBER% Failures (${getAverageSecondsFromListOfMsTimes(
       failureTimes
     )}s average duration)
     %PROGRESS% of %TOTAL% Total
@@ -107,20 +134,55 @@ export async function runPreviewSwarm({
         page,
       })
 
+      const title = `swarm user ${username} post`
+
       let counter = 0
 
       while (counter < maxPreviewsEach) {
         counter++
 
-        await createNewPost({
-          baseUrl: wpUrl,
-          content: `post content`,
-          excerpt: `excerpt`,
-          showWelcomeGuide: false,
-          postType: `post`,
-          title: `new post`,
-          page,
-        })
+        // first we want to see if this user has a preview swarm page
+        await visitAdminPage({ adminPath: `edit.php`, page, baseUrl: wpUrl })
+        const adminRowTitleLinks = await page.$$(`a.row-title`)
+        const normalizedLinks = await Promise.all(
+          adminRowTitleLinks.map(
+            async (link): Promise<{ text: string; href: string }> => {
+              const linkText = (await (
+                await link.getProperty(`innerText`)
+              ).jsonValue()) as string
+
+              const linkHref = (await (
+                await link.getProperty(`href`)
+              ).jsonValue()) as string
+
+              return {
+                href: linkHref,
+                text: linkText,
+              }
+            }
+          )
+        )
+        const existingLinkElement = normalizedLinks.find(({ text }) =>
+          text.includes(title)
+        )
+        const existingPostUrl = existingLinkElement?.href
+
+        // if this user has a page, preview from that
+        if (existingPostUrl) {
+          await page.goto(existingPostUrl)
+        }
+        // otherwise create a new one
+        else {
+          await createNewPost({
+            baseUrl: wpUrl,
+            content: `post content`,
+            excerpt: `excerpt`,
+            showWelcomeGuide: false,
+            postType: `post`,
+            title,
+            page,
+          })
+        }
 
         const previewStart = Date.now()
 
@@ -157,8 +219,12 @@ export async function runPreviewSwarm({
   updateDraft()
 
   return {
-    averageFailureDurationSeconds: getAverageFromListOfTimes(failureTimes),
-    averageSuccessDurationSeconds: getAverageFromListOfTimes(successTimes),
+    averageFailureDurationSeconds: getAverageSecondsFromListOfMsTimes(
+      failureTimes
+    ),
+    averageSuccessDurationSeconds: getAverageSecondsFromListOfMsTimes(
+      successTimes
+    ),
     failures: failureTimes.length,
     successes: successTimes.length,
     totalPreview: failureTimes.length + successTimes.length,
@@ -166,30 +232,4 @@ export async function runPreviewSwarm({
     swarmDurationSeconds: (Date.now() - startTime) / 1000,
     userCount: users.length,
   }
-}
-
-// Input progess goes from 0 to 100
-function progressBar(progress: number): string {
-  // Make it 50 characters length
-  let units = Math.round(progress / 2)
-
-  if (units > 50) {
-    units = 50
-  }
-
-  return (
-    `[` +
-    `=`.repeat(units) +
-    ` `.repeat(50 - units) +
-    `] ` +
-    Math.ceil(progress) +
-    `%`
-  )
-}
-
-function getAverageFromListOfTimes(times: number[]): number {
-  const sum = times.reduce((a, b) => a + b, 0)
-  const average = sum / times.length || 0
-
-  return Math.ceil(average) / 1000
 }

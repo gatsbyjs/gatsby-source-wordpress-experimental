@@ -20,7 +20,7 @@ import { getPageError } from "./get-page-error"
  */
 export async function visitAdminPage(input: {
   adminPath: string
-  query: string
+  query?: string
   page: Page
   baseUrl: string
 }): Promise<void> {
