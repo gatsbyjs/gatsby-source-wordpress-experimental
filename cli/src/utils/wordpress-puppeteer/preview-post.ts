@@ -1,13 +1,4 @@
 import { Browser, Page } from "puppeteer"
-/**
- * WordPress dependencies
- */
-// import { addQueryArgs } from "@wordpress/url"
-
-/**
- * Internal dependencies
- */
-// import { visitAdminPage } from "./visit-admin-page"
 
 declare global {
   interface Window {
