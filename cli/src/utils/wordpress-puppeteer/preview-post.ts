@@ -36,8 +36,8 @@ export async function previewCurrentPost(input: {
 
   await page.waitForSelector(`.edit-post-layout`)
 
-  const previewPagePromise: Promise<Page> = new Promise((resolve) =>
-    browser.once(`targetcreated`, (target) => resolve(target.page()))
+  const previewPagePromise: Promise<Page> = new Promise(resolve =>
+    browser.once(`targetcreated`, target => resolve(target.page()))
   )
 
   // press "preview"
@@ -72,7 +72,7 @@ export async function previewCurrentPost(input: {
   try {
     await previewPage.waitForFunction(
       () =>
-        new Promise((resolve) => {
+        new Promise(resolve => {
           document.addEventListener(`wp-gatsby-preview-ready`, () => {
             const loader: HTMLElement = document.getElementById(`loader`)
 
@@ -92,7 +92,9 @@ export async function previewCurrentPost(input: {
       `document.getElementById("preview").src !== ""`
     )
 
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    await previewPage.waitForFunction(
+      `document.getElementById("preview").contentWindow.document.readyState === "complete"`
+    )
 
     const frameHandle = await previewPage.$(`iframe[id='preview']`)
     const frame = await frameHandle.contentFrame()
