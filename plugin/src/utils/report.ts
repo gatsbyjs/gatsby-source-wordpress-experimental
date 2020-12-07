@@ -7,6 +7,7 @@ export const CODES = {
   RequestDenied: `111004`,
   Authentication: `111005`,
   Timeout: `111006`,
+  WordPress500ishError: `111007`,
 
   /* GraphQL Errors */
   RemoteGraphQLError: `112001`,
@@ -16,12 +17,14 @@ export const CODES = {
   SourcePluginCodeError: `112003`,
 }
 
+interface IErrorContext {
+  sourceMessage: string
+}
 interface IErrorMap {
   [code: string]: IErrorMapEntry
 }
 
-const getErrorText = (context: { sourceMessage: string }): string =>
-  context.sourceMessage
+const getErrorText = (context: IErrorContext): string => context.sourceMessage
 
 export const ERROR_MAP: IErrorMap = {
   [CODES.WordPressFilters]: {
@@ -63,5 +66,10 @@ export const ERROR_MAP: IErrorMap = {
     text: getErrorText,
     level: `ERROR`,
     category: `SYSTEM`,
+  },
+  [CODES.WordPress500ishError]: {
+    text: (context: IErrorContext): string => context.sourceMessage,
+    level: `ERROR`,
+    category: `THIRD_PARTY`,
   },
 }

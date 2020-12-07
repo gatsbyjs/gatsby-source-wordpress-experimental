@@ -1,6 +1,7 @@
 import store from "~/store"
 import { typeDefinitionFilters } from "./type-filters"
 import { getPluginOptions } from "~/utils/get-gatsby-api"
+import { cloneDeep, merge } from "lodash"
 
 /**
  * This function namespaces typenames with a prefix
@@ -75,24 +76,44 @@ export const typeIsASupportedScalar = (type) => {
   return supportedScalars.includes(findTypeName(type))
 }
 
+const typeSettingCache = {}
+
 // retrieves plugin settings for the provided type
 export const getTypeSettingsByType = (type) => {
   if (!type) {
     return {}
   }
 
+  const typeName = findTypeName(type)
+
+  const cachedTypeSettings = typeSettingCache[typeName]
+
+  if (cachedTypeSettings) {
+    return cachedTypeSettings
+  }
+
   // the plugin options object containing every type setting
   const allTypeSettings = store.getState().gatsbyApi.pluginOptions.type
 
-  // the type.__all plugin option which is applied to every type setting
-  const __allTypeSetting = allTypeSettings.__all || {}
+  const typeSettings = cloneDeep(allTypeSettings[typeName] || {})
 
-  const typeName = findTypeName(type)
-  const typeSettings = allTypeSettings[typeName]
+  // the type.__all plugin option which is applied to every type setting
+  const __allTypeSetting = cloneDeep(allTypeSettings.__all || {})
+
+  if (typeName === `MediaItem`) {
+    delete __allTypeSetting.limit
+    delete typeSettings.limit
+  }
 
   if (typeSettings) {
-    return { ...__allTypeSetting, ...typeSettings }
+    const mergedSettings = merge(__allTypeSetting, typeSettings)
+
+    typeSettingCache[typeName] = mergedSettings
+
+    return mergedSettings
   }
+
+  typeSettingCache[typeName] = __allTypeSetting
 
   return __allTypeSetting
 }

@@ -56,7 +56,7 @@ const runSteps = async (
         error: e,
       })
 
-      helpers.reporter.error(e.message)
+      console.error(e)
       helpers.reporter.panic({
         id: CODES.SourcePluginCodeError,
         context: {

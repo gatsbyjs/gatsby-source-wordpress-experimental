@@ -32,10 +32,7 @@ export function pluginOptionsSchema({ Joi }) {
         ),
     })
 
-  return Joi.object({
-    url: Joi.string()
-      .required()
-      .description(`The full url of your GraphQL endpoint`),
+  const joiSchema = Joi.object({
     verbose: Joi.boolean()
       .default(true)
       .description(`Wether there will be verbose output in the terminal`),
@@ -155,6 +152,12 @@ export function pluginOptionsSchema({ Joi }) {
         .description(
           `The number of nodes to fetch per page during node sourcing.`
         ),
+      requestConcurrency: Joi.number()
+        .integer()
+        .default(15)
+        .description(
+          `The number of concurrent GraphQL requests to make at any time during node sourcing. Try lowering this if WordPress server crashes on import`
+        ),
     }).description(
       `Options related to fetching and ingesting the remote schema.`
     ),
@@ -229,10 +232,28 @@ export function pluginOptionsSchema({ Joi }) {
             .description(
               `Allows preventing the download of files that are above a certain file size (in bytes).`
             ),
+          requestConcurrency: Joi.number()
+            .integer()
+            .default(100)
+            .description(
+              `Amount of images to download concurrently. Try lowering this if wordpress server crashes on import`
+            ),
         }),
       }),
     })
       .pattern(Joi.string(), getTypeOptions())
       .description(`Options related to specific types in the remote schema.`),
+  })
+
+  return joiSchema.append({
+    url: Joi.string()
+      .required()
+      .description(`The full url of your GraphQL endpoint`),
+    presets: Joi.array()
+      .items(joiSchema)
+      .allow(null)
+      .description(
+        `A preset of plugin options to be applied under some circumstance determined by the useIf function property.`
+      ),
   })
 }

@@ -3,7 +3,7 @@ module.exports = {
     "^.+\\.[jt]sx?$": `<rootDir>/jest-transformer.js`,
   },
   moduleNameMapper: {
-    "~/(.*)": "<rootDir>/plugin/src/$1",
+    "~/(.*)": `<rootDir>/plugin/src/$1`,
   },
   testPathIgnorePatterns: [`node_modules`, `\\.cache`, `<rootDir>.*/public`],
   transformIgnorePatterns: [`node_modules/(?!(gatsby)/)`],
