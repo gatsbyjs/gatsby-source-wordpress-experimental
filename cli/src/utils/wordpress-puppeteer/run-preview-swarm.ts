@@ -34,6 +34,8 @@ export interface PreviewSwarmInput
     WpUrl {
   maxPreviewsEach: number
   previewTimeout: number
+  logInputs?: boolean
+  cliOutput?: boolean
 }
 
 export interface PreviewSwarmStats {
@@ -43,7 +45,7 @@ export interface PreviewSwarmStats {
   failures: number
   userCount: number
   previewsEach: number
-  totalPreview: number
+  totalPreviews: number
   swarmDurationSeconds: number
 }
 
@@ -107,6 +109,7 @@ async function startBrowserAndLoginUser({
             `--window-size=500,500`,
             `--window-position=${position.x},${position.y}`,
             `--disable-features=site-per-process`,
+            `--disable-web-security`,
           ],
         }
       : { args: [`--disable-features=site-per-process`] }),
@@ -134,7 +137,7 @@ async function setWpGatsbyPreviewSettings({
   headless,
   wpUrl,
 }: SetWPGatsbyPreviewSettingsInput): Promise<void> {
-  const { page } = await startBrowserAndLoginUser({
+  const { page, browser } = await startBrowserAndLoginUser({
     username: users[0].username,
     password: users[0].password,
     headless,
@@ -173,6 +176,8 @@ async function setWpGatsbyPreviewSettings({
   )
 
   await Promise.all([page.waitForNavigation(), page.click(`#submit`)])
+
+  await browser.close()
 }
 
 /**
@@ -185,9 +190,22 @@ export async function runPreviewSwarm({
   maxPreviewsEach = 10,
   previewTimeout = 10000,
   headless = false,
+  logInputs = false,
+  cliOutput = true,
   gatsbyPreviewFrontendUrl,
   gatsbyPreviewRefreshEndpoint,
 }: PreviewSwarmInput): Promise<PreviewSwarmStats> {
+  if (logInputs) {
+    console.log({
+      wpUrl,
+      maxPreviewsEach,
+      previewTimeout,
+      headless,
+      gatsbyPreviewFrontendUrl,
+      gatsbyPreviewRefreshEndpoint,
+    })
+  }
+
   const startTime = Date.now()
 
   if (gatsbyPreviewFrontendUrl || gatsbyPreviewRefreshEndpoint) {
@@ -204,9 +222,11 @@ export async function runPreviewSwarm({
 
   const successTimes = []
   const failureTimes = []
+  let updateDraft = () => {}
 
-  const getDraft = (): string =>
-    `
+  if (cliOutput) {
+    const getDraft = (): string =>
+      `
     Preview Swarming ${wpUrl}
     with ${users.length} users making ${maxPreviewsEach} previews each
     ---
@@ -219,19 +239,22 @@ export async function runPreviewSwarm({
     %PROGRESS% of %TOTAL% Total
     ${progressBar(((failureTimes.length + successTimes.length) / total) * 100)}
     `
-      .replace(/%SUCCESS_NUMBER%/gm, String(successTimes.length))
-      .replace(/%FAILURE_NUMBER%/gm, String(failureTimes.length))
-      .replace(
-        /%PROGRESS%/gm,
-        String(failureTimes.length + successTimes.length)
-      )
-      .replace(/%TOTAL%/gm, String(total))
+        .replace(/%SUCCESS_NUMBER%/gm, String(successTimes.length))
+        .replace(/%FAILURE_NUMBER%/gm, String(failureTimes.length))
+        .replace(
+          /%PROGRESS%/gm,
+          String(failureTimes.length + successTimes.length)
+        )
+        .replace(/%TOTAL%/gm, String(total))
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const consoleAny: any = console
-  const draft = consoleAny.draft(getDraft())
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const consoleAny: any = console
+    const draft = consoleAny.draft(getDraft())
 
-  const updateDraft = (): void => draft(getDraft())
+    updateDraft = (): void => draft(getDraft())
+  }
+
+  const browsers = []
 
   await Promise.all(
     users.map(async ({ username, password }, index) => {
@@ -243,94 +266,110 @@ export async function runPreviewSwarm({
         password,
       })
 
-      const title = `swarm user ${username} post`
+      browsers.push(browser)
 
-      let counter = 0
+      try {
+        const title = `swarm user ${username} post`
 
-      while (counter < maxPreviewsEach) {
-        counter++
+        let counter = 0
 
-        // first we want to see if this user has a preview swarm page
-        await visitAdminPage({
-          adminPath: `edit.php`,
-          page,
-          baseUrl: wpUrl,
-        })
+        while (counter < maxPreviewsEach) {
+          counter++
 
-        const adminRowTitleLinks = await page.$$(`a.row-title`)
-        const normalizedLinks = await Promise.all(
-          adminRowTitleLinks.map(
-            async (link): Promise<{ text: string; href: string }> => {
-              const linkText = (await (
-                await link.getProperty(`innerText`)
-              ).jsonValue()) as string
-
-              const linkHref = (await (
-                await link.getProperty(`href`)
-              ).jsonValue()) as string
-
-              return {
-                href: linkHref,
-                text: linkText,
-              }
-            }
-          )
-        )
-        const existingLinkElement = normalizedLinks.find(({ text }) =>
-          text.includes(title)
-        )
-        const existingPostUrl = existingLinkElement?.href
-
-        // if this user has a page, preview from that
-        if (existingPostUrl) {
-          await page.goto(existingPostUrl)
-        }
-        // otherwise create a new one
-        else {
-          await createNewPost({
+          // first we want to see if this user has a preview swarm page
+          await visitAdminPage({
+            adminPath: `edit.php`,
+            page,
             baseUrl: wpUrl,
-            content: `post content`,
-            excerpt: `excerpt`,
-            showWelcomeGuide: false,
-            postType: `post`,
-            title,
-            page,
-          })
-        }
-
-        const previewStart = Date.now()
-
-        let failed = false
-
-        try {
-          const { success } = await previewCurrentPost({
-            title: `swarm user ${username} post updated at ${Date.now()}`,
-            page,
-            browser,
-            previewTimeout,
           })
 
-          failed = !success
-        } catch (e) {
-          failed = true
-        } finally {
-          const previewEnd = Date.now()
-          const previewSeconds = previewEnd - previewStart
+          const adminRowTitleLinks = await page.$$(`a.row-title`)
+          const normalizedLinks = await Promise.all(
+            adminRowTitleLinks.map(
+              async (link): Promise<{ text: string; href: string }> => {
+                const linkText = (await (
+                  await link.getProperty(`innerText`)
+                ).jsonValue()) as string
 
-          if (failed) {
-            failureTimes.push(previewSeconds)
-          } else {
-            successTimes.push(previewSeconds)
+                const linkHref = (await (
+                  await link.getProperty(`href`)
+                ).jsonValue()) as string
+
+                return {
+                  href: linkHref,
+                  text: linkText,
+                }
+              }
+            )
+          )
+          const existingLinkElement = normalizedLinks.find(({ text }) =>
+            text.includes(title)
+          )
+          const existingPostUrl = existingLinkElement?.href
+
+          // if this user has a page, preview from that
+          if (existingPostUrl) {
+            await page.goto(existingPostUrl)
+          }
+          // otherwise create a new one
+          else {
+            await createNewPost({
+              baseUrl: wpUrl,
+              content: `post content`,
+              excerpt: `excerpt`,
+              showWelcomeGuide: false,
+              postType: `post`,
+              title,
+              page,
+            })
           }
 
-          updateDraft()
+          const previewStart = Date.now()
+
+          let failed = false
+
+          try {
+            const { success } = await previewCurrentPost({
+              title: `swarm user ${username} post updated at ${Date.now()}`,
+              page,
+              browser,
+              previewTimeout,
+            })
+
+            failed = !success
+          } catch (e) {
+            console.error(e.message)
+            failed = true
+          } finally {
+            const previewEnd = Date.now()
+            const previewSeconds = previewEnd - previewStart
+
+            if (failed) {
+              failureTimes.push(previewSeconds)
+            } else {
+              successTimes.push(previewSeconds)
+            }
+
+            updateDraft()
+          }
         }
+      } catch (e) {
+        console.error(e.message)
+      } finally {
+        await browser.close()
       }
-      await browser.close()
     })
   )
 
   updateDraft()
+
+  // console.log(browsers.map(browser => browser._process.pid).join(`, `))
+  // browsers.forEach(browser => {
+  //   try {
+  //     process.kill(browser._process.pid, `SIGPIPE`)
+  //     // eslint-disable-next-line no-empty
+  //   } catch (e) {}
+  // })
 
   return {
     averageFailureDurationSeconds: getAverageSecondsFromListOfMsTimes(
@@ -341,7 +380,7 @@ export async function runPreviewSwarm({
     ),
     failures: failureTimes.length,
     successes: successTimes.length,
-    totalPreview: failureTimes.length + successTimes.length,
+    totalPreviews: failureTimes.length + successTimes.length,
     previewsEach: maxPreviewsEach,
     swarmDurationSeconds: (Date.now() - startTime) / 1000,
     userCount: users.length,

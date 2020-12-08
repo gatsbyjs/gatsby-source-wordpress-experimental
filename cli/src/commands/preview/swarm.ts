@@ -17,6 +17,8 @@ const command: GluegunCommand = {
       users: optionUsersJsonPath,
       previewRefreshUrl,
       previewFrontendUrl,
+      timeout,
+      previewsEach,
     } = parameters.options
 
     print.info(
@@ -58,17 +60,15 @@ const command: GluegunCommand = {
 
     const users = await fs.readJson(wpUsersJsonPath)
 
-    const swarmStats = await runPreviewSwarm({
+    await runPreviewSwarm({
       headless: false,
-      maxPreviewsEach: 10,
-      previewTimeout: 10000,
+      maxPreviewsEach: previewsEach || 10,
+      previewTimeout: timeout,
       users,
       wpUrl,
       gatsbyPreviewFrontendUrl: previewFrontendUrl,
       gatsbyPreviewRefreshEndpoint: previewRefreshUrl,
     })
-
-    return swarmStats
   },
 }
 

@@ -50,6 +50,8 @@ export async function previewCurrentPost(input: {
 
   const previewPage = await previewPagePromise
 
+  await previewPage.setDefaultNavigationTimeout(0)
+
   let rejected = false
 
   const tooLongTimeout = setTimeout(async () => {
@@ -75,6 +77,7 @@ export async function previewCurrentPost(input: {
         })
     )
   } catch (e) {
+    console.log(e.message)
     rejected = true
   }
 
@@ -84,7 +87,7 @@ export async function previewCurrentPost(input: {
     )
 
     await previewPage.waitForFunction(
-      `document.getElementById("preview").contentWindow.document.readyState === "complete"`
+      `["complete", "interactive"].includes(document.getElementById("preview").contentWindow.document.readyState)`
     )
 
     const frameHandle = await previewPage.$(`iframe[id='preview']`)
@@ -97,7 +100,6 @@ export async function previewCurrentPost(input: {
     clearTimeout(tooLongTimeout)
 
     await previewPage.close()
-
     return { success: true }
   } else {
     return { success: false }
