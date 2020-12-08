@@ -18,10 +18,11 @@ jobs:
   test-preview:
     name: E2E Tests - Preview
     runs-on: ubuntu-16.04
+    env:
+      ENABLE_GATSBY_REFRESH_ENDPOINT: true
     steps:
-      - uses: hmarr/debug-action@v1.0.0
       - uses: actions/checkout@v2
-      - uses: bahmutov/npm-install@v1
+      - uses: bahmutov/npm-install@v1.1.0
       - run: yarn build && yarn build-cli && yarn ci-test 'yarn test-preview'
   test-schema:
     name: Integration Tests - Schema
