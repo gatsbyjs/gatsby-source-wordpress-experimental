@@ -251,7 +251,12 @@ export async function runPreviewSwarm({
         counter++
 
         // first we want to see if this user has a preview swarm page
-        await visitAdminPage({ adminPath: `edit.php`, page, baseUrl: wpUrl })
+        await visitAdminPage({
+          adminPath: `edit.php`,
+          page,
+          baseUrl: wpUrl,
+        })
+
         const adminRowTitleLinks = await page.$$(`a.row-title`)
         const normalizedLinks = await Promise.all(
           adminRowTitleLinks.map(

@@ -64,8 +64,8 @@ const command: GluegunCommand = {
       previewTimeout: 10000,
       users,
       wpUrl,
-      gatsbyPreviewFrontendUrl: previewRefreshUrl,
-      gatsbyPreviewRefreshEndpoint: previewFrontendUrl,
+      gatsbyPreviewFrontendUrl: previewFrontendUrl,
+      gatsbyPreviewRefreshEndpoint: previewRefreshUrl,
     })
 
     return swarmStats
