@@ -5,6 +5,7 @@ import * as puppeteer from "puppeteer"
 
 import { createNewPost } from "./create-new-post"
 import { loginUser } from "./login-user"
+import { pressKeyWithModifier } from "./press-key-with-modifier"
 import { previewCurrentPost } from "./preview-post"
 import { visitAdminPage } from "./visit-admin-page"
 
@@ -13,12 +14,26 @@ export interface WpPreviewUser {
   password: string
 }
 
-export interface PreviewSwarmInput {
-  users: WpPreviewUser[]
+interface Headless {
+  headless: boolean
+}
+
+interface WpUrl {
   wpUrl: string
+}
+
+interface SetWPGatsbyPreviewSettingsInput extends Headless, WpUrl {
+  gatsbyPreviewFrontendUrl: string
+  gatsbyPreviewRefreshEndpoint: string
+  users: WpPreviewUser[]
+}
+
+export interface PreviewSwarmInput
+  extends SetWPGatsbyPreviewSettingsInput,
+    Headless,
+    WpUrl {
   maxPreviewsEach: number
   previewTimeout: number
-  headless: boolean
 }
 
 export interface PreviewSwarmStats {
@@ -58,14 +73,133 @@ function getAverageSecondsFromListOfMsTimes(times: number[]): number {
   return Math.ceil(average) / 1000
 }
 
+interface StartBrowserAndLoginUserInput {
+  headless: boolean
+  index: number
+  wpUrl: string
+  username: string
+  password: string
+}
+
+async function startBrowserAndLoginUser({
+  headless,
+  index,
+  wpUrl,
+  username,
+  password,
+}: StartBrowserAndLoginUserInput): Promise<{
+  page: puppeteer.Page
+  browser: puppeteer.Browser
+}> {
+  const position = {
+    x: [0, 1].includes(index) ? 0 : 600,
+    y: [0, 2].includes(index) ? 0 : 600,
+  }
+
+  const puppeteerConfig = {
+    headless,
+    // non-headless mode is just for debugging with a few users
+    // otherwise our positioning ☝️ would be more robust
+    ...(!headless
+      ? {
+          defaultViewport: null,
+          args: [
+            `--window-size=500,500`,
+            `--window-position=${position.x},${position.y}`,
+            `--disable-features=site-per-process`,
+          ],
+        }
+      : { args: [`--disable-features=site-per-process`] }),
+  }
+
+  const browser = await puppeteer.launch(puppeteerConfig)
+
+  const page = await browser.newPage()
+  await page.goto(wpUrl)
+
+  await loginUser({
+    username,
+    password,
+    baseUrl: wpUrl,
+    page,
+  })
+
+  return { page, browser }
+}
+
+async function setWpGatsbyPreviewSettings({
+  gatsbyPreviewFrontendUrl,
+  gatsbyPreviewRefreshEndpoint,
+  users,
+  headless,
+  wpUrl,
+}: SetWPGatsbyPreviewSettingsInput): Promise<void> {
+  const { page } = await startBrowserAndLoginUser({
+    username: users[0].username,
+    password: users[0].password,
+    headless,
+    index: 0,
+    wpUrl,
+  })
+
+  await visitAdminPage({
+    adminPath: `options-general.php`,
+    query: `?page=gatsbyjs`,
+    page,
+    baseUrl: wpUrl,
+  })
+
+  await page.$eval(
+    `input[name="wpgatsby_settings\\[enable_gatsby_preview\\]"]`,
+    (check: HTMLInputElement) => (check.value = `on`)
+  )
+  await page.$eval(
+    `input#wpuf-wpgatsby_settings\\[enable_gatsby_preview\\]`,
+    (check: HTMLInputElement) => (check.checked = true)
+  )
+
+  await page.focus(`#wpgatsby_settings\\[preview_instance_url\\]`)
+  await pressKeyWithModifier({ modifier: `primary`, key: `a`, page })
+  await page.type(
+    `#wpgatsby_settings\\[preview_instance_url\\]`,
+    gatsbyPreviewFrontendUrl
+  )
+
+  await page.focus(`#wpgatsby_settings\\[preview_api_webhook\\]`)
+  await pressKeyWithModifier({ modifier: `primary`, key: `a`, page })
+  await page.type(
+    `#wpgatsby_settings\\[preview_api_webhook\\]`,
+    gatsbyPreviewRefreshEndpoint
+  )
+
+  await Promise.all([page.waitForNavigation(), page.click(`#submit`)])
+}
+
+/**
+ * It's expected that the first user passed to this function in the users array
+ * has the permissions to update WPGatsby settings
+ */
 export async function runPreviewSwarm({
   users,
   wpUrl,
   maxPreviewsEach = 10,
   previewTimeout = 10000,
   headless = false,
+  gatsbyPreviewFrontendUrl,
+  gatsbyPreviewRefreshEndpoint,
 }: PreviewSwarmInput): Promise<PreviewSwarmStats> {
   const startTime = Date.now()
+
+  if (gatsbyPreviewFrontendUrl || gatsbyPreviewRefreshEndpoint) {
+    await setWpGatsbyPreviewSettings({
+      gatsbyPreviewRefreshEndpoint,
+      gatsbyPreviewFrontendUrl,
+      users,
+      headless,
+      wpUrl,
+    })
+  }
+
   const total = users.length * maxPreviewsEach
 
   const successTimes = []
@@ -101,37 +235,12 @@ export async function runPreviewSwarm({
 
   await Promise.all(
     users.map(async ({ username, password }, index) => {
-      const position = {
-        x: [0, 1].includes(index) ? 0 : 600,
-        y: [0, 2].includes(index) ? 0 : 600,
-      }
-
-      const puppeteerConfig = {
+      const { page, browser } = await startBrowserAndLoginUser({
         headless,
-        // non-headless mode is just for debugging with a few users
-        // otherwise our positioning ☝️ would be more robust
-        ...(!headless
-          ? {
-              defaultViewport: null,
-              args: [
-                `--window-size=500,500`,
-                `--window-position=${position.x},${position.y}`,
-                `--disable-features=site-per-process`,
-              ],
-            }
-          : { args: [`--disable-features=site-per-process`] }),
-      }
-
-      const browser = await puppeteer.launch(puppeteerConfig)
-
-      const page = await browser.newPage()
-      await page.goto(wpUrl)
-
-      await loginUser({
+        index,
+        wpUrl,
         username,
         password,
-        baseUrl: wpUrl,
-        page,
       })
 
       const title = `swarm user ${username} post`

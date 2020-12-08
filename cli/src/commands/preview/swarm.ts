@@ -15,6 +15,8 @@ const command: GluegunCommand = {
     const {
       wpUrl: optionWpUrl,
       users: optionUsersJsonPath,
+      previewRefreshUrl,
+      previewFrontendUrl,
     } = parameters.options
 
     print.info(
@@ -62,6 +64,8 @@ const command: GluegunCommand = {
       previewTimeout: 10000,
       users,
       wpUrl,
+      gatsbyPreviewFrontendUrl: previewRefreshUrl,
+      gatsbyPreviewRefreshEndpoint: previewFrontendUrl,
     })
 
     return swarmStats
