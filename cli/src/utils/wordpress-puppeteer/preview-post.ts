@@ -78,12 +78,15 @@ export async function previewCurrentPost(input: {
           })
         }),
       {
-        timeout: 60000,
+        timeout: 30000,
       }
     )
   } catch (e) {
     console.log(e.message)
-    rejected = true
+
+    if (!e.message.includes(`waiting for function failed: timeout`)) {
+      rejected = true
+    }
   }
 
   if (!rejected) {
