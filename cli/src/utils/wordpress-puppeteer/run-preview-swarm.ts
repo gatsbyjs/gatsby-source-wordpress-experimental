@@ -335,7 +335,6 @@ export async function runPreviewSwarm({
               page,
               browser,
               previewTimeout,
-              headless,
             })
 
             failed = !success

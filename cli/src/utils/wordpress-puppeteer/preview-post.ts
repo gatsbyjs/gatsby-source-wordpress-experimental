@@ -22,15 +22,8 @@ export async function previewCurrentPost(input: {
   page: Page
   browser: Browser
   previewTimeout: number
-  headless?: boolean
 }): Promise<{ success: boolean }> {
-  const {
-    page,
-    title,
-    browser,
-    previewTimeout = 10000,
-    headless = true,
-  } = input
+  const { page, title, browser, previewTimeout = 10000 } = input
 
   await page.waitForSelector(`.edit-post-layout`)
 
@@ -71,30 +64,28 @@ export async function previewCurrentPost(input: {
     }
   }, previewTimeout)
 
-  if (!headless) {
-    try {
-      await previewPage.waitForFunction(
-        () =>
-          new Promise((resolve) => {
-            document.addEventListener(`wp-gatsby-preview-ready`, () => {
-              const loader: HTMLElement = document.getElementById(`loader`)
+  try {
+    await previewPage.waitForFunction(
+      () =>
+        new Promise((resolve) => {
+          document.addEventListener(`wp-gatsby-preview-ready`, () => {
+            const loader: HTMLElement = document.getElementById(`loader`)
 
-              loader.classList.add(`loaded`)
-              loader.style.display = `none`
+            loader.classList.add(`loaded`)
+            loader.style.display = `none`
 
-              return resolve(true)
-            })
-          }),
-        {
-          timeout: 30000,
-        }
-      )
-    } catch (e) {
-      console.log(e.message)
-
-      if (!e.message.includes(`waiting for function failed: timeout`)) {
-        rejected = true
+            return resolve(true)
+          })
+        }),
+      {
+        timeout: 30000,
       }
+    )
+  } catch (e) {
+    console.log(e.message)
+
+    if (!e.message.includes(`waiting for function failed: timeout`)) {
+      rejected = true
     }
   }
 
