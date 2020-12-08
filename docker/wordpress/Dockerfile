@@ -29,19 +29,15 @@ RUN echo 'date.timezone = "UTC"' > /usr/local/etc/php/conf.d/timezone.ini \
 
 COPY install-plugin.sh /usr/local/bin/install-plugin
 
-RUN echo installing WPGRAPHQL_VERSION ${WPGRAPHQL_VERSION}
 # WP GraphQL from github release
 RUN install-plugin wp-graphql wp-graphql/wp-graphql ${WPGRAPHQL_VERSION}
 
-RUN echo installing WPGATSBY_VERSION ${WPGATSBY_VERSION}
 # Install wp-gatsby using git, and apply a diff
 RUN git clone --depth 1 -b ${WPGATSBY_VERSION} https://github.com/gatsbyjs/wp-gatsby.git ${PLUGIN_DIR}/wp-gatsby 
 
-RUN echo installing WPGRAPHQL_ACF_VERSION ${WPGRAPHQL_ACF_VERSION}
 # WP GraphQL ACF from github release
 RUN install-plugin wp-graphql-acf wp-graphql/wp-graphql-acf ${WPGRAPHQL_ACF_VERSION}
 
-RUN echo installing WPGRAPHQL_CPT_UI_VERSION ${WPGRAPHQL_CPT_UI_VERSION}
 # WP GraphQL CPTUI from github release
 RUN install-plugin wp-graphql-custom-post-type-ui wp-graphql/wp-graphql-custom-post-type-ui ${WPGRAPHQL_CPT_UI_VERSION}
 
@@ -51,10 +47,8 @@ RUN curl https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for
 COPY start.sh /usr/local/bin/start.sh
 RUN chmod +x /usr/local/bin/start.sh
 
-RUN echo installing ACF_VERSION ${ACF_VERSION}
 RUN git clone --depth 1 -b ${ACF_VERSION} https://github.com/wp-premium/advanced-custom-fields-pro.git ${PLUGIN_DIR}/advanced-custom-fields-pro
 
-RUN echo installing https://github.com/WP-API/Basic-Auth.git MAIN branch
 RUN git clone --depth 1 https://github.com/WP-API/Basic-Auth.git ${PLUGIN_DIR}/basic-auth
 
 
