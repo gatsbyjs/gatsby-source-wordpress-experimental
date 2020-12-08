@@ -78,7 +78,7 @@ export async function previewCurrentPost(input: {
           })
         }),
       {
-        timeout: 60000,
+        timeout: 300000,
       }
     )
   } catch (e) {
@@ -88,18 +88,27 @@ export async function previewCurrentPost(input: {
 
   if (!rejected) {
     await previewPage.waitForFunction(
-      `document.getElementById("preview").src !== ""`
+      `document.getElementById("preview").src !== ""`,
+      {
+        timeout: 300000,
+      }
     )
 
     await previewPage.waitForFunction(
-      `["complete", "interactive"].includes(document.getElementById("preview").contentWindow.document.readyState)`
+      `["complete", "interactive"].includes(document.getElementById("preview").contentWindow.document.readyState)`,
+      {
+        timeout: 300000,
+      }
     )
 
     const frameHandle = await previewPage.$(`iframe[id='preview']`)
     const frame = await frameHandle.contentFrame()
 
     await frame.waitForFunction(
-      `document.querySelector("h1") && document.querySelector("h1").innerText.includes("${title}")`
+      `document.querySelector("h1") && document.querySelector("h1").innerText.includes("${title}")`,
+      {
+        timeout: 300000,
+      }
     )
 
     clearTimeout(tooLongTimeout)
