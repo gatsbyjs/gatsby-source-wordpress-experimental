@@ -11,6 +11,7 @@ import { formatLogMessage } from "~/utils/format-log-message"
 import { touchValidNodes } from "../source-nodes/update-nodes/fetch-node-updates"
 
 import { IPluginOptions } from "~/models/gatsby-api"
+import { Reporter } from "gatsby"
 
 export const inPreviewMode = (): boolean =>
   !!process.env.ENABLE_GATSBY_REFRESH_ENDPOINT &&
@@ -22,7 +23,7 @@ type PreviewStatusUnion =
   | `GATSBY_PREVIEW_PROCESS_ERROR`
   | `RECEIVED_PREVIEW_DATA_FROM_WRONG_URL`
 
-interface IWebhookBody {
+export interface IWebhookBody {
   preview: boolean
   previewId: number
   token: string
@@ -52,8 +53,7 @@ export const sourcePreviews = async (
   }: {
     webhookBody: IWebhookBody
     // this comes from Gatsby
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    reporter: any
+    reporter: Reporter
   },
   { url }: IPluginOptions
 ): Promise<void> => {

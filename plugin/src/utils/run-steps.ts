@@ -21,10 +21,11 @@ const runSteps = async (
       const timeStep =
         typeof timeBuildSteps === `boolean`
           ? timeBuildSteps
-          : timeBuildSteps?.includes(step.name) ||
+          : // TODO: type for array option? or deprecated setting?
+            timeBuildSteps?.includes(step.name) ||
             timeBuildSteps?.includes(apiName)
 
-      let activity: GatsbyReporter
+      let activity
 
       if (timeStep) {
         activity = helpers.reporter.activityTimer(

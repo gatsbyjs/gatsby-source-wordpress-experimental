@@ -6,7 +6,7 @@ import wpHooks from "./wp-hooks"
 import previewStore from "./preview"
 import develop from "./develop"
 
-export default {
+export const models = {
   remoteSchema,
   gatsbyApi,
   logger,

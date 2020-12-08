@@ -1,14 +1,32 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+
+import { Reporter } from "gatsby"
 import { formatLogMessage } from "~/utils/format-log-message"
+import { IPluginOptions } from "./gatsby-api"
+
+type ITimerReporter = ReturnType<Reporter["activityTimer"]>
+
+export interface ILoggerState {
+  entityCount: number
+  typeCount: { [name: string]: number }
+  activityTimers: {
+    [name: string]: { count: number; activity: ITimerReporter }
+  }
+}
 
 const logger = {
   state: {
     entityCount: 0,
     typeCount: {},
     activityTimers: {},
-  },
+  } as ILoggerState,
 
   reducers: {
-    incrementActivityTimer(state, { typeName, by, action = `fetched` }) {
+    incrementActivityTimer(
+      state: ILoggerState,
+      { typeName, by, action = `fetched` }
+    ) {
       const logger = state.activityTimers[typeName]
 
       if (!logger) {
@@ -25,7 +43,7 @@ const logger = {
       return state
     },
 
-    stopActivityTimer(state, { typeName, action = `fetched` }) {
+    stopActivityTimer(state: ILoggerState, { typeName, action = `fetched` }) {
       const logger = state.activityTimers[typeName]
 
       if (logger.count === 0) {
@@ -37,7 +55,14 @@ const logger = {
       return state
     },
 
-    createActivityTimer(state, { typeName, reporter, pluginOptions }) {
+    createActivityTimer(
+      state: ILoggerState,
+      {
+        typeName,
+        reporter,
+        pluginOptions,
+      }: { typeName: string; reporter: Reporter; pluginOptions: IPluginOptions }
+    ) {
       if (state.activityTimers[typeName]) {
         return state
       }

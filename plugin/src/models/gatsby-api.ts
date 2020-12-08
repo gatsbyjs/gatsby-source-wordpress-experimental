@@ -87,6 +87,7 @@ export interface IPluginOptions {
     requestConcurrency?: number
   }
   excludeFieldNames?: []
+  excludeFields?: string[] // deprecated?
   html?: {
     useGatsbyImage?: boolean
     imageMaxWidth?: number
@@ -99,6 +100,7 @@ export interface IPluginOptions {
     [typename: string]: {
       limit?: number
       excludeFieldNames?: string[]
+
       exclude?: boolean
       // @todo type this
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -341,7 +343,7 @@ const defaultPluginOptions: IPluginOptions = {
 export interface IGatsbyApiState {
   helpers: GatsbyNodeApiHelpers
   pluginOptions: IPluginOptions
-  activePluginOptionsPresets: PluginOptionsPreset[]
+  activePluginOptionsPresets?: PluginOptionsPreset[]
 }
 
 const gatsbyApi = {

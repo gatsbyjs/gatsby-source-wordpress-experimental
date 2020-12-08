@@ -100,6 +100,7 @@ const handleErrors = async ({
     pluginOptions.debug.graphql.panicOnError
   ) {
     reporter.panic({
+      id: CODES.BadResponse,
       context: {
         sourceMessage: formatLogMessage(
           errorContext || `Encountered errors. See above for details.`
@@ -528,6 +529,7 @@ if ( defined( 'GRAPHQL_REQUEST' ) && true === GRAPHQL_REQUEST ) {
       reporter.warn(formatLogMessage(sharedEmptyStringReponseError))
     } else {
       reporter.panic({
+        id: CODES.BadResponse,
         context: {
           sourceMessage: formatLogMessage(sharedEmptyStringReponseError),
         },
@@ -538,6 +540,7 @@ if ( defined( 'GRAPHQL_REQUEST' ) && true === GRAPHQL_REQUEST ) {
   }
 
   reporter.panic({
+    id: CODES.BadResponse,
     context: {
       sourceMessage: formatLogMessage(
         `${e.message} ${
@@ -578,10 +581,10 @@ interface IFetchGraphQLInput {
   throwGqlErrors?: boolean
   throwFetchErrors?: boolean
   isFirstRequest?: boolean
-  forceReportCriticalErrors: boolean
+  forceReportCriticalErrors?: boolean
   errorMap?: IErrorMap
-  variables: JSON
-  headers: IFetchGraphQLHeaders
+  variables?: JSON
+  headers?: IFetchGraphQLHeaders
 }
 
 type IGraphQLDataResponse = JSON
@@ -608,9 +611,11 @@ const fetchGraphql = async ({
 
   if (!reporter || typeof reporter === `undefined`) {
     reporter = {
+      // @ts-ignore
       panic: (message: { context: { sourceMessage: string } }): void => {
-        throw new Error(message.context.sourceMessage)
+        throw new Error(message?.context?.sourceMessage)
       },
+      // @ts-ignore
       error: console.error,
     }
   }
@@ -682,7 +687,7 @@ const fetchGraphql = async ({
 
   if (throwGqlErrors && response.data.errors) {
     const stringifiedErrors: string = response.data.errors
-      .map((error) => error.message)
+      .map((error: { message: string }) => error.message)
       .join(`\n\n`)
 
     throw new Error(stringifiedErrors)

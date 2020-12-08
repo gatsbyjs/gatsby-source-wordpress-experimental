@@ -1,13 +1,21 @@
 import store from "~/store"
 import { formatLogMessage } from "~/utils/format-log-message"
 import isInteger from "lodash/isInteger"
+import { NodePluginArgs } from "gatsby"
+import { IPluginOptions } from "~/models/gatsby-api"
+import { GatsbyNodeApiHelpers } from "~/utils/gatsby-types"
+
+type ProcessorOptions = {
+  userPluginOptions: IPluginOptions
+  helpers: NodePluginArgs
+}
 
 const optionsProcessors = [
   {
     name: `pluginOptions.type.MediaItem.limit is not allowed`,
-    test: ({ userPluginOptions }) =>
+    test: ({ userPluginOptions }: ProcessorOptions) =>
       !!userPluginOptions?.type?.MediaItem?.limit,
-    processor: ({ helpers, userPluginOptions }) => {
+    processor: ({ helpers, userPluginOptions }: ProcessorOptions) => {
       helpers.reporter.panic(
         formatLogMessage(
           `PluginOptions.type.MediaItem.limit is an disallowed plugin option.\nPlease remove the MediaItem.limit option from gatsby-config.js (currently set to ${userPluginOptions?.type?.MediaItem?.limit})\n\nMediaItem nodes are automatically limited to 0 and then fetched only when referenced by other node types. For example as a featured image, in custom fields, or in post_content.`
@@ -17,10 +25,10 @@ const optionsProcessors = [
   },
   {
     name: `excludeFields-renamed-to-excludeFieldNames`,
-    test: ({ userPluginOptions }) =>
+    test: ({ userPluginOptions }: ProcessorOptions) =>
       userPluginOptions?.excludeFields?.length ||
       userPluginOptions?.excludeFieldNames?.length,
-    processor: ({ helpers, userPluginOptions }) => {
+    processor: ({ helpers, userPluginOptions }: ProcessorOptions) => {
       if (userPluginOptions?.excludeFields?.length) {
         helpers.reporter.log(``)
         helpers.reporter.warn(
@@ -40,11 +48,11 @@ const optionsProcessors = [
   },
   {
     name: `queryDepth-is-not-a-positive-int`,
-    test: ({ userPluginOptions }) =>
+    test: ({ userPluginOptions }: ProcessorOptions) =>
       typeof userPluginOptions?.schema?.queryDepth !== `undefined` &&
       (!isInteger(userPluginOptions?.schema?.queryDepth) ||
         userPluginOptions?.schema?.queryDepth <= 0),
-    processor: ({ helpers, userPluginOptions }) => {
+    processor: ({ helpers, userPluginOptions }: ProcessorOptions) => {
       helpers.reporter.log(``)
       helpers.reporter.warn(
         formatLogMessage(
@@ -60,7 +68,10 @@ const optionsProcessors = [
   },
 ]
 
-export const processAndValidatePluginOptions = (helpers, pluginOptions) => {
+export const processAndValidatePluginOptions = (
+  helpers: GatsbyNodeApiHelpers,
+  pluginOptions: IPluginOptions
+) => {
   let userPluginOptions = {
     ...pluginOptions,
   }
