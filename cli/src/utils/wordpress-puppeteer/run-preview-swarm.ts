@@ -110,6 +110,7 @@ async function startBrowserAndLoginUser({
             `--window-position=${position.x},${position.y}`,
             `--disable-features=site-per-process`,
             `--disable-web-security`,
+            `--no-sandbox`,
           ],
         }
       : { args: [`--disable-features=site-per-process`] }),
@@ -362,14 +363,6 @@ export async function runPreviewSwarm({
   )
 
   updateDraft()
-
-  // console.log(browsers.map(browser => browser._process.pid).join(`, `))
-  // browsers.forEach(browser => {
-  //   try {
-  //     process.kill(browser._process.pid, `SIGPIPE`)
-  //     // eslint-disable-next-line no-empty
-  //   } catch (e) {}
-  // })
 
   return {
     averageFailureDurationSeconds: getAverageSecondsFromListOfMsTimes(
