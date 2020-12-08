@@ -26,14 +26,10 @@ export async function visitAdminPage(input: {
 }): Promise<void> {
   const { adminPath, query, page, baseUrl } = input
 
-  await page.goto(
-    createURL({ baseUrl, path: join(`wp-admin`, adminPath), query })
-  )
-
-  //   if (isCurrentURL(`wp-login.php`)) {
-  //     await loginUser()
-  //     await visitAdminPage(adminPath, query)
-  //   }
+  await Promise.all([
+    page.goto(createURL({ baseUrl, path: join(`wp-admin`, adminPath), query })),
+    page.waitForNavigation({ waitUntil: `domcontentloaded` }),
+  ])
 
   const error = await getPageError({ page })
   if (error) {
