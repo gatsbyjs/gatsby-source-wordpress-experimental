@@ -281,7 +281,6 @@ export const restoreHardCachedNodes = async ({
 
         return createMediaItemNode({
           node,
-
           helpers,
           createContentDigest,
           actions,
@@ -304,8 +303,7 @@ export const restoreHardCachedNodes = async ({
 
       const typeSettings =
         // TODO: extend node type for wordpress?
-        // @ts-ignore
-        typeSettingsCache[node.type] ??
+        typeSettingsCache[node.type as string] ??
         getTypeSettingsByType({
           name: node.type,
         })

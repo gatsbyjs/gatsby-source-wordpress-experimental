@@ -1,4 +1,4 @@
-import { GatsbyReporter, GatsbyNodeApiHelpers } from "./gatsby-types"
+import { GatsbyNodeApiHelpers } from "./gatsby-types"
 import { IPluginOptions } from "~/models/gatsby-api"
 import { formatLogMessage } from "~/utils/format-log-message"
 import { invokeAndCleanupLeftoverPreviewCallbacks } from "../steps/preview/cleanup"

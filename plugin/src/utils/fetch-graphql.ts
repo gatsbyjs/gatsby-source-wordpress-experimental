@@ -611,13 +611,11 @@ const fetchGraphql = async ({
 
   if (!reporter || typeof reporter === `undefined`) {
     reporter = {
-      // @ts-ignore
-      panic: (message: { context: { sourceMessage: string } }): void => {
+      panic: (message: { id: string; context: { sourceMessage: string } }) => {
         throw new Error(message?.context?.sourceMessage)
       },
-      // @ts-ignore
-      error: console.error,
-    }
+      error: console.error as GatsbyReporter["error"],
+    } as GatsbyReporter
   }
 
   if (!url) {

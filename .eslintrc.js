@@ -43,7 +43,7 @@ module.exports = {
     ],
     "no-unused-expressions": "off",
     "@typescript-eslint/no-unused-expressions": "error",
-    " @typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
     // "filenames/match-regex": ["error", "^[a-z-\\d\\.]+$", true],
     "no-console": "off",
     "no-inner-declarations": "off",
@@ -105,10 +105,11 @@ module.exports = {
         //   "error",
         //   { prefixWithI: "always" },
         // ],
+        "@typescript-eslint/no-unused-vars": "off",
         "@typescript-eslint/no-empty-function": "off",
         // This ensures that we always type the return type of functions
         // a high level focus of our TS setup is typing fn inputs and outputs.
-        "@typescript-eslint/explicit-function-return-type": "error",
+        "@typescript-eslint/explicit-function-return-type": "off",
         // This forces us to use interfaces over types aliases for object defintions.
         // Type is still useful for opaque types
         // e.g.,
