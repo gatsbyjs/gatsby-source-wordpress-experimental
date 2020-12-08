@@ -1,9 +1,9 @@
 import { GluegunToolbox } from "gluegun"
 
 module.exports = {
-  name: "generate",
-  alias: ["g"],
-  run: async (toolbox: GluegunToolbox) => {
+  name: `generate`,
+  alias: [`g`],
+  run: async (toolbox: GluegunToolbox): Promise<void> => {
     const {
       parameters,
       template: { generate },
@@ -13,7 +13,7 @@ module.exports = {
     const name = parameters.first
 
     await generate({
-      template: "model.ts.ejs",
+      template: `model.ts.ejs`,
       target: `models/${name}-model.ts`,
       props: { name },
     })

@@ -1,14 +1,15 @@
-const { build } = require("gluegun")
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { build } = require(`gluegun`)
 
 /**
  * Create the cli and kick it off
  */
-async function run(argv) {
+async function run(argv): Promise<void> {
   // create a CLI runtime
   const cli = build()
-    .brand("wpgatsby")
+    .brand(`wpgatsby`)
     .src(__dirname)
-    .plugins("./node_modules", { matching: "wpgatsby-*", hidden: true })
+    .plugins(`./node_modules`, { matching: `wpgatsby-*`, hidden: true })
     .help() // provides default for help, h, --help, -h
     .version() // provides default for version, v, --version, -v
     .defaultCommand()

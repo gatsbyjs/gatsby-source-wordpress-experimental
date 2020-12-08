@@ -222,7 +222,7 @@ export async function runPreviewSwarm({
 
   const successTimes = []
   const failureTimes = []
-  let updateDraft = () => {}
+  let updateDraft = (): void => {}
 
   if (cliOutput) {
     const getDraft = (): string =>

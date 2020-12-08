@@ -37,9 +37,11 @@ export async function previewCurrentPost(input: {
       window.wp.data.dispatch(`core/editor`).editPost({ title })
 
       setTimeout(() => {
+        // eslint-disable-next-line @typescript-eslint/no-extra-semi
         ;(document.querySelector(
           `.block-editor-post-preview__button-toggle`
         ) as HTMLElement).click()
+        // eslint-disable-next-line @typescript-eslint/no-extra-semi
         ;(document.querySelector(
           `.edit-post-header-preview__button-external`
         ) as HTMLElement).click()
@@ -74,7 +76,10 @@ export async function previewCurrentPost(input: {
 
             return resolve(true)
           })
-        })
+        }),
+      {
+        timeout: 60000,
+      }
     )
   } catch (e) {
     console.log(e.message)
