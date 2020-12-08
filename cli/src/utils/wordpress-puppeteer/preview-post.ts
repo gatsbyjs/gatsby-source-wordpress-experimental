@@ -73,6 +73,7 @@ export async function previewCurrentPost(input: {
 
   if (!headless) {
     try {
+      console.log(`waiting for wp-gatsby-preview-ready`)
       await previewPage.waitForFunction(
         () =>
           new Promise((resolve) => {
@@ -89,6 +90,7 @@ export async function previewCurrentPost(input: {
           timeout: 30000,
         }
       )
+      console.log(`finished waiting for wp-gatsby-preview-ready`)
     } catch (e) {
       console.log(e.message)
 
@@ -99,19 +101,35 @@ export async function previewCurrentPost(input: {
   }
 
   if (!rejected) {
+    console.log(`waiting for document.getElementById("preview").src !== ""`)
     await previewPage.waitForFunction(
       `document.getElementById("preview").src !== ""`
     )
+    console.log(
+      `finished waiting for document.getElementById("preview").src !== ""`
+    )
 
+    console.log(
+      `waiting for ["complete", "interactive"].includes(document.getElementById("preview").contentWindow.document.readyState)`
+    )
     await previewPage.waitForFunction(
       `["complete", "interactive"].includes(document.getElementById("preview").contentWindow.document.readyState)`
+    )
+    console.log(
+      `finished waiting for ["complete", "interactive"].includes(document.getElementById("preview").contentWindow.document.readyState)`
     )
 
     const frameHandle = await previewPage.$(`iframe[id='preview']`)
     const frame = await frameHandle.contentFrame()
 
+    console.log(
+      `waiting for document.querySelector("h1") && document.querySelector("h1").innerText.includes("${title}")`
+    )
     await frame.waitForFunction(
       `document.querySelector("h1") && document.querySelector("h1").innerText.includes("${title}")`
+    )
+    console.log(
+      `finished waiting for document.querySelector("h1") && document.querySelector("h1").innerText.includes("${title}")`
     )
 
     clearTimeout(tooLongTimeout)
