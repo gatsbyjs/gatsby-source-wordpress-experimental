@@ -35,7 +35,7 @@ module.exports = (toolbox) => {
   const { print } = toolbox
 
   toolbox.bar = () => {
-    print.info('Bar!')
+    print.info("Bar!")
   }
 }
 ```

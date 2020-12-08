@@ -1,8 +1,8 @@
-import { GluegunToolbox } from 'gluegun'
+import { GluegunToolbox } from "gluegun"
 
 module.exports = {
-  name: 'generate',
-  alias: ['g'],
+  name: "generate",
+  alias: ["g"],
   run: async (toolbox: GluegunToolbox) => {
     const {
       parameters,
@@ -13,7 +13,7 @@ module.exports = {
     const name = parameters.first
 
     await generate({
-      template: 'model.ts.ejs',
+      template: "model.ts.ejs",
       target: `models/${name}-model.ts`,
       props: { name },
     })
