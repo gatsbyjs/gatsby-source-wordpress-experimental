@@ -1,4 +1,4 @@
-FROM wordpress:5.5.3-php7.3-fpm
+FROM wordpress:5.5
 
 ARG WPGRAPHQL_VERSION=v0.13.1
 ARG WPGATSBY_VERSION=feat/wp-gatsby-cli-preview-swarm-changes
