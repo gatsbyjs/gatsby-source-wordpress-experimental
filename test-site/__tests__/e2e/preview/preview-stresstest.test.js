@@ -5,8 +5,8 @@ jest.setTimeout(200000)
 
 test(`A Preview swarm returns 0 failures when testing with 1 user making 1 preview`, async () => {
   const config = {
-    headless: false,
-    cliOutput: true,
+    headless: true,
+    cliOutput: false,
     maxPreviewsEach: 1,
     users,
     previewTimeout: 300000,
