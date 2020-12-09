@@ -1,10 +1,12 @@
 import { runPreviewSwarm } from "../../../../cli/build/utils/wordpress-puppeteer/run-preview-swarm"
 import users from "./users"
 
+jest.setTimeout(200000)
+
 test(`A Preview swarm returns 0 failures when testing with 1 user making 1 preview`, async () => {
   const config = {
-    headless: true,
-    cliOutput: false,
+    headless: false,
+    cliOutput: true,
     maxPreviewsEach: 1,
     users,
     previewTimeout: 300000,
