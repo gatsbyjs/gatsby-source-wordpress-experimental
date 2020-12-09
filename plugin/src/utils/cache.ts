@@ -21,14 +21,20 @@ const MAX_CACHE_SIZE = 250
 const TTL = Number.MAX_SAFE_INTEGER
 const cacheDir = `.wordpress-cache/caches`
 
+type Store = manager.StoreConfig["store"]
+
+interface CacheOptions {
+  name?: string
+  store?: Store
+}
 export default class Cache {
-  private store: manager.StoreConfig["store"]
+  private store: Store
   private name: string
   private cacheDirectory: string
   private cache: manager.MultiCache
-  constructor({ name = `db`, store = fsStore } = {}) {
-    this.name = name
-    this.store = store
+  constructor(options?: CacheOptions) {
+    this.name = options?.name || `db`
+    this.store = options?.store || fsStore
     this.cacheDirectory = cacheDir
   }
 
@@ -126,7 +132,7 @@ export const setHardCachedData = async ({
 }: {
   key: string
   value: unknown
-}): Promise<void> => {
+}) => {
   if (!shouldHardCacheData()) {
     return
   }
@@ -167,11 +173,11 @@ export const getHardCachedNodes = async (): Promise<null | Node[]> => {
 const staticFileCacheDirectory = `${process.cwd()}/.wordpress-cache/caches/public/static`
 const staticFileDirectory = `${process.cwd()}/public/static`
 
-export const restoreStaticDirectory = async (): Promise<void> => {
+export const restoreStaticDirectory = async () => {
   await fs.copy(staticFileCacheDirectory, staticFileDirectory)
 }
 
-const copyStaticDirectory = async (): Promise<void> => {
+const copyStaticDirectory = async () => {
   await fs.copy(staticFileDirectory, staticFileCacheDirectory)
 }
 
@@ -199,7 +205,7 @@ export const setHardCachedNodes = async ({ helpers }) => {
   await copyStaticDirectory()
 }
 
-export const clearHardCache = async (): Promise<void> => {
+export const clearHardCache = async () => {
   await new Promise((resolve) => {
     const directory = new Cache().cacheBase
 
@@ -207,7 +213,7 @@ export const clearHardCache = async (): Promise<void> => {
   })
 }
 
-export const clearHardCachedNodes = async (): Promise<void> => {
+export const clearHardCachedNodes = async () => {
   const hardCachedNodes = !!(await getHardCachedNodes())
 
   if (hardCachedNodes) {
@@ -225,7 +231,7 @@ export const setPersistentCache = async ({
 }: {
   key: string
   value: unknown
-}): Promise<void> => {
+}) => {
   const { helpers } = getGatsbyApi()
 
   await Promise.all([
@@ -337,7 +343,7 @@ export const restoreHardCachedNodes = async ({
       }
 
       // restore each node
-      await helpers.actions.createNode(remoteNode)
+      helpers.actions.createNode(remoteNode)
     })
   )
 
