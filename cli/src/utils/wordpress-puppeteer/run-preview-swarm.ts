@@ -36,6 +36,7 @@ export interface PreviewSwarmInput
   previewTimeout: number
   logInputs?: boolean
   cliOutput?: boolean
+  debugMode?: boolean
 }
 
 export interface PreviewSwarmStats {
@@ -110,7 +111,7 @@ async function startBrowserAndLoginUser({
             `--window-position=${position.x},${position.y}`,
             `--disable-features=site-per-process`,
             `--disable-web-security`,
-            `--no-sandbox`,
+            // `--no-sandbox`,
           ],
         }
       : { args: [`--disable-features=site-per-process`] }),
@@ -195,6 +196,7 @@ export async function runPreviewSwarm({
   cliOutput = true,
   gatsbyPreviewFrontendUrl,
   gatsbyPreviewRefreshEndpoint,
+  debugMode = false,
 }: PreviewSwarmInput): Promise<PreviewSwarmStats> {
   if (logInputs) {
     console.log({
@@ -335,6 +337,7 @@ export async function runPreviewSwarm({
               page,
               browser,
               previewTimeout,
+              debugMode,
             })
 
             failed = !success

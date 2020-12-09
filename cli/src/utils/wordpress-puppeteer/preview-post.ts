@@ -22,8 +22,12 @@ export async function previewCurrentPost(input: {
   page: Page
   browser: Browser
   previewTimeout: number
+  debugMode: boolean
 }): Promise<{ success: boolean }> {
-  const { page, title, browser, previewTimeout = 10000 } = input
+  const { page, title, browser, debugMode, previewTimeout = 10000 } = input
+
+  const debugLog = (message: string): void =>
+    debugMode ? console.log(message) : null
 
   await page.waitForSelector(`.edit-post-layout`)
 
@@ -65,6 +69,7 @@ export async function previewCurrentPost(input: {
   }, previewTimeout)
 
   try {
+    debugLog(`waiting for wp gatsby preview ready`)
     await previewPage.waitForFunction(
       () =>
         new Promise((resolve) => {
@@ -81,39 +86,44 @@ export async function previewCurrentPost(input: {
         timeout: 300000,
       }
     )
+    debugLog(`finished waiting for wp gatsby preview ready`)
   } catch (e) {
     console.log(e.message)
     rejected = true
   }
 
   if (!rejected) {
-    await previewPage.waitForFunction(
-      `document.getElementById("preview").src !== ""`,
-      {
-        timeout: 300000,
-      }
-    )
+    const checkIframeHasSrcFn = `document.getElementById("preview").src !== ""`
+    debugLog(`waiting for ${checkIframeHasSrcFn}`)
+    await previewPage.waitForFunction(checkIframeHasSrcFn, {
+      timeout: 300000,
+    })
+    debugLog(`end waiting for ${checkIframeHasSrcFn}`)
 
-    await previewPage.waitForFunction(
-      `["complete", "interactive"].includes(document.getElementById("preview").contentWindow.document.readyState)`,
-      {
-        timeout: 300000,
-      }
-    )
+    const checkIframeInteractiveFn = `["complete", "interactive"].includes(document.getElementById("preview").contentWindow.document.readyState)`
+
+    debugLog(`waiting for ${checkIframeInteractiveFn}`)
+    await previewPage.waitForFunction(checkIframeInteractiveFn, {
+      timeout: 300000,
+    })
+    debugLog(`end waiting for ${checkIframeInteractiveFn}`)
 
     const frameHandle = await previewPage.$(`iframe[id='preview']`)
     const frame = await frameHandle.contentFrame()
 
-    await frame.waitForFunction(
-      `document.querySelector("h1") && document.querySelector("h1").innerText.includes("${title}")`,
-      {
-        timeout: 300000,
-      }
-    )
+    const checkTitleFn = `document.querySelector("h1") && document.querySelector("h1").innerText.includes("${title}")`
+
+    debugLog(`waiting for ${checkTitleFn}`)
+    await frame.waitForFunction(checkTitleFn, {
+      timeout: 300000,
+    })
+    debugLog(`end waiting for ${checkTitleFn}`)
 
     clearTimeout(tooLongTimeout)
 
+    debugLog(`waiting for previewPage.close()`)
     await previewPage.close()
+    debugLog(`finished waiting for previewPage.close()`)
     return { success: true }
   } else {
     return { success: false }

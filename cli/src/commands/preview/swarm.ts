@@ -19,6 +19,7 @@ const command: GluegunCommand = {
       previewFrontendUrl,
       timeout,
       previewsEach,
+      debugMode,
     } = parameters.options
 
     print.info(
@@ -68,6 +69,7 @@ const command: GluegunCommand = {
       wpUrl,
       gatsbyPreviewFrontendUrl: previewFrontendUrl,
       gatsbyPreviewRefreshEndpoint: previewRefreshUrl,
+      debugMode,
     })
   },
 }

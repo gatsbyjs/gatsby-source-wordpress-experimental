@@ -11,6 +11,7 @@ test(`A Preview swarm returns 0 failures when testing with 1 user making 1 previ
     wpUrl: `http://localhost:8001`,
     gatsbyPreviewFrontendUrl: `http://172.17.0.1:8000,http://localhost:8000`,
     gatsbyPreviewRefreshEndpoint: `http://172.17.0.1:8000/__refresh`,
+    debugMode: true,
   }
 
   const result = await runPreviewSwarm(config)
