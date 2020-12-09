@@ -37,6 +37,7 @@ services:
         ACF_VERSION: 5.8.7
     ports:
       - "8001:8001"
+    network_mode: "host"
     environment:
       WORDPRESS_DB_PASSWORD: gtsb-wp-dckr-user
       WORDPRESS_DB_NAME: wordpress
