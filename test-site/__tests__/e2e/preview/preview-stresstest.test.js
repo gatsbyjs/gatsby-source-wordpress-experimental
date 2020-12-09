@@ -11,8 +11,8 @@ test(`A Preview swarm returns 0 failures when testing with 1 user making 1 previ
     users,
     previewTimeout: 300000,
     wpUrl: `http://localhost:8001`,
-    gatsbyPreviewFrontendUrl: `http://host.docker.internal:8000,http://localhost:8000`,
-    gatsbyPreviewRefreshEndpoint: `http://host.docker.internal:8000/__refresh`,
+    gatsbyPreviewFrontendUrl: `http://dockerhost:8000,http://localhost:8000`,
+    gatsbyPreviewRefreshEndpoint: `http://dockerhost:8000/__refresh`,
     debugMode: true,
   }
 
