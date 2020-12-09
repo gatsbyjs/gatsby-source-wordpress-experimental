@@ -14,6 +14,7 @@ test(`A Preview swarm returns 0 failures when testing with 1 user making 1 previ
     gatsbyPreviewFrontendUrl: `http://dockerhost:8000,http://localhost:8000`,
     gatsbyPreviewRefreshEndpoint: `http://dockerhost:8000/__refresh`,
     debugMode: true,
+    logInputs: true,
   }
 
   const result = await runPreviewSwarm(config)
