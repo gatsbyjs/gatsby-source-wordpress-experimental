@@ -1,3 +1,4 @@
+import { GatsbyHelpers } from "~/utils/gatsby-types"
 import path from "path"
 import fs from "fs-extra"
 import chalk from "chalk"
@@ -46,15 +47,73 @@ interface IPageNode {
  * It should only ever run in Preview mode, which is process.env.ENABLE_GATSBY_REFRESH_ENDPOINT = true
  */
 export const sourcePreviews = async (
-  {
-    webhookBody,
-    reporter,
-  }: {
-    webhookBody: IWebhookBody
-    // this comes from Gatsby
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    reporter: any
-  },
+  { webhookBody, reporter, cache }: GatsbyHelpers,
+  pluginOptions: IPluginOptions
+): Promise<void> => {
+  const previewCacheKey = `PREVIEW_CACHE_TIME`
+  // get the last timestamp the we sourced previews at
+  let lastPreviewTime = await cache.get(previewCacheKey)
+
+  if (!lastPreviewTime) {
+    lastPreviewTime = new Date(webhookBody.modified).getTime() / 1000
+  }
+
+  // check the modified time of the preview that was just sent.
+  // if we don't have a timestamp or the sent modified time is earlier than what we sourced, use the modified
+  // fetch action monitor actions since that timestamp and process them in a queue
+  const { data } = await fetchGraphql({
+    query: /* GraphQL */ `
+      query PREVIEW_ACTIONS($lastPreviewTime: Float) {
+        actionMonitorActions(
+          where: { status: PRIVATE, sinceTimestamp: $lastPreviewTime }
+        ) {
+          nodes {
+            previewData {
+              id
+              isDraft
+              isNewPostDraft
+              isRevision
+              modified
+              parentId
+              preview
+              previewId
+              remoteUrl
+              revisionsAreDisabled
+              singleName
+              token
+            }
+            modifiedGmt
+          }
+        }
+      }
+    `,
+    variables: {
+      lastPreviewTime,
+    },
+    headers: {
+      WPGatsbyPreview: webhookBody.token,
+    },
+  })
+
+  const newLastPreviewTime = data?.actionMonitorActions?.nodes[0]?.modifiedGmt
+  const newLastPreviewTimeUnix =
+    new Date(newLastPreviewTime).getTime() / 1000 + 1
+
+  await cache.set(previewCacheKey, newLastPreviewTimeUnix)
+
+  if (data?.actionMonitorActions?.nodes?.length) {
+    await Promise.all(
+      data?.actionMonitorActions?.nodes?.map(
+        ({ previewData }) =>
+          dd(previewData) &&
+          sourcePreview({ webhookBody: previewData, reporter }, pluginOptions)
+      )
+    )
+  }
+}
+
+export const sourcePreview = async (
+  { webhookBody, reporter }: GatsbyHelpers,
   { url }: IPluginOptions
 ): Promise<void> => {
   const requiredProperties = [
@@ -94,80 +153,11 @@ export const sourcePreviews = async (
 
   const { hostname: settingsHostname } = urlUtil.parse(url)
   const { hostname: remoteHostname } = urlUtil.parse(webhookBody.remoteUrl)
-  interface OnPreviewStatusInput {
-    status: PreviewStatusUnion
-    context?: string
-    nodeId?: string
-    passedNode?: {
-      modified?: string
-      databaseId: number
-    }
-    pageNode?: IPageNode
-    graphqlEndpoint?: string
-    error?: Error
-  }
 
-  const sendPreviewStatus = async ({
-    passedNode,
-    pageNode,
-    context,
-    status,
-    graphqlEndpoint,
-    error,
-  }: OnPreviewStatusInput): Promise<void> => {
-    if (status === `PREVIEW_SUCCESS`) {
-      // we might need to write a dummy page-data.json so that
-      // Gatsby doesn't throw 404 errors when WPGatsby tries to read this file
-      // that maybe doesn't exist yet
-      await writeDummyPageDataJsonIfNeeded({ webhookBody, pageNode })
-    }
-
-    const statusContext = error?.message
-      ? `${context}\n\n${error.message}`
-      : context
-
-    const { data } = await fetchGraphql({
-      url: graphqlEndpoint,
-      query: /* GraphQL */ `
-        mutation MUTATE_PREVIEW_NODE(
-          $input: WpGatsbyRemotePreviewStatusInput!
-        ) {
-          wpGatsbyRemotePreviewStatus(input: $input) {
-            success
-          }
-        }
-      `,
-      variables: {
-        input: {
-          clientMutationId: `sendPreviewStatus`,
-          modified: passedNode?.modified,
-          pagePath: pageNode?.path,
-          parentId: webhookBody.parentId || webhookBody.previewId, // if the parentId is 0 we want to use the previewId
-          status,
-          statusContext,
-        },
-      },
-      errorContext: `Error occured while mutating WordPress Preview node meta.`,
-      forceReportCriticalErrors: true,
-      headers: {
-        WPGatsbyPreview: webhookBody.token,
-      },
-    })
-
-    if (data?.wpGatsbyRemotePreviewStatus?.success) {
-      reporter.log(
-        formatLogMessage(
-          `Successfully sent Preview status back to WordPress post ${webhookBody.id} during ${context}`
-        )
-      )
-    } else {
-      reporter.log(
-        formatLogMessage(
-          `failed to mutate WordPress post ${webhookBody.id} during Preview ${context}.\nCheck your WP server logs for more information.`
-        )
-      )
-    }
-  }
+  const sendPreviewStatus = createPreviewStatusCallback({
+    webhookBody,
+    reporter,
+  })
 
   if (settingsHostname !== remoteHostname) {
     await sendPreviewStatus({
@@ -209,6 +199,88 @@ export const sourcePreviews = async (
     previewParentId: webhookBody.parentId,
     isPreview: true,
   })
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Reporter = any
+
+interface OnPreviewStatusInput {
+  status: PreviewStatusUnion
+  context?: string
+  nodeId?: string
+  passedNode?: {
+    modified?: string
+    databaseId: number
+  }
+  pageNode?: IPageNode
+  graphqlEndpoint?: string
+  error?: Error
+}
+
+const createPreviewStatusCallback = ({
+  webhookBody,
+  reporter,
+}: {
+  webhookBody: IWebhookBody
+  reporter: Reporter
+}) => async ({
+  passedNode,
+  pageNode,
+  context,
+  status,
+  graphqlEndpoint,
+  error,
+}: OnPreviewStatusInput): Promise<void> => {
+  if (status === `PREVIEW_SUCCESS`) {
+    // we might need to write a dummy page-data.json so that
+    // Gatsby doesn't throw 404 errors when WPGatsby tries to read this file
+    // that maybe doesn't exist yet
+    await writeDummyPageDataJsonIfNeeded({ webhookBody, pageNode })
+  }
+
+  const statusContext = error?.message
+    ? `${context}\n\n${error.message}`
+    : context
+
+  const { data } = await fetchGraphql({
+    url: graphqlEndpoint,
+    query: /* GraphQL */ `
+      mutation MUTATE_PREVIEW_NODE($input: WpGatsbyRemotePreviewStatusInput!) {
+        wpGatsbyRemotePreviewStatus(input: $input) {
+          success
+        }
+      }
+    `,
+    variables: {
+      input: {
+        clientMutationId: `sendPreviewStatus`,
+        modified: passedNode?.modified,
+        pagePath: pageNode?.path,
+        parentId: webhookBody.parentId || webhookBody.previewId, // if the parentId is 0 we want to use the previewId
+        status,
+        statusContext,
+      },
+    },
+    errorContext: `Error occured while mutating WordPress Preview node meta.`,
+    forceReportCriticalErrors: true,
+    headers: {
+      WPGatsbyPreview: webhookBody.token,
+    },
+  })
+
+  if (data?.wpGatsbyRemotePreviewStatus?.success) {
+    reporter.log(
+      formatLogMessage(
+        `Successfully sent Preview status back to WordPress post ${webhookBody.id} during ${context}`
+      )
+    )
+  } else {
+    reporter.log(
+      formatLogMessage(
+        `failed to mutate WordPress post ${webhookBody.id} during Preview ${context}.\nCheck your WP server logs for more information.`
+      )
+    )
+  }
 }
 
 /**
