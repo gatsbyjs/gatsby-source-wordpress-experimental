@@ -19,6 +19,7 @@ import fetchReferencedMediaItemsAndCreateNodes, {
 } from "../fetch-nodes/fetch-referenced-media-items"
 import btoa from "btoa"
 import store from "~/store"
+import { createRemoteMediaItemNode } from "./create-remote-media-item-node"
 
 const getNodeEditLink = (node) => {
   const { protocol, hostname } = url.parse(node.link)
@@ -245,20 +246,32 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
       // we need to fetch it and create a file node for it with no
       // media item node.
       try {
-        const htaccessCredentials = pluginOptions.auth.htaccess
-
-        imageNode = await createRemoteFileNode({
-          url: htmlImgSrc,
-          parentNodeId: node.id,
-          auth: htaccessCredentials
-            ? {
-                htaccess_pass: htaccessCredentials?.password,
-                htaccess_user: htaccessCredentials?.username,
-              }
-            : null,
-          ...helpers,
-          createNode: helpers.actions.createNode,
+        imageNode = await createRemoteMediaItemNode({
+          skipExistingNode: true,
+          mediaItemNode: {
+            id: node.id,
+            mediaItemUrl: htmlImgSrc,
+            modifiedGmt: null,
+            mimeType: null,
+            title: null,
+            fileSize: null,
+          },
         })
+
+        // const htaccessCredentials = pluginOptions.auth.htaccess
+
+        // imageNode = await createRemoteFileNode({
+        //   url: htmlImgSrc,
+        //   parentNodeId: node.id,
+        //   auth: htaccessCredentials
+        //     ? {
+        //         htaccess_pass: htaccessCredentials?.password,
+        //         htaccess_user: htaccessCredentials?.username,
+        //       }
+        //     : null,
+        //   ...helpers,
+        //   createNode: helpers.actions.createNode,
+        // })
       } catch (e) {
         const sharedError = `when trying to fetch\n${htmlImgSrc}\nfrom ${
           node.__typename

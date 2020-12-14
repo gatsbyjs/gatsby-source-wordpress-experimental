@@ -147,14 +147,17 @@ export const getFileNodeByMediaItemNode = async ({
 export const createRemoteMediaItemNode = async ({
   mediaItemNode,
   parentName,
+  skipExistingNode = false,
 }) => {
   const state = store.getState()
   const { helpers, pluginOptions } = state.gatsbyApi
 
-  const existingNode = await getFileNodeByMediaItemNode({
-    mediaItemNode,
-    helpers,
-  })
+  const existingNode = !skipExistingNode
+    ? await getFileNodeByMediaItemNode({
+        mediaItemNode,
+        helpers,
+      })
+    : null
 
   if (existingNode) {
     return existingNode
