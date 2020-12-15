@@ -22,19 +22,11 @@ services:
   wordpress:
     depends_on:
       - db
-      - docker-host
+    env_file:
+      - ./test-site/.env.test
+      - ./test-site/.env.plugins
     build:
       context: ./docker/wordpress
-      args:
-        # specify version updates here
-        # this is for plugins installed via git or tar
-        WPGRAPHQL_VERSION: v1.0
-        # WPGATSBY_VERSION: v0.7.1
-        # temporary (need this PR to be merged for tests to run)
-        WPGATSBY_VERSION: feat/wp-gatsby-cli-preview-swarm-changes
-        WPGRAPHQL_ACF_VERSION: v0.3.1
-        WPGRAPHQL_CPT_UI_VERSION: v1.1
-        ACF_VERSION: 5.8.7
     ports:
       - "8001:8001"
     environment:
@@ -56,6 +48,7 @@ services:
       CPT_UI_VERSION: 1.8.1
     env_file:
       - ./test-site/.env.test
+      - ./test-site/.env.plugins
     build:
       context: ./docker/wp-cli
     volumes:

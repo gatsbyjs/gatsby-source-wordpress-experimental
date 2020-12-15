@@ -1,0 +1,16 @@
+on: [repository_dispatch]
+jobs:
+  version:
+    name: Bump wpgatsby version
+    runs-on: ubuntu-16.04
+    steps:
+      - name: "Replace version in file"
+        run: sed -ir 's/^WPGATSBY_VERSION.*/WPGATSBY_VERSION=${{ github.event.inputs.version }}/' test-site/.env.plugins
+      - name: "Create WPGatsby Version Bump PR"
+        uses: technote-space/create-pr-action@v2
+        with:
+          COMMIT_MESSAGE: "chore: update to wpgatsby version ${{ github.event.inputs.version }}"
+          COMMIT_NAME: "GitHub Actions"
+          COMMIT_EMAIL: "example@example.com"
+          PR_BRANCH_NAME: "chore/update-wpgatsby-version-${{ github.event.inputs.version }}"
+          PR_TITLE: "chore: update to wpgatsby version ${{ github.event.inputs.version }}"
