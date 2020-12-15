@@ -1,14 +1,15 @@
 require(`dotenv`).config({
-  path: `.env.GATSBY_CONCURRENT_DOWNLOAD`,
-})
-
-require(`dotenv`).config({
   path: `.env.WORDPRESS_BASIC_AUTH`,
 })
 
 // require .env.development or .env.production
 require(`dotenv`).config({
   path: `.env.test`,
+})
+
+// require .env.plugin versions in case we need them here ever
+require(`dotenv`).config({
+  path: `.env.plugins`,
 })
 
 // this is it's own conditional object so we can run
