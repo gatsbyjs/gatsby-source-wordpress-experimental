@@ -573,7 +573,7 @@ interface IErrorMap {
 }
 
 interface IFetchGraphQLInput {
-  url: string
+  url?: string
   query: string
   errorContext?: string
   ignoreGraphQLErrors?: boolean

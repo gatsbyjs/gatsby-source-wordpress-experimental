@@ -58,7 +58,6 @@ const areRemotePluginVersionsSatisfied = async ({
 
   try {
     const { data } = await fetchGraphql({
-      url: wpGraphQLEndpoint,
       query: /* GraphQL */ `
         query WPGatsbyCompatibility(
           $wpgqlVersion: String!

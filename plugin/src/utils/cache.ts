@@ -343,7 +343,8 @@ export const restoreHardCachedNodes = async ({
       }
 
       // restore each node
-      helpers.actions.createNode(remoteNode)
+      // TODO: update gatsby types
+      await helpers.actions.createNode(remoteNode)
     })
   )
 

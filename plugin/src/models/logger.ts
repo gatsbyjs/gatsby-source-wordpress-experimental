@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-
 import { Reporter } from "gatsby"
 import { formatLogMessage } from "~/utils/format-log-message"
 import { IPluginOptions } from "./gatsby-api"
@@ -71,7 +68,7 @@ const logger = {
         count: 0,
         activity: reporter.activityTimer(
           formatLogMessage(typeName, {
-            useVerboseStyle: pluginOptions.verbose,
+            useVerboseStyle: pluginOptions.excludeFields,
           })
         ),
       }

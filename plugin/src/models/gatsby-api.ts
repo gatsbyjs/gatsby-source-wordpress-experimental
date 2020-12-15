@@ -87,7 +87,6 @@ export interface IPluginOptions {
     requestConcurrency?: number
   }
   excludeFieldNames?: []
-  excludeFields?: string[] // deprecated?
   html?: {
     useGatsbyImage?: boolean
     imageMaxWidth?: number
