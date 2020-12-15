@@ -30,7 +30,7 @@
     "build-cli": "cd cli && yarn build",
     "test-preview": "START_SERVER=true ENABLE_GATSBY_REFRESH_ENDPOINT=true jest ./test-site/__tests__/e2e/preview",
     "test-build": "yarn clean-test-runtime && DEFAULT_PLUGIN_OPTIONS=true jest ./test-site/__tests__/integration/build && jest ./test-site/__tests__/integration/build/plugin-options-schema",
-    "test": "yarn test-plugin && yarn build && yarn test-schema && yarn build-cli && yarn test-preview && yarn test-build && yarn clean-test-runtime",
+    "test": "yarn test-plugin && yarn build && yarn test-schema && yarn build-cli && yarn test-build && yarn clean-test-runtime",
     "test-schema-watch": "SHOW_GATSBY_PROCESS_STDOUT=true yarn test-schema-first --watch",
     "test-build-watch": "SHOW_GATSBY_PROCESS_STDOUT=true yarn test-build --watch",
     "test-update": "yarn test-schema-first -u && yarn test-schema-increment -u && yarn test-build -u",
