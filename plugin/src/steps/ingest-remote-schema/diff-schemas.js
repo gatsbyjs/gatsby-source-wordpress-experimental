@@ -107,7 +107,10 @@ Please consider addressing this issue by changing your WordPress settings or plu
     key: pluginOptionsMD5Key,
   })
 
-  const pluginOptionsMD5 = createContentDigest(pluginOptions)
+  const pluginOptionsMD5 = createContentDigest({
+    url: pluginOptions.url,
+    type: pluginOptions.type,
+  })
 
   const shouldClearHardCache =
     schemaWasChanged || lastPluginOptionsMD5 !== pluginOptionsMD5
