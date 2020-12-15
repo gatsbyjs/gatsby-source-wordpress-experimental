@@ -756,7 +756,7 @@ const replaceFileLinks = async ({
           helpers
         )
 
-        if (!relativeUrl || !mediaItemNode || !fileNode) {
+        if (!relativeUrl || !mediaItemNode?.mediaItemUrl || !fileNode) {
           return null
         }
 
