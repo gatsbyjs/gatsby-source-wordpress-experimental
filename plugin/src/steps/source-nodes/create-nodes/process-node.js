@@ -13,7 +13,7 @@ import { supportedExtensions } from "gatsby-transformer-sharp/supported-extensio
 import replaceAll from "replaceall"
 
 import { formatLogMessage } from "~/utils/format-log-message"
-import createRemoteFileNode from "./create-remote-file-node/index"
+
 import fetchReferencedMediaItemsAndCreateNodes, {
   stripImageSizesFromUrl,
 } from "../fetch-nodes/fetch-referenced-media-items"
@@ -257,21 +257,6 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
             fileSize: null,
           },
         })
-
-        // const htaccessCredentials = pluginOptions.auth.htaccess
-
-        // imageNode = await createRemoteFileNode({
-        //   url: htmlImgSrc,
-        //   parentNodeId: node.id,
-        //   auth: htaccessCredentials
-        //     ? {
-        //         htaccess_pass: htaccessCredentials?.password,
-        //         htaccess_user: htaccessCredentials?.username,
-        //       }
-        //     : null,
-        //   ...helpers,
-        //   createNode: helpers.actions.createNode,
-        // })
       } catch (e) {
         const sharedError = `when trying to fetch\n${htmlImgSrc}\nfrom ${
           node.__typename
