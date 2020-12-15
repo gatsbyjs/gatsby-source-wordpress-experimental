@@ -1,12 +1,12 @@
 # Change Log
 
-## Upcoming
+## 5.0.1
 
 ### Bug Fixes
 
 - Added an early return for when a MediaItem node has no mediaItemUrl in order to prevent errors when we later expect that this field exists. This can happen when the remote server returns a different type of node in place of a media item node or when the remote server has some corrupt data and this field is not returned.
 - When a MediaItem node could not be fetched while transforming images in html, we fetch the file directly and create a File node from it instead. These file nodes were not being cached as part of the hardCacheData api. They are now properly cached in this situation.
-- Changed the hueristic for when to clear the data hard cache from an md5 of the entire plugin options object to an md5 of the url option + the type options object. This means the hard cache will clear less frequently.
+- Changed the hueristic for when to clear the data hard cache. It was previously an md5 of the entire plugin options object and is now an md5 of the url option + the type options object. This means the hard cache will clear less frequently.
 
 ## 5.0.0
 
