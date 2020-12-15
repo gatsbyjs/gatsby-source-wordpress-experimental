@@ -11,7 +11,6 @@ type NodeFilterFn = (INodeFilterInput) => JSON
 
 interface INodeFilter {
   name: string
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   filter: NodeFilterFn
   priority: number
 }

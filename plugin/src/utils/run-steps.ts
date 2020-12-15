@@ -1,13 +1,15 @@
-import { GatsbyNodeApiHelpers } from "./gatsby-types"
+import { GatsbyNodeApiHelpers, GatsbyReporter } from "./gatsby-types"
 import { IPluginOptions } from "~/models/gatsby-api"
 import { formatLogMessage } from "~/utils/format-log-message"
 import { invokeAndCleanupLeftoverPreviewCallbacks } from "../steps/preview/cleanup"
 import { CODES } from "./report"
 
-type Step = (
+export type Step = (
   helpers: GatsbyNodeApiHelpers,
   pluginOptions: IPluginOptions
 ) => Promise<void>
+
+export type ActivityTimer = ReturnType<GatsbyReporter["activityTimer"]>
 
 const runSteps = async (
   steps: Step[],
@@ -24,7 +26,7 @@ const runSteps = async (
           : timeBuildSteps?.includes(step.name) ||
             timeBuildSteps?.includes(apiName)
 
-      let activity
+      let activity: ActivityTimer
 
       if (timeStep) {
         activity = helpers.reporter.activityTimer(

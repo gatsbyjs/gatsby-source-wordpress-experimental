@@ -68,7 +68,7 @@ export const ERROR_MAP: IErrorMap = {
     category: `SYSTEM`,
   },
   [CODES.WordPress500ishError]: {
-    text: (context: IErrorContext): string => context.sourceMessage,
+    text: getErrorText,
     level: `ERROR`,
     category: `THIRD_PARTY`,
   },

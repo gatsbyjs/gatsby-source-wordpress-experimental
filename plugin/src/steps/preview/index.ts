@@ -17,7 +17,7 @@ export const inPreviewMode = (): boolean =>
   !!process.env.ENABLE_GATSBY_REFRESH_ENDPOINT &&
   !!store.getState().previewStore.inPreviewMode
 
-type PreviewStatusUnion =
+export type PreviewStatusUnion =
   | `PREVIEW_SUCCESS`
   | `NO_PAGE_CREATED_FOR_PREVIEWED_NODE`
   | `GATSBY_PREVIEW_PROCESS_ERROR`

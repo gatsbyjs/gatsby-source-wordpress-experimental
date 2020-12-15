@@ -70,7 +70,7 @@
       "eslint",
       "prettier --write"
     ],
-    "*.{json,yml}": [
+    "*.{json,md,yml}": [
       "prettier --write"
     ]
   }
