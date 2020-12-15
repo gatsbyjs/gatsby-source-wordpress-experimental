@@ -21,8 +21,7 @@ const runSteps = async (
       const timeStep =
         typeof timeBuildSteps === `boolean`
           ? timeBuildSteps
-          : // TODO: type for array option? or deprecated setting?
-            timeBuildSteps?.includes(step.name) ||
+          : timeBuildSteps?.includes(step.name) ||
             timeBuildSteps?.includes(apiName)
 
       let activity

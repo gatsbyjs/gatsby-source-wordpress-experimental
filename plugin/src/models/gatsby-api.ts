@@ -61,7 +61,7 @@ export interface IPluginOptions {
       writeQueriesToDisk?: boolean
       copyHtmlResponseOnError?: boolean
     }
-    timeBuildSteps?: boolean
+    timeBuildSteps?: string[] | boolean
     disableCompatibilityCheck?: boolean
   }
   develop?: {
