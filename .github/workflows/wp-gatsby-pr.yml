@@ -13,5 +13,5 @@ jobs:
           COMMIT_MESSAGE: "ci: test with wpgatsby PR ${{ github.event.inputs.remoteref }}"
           COMMIT_NAME: "GitHub Actions"
           COMMIT_EMAIL: "example@example.com"
-          PR_BRANCH_NAME: "chore/test-wp-gatsby-${{ github.inputs.remoteref }}"
+          PR_BRANCH_NAME: "chore/test-wp-gatsby-${{ github.event.inputs.remoteref }}"
           PR_TITLE: "ci: test with wpgatsby branch ${{ github.event.inputs.remoteref }}"
