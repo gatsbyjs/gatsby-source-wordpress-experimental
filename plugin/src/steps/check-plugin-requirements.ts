@@ -217,9 +217,8 @@ ${firstError.debugMessage || firstError.message}
     })
     .catch((e) => {})
 
-const isWpGatsby = async ({ url }: { url: string }) =>
+const isWpGatsby = async () =>
   fetchGraphql({
-    url,
     query: /* GraphQL */ `
       {
         isWpGatsby
@@ -236,14 +235,11 @@ const isWpGatsby = async ({ url }: { url: string }) =>
 
 const prettyPermalinksAreEnabled = async ({
   helpers,
-  url,
 }: {
   helpers: NodePluginArgs
-  url: string
 }) => {
   try {
     const { data } = await fetchGraphql({
-      url,
       query: /* GraphQL */ `
         {
           generalSettings {
@@ -309,10 +305,10 @@ const ensurePluginRequirementsAreMet = async (
   }
 
   await blankGetRequest({ url, helpers })
-  await isWpGatsby({ url })
+  await isWpGatsby()
 
   await Promise.all([
-    prettyPermalinksAreEnabled({ helpers, url }),
+    prettyPermalinksAreEnabled({ helpers }),
     areRemotePluginVersionsSatisfied({
       helpers,
       url,
