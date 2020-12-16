@@ -68,7 +68,7 @@ const logger = {
         count: 0,
         activity: reporter.activityTimer(
           formatLogMessage(typeName, {
-            useVerboseStyle: pluginOptions.excludeFields,
+            useVerboseStyle: pluginOptions.verbose,
           })
         ),
       }

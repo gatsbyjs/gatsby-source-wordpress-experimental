@@ -4,7 +4,7 @@ import fsStore from "cache-manager-fs-hash"
 import path from "path"
 import rimraf from "rimraf"
 
-import { default as pluginStore } from "~/store"
+import store from "~/store"
 import { getGatsbyApi } from "~/utils/get-gatsby-api"
 
 import fetchGraphql from "~/utils/fetch-graphql"
@@ -15,7 +15,7 @@ import {
 } from "~/steps/create-schema-customization/helpers"
 
 import { createMediaItemNode } from "~/steps/source-nodes/fetch-nodes/fetch-referenced-media-items"
-import { GatsbyNode, Node } from "gatsby"
+import { Node } from "gatsby"
 
 const MAX_CACHE_SIZE = 250
 const TTL = Number.MAX_SAFE_INTEGER
@@ -121,7 +121,7 @@ export const shouldHardCacheData = () => {
     pluginOptions: {
       develop: { hardCacheData },
     },
-  } = pluginStore.getState().gatsbyApi
+  } = store.getState().gatsbyApi
 
   return hardCacheData
 }
@@ -334,7 +334,7 @@ export const restoreHardCachedNodes = async ({
             typeSettings,
             buildTypeName,
             type: node.type,
-            wpStore: pluginStore,
+            wpStore: store,
           })) || {}
 
         if (receivedRemoteNode) {
@@ -349,19 +349,19 @@ export const restoreHardCachedNodes = async ({
   )
 
   Object.entries(loggerTypeCounts).forEach(([typeName, count]) => {
-    pluginStore.dispatch.logger.createActivityTimer({
+    store.dispatch.logger.createActivityTimer({
       typeName,
       pluginOptions,
       reporter,
     })
 
-    pluginStore.dispatch.logger.incrementActivityTimer({
+    store.dispatch.logger.incrementActivityTimer({
       typeName,
       by: count,
       action: `restored`,
     })
 
-    pluginStore.dispatch.logger.stopActivityTimer({
+    store.dispatch.logger.stopActivityTimer({
       typeName,
       action: `restored`,
     })
