@@ -13,7 +13,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: "Replace version in file"
-        run: sed -ir 's/^WPGATSBY_VERSION.*/WPGATSBY_VERSION=${{ github.event.inputs.remoteref }}/' test-site/.env.plugins
+        # printf to escape slashes in strings
+        run: sed -ir 's/^WPGATSBY_VERSION.*/WPGATSBY_VERSION=$(printf "%q" "${{ github.event.inputs.remoteref }}")/' test-site/.env.plugins
       - name: "Create WPGatsby PR"
         uses: technote-space/create-pr-action@v2
         with:
