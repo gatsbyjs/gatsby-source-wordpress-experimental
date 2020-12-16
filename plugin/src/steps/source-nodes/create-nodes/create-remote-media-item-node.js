@@ -187,11 +187,21 @@ export const createRemoteMediaItemNode = async ({
 
   // if this file is larger than maxFileSizeBytes, don't fetch the remote file
   if (fileSize > maxFileSizeBytes) {
+    const fileSizeInMB = fileSize / 1024 / 1024
+    const maxFileSizeMB = maxFileSizeBytes / 1024 / 1024
+    reporter.info(
+      `not downloading ${mediaItemUrl} as its too large ${fileSizeInMB.toFixed(
+        1
+      )}MB > ${maxFileSizeMB.toFixed(1)}MB`
+    )
     return null
   }
 
   // if this type of file is excluded, don't fetch the remote file
   if (excludeByMimeTypes.includes(mimeType)) {
+    reporter.verbose(
+      `not downloading ${mediaItemUrl} as has the wrong mime type ${mimeType}`
+    )
     return null
   }
 
