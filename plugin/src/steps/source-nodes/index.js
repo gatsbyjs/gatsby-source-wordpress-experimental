@@ -11,10 +11,16 @@ import { sourcePreviews } from "~/steps/preview"
 const sourceNodes = async (helpers, pluginOptions) => {
   const { cache, webhookBody } = helpers
 
+  // if this is a preview we want to process it and return early
   if (webhookBody.preview) {
     await sourcePreviews(helpers, pluginOptions)
 
     return
+  }
+  // if it's not a preview but we have a token
+  // we should check for pending previews then continue sourcing
+  else if (webhookBody.token && webhookBody.userId) {
+    await sourcePreviews(helpers, pluginOptions)
   }
 
   // fetch non-node root fields such as settings.
