@@ -14,7 +14,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: "Create WPGatsby PR"
         uses: technote-space/create-pr-action@v2
-        with: 
+        with:
           EXECUTE_COMMANDS: |
             sed -i 's|^WPGATSBY_VERSION.*|WPGATSBY_VERSION=${{ github.event.inputs.remoteref }}|g' test-site/.env.plugins
           COMMIT_MESSAGE: "ci: test with wpgatsby PR ${{ github.event.inputs.remoteref }}"
