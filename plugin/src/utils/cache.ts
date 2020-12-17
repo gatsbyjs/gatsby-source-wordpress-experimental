@@ -15,7 +15,7 @@ import {
 } from "~/steps/create-schema-customization/helpers"
 
 import { createMediaItemNode } from "~/steps/source-nodes/fetch-nodes/fetch-referenced-media-items"
-import { Node } from "gatsby"
+import type { Node } from "gatsby"
 
 const MAX_CACHE_SIZE = 250
 const TTL = Number.MAX_SAFE_INTEGER
@@ -299,11 +299,7 @@ export const restoreHardCachedNodes = async ({
       node.internal = {
         contentDigest: node.internal.contentDigest,
         type: node.internal.type,
-        owner: node.internal.owner,
-      }
-
-      // const createdNodeIds = []
-      // const referencedMediaItemNodeIds = new Set()
+      } as Node["internal"]
 
       const typeSettingsCache = {}
 
