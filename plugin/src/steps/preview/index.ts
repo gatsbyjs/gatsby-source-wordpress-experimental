@@ -89,7 +89,11 @@ export const sourcePreviews = async (
     query: /* GraphQL */ `
       query PREVIEW_ACTIONS {
         actionMonitorActions(
-          where: { status: PRIVATE, orderby: { field: MODIFIED, order: DESC } }
+          where: {
+            previewStream: true
+            status: PRIVATE
+            orderby: { field: MODIFIED, order: DESC }
+          }
           first: 100
         ) {
           nodes {
