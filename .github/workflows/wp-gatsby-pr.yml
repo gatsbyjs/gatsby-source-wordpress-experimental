@@ -12,15 +12,11 @@ jobs:
     runs-on: ubuntu-16.04
     steps:
       - uses: actions/checkout@v2
-      - name: "Replace version in file"
-        # printf to escape slashes in the branch name
-        run: sed -i 's|^WPGATSBY_VERSION.*|WPGATSBY_VERSION=${{ github.event.inputs.remoteref }}|g' test-site/.env.plugins
-      - run: cat test-site/.env.plugins
-      - run: git add test-site/.env.plugins
-      - run: git status
       - name: "Create WPGatsby PR"
         uses: technote-space/create-pr-action@v2
-        with:
+        with: 
+          EXECUTE_COMMANDS: |
+            sed -i 's|^WPGATSBY_VERSION.*|WPGATSBY_VERSION=${{ github.event.inputs.remoteref }}|g' test-site/.env.plugins
           COMMIT_MESSAGE: "ci: test with wpgatsby PR ${{ github.event.inputs.remoteref }}"
           COMMIT_NAME: "GitHub Actions"
           COMMIT_EMAIL: "example@example.com"
