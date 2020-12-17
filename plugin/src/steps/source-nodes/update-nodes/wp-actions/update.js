@@ -54,7 +54,7 @@ export const fetchAndCreateSingleNode = async ({
   previewParentId = null,
   token = null,
   isPreview = false,
-  author = null,
+  userId = null,
 }) => {
   function getNodeQuery() {
     const { nodeQuery, previewQuery } =
@@ -85,13 +85,13 @@ export const fetchAndCreateSingleNode = async ({
   }
 
   const headers =
-    token && author?.node?.databaseId
+    token && userId
       ? {
           // don't change this header..
           // underscores and the word auth are being
           // stripped on the php side for some reason
           WPGatsbyPreview: token,
-          WPGatsbyPreviewUser: author.node.databaseId,
+          WPGatsbyPreviewUser: userId,
         }
       : {}
 
@@ -106,23 +106,12 @@ export const fetchAndCreateSingleNode = async ({
 
   const remoteNode = data[singleName]
 
-  if (remoteNode?.title === `Auto Draft` && isNewPostDraft) {
-    // for UX reasons we don't want to display Auto Draft as a title
-    // in the preview window for new draft posts
-    remoteNode.title = ``
-  }
-
-  // if we ask for a node that doesn't exist
-  // and this isn't the initial blank node sent over when a new post
-  // is created in a preview instance
-  if (!data || (data && remoteNode === null && !isNewPostDraft)) {
-    reporter.log(``)
+  if (!data || !remoteNode) {
     reporter.warn(
       formatLogMessage(
         `${id} ${singleName} was updated, but no data was returned for this node.`
       )
     )
-    reporter.log(``)
 
     return { node: null }
   }

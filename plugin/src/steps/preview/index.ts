@@ -29,11 +29,7 @@ type PreviewStatusUnion =
 interface IWebhookBody {
   preview: boolean
   previewId: number
-  author: {
-    node: {
-      databaseId: number
-    }
-  }
+  userId: number
   token: string
   remoteUrl: string
   modified: string
@@ -110,11 +106,7 @@ export const sourcePreviews = async (
               remoteUrl
               revisionsAreDisabled
               singleName
-            }
-            author {
-              node {
-                databaseId
-              }
+              userId
             }
             modifiedGmt
             modified
@@ -135,11 +127,11 @@ export const sourcePreviews = async (
 
   const queue = getPreviewQueue()
 
-  previewActions?.forEach(({ previewData, author }) => {
+  previewActions?.forEach(({ previewData }) => {
     queue.add(() =>
       sourcePreview(
         {
-          webhookBody: { ...previewData, author, token: webhookBody.token },
+          webhookBody: { ...previewData, token: webhookBody.token },
           reporter,
         },
         pluginOptions
@@ -166,7 +158,7 @@ export const sourcePreview = async (
     `remoteUrl`,
     `parentId`,
     `modified`,
-    `author`,
+    `userId`,
   ]
 
   const missingProperties = requiredProperties.filter(
@@ -308,7 +300,7 @@ const createPreviewStatusCallback = ({
     forceReportCriticalErrors: true,
     headers: {
       WPGatsbyPreview: webhookBody.token,
-      WPGatsbyPreviewUser: webhookBody.author.node.databaseId,
+      WPGatsbyPreviewUser: webhookBody.userId,
     },
   })
 
