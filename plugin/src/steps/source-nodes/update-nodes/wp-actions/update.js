@@ -54,6 +54,7 @@ export const fetchAndCreateSingleNode = async ({
   previewParentId = null,
   token = null,
   isPreview = false,
+  author = null,
 }) => {
   function getNodeQuery() {
     const { nodeQuery, previewQuery } =
@@ -75,9 +76,6 @@ export const fetchAndCreateSingleNode = async ({
   const { reporter } = helpers
 
   if (!query) {
-    // try fetching the query before failing
-    // this post type may have been added to WP while Gatsby was already running
-    reporter.log(``)
     reporter.info(
       formatLogMessage(
         `A ${singleName} was updated, but no query was found for this node type. This node type is either excluded in plugin options or this is a bug.`
@@ -86,14 +84,16 @@ export const fetchAndCreateSingleNode = async ({
     return { node: null }
   }
 
-  const headers = token
-    ? {
-        // don't change this header..
-        // underscores and the word auth are being
-        // stripped on the php side for some reason
-        WPGatsbyPreview: token,
-      }
-    : {}
+  const headers =
+    token && author?.node?.databaseId
+      ? {
+          // don't change this header..
+          // underscores and the word auth are being
+          // stripped on the php side for some reason
+          WPGatsbyPreview: token,
+          WPGatsbyPreviewUser: author.node.databaseId,
+        }
+      : {}
 
   const { data } = await fetchGraphql({
     headers,

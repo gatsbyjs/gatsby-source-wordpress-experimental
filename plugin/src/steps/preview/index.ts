@@ -29,6 +29,11 @@ type PreviewStatusUnion =
 interface IWebhookBody {
   preview: boolean
   previewId: number
+  author: {
+    node: {
+      databaseId: number
+    }
+  }
   token: string
   remoteUrl: string
   modified: string
@@ -79,6 +84,7 @@ export const sourcePreviews = async (
     nodeTypeName: `ActionMonitor`,
     headers: {
       WPGatsbyPreview: webhookBody.token,
+      WPGatsbyPreviewUser: webhookBody.userId,
     },
     query: /* GraphQL */ `
       query PREVIEW_ACTIONS {
@@ -100,7 +106,11 @@ export const sourcePreviews = async (
               remoteUrl
               revisionsAreDisabled
               singleName
-              token
+            }
+            author {
+              node {
+                databaseId
+              }
             }
             modifiedGmt
             modified
@@ -121,9 +131,15 @@ export const sourcePreviews = async (
 
   const queue = getPreviewQueue()
 
-  previewActions?.forEach(({ previewData }) => {
+  previewActions?.forEach(({ previewData, author }) => {
     queue.add(() =>
-      sourcePreview({ webhookBody: previewData, reporter }, pluginOptions)
+      sourcePreview(
+        {
+          webhookBody: { ...previewData, author, token: webhookBody.token },
+          reporter,
+        },
+        pluginOptions
+      )
     )
   })
 
@@ -146,6 +162,7 @@ export const sourcePreview = async (
     `remoteUrl`,
     `parentId`,
     `modified`,
+    `author`,
   ]
 
   const missingProperties = requiredProperties.filter(
@@ -155,7 +172,7 @@ export const sourcePreview = async (
   if (!webhookBody || missingProperties.length) {
     reporter.warn(
       formatLogMessage(
-        `sourcePreviews was called but the required webhookBody properties weren't provided.`
+        `sourcePreview was called but the required webhookBody properties weren't provided.`
       )
     )
     reporter.info(
@@ -287,6 +304,7 @@ const createPreviewStatusCallback = ({
     forceReportCriticalErrors: true,
     headers: {
       WPGatsbyPreview: webhookBody.token,
+      WPGatsbyPreviewUser: webhookBody.author.node.databaseId,
     },
   })
 
