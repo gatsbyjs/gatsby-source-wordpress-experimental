@@ -26,6 +26,7 @@ const paginatedWpNodeFetch = async ({
   allContentNodes = [],
   after = null,
   settings = {},
+  headers = {},
   ...variables
 }) => {
   if (
@@ -65,6 +66,7 @@ const paginatedWpNodeFetch = async ({
       after,
     },
     errorContext,
+    headers,
   })
 
   const { data } = response
@@ -110,6 +112,7 @@ const paginatedWpNodeFetch = async ({
       helpers,
       settings,
       after: endCursor,
+      headers,
     })
   } else {
     return allContentNodes

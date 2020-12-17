@@ -83,6 +83,10 @@ export const onCreatePageRespondToPreviewStatusQuery = async (
     return
   }
 
+  store.dispatch.previewStore.unSubscribeToPagesCreatedFromNodeById({
+    nodeId: nodeIdThatCreatedThisPage,
+  })
+
   const nodeThatCreatedThisPage = getNode(nodeIdThatCreatedThisPage)
 
   if (!nodeThatCreatedThisPage) {
@@ -111,9 +115,5 @@ export const onCreatePageRespondToPreviewStatusQuery = async (
     pageNode: page,
     context: `onCreatePage Preview callback invocation`,
     status: `PREVIEW_SUCCESS`,
-  })
-
-  store.dispatch.previewStore.unSubscribeToPagesCreatedFromNodeById({
-    nodeId: nodeIdThatCreatedThisPage,
   })
 }

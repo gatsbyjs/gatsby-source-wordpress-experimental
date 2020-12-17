@@ -256,6 +256,10 @@ const handleFetchErrors = async ({
     })
   }
   if (e.message.includes(`Request failed with status code 50`)) {
+    const {
+      requestConcurrency,
+      previewRequestConcurrency,
+    } = store.getState().gatsbyApi.pluginOptions
     console.error(e)
     reporter.panic({
       id: CODES.WordPress500ishError,
@@ -263,23 +267,24 @@ const handleFetchErrors = async ({
         sourceMessage: formatLogMessage(
           [
             `Your wordpress server at ${bold(url)} appears to be overloaded.`,
-            `\nYou might try reducing the ${bold(
+            `\nTry reducing the ${bold(
               `requestConcurrency`
-            )} for content:`,
+            )} for content updates or the ${bold(
+              `previewRequestConcurrency`
+            )} for previews:`,
             `\n{
   resolve: 'gatsby-source-wordpress-experimental',
   options: {
     schema: {
-      requestConcurrency: 25
+      requestConcurrency: 5, // currently set to ${requestConcurrency}
+      previewRequestConcurrency: 2, // currently set to ${previewRequestConcurrency}
     }
   },
 }`,
-            `\nnote that ${bold(
+            `\nThe ${bold(
               `GATSBY_CONCURRENT_REQUEST`
-            )} environment variable has been retired for this option and ${bold(
-              `schema.requestConcurrency`
-            )}`,
-          ],
+            )} environment variable is no longer used to control concurrency.\nIf you were previously using that, you'll need to use the settings above instead.`,
+          ].join(`\n`),
           { useVerboseStyle: true }
         ),
       },

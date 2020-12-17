@@ -22,6 +22,7 @@
     - [schema.timeout: Int](#schematimeout-int)
     - [schema.perPage: Int](#schemaperpage-int)
     - [schema.requestConcurrency: Int](#schemarequestconcurrency-int)
+    - [schema.previewRequestConcurrency: Int](#schemapreviewrequestconcurrency-int)
   - [excludeFieldNames: Array](#excludefieldnames-array)
   - [html: Object](#html-object)
     - [html.useGatsbyImage: Boolean](#htmlusegatsbyimage-boolean)
@@ -387,6 +388,23 @@ Default is `15`.
   options: {
     schema: {
       requestConcurrency: 50,
+    },
+  },
+},
+```
+
+### schema.previewRequestConcurrency: Int
+
+The GraphQL request concurrency limit when sourcing preview data from WPGraphQL.
+
+Default is `10`.
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+  options: {
+    schema: {
+      previewRequestConcurrency: 50,
     },
   },
 },

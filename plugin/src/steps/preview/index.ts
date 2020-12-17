@@ -3,6 +3,9 @@ import path from "path"
 import fs from "fs-extra"
 import chalk from "chalk"
 import urlUtil from "url"
+import PQueue from "p-queue"
+
+import { paginatedWpNodeFetch } from "~/steps/source-nodes/fetch-nodes/fetch-nodes-paginated"
 import fetchGraphql from "~/utils/fetch-graphql"
 
 import store from "~/store"
@@ -42,30 +45,46 @@ interface IPageNode {
   path: string
 }
 
+let previewQueue: PQueue
+
+const getPreviewQueue = (): PQueue => {
+  if (!previewQueue) {
+    const {
+      previewRequestConcurrency,
+    } = store.getState().gatsbyApi.pluginOptions.schema
+
+    previewQueue = new PQueue({
+      concurrency: previewRequestConcurrency,
+      carryoverConcurrencyCount: true,
+    })
+  }
+
+  return previewQueue
+}
+
 /**
  * This is called when the /__refresh endpoint is posted to from WP previews.
  * It should only ever run in Preview mode, which is process.env.ENABLE_GATSBY_REFRESH_ENDPOINT = true
  */
 export const sourcePreviews = async (
-  { webhookBody, reporter, cache }: GatsbyHelpers,
+  { webhookBody, reporter }: GatsbyHelpers,
   pluginOptions: IPluginOptions
 ): Promise<void> => {
-  const previewCacheKey = `PREVIEW_CACHE_TIME`
-  // get the last timestamp the we sourced previews at
-  let lastPreviewTime = await cache.get(previewCacheKey)
-
-  if (!lastPreviewTime) {
-    lastPreviewTime = new Date(webhookBody.modified).getTime() / 1000
+  if (previewForIdIsAlreadyBeingProcessed(webhookBody?.id)) {
+    return
   }
 
-  // check the modified time of the preview that was just sent.
-  // if we don't have a timestamp or the sent modified time is earlier than what we sourced, use the modified
-  // fetch action monitor actions since that timestamp and process them in a queue
-  const { data } = await fetchGraphql({
+  const previewActions = await paginatedWpNodeFetch({
+    contentTypePlural: `actionMonitorActions`,
+    nodeTypeName: `ActionMonitor`,
+    headers: {
+      WPGatsbyPreview: webhookBody.token,
+    },
     query: /* GraphQL */ `
-      query PREVIEW_ACTIONS($lastPreviewTime: Float) {
+      query PREVIEW_ACTIONS {
         actionMonitorActions(
-          where: { status: PRIVATE, sinceTimestamp: $lastPreviewTime }
+          where: { status: PRIVATE, orderby: { field: MODIFIED, order: DESC } }
+          first: 100
         ) {
           nodes {
             previewData {
@@ -74,6 +93,7 @@ export const sourcePreviews = async (
               isNewPostDraft
               isRevision
               modified
+              modifiedGmt
               parentId
               preview
               previewId
@@ -83,39 +103,41 @@ export const sourcePreviews = async (
               token
             }
             modifiedGmt
+            modified
+            title
+          }
+          pageInfo {
+            hasNextPage
+            endCursor
           }
         }
       }
     `,
-    variables: {
-      lastPreviewTime,
-    },
-    headers: {
-      WPGatsbyPreview: webhookBody.token,
-    },
   })
 
-  const newLastPreviewTime = data?.actionMonitorActions?.nodes[0]?.modifiedGmt
-  const newLastPreviewTimeUnix =
-    new Date(newLastPreviewTime).getTime() / 1000 + 1
-
-  await cache.set(previewCacheKey, newLastPreviewTimeUnix)
-
-  if (data?.actionMonitorActions?.nodes?.length) {
-    await Promise.all(
-      data?.actionMonitorActions?.nodes?.map(
-        ({ previewData }) =>
-          dd(previewData) &&
-          sourcePreview({ webhookBody: previewData, reporter }, pluginOptions)
-      )
-    )
+  if (!previewActions?.length) {
+    return
   }
+
+  const queue = getPreviewQueue()
+
+  previewActions?.forEach(({ previewData }) => {
+    queue.add(() =>
+      sourcePreview({ webhookBody: previewData, reporter }, pluginOptions)
+    )
+  })
+
+  await Promise.all([queue.onEmpty(), queue.onIdle()])
 }
 
 export const sourcePreview = async (
   { webhookBody, reporter }: GatsbyHelpers,
   { url }: IPluginOptions
 ): Promise<void> => {
+  if (previewForIdIsAlreadyBeingProcessed(webhookBody?.id)) {
+    return
+  }
+
   const requiredProperties = [
     `preview`,
     `previewId`,
@@ -319,4 +341,17 @@ const writeDummyPageDataJsonIfNeeded = async ({
       isDraft: webhookBody.isDraft,
     })
   }
+}
+
+const previewForIdIsAlreadyBeingProcessed = (id: string): boolean => {
+  if (!id) {
+    return false
+  }
+
+  const existingCallbacks = store.getState().previewStore
+    .nodePageCreatedCallbacks
+
+  const alreadyProcessingThisPreview = !!existingCallbacks?.[id]
+
+  return alreadyProcessingThisPreview
 }
