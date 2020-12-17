@@ -1,5 +1,5 @@
 name: Create PR for new WPGatsby PR
-on: 
+on:
   workflow_dispatch:
     inputs:
       remoteref:
@@ -13,8 +13,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: "Replace version in file"
-        # printf to escape slashes in strings
-        run: V=$(printf "%q" "${{ github.event.inputs.remoteref }}") sed -ir 's/^WPGATSBY_VERSION.*/WPGATSBY_VERSION=${V}/' test-site/.env.plugins
+        # printf to escape slashes in the branch name
+        run: sed -i "s|^WPGATSBY_VERSION.*|WPGATSBY_VERSION=${{ github.event.inputs.remoteref }}|"' test-site/.env.plugins
       - name: "Create WPGatsby PR"
         uses: technote-space/create-pr-action@v2
         with:
@@ -22,4 +22,4 @@ jobs:
           COMMIT_NAME: "GitHub Actions"
           COMMIT_EMAIL: "example@example.com"
           PR_BRANCH_NAME: "chore/test-wp-gatsby-${{ github.event.inputs.remoteref }}"
-          PR_TITLE: "ci: test with wpgatsby branch ${{ github.event.inputs.remoteref }}"
+          PR_TITLE: "ci: test with wpgatsby/${{ github.event.inputs.remoteref }}"
