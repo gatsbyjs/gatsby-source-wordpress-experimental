@@ -5,7 +5,6 @@ import chalk from "chalk"
 import { getQueryInfoBySingleFieldName } from "../../helpers"
 import { getGatsbyApi } from "~/utils/get-gatsby-api"
 import { CREATED_NODE_IDS } from "~/constants"
-// import { findConnectedNodeIds } from "~/steps/source-nodes/create-nodes/create-nodes"
 
 import { atob } from "atob"
 
@@ -16,42 +15,12 @@ import {
 import { processNode } from "~/steps/source-nodes/create-nodes/process-node"
 import { getPersistentCache, setPersistentCache } from "~/utils/cache"
 
-const getDbIdFromRelayId = (relayId) => atob(relayId).split(`:`).reverse()[0]
-
-const normalizeUri = ({ uri, id, singleName }) => {
-  // remove the preview query params as they're not relevant in Gatsby
-  uri = uri?.replace(`preview=true`, ``)
-
-  // if removing the preview string leaves us with either of these
-  // characters at the end, trim em off!
-  if (uri?.endsWith(`?`) || uri?.endsWith(`&`)) {
-    uri = uri.slice(0, -1)
-  }
-
-  // if this is a draft url which could look like
-  // this /?p=543534 or /?page=4324 or /?something=yep&page=543543 or /?p=4534&what=yes
-  // we will create a proper path that Gatsby can handle
-  // /post_graphql_name/post_db_id/
-  // this same logic is on the WP side in the preview template
-  // to account for this situation.
-  if (uri?.startsWith(`/?`)) {
-    const dbId = getDbIdFromRelayId(id)
-
-    return `/generated-preview-path/${singleName}/${dbId}/`
-  }
-
-  return uri
-}
-
 export const fetchAndCreateSingleNode = async ({
   singleName,
   id,
   actionType,
   cachedNodeIds,
-  isNewPostDraft,
   isDraft,
-  previewId = null,
-  previewParentId = null,
   token = null,
   isPreview = false,
   userId = null,
@@ -71,9 +40,9 @@ export const fetchAndCreateSingleNode = async ({
 
   const query = getNodeQuery()
 
-  const { helpers } = getGatsbyApi()
-
-  const { reporter } = helpers
+  const {
+    helpers: { reporter },
+  } = getGatsbyApi()
 
   if (!query) {
     reporter.info(
@@ -87,9 +56,6 @@ export const fetchAndCreateSingleNode = async ({
   const headers =
     token && userId
       ? {
-          // don't change this header..
-          // underscores and the word auth are being
-          // stripped on the php side for some reason
           WPGatsbyPreview: token,
           WPGatsbyPreviewUser: userId,
         }
@@ -101,7 +67,7 @@ export const fetchAndCreateSingleNode = async ({
     variables: {
       id,
     },
-    errorContext: `Error occured while updating a single "${singleName}" node.`,
+    errorContext: `Error occurred while updating a single "${singleName}" node.`,
   })
 
   const remoteNode = data[singleName]
@@ -122,13 +88,8 @@ export const fetchAndCreateSingleNode = async ({
     id,
   })
 
-  if (previewParentId) {
-    remoteNode.databaseId = previewParentId
-  }
-
   data[singleName] = remoteNode
 
-  // returns an object
   const { additionalNodeIds, node } = await createSingleNode({
     singleName,
     id,
@@ -137,15 +98,11 @@ export const fetchAndCreateSingleNode = async ({
     cachedNodeIds,
   })
 
-  if (previewId) {
-    reporter.info(
-      formatLogMessage(
-        `Preview for ${singleName} ${node.id} ${previewId} was updated.`
-      )
-    )
-  }
+  reporter.info(
+    formatLogMessage(`Preview for ${singleName} ${node.id} was updated.`)
+  )
 
-  return { node, additionalNodeIds } || null
+  return { node, additionalNodeIds }
 }
 
 export const createSingleNode = async ({
@@ -191,25 +148,6 @@ export const createSingleNode = async ({
       type: buildTypeName(typeInfo.nodesTypeName),
     },
   }
-
-  /**
-   * @todo This commented code will be used to refetch connected nodes that might need to be connected back to this node but aren't currently
-   * see the note at the top find-connected-nodes.js for more info
-   */
-  // const connectedNodeIds = findConnectedNodeIds(updatedNodeContent) || []
-  // .filter(
-  //   async childNodeId => {
-  //     const childNode = await getNode(childNodeId)
-  //     return childNode
-  //   }
-  // )
-
-  // if (connectedNodeIds && connectedNodeIds.length) {
-  //   dump(childNodeIds)
-  // } else {
-  //   dump(remoteNode)
-  //   helpers.reporter.info(`no children for ${singleName}`)
-  // }
 
   const typeSettings = getTypeSettingsByType({
     name: typeInfo.nodesTypeName,
@@ -362,6 +300,33 @@ const wpActionUPDATE = async ({ helpers, wpAction }) => {
   }
 
   // return cachedNodeIds
+}
+
+const getDbIdFromRelayId = (relayId) => atob(relayId).split(`:`).reverse()[0]
+
+const normalizeUri = ({ uri, id, singleName }) => {
+  // remove the preview query params as they're not relevant in Gatsby
+  uri = uri?.replace(`preview=true`, ``)
+
+  // if removing the preview string leaves us with either of these
+  // characters at the end, trim em off!
+  if (uri?.endsWith(`?`) || uri?.endsWith(`&`)) {
+    uri = uri.slice(0, -1)
+  }
+
+  // if this is a draft url which could look like
+  // this /?p=543534 or /?page=4324 or /?something=yep&page=543543 or /?p=4534&what=yes
+  // we will create a proper path that Gatsby can handle
+  // /post_graphql_name/post_db_id/
+  // this same logic is on the WP side in the preview template
+  // to account for this situation.
+  if (uri?.startsWith(`/?`)) {
+    const dbId = getDbIdFromRelayId(id)
+
+    return `/generated-preview-path/${singleName}/${dbId}/`
+  }
+
+  return uri
 }
 
 export default wpActionUPDATE
