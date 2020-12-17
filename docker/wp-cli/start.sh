@@ -21,8 +21,8 @@ wp plugin activate wp-graphql-acf
 
 wp plugin activate wp-gatsby
 
-# this seems to be needed now?
-wp core update-db 
+# this seems to be needed now
+wp core update-db
 
 wp cache flush
 
