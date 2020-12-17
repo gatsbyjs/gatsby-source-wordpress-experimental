@@ -32,9 +32,9 @@ export default class Cache {
   private name: string
   private cacheDirectory: string
   private cache: manager.MultiCache
-  constructor(options?: CacheOptions) {
-    this.name = options?.name || `db`
-    this.store = options?.store || fsStore
+  constructor({ name = `db`, store = fsStore }: CacheOptions = {}) {
+    this.name = name
+    this.store = store
     this.cacheDirectory = cacheDir
   }
 
