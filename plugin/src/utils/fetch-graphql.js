@@ -256,7 +256,7 @@ const handleFetchErrors = async ({
     })
   }
   if (e.message.includes(`Request failed with status code 50`)) {
-    reporter.error(e)
+    console.error(e)
     reporter.panic({
       id: CODES.WordPress500ishError,
       context: {
