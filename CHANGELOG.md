@@ -1,5 +1,9 @@
 # Change Log
 
+# Upcoming
+
+- Updates Action Monitor queries to be ordered by modified date instead of created date
+
 ## 5.0.2
 
 This release adds support for WPGatsby v0.8.0 which adds a number of stability fixes and improvements. This is a non breaking release for the source plugin and a breaking change for WPGatsby but it's highly recommended to update to latest WPGatsby.
