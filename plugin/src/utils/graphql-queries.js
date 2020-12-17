@@ -5,7 +5,7 @@ import gql from "./gql"
  */
 export const contentPollingQuery = gql`
   query GET_SINGLE_ACTION_MONITOR_ACTION($since: Float!) {
-    actionMonitorActions(where: { sinceTimestamp: $since }, first: 1) {
+    actionMonitorActions(where: { sinceTimestamp: $since, orderby: { field: MODIFIED, order: DESC } }, first: 1) {
       nodes {
         id
       }
@@ -20,7 +20,7 @@ export const contentPollingQuery = gql`
 export const actionMonitorQuery = gql`
   query GET_ACTION_MONITOR_ACTIONS($since: Float!, $after: String) {
     actionMonitorActions(
-      where: { sinceTimestamp: $since, orderby: { field: DATE, order: DESC } }
+      where: { sinceTimestamp: $since, orderby: { field: MODIFIED, order: DESC } }
       first: 100
       after: $after
     ) {
