@@ -81,7 +81,7 @@ export const sourcePreviews = async (
       WPGatsbyPreviewUser: webhookBody.userId,
     },
     query: /* GraphQL */ `
-      query PREVIEW_ACTIONS {
+      query PREVIEW_ACTIONS($after: String) {
         actionMonitorActions(
           where: {
             previewStream: true
@@ -89,6 +89,7 @@ export const sourcePreviews = async (
             orderby: { field: MODIFIED, order: DESC }
           }
           first: 100
+          after: $after
         ) {
           nodes {
             previewData {
