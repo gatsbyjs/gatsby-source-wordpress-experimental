@@ -23,7 +23,7 @@ export const fetchAndCreateSingleNode = async ({
   isDraft,
   token = null,
   isPreview = false,
-  userId = null,
+  userDatabaseId = null,
 }) => {
   function getNodeQuery() {
     const { nodeQuery, previewQuery } =
@@ -54,10 +54,10 @@ export const fetchAndCreateSingleNode = async ({
   }
 
   const headers =
-    token && userId
+    token && userDatabaseId
       ? {
           WPGatsbyPreview: token,
-          WPGatsbyPreviewUser: userId,
+          WPGatsbyPreviewUser: userDatabaseId,
         }
       : {}
 

@@ -19,7 +19,7 @@ const sourceNodes = async (helpers, pluginOptions) => {
   }
   // if it's not a preview but we have a token
   // we should source any pending previews then continue sourcing
-  else if (webhookBody.token && webhookBody.userId) {
+  else if (webhookBody.token && webhookBody.userDatabaseId) {
     await sourcePreviews(helpers, pluginOptions)
   }
 

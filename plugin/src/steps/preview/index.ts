@@ -27,13 +27,12 @@ type PreviewStatusUnion =
   | `RECEIVED_PREVIEW_DATA_FROM_WRONG_URL`
 
 interface IWebhookBody {
-  preview: boolean
-  previewId: number
-  userId: number
+  previewDatabaseId: number
+  userDatabaseId: number
   token: string
   remoteUrl: string
   modified: string
-  parentId: number
+  parentDatabaseId: number
   id: string
   isDraft: boolean
   singleName: string
@@ -78,7 +77,7 @@ export const sourcePreviews = async (
     nodeTypeName: `ActionMonitor`,
     headers: {
       WPGatsbyPreview: webhookBody.token,
-      WPGatsbyPreviewUser: webhookBody.userId,
+      WPGatsbyPreviewUser: webhookBody.userDatabaseId,
     },
     query: /* GraphQL */ `
       query PREVIEW_ACTIONS($after: String) {
@@ -96,12 +95,11 @@ export const sourcePreviews = async (
               id
               isDraft
               modified
-              parentId
-              preview
-              previewId
+              parentDatabaseId
+              previewDatabaseId
               remoteUrl
               singleName
-              userId
+              userDatabaseId
             }
           }
           pageInfo {
@@ -151,14 +149,13 @@ export const sourcePreview = async (
   }
 
   const requiredProperties = [
-    `preview`,
-    `previewId`,
+    `previewDatabaseId`,
     `id`,
     `token`,
     `remoteUrl`,
-    `parentId`,
+    `parentDatabaseId`,
     `modified`,
-    `userId`,
+    `userDatabaseId`,
   ]
 
   const missingProperties = requiredProperties.filter(
@@ -198,7 +195,7 @@ export const sourcePreview = async (
       context: `check that the preview data came from the right URL.`,
       passedNode: {
         modified: previewData.modified,
-        databaseId: previewData.parentId,
+        databaseId: previewData.parentDatabaseId,
       },
       graphqlEndpoint: previewData.remoteUrl,
     })
@@ -229,7 +226,7 @@ export const sourcePreview = async (
   await fetchAndCreateSingleNode({
     actionType: `PREVIEW`,
     ...previewData,
-    previewParentId: previewData.parentId,
+    previewParentId: previewData.parentDatabaseId,
     isPreview: true,
   })
 }
@@ -289,7 +286,8 @@ const createPreviewStatusCallback = ({
         clientMutationId: `sendPreviewStatus`,
         modified: passedNode?.modified,
         pagePath: pageNode?.path,
-        parentId: previewData.parentId || previewData.previewId, // if the parentId is 0 we want to use the previewId
+        parentDatabaseId:
+          previewData.parentDatabaseId || previewData.previewDatabaseId, // if the parentDatabaseId is 0 we want to use the previewDatabaseId
         status,
         statusContext,
       },
@@ -298,7 +296,7 @@ const createPreviewStatusCallback = ({
     forceReportCriticalErrors: true,
     headers: {
       WPGatsbyPreview: previewData.token,
-      WPGatsbyPreviewUser: previewData.userId,
+      WPGatsbyPreviewUser: previewData.userDatabaseId,
     },
   })
 
