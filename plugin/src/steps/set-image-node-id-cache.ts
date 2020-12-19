@@ -6,8 +6,8 @@ import { setPersistentCache } from "~/utils/cache"
 // and on create dev server for development
 // so we can touch our image nodes in both develop and build
 // so they don't get garbage collected by Gatsby
-const setImageNodeIdCache = async () => {
-  const state = await store.getState()
+const setImageNodeIdCache = async (): Promise<void> => {
+  const state = store.getState()
   const { imageNodes } = state
 
   if (imageNodes.nodeMetaByUrl) {

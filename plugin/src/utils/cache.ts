@@ -1,3 +1,4 @@
+import { GatsbyHelpers } from "~/utils/gatsby-types"
 import manager from "cache-manager"
 import fs from "fs-extra"
 import fsStore from "cache-manager-fs-hash"
@@ -110,7 +111,7 @@ export const getCacheInstance = (name: string): Cache => {
   return cache
 }
 
-export const shouldHardCacheData = () => {
+export const shouldHardCacheData = (): boolean => {
   const isDevelop = process.env.NODE_ENV === `development`
 
   if (!isDevelop) {
@@ -132,7 +133,7 @@ export const setHardCachedData = async ({
 }: {
   key: string
   value: unknown
-}) => {
+}): Promise<unknown> => {
   if (!shouldHardCacheData()) {
     return
   }
@@ -173,7 +174,7 @@ export const getHardCachedNodes = async (): Promise<null | Node[]> => {
 const staticFileCacheDirectory = `${process.cwd()}/.wordpress-cache/caches/public/static`
 const staticFileDirectory = `${process.cwd()}/public/static`
 
-export const restoreStaticDirectory = async () => {
+export const restoreStaticDirectory = async (): Promise<void> => {
   await fs.copy(staticFileCacheDirectory, staticFileDirectory)
 }
 
@@ -181,7 +182,11 @@ const copyStaticDirectory = async () => {
   await fs.copy(staticFileDirectory, staticFileCacheDirectory)
 }
 
-export const setHardCachedNodes = async ({ helpers }) => {
+export const setHardCachedNodes = async ({
+  helpers,
+}: {
+  helpers: GatsbyHelpers
+}): Promise<void> => {
   if (!shouldHardCacheData()) {
     return
   }
@@ -205,7 +210,7 @@ export const setHardCachedNodes = async ({ helpers }) => {
   await copyStaticDirectory()
 }
 
-export const clearHardCache = async () => {
+export const clearHardCache = async (): Promise<void> => {
   await new Promise((resolve) => {
     const directory = new Cache().cacheBase
 
@@ -213,7 +218,7 @@ export const clearHardCache = async () => {
   })
 }
 
-export const clearHardCachedNodes = async () => {
+export const clearHardCachedNodes = async (): Promise<void> => {
   const hardCachedNodes = !!(await getHardCachedNodes())
 
   if (hardCachedNodes) {
@@ -231,7 +236,7 @@ export const setPersistentCache = async ({
 }: {
   key: string
   value: unknown
-}) => {
+}): Promise<void> => {
   const { helpers } = getGatsbyApi()
 
   await Promise.all([

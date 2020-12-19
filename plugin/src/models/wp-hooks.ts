@@ -1,6 +1,7 @@
 export interface INodeFilter {
   name: string
-  filter: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  filter: (any) => any
   priority?: number
 }
 
@@ -23,7 +24,10 @@ const wpHooks: IWPHooksStore = {
   },
 
   reducers: {
-    addNodeFilter(state, nodeFilter) {
+    addNodeFilter(
+      state: IWPHooksState,
+      nodeFilter: INodeFilter
+    ): IWPHooksState {
       const { name, filter, priority = 10 } = nodeFilter
 
       if (!name || typeof filter === `undefined`) {

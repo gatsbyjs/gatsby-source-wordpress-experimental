@@ -27,7 +27,7 @@ export type PreviewStatusUnion =
   | `GATSBY_PREVIEW_PROCESS_ERROR`
   | `RECEIVED_PREVIEW_DATA_FROM_WRONG_URL`
 
-interface IWebhookBody {
+export interface IWebhookBody {
   previewDatabaseId: number
   userDatabaseId: number
   token: string
@@ -142,7 +142,7 @@ export const sourcePreviews = async (
  * already started processing for this action
  */
 export const sourcePreview = async (
-  { previewData, reporter }: GatsbyHelpers,
+  { previewData, reporter }: { previewData: IWebhookBody; reporter: Reporter },
   { url }: IPluginOptions
 ): Promise<void> => {
   if (previewForIdIsAlreadyBeingProcessed(previewData?.id)) {
@@ -231,9 +231,6 @@ export const sourcePreview = async (
     isPreview: true,
   })
 }
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type Reporter = any
 
 interface OnPreviewStatusInput {
   status: PreviewStatusUnion

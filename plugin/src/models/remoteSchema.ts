@@ -1,6 +1,60 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { findTypeName } from "~/steps/create-schema-customization/helpers"
 
-const remoteSchema = {
+interface RemoteSchemaState {
+  wpUrl: string
+  nodeQueries: any
+  nonNodeQuery: string
+  introspectionData: any
+  schemaWasChanged: boolean
+  typeMap: any
+  nodeListFilter: (field: { name: string }) => boolean
+  ingestibles: {
+    nodeListRootFields: any
+    nodeInterfaceTypes: any
+    nonNodeRootFields: any[]
+  }
+  allowRefreshSchemaUpdate: boolean
+  fetchedTypes: any
+  fieldBlacklist: string[]
+  fieldAliases: {
+    parent: string
+    children: string
+    internal: string
+    plugin: string
+    actionOptions: string
+  }
+}
+
+interface RemoteSchemaReducers {
+  toggleAllowRefreshSchemaUpdate: (
+    state: RemoteSchemaState
+  ) => RemoteSchemaState
+
+  setSchemaWasChanged: (
+    state: RemoteSchemaState,
+    payload: boolean
+  ) => RemoteSchemaState
+
+  addFieldsToBlackList: (
+    state: RemoteSchemaState,
+    payload: string[]
+  ) => RemoteSchemaState
+
+  setState: (
+    state: RemoteSchemaState,
+    payload: RemoteSchemaState
+  ) => RemoteSchemaState
+
+  addFetchedType: (state: RemoteSchemaState, type: any) => RemoteSchemaState
+}
+
+interface RemoteSchemaStore {
+  state: RemoteSchemaState
+  reducers: RemoteSchemaReducers
+}
+
+const remoteSchema: RemoteSchemaStore = {
   state: {
     wpUrl: null,
     nodeQueries: {},
@@ -8,7 +62,8 @@ const remoteSchema = {
     introspectionData: null,
     schemaWasChanged: null,
     typeMap: null,
-    nodeListFilter: (field) => field.name === `nodes`,
+    nodeListFilter: (field: { name: string }): boolean =>
+      field.name === `nodes`,
     ingestibles: {
       nodeListRootFields: null,
       nodeInterfaceTypes: null,
@@ -91,7 +146,7 @@ const remoteSchema = {
 
       return state
     },
-  },
+  } as RemoteSchemaReducers,
 }
 
 export default remoteSchema

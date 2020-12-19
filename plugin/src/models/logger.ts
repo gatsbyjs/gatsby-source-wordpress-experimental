@@ -22,8 +22,12 @@ const logger = {
   reducers: {
     incrementActivityTimer(
       state: ILoggerState,
-      { typeName, by, action = `fetched` }
-    ) {
+      {
+        typeName,
+        by,
+        action = `fetched`,
+      }: { typeName: string; by: number; action: string }
+    ): ILoggerState {
       const logger = state.activityTimers[typeName]
 
       if (!logger) {
@@ -40,7 +44,10 @@ const logger = {
       return state
     },
 
-    stopActivityTimer(state: ILoggerState, { typeName, action = `fetched` }) {
+    stopActivityTimer(
+      state: ILoggerState,
+      { typeName, action = `fetched` }: { typeName: string; action: string }
+    ): ILoggerState {
       const logger = state.activityTimers[typeName]
 
       if (logger.count === 0) {
@@ -59,7 +66,7 @@ const logger = {
         reporter,
         pluginOptions,
       }: { typeName: string; reporter: Reporter; pluginOptions: IPluginOptions }
-    ) {
+    ): ILoggerState {
       if (state.activityTimers[typeName]) {
         return state
       }

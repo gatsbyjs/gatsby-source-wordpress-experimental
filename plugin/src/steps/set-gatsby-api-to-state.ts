@@ -9,7 +9,7 @@ let hasDisplayedPreviewPresetMessage = false
 const setGatsbyApiToState = (
   helpers: GatsbyNodeApiHelpers,
   pluginOptions: IPluginOptions
-) => {
+): void => {
   if (helpers.traceId === `refresh-createSchemaCustomization`) {
     return
   }

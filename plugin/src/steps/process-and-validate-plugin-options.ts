@@ -77,7 +77,7 @@ const optionsProcessors: OptionsProcessor[] = [
 export const processAndValidatePluginOptions = (
   helpers: GatsbyNodeApiHelpers,
   pluginOptions: IPluginOptions
-) => {
+): IPluginOptions => {
   let userPluginOptions = {
     ...pluginOptions,
   }
