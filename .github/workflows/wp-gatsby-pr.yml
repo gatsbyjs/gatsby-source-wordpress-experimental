@@ -1,16 +1,26 @@
-on: [repository_dispatch]
+name: Create PR for new WPGatsby PR
+on:
+  workflow_dispatch:
+    inputs:
+      remoteref:
+        required: true
+        default: "default-branch"
+        description: "the incoming new ref from wp-gatsby repository"
 jobs:
   version:
-    name: Bump wpgatsby version
+    name: Run WPGatsby PR with branch
     runs-on: ubuntu-16.04
     steps:
-      - name: "Replace version in file"
-        run: sed -ir 's/^WPGATSBY_VERSION.*/WPGATSBY_VERSION=${{ github.event.inputs.version }}/' test-site/.env.plugins
-      - name: "Create WPGatsby Version Bump PR"
+      - uses: actions/checkout@v2
+      - name: "Create WPGatsby PR"
         uses: technote-space/create-pr-action@v2
         with:
-          COMMIT_MESSAGE: "chore: update to wpgatsby version ${{ github.event.inputs.version }}"
+          # if you execute sed in the previous step using `run` instead of using EXECUTE_COMMANDS, create-pr-action doesn't work.
+          # this first input variable should be required for this action imo, because otherwise the git add / commit doesn't occur
+          EXECUTE_COMMANDS: |
+            sed -i 's|^WPGATSBY_VERSION.*|WPGATSBY_VERSION=${{ github.event.inputs.remoteref }}|g' test-site/.env.plugins
+          COMMIT_MESSAGE: "ci: test with wpgatsby PR ${{ github.event.inputs.remoteref }}"
           COMMIT_NAME: "GitHub Actions"
           COMMIT_EMAIL: "example@example.com"
-          PR_BRANCH_NAME: "chore/update-wpgatsby-version-${{ github.event.inputs.version }}"
-          PR_TITLE: "chore: update to wpgatsby version ${{ github.event.inputs.version }}"
+          PR_BRANCH_NAME: "chore/test-wp-gatsby_${{ github.event.inputs.remoteref }}"
+          PR_TITLE: "ci: test with wpgatsby/${{ github.event.inputs.remoteref }}"
