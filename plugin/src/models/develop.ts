@@ -1,8 +1,8 @@
-interface IDevelopState {
+export interface IDevelopState {
   refreshPollingIsPaused: boolean
 }
 
-interface IDevelopReducers {
+export interface IDevelopReducers {
   pauseRefreshPolling: (state: IDevelopState) => IDevelopState
   resumeRefreshPolling: (state: IDevelopState) => IDevelopState
 }

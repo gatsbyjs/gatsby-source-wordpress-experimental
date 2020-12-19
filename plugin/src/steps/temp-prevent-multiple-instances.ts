@@ -1,3 +1,4 @@
+import { Reporter } from "gatsby"
 import { formatLogMessage } from "../utils/format-log-message"
 let isWpSourcePluginInstalled = false
 
@@ -7,7 +8,11 @@ let isWpSourcePluginInstalled = false
  * @param {Reporter} reporter
  */
 
-export function tempPreventMultipleInstances({ reporter }) {
+export function tempPreventMultipleInstances({
+  reporter,
+}: {
+  reporter: Reporter
+}): void {
   if (isWpSourcePluginInstalled) {
     reporter.panic(
       formatLogMessage(

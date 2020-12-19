@@ -15,18 +15,19 @@ import { formatLogMessage } from "~/utils/format-log-message"
 import { touchValidNodes } from "../source-nodes/update-nodes/fetch-node-updates"
 
 import { IPluginOptions } from "~/models/gatsby-api"
+import { Reporter } from "gatsby"
 
 export const inPreviewMode = (): boolean =>
   !!process.env.ENABLE_GATSBY_REFRESH_ENDPOINT &&
   !!store.getState().previewStore.inPreviewMode
 
-type PreviewStatusUnion =
+export type PreviewStatusUnion =
   | `PREVIEW_SUCCESS`
   | `NO_PAGE_CREATED_FOR_PREVIEWED_NODE`
   | `GATSBY_PREVIEW_PROCESS_ERROR`
   | `RECEIVED_PREVIEW_DATA_FROM_WRONG_URL`
 
-interface IWebhookBody {
+export interface IWebhookBody {
   previewDatabaseId: number
   userDatabaseId: number
   token: string
@@ -141,7 +142,7 @@ export const sourcePreviews = async (
  * already started processing for this action
  */
 export const sourcePreview = async (
-  { previewData, reporter }: GatsbyHelpers,
+  { previewData, reporter }: { previewData: IWebhookBody; reporter: Reporter },
   { url }: IPluginOptions
 ): Promise<void> => {
   if (previewForIdIsAlreadyBeingProcessed(previewData?.id)) {
@@ -230,9 +231,6 @@ export const sourcePreview = async (
     isPreview: true,
   })
 }
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type Reporter = any
 
 interface OnPreviewStatusInput {
   status: PreviewStatusUnion

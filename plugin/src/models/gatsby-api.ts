@@ -1,4 +1,4 @@
-import { GatsbyHelpers } from "~/utils/gatsby-types"
+import { GatsbyNodeApiHelpers } from "~/utils/gatsby-types"
 import merge from "lodash/merge"
 import { createRemoteMediaItemNode } from "~/steps/source-nodes/create-nodes/create-remote-media-item-node"
 import { menuBeforeChangeNode } from "~/steps/source-nodes/before-change-node/menu"
@@ -6,7 +6,10 @@ import { cloneDeep } from "lodash"
 
 export interface PluginOptionsPreset {
   presetName: string
-  useIf: (helpers: GatsbyHelpers, pluginOptions: IPluginOptions) => boolean
+  useIf: (
+    helpers: GatsbyNodeApiHelpers,
+    pluginOptions: IPluginOptions
+  ) => boolean
   options: IPluginOptions
 }
 
@@ -56,8 +59,9 @@ export interface IPluginOptions {
       onlyReportCriticalErrors?: boolean
       copyNodeSourcingQueryAndExit?: boolean
       writeQueriesToDisk?: boolean
+      copyHtmlResponseOnError?: boolean
     }
-    timeBuildSteps?: boolean
+    timeBuildSteps?: string[] | boolean
     disableCompatibilityCheck?: boolean
   }
   develop?: {
@@ -96,6 +100,7 @@ export interface IPluginOptions {
     [typename: string]: {
       limit?: number
       excludeFieldNames?: string[]
+
       exclude?: boolean
       // @todo type this
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -124,6 +129,7 @@ const defaultPluginOptions: IPluginOptions = {
       onlyReportCriticalErrors: true,
       copyNodeSourcingQueryAndExit: false,
       writeQueriesToDisk: false,
+      copyHtmlResponseOnError: false,
     },
     timeBuildSteps: false,
     disableCompatibilityCheck: false,
@@ -335,10 +341,10 @@ const defaultPluginOptions: IPluginOptions = {
   },
 }
 
-interface IGatsbyApiState {
-  helpers: GatsbyHelpers
+export interface IGatsbyApiState {
+  helpers: GatsbyNodeApiHelpers
   pluginOptions: IPluginOptions
-  activePluginOptionsPresets: PluginOptionsPreset[]
+  activePluginOptionsPresets?: PluginOptionsPreset[]
 }
 
 const gatsbyApi = {

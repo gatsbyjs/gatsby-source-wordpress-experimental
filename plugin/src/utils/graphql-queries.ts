@@ -1,9 +1,7 @@
-import gql from "./gql"
-
 /**
  * Used to check if there have been any updates at all. A single action is enough to trigger refreshing in gatsby develop
  */
-export const contentPollingQuery = gql`
+export const contentPollingQuery = /* GraphQL */ `
   query GET_SINGLE_ACTION_MONITOR_ACTION($since: Float!) {
     actionMonitorActions(where: { sinceTimestamp: $since }, first: 1) {
       nodes {
@@ -17,7 +15,7 @@ export const contentPollingQuery = gql`
  * Used to fetch WP changes since a unix timestamp
  * so we can do incremental data fetches
  */
-export const actionMonitorQuery = gql`
+export const actionMonitorQuery = /* GraphQL */ `
   query GET_ACTION_MONITOR_ACTIONS($since: Float!, $after: String) {
     actionMonitorActions(
       where: { sinceTimestamp: $since, orderby: { field: DATE, order: DESC } }
@@ -42,7 +40,7 @@ export const actionMonitorQuery = gql`
   }
 `
 
-export const introspectionQuery = gql`
+export const introspectionQuery = /* GraphQL */ `
   {
     __schema {
       types {

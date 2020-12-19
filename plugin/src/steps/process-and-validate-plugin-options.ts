@@ -1,8 +1,20 @@
 import store from "~/store"
 import { formatLogMessage } from "~/utils/format-log-message"
 import isInteger from "lodash/isInteger"
+import { IPluginOptions } from "~/models/gatsby-api"
+import { GatsbyNodeApiHelpers } from "~/utils/gatsby-types"
+interface IProcessorOptions {
+  userPluginOptions: IPluginOptions
+  helpers: GatsbyNodeApiHelpers
+}
 
-const optionsProcessors = [
+interface OptionsProcessor {
+  name: string
+  test: (options: IProcessorOptions) => boolean
+  processor: (options: IProcessorOptions) => IPluginOptions | void
+}
+
+const optionsProcessors: OptionsProcessor[] = [
   {
     name: `pluginOptions.type.MediaItem.limit is not allowed`,
     test: ({ userPluginOptions }) =>
@@ -18,9 +30,11 @@ const optionsProcessors = [
   {
     name: `excludeFields-renamed-to-excludeFieldNames`,
     test: ({ userPluginOptions }) =>
-      userPluginOptions?.excludeFields?.length ||
-      userPluginOptions?.excludeFieldNames?.length,
-    processor: ({ helpers, userPluginOptions }) => {
+      Boolean(
+        userPluginOptions?.excludeFields?.length ||
+          userPluginOptions?.excludeFieldNames?.length
+      ),
+    processor: ({ helpers, userPluginOptions }: IProcessorOptions) => {
       if (userPluginOptions?.excludeFields?.length) {
         helpers.reporter.log(``)
         helpers.reporter.warn(
@@ -40,11 +54,11 @@ const optionsProcessors = [
   },
   {
     name: `queryDepth-is-not-a-positive-int`,
-    test: ({ userPluginOptions }) =>
+    test: ({ userPluginOptions }: IProcessorOptions) =>
       typeof userPluginOptions?.schema?.queryDepth !== `undefined` &&
       (!isInteger(userPluginOptions?.schema?.queryDepth) ||
         userPluginOptions?.schema?.queryDepth <= 0),
-    processor: ({ helpers, userPluginOptions }) => {
+    processor: ({ helpers, userPluginOptions }: IProcessorOptions) => {
       helpers.reporter.log(``)
       helpers.reporter.warn(
         formatLogMessage(
@@ -60,7 +74,10 @@ const optionsProcessors = [
   },
 ]
 
-export const processAndValidatePluginOptions = (helpers, pluginOptions) => {
+export const processAndValidatePluginOptions = (
+  helpers: GatsbyNodeApiHelpers,
+  pluginOptions: IPluginOptions
+): IPluginOptions => {
   let userPluginOptions = {
     ...pluginOptions,
   }

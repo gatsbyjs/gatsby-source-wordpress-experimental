@@ -1,21 +1,22 @@
 import url from "url"
 import Range from "semver/classes/range"
 
+import type { NodePluginArgs } from "gatsby"
+import fetch from "node-fetch"
+
 import fetchGraphql from "~/utils/fetch-graphql"
-
 import { formatLogMessage } from "~/utils/format-log-message"
+import { getPersistentCache } from "~/utils/cache"
 
+import store from "~/store"
 import { MD5_CACHE_KEY } from "~/constants"
 
 import {
   supportedWpPluginVersions,
   genericDownloadMessage,
 } from "~/supported-remote-plugin-versions"
-import fetch from "node-fetch"
-import store from "~/store"
-import { getPersistentCache } from "~/utils/cache"
 
-const parseRange = (range) => {
+const parseRange = (range: string) => {
   const {
     set: [versions],
   } = new Range(range)
@@ -43,6 +44,10 @@ const areRemotePluginVersionsSatisfied = async ({
   helpers,
   disableCompatibilityCheck,
   url: wpGraphQLEndpoint,
+}: {
+  helpers: NodePluginArgs
+  url: string
+  disableCompatibilityCheck: boolean
 }) => {
   if (disableCompatibilityCheck) {
     return
@@ -181,7 +186,13 @@ ${reasons}`
 // when a graphql request is made with no query
 // for example if 2 root fields are registered with the fieldname "products"
 // this will throw a helpful error message explaining that one should be removed
-const blankGetRequest = async ({ url, helpers }) =>
+const blankGetRequest = async ({
+  url,
+  helpers,
+}: {
+  url: string
+  helpers: NodePluginArgs
+}): Promise<void> =>
   fetch(url)
     .then((response) => response.json())
     .then((json) => {
@@ -222,7 +233,11 @@ const isWpGatsby = async () =>
     isFirstRequest: true,
   })
 
-const prettyPermalinksAreEnabled = async ({ helpers }) => {
+const prettyPermalinksAreEnabled = async ({
+  helpers,
+}: {
+  helpers: NodePluginArgs
+}) => {
   try {
     const { data } = await fetchGraphql({
       query: /* GraphQL */ `
@@ -254,7 +269,9 @@ ${data.generalSettings.url}/wp-admin/options-permalink.php.
   }
 }
 
-const ensurePluginRequirementsAreMet = async (helpers) => {
+const ensurePluginRequirementsAreMet = async (
+  helpers: NodePluginArgs
+): Promise<void> => {
   if (helpers.traceId === `refresh-createSchemaCustomization`) {
     return
   }

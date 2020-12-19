@@ -1,6 +1,7 @@
-import { inPreviewMode } from "."
+import { inPreviewMode, PreviewStatusUnion } from "."
 import { OnPageCreatedCallback } from "~/models/preview"
 import store from "~/store"
+import { NodePluginArgs } from "gatsby"
 
 /**
  * Preview callbacks are usually invoked during onCreatePage in Gatsby Preview
@@ -31,7 +32,7 @@ export const invokeAndCleanupLeftoverPreviewCallbacks = async ({
   context,
   error,
 }: {
-  status: string
+  status: PreviewStatusUnion
   context?: string
   error?: Error
 }): Promise<void> => {
@@ -64,6 +65,11 @@ const invokeLeftoverPreviewCallback = ({
   status,
   context,
   error,
+}: {
+  status: PreviewStatusUnion
+  context?: string
+  error?: Error
+  getNode: NodePluginArgs["getNode"]
 }) => async ([nodeId, callback]: [
   string,
   OnPageCreatedCallback
