@@ -351,6 +351,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "contentType",
       "databaseId",
       "date",
       "dateGmt",
@@ -414,6 +415,16 @@ Array [
   Object {
     "fields": null,
     "name": "WpContentNodeSortInput",
+  },
+  Object {
+    "fields": Array [
+      "node",
+    ],
+    "name": "WpContentNodeToContentTypeConnectionEdge",
+  },
+  Object {
+    "fields": null,
+    "name": "WpContentNodeToContentTypeConnectionEdgeFilterInput",
   },
   Object {
     "fields": Array [
@@ -806,16 +817,6 @@ Array [
   Object {
     "fields": null,
     "name": "WpMediaItemToCommentConnectionFilterInput",
-  },
-  Object {
-    "fields": Array [
-      "node",
-    ],
-    "name": "WpMediaItemToContentTypeConnectionEdge",
-  },
-  Object {
-    "fields": null,
-    "name": "WpMediaItemToContentTypeConnectionEdgeFilterInput",
   },
   Object {
     "fields": Array [
@@ -1227,16 +1228,6 @@ Array [
   },
   Object {
     "fields": Array [
-      "node",
-    ],
-    "name": "WpPageToContentTypeConnectionEdge",
-  },
-  Object {
-    "fields": null,
-    "name": "WpPageToContentTypeConnectionEdgeFilterInput",
-  },
-  Object {
-    "fields": Array [
       "buttonGroupField",
       "checkboxField",
       "colorPickerField",
@@ -1567,16 +1558,6 @@ Array [
   },
   Object {
     "fields": Array [
-      "node",
-    ],
-    "name": "WpPostToContentTypeConnectionEdge",
-  },
-  Object {
-    "fields": null,
-    "name": "WpPostToContentTypeConnectionEdgeFilterInput",
-  },
-  Object {
-    "fields": Array [
       "nodes",
     ],
     "name": "WpPostToPostFormatConnection",
@@ -1718,16 +1699,6 @@ Array [
   Object {
     "fields": null,
     "name": "WpProjectSortInput",
-  },
-  Object {
-    "fields": Array [
-      "node",
-    ],
-    "name": "WpProjectToContentTypeConnectionEdge",
-  },
-  Object {
-    "fields": null,
-    "name": "WpProjectToContentTypeConnectionEdgeFilterInput",
   },
   Object {
     "fields": Array [
@@ -2086,16 +2057,6 @@ Array [
   },
   Object {
     "fields": Array [
-      "node",
-    ],
-    "name": "WpTeamMemberToContentTypeConnectionEdge",
-  },
-  Object {
-    "fields": null,
-    "name": "WpTeamMemberToContentTypeConnectionEdgeFilterInput",
-  },
-  Object {
-    "fields": Array [
       "nodes",
     ],
     "name": "WpTeamMemberToPostFormatConnection",
@@ -2281,16 +2242,6 @@ Array [
   },
   Object {
     "fields": Array [
-      "node",
-    ],
-    "name": "WpTranslationFilterTestToContentTypeConnectionEdge",
-  },
-  Object {
-    "fields": null,
-    "name": "WpTranslationFilterTestToContentTypeConnectionEdgeFilterInput",
-  },
-  Object {
-    "fields": Array [
       "author",
       "authorDatabaseId",
       "authorId",
@@ -2370,16 +2321,6 @@ Array [
   },
   Object {
     "fields": Array [
-      "node",
-    ],
-    "name": "WpTypeLimit0TestToContentTypeConnectionEdge",
-  },
-  Object {
-    "fields": null,
-    "name": "WpTypeLimit0TestToContentTypeConnectionEdgeFilterInput",
-  },
-  Object {
-    "fields": Array [
       "author",
       "authorDatabaseId",
       "authorId",
@@ -2456,16 +2397,6 @@ Array [
   Object {
     "fields": null,
     "name": "WpTypeLimitTestSortInput",
-  },
-  Object {
-    "fields": Array [
-      "node",
-    ],
-    "name": "WpTypeLimitTestToContentTypeConnectionEdge",
-  },
-  Object {
-    "fields": null,
-    "name": "WpTypeLimitTestToContentTypeConnectionEdgeFilterInput",
   },
   Object {
     "fields": Array [
@@ -2774,6 +2705,7 @@ Array [
       "modified",
       "modifiedGmt",
       "preview",
+      "previewData",
       "previewRevisionDatabaseId",
       "previewRevisionId",
       "referencedNodeGlobalRelayID",
@@ -2792,12 +2724,6 @@ Array [
   Object {
     "fields": null,
     "name": "ActionMonitorActionIdType",
-  },
-  Object {
-    "fields": Array [
-      "node",
-    ],
-    "name": "ActionMonitorActionToContentTypeConnectionEdge",
   },
   Object {
     "fields": Array [
@@ -3054,6 +2980,7 @@ Array [
   },
   Object {
     "fields": Array [
+      "contentType",
       "databaseId",
       "date",
       "dateGmt",
@@ -3082,6 +3009,12 @@ Array [
   Object {
     "fields": null,
     "name": "ContentNodeIdTypeEnum",
+  },
+  Object {
+    "fields": Array [
+      "node",
+    ],
+    "name": "ContentNodeToContentTypeConnectionEdge",
   },
   Object {
     "fields": Array [
@@ -3618,6 +3551,19 @@ Array [
   },
   Object {
     "fields": Array [
+      "id",
+      "isDraft",
+      "modified",
+      "parentDatabaseId",
+      "previewDatabaseId",
+      "remoteUrl",
+      "singleName",
+      "userDatabaseId",
+    ],
+    "name": "GatsbyPreviewData",
+  },
+  Object {
+    "fields": Array [
       "dateFormat",
       "description",
       "email",
@@ -3807,12 +3753,6 @@ Array [
   Object {
     "fields": null,
     "name": "MediaItemToCommentConnectionWhereArgs",
-  },
-  Object {
-    "fields": Array [
-      "node",
-    ],
-    "name": "MediaItemToContentTypeConnectionEdge",
   },
   Object {
     "fields": Array [
@@ -4114,12 +4054,6 @@ Array [
   Object {
     "fields": null,
     "name": "PageToCommentConnectionWhereArgs",
-  },
-  Object {
-    "fields": Array [
-      "node",
-    ],
-    "name": "PageToContentTypeConnectionEdge",
   },
   Object {
     "fields": Array [
@@ -4483,12 +4417,6 @@ Array [
   },
   Object {
     "fields": Array [
-      "node",
-    ],
-    "name": "PostToContentTypeConnectionEdge",
-  },
-  Object {
-    "fields": Array [
       "edges",
       "nodes",
       "pageInfo",
@@ -4640,12 +4568,6 @@ Array [
   Object {
     "fields": null,
     "name": "ProjectIdType",
-  },
-  Object {
-    "fields": Array [
-      "node",
-    ],
-    "name": "ProjectToContentTypeConnectionEdge",
   },
   Object {
     "fields": Array [
@@ -5584,12 +5506,6 @@ Array [
   },
   Object {
     "fields": Array [
-      "node",
-    ],
-    "name": "TeamMemberToContentTypeConnectionEdge",
-  },
-  Object {
-    "fields": Array [
       "edges",
       "nodes",
       "pageInfo",
@@ -5792,12 +5708,6 @@ Array [
     "fields": Array [
       "node",
     ],
-    "name": "TranslationFilterTestToContentTypeConnectionEdge",
-  },
-  Object {
-    "fields": Array [
-      "node",
-    ],
     "name": "TranslationFilterTestToPreviewConnectionEdge",
   },
   Object {
@@ -5845,12 +5755,6 @@ Array [
     "fields": Array [
       "node",
     ],
-    "name": "TypeLimit0TestToContentTypeConnectionEdge",
-  },
-  Object {
-    "fields": Array [
-      "node",
-    ],
     "name": "TypeLimit0TestToPreviewConnectionEdge",
   },
   Object {
@@ -5893,12 +5797,6 @@ Array [
   Object {
     "fields": null,
     "name": "TypeLimitTestIdType",
-  },
-  Object {
-    "fields": Array [
-      "node",
-    ],
-    "name": "TypeLimitTestToContentTypeConnectionEdge",
   },
   Object {
     "fields": Array [
