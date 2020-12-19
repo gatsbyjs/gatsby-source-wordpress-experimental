@@ -81,6 +81,7 @@ export interface IPluginOptions {
     timeout: number // 30 seconds
     perPage: number
     requestConcurrency?: number
+    previewRequestConcurrency?: number
   }
   excludeFieldNames?: []
   html?: {
@@ -148,6 +149,7 @@ const defaultPluginOptions: IPluginOptions = {
     timeout: 30 * 1000, // 30 seconds
     perPage: 100,
     requestConcurrency: 15,
+    previewRequestConcurrency: 10,
   },
   excludeFieldNames: [],
   html: {

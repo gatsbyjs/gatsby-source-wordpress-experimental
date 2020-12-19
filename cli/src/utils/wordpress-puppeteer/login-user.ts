@@ -20,17 +20,32 @@ export async function loginUser(input: {
   if (!isCurrentURL({ path: `wp-login.php`, page, baseUrl })) {
     await Promise.all([
       page.goto(createURL({ path: `wp-login.php`, baseUrl })),
-      page.waitForNavigation({ waitUntil: `domcontentloaded` }),
+      page.waitForNavigation({ waitUntil: `networkidle2` }),
     ])
   }
 
   await page.focus(`#user_login`)
   await pressKeyWithModifier({ modifier: `primary`, key: `a`, page })
-  await page.type(`#user_login`, username)
+  await page.type(`#user_login`, username, { delay: 5 })
+
+  await page.evaluate(
+    (text) =>
+      (document.getElementById(`user_login`) as HTMLInputElement).value ===
+      text,
+    username
+  )
+
+  await new Promise((resolve) => setTimeout(resolve, 500))
 
   await page.focus(`#user_pass`)
   await pressKeyWithModifier({ modifier: `primary`, key: `a`, page })
-  await page.type(`#user_pass`, password)
+  await page.type(`#user_pass`, password, { delay: 5 })
+
+  await page.evaluate(
+    (text) =>
+      (document.getElementById(`user_pass`) as HTMLInputElement).value === text,
+    password
+  )
 
   await Promise.all([page.waitForNavigation(), page.click(`#wp-submit`)])
 }

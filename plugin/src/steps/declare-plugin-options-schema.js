@@ -156,7 +156,13 @@ export function pluginOptionsSchema({ Joi }) {
         .integer()
         .default(15)
         .description(
-          `The number of concurrent GraphQL requests to make at any time during node sourcing. Try lowering this if WordPress server crashes on import`
+          `The number of concurrent GraphQL requests to make at any time during node sourcing. Try lowering this if your WordPress server crashes while sourcing data.`
+        ),
+      previewRequestConcurrency: Joi.number()
+        .integer()
+        .default(10)
+        .description(
+          `The number of concurrent GraphQL requests to make at any time during preview sourcing. Try lowering this if your WordPress server crashes during previews. Normally this wont be needed and only comes into effect when multiple users are previewing simultaneously.`
         ),
     }).description(
       `Options related to fetching and ingesting the remote schema.`
