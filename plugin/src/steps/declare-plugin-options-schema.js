@@ -89,6 +89,11 @@ export function pluginOptionsSchema({ Joi }) {
         .description(
           `This option is experimental. When set to true, media files will be hard-cached outside the Gatsby cache at ./.wordpress-cache/path/to/media/file.jpeg. This is useful for preventing media files from being re-downloaded when the Gatsby cache automatically clears. When using this option, be sure to gitignore the wordpress-cache directory in the root of your project.`
         ),
+      allow404Images: Joi.boolean()
+        .default(false)
+        .description(
+          `This option allows images url's that return a 404 to not fail production builds.`
+        ),
     }),
     develop: Joi.object({
       nodeUpdateInterval: Joi.number()

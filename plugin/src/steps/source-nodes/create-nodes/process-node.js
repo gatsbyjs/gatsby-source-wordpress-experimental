@@ -134,7 +134,6 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
   cheerioImages,
   node,
   helpers,
-  pluginOptions,
   wpUrl,
 }) => {
   // get all the image nodes we've cached from elsewhere
@@ -248,6 +247,7 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
       try {
         imageNode = await createRemoteMediaItemNode({
           skipExistingNode: true,
+          parentName: `Creating File node from URL where we couldn't find a MediaItem node`,
           mediaItemNode: {
             id: node.id,
             mediaItemUrl: htmlImgSrc,
@@ -255,6 +255,7 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
             mimeType: null,
             title: null,
             fileSize: null,
+            parentHtmlNode: node,
           },
         })
       } catch (e) {

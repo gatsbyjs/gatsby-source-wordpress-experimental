@@ -71,6 +71,7 @@ export interface IPluginOptions {
   }
   production?: {
     hardCacheMediaFiles?: boolean
+    allow404Images?: boolean
   }
   auth?: {
     htaccess: {
@@ -141,6 +142,7 @@ const defaultPluginOptions: IPluginOptions = {
   },
   production: {
     hardCacheMediaFiles: false,
+    allow404Images: false,
   },
   auth: {
     htaccess: {

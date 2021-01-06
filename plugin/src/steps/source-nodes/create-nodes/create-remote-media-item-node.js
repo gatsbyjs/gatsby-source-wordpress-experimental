@@ -64,18 +64,27 @@ export const errorPanicker = ({
   const errorString =
     typeof error === `string` ? error : error && error.toString()
 
+  const { pluginOptions } = store.getState().gatsbyApi
+  const allow404ImagesInProduction = pluginOptions.production.allow404Images
+
   if (
-    process.env.NODE_ENV !== `production` &&
+    (allow404ImagesInProduction || process.env.NODE_ENV !== `production`) &&
     errorString.includes(`Response code 404`)
   ) {
     fetchState.shouldBail = true
+
     reporter.log(``)
     reporter.warn(
       formatLogMessage(
-        `Error ${sharedError}\n\nThis error will fail production builds.`
+        `Error ${sharedError}${
+          !allow404ImagesInProduction
+            ? `\n\nThis error will fail production builds.`
+            : ``
+        }`
       )
     )
     reporter.log(``)
+
     return
   }
 
@@ -83,7 +92,19 @@ export const errorPanicker = ({
     reporter.log(``)
     reporter.info(
       formatLogMessage(
-        `Unrecoverable error ${sharedError}\n\nFailing the build to prevent deploying a broken site.`
+        `Unrecoverable error ${sharedError}\n\nFailing the build to prevent deploying a broken site.${
+          errorString.includes(`Response code 404`)
+            ? `\n\nIf you don't want 404's to fail your production builds, you can set the following option:
+          
+{
+  options: {
+    production: {
+      allow404Images: true
+    }
+  }
+}`
+            : ``
+        }`
       )
     )
     reporter.panic(error)
@@ -163,6 +184,8 @@ export const getFileNodeByMediaItemNode = async ({
   return null
 }
 
+const failedImageUrls = new Set()
+
 export const createRemoteMediaItemNode = async ({
   mediaItemNode,
   parentName,
@@ -192,7 +215,7 @@ export const createRemoteMediaItemNode = async ({
 
   let { mediaItemUrl, modifiedGmt, mimeType, title, fileSize } = mediaItemNode
 
-  if (!mediaItemUrl) {
+  if (!mediaItemUrl || failedImageUrls.has(mediaItemUrl)) {
     return null
   }
 
@@ -233,6 +256,7 @@ export const createRemoteMediaItemNode = async ({
   const remoteFileNode = await retry(
     async () => {
       if (fetchState.shouldBail) {
+        failedImageUrls.add(mediaItemUrl)
         return null
       }
 
