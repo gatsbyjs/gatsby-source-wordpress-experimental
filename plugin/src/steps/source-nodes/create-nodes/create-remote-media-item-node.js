@@ -23,10 +23,24 @@ export const getFileNodeMetaBySourceUrl = (sourceUrl) => {
 }
 
 export const getMediaItemEditLink = (node) => {
-  const { protocol, hostname } = url.parse(node.link)
-  const editUrl = `${protocol}//${hostname}/wp-admin/upload.php?item=${node.databaseId}`
+  const { helpers, pluginOptions } = store.getState().gatsbyApi
 
-  return editUrl
+  const { protocol, hostname } = url.parse(node?.link || pluginOptions.url)
+  const baseUrl = `${protocol}//${hostname}`
+
+  const databaseId = node.databaseId
+
+  if (!databaseId) {
+    const parentNode = node.parentHtmlNode || helpers.getNode(node.id)
+
+    if (!parentNode?.databaseId) {
+      return null
+    }
+
+    return `${baseUrl}/wp-admin/post.php?post=${parentNode.databaseId}&action=edit`
+  }
+
+  return `${baseUrl}/wp-admin/upload.php?item=${node.databaseId}`
 }
 
 export const errorPanicker = ({
@@ -37,11 +51,16 @@ export const errorPanicker = ({
   parentName,
 }) => {
   const editUrl = getMediaItemEditLink(node)
-  const sharedError = `occured while fetching media item #${node.databaseId}${
-    parentName ? ` in step:\n\n"${parentName}"` : ``
-  }\n\nMedia item link: ${node.link}\nEdit link: ${editUrl}\nFile url: ${
-    node.mediaItemUrl
-  }`
+
+  const stepMessage = parentName ? ` in step:\n\n"${parentName}"` : ``
+  const mediaItemLink = node.link ? `\nMedia item link: ${node.link}` : ``
+  const editLink = `\nEdit link: ${editUrl || `N/A`}`
+  const fileUrl = `\nFile url: ${node.mediaItemUrl}`
+
+  const sharedError = `occurred while fetching media item${
+    node.databaseId ? ` #${node.databaseId}` : ``
+  }${stepMessage}\n${mediaItemLink}${editLink}${fileUrl}`
+
   const errorString =
     typeof error === `string` ? error : error && error.toString()
 
