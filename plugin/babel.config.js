@@ -2,10 +2,23 @@ module.exports = {
   presets: [[`babel-preset-gatsby-package`]],
   plugins: [
     [
-      `babel-plugin-root-import`,
+      `@babel/plugin-proposal-private-methods`,
       {
-        rootPathSuffix: `./src/`,
-        rootPathPrefix: `~/`,
+        loose: true,
+      },
+    ],
+    [
+      `babel-plugin-module-resolver`,
+      {
+        alias: {
+          "~": `./src`,
+        },
+      },
+    ],
+    [
+      `@babel/plugin-proposal-class-properties`,
+      {
+        loose: true,
       },
     ],
     [

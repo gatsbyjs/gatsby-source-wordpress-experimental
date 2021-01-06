@@ -10,6 +10,20 @@ import { cacheFetchedTypes } from "./cache-fetched-types"
 import { writeQueriesToDisk } from "./write-queries-to-disk"
 
 const ingestRemoteSchema = async (helpers, pluginOptions) => {
+  const schemaTimeKey = `lastIngestRemoteSchemaTime`
+  const lastIngestRemoteSchemaTime = await helpers.cache.get(schemaTimeKey)
+
+  const ingestedSchemaInLastTenSeconds =
+    Date.now() - lastIngestRemoteSchemaTime <= 10000
+
+  if (lastIngestRemoteSchemaTime && ingestedSchemaInLastTenSeconds) {
+    // only allow this to run once every ten seconds
+    // this prevents thrashing when many webhooks are received at once
+    return
+  }
+
+  await helpers.cache.set(schemaTimeKey, Date.now())
+
   const activity = helpers.reporter.activityTimer(
     formatLogMessage(`ingest WPGraphQL schema`)
   )

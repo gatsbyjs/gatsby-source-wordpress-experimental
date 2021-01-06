@@ -1,10 +1,15 @@
 import store from "~/store"
 import { processAndValidatePluginOptions } from "./process-and-validate-plugin-options"
 import { formatLogMessage } from "../utils/format-log-message"
+import { IPluginOptions } from "~/models/gatsby-api"
+import { GatsbyNodeApiHelpers } from "~/utils/gatsby-types"
 
 let hasDisplayedPreviewPresetMessage = false
 
-const setGatsbyApiToState = (helpers, pluginOptions) => {
+const setGatsbyApiToState = (
+  helpers: GatsbyNodeApiHelpers,
+  pluginOptions: IPluginOptions
+): void => {
   if (helpers.traceId === `refresh-createSchemaCustomization`) {
     return
   }

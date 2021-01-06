@@ -25,33 +25,33 @@
 
 # gatsby-source-wordpress@v4 BETA
 
-This plugin is the official recommended way to use WordPress with Gatsby. We're currently publishing on a separate package to make migrating from `gatsby-source-wordpress@v3` easier. If you're coming from `v3` ​this allows you to activate the new version of the plugin alongside `gatsby-source-wordpress` and migrate your codebase one piece at a time :star:
+This plugin is the official recommended way to use WordPress with Gatsby. We're currently publishing on a separate package to make migrating from `gatsby-source-wordpress@v3` easier. If you're coming from `v3` ​this allows you to activate the new version of the plugin alongside `gatsby-source-wordpress` and migrate your codebase one piece at a time ⭐️
 
-## Overview :sun_with_face:
+## Overview 🌞
 
-This plugin works by merging the [WPGraphQL schema & data](https://docs.wpgraphql.com/guides/about-wpgraphql/) with the [Gatsby schema & Node model](https://www.gatsbyjs.com/docs/node-model/) which allows us to efficiently cache WP data in Gatsby. What this means is that incremental builds, and fast builds work beautifully! :nail_care: Preview is currently buggy in some cases but is being worked on and will work beautifully too soon! :wink:
+This plugin works by merging the [WPGraphQL schema & data](https://docs.wpgraphql.com/guides/about-wpgraphql/) with the [Gatsby schema & Node model](https://www.gatsbyjs.com/docs/node-model/) which allows us to efficiently cache WP data in Gatsby. What this means is that incremental builds, and fast builds work beautifully! 💅 Preview is currently buggy in some cases but is being worked on and will work beautifully too soon! 😉
 
 Developer & Content Creator experience are some of our main focuses with this integration. Please send us your feedback!
 
-:gear: :mag_right: :eyes: :point_right: :pencil2: :page_facing_up:
+⚙️🔎👀👉📝
 
-# Docs :book:
+# Docs 📖
 
-- :woman_singer: [Why use this plugin?](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/why-use-this-plugin.md)
-- :runner: [Installation & Getting started](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/getting-started.md)
-- :school: [Tutorials](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/tutorials/index.md)
-- :feet: [Features](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/features/index.md)
-- :electric_plug: [Plugin options](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/plugin-options.md)
-- :boat: [Migrating from other WP source plugins](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/migrating-from-other-wp-source-plugins.md)
-- :computer: [Using Data](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/using-data.md)
-- :house: [Hosting WordPress](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/hosting.md)
-- :athletic_shoe: [Themes, Starters, and Examples](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/themes-starters-examples.md)
-- :medal_sports: [Usage with popular WPGraphQL extensions](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/usage-with-popular-wp-graphql-extensions.md)
-- :hammer_and_wrench: [Debugging and troubleshooting](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/debugging-and-troubleshooting.md)
-- :national_park: [Community and Support](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/community-and-support.md)
-- :bulb: [Contribution](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/contribution.md)
+- 👩‍🎤 [Why use this plugin?](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/why-use-this-plugin.md)
+- 🏃‍ [Installation & Getting started](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/getting-started.md)
+- 🏫 [Tutorials](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/tutorials/index.md)
+- 🐾 [Features](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/features/index.md)
+- 🔌 [Plugin options](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/plugin-options.md)
+- ⛵️ [Migrating from other WP source plugins](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/migrating-from-other-wp-source-plugins.md)
+- 💻 [Using Data](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/using-data.md)
+- 🏠 [Hosting WordPress](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/hosting.md)
+- 👟 [Themes, Starters, and Examples](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/themes-starters-examples.md)
+- 🏅 [Usage with popular WPGraphQL extensions](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/usage-with-popular-wp-graphql-extensions.md)
+- 🛠 [Debugging and troubleshooting](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/debugging-and-troubleshooting.md)
+- 🏞 [Community and Support](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/community-and-support.md)
+- 💡 [Contribution](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/contribution.md)
 
-## Relevant Links :link:
+## Relevant Links 🔗
 
 - [Changelog](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/CHANGELOG.md)
 - [License](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/LICENSE)

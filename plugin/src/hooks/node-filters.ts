@@ -1,4 +1,19 @@
+import { JSON } from "../utils/fetch-graphql"
 import store from "~/store"
+
+interface INodeFilterInput {
+  name: string
+  context: JSON
+  data: JSON
+}
+
+type NodeFilterFn = (INodeFilterInput) => JSON
+
+interface INodeFilter {
+  name: string
+  filter: NodeFilterFn
+  priority: number
+}
 
 /**
  * Grabs an array of filter functions from the redux store,
@@ -9,12 +24,18 @@ import store from "~/store"
  * @param {object} context Any additional data to pass to the filter functions that are applied
  * @param {object} data The initial data to be filtered
  */
-export const applyNodeFilter = async ({ name, context, data }) => {
+export const applyNodeFilter = async ({
+  name,
+  context,
+  data,
+}: INodeFilterInput): Promise<JSON> => {
   if (!name) {
     return data
   }
 
-  const nodeFilters = store.getState().wpHooks.nodeFilters?.[name]
+  const nodeFilters: INodeFilter[] = store.getState().wpHooks.nodeFilters?.[
+    name
+  ]
 
   if (!nodeFilters || !nodeFilters.length) {
     return data
@@ -37,5 +58,5 @@ export const applyNodeFilter = async ({ name, context, data }) => {
  * @param {function} filter The function to run when applying this filter
  * @param {integer} priority The priority for this filter to run in. lower means earlier execution
  */
-export const addNodeFilter = ({ name, filter, priority }) =>
+export const addNodeFilter = ({ name, filter, priority }: INodeFilter): void =>
   store.dispatch.wpHooks.addNodeFilter({ name, filter, priority })

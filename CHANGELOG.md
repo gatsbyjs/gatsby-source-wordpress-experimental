@@ -1,5 +1,15 @@
 # Change Log
 
+## Upcoming
+
+### Bug Fixes
+
+- There was an errant log that was calling all incremental updates preview updates. It now distinguishes between previews and regular data updates.
+
+## 6.0.0
+
+This release massively increases the performance of Gatsby Previews when more than one person is previewing or editing content at the same time. Previously when multiple users previewed simultaneously, only one of those users would see their preview or it would take a very long time for the others to see their previews. Now many users can preview concurrently. This was tested with a headless chrome puppeteer script. We found that 10 users making 100 previews over the course of a few minutes now have a 100% success rate. Previously 3 users making 30 previews would have a less than 30% success rate. This is a breaking change because WPGatsby has some changes which are required to make this work.
+
 ## 5.0.2
 
 This release adds support for WPGatsby v0.8.0 which adds a number of stability fixes and improvements. This is a non breaking release for the source plugin and a breaking change for WPGatsby but it's highly recommended to update to latest WPGatsby.

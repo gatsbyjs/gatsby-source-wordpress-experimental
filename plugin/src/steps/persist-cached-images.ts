@@ -2,7 +2,7 @@ import store from "~/store"
 import { getGatsbyApi } from "~/utils/get-gatsby-api"
 import { getPersistentCache } from "~/utils/cache"
 
-const persistPreviouslyCachedImages = async () => {
+const persistPreviouslyCachedImages = async (): Promise<void> => {
   const { helpers, pluginOptions } = getGatsbyApi()
 
   // get all existing media item nodes
