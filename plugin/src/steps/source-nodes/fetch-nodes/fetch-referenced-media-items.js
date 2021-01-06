@@ -373,7 +373,7 @@ const fetchMediaItemsBySourceUrl = async ({
             first: perPage,
             after: null,
           },
-          errorContext: `Error occured while fetching "MediaItem" nodes in inline html.`,
+          errorContext: `Error occurred while fetching "MediaItem" nodes in inline html.`,
         })
 
         // since we're getting each media item on it's single node root field

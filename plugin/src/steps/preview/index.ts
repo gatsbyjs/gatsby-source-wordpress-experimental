@@ -290,7 +290,7 @@ const createPreviewStatusCallback = ({
         statusContext,
       },
     },
-    errorContext: `Error occured while mutating WordPress Preview node meta.`,
+    errorContext: `Error occurred while mutating WordPress Preview node meta.`,
     forceReportCriticalErrors: true,
     headers: {
       WPGatsbyPreview: previewData.token,

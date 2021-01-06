@@ -22,7 +22,7 @@ const fetchAndCreateNonNodeRootFields = async () => {
 
   const { data } = await fetchGraphql({
     query: nonNodeQuery,
-    errorContext: `Error occured while fetching non-Node root fields.`,
+    errorContext: `Error occurred while fetching non-Node root fields.`,
   })
 
   const createdNodeIds = []
