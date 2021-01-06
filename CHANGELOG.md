@@ -5,6 +5,21 @@
 ### Bug Fixes
 
 - There was an errant log that was calling all incremental updates preview updates. It now distinguishes between previews and regular data updates.
+- Since we unified the code for fetching media item nodes and file nodes in html fields, a regression was introduced where our http error handling was assuming it was still always for a media item node. This oversight obscured errors for html image file sourcing.
+
+### New Features
+
+- Because 404's can block many sites from completing production builds, we've added an option to allow 404s to not fail production builds.
+
+```
+{
+  options: {
+    production: {
+      allow404Images: true
+    }
+  }
+}
+```
 
 ## 6.0.0
 
