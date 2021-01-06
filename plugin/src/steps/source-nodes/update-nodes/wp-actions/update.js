@@ -98,13 +98,11 @@ export const fetchAndCreateSingleNode = async ({
     cachedNodeIds,
   })
 
-  reporter.info(
-    formatLogMessage(
-      `${isPreview ? `Preview` : `Data`} for ${singleName} ${
-        node.id
-      } was updated.`
+  if (isPreview) {
+    reporter.info(
+      formatLogMessage(`Preview for ${singleName} ${node.id} was updated.`)
     )
-  )
+  }
 
   return { node, additionalNodeIds }
 }
