@@ -3,6 +3,7 @@
 ## Upcoming
 
 ### Bug Fixes
+
 - There was an errant log that was calling all incremental updates preview updates. It now distinguishes between previews and regular data updates.
 
 ## 6.0.0
