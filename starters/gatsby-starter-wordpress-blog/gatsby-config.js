@@ -29,9 +29,6 @@ module.exports = {
         url:
           process.env.WPGRAPHQL_URL ||
           `https://wpgatsbydemo.wpengine.com/graphql`,
-        production: {
-          allow404Images: true,
-        },
       },
     },
 
