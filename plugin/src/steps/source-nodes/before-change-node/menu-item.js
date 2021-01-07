@@ -1,8 +1,6 @@
 import atob from "atob"
 
-export function beforeChangeMenuItem(api) {
-  const { remoteNode } = api
-
+export function beforeChangeMenuItem({ remoteNode }) {
   const decodedId = atob(remoteNode.id)
 
   // this MenuItem has an incorrect ID.
