@@ -693,8 +693,15 @@ const replaceFileLinks = async ({
   helpers,
   wpUrl,
   pluginOptions,
+  node,
 }) => {
   if (!pluginOptions?.html?.createStaticFiles) {
+    return nodeString
+  }
+
+  if (node.__typename === `MediaItem`) {
+    // we dont' want to replace file links on MediaItem nodes because they're processed specially from other node types.
+    // if we replace file links here then we wont be able to properly fetch the localFile node
     return nodeString
   }
 
