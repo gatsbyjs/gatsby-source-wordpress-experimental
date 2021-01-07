@@ -55,7 +55,7 @@ const paginatedWpNodeFetch = async ({
     variables.first = settings.limit
   }
 
-  const errorContext = `Error occured while fetching nodes of the "${nodeTypeName}" type.`
+  const errorContext = `Error occurred while fetching nodes of the "${nodeTypeName}" type.`
 
   const response = await fetchGraphql({
     query,

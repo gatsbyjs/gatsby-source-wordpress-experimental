@@ -11,7 +11,8 @@ import { LAST_COMPLETED_SOURCE_TIME } from "../../../constants"
  */
 const checkForNodeUpdates = async ({ cache, emitter }) => {
   // get the last sourced time
-  const since = await cache.get(LAST_COMPLETED_SOURCE_TIME)
+  const lastCompletedSourceTime = await cache.get(LAST_COMPLETED_SOURCE_TIME)
+  const since = lastCompletedSourceTime - 500
 
   // make a graphql request for any actions that have happened since
   const {

@@ -23,10 +23,24 @@ export const getFileNodeMetaBySourceUrl = (sourceUrl) => {
 }
 
 export const getMediaItemEditLink = (node) => {
-  const { protocol, hostname } = url.parse(node.link)
-  const editUrl = `${protocol}//${hostname}/wp-admin/upload.php?item=${node.databaseId}`
+  const { helpers, pluginOptions } = store.getState().gatsbyApi
 
-  return editUrl
+  const { protocol, hostname } = url.parse(node?.link || pluginOptions.url)
+  const baseUrl = `${protocol}//${hostname}`
+
+  const databaseId = node.databaseId
+
+  if (!databaseId) {
+    const parentNode = node.parentHtmlNode || helpers.getNode(node.id)
+
+    if (!parentNode?.databaseId) {
+      return null
+    }
+
+    return `${baseUrl}/wp-admin/post.php?post=${parentNode.databaseId}&action=edit`
+  }
+
+  return `${baseUrl}/wp-admin/upload.php?item=${node.databaseId}`
 }
 
 export const errorPanicker = ({
@@ -37,26 +51,40 @@ export const errorPanicker = ({
   parentName,
 }) => {
   const editUrl = getMediaItemEditLink(node)
-  const sharedError = `occured while fetching media item #${node.databaseId}${
-    parentName ? ` in step:\n\n"${parentName}"` : ``
-  }\n\nMedia item link: ${node.link}\nEdit link: ${editUrl}\nFile url: ${
-    node.mediaItemUrl
-  }`
+
+  const stepMessage = parentName ? ` in step:\n\n"${parentName}"` : ``
+  const mediaItemLink = node.link ? `\nMedia item link: ${node.link}` : ``
+  const editLink = `\nEdit link: ${editUrl || `N/A`}`
+  const fileUrl = `\nFile url: ${node.mediaItemUrl}`
+
+  const sharedError = `occurred while fetching media item${
+    node.databaseId ? ` #${node.databaseId}` : ``
+  }${stepMessage}\n${mediaItemLink}${editLink}${fileUrl}`
+
   const errorString =
     typeof error === `string` ? error : error && error.toString()
 
+  const { pluginOptions } = store.getState().gatsbyApi
+  const allow404ImagesInProduction = pluginOptions.production.allow404Images
+
   if (
-    process.env.NODE_ENV !== `production` &&
+    (allow404ImagesInProduction || process.env.NODE_ENV !== `production`) &&
     errorString.includes(`Response code 404`)
   ) {
     fetchState.shouldBail = true
+
     reporter.log(``)
     reporter.warn(
       formatLogMessage(
-        `Error ${sharedError}\n\nThis error will fail production builds.`
+        `Error ${sharedError}${
+          !allow404ImagesInProduction
+            ? `\n\nThis error will fail production builds.`
+            : ``
+        }`
       )
     )
     reporter.log(``)
+
     return
   }
 
@@ -64,7 +92,19 @@ export const errorPanicker = ({
     reporter.log(``)
     reporter.info(
       formatLogMessage(
-        `Unrecoverable error ${sharedError}\n\nFailing the build to prevent deploying a broken site.`
+        `Unrecoverable error ${sharedError}\n\nFailing the build to prevent deploying a broken site.${
+          errorString.includes(`Response code 404`)
+            ? `\n\nIf you don't want 404's to fail your production builds, you can set the following option:
+          
+{
+  options: {
+    production: {
+      allow404Images: true
+    }
+  }
+}`
+            : ``
+        }`
       )
     )
     reporter.panic(error)
@@ -144,6 +184,8 @@ export const getFileNodeByMediaItemNode = async ({
   return null
 }
 
+const failedImageUrls = new Set()
+
 export const createRemoteMediaItemNode = async ({
   mediaItemNode,
   parentName,
@@ -173,7 +215,7 @@ export const createRemoteMediaItemNode = async ({
 
   let { mediaItemUrl, modifiedGmt, mimeType, title, fileSize } = mediaItemNode
 
-  if (!mediaItemUrl) {
+  if (!mediaItemUrl || failedImageUrls.has(mediaItemUrl)) {
     return null
   }
 
@@ -214,6 +256,7 @@ export const createRemoteMediaItemNode = async ({
   const remoteFileNode = await retry(
     async () => {
       if (fetchState.shouldBail) {
+        failedImageUrls.add(mediaItemUrl)
         return null
       }
 

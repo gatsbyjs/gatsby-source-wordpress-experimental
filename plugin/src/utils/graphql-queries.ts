@@ -18,7 +18,10 @@ export const contentPollingQuery = /* GraphQL */ `
 export const actionMonitorQuery = /* GraphQL */ `
   query GET_ACTION_MONITOR_ACTIONS($since: Float!, $after: String) {
     actionMonitorActions(
-      where: { sinceTimestamp: $since, orderby: { field: DATE, order: DESC } }
+      where: {
+        sinceTimestamp: $since
+        orderby: { field: MODIFIED, order: DESC }
+      }
       first: 100
       after: $after
     ) {

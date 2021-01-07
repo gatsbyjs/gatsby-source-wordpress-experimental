@@ -47,7 +47,7 @@ const fetchChildMenuItems = (api) => async () => {
 
   const { data } = await fetchGraphql({
     query,
-    errorContext: `Error occured while recursively fetching "MenuItem" nodes in Menu beforeChangeNode API.`,
+    errorContext: `Error occurred while recursively fetching "MenuItem" nodes in Menu beforeChangeNode API.`,
   })
 
   const remoteChildMenuItemNodes = Object.values(data)

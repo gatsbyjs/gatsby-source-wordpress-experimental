@@ -2,9 +2,28 @@
 
 ## Upcoming
 
-### Bug Fixes
+### Bug Fixes & internal changes
 
 - There was an errant log that was calling all incremental updates preview updates. It now distinguishes between previews and regular data updates.
+- Since we unified the code for fetching media item nodes and file nodes in html fields, a regression was introduced where our http error handling was assuming it was still always for a media item node. This oversight obscured errors for html image file sourcing.
+- Sort actions by modified date instead of date since there's now only 1 action for each node which is just modified instead of being created new.
+- The last sourced time was moved from the end of sourcing data to the beginning. The reason for this is that if updates happen during node sourcing, they could previously be potentially missed. Now they'll be picked up.
+- Static file link replacement could previously be triggered on MediaItem nodes. This was problematic because the sourceUrl/mediaItemUrl field would be overwritten with a static file link. When the plugin later went to use these fields to create the localFile field, it was no longer a valid url for the WP site and the build would crash. Static file link replacement is now disabled for MediaItem nodes to prevent this from happening.
+- Removed dead code which was keeping track of actions and removing duplicates. We now only ever store 1 action per node so duplicates aren't possible anymore.
+
+### New Features
+
+- Because 404's can block many sites from completing production builds, we've added an option to allow 404s to not fail production builds.
+
+```
+{
+  options: {
+    production: {
+      allow404Images: true
+    }
+  }
+}
+```
 
 ## 6.0.0
 
@@ -159,7 +178,7 @@ This major release rolls out a new Preview experience which is faster, more reli
 - Remote error handling with steps on how to fix the problem has been added! Handled errors include:
   - No page created for previewed node (need to create a page for nodes of this type in gatsby-node.js)
   - Preview instance received data from the wrong URL (Gatsby is configured to source data from a different WordPress instance. Compare your WPGatsby and gatsby-source-wordpress-experimental settings)
-  - General Gatsby Preview process errors are caught and a generic error about which step the error occured in is sent back to WP. WP displays the generic error and encourages the user to check their preview logs for a more detailed error
+  - General Gatsby Preview process errors are caught and a generic error about which step the error occurred in is sent back to WP. WP displays the generic error and encourages the user to check their preview logs for a more detailed error
   - When posting to the preview instance, wether or not the webhook is online is recorded, if it's offline the preview template will display an error about this. If it's online, the preview template will optimistically try to load the preview. In both cases (it's online & offline), the preview template will simultaneously check again in browser if Cloud is online or not, and react accordingly (display an error or load the preview if it hasn't already). This is good because not every load of the preview template will trigger a webhook (if no data has changed), so we need a solid way to handle errors if the preview server goes down in this case and an admin re-loads the preview window on the WP side.
 - WPGatsby misconfiguration handling. Both of the following will display an error with steps on how to fix.
   - No preview frontend url is set but Gatsby Preview is enabled in WPGatsby settings.

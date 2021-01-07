@@ -23,6 +23,8 @@ const sourceNodes = async (helpers, pluginOptions) => {
     await sourcePreviews(helpers, pluginOptions)
   }
 
+  const now = Date.now()
+
   // fetch non-node root fields such as settings.
   // For now, we're refetching them on every build
   const nonNodeRootFieldsPromise = fetchAndCreateNonNodeRootFields()
@@ -52,8 +54,6 @@ const sourceNodes = async (helpers, pluginOptions) => {
   // pull everything from WPGQL
   if (fetchEverything) {
     await fetchAndCreateAllNodes()
-
-    await helpers.cache.set(LAST_COMPLETED_SOURCE_TIME, Date.now())
   }
 
   // If we've already successfully pulled everything from WPGraphQL
@@ -67,6 +67,7 @@ const sourceNodes = async (helpers, pluginOptions) => {
   await nonNodeRootFieldsPromise
 
   allowFileDownloaderProgressBarToClear()
+  await helpers.cache.set(LAST_COMPLETED_SOURCE_TIME, now)
 
   const { dispatch } = store
   dispatch.remoteSchema.setSchemaWasChanged(false)
