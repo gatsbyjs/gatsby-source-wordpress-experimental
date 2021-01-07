@@ -129,6 +129,11 @@ export const menuBeforeChangeNode = async (api) => {
 
   const additionalNodeIds = []
 
+  // we delete all child menu items first to take care of a WPGQL bug
+  // where there are invalid menu items that are not properly attached to our menu
+  // because their ID's are incorrect.\
+  // @todo remove this once this is fixed in WPGQL
+  deleteMenuNodeChildMenuItems(api.remoteNode)
   menuItemFetchQueue.add(fetchChildMenuItems({ ...api, additionalNodeIds }))
 
   await menuItemFetchQueue.onIdle()
