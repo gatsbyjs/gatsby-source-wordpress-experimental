@@ -101,6 +101,7 @@ export const menuBeforeChangeNode = async (api) => {
   menuItemFetchQueue.add(fetchChildMenuItems({ ...api, additionalNodeIds }))
 
   await menuItemFetchQueue.onIdle()
+  await menuItemFetchQueue.onEmpty()
 
   return { additionalNodeIds }
 }
