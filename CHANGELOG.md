@@ -1,6 +1,6 @@
 # Change Log
 
-## Upcoming
+## 6.1.0
 
 ### Bug Fixes & internal changes
 
