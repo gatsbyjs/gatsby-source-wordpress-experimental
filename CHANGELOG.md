@@ -2,10 +2,14 @@
 
 ## Upcoming
 
-### Bug Fixes
+### Bug Fixes & internal changes
 
 - There was an errant log that was calling all incremental updates preview updates. It now distinguishes between previews and regular data updates.
 - Since we unified the code for fetching media item nodes and file nodes in html fields, a regression was introduced where our http error handling was assuming it was still always for a media item node. This oversight obscured errors for html image file sourcing.
+- Sort actions by modified date instead of date since there's now only 1 action for each node which is just modified instead of being created new.
+- The last sourced time was moved from the end of sourcing data to the beginning. The reason for this is that if updates happen during node sourcing, they could previously be potentially missed. Now they'll be picked up.
+- Static file link replacement could previously be triggered on MediaItem nodes. This was problematic because the sourceUrl/mediaItemUrl field would be overwritten with a static file link. When the plugin later went to use these fields to create the localFile field, it was no longer a valid url for the WP site and the build would crash. Static file link replacement is now disabled for MediaItem nodes to prevent this from happening.
+- Removed dead code which was keeping track of actions and removing duplicates. We now only ever store 1 action per node so duplicates aren't possible anymore.
 
 ### New Features
 
