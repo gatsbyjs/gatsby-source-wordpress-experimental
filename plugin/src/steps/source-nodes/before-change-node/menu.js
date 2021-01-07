@@ -1,5 +1,6 @@
 import PQueue from "p-queue"
 import { processNode } from "~/steps/source-nodes/create-nodes/process-node"
+import { getGatsbyApi } from "~/utils/get-gatsby-api"
 
 const menuItemFetchQueue = new PQueue({
   concurrency: Number(process.env.GATSBY_CONCURRENT_DOWNLOAD ?? 200),
@@ -89,7 +90,37 @@ const fetchChildMenuItems = (api) => async () => {
   )
 }
 
+const deleteMenuNodeChildMenuItems = (node) => {
+  const {
+    pluginOptions,
+    helpers: { getNodesByType, actions },
+  } = getGatsbyApi()
+
+  const allMenuItems = getNodesByType(
+    `${pluginOptions.schema.typePrefix}MenuItem`
+  )
+
+  const allMenuItemsNodesWithThisMenuIdAsAParent = allMenuItems.filter(
+    (menuItemNode) => menuItemNode.menu.node.id === node.id
+  )
+
+  allMenuItemsNodesWithThisMenuIdAsAParent?.forEach((menuItemNode) =>
+    actions.deleteNode({
+      node: menuItemNode,
+    })
+  )
+}
+
 export const menuBeforeChangeNode = async (api) => {
+  if (!api.remoteNode) {
+    return null
+  }
+
+  if (api.actionType === `DELETE`) {
+    // delete child menu items
+    return deleteMenuNodeChildMenuItems(api.remoteNode)
+  }
+
   if (api.actionType !== `UPDATE` && api.actionType !== `CREATE`) {
     // no need to update child MenuItems if we're not updating an existing menu
     // if we're creating a new menu it will be empty initially.
