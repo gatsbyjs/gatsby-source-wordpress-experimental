@@ -40,34 +40,7 @@ export const getWpActions = async ({
 
   await helpers.cache.set(LAST_COMPLETED_SOURCE_TIME, sourceTime)
 
-  // @todo - rework this logic, and make sure it works as expected in all cases.
-  // we only want to use the latest action on each post ID in case multiple
-  // actions were recorded for the same post
-  // for example: if a post was deleted and then immediately published again.
-  // if we kept both actions we would download the node and then delete it
-  // Since we receive the actions in order from newest to oldest, we
-  // can prefer actions at the top of the list.
-  const actionabledIds = []
-  const actions = actionMonitorActions.filter((action) => {
-    // const actions = actionsSinceLastUpdate.filter((action) => {
-    const id = action.referencedNodeGlobalRelayID
-
-    // check if an action with the same id exists
-    const actionExists = actionabledIds.find(
-      (actionableId) => actionableId === id
-    )
-
-    // if there isn't one, record the id of this one to filter
-    // out further actions with the same id
-    if (!actionExists) {
-      actionabledIds.push(id)
-    }
-
-    // just keep the action if one doesn't already exist
-    return !actionExists
-  })
-
-  return actions
+  return actionMonitorActions
 }
 
 /**
