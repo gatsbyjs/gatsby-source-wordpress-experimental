@@ -54,6 +54,15 @@ export const buildGatsbyNodeObjectResolver = ({ field, fieldName }) => async (
 
   const queryInfo = getQueryInfoByTypeName(field.type.name)
 
+  if (
+    // only fetch/create nodes in resolvers for media items
+    queryInfo.nodesTypeName !== `MediaItem` ||
+    // and only when they have lazyNodes enabled
+    !queryInfo.settings.lazyNodes
+  ) {
+    return null
+  }
+
   // if this node doesn't exist, fetch it and create a node
   const { node } = await fetchAndCreateSingleNode({
     id: nodeField.id,

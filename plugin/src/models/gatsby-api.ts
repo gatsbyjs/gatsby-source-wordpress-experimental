@@ -2,6 +2,7 @@ import { GatsbyNodeApiHelpers } from "~/utils/gatsby-types"
 import merge from "lodash/merge"
 import { createRemoteMediaItemNode } from "~/steps/source-nodes/create-nodes/create-remote-media-item-node"
 import { menuBeforeChangeNode } from "~/steps/source-nodes/before-change-node/menu"
+import { beforeChangeMenuItem } from "~/steps/source-nodes/before-change-node/menu-item"
 import { cloneDeep } from "lodash"
 
 export interface PluginOptionsPreset {
@@ -280,6 +281,7 @@ const defaultPluginOptions: IPluginOptions = {
       beforeChangeNode: menuBeforeChangeNode,
     },
     MenuItem: {
+      beforeChangeNode: beforeChangeMenuItem,
       /**
        * This was my previous attempt at fetching problematic menuItems
        * I temporarily solved this above, but I'm leaving this here as

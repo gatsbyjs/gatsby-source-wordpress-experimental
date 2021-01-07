@@ -1,5 +1,13 @@
 # Change Log
 
+## Upcoming
+
+### Bug Fixes
+
+- GraphQL resolvers were previously attempting to lazy fetch nodes if the node isn't found in Gatsby. This is undesired behaviour because it will slow down resolvers considerably for any connections to deleted nodes. This behaviour was originally only intended for MediaItem nodes which could be set to be fetch lazily in resolvers. The fix here is to scope this behaviour only to MediaItem nodes and only when the MediaItem.lazyNodes option is enabled.
+- Due to a WPGraphQL bug where menu items can have a different id depending on which entry point they were fetched from, we had a problem of duplicated menu item nodes in some cases. This is temporarily fixed in this plugin until it's fixed upstream.
+- When deleting a menu in WP, all child menu items are deleted. We weren't previously accounting for this which meant there would be floater menu items in Gatsby which had no parent menu when a menu was deleted. We now clean up these menu item nodes automatically.
+
 ## 6.1.0
 
 ### Bug Fixes & internal changes
