@@ -53,12 +53,12 @@ const fetchChildMenuItems = (api) => async () => {
 
   const remoteChildMenuItemNodes = Object.values(data)
 
-  remoteChildMenuItemNodes.forEach(
-    ({ id } = {}) => id && additionalNodeIds.push(id)
-  )
-
   await Promise.all(
     remoteChildMenuItemNodes.map(async (remoteMenuItemNode) => {
+      if (remoteMenuItemNode.id) {
+        additionalNodeIds.push(remoteMenuItemNode.id)
+      }
+
       // recursively fetch child menu items
       menuItemFetchQueue.add(
         fetchChildMenuItems({
