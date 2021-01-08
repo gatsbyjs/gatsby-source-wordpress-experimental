@@ -104,11 +104,12 @@ const deleteMenuNodeChildMenuItems = (node) => {
     (menuItemNode) => menuItemNode.menu.node.id === node.id
   )
 
-  allMenuItemsNodesWithThisMenuIdAsAParent?.forEach((menuItemNode) =>
+  allMenuItemsNodesWithThisMenuIdAsAParent?.forEach((menuItemNode) => {
+    actions.touchNode({ nodeId: menuItemNode.id })
     actions.deleteNode({
       node: menuItemNode,
     })
-  )
+  })
 }
 
 export const menuBeforeChangeNode = async (api) => {
