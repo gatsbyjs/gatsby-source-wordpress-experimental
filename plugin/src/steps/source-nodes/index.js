@@ -7,16 +7,9 @@ import store from "~/store"
 import fetchAndCreateNonNodeRootFields from "./create-nodes/fetch-and-create-non-node-root-fields"
 import { allowFileDownloaderProgressBarToClear } from "./create-nodes/create-remote-file-node/progress-bar-promise"
 import { sourcePreviews } from "~/steps/preview"
-import { formatLogMessage } from "../../utils/format-log-message"
-import { dump } from "dumper.js"
 
 const sourceNodes = async (helpers, pluginOptions) => {
   const { cache, webhookBody } = helpers
-
-  helpers.reporter.info(formatLogMessage(`Raw webhook:`))
-  dump(webhookBody)
-  // if (pluginOptions?.debug?.preview) {
-  // }
 
   // if this is a preview we want to process it and return early
   if (webhookBody.preview) {
