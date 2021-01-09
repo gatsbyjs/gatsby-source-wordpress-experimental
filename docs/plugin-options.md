@@ -4,6 +4,7 @@
   - [url: String](#url-string)
   - [verbose: Boolean](#verbose-boolean)
   - [debug: Object](#debug-object)
+    - [debug.preview: Object](#debugpreview-object)
     - [debug.graphql: Object](#debuggraphql-object)
       - [debug.graphql.printIntrospectionDiff: Boolean](#debuggraphqlprintintrospectiondiff-boolean)
       - [debug.graphql.showQueryVarsOnError: Boolean](#debuggraphqlshowqueryvarsonerror-boolean)
@@ -80,6 +81,23 @@ An object which contains options related to debugging. See below for options.
   options: {
     debug: {
 
+    },
+  },
+},
+```
+
+### debug.preview: Object
+
+When set to true, this option will display additional information in the terminal output about the running preview process.
+
+Default is `false`.
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+  options: {
+    debug: {
+      preview: true
     },
   },
 },
