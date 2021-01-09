@@ -74,7 +74,7 @@ The preset (as found in src/models/gatsby-api.ts) is:
 }
 ```
 
-## Debugging Previews
+## Debugging Previews in React
 
 Since a Previewed post might have a lot less data attached to it than what you're testing with during development, you might get errors in previews when that data is missing. You can debug your previews by running Gatsby in preview mode locally.
 
@@ -84,6 +84,10 @@ Since a Previewed post might have a lot less data attached to it than what you'r
 - In your WP instance's GatsbyJS settings, set your Preview instance URL to `https://your-ngrok-url.ngrok.io` and your Preview webhook to `https://your-ngrok-url.ngrok.io/__refresh`
 
 Now when you click the preview button in `wp-admin` it will use your local instance of Gatsby. You can inspect the preview template to see which Gatsby page is being loaded in the preview iframe and open it directly to do further debugging.
+
+## Debugging the build process of Previews
+
+If you enable the plugin option `options.debug.preview` by setting it to `true`, you will see additional logging through the Preview build process with information such as the contents of the webhook body that was sent to Gatsby, the preview node data, and the list of preview actions that were pulled from WordPress. See the [plugin options](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/plugin-options.md#debugpreview-boolean) documentation for more info.
 
 ## How Preview works behind the scenes
 

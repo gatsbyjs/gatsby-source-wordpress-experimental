@@ -61,9 +61,11 @@ export interface IPluginOptions {
       copyNodeSourcingQueryAndExit?: boolean
       writeQueriesToDisk?: boolean
       copyHtmlResponseOnError?: boolean
+      printIntrospectionDiff?: boolean
     }
     timeBuildSteps?: string[] | boolean
     disableCompatibilityCheck?: boolean
+    preview?: boolean
   }
   develop?: {
     nodeUpdateInterval?: number
@@ -132,9 +134,11 @@ const defaultPluginOptions: IPluginOptions = {
       copyNodeSourcingQueryAndExit: false,
       writeQueriesToDisk: false,
       copyHtmlResponseOnError: false,
+      printIntrospectionDiff: false,
     },
     timeBuildSteps: false,
     disableCompatibilityCheck: false,
+    preview: false,
   },
   develop: {
     nodeUpdateInterval: 5000,

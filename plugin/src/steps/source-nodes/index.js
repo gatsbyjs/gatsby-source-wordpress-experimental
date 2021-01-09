@@ -43,9 +43,7 @@ const sourceNodes = async (helpers, pluginOptions) => {
     foundUsableHardCachedData ||
     !lastCompletedSourceTime ||
     // don't refetch everything in development
-    ((process.env.NODE_ENV !== `development` ||
-      // unless we're in preview mode
-      process.env.ENABLE_GATSBY_REFRESH_ENDPOINT) &&
+    (process.env.NODE_ENV !== `development` &&
       // and the schema was changed
       schemaWasChanged)
 

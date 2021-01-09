@@ -37,6 +37,11 @@ export function pluginOptionsSchema({ Joi }) {
       .default(true)
       .description(`Wether there will be verbose output in the terminal`),
     debug: Joi.object({
+      preview: Joi.boolean()
+        .default(false)
+        .description(
+          `When set to true, this option will display additional information in the terminal output about the running preview process.`
+        ),
       timeBuildSteps: Joi.boolean()
         .default(false)
         .description(
@@ -80,6 +85,11 @@ export function pluginOptionsSchema({ Joi }) {
           .default(false)
           .description(
             `When true, all internal GraphQL queries generated during node sourcing will be written out to ./WordPress/GraphQL/[TypeName]/*.graphql for every type that is sourced. This is very useful for debugging GraphQL errors.`
+          ),
+        printIntrospectionDiff: Joi.boolean()
+          .default(false)
+          .description(
+            `When true, changes to the remote schema will be printed in the terminal output.`
           ),
       }),
     }).description(`Options related to debugging.`),

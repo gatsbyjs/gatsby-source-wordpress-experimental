@@ -135,10 +135,7 @@ Please consider addressing this issue by changing your WordPress settings or plu
     helpers.reporter.warn(
       formatLogMessage(`The remote schema has changed, updating local schema.`)
     )
-    if (
-      process.env.NODE_ENV === `development` &&
-      !process.env.ENABLE_GATSBY_REFRESH_ENDPOINT
-    ) {
+    if (process.env.NODE_ENV === `development`) {
       helpers.reporter.warn(
         formatLogMessage(
           `If the schema change includes a data change\nyou'll need to run \`gatsby clean && gatsby develop\` to see the data update.`

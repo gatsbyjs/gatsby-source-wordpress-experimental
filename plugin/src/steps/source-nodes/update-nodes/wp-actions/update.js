@@ -42,6 +42,7 @@ export const fetchAndCreateSingleNode = async ({
 
   const {
     helpers: { reporter },
+    pluginOptions,
   } = getGatsbyApi()
 
   if (!query) {
@@ -102,6 +103,11 @@ export const fetchAndCreateSingleNode = async ({
     reporter.info(
       formatLogMessage(`Preview for ${singleName} ${node.id} was updated.`)
     )
+
+    if (pluginOptions.debug.preview) {
+      reporter.info(formatLogMessage(`Raw remote node data:`))
+      dump(data)
+    }
   }
 
   return { node, additionalNodeIds }
