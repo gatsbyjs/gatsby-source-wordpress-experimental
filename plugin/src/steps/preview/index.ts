@@ -1,9 +1,11 @@
+import { getPluginOptions } from "./../../utils/get-gatsby-api"
 import { GatsbyHelpers } from "~/utils/gatsby-types"
 import path from "path"
 import fs from "fs-extra"
 import chalk from "chalk"
 import urlUtil from "url"
 import PQueue from "p-queue"
+import { dump } from "dumper.js"
 
 import { paginatedWpNodeFetch } from "~/steps/source-nodes/fetch-nodes/fetch-nodes-paginated"
 import fetchGraphql from "~/utils/fetch-graphql"
@@ -69,7 +71,21 @@ export const sourcePreviews = async (
   { webhookBody, reporter }: GatsbyHelpers,
   pluginOptions: IPluginOptions
 ): Promise<void> => {
+  const {
+    debug: { preview: inPreviewDebugMode },
+  } = getPluginOptions()
+
+  if (inPreviewDebugMode) {
+    reporter.info(`Sourcing previews for the following webhook:`)
+    dump(webhookBody)
+  }
+
   if (previewForIdIsAlreadyBeingProcessed(webhookBody?.id)) {
+    if (inPreviewDebugMode) {
+      reporter.info(
+        `Preview for id ${webhookBody?.id} is already being sourced.`
+      )
+    }
     return
   }
 
@@ -113,7 +129,19 @@ export const sourcePreviews = async (
   })
 
   if (!previewActions?.length) {
+    if (inPreviewDebugMode) {
+      reporter.info(
+        `Preview for id ${webhookBody?.id} returned no action monitor actions.`
+      )
+    }
     return
+  }
+
+  if (inPreviewDebugMode) {
+    reporter.info(
+      `Preview for id ${webhookBody?.id} returned the following actions:`
+    )
+    dump(previewActions)
   }
 
   const queue = getPreviewQueue()

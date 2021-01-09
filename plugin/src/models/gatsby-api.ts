@@ -64,6 +64,7 @@ export interface IPluginOptions {
     }
     timeBuildSteps?: string[] | boolean
     disableCompatibilityCheck?: boolean
+    preview?: boolean
   }
   develop?: {
     nodeUpdateInterval?: number
@@ -135,6 +136,7 @@ const defaultPluginOptions: IPluginOptions = {
     },
     timeBuildSteps: false,
     disableCompatibilityCheck: false,
+    preview: false,
   },
   develop: {
     nodeUpdateInterval: 5000,
