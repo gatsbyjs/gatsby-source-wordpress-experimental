@@ -2,6 +2,7 @@ import { buildTypeName } from "~/steps/create-schema-customization/helpers"
 import { fetchAndCreateSingleNode } from "~/steps/source-nodes/update-nodes/wp-actions/update"
 import { getQueryInfoByTypeName } from "~/steps/source-nodes/helpers"
 import { getGatsbyApi } from "~/utils/get-gatsby-api"
+import { inPreviewMode } from "~/steps/preview/index"
 
 export const transformListOfGatsbyNodes = ({ field, fieldName }) => {
   const typeName = buildTypeName(field.type.ofType.name)
@@ -56,9 +57,12 @@ export const buildGatsbyNodeObjectResolver = ({ field, fieldName }) => async (
 
   if (
     // only fetch/create nodes in resolvers for media items
-    queryInfo.nodesTypeName !== `MediaItem` ||
-    // and only when they have lazyNodes enabled
-    !queryInfo.settings.lazyNodes
+    (queryInfo.nodesTypeName !== `MediaItem` ||
+      // and only when they have lazyNodes enabled
+      !queryInfo.settings.lazyNodes) &&
+    // but if we're in preview mode we want to lazy fetch nodes
+    // because if nodes are limited we still want to lazy fetch connections
+    !inPreviewMode()
   ) {
     return null
   }
