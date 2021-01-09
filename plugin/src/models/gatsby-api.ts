@@ -134,11 +134,11 @@ const defaultPluginOptions: IPluginOptions = {
       copyNodeSourcingQueryAndExit: false,
       writeQueriesToDisk: false,
       copyHtmlResponseOnError: false,
+      printIntrospectionDiff: false,
     },
     timeBuildSteps: false,
     disableCompatibilityCheck: false,
     preview: false,
-    printIntrospectionDiff: false,
   },
   develop: {
     nodeUpdateInterval: 5000,

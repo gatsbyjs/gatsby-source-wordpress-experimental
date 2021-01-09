@@ -17,7 +17,7 @@ const introspectAndStoreRemoteSchema = async () => {
   })
 
   const printSchemaDiff =
-    pluginOptions?.debug?.schema?.printIntrospectionDiff ||
+    pluginOptions?.debug?.graphql?.printIntrospectionDiff ||
     pluginOptions?.debug?.preview
 
   let staleIntrospectionData

@@ -5,6 +5,7 @@
   - [verbose: Boolean](#verbose-boolean)
   - [debug: Object](#debug-object)
     - [debug.graphql: Object](#debuggraphql-object)
+      - [debug.graphql.printIntrospectionDiff: Boolean](#debuggraphqlprintintrospectiondiff-boolean)
       - [debug.graphql.showQueryVarsOnError: Boolean](#debuggraphqlshowqueryvarsonerror-boolean)
       - [debug.graphql.panicOnError: Boolean](#debuggraphqlpaniconerror-boolean)
       - [debug.graphql.onlyReportCriticalErrors: Boolean](#debuggraphqlonlyreportcriticalerrors-boolean)
@@ -95,6 +96,25 @@ An object which contains GraphQL debugging options. See below for options.
     debug: {
       graphql: {
 
+      },
+    },
+  },
+},
+```
+
+#### debug.graphql.printIntrospectionDiff: Boolean
+
+When this is set to true it will print out the diff between types in the previous and new schema when the schema changes. This is enabled by default when `debug.preview` is enabled.
+
+Default is `false`.
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+  options: {
+    debug: {
+      graphql: {
+        printIntrospectionDiff: true,
       },
     },
   },
