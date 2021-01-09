@@ -86,6 +86,11 @@ export function pluginOptionsSchema({ Joi }) {
           .description(
             `When true, all internal GraphQL queries generated during node sourcing will be written out to ./WordPress/GraphQL/[TypeName]/*.graphql for every type that is sourced. This is very useful for debugging GraphQL errors.`
           ),
+        printIntrospectionDiff: Joi.boolean()
+          .default(false)
+          .description(
+            `When true, changes to the remote schema will be printed in the terminal output.`
+          ),
       }),
     }).description(`Options related to debugging.`),
     production: Joi.object({
