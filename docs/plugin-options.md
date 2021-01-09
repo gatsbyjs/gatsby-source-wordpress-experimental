@@ -4,7 +4,7 @@
   - [url: String](#url-string)
   - [verbose: Boolean](#verbose-boolean)
   - [debug: Object](#debug-object)
-    - [debug.preview: Object](#debugpreview-object)
+    - [debug.preview: Boolean](#debugpreview-boolean)
     - [debug.graphql: Object](#debuggraphql-object)
       - [debug.graphql.printIntrospectionDiff: Boolean](#debuggraphqlprintintrospectiondiff-boolean)
       - [debug.graphql.showQueryVarsOnError: Boolean](#debuggraphqlshowqueryvarsonerror-boolean)
@@ -86,7 +86,7 @@ An object which contains options related to debugging. See below for options.
 },
 ```
 
-### debug.preview: Object
+### debug.preview: Boolean
 
 When set to true, this option will display additional information in the terminal output about the running preview process.
 

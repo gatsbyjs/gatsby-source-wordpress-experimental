@@ -87,7 +87,7 @@ Now when you click the preview button in `wp-admin` it will use your local insta
 
 ## Debugging the build process of Previews
 
-If you enable the plugin option `options.debug.preview` by setting it to `true`, you will see additional logging through the Preview build process with information such as the contents of the webhook body that was sent to Gatsby, the preview node data, and the list of preview actions that were pulled from WordPress. See the [plugin options](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/plugin-options.md#debugpreview-object) documentation for more info.
+If you enable the plugin option `options.debug.preview` by setting it to `true`, you will see additional logging through the Preview build process with information such as the contents of the webhook body that was sent to Gatsby, the preview node data, and the list of preview actions that were pulled from WordPress. See the [plugin options](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/plugin-options.md#debugpreview-boolean) documentation for more info.
 
 ## How Preview works behind the scenes
 
