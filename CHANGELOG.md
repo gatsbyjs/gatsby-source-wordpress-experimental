@@ -4,7 +4,8 @@
 
 ### Bug Fixes
 
-- Restored lazy nodes resolvers for all nodes in previews. Because of the default preview preset, removing lazy nodes in the last version from everything except media item nodes ended up breaking previews that previously relied on things working this way. So in preview mode 
+- Restored lazy nodes resolvers for all nodes in previews. Because of the default preview preset, removing lazy nodes in the last version from everything except media item nodes ended up breaking previews that previously relied on things working this way. So in preview mode lazy nodes in resolvers is restored.
+- In Previews when the schema changed all nodes were being refetched. This is only desireable when the code also changes, because previews have no way to automatically adapt to schema changes. Schema updates in previews no longer refetch all nodes.
 
 ## 6.1.1
 
