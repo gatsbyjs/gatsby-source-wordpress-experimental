@@ -24,8 +24,6 @@ const introspectAndStoreRemoteSchema = async () => {
 
   if (!introspectionData || schemaWasChanged) {
     const { data } = await fetchGraphql({
-      // if we're printing the schema diff, we need to introspect
-      // using the graphql-js query so that buildClientSchema doesn't fail
       query: introspectionQuery,
     })
 
