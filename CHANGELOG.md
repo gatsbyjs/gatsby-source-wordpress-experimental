@@ -1,5 +1,11 @@
 # Change Log
 
+## Upcoming
+
+### Bug Fixes
+
+- Restored lazy nodes resolvers for all nodes in previews. Because of the default preview preset, removing lazy nodes in the last version from everything except media item nodes ended up breaking previews that previously relied on things working this way. So in preview mode 
+
 ## 6.1.1
 
 ### Bug Fixes
