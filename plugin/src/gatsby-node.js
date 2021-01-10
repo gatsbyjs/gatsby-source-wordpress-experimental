@@ -10,10 +10,8 @@ module.exports = runApisInSteps({
     steps.setGatsbyApiToState,
     steps.ensurePluginRequirementsAreMet,
     steps.ingestRemoteSchema,
-    [steps.createSchemaCustomization, steps.addPreviewStatusField],
+    steps.createSchemaCustomization,
   ],
-
-  createResolvers: [steps.addPreviewStatusResolver],
 
   sourceNodes: [
     steps.setGatsbyApiToState,

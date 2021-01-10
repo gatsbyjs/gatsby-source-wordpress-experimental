@@ -4,19 +4,19 @@ PLUGIN=$1
 REPO=$2
 VERSION=$3
 
-if [ -z "$PLUGIN"]
+if [ -z "$PLUGIN" ]
 then
   echo "no plugin supplied"
   exit;
 fi
 
-if [ -z "$REPO"]
+if [ -z "$REPO" ]
 then
   echo "no repo supplied"
   exit;
 fi
 
-if [ -z "$VERSION"]
+if [ -z "$VERSION" ]
 then
   echo "no version supplied"
   exit;

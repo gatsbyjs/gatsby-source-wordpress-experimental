@@ -11,16 +11,28 @@ import { sourcePreviews } from "~/steps/preview"
 const sourceNodes = async (helpers, pluginOptions) => {
   const { cache, webhookBody } = helpers
 
+  // if this is a preview we want to process it and return early
   if (webhookBody.preview) {
     await sourcePreviews(helpers, pluginOptions)
+
     return
   }
+  // if it's not a preview but we have a token
+  // we should source any pending previews then continue sourcing
+  else if (webhookBody.token && webhookBody.userDatabaseId) {
+    await sourcePreviews(helpers, pluginOptions)
+  }
+
+  const now = Date.now()
 
   // fetch non-node root fields such as settings.
   // For now, we're refetching them on every build
   const nonNodeRootFieldsPromise = fetchAndCreateNonNodeRootFields()
 
-  const lastCompletedSourceTime = await cache.get(LAST_COMPLETED_SOURCE_TIME)
+  const lastCompletedSourceTime =
+    webhookBody.refreshing && webhookBody.since
+      ? webhookBody.since
+      : await cache.get(LAST_COMPLETED_SOURCE_TIME)
 
   const {
     schemaWasChanged,
@@ -28,15 +40,18 @@ const sourceNodes = async (helpers, pluginOptions) => {
   } = store.getState().remoteSchema
 
   const fetchEverything =
-    foundUsableHardCachedData || !lastCompletedSourceTime || schemaWasChanged
+    foundUsableHardCachedData ||
+    !lastCompletedSourceTime ||
+    // don't refetch everything in development
+    (process.env.NODE_ENV !== `development` &&
+      // and the schema was changed
+      schemaWasChanged)
 
   // If this is an uncached build,
   // or our initial build to fetch and cache everything didn't complete,
   // pull everything from WPGQL
   if (fetchEverything) {
     await fetchAndCreateAllNodes()
-
-    await helpers.cache.set(LAST_COMPLETED_SOURCE_TIME, Date.now())
   }
 
   // If we've already successfully pulled everything from WPGraphQL
@@ -50,6 +65,11 @@ const sourceNodes = async (helpers, pluginOptions) => {
   await nonNodeRootFieldsPromise
 
   allowFileDownloaderProgressBarToClear()
+  await helpers.cache.set(LAST_COMPLETED_SOURCE_TIME, now)
+
+  const { dispatch } = store
+  dispatch.remoteSchema.setSchemaWasChanged(false)
+  dispatch.develop.resumeRefreshPolling()
 }
 
 export { sourceNodes }

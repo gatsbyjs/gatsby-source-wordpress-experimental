@@ -1,5 +1,185 @@
 # Change Log
 
+## 6.2.0
+
+### Bug Fixes
+
+- Restored lazy nodes resolvers for all nodes in previews. Because of the default preview preset, removing lazy nodes in the last version from everything except media item nodes ended up breaking previews that previously relied on things working this way. So in preview mode lazy nodes in resolvers is restored.
+- In Previews when the schema changed all nodes were being refetched. This is only desireable when the code also changes, because previews have no way to automatically adapt to schema changes. Schema updates in previews no longer refetch all nodes.
+
+### New Features
+
+- Added a preview debug mode which outputs relevant information for debugging Previews.
+- Added a debug option to print the diff of the previous and next schema to the terminal output when the remote schema changes. This option is automatically enabled in preview debug mode.
+
+## 6.1.1
+
+### Bug Fixes
+
+- GraphQL resolvers were previously attempting to lazy fetch nodes if the node isn't found in Gatsby. This is undesired behaviour because it will slow down resolvers considerably for any connections to deleted nodes. This behaviour was originally only intended for MediaItem nodes which could be set to be fetch lazily in resolvers. The fix here is to scope this behaviour only to MediaItem nodes and only when the MediaItem.lazyNodes option is enabled.
+- Due to a WPGraphQL bug where menu items can have a different id depending on which entry point they were fetched from, we had a problem of duplicated menu item nodes in some cases. This is temporarily fixed in this plugin until it's fixed upstream.
+- When deleting a menu in WP, all child menu items are deleted. We weren't previously accounting for this which meant there would be floater menu items in Gatsby which had no parent menu when a menu was deleted. We now clean up these menu item nodes automatically.
+
+## 6.1.0
+
+### Bug Fixes & internal changes
+
+- There was an errant log that was calling all incremental updates preview updates. It now distinguishes between previews and regular data updates.
+- Since we unified the code for fetching media item nodes and file nodes in html fields, a regression was introduced where our http error handling was assuming it was still always for a media item node. This oversight obscured errors for html image file sourcing.
+- Sort actions by modified date instead of date since there's now only 1 action for each node which is just modified instead of being created new.
+- The last sourced time was moved from the end of sourcing data to the beginning. The reason for this is that if updates happen during node sourcing, they could previously be potentially missed. Now they'll be picked up.
+- Static file link replacement could previously be triggered on MediaItem nodes. This was problematic because the sourceUrl/mediaItemUrl field would be overwritten with a static file link. When the plugin later went to use these fields to create the localFile field, it was no longer a valid url for the WP site and the build would crash. Static file link replacement is now disabled for MediaItem nodes to prevent this from happening.
+- Removed dead code which was keeping track of actions and removing duplicates. We now only ever store 1 action per node so duplicates aren't possible anymore.
+
+### New Features
+
+- Because 404's can block many sites from completing production builds, we've added an option to allow 404s to not fail production builds.
+
+```
+{
+  options: {
+    production: {
+      allow404Images: true
+    }
+  }
+}
+```
+
+## 6.0.0
+
+This release massively increases the performance of Gatsby Previews when more than one person is previewing or editing content at the same time. Previously when multiple users previewed simultaneously, only one of those users would see their preview or it would take a very long time for the others to see their previews. Now many users can preview concurrently. This was tested with a headless chrome puppeteer script. We found that 10 users making 100 previews over the course of a few minutes now have a 100% success rate. Previously 3 users making 30 previews would have a less than 30% success rate. This is a breaking change because WPGatsby has some changes which are required to make this work.
+
+## 5.0.2
+
+This release adds support for WPGatsby v0.8.0 which adds a number of stability fixes and improvements. This is a non breaking release for the source plugin and a breaking change for WPGatsby but it's highly recommended to update to latest WPGatsby.
+
+## 5.0.1
+
+### Bug Fixes
+
+- Added an early return for when a MediaItem node has no mediaItemUrl in order to prevent errors when we later expect that this field exists. This can happen when the remote server returns a different type of node in place of a media item node or when the remote server has some corrupt data and this field is not returned.
+- When a MediaItem node could not be fetched while transforming images in html, we fetch the file directly and create a File node from it instead. These file nodes were not being cached as part of the hardCacheData api. They are now properly cached in this situation.
+- Changed the hueristic for when to clear the data hard cache. It was previously an md5 of the entire plugin options object and is now an md5 of the url option + the type options object. This means the hard cache will clear less frequently.
+
+## 5.0.0
+
+### New Features / Breaking Changes
+
+- Added a plugin options presets API and added some default plugin optionss for Preview in order to speed previews up.
+  The default plugin options that are now added in Preview mode are:
+
+in src/models/gatsby-api.ts
+
+```ts
+{
+  presetName: `PREVIEW_OPTIMIZATION`,
+  useIf: (): boolean => inDevelopPreview || inPreviewRunner,
+  options: {
+    html: {
+      useGatsbyImage: false,
+      createStaticFiles: false,
+    },
+    type: {
+      __all: {
+        limit: 50,
+      },
+      Comment: {
+        limit: 0,
+      },
+      Menu: {
+        limit: null,
+      },
+      MenuItem: {
+        limit: null,
+      },
+      User: {
+        limit: null,
+      },
+    },
+  },
+}
+```
+
+If you don't like this and want to remove it, you can either override any options by setting them in your plugin options, or remove the preset like so:
+
+```js
+{
+    resolve: `gatsby-source-wordpress-experimental`,
+    options: {
+        url: `https://your-site.com/graphql`,
+        presets: null
+    }
+}
+```
+
+## 4.0.1
+
+- MediaItem nodes fetched while converting html <img /> tags to Gatsby images were not always being properly cached. This release fixes that.
+
+## 4.0.0
+
+### Breaking changes
+
+- Actions are no longer deduped when watching for WP changes. This is a breaking change because WPGatsby had to change in order to make this happen. So we need to change our compatibility API ranges to ensure regular functionality around this keeps working. If only WPGatsby was updated but not the source plugin, content updates would stop working. This makes it a breaking change even though for a user everything seems the same. Under the hood this is a huge improvement for the amount of resources the source plugin and WPGatsby are consuming and will result in less build failures.
+
+- replaced usage of `GATSBY_CONCURRENT_REQUEST` with two seperate plugin options: `schema.requestConcurrency` for fetching content via graphql (default: 15), and `type.MediaItem.localFile.requestConcurrency` for media items (default: 100). If you were previously using `GATSBY_CONCURRENT_REQUEST` to limit either the request concurrency of either of these things, you'll need to use one of these new plugin options.
+
+## 3.3.1
+
+- Preview errors for brand new draft posts were not being passed back to Gatsby properly. This is now fixed :)
+- The full error message is now passed back to the Gatsby preview template instead of just the generic name of the step in which the error ocurred.
+- In order to make new post draft previews not cause 404 errors in Gatsby, a dummy page-data.json is generated before PREVIEW_SUCCESS is sent back to WPGatsby. Now WPGatsby will read this dummy file instead of getting a 404. This speeds up new post draft previews and eliminates a long trail of 404 errors in the Gatsby Preview instance logs.
+
+## 3.3.0
+
+- Version 3.0.0 made an attempt to remove expensive schema diffing at the beginning of each preview or delta update. The strategy was that when a GraphQL query to WPGraphQL failed, it would try to re-run createSchemaCustomization internally to recover and rebuild our internal sourcing queries before trying to make the query again. Unfortunately this caused issues because more recent versions of Gatsby do not allow createSchemaCustomization to be called in this way. This version reverts to the earlier behaviour where the remote schema md5 is diffed on every build or preview.
+- Because of the above issue, automatic schema updates during `gatsby develop` also failed to keep working. We now use the Gatsby refresh API to re-trigger node sourcing and schema customization in our develop watcher as this is a public API and will be more stable than Gatsby internals.
+- `ensurePluginRequirementsAreMet` is called once on a cold cache but never again on a warm cache. We now call this again when the schema changes on a warm cache to make sure that if the schema changes because the remote plugin versions changed, we recheck to make sure they're still in-range.
+- The default value of `options.develop.nodeUpdateInterval` has been increased from `300` to `5000`. Due to the time it takes everything to work across Gatsby and WP, as well as the fact that content is rarely updated at the exact start of the interval, this change is barely perceptible but will ease up some strain on WP when many developers are working on the same site or when `gatsby develop` is running for hours at a time.
+- There was a DX inconsistency around the clearing of the cache when the schema gets updated. Previously if your schema updated while `gatsby develop` was running, your cache would not clear, but if it updated while `gatsby develop` was not running, starting gatsby would cause the cache to clear. Both of these cases now no longer clear the cache in development and warning is displayed that if your schema change included a data change, you will need to run `gatsby clean && gatsby develop`
+
+## 3.2.0
+
+- Fixes a timing issue between PINC builds and WPGatsby. Also improves the timing of regular Preview. In this plugin all that's done is the preview node modified time is added to the pageContext of the page being previewed.
+- When receiving preview data from the wrong url, it no longer fails the build and outputs a warning instead.
+- Since publish webhooks for Preview were added in WPGatsby, polling is not needed in Gatsby Preview on the source plugin side and has been disabled when `process.env.ENABLE_GATSBY_REFRESH_ENDPOINT` is true.
+
+## 3.1.3
+
+- Gatsby core recently removed cache-manager-fs-hash which this plugin was importing. Unfortunately this plugin didn't have it declared as a dependency. This is now fixed!
+
+## 3.1.2
+
+- Inline html links which had query params were not being made into relative Gatsby paths. This release fixes that. Thanks @rburgst!
+
+## 3.1.1
+
+- The type limit option could potentiall throw GraphQL errors about non-null fields that are queried on connections to nodes that don't exist (due to the limit option). This release changes things so it returns null for the entire node or omits it from a list when it's missing.
+
+## 3.1.0
+
+- Adds WPGraphQL type and field descriptions to the Gatsby schema.
+
+## 3.0.4
+
+- Gatsby image's in inline html were being created with divs. This is problematic because div's, being block elements, cannot be descendants of paragraphs, which WP often puts inline html images into. They are now spans that are set to `display: inline-block` via a style.css file.
+- The inline-html image widths were not always being properly carried through to the gatsby image style prop and were in many cases too small. This is now fixed.
+- The default fallback max image width in inline html has been increased from 100 to 1024. Usually we can infer the width but when we cannot, 100px is far too small. For images that are smaller than 1024px, we will use their max width returned from GraphQL instead.
+
+## 3.0.3
+
+- `reporter.error()` now expects a string to be passed to it and wont accept an error object. Passing an error object will throw Joi errors and obscure the real error. I've updated `fetchGraphQL` to pass the error message instead of the error object to `reporter.error`
+
+## 3.0.2
+
+- Incremental builds were not properly fetching delta updates because the inc builds runner keeps around plugin state, and this plugin was assuming it didn't.
+- ENABLE_GATSBY_REFRESH_ENDPOINT was being used to determine wether or not we were in preview mode. Inc builds also uses this env variable which was causing problems. We now track wether we're in preview mode using internal state instead.
+- `updateSchema` was being called outside development which was causing problems where it would freeze Gatsby's state machine. This was only meant to be called in development and so has been scoped to NODE_ENV=development.
+
+## 3.0.1
+
+- Logs `got` HTTPErrors before rejecting because in some cases this error appeared to be completely swallowed somewhere before our `errorPanicker` function could access it.
+
 ## 3.0.0
 
 This major release rolls out a new Preview experience which is faster, more reliable, and includes remote error handling!
@@ -18,7 +198,7 @@ This major release rolls out a new Preview experience which is faster, more reli
 - Remote error handling with steps on how to fix the problem has been added! Handled errors include:
   - No page created for previewed node (need to create a page for nodes of this type in gatsby-node.js)
   - Preview instance received data from the wrong URL (Gatsby is configured to source data from a different WordPress instance. Compare your WPGatsby and gatsby-source-wordpress-experimental settings)
-  - General Gatsby Preview process errors are caught and a generic error about which step the error occured in is sent back to WP. WP displays the generic error and encourages the user to check their preview logs for a more detailed error
+  - General Gatsby Preview process errors are caught and a generic error about which step the error occurred in is sent back to WP. WP displays the generic error and encourages the user to check their preview logs for a more detailed error
   - When posting to the preview instance, wether or not the webhook is online is recorded, if it's offline the preview template will display an error about this. If it's online, the preview template will optimistically try to load the preview. In both cases (it's online & offline), the preview template will simultaneously check again in browser if Cloud is online or not, and react accordingly (display an error or load the preview if it hasn't already). This is good because not every load of the preview template will trigger a webhook (if no data has changed), so we need a solid way to handle errors if the preview server goes down in this case and an admin re-loads the preview window on the WP side.
 - WPGatsby misconfiguration handling. Both of the following will display an error with steps on how to fix.
   - No preview frontend url is set but Gatsby Preview is enabled in WPGatsby settings.

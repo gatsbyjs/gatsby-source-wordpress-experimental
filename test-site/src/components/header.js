@@ -4,7 +4,7 @@ import { Link } from "gatsby"
 import GatsbyLogo from "../assets/svg/gatsby.inline.svg"
 
 export default () => (
-  <Heading as="h1">
+  <Heading as="h2" size="4xl">
     <Link to="/">
       <Grid gridTemplateColumns="50px 1fr" gridGap="20px">
         <Box maxW={50}>

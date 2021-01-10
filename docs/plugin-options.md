@@ -1,10 +1,13 @@
 # Plugin Options
 
 - [Plugin Options](#plugin-options)
+
   - [url: String](#url-string)
   - [verbose: Boolean](#verbose-boolean)
   - [debug: Object](#debug-object)
+    - [debug.preview: Boolean](#debugpreview-boolean)
     - [debug.graphql: Object](#debuggraphql-object)
+      - [debug.graphql.printIntrospectionDiff: Boolean](#debuggraphqlprintintrospectiondiff-boolean)
       - [debug.graphql.showQueryVarsOnError: Boolean](#debuggraphqlshowqueryvarsonerror-boolean)
       - [debug.graphql.panicOnError: Boolean](#debuggraphqlpaniconerror-boolean)
       - [debug.graphql.onlyReportCriticalErrors: Boolean](#debuggraphqlonlyreportcriticalerrors-boolean)
@@ -21,6 +24,8 @@
     - [schema.typePrefix: String](#schematypeprefix-string)
     - [schema.timeout: Int](#schematimeout-int)
     - [schema.perPage: Int](#schemaperpage-int)
+    - [schema.requestConcurrency: Int](#schemarequestconcurrency-int)
+    - [schema.previewRequestConcurrency: Int](#schemapreviewrequestconcurrency-int)
   - [excludeFieldNames: Array](#excludefieldnames-array)
   - [html: Object](#html-object)
     - [html.useGatsbyImage: Boolean](#htmlusegatsbyimage-boolean)
@@ -36,6 +41,7 @@
     - [type.MediaItem.lazyNodes: Boolean](#typemediaitemlazynodes-boolean)
     - [type.MediaItem.localFile.excludeByMimeTypes: Array](#typemediaitemlocalfileexcludebymimetypes-array)
     - [type.MediaItem.localFile.maxFileSizeBytes: Number](#typemediaitemlocalfilemaxfilesizebytes-number)
+    - [type.MediaItem.localFile.requestConcurrency: Number](#typemediaitemlocalfilerequestconcurrency-number)
   - [searchAndReplace: Array](#searchandreplace-array)
 
 - [Up Next :point_right:](#up-next-point_right)
@@ -83,6 +89,23 @@ An object which contains options related to debugging. See below for options.
 },
 ```
 
+### debug.preview: Boolean
+
+When set to true, this option will display additional information in the terminal output about the running preview process.
+
+Default is `false`.
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+  options: {
+    debug: {
+      preview: true
+    },
+  },
+},
+```
+
 ### debug.graphql: Object
 
 An object which contains GraphQL debugging options. See below for options.
@@ -94,6 +117,25 @@ An object which contains GraphQL debugging options. See below for options.
     debug: {
       graphql: {
 
+      },
+    },
+  },
+},
+```
+
+#### debug.graphql.printIntrospectionDiff: Boolean
+
+When this is set to true it will print out the diff between types in the previous and new schema when the schema changes. This is enabled by default when `debug.preview` is enabled.
+
+Default is `false`.
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+  options: {
+    debug: {
+      graphql: {
+        printIntrospectionDiff: true,
       },
     },
   },
@@ -189,7 +231,7 @@ Options related to the `gatsby develop` process.
 
 Specifies in milliseconds how often Gatsby will ask WP if data has changed during development. If you want to see data update in near-realtime while you're developing, set this low. Your server may have trouble responding to too many requests over a long period of time and in that case, set this high. Setting it higher saves electricity too ⚡️🌲
 
-Default is `300`.
+Default is `5000`.
 
 ```js
 {
@@ -370,6 +412,40 @@ Default is `100`.
   options: {
     schema: {
       perPage: 100,
+    },
+  },
+},
+```
+
+### schema.requestConcurrency: Int
+
+The GraphQL request concurrency limit when sourcing data from WPGraphQL.
+
+Default is `15`.
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+  options: {
+    schema: {
+      requestConcurrency: 50,
+    },
+  },
+},
+```
+
+### schema.previewRequestConcurrency: Int
+
+The GraphQL request concurrency limit when sourcing preview data from WPGraphQL.
+
+Default is `10`.
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+  options: {
+    schema: {
+      previewRequestConcurrency: 50,
     },
   },
 },
@@ -643,6 +719,27 @@ Default is `15728640` which is 15Mb.
 },
 ```
 
+### type.MediaItem.localFile.requestConcurrency: Number
+
+Controls how many images are downloaded concurrently at any time. Try lowering this if your WordPress server is returning 500 or 408 errors during MediaItem file sourcing.
+
+Default is `100`
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+    options: {
+        type: {
+        MediaItem: {
+            localFile: {
+            requestConcurrency: 50
+            },
+        },
+        },
+    },
+},
+```
+
 ## searchAndReplace: Array
 
 Options to search and replace strings in nodes. See below for options.
@@ -650,8 +747,8 @@ Options to search and replace strings in nodes. See below for options.
 ```js
 {
   resolve: `gatsby-source-wordpress-experimental`,
-	options: {
-	  searchAndReplace: [
+    options: {
+      searchAndReplace: [
       {
         find: '',
         replace: ''

@@ -6,7 +6,8 @@
   "workspaces": [
     "test-site",
     "plugin",
-    "starters/*"
+    "starters/*",
+    "cli"
   ],
   "scripts": {
     "prettier": "prettier . --write",
@@ -22,16 +23,20 @@
     "serve-test-runtime": "cd test-site && yarn serve",
     "ci-test": "server-test 'yarn docker-start' http://localhost:8001",
     "ci": "yarn lint && yarn ci-test",
-    "docker-start": "docker-compose up --build --force-recreate -V",
+    "docker-start": "docker-compose up --build --force-recreate -V --remove-orphans",
+    "docker-rebuild": "./docker/rebuild.sh",
     "test-schema-first": "START_SERVER=true jest ./test-site/__tests__/integration/schema",
     "test-schema-increment": "WPGQL_INCREMENT=true START_SERVER=true jest ./test-site/__tests__/integration/schema",
     "test-schema": "yarn clean-test-runtime && yarn test-schema-first && yarn test-schema-increment",
+    "build-cli": "cd cli && yarn build",
+    "test-preview": "START_SERVER=true ENABLE_GATSBY_REFRESH_ENDPOINT=true jest ./test-site/__tests__/e2e/preview",
     "test-build": "yarn clean-test-runtime && DEFAULT_PLUGIN_OPTIONS=true jest ./test-site/__tests__/integration/build && jest ./test-site/__tests__/integration/build/plugin-options-schema",
-    "test": "yarn build && yarn test-schema && yarn test-build && yarn clean-test-runtime",
+    "test": "yarn test-plugin && yarn build && yarn test-schema && yarn build-cli && yarn test-build && yarn clean-test-runtime",
     "test-schema-watch": "SHOW_GATSBY_PROCESS_STDOUT=true yarn test-schema-first --watch",
     "test-build-watch": "SHOW_GATSBY_PROCESS_STDOUT=true yarn test-build --watch",
     "test-update": "yarn test-schema-first -u && yarn test-schema-increment -u && yarn test-build -u",
-    "npm-publish": "yarn run lint && yarn test && (rm plugin/README.md || true) && cp README.md plugin/README.md && cd plugin && npm publish"
+    "npm-publish": "yarn run lint && (rm plugin/README.md || true) && cp README.md plugin/README.md && cd plugin && yarn run build && npm publish",
+    "test-plugin": "jest ./plugin/src/.*.test.js"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.4",
@@ -51,25 +56,25 @@
     "eslint-config-prettier": "^6.14.0",
     "eslint-plugin-filenames": "^1.3.2",
     "eslint-plugin-prettier": "^3.1.4",
+    "gatsby-plugin-utils": "^0.3.0",
     "husky": "^4.3.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^25.1.0",
     "lint-staged": "^10.4.2",
-    "prettier": "^2.1.2",
+    "prettier": "^2.2.1",
     "react-test-renderer": "^16.12.0",
     "rimraf": "^3.0.2",
     "start-server-and-test": "^1.11.5",
     "tree-kill": "^1.2.2",
     "typescript": "^4.0.3",
-    "wait-on": "^4.0.0",
-    "gatsby-plugin-utils": "^0.3.0"
+    "wait-on": "^4.0.0"
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": [
       "eslint",
       "prettier --write"
     ],
-    "*.{md,json,yml}": [
+    "*.{json,md,yml}": [
       "prettier --write"
     ]
   }

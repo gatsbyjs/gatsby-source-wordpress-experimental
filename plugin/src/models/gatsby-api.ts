@@ -1,57 +1,110 @@
-import { GatsbyHelpers } from "~/utils/gatsby-types"
+import { GatsbyNodeApiHelpers } from "~/utils/gatsby-types"
 import merge from "lodash/merge"
 import { createRemoteMediaItemNode } from "~/steps/source-nodes/create-nodes/create-remote-media-item-node"
 import { menuBeforeChangeNode } from "~/steps/source-nodes/before-change-node/menu"
+import { beforeChangeMenuItem } from "~/steps/source-nodes/before-change-node/menu-item"
+import { cloneDeep } from "lodash"
 
+export interface PluginOptionsPreset {
+  presetName: string
+  useIf: (
+    helpers: GatsbyNodeApiHelpers,
+    pluginOptions: IPluginOptions
+  ) => boolean
+  options: IPluginOptions
+}
+
+const inDevelopPreview =
+  process.env.NODE_ENV === `development` &&
+  !!process.env.ENABLE_GATSBY_REFRESH_ENDPOINT
+
+const inPreviewRunner = process.env.RUNNER_TYPE === `PREVIEW`
+
+export const previewOptimizationPreset: PluginOptionsPreset = {
+  presetName: `PREVIEW_OPTIMIZATION`,
+  useIf: (): boolean => inDevelopPreview || inPreviewRunner,
+  options: {
+    html: {
+      useGatsbyImage: false,
+      createStaticFiles: false,
+    },
+    type: {
+      __all: {
+        limit: 50,
+      },
+      Comment: {
+        limit: 0,
+      },
+      Menu: {
+        limit: null,
+      },
+      MenuItem: {
+        limit: null,
+      },
+      User: {
+        limit: null,
+      },
+    },
+  },
+}
 export interface IPluginOptions {
-  url: string
-  verbose: boolean
-  debug: {
-    throwRefetchErrors: boolean
-    graphql: {
-      showQueryOnError: boolean
-      showQueryVarsOnError: boolean
-      copyQueryOnError: boolean
-      panicOnError: boolean
-      onlyReportCriticalErrors: boolean
-      copyNodeSourcingQueryAndExit: boolean
-      writeQueriesToDisk: boolean
+  url?: string
+  verbose?: boolean
+  debug?: {
+    throwRefetchErrors?: boolean
+    graphql?: {
+      showQueryOnError?: boolean
+      showQueryVarsOnError?: boolean
+      copyQueryOnError?: boolean
+      panicOnError?: boolean
+      onlyReportCriticalErrors?: boolean
+      copyNodeSourcingQueryAndExit?: boolean
+      writeQueriesToDisk?: boolean
+      copyHtmlResponseOnError?: boolean
+      printIntrospectionDiff?: boolean
     }
-    timeBuildSteps: boolean
-    disableCompatibilityCheck: boolean
+    timeBuildSteps?: string[] | boolean
+    disableCompatibilityCheck?: boolean
+    preview?: boolean
   }
-  develop: {
-    nodeUpdateInterval: number
-    hardCacheMediaFiles: boolean
-    hardCacheData: boolean
+  develop?: {
+    nodeUpdateInterval?: number
+    hardCacheMediaFiles?: boolean
+    hardCacheData?: boolean
   }
-  production: {
-    hardCacheMediaFiles: boolean
+  production?: {
+    hardCacheMediaFiles?: boolean
+    allow404Images?: boolean
   }
-  auth: {
+  auth?: {
     htaccess: {
       username: string | null
       password: string | null
     }
   }
-  schema: {
+  schema?: {
     queryDepth: number
     circularQueryLimit: number
     typePrefix: string
     timeout: number // 30 seconds
     perPage: number
+    requestConcurrency?: number
+    previewRequestConcurrency?: number
   }
-  excludeFieldNames: []
-  html: {
-    useGatsbyImage: boolean
-    imageMaxWidth: number
-    fallbackImageMaxWidth: number
-    imageQuality: number
-    createStaticFiles: boolean
+  excludeFieldNames?: []
+  html?: {
+    useGatsbyImage?: boolean
+    imageMaxWidth?: number
+    fallbackImageMaxWidth?: number
+    imageQuality?: number
+    createStaticFiles?: boolean
   }
-  type: {
+  presets?: PluginOptionsPreset[]
+  type?: {
     [typename: string]: {
+      limit?: number
       excludeFieldNames?: string[]
+
       exclude?: boolean
       // @todo type this
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -60,6 +113,8 @@ export interface IPluginOptions {
       lazyNodes?: boolean
       localFile?: {
         excludeByMimeTypes?: string[]
+        maxFileSizeBytes?: number
+        requestConcurrency?: number
       }
     }
   }
@@ -78,17 +133,21 @@ const defaultPluginOptions: IPluginOptions = {
       onlyReportCriticalErrors: true,
       copyNodeSourcingQueryAndExit: false,
       writeQueriesToDisk: false,
+      copyHtmlResponseOnError: false,
+      printIntrospectionDiff: false,
     },
     timeBuildSteps: false,
     disableCompatibilityCheck: false,
+    preview: false,
   },
   develop: {
-    nodeUpdateInterval: 300,
+    nodeUpdateInterval: 5000,
     hardCacheMediaFiles: false,
     hardCacheData: false,
   },
   production: {
     hardCacheMediaFiles: false,
+    allow404Images: false,
   },
   auth: {
     htaccess: {
@@ -102,6 +161,8 @@ const defaultPluginOptions: IPluginOptions = {
     typePrefix: `Wp`,
     timeout: 30 * 1000, // 30 seconds
     perPage: 100,
+    requestConcurrency: 15,
+    previewRequestConcurrency: 10,
   },
   excludeFieldNames: [],
   html: {
@@ -113,13 +174,14 @@ const defaultPluginOptions: IPluginOptions = {
     imageMaxWidth: null,
     // if a max width can't be inferred from html, this value will be passed to Sharp
     // if the image is smaller than this, the images width will be used instead
-    fallbackImageMaxWidth: 100, // @todo this value is too low of a default
+    fallbackImageMaxWidth: 1024,
     imageQuality: 90,
     //
     // Transforms anchor links, video src's, and audio src's (that point to wp-content files) into local file static links
     // Also fetches those files if they don't already exist
     createStaticFiles: true,
   },
+  presets: [previewOptimizationPreset],
   type: {
     __all: {
       // @todo make dateFields into a plugin option?? It's not currently
@@ -157,6 +219,7 @@ const defaultPluginOptions: IPluginOptions = {
       localFile: {
         excludeByMimeTypes: [],
         maxFileSizeBytes: 15728640, // 15Mb
+        requestConcurrency: 100,
       },
       beforeChangeNode: async ({
         remoteNode,
@@ -222,6 +285,7 @@ const defaultPluginOptions: IPluginOptions = {
       beforeChangeNode: menuBeforeChangeNode,
     },
     MenuItem: {
+      beforeChangeNode: beforeChangeMenuItem,
       /**
        * This was my previous attempt at fetching problematic menuItems
        * I temporarily solved this above, but I'm leaving this here as
@@ -285,9 +349,10 @@ const defaultPluginOptions: IPluginOptions = {
   },
 }
 
-interface IGatsbyApiState {
-  helpers: GatsbyHelpers
+export interface IGatsbyApiState {
+  helpers: GatsbyNodeApiHelpers
   pluginOptions: IPluginOptions
+  activePluginOptionsPresets?: PluginOptionsPreset[]
 }
 
 const gatsbyApi = {
@@ -301,7 +366,39 @@ const gatsbyApi = {
       state: IGatsbyApiState,
       payload: IGatsbyApiState
     ): IGatsbyApiState {
-      return merge(state, payload)
+      const stateCopy = cloneDeep(state)
+
+      const defaultPresets = stateCopy.pluginOptions?.presets || []
+      const userPresets = payload.pluginOptions?.presets || []
+
+      /**
+       * Presets are plugin option configurations that are conditionally
+       * applied based on a `useIf` function (which returns a boolean)
+       * If it returns true, that preset is used.
+       */
+      const optionsPresets = [
+        ...defaultPresets,
+        ...userPresets,
+      ]?.filter((preset) =>
+        preset.useIf(payload.helpers, payload.pluginOptions)
+      )
+
+      if (optionsPresets?.length) {
+        state.activePluginOptionsPresets = optionsPresets
+
+        let presetModifiedOptions = state.pluginOptions
+
+        for (const preset of optionsPresets) {
+          presetModifiedOptions = merge(presetModifiedOptions, preset.options)
+        }
+
+        state.pluginOptions = presetModifiedOptions
+      }
+
+      // add the user defined plugin options last so they override any presets
+      state = merge(state, payload)
+
+      return state
     },
   },
 }

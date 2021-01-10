@@ -3,7 +3,6 @@ import { stripImageSizesFromUrl } from "~/steps/source-nodes/fetch-nodes/fetch-r
 const imageNodes = {
   state: {
     nodeMetaByUrl: {},
-    nodeIds: [],
   },
 
   reducers: {
@@ -16,14 +15,7 @@ const imageNodes = {
       return state
     },
 
-    setNodeIds(_, payload) {
-      return {
-        nodeIds: payload,
-      }
-    },
-
     pushNodeMeta(state, { id, sourceUrl, modifiedGmt }) {
-      state.nodeIds.push(id)
       const nodeUrl = stripImageSizesFromUrl(sourceUrl)
       // dont overwrite the lookup table in case we have multiple
       // sized urls for the same image

@@ -1,6 +1,6 @@
 import { formatLogMessage } from "~/utils/format-log-message"
 import store from "~/store"
-import { GatsbyHelpers } from "~/utils/gatsby-types"
+import { GatsbyNodeApiHelpers } from "~/utils/gatsby-types"
 import { inPreviewMode } from "."
 
 /**
@@ -14,7 +14,7 @@ was buggy and unreliable. @todo it's worth trying to remove the need for
 pageContext.id again in the future.
  */
 export const onCreatepageSavePreviewNodeIdToPageDependency = (
-  helpers: GatsbyHelpers
+  helpers: GatsbyNodeApiHelpers
 ): void => {
   // if we're not in preview mode we don't want to track this
   if (!inPreviewMode()) {
@@ -44,7 +44,7 @@ export const onCreatepageSavePreviewNodeIdToPageDependency = (
  * respond to the WP instance preview client
  */
 export const onCreatePageRespondToPreviewStatusQuery = async (
-  helpers: GatsbyHelpers
+  helpers: GatsbyNodeApiHelpers
 ): Promise<void> => {
   // if we're not in preview mode we don't want to set this up
   if (!inPreviewMode()) {
@@ -83,6 +83,10 @@ export const onCreatePageRespondToPreviewStatusQuery = async (
     return
   }
 
+  store.dispatch.previewStore.unSubscribeToPagesCreatedFromNodeById({
+    nodeId: nodeIdThatCreatedThisPage,
+  })
+
   const nodeThatCreatedThisPage = getNode(nodeIdThatCreatedThisPage)
 
   if (!nodeThatCreatedThisPage) {
@@ -94,14 +98,22 @@ export const onCreatePageRespondToPreviewStatusQuery = async (
     return
   }
 
+  // We need to add the modified time to pageContext so we can read it in WP
+  // This way can tell when the updated page has been deployed
+  if (!page.context.__wpGatsbyNodeModified) {
+    const pageCopy = { ...page }
+    pageCopy.context.__wpGatsbyNodeModified = nodeThatCreatedThisPage.modified
+
+    const { deletePage, createPage } = helpers.actions
+
+    deletePage(page)
+    createPage(pageCopy)
+  }
+
   await nodePageCreatedCallback({
     passedNode: nodeThatCreatedThisPage,
     pageNode: page,
     context: `onCreatePage Preview callback invocation`,
     status: `PREVIEW_SUCCESS`,
-  })
-
-  store.dispatch.previewStore.unSubscribeToPagesCreatedFromNodeById({
-    nodeId: nodeIdThatCreatedThisPage,
   })
 }

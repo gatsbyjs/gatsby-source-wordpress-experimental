@@ -1,0 +1,55 @@
+{
+  "name": "wpgatsby",
+  "version": "0.1.0",
+  "description": "WPGatsby test CLI",
+  "private": false,
+  "types": "build/types/types.d.ts",
+  "bin": {
+    "wpgatsby": "bin/wpgatsby"
+  },
+  "scripts": {
+    "clean-build": "rm -rf ./build",
+    "compile": "tsc -p .",
+    "copy-templates": "if [ -e ./src/templates ]; then cp -a ./src/templates ./build/; fi",
+    "build": "yarn clean-build && yarn compile && yarn copy-templates",
+    "prepublishOnly": "yarn build",
+    "test": "jest",
+    "watch": "jest --watch",
+    "snapupdate": "jest --updateSnapshot",
+    "coverage": "jest --coverage"
+  },
+  "files": [
+    "tsconfig.json",
+    "build",
+    "LICENSE",
+    "readme.md",
+    "docs",
+    "bin"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@wordpress/e2e-test-utils": "^4.15.0",
+    "@wordpress/keycodes": "^2.16.0",
+    "draftlog": "^1.0.12",
+    "fs-extra": "^9.0.1",
+    "gluegun": "latest",
+    "lodash": "^4.17.20",
+    "puppeteer": "^5.5.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.18",
+    "@types/node": "^12.7.11",
+    "@types/puppeteer": "^5.4.0",
+    "jest": "^24.1.0",
+    "ts-jest": "^24.1.0",
+    "ts-node": "^8.4.1",
+    "tslint": "^5.12.0",
+    "tslint-config-prettier": "^1.17.0",
+    "tslint-config-standard": "^8.0.1",
+    "typescript": "^4.1.2"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node"
+  }
+}

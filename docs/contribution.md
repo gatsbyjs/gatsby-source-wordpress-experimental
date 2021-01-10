@@ -29,11 +29,11 @@ To run tests and do development work with this repo, you'll need:
 - `yarn test-build-watch` will watch the build integration suite
 - `yarn test-update` will run `-u` for all schema and build integration suites.
 
-### Changing wordpress plugin versions
+### Changing WordPress plugin versions
 
 if you're bumping plugin versions, you can:
 
 1. edit the versions as desired in `docker-compose.yml` in the `build.args` for `wordpress` service
-2. run `yarn docker-stard -d` to detach, force re-build images and re-create containers, and ensure the plugins directory (volume) is renewed between builds
+2. run `yarn docker-start -d` to detach, force re-build images and re-create containers, and ensure the plugins directory (volume) is renewed between builds
 3. then when you run `yarn test-schema` you should see a diff in the snapshots that demonstrates the change in schema with the changed plugin versions.
 4. if you want, you can here run `yarn test-update` to run `jest -u` with all the integration suites

@@ -13,15 +13,15 @@ const chunk = require(`lodash/chunk`)
  */
 exports.createPages = async gatsbyUtilities => {
   // Query our posts from the GraphQL server
-  const posts = await getPosts(gatsbyUtilities)
+  const posts = await getNodes(gatsbyUtilities)
 
   // If there are no posts in WordPress, don't do anything
   if (!posts.length) {
     return
   }
 
-  // If there are posts, create pages for them
-  await createIndividualBlogPostPages({ posts, gatsbyUtilities })
+  // If there are posts and pages, create Gatsby pages for them
+  await createSinglePages({ posts, gatsbyUtilities })
 
   // And a paginated archive
   await createBlogPostArchive({ posts, gatsbyUtilities })
@@ -30,7 +30,7 @@ exports.createPages = async gatsbyUtilities => {
 /**
  * This function creates all the individual blog pages in this site
  */
-const createIndividualBlogPostPages = async ({ posts, gatsbyUtilities }) =>
+const createSinglePages = async ({ posts, gatsbyUtilities }) =>
   Promise.all(
     posts.map(({ previous, post, next }) =>
       // createPage is an action passed to createPages
@@ -41,7 +41,9 @@ const createIndividualBlogPostPages = async ({ posts, gatsbyUtilities }) =>
         path: post.uri,
 
         // use the blog post template as the page component
-        component: path.resolve(`./src/templates/blog-post.js`),
+        component: path.resolve(
+          `./src/templates/${post.__typename.replace(`Wp`, ``)}.js`
+        ),
 
         // `context` is available in the template as a prop and
         // as a variable in GraphQL.
@@ -129,7 +131,7 @@ async function createBlogPostArchive({ posts, gatsbyUtilities }) {
  * We're passing in the utilities we got from createPages.
  * So see https://www.gatsbyjs.com/docs/node-apis/#createPages for more info!
  */
-async function getPosts({ graphql, reporter }) {
+async function getNodes({ graphql, reporter }) {
   const graphqlResult = await graphql(/* GraphQL */ `
     query WpPosts {
       # Query all WordPress blog posts sorted by date
@@ -142,6 +144,27 @@ async function getPosts({ graphql, reporter }) {
           # note: this is a GraphQL alias. It renames "node" to "post" for this query
           # We're doing this because this "node" is a post! It makes our code more readable further down the line.
           post: node {
+            __typename
+            id
+            uri
+          }
+
+          next {
+            id
+          }
+        }
+      }
+
+      allWpPage(sort: { fields: [date], order: DESC }) {
+        edges {
+          previous {
+            id
+          }
+
+          # note: this is a GraphQL alias. It renames "node" to "post" for this query
+          # We're doing this because this "node" is a post! It makes our code more readable further down the line.
+          post: node {
+            __typename
             id
             uri
           }
@@ -162,5 +185,8 @@ async function getPosts({ graphql, reporter }) {
     return
   }
 
-  return graphqlResult.data.allWpPost.edges
+  return [
+    ...graphqlResult.data.allWpPost.edges,
+    ...graphqlResult.data.allWpPage.edges,
+  ]
 }

@@ -1,5 +1,6 @@
 import PQueue from "p-queue"
 import { processNode } from "~/steps/source-nodes/create-nodes/process-node"
+import { getGatsbyApi } from "~/utils/get-gatsby-api"
 
 const menuItemFetchQueue = new PQueue({
   concurrency: Number(process.env.GATSBY_CONCURRENT_DOWNLOAD ?? 200),
@@ -47,17 +48,17 @@ const fetchChildMenuItems = (api) => async () => {
 
   const { data } = await fetchGraphql({
     query,
-    errorContext: `Error occured while recursively fetching "MenuItem" nodes in Menu beforeChangeNode API.`,
+    errorContext: `Error occurred while recursively fetching "MenuItem" nodes in Menu beforeChangeNode API.`,
   })
 
   const remoteChildMenuItemNodes = Object.values(data)
 
-  remoteChildMenuItemNodes.forEach(
-    ({ id } = {}) => id && additionalNodeIds.push(id)
-  )
-
   await Promise.all(
     remoteChildMenuItemNodes.map(async (remoteMenuItemNode) => {
+      if (remoteMenuItemNode.id) {
+        additionalNodeIds.push(remoteMenuItemNode.id)
+      }
+
       // recursively fetch child menu items
       menuItemFetchQueue.add(
         fetchChildMenuItems({
@@ -89,7 +90,37 @@ const fetchChildMenuItems = (api) => async () => {
   )
 }
 
+const deleteMenuNodeChildMenuItems = (node) => {
+  const {
+    pluginOptions,
+    helpers: { getNodesByType, actions },
+  } = getGatsbyApi()
+
+  const allMenuItems = getNodesByType(
+    `${pluginOptions.schema.typePrefix}MenuItem`
+  )
+
+  const allMenuItemsNodesWithThisMenuIdAsAParent = allMenuItems.filter(
+    (menuItemNode) => menuItemNode.menu.node.id === node.id
+  )
+
+  allMenuItemsNodesWithThisMenuIdAsAParent?.forEach((menuItemNode) =>
+    actions.deleteNode({
+      node: menuItemNode,
+    })
+  )
+}
+
 export const menuBeforeChangeNode = async (api) => {
+  if (!api.remoteNode) {
+    return null
+  }
+
+  if (api.actionType === `DELETE`) {
+    // delete child menu items
+    return deleteMenuNodeChildMenuItems(api.remoteNode)
+  }
+
   if (api.actionType !== `UPDATE` && api.actionType !== `CREATE`) {
     // no need to update child MenuItems if we're not updating an existing menu
     // if we're creating a new menu it will be empty initially.
@@ -98,9 +129,15 @@ export const menuBeforeChangeNode = async (api) => {
 
   const additionalNodeIds = []
 
+  // we delete all child menu items first to take care of a WPGQL bug
+  // where there are invalid menu items that are not properly attached to our menu
+  // because their ID's are incorrect.\
+  // @todo remove this once this is fixed in WPGQL
+  deleteMenuNodeChildMenuItems(api.remoteNode)
   menuItemFetchQueue.add(fetchChildMenuItems({ ...api, additionalNodeIds }))
 
   await menuItemFetchQueue.onIdle()
+  await menuItemFetchQueue.onEmpty()
 
   return { additionalNodeIds }
 }

@@ -2,12 +2,13 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type OnPageCreatedCallback = (node: any) => Promise<void>
 
-interface StoredPage {
+export interface StoredPage {
   path: string
   updatedAt: number
 }
 
-interface IPreviewState {
+export interface IPreviewState {
+  inPreviewMode: boolean
   nodePageCreatedCallbacks: {
     [nodeId: string]: OnPageCreatedCallback
   }
@@ -23,7 +24,7 @@ interface IPreviewState {
   }
 }
 
-interface PreviewReducers {
+export interface PreviewReducers {
   subscribeToPagesCreatedFromNodeById: (
     state: IPreviewState,
     payload: {
@@ -48,19 +49,26 @@ interface PreviewReducers {
   ) => IPreviewState
 }
 
-interface IPreviewStore {
+export interface IPreviewStore {
   state: IPreviewState
   reducers: PreviewReducers
 }
 
 const previewStore: IPreviewStore = {
   state: {
+    inPreviewMode: false,
     nodePageCreatedCallbacks: {},
     nodeIdsToCreatedPages: {},
     pagePathToNodeDependencyId: {},
   },
 
   reducers: {
+    setInPreviewMode(state, inPreviewMode) {
+      state.inPreviewMode = inPreviewMode
+
+      return state
+    },
+
     unSubscribeToPagesCreatedFromNodeById(state, { nodeId }) {
       if (state.nodePageCreatedCallbacks?.[nodeId]) {
         delete state.nodePageCreatedCallbacks[nodeId]

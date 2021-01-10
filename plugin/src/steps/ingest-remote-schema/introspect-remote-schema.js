@@ -1,3 +1,6 @@
+import chalk from "chalk"
+import * as diff from "diff"
+import { uniqBy } from "lodash"
 import store from "~/store"
 import { setPersistentCache, getPersistentCache } from "~/utils/cache"
 import fetchGraphql from "~/utils/fetch-graphql"
@@ -13,10 +16,20 @@ const introspectAndStoreRemoteSchema = async () => {
     key: INTROSPECTION_CACHE_KEY,
   })
 
+  const printSchemaDiff =
+    pluginOptions?.debug?.graphql?.printIntrospectionDiff ||
+    pluginOptions?.debug?.preview
+
+  let staleIntrospectionData
+
   if (!introspectionData || schemaWasChanged) {
     const { data } = await fetchGraphql({
       query: introspectionQuery,
     })
+
+    if (introspectionData) {
+      staleIntrospectionData = introspectionData
+    }
 
     introspectionData = data
 
@@ -24,6 +37,54 @@ const introspectAndStoreRemoteSchema = async () => {
     await setPersistentCache({
       key: INTROSPECTION_CACHE_KEY,
       value: introspectionData,
+    })
+  }
+
+  if (staleIntrospectionData && printSchemaDiff) {
+    console.log(`\nData changed in WordPress schema:`)
+    staleIntrospectionData.__schema.types.forEach((type) => {
+      const staleTypeJSON = JSON.stringify(type, null, 2)
+
+      const newType = introspectionData.__schema.types.find(
+        ({ name }) => name === type.name
+      )
+      const newTypeJSON = JSON.stringify(newType, null, 2)
+
+      if (staleTypeJSON === newTypeJSON) {
+        return
+      }
+
+      const typeDiff = uniqBy(diff.diffJson(type, newType), `value`)
+
+      if (typeDiff.length) {
+        console.log(`\nFound changes to the ${type.name} type\n`)
+        typeDiff.forEach((part) => {
+          if (part.added) {
+            console.log(
+              chalk.green(
+                chalk.bold(`Added:\n`) +
+                  part.value
+                    .trim()
+                    .split(`\n`)
+                    .map((line, index) => `+${index === 0 ? `\t` : ` `}${line}`)
+                    .join(`\n`)
+              )
+            )
+          } else if (part.removed) {
+            console.log(
+              chalk.red(
+                chalk.bold(`Removed:\n`) +
+                  part.value
+                    .trim()
+                    .split(`\n`)
+                    .map((line, index) => `-${index === 0 ? `\t` : ` `}${line}`)
+                    .join(`\n`)
+              )
+            )
+          }
+        })
+        console.log(`\n`)
+      }
     })
   }
 

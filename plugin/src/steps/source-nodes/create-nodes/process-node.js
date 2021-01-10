@@ -13,12 +13,13 @@ import { supportedExtensions } from "gatsby-transformer-sharp/supported-extensio
 import replaceAll from "replaceall"
 
 import { formatLogMessage } from "~/utils/format-log-message"
-import createRemoteFileNode from "./create-remote-file-node/index"
+
 import fetchReferencedMediaItemsAndCreateNodes, {
   stripImageSizesFromUrl,
 } from "../fetch-nodes/fetch-referenced-media-items"
 import btoa from "btoa"
 import store from "~/store"
+import { createRemoteMediaItemNode } from "./create-remote-media-item-node"
 
 const getNodeEditLink = (node) => {
   const { protocol, hostname } = url.parse(node.link)
@@ -127,12 +128,12 @@ const pickNodeBySourceUrlOrCheerioImg = ({
   return imageNode
 }
 
+let displayedFailedToRestoreMessage = false
+
 const fetchNodeHtmlImageMediaItemNodes = async ({
   cheerioImages,
-  nodeString,
   node,
   helpers,
-  pluginOptions,
   wpUrl,
 }) => {
   // get all the image nodes we've cached from elsewhere
@@ -147,9 +148,24 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
 
         sourceUrl = ensureSrcHasHostname({ wpUrl, src: sourceUrl })
 
+        const existingNode = helpers.getNode(id)
+
+        if (!existingNode) {
+          if (!displayedFailedToRestoreMessage) {
+            helpers.reporter.warn(
+              formatLogMessage(
+                `File node failed to restore from cache. This is a bug in gatsby-source-wordpress. Please open an issue so we can help you out :)`
+              )
+            )
+            displayedFailedToRestoreMessage = true
+          }
+
+          return null
+        }
+
         return {
           sourceUrl,
-          ...(helpers.getNode(id) ?? {}),
+          ...existingNode,
         }
       })
     )
@@ -207,9 +223,9 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
     referencedMediaItemNodeIds: mediaItemRelayIds,
   })
 
-  const createdNodeIds = [...mediaItemNodesById, ...mediaItemNodesBySourceUrl]
+  const createdNodes = [...mediaItemNodesById, ...mediaItemNodesBySourceUrl]
 
-  const mediaItemNodes = [...createdNodeIds, ...previouslyCachedNodesByUrl]
+  const mediaItemNodes = [...createdNodes, ...previouslyCachedNodesByUrl]
 
   const htmlMatchesToMediaItemNodesMap = new Map()
   for (const { cheerioImg, match } of cheerioImages) {
@@ -229,19 +245,18 @@ const fetchNodeHtmlImageMediaItemNodes = async ({
       // we need to fetch it and create a file node for it with no
       // media item node.
       try {
-        const htaccessCredentials = pluginOptions.auth.htaccess
-
-        imageNode = await createRemoteFileNode({
-          url: htmlImgSrc,
-          parentNodeId: node.id,
-          auth: htaccessCredentials
-            ? {
-                htaccess_pass: htaccessCredentials?.password,
-                htaccess_user: htaccessCredentials?.username,
-              }
-            : null,
-          ...helpers,
-          createNode: helpers.actions.createNode,
+        imageNode = await createRemoteMediaItemNode({
+          skipExistingNode: true,
+          parentName: `Creating File node from URL where we couldn't find a MediaItem node`,
+          mediaItemNode: {
+            id: node.id,
+            mediaItemUrl: htmlImgSrc,
+            modifiedGmt: null,
+            mimeType: null,
+            title: null,
+            fileSize: null,
+            parentHtmlNode: node,
+          },
         })
       } catch (e) {
         const sharedError = `when trying to fetch\n${htmlImgSrc}\nfrom ${
@@ -615,13 +630,14 @@ const replaceNodeHtmlImages = async ({
           // beyond it's max width, but it also wont exceed the width
           // of it's parent element
           maxWidth: `100%`,
-          width: `${maxWidth}px`,
+          width: `${imageResize?.presentationWidth || maxWidth}px`,
         },
         placeholderStyle: {
           opacity: 0,
         },
-        className: cheerioImg?.attribs?.class,
-        // Force show full image instantly
+        className: `${
+          cheerioImg?.attribs?.class || ``
+        } inline-gatsby-image-wrapper`,
         loading: `eager`,
         alt: cheerioImg?.attribs?.alt,
         fadeIn: true,
@@ -654,6 +670,8 @@ const replaceNodeHtmlImages = async ({
 
       const gatsbyImageStringJSON = JSON.stringify(
         ReactDOMServer.renderToString(ReactGatsbyImage)
+          .replace(/<div/gm, `<span`)
+          .replace(/<\/div/gm, `</span`)
       )
 
       // need to remove the JSON stringify quotes around our image since we're
@@ -675,8 +693,15 @@ const replaceFileLinks = async ({
   helpers,
   wpUrl,
   pluginOptions,
+  node,
 }) => {
   if (!pluginOptions?.html?.createStaticFiles) {
+    return nodeString
+  }
+
+  if (node.__typename === `MediaItem`) {
+    // we dont' want to replace file links on MediaItem nodes because they're processed specially from other node types.
+    // if we replace file links here then we wont be able to properly fetch the localFile node
     return nodeString
   }
 
@@ -724,7 +749,7 @@ const replaceFileLinks = async ({
           helpers
         )
 
-        if (!relativeUrl || !mediaItemNode || !fileNode) {
+        if (!relativeUrl || !mediaItemNode?.mediaItemUrl || !fileNode) {
           return null
         }
 
@@ -781,7 +806,10 @@ const replaceNodeHtmlLinks = ({ wpUrl, nodeString, node }) => {
       if (path) {
         try {
           // remove \, " and ' characters from match
-          const normalizedMatch = match.replace(/['"\\]/g, ``)
+          const normalizedMatch = match
+            .replace(/['"\\]/g, ``)
+            // ensure that query params are properly quoted
+            .replace(/\?/, `\\?`)
 
           const normalizedPath = path.replace(/\\/g, ``)
 

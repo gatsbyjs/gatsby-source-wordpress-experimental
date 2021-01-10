@@ -2761,6 +2761,7 @@ exports[`[gatsby-source-wordpress-experimental] query generation [gatsby-source-
 
   wpGatsby {
     arePrettyPermalinksEnabled
+    isPreviewFrontendOnline
   }
 
   writingSettings {

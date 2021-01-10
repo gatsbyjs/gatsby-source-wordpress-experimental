@@ -4,6 +4,7 @@ import logger from "./logger"
 import imageNodes from "./image-nodes"
 import wpHooks from "./wp-hooks"
 import previewStore from "./preview"
+import develop from "./develop"
 
 export default {
   remoteSchema,
@@ -12,4 +13,5 @@ export default {
   imageNodes,
   wpHooks,
   previewStore,
+  develop,
 }

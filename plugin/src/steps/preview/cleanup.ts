@@ -1,5 +1,7 @@
+import { inPreviewMode, PreviewStatusUnion } from "."
 import { OnPageCreatedCallback } from "~/models/preview"
 import store from "~/store"
+import { NodePluginArgs } from "gatsby"
 
 /**
  * Preview callbacks are usually invoked during onCreatePage in Gatsby Preview
@@ -10,21 +12,29 @@ import store from "~/store"
  * preview callbacks haven't been invoked, and invoke them with a "NO_PAGE_CREATED_FOR_PREVIEWED_NODE" status, which sends that status to WP
  * After invoking all these leftovers, we clear them out from the store so they aren't called again later.
  */
-export const onPreExtractQueriesInvokeLeftoverPreviewCallbacks = async (): Promise<
-  void
-> =>
+export const onPreExtractQueriesInvokeLeftoverPreviewCallbacks = async (): Promise<void> => {
+  if (!inPreviewMode()) {
+    return invokeAndCleanupLeftoverPreviewCallbacks({
+      status: `GATSBY_PREVIEW_PROCESS_ERROR`,
+      context: `Gatsby is not in Preview mode.`,
+    })
+  }
+
   // check for any onCreatePageCallbacks that weren't called during createPages
   // we need to tell WP that a page wasn't created for the preview
-  invokeAndCleanupLeftoverPreviewCallbacks({
+  return invokeAndCleanupLeftoverPreviewCallbacks({
     status: `NO_PAGE_CREATED_FOR_PREVIEWED_NODE`,
   })
+}
 
 export const invokeAndCleanupLeftoverPreviewCallbacks = async ({
   status,
   context,
+  error,
 }: {
-  status: string
+  status: PreviewStatusUnion
   context?: string
+  error?: Error
 }): Promise<void> => {
   const state = store.getState()
 
@@ -37,7 +47,7 @@ export const invokeAndCleanupLeftoverPreviewCallbacks = async ({
   if (leftoverCallbacksExist) {
     await Promise.all(
       Object.entries(leftoverCallbacks).map(
-        invokeLeftoverPreviewCallback({ getNode, status, context })
+        invokeLeftoverPreviewCallback({ getNode, status, context, error })
       )
     )
 
@@ -50,18 +60,30 @@ export const invokeAndCleanupLeftoverPreviewCallbacks = async ({
  * This callback is invoked to send WP the preview status. In this case the status
  * is that we couldn't find a page for the node being previewed
  */
-const invokeLeftoverPreviewCallback = ({ getNode, status, context }) => async ([
-  nodeId,
-  callback,
-]: [string, OnPageCreatedCallback]): Promise<void> => {
+const invokeLeftoverPreviewCallback = ({
+  getNode,
+  status,
+  context,
+  error,
+}: {
+  status: PreviewStatusUnion
+  context?: string
+  error?: Error
+  getNode: NodePluginArgs["getNode"]
+}) => async ([nodeId, callback]: [
+  string,
+  OnPageCreatedCallback
+]): Promise<void> => {
   const passedNode = getNode(nodeId)
 
   await callback({
     passedNode,
+    nodeId,
     // we pass null as the path because no page was created for this node.
     // if it had been, this callback would've been removed earlier in the process
     pageNode: { path: null },
     status,
     context,
+    error,
   })
 }

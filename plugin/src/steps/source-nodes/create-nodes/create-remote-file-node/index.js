@@ -72,36 +72,43 @@ const CONNECTION_TIMEOUT = 30000
  * When pushing a task with a similar id, prefer the original task
  * as it's already in the processing cache
  */
-const queue = new Queue(pushToQueue, {
-  id: `url`,
-  merge: (old, _, cb) => cb(old),
-  concurrent: process.env.GATSBY_CONCURRENT_DOWNLOAD || 200,
-})
+
+let queue = null
+
+const getQueue = (limit) => {
+  if (!queue) {
+    queue = new Queue(pushToQueue, {
+      id: `url`,
+      merge: (old, _, cb) => cb(old),
+      concurrent: limit || 100,
+    })
+    // when the queue is empty we stop the progressbar
+    queue.on(`drain`, async () => {
+      if (awaitingCreateRemoteFileNodePromise) {
+        return
+      }
+
+      awaitingCreateRemoteFileNodePromise = true
+      await remoteFileDownloaderBarPromise
+      awaitingCreateRemoteFileNodePromise = false
+
+      if (bar) {
+        // this is to give us a little time to wait and see if there
+        // will be more jobs added with a break between
+        // sometimes the queue empties but then is recreated within 2 secs
+        doneQueueTimeout = setTimeout(() => {
+          bar.done()
+          totalJobs = 0
+        }, 2000)
+      }
+    })
+  }
+  return queue
+}
 
 let doneQueueTimeout
 
 let awaitingCreateRemoteFileNodePromise
-
-// when the queue is empty we stop the progressbar
-queue.on(`drain`, async () => {
-  if (awaitingCreateRemoteFileNodePromise) {
-    return
-  }
-
-  awaitingCreateRemoteFileNodePromise = true
-  await remoteFileDownloaderBarPromise
-  awaitingCreateRemoteFileNodePromise = false
-
-  if (bar) {
-    // this is to give us a little time to wait and see if there
-    // will be more jobs added with a break between
-    // sometimes the queue empties but then is recreated within 2 secs
-    doneQueueTimeout = setTimeout(() => {
-      bar.done()
-      totalJobs = 0
-    }, 2000)
-  }
-})
 
 /**
  * @callback {Queue~queueCallback}
@@ -175,6 +182,7 @@ const requestRemoteNode = (url, headers, tmpFilename, httpOpts, attempt = 1) =>
       }
       timeout = setTimeout(handleTimeout, STALL_TIMEOUT)
     }
+
     const responseStream = got.stream(url, {
       headers,
       timeout: CONNECTION_TIMEOUT,
@@ -193,6 +201,7 @@ const requestRemoteNode = (url, headers, tmpFilename, httpOpts, attempt = 1) =>
       totalJobs -= 1
       bar.total = totalJobs
       fs.removeSync(tmpFilename)
+      console.error(error)
       reject(error)
     })
 
@@ -332,7 +341,7 @@ const processingCache = {}
  */
 const pushTask = (task) =>
   new Promise((resolve, reject) => {
-    queue
+    getQueue(task.limit)
       .push(task)
       .on(`finish`, (task) => {
         resolve(task)
@@ -369,7 +378,9 @@ module.exports = ({
   ext = null,
   name = null,
   reporter,
+  pluginOptions,
 }) => {
+  const limit = pluginOptions?.type?.MediaItem?.localFile?.requestConcurrency
   if (doneQueueTimeout) {
     // this is to give the bar a little time to wait when there are pauses
     // between file downloads.
@@ -438,6 +449,7 @@ module.exports = ({
     httpHeaders,
     ext,
     name,
+    limit,
   })
 
   processingCache[url] = fileDownloadPromise.then((node) => {

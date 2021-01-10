@@ -26,6 +26,7 @@ const paginatedWpNodeFetch = async ({
   allContentNodes = [],
   after = null,
   settings = {},
+  headers = {},
   ...variables
 }) => {
   if (
@@ -54,7 +55,7 @@ const paginatedWpNodeFetch = async ({
     variables.first = settings.limit
   }
 
-  const errorContext = `Error occured while fetching nodes of the "${nodeTypeName}" type.`
+  const errorContext = `Error occurred while fetching nodes of the "${nodeTypeName}" type.`
 
   const response = await fetchGraphql({
     query,
@@ -65,6 +66,7 @@ const paginatedWpNodeFetch = async ({
       after,
     },
     errorContext,
+    headers,
   })
 
   const { data } = response
@@ -110,6 +112,7 @@ const paginatedWpNodeFetch = async ({
       helpers,
       settings,
       after: endCursor,
+      headers,
     })
   } else {
     return allContentNodes
