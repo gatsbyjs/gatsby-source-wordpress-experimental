@@ -132,7 +132,7 @@ const areRemotePluginVersionsSatisfied = async ({
 
     message += `Your remote version of WPGraphQL is not within the accepted range\n(${
       supportedWpPluginVersions.WPGraphQL.version
-    }).\n\nThis is not a bug and it means one of two things:\n you either need to upgrade either WPGraphQL or gatsby-source-wordpress-experimental.
+    }).\n\nThis is not a bug and it means one of two things:\n you either need to upgrade WPGraphQL or gatsby-source-wordpress-experimental.
 
 1. If the version of WPGraphQL in your WordPress instance is higher than ${
       maxVersion || minVersion
@@ -158,7 +158,7 @@ You can find a matching WPGraphQL version at https://github.com/wp-graphql/wp-gr
 
     message += `Your remote version of WPGatsby is not within the accepted range\n(${
       supportedWpPluginVersions.WPGatsby.version
-    })\n\nThis is not a bug and it means one of two things:\n you either need to upgrade either WPGatsby or gatsby-source-wordpress-experimental.
+    })\n\nThis is not a bug and it means one of two things:\n you either need to upgrade WPGatsby or gatsby-source-wordpress-experimental.
 
 1. If the version of WPGatsby in your WordPress instance is higher than ${
       maxVersion || minVersion
