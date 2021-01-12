@@ -2,7 +2,7 @@
 // it indicates which versions we will actually support AND which versions work.
 const supportedWpPluginVersions = {
   WPGraphQL: {
-    version: `>=0.14.0 <2.0.0`,
+    version: `>=1.1.2 <2.0.0`,
     reason: null,
   },
   WPGatsby: {

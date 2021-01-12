@@ -2,7 +2,6 @@ import { GatsbyNodeApiHelpers } from "~/utils/gatsby-types"
 import merge from "lodash/merge"
 import { createRemoteMediaItemNode } from "~/steps/source-nodes/create-nodes/create-remote-media-item-node"
 import { menuBeforeChangeNode } from "~/steps/source-nodes/before-change-node/menu"
-import { beforeChangeMenuItem } from "~/steps/source-nodes/before-change-node/menu-item"
 import { cloneDeep } from "lodash"
 
 export interface PluginOptionsPreset {
@@ -283,38 +282,6 @@ const defaultPluginOptions: IPluginOptions = {
        * When we can get a list of all menu items regardless of location in WPGQL, this can be removed.
        */
       beforeChangeNode: menuBeforeChangeNode,
-    },
-    MenuItem: {
-      beforeChangeNode: beforeChangeMenuItem,
-      /**
-       * This was my previous attempt at fetching problematic menuItems
-       * I temporarily solved this above, but I'm leaving this here as
-       * a reminder of the nodeListQueries API
-       *
-       * this worked to pull all menus in the initial fetch, but menus had to be assigned to a location
-       * that was problematic because saving a menu would then fetch those menu items using the incremental fetching logic in this plugin. So menu items that previously existed in WP wouldn't show up initially if they had no location set, then as menus were saved they would show up.
-       */
-      // nodeListQueries: ({
-      //   name,
-      //   store,
-      //   transformedFields,
-      //   helpers: { buildNodesQueryOnFieldName },
-      // }) => {
-      //   const menuLocationEnumValues = store
-      //     .getState()
-      //     .remoteSchema.introspectionData.__schema.types.find(
-      //       type => type.name === `MenuLocationEnum`
-      //     )
-      //     .enumValues.map(value => value.name)
-      //   const queries = menuLocationEnumValues.map(enumValue =>
-      //     buildNodesQueryOnFieldName({
-      //       fields: transformedFields,
-      //       fieldName: name,
-      //       fieldVariables: `where: { location: ${enumValue} }`,
-      //     })
-      //   )
-      //   return queries
-      // },
     },
     // the next two types can't be sourced in Gatsby properly yet
     // @todo instead of excluding these manually, auto exclude them

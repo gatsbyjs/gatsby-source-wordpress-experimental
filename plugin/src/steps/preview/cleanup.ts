@@ -24,6 +24,7 @@ export const onPreExtractQueriesInvokeLeftoverPreviewCallbacks = async (): Promi
   // we need to tell WP that a page wasn't created for the preview
   return invokeAndCleanupLeftoverPreviewCallbacks({
     status: `NO_PAGE_CREATED_FOR_PREVIEWED_NODE`,
+    context: `invokeAndCleanupLeftoverPreviewCallbacks`,
   })
 }
 
