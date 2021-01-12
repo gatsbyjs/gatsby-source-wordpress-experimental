@@ -130,16 +130,16 @@ const areRemotePluginVersionsSatisfied = async ({
       supportedWpPluginVersions.WPGraphQL.version
     )
 
-    message += `Your remote version of WPGraphQL is not within the accepted range (${
+    message += `Your remote version of WPGraphQL is not within the accepted range\n(${
       supportedWpPluginVersions.WPGraphQL.version
-    }).
+    }).\n\nThis is not a bug and it means one of two things:\n you either need to upgrade either WPGraphQL or gatsby-source-wordpress-experimental.
 
-If the version of WPGraphQL in your WordPress instance is higher than ${
+1. If the version of WPGraphQL in your WordPress instance is higher than ${
       maxVersion || minVersion
     }
-it may mean you need to upgrade your version of gatsby-source-wordpress.
+it means you need to upgrade your version of gatsby-source-wordpress.
 
-If the version of WPGraphQL in your WordPress instance is lower than ${minVersion}
+2. If the version of WPGraphQL in your WordPress instance is lower than ${minVersion}
 it means you need to upgrade your version of WPGraphQL.
 
 You can find a matching WPGraphQL version at https://github.com/wp-graphql/wp-graphql/releases`
@@ -156,16 +156,16 @@ You can find a matching WPGraphQL version at https://github.com/wp-graphql/wp-gr
 
     const { hostname, protocol } = url.parse(wpGraphQLEndpoint)
 
-    message += `Your remote version of WPGatsby is not within the accepted range (${
+    message += `Your remote version of WPGatsby is not within the accepted range\n(${
       supportedWpPluginVersions.WPGatsby.version
-    })
+    })\n\nThis is not a bug and it means one of two things:\n you either need to upgrade either WPGatsby or gatsby-source-wordpress-experimental.
 
-If the version of WPGatsby in your WordPress instance is higher than ${
+1. If the version of WPGatsby in your WordPress instance is higher than ${
       maxVersion || minVersion
     }
-it may mean you need to upgrade your version of gatsby-source-wordpress.
+it means you need to upgrade your version of gatsby-source-wordpress-experimental.
 
-If the version of WPGatsby in your WordPress instance is lower than ${minVersion}
+2. If the version of WPGatsby in your WordPress instance is lower than ${minVersion}
 it means you need to upgrade your version of WPGatsby.
 
 Download a matching version at https://github.com/gatsbyjs/wp-gatsby/releases

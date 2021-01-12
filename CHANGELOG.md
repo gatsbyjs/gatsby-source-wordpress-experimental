@@ -11,6 +11,10 @@
 - When cleaning up leftover callbacks that send preview status back to WP Previews, we were not including a context message to display in the terminal and in browser when a page wasn't being created for the node being previewed.
 - Menu items were not being cleaned up properly after a menu was deleted. We now delete them along with their parent menu.
 
+## Changes
+
+- The compatibility API message was updated to make it clearer that the error is not a bug and what steps are needed to fix it.
+
 ## 6.2.0
 
 ### Bug Fixes
