@@ -6,6 +6,7 @@
 4. @todo Querying data
 5. @todo Working with Menus
 6. @todo Working with large WordPress sites
+7. [Using Self-Signed Certificates](./using-self-signed-certificates.md)
 
 # Up Next :point_right:
 
