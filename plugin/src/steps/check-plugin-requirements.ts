@@ -137,7 +137,7 @@ const areRemotePluginVersionsSatisfied = async ({
 1. If the version of WPGraphQL in your WordPress instance is higher than ${
       maxVersion || minVersion
     }
-it means you need to upgrade your version of gatsby-source-wordpress.
+it means you need to upgrade your version of gatsby-source-wordpress-experimental.
 
 2. If the version of WPGraphQL in your WordPress instance is lower than ${minVersion}
 it means you need to upgrade your version of WPGraphQL.
