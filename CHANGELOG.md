@@ -1,5 +1,11 @@
 # Change Log
 
+## Upcoming
+
+### Changes
+
+- Lowered `options.schema.previewRequestConcurrency` to 5.
+
 ## 7.0.0
 
 ### Breaking Changes

@@ -161,7 +161,7 @@ const defaultPluginOptions: IPluginOptions = {
     timeout: 30 * 1000, // 30 seconds
     perPage: 100,
     requestConcurrency: 15,
-    previewRequestConcurrency: 10,
+    previewRequestConcurrency: 5,
   },
   excludeFieldNames: [],
   html: {
