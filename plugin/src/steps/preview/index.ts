@@ -103,6 +103,10 @@ export const sourcePreviews = async (
             previewStream: true
             status: PRIVATE
             orderby: { field: MODIFIED, order: DESC }
+            sinceTimestamp: ${
+              // only source previews made in the last 10 minutes
+              Date.now() - 1000 * 60 * 10
+            }
           }
           first: 100
           after: $after

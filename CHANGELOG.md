@@ -5,6 +5,7 @@
 ### Changes
 
 - Lowered `options.schema.previewRequestConcurrency` to 5.
+- Added a sinceTimestamp where arg to preview sourcing so that only previews created in the last 10 minutes are sourced.
 
 ## 7.0.0
 
