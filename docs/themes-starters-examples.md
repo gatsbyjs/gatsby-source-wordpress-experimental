@@ -23,6 +23,7 @@
 [Sitepoint](https://www.sitepoint.com/blog/)
 
 [Visit the Gatsby.com WordPress use cases page for more](https://www.gatsbyjs.com/use-cases/wordpress)
+
 # Up Next :point_right:
 
 - :medal_sports: [Usage with popular WPGraphQL extensions](./usage-with-popular-wp-graphql-extensions.md)

@@ -15,6 +15,7 @@ If your server becomes overwhelmed by the number of requests being made from Gat
 ### Solution 1: Get a better server (for faster build times)
 
 If you're getting errors about your server being overloaded, you can try renting and migrating to a server with more resources. This will cost more but will mean your builds are faster and more reliable. For many sites WPEngine will work well. If WPE doesn't work for you or you need more resources at a cheaper price you'll need to do some investigation to find a suitable hosting provider. Once you have a good server you may be able to speed up your build times by increasing the [GraphQL request concurrency (data requests)](./plugin-options.md#schemarequestconcurrency-int) and [media file request concurrency (requests for images, videos, pdf's, etc)](./plugin-options.md#typemediaitemlocalfilerequestconcurrency-number) settings from their defaults.
+
 ### Solution 2: Tweak Gatsby concurrency settings to suit a less powerful server (for slower build times)
 
 By lowering the plugin options for request concurrency (the number of requests made at one time) you can fix over-resourced server errors. There's a setting for [GraphQL request concurrency (data requests)](./plugin-options.md#schemarequestconcurrency-int) as well as for [media file request concurrency (requests for images, videos, pdf's, etc)](./plugin-options.md#typemediaitemlocalfilerequestconcurrency-number).

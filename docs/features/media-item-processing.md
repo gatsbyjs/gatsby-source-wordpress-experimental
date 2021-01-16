@@ -16,12 +16,12 @@ This can be turned off with the `html.useGatsbyImage` boolean plugin option. See
 Images in html `img` tags which are either relative paths or full paths to your WP instance will be recognized and sourced by Gatsby.
 
 For example, both of the following will be sourced:
+
 ```html
-<img src="/wp-content/uploads/2021/01/a.jpeg">
+<img src="/wp-content/uploads/2021/01/a.jpeg" />
 <img src="https://mysite.com/wp-content/uploads/2021/01/b.jpeg" />
 ```
 
 Note that there's currently a hard requirement for both kinds of url's to include `/wp-content/uploads` in order to be picked up.
 
 :point_left: [Back to Features](./index.md)
-
