@@ -435,7 +435,7 @@ Default is `15`.
 
 The GraphQL request concurrency limit when sourcing preview data from WPGraphQL.
 
-Default is `10`.
+Default is `5`.
 
 ```js
 {

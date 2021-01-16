@@ -175,7 +175,7 @@ export function pluginOptionsSchema({ Joi }) {
         ),
       previewRequestConcurrency: Joi.number()
         .integer()
-        .default(10)
+        .default(5)
         .description(
           `The number of concurrent GraphQL requests to make at any time during preview sourcing. Try lowering this if your WordPress server crashes during previews. Normally this wont be needed and only comes into effect when multiple users are previewing simultaneously.`
         ),
