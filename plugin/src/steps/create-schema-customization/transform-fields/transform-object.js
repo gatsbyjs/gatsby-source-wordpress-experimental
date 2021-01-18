@@ -55,11 +55,13 @@ export const buildGatsbyNodeObjectResolver = ({ field, fieldName }) => async (
 
   const queryInfo = getQueryInfoByTypeName(field.type.name)
 
+  const isLazyMediaItem =
+    queryInfo.typeInfo.nodesTypeName === `MediaItem` &&
+    queryInfo.settings.lazyNodes
+
   if (
-    // only fetch/create nodes in resolvers for media items
-    (queryInfo.nodesTypeName !== `MediaItem` ||
-      // and only when they have lazyNodes enabled
-      !queryInfo.settings.lazyNodes) &&
+    // only fetch/create nodes in resolvers for media items when they have lazyNodes enabled
+    !isLazyMediaItem &&
     // but if we're in preview mode we want to lazy fetch nodes
     // because if nodes are limited we still want to lazy fetch connections
     !inPreviewMode()

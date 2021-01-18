@@ -5,6 +5,18 @@
 ### Bug Fixes
 
 - The new schema diff out debugging api could fail when accessing a property on undefined in certain cases.
+## 7.0.2
+
+### Bug fixes
+
+- Restored `type.MediaItem.lazyNodes` option which broke in a previous preview optimization release.
+
+## 7.0.1
+
+### Changes
+
+- Lowered `options.schema.previewRequestConcurrency` to 5.
+- Added a sinceTimestamp where arg to preview sourcing so that only previews created in the last 10 minutes are sourced.
 
 ## 7.0.0
 
