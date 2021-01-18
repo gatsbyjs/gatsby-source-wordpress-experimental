@@ -5,6 +5,7 @@
 ### Bug Fixes
 
 - The new schema diff out debugging api could fail when accessing a property on undefined in certain cases.
+
 ## 7.0.2
 
 ### Bug fixes
