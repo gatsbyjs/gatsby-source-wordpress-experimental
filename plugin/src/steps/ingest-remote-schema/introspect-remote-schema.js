@@ -54,30 +54,25 @@ const introspectAndStoreRemoteSchema = async () => {
         return
       }
 
-      const typeDiff = uniqBy(diff.diffJson(type, newType), `value`)
+      const typeDiff =
+        type && newType ? uniqBy(diff.diffJson(type, newType), `value`) : null
 
-      if (typeDiff.length) {
+      if (typeDiff?.length) {
         console.log(`\nFound changes to the ${type.name} type\n`)
         typeDiff.forEach((part) => {
-          if (part.added) {
+          if (part.added || part.removed) {
             console.log(
               chalk.green(
-                chalk.bold(`Added:\n`) +
+                chalk.bold(`${part.added ? `Added` : `Removed`}:\n`) +
                   part.value
                     .trim()
                     .split(`\n`)
-                    .map((line, index) => `+${index === 0 ? `\t` : ` `}${line}`)
-                    .join(`\n`)
-              )
-            )
-          } else if (part.removed) {
-            console.log(
-              chalk.red(
-                chalk.bold(`Removed:\n`) +
-                  part.value
-                    .trim()
-                    .split(`\n`)
-                    .map((line, index) => `-${index === 0 ? `\t` : ` `}${line}`)
+                    .map(
+                      (line, index) =>
+                        `${part.added ? `+` : `-`}${
+                          index === 0 ? `\t` : ` `
+                        }${line}`
+                    )
                     .join(`\n`)
               )
             )
