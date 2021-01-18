@@ -1,6 +1,6 @@
 # Change Log
 
-## Upcoming
+## 7.0.2
 
 ### Bug fixes
 
