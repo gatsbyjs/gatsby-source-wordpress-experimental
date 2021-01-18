@@ -1,5 +1,11 @@
 # Change Log
 
+## Upcoming
+
+### Bug fixes
+
+- Restored `type.MediaItem.lazyNodes` option which broke in a previous preview optimization release.
+
 ## 7.0.1
 
 ### Changes
