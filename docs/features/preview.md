@@ -43,18 +43,18 @@ Make sure that when `process.env.NODE_ENV === "development"` you aren't filterin
 
 ```js
 exports.createPages = async ({ graphql }) => {
-    const graphqlResult = await graphql(/* GraphQL */ `
-      query {
-        allWpPost(filter: {status: {eq: "publish"}}) {
-          edges {
-            node {
-              id
-              uri
-            }
+  const graphqlResult = await graphql(/* GraphQL */ `
+    query {
+      allWpPost(filter: { status: { eq: "publish" } }) {
+        edges {
+          node {
+            id
+            uri
           }
         }
       }
-    `)
+    }
+  `)
 }
 ```
 
@@ -62,18 +62,22 @@ Filtering by a specific category can also break previews since adding categories
 
 ```js
 exports.createPages = async ({ graphql }) => {
-    const graphqlResult = await graphql(/* GraphQL */ `
-      query {
-        allWpPost(filter: { categories: {nodes: {elemMatch: {name: {eq: "Blog"}}}}}) {
-          edges {
-            node {
-              id
-              uri
-            }
+  const graphqlResult = await graphql(/* GraphQL */ `
+    query {
+      allWpPost(
+        filter: {
+          categories: { nodes: { elemMatch: { name: { eq: "Blog" } } } }
+        }
+      ) {
+        edges {
+          node {
+            id
+            uri
           }
         }
       }
-    `)
+    }
+  `)
 }
 ```
 
@@ -83,28 +87,28 @@ It is currently a hard requirement that the node id is added to pageContext.
 
 ```js
 exports.createPages = async ({ graphql, actions }) => {
-    const graphqlResult = await graphql(/* GraphQL */ `
-      query {
-        allWpPost {
-          edges {
-            node {
-              id
-              uri
-            }
+  const graphqlResult = await graphql(/* GraphQL */ `
+    query {
+      allWpPost {
+        edges {
+          node {
+            id
+            uri
           }
         }
       }
-    `)
+    }
+  `)
 
-    graphqlResult.data.allWpPost.edges.map(({node}) => {
-      actions.createPage({
-        path: node.uri,
-        component: require.resolve(`./src/components/dog.js`),
-        context: {
-          id: node.id // if this is not included, previews will not work.
-        }
-      })
+  graphqlResult.data.allWpPost.edges.map(({ node }) => {
+    actions.createPage({
+      path: node.uri,
+      component: require.resolve(`./src/components/dog.js`),
+      context: {
+        id: node.id, // if this is not included, previews will not work.
+      },
     })
+  })
 }
 ```
 
