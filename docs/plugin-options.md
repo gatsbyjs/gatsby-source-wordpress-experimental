@@ -239,6 +239,7 @@ When true, image URL's in html that return a 404 will not fail the build and wil
   }
 }
 ```
+
 ## develop: Object
 
 Options related to the `gatsby develop` process.
