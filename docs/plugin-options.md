@@ -11,6 +11,8 @@
       - [debug.graphql.panicOnError: Boolean](#debuggraphqlpaniconerror-boolean)
       - [debug.graphql.onlyReportCriticalErrors: Boolean](#debuggraphqlonlyreportcriticalerrors-boolean)
       - [debug.graphql.writeQueriesToDisk: Boolean](#debuggraphqlwritequeriestodisk-boolean)
+  - [production: Object](#production-object)
+    - [production.allow404Images: Boolean](#productionallow404images-boolean)
   - [develop: Object](#develop-object)
     - [develop.nodeUpdateInterval: Int](#developnodeupdateinterval-int)
     - [develop.hardCacheMediaFiles: Boolean](#develophardcachemediafiles-boolean)
@@ -209,6 +211,34 @@ When true, all internal GraphQL queries generated during node sourcing will be w
 },
 ```
 
+## production: Object
+
+Options related to the `gatsby build` process.
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+  options: {
+    production: {
+      // options related to `gatsby build`
+    },
+  },
+},
+```
+
+### production.allow404Images: Boolean
+
+When true, image URL's in html that return a 404 will not fail the build and will only output a warning.
+
+```js
+{
+  options: {
+    production: {
+      allow404Images: true
+    }
+  }
+}
+```
 ## develop: Object
 
 Options related to the `gatsby develop` process.
