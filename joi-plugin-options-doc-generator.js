@@ -18,7 +18,7 @@ const {
  * @param {number} level
  * @param {string} parent
  */
-function joiKeysToMD(keys, md = ``, level = 1, parent = null) {
+function joiKeysToMD({ keys, md = ``, level = 1, parent = null }) {
   Object.entries(keys).forEach(([key, value]) => {
     const title = `${parent ? `${parent}.` : ``}${key}`
 
@@ -34,38 +34,44 @@ function joiKeysToMD(keys, md = ``, level = 1, parent = null) {
       md += `type: ${_.startCase(value.type)}`
     }
 
-    if (value.flags) {
-      if (value.flags.default && value.flags.default !== ``) {
-        const defaultValue = value.flags.default
-        let printedValue
-        if (typeof defaultValue === `string`) {
-          printedValue = defaultValue
-        } else if (Array.isArray(defaultValue)) {
-          printedValue = `[${defaultValue.join(`, `)}]`
-        } else {
-          printedValue = defaultValue.toString()
-        }
-        md += `\n`
-        md += `Default value: \`${printedValue}\``
+    if (value.flags && value.flags.default) {
+      const defaultValue = value.flags.default
+
+      let printedValue
+
+      if (typeof defaultValue === `string`) {
+        printedValue = defaultValue
+      } else if (Array.isArray(defaultValue)) {
+        printedValue = `[${defaultValue.join(`, `)}]`
+      } else {
+        printedValue = defaultValue.toString()
       }
 
-      if (value.flags.description) {
-        md += `\n\n`
-        const description = value.flags.description.trim()
-        md += description.endsWith(`.`) ? description : `${description}.`
-      }
+      md += `\n`
+      md += `Default value: \`${printedValue}\``
+    }
 
-      if (value.examples && value.examples.length) {
-        value.examples.forEach((example) => {
-          md += `\n\n\`\`\`js\n` + example + `\n\`\`\`\n`
-        })
-      }
+    if (value.flags && value.flags.description) {
+      md += `\n\n`
+      const description = value.flags.description.trim()
+      md += description.endsWith(`.`) ? description : `${description}.`
+    }
+
+    if (value.examples && value.examples.length) {
+      value.examples.forEach((example) => {
+        md += `\n\n\`\`\`js\n` + example + `\n\`\`\`\n`
+      })
     }
 
     md += `\n\n`
 
     if (value.keys) {
-      md = joiKeysToMD(value.keys, md, level + 1, title)
+      md = joiKeysToMD({
+        keys: value.keys,
+        md,
+        level: level + 1,
+        parent: title,
+      })
     }
   })
 
@@ -85,7 +91,9 @@ async function generateMdFileFromSchemaDescription(description) {
 {{{tableOfContents}}}
 {{{docs}}}`)
 
-  const docs = joiKeysToMD(description.keys)
+  const docs = joiKeysToMD({
+    keys: description.keys,
+  })
   const tableOfContents = toc(docs).content
 
   const mdContents = template({
