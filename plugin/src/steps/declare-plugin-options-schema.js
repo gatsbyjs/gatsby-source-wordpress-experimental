@@ -269,7 +269,12 @@ export function pluginOptionsSchema({ Joi }) {
   return joiSchema.append({
     url: Joi.string()
       .required()
-      .description(`The full url of your GraphQL endpoint`),
+      .description(`The full url of your GraphQL endpoint`).example(`{
+  resolve: \`gatsby-source-wordpress-experimental\`,
+  options: {
+    url: \`https://yoursite.com/graphql\`
+  },
+},`),
     presets: Joi.array()
       .items(joiSchema)
       .allow(null)
