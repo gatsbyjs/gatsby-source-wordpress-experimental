@@ -14,24 +14,24 @@ const {
  * turns the nested keys into structured markdown documentation
  *
  * @param {object} keys
- * @param {string} md
+ * @param {string} mdString
  * @param {number} level
  * @param {string} parent
  */
-function joiKeysToMD({ keys, md = ``, level = 1, parent = null }) {
+function joiKeysToMD({ keys, mdString = ``, level = 1, parent = null }) {
   Object.entries(keys).forEach(([key, value]) => {
     const title = `${parent ? `${parent}.` : ``}${key}`
 
-    md += `${`#`.repeat(level + 1)} ${title}`
+    mdString += `${`#`.repeat(level + 1)} ${title}`
 
     if (value.flags && value.flags.presence === `required`) {
-      md += `\n\n`
-      md += `**This option is required.**`
+      mdString += `\n\n`
+      mdString += `**This option is required.**`
     }
 
     if (value.type) {
-      md += `\n\n`
-      md += `type: ${_.startCase(value.type)}`
+      mdString += `\n\n`
+      mdString += `type: ${_.startCase(value.type)}`
     }
 
     if (value.flags && value.flags.default) {
@@ -47,35 +47,35 @@ function joiKeysToMD({ keys, md = ``, level = 1, parent = null }) {
         printedValue = defaultValue.toString()
       }
 
-      md += `\n`
-      md += `Default value: \`${printedValue}\``
+      mdString += `\n`
+      mdString += `Default value: \`${printedValue}\``
     }
 
     if (value.flags && value.flags.description) {
-      md += `\n\n`
+      mdString += `\n\n`
       const description = value.flags.description.trim()
-      md += description.endsWith(`.`) ? description : `${description}.`
+      mdString += description.endsWith(`.`) ? description : `${description}.`
     }
 
     if (value.examples && value.examples.length) {
       value.examples.forEach((example) => {
-        md += `\n\n\`\`\`js\n` + example + `\n\`\`\`\n`
+        mdString += `\n\n\`\`\`js\n` + example + `\n\`\`\`\n`
       })
     }
 
-    md += `\n\n`
+    mdString += `\n\n`
 
     if (value.keys) {
-      md = joiKeysToMD({
+      mdString = joiKeysToMD({
         keys: value.keys,
-        md,
+        mdString,
         level: level + 1,
         parent: title,
       })
     }
   })
 
-  return md
+  return mdString
 }
 
 /**
