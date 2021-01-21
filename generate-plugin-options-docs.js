@@ -4,7 +4,6 @@ const Handlebars = require(`handlebars`)
 const fs = require(`fs-extra`)
 const _ = require(`lodash`)
 const toc = require(`markdown-toc`)
-const clipboardy = require(`clipboardy`)
 
 const {
   pluginOptionsSchema,
@@ -159,7 +158,5 @@ async function generateMdFileFromSchemaDescription(description) {
 }
 
 const description = pluginOptionsSchema({ Joi }).describe()
-
-clipboardy.writeSync(JSON.stringify(description))
 
 generateMdFileFromSchemaDescription(description)
