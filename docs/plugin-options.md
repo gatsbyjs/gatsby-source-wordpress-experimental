@@ -1156,7 +1156,7 @@ A preset of plugin options to be applied under some circumstance determined by t
 **Default value**:
 
 ```js
-[
+;[
   {
     presetName: `PREVIEW_OPTIMIZATION`,
     useIf: (): boolean =>
@@ -1187,7 +1187,7 @@ A preset of plugin options to be applied under some circumstance determined by t
       },
     },
   },
-];
+]
 ```
 
 ### presets[].presetName
