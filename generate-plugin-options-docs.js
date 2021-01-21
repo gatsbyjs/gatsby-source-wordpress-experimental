@@ -47,11 +47,6 @@ function joiKeysToMD({
       mdString += description.endsWith(`.`) ? description : `${description}.`
     }
 
-    if (value.flags && value.flags.presence === `required`) {
-      mdString += `\n\n`
-      mdString += `**Required:** yes`
-    }
-
     if (value.type) {
       mdString += `\n\n`
       mdString += `**Field type**: \`${_.startCase(value.type)}\``
