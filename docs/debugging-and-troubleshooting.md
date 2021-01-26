@@ -13,6 +13,22 @@
 
 ## Node sourcing
 
+### Protocol mismatch
+
+A protocol mismatch means that you have defined `http` or `https` in your Gatsby plugin settings, but the setting on your WordPress site differ.
+
+```
+The Url set in plugin options has a different protocol than the Url saved in WordPress general settings.
+
+options.url: https://yoursite.com/graphql
+WordPress settings: http://yoursite.com
+
+This may cause subtle bugs, or it may be fine.
+Please consider addressing this issue by changing your WordPress settings or plugin options accordingly.
+```
+
+To fix this issue visit /wp-admin/options-general.php in WordPress and verify whether the WordPress / Site address fields match what you have in your plugin settings.
+
 ### Missing data in Gatsby
 
 If some fields are returning null or an empty array when you think they should be returning data, a few things could be at play. To debug follow these steps:
