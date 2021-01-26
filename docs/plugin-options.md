@@ -1154,7 +1154,7 @@ An array of plugin options presets that are applied if the useIf function on eac
 **Default value**:
 
 ```js
-;[
+[
   {
     presetName: `PREVIEW_OPTIMIZATION`,
     useIf: (): boolean =>
@@ -1185,7 +1185,7 @@ An array of plugin options presets that are applied if the useIf function on eac
       },
     },
   },
-]
+];
 ```
 
 ### presets[].presetName
