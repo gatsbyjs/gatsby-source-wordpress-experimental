@@ -69,8 +69,6 @@ This is the only plugin option which is required for the plugin to work properly
 
 This should be the full url of your GraphQL endpoint.
 
-**Required:** yes
-
 **Field type**: `String`
 
 ```js
@@ -1156,7 +1154,7 @@ A preset of plugin options to be applied under some circumstance determined by t
 **Default value**:
 
 ```js
-;[
+[
   {
     presetName: `PREVIEW_OPTIMIZATION`,
     useIf: (): boolean =>
@@ -1187,7 +1185,7 @@ A preset of plugin options to be applied under some circumstance determined by t
       },
     },
   },
-]
+];
 ```
 
 ### presets[].presetName
