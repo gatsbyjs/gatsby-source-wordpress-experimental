@@ -4,7 +4,7 @@ const Handlebars = require(`handlebars`)
 const fs = require(`fs-extra`)
 const _ = require(`lodash`)
 const toc = require(`markdown-toc`)
-const prettierConfig = require(`./.prettierrc.js`)
+const prettierConfig = require(`./prettier.config.js`)
 
 const {
   pluginOptionsSchema,
@@ -163,13 +163,10 @@ async function generateMdFileFromSchemaDescription(description) {
     docs,
   })
 
-  const mdContentsFormatted = prettier.format(
-    mdContents,
-    {
-      parser: `markdown`,
-    },
-    prettierConfig
-  )
+  const mdContentsFormatted = prettier.format(mdContents, {
+    parser: `markdown`,
+    ...prettierConfig,
+  })
 
   await fs.writeFile(`./docs/plugin-options.md`, mdContentsFormatted)
 }
