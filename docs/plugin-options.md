@@ -69,8 +69,6 @@ This is the only plugin option which is required for the plugin to work properly
 
 This should be the full url of your GraphQL endpoint.
 
-**Required:** yes
-
 **Field type**: `String`
 
 ```js
@@ -1149,14 +1147,14 @@ Amount of images to download concurrently. Try lowering this if wordpress server
 
 ## presets
 
-A preset of plugin options to be applied under some circumstance determined by the useIf function property.
+An array of plugin options presets that are applied if the useIf function on each returns true. The default includes an optimization for when in Gatsby Preview mode.
 
 **Field type**: `Array`
 
 **Default value**:
 
 ```js
-;[
+[
   {
     presetName: `PREVIEW_OPTIMIZATION`,
     useIf: (): boolean =>
@@ -1187,7 +1185,7 @@ A preset of plugin options to be applied under some circumstance determined by t
       },
     },
   },
-]
+];
 ```
 
 ### presets[].presetName

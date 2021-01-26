@@ -27,7 +27,10 @@ function joiKeysToMD({
   parent = null,
   parentMetas = [],
 }) {
-  if (parentMetas.length && parentMetas.find((meta) => meta.portableOptions)) {
+  if (
+    !keys ||
+    (parentMetas.length && parentMetas.find((meta) => meta.portableOptions))
+  ) {
     return mdString
   }
 
@@ -40,19 +43,27 @@ function joiKeysToMD({
 
     mdString += `${`#`.repeat(level + 1)} ${title}`
 
-    if (value.flags && value.flags.description) {
+    if (value.description) {
       mdString += `\n\n`
-      const description = value.flags.description.trim()
+      const description = value.description.trim()
       mdString += description.endsWith(`.`) ? description : `${description}.`
     }
 
     if (value.type) {
+      const { trueType } =
+        (value.meta && value.meta.find((meta) => `trueType` in meta)) || {}
+
       mdString += `\n\n`
-      mdString += `**Field type**: \`${_.startCase(value.type)}\``
+      mdString += `**Field type**: \`${_.startCase(trueType || value.type)}\``
     }
 
-    if (value.flags && `default` in value.flags) {
-      const defaultValue = value.flags.default
+    if (
+      (value.flags && `default` in value.flags) ||
+      (value.meta && value.meta.find((meta) => `default` in meta))
+    ) {
+      const defaultValue =
+        value.meta.find((meta) => `default` in meta)?.default ||
+        value.flags.default
 
       let printedValue
 
@@ -78,8 +89,9 @@ function joiKeysToMD({
       }
     }
 
-    if (value.examples && value.examples.length) {
-      value.examples.forEach((example) => {
+    if (value.meta) {
+      const examples = value.meta.filter((meta) => `example` in meta)
+      examples.forEach(({ example }) => {
         mdString += `\n\n\`\`\`js\n` + example + `\n\`\`\`\n`
       })
     }
@@ -88,25 +100,25 @@ function joiKeysToMD({
 
     const excludeChildren = excludeParentsChildren.includes(key)
 
-    if (!excludeChildren && value.keys) {
+    if (!excludeChildren && value.children) {
       mdString = joiKeysToMD({
-        keys: value.keys,
+        keys: value.children,
         mdString,
         level: level + 1,
         parent: title,
-        parentMetas: value.metas,
+        parentMetas: value.meta,
       })
     }
 
     if (!excludeChildren && value.items && value.items.length) {
       value.items.forEach((item) => {
-        if (item.keys) {
+        if (item.children) {
           mdString = joiKeysToMD({
-            keys: item.keys,
+            keys: item.children,
             mdString,
             level: level + 1,
             parent: title + `[]`,
-            parentMetas: value.metas,
+            parentMetas: value.meta,
           })
         }
       })
@@ -141,7 +153,7 @@ async function generateMdFileFromSchemaDescription(description) {
 - :point_left: [Back to README.md](../README.md)`)
 
   const docs = joiKeysToMD({
-    keys: description.keys,
+    keys: description.children,
   })
   const tableOfContents = toc(docs).content
 
@@ -158,5 +170,6 @@ async function generateMdFileFromSchemaDescription(description) {
 }
 
 const description = pluginOptionsSchema({ Joi }).describe()
+clipboardy.writeSync(JSON.stringify(description))
 
 generateMdFileFromSchemaDescription(description)
