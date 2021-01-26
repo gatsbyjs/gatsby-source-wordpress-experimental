@@ -175,6 +175,5 @@ async function generateMdFileFromSchemaDescription(description) {
 }
 
 const description = pluginOptionsSchema({ Joi }).describe()
-clipboardy.writeSync(JSON.stringify(description))
 
 generateMdFileFromSchemaDescription(description)
