@@ -48,7 +48,7 @@ Developer & Content Creator experience are some of our main focuses with this in
 - 🏅 [Usage with popular WPGraphQL extensions](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/usage-with-popular-wp-graphql-extensions.md)
 - 🛠 [Debugging and troubleshooting](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/debugging-and-troubleshooting.md)
 - 🏞 [Community and Support](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/community-and-support.md)
-- 💡 [Contribution](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/contribution.md)
+- 💡 [Test suites](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/tests.md)
 
 ## Relevant Links 🔗
 

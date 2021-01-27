@@ -1,14 +1,13 @@
 # Features
 
 1. :running_woman: [Fast Builds](./fast-builds.md)
-2. :zap: [Incremental Builds](./incremental-builds.md)
-3. :eyes: [Preview](./preview.md)
-4. :spider_web: [GraphQL Schema Merging and Data Fetching](graphql-wordpress-and-gatsby.md)
-5. :camera: [Media Item processing](./media-item-processing.md)
-6. :computer: [HTML Processing (gatsby-image & gatsby-link)](./html-processing.md)
-7. :100: [Limit nodes during development](./limit-nodes-during-development.md)
-8. :ballot_box: [Caching](./caching.md)
-9. :closed_lock_with_key: [Security](./security.md)
+2. :eyes: [Preview](./preview.md)
+3. :spider_web: [GraphQL Schema Merging and Data Fetching](graphql-wordpress-and-gatsby.md)
+4. :camera: [Media/File processing & handling](./media-item-processing.md)
+5. :computer: [Gatsby Link's in HTML](./gatsby-link.md)
+6. :100: [Limit nodes during development](./limit-nodes-during-development.md)
+7. :zap: [Build Caching](./caching.md)
+8. :closed_lock_with_key: [Security](./security.md)
 
 # Up Next :point_right:
 
