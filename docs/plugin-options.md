@@ -741,7 +741,6 @@ Default is `100`
 # Up Next :point_right:
 
 - :boat: [Migrating from other WP source plugins](./migrating-from-other-wp-source-plugins.md)
-- :computer: [Using Data](./using-data.md)
 - :house: [Hosting WordPress](./hosting.md)
 - :athletic_shoe: [Themes, Starters, and Examples](./themes-starters-examples.md)
 - :medal_sports: [Usage with popular WPGraphQL extensions](./usage-with-popular-wp-graphql-extensions.md)
