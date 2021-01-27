@@ -62,15 +62,15 @@ You can install it in your project with `npm install gatsby-source-filesystem` o
 
 ```js
 module.exports = {
-    plugins: [
-        {
-        resolve: `gatsby-source-filesystem`,
-        options: {
-            name: `assets`,
-            path: `${__dirname}/content/assets`, // this needs to include a path with atleast 1 file
-          },
-        }
-    ],
+  plugins: [
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `assets`,
+        path: `${__dirname}/content/assets`, // this needs to include a path with atleast 1 file
+      },
+    },
+  ],
 }
 ```
 
