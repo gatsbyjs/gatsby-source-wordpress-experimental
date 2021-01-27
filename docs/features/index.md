@@ -3,7 +3,7 @@
 1. :running_woman: [Fast Builds](./fast-builds.md)
 2. :zap: [Incremental Builds](./incremental-builds.md)
 3. :eyes: [Preview](./preview.md)
-4. :spider_web: [Schema Merging](./schema-merging.md)
+4. :spider_web: [GraphQL Schema Merging and Data Fetching](graphql-wordpress-and-gatsby.md)
 5. :camera: [Media Item processing](./media-item-processing.md)
 6. :computer: [HTML Processing (gatsby-image & gatsby-link)](./html-processing.md)
 7. :100: [Limit nodes during development](./limit-nodes-during-development.md)
