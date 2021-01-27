@@ -52,3 +52,43 @@ Note that if you make a GraphQL request for any media item in Gatsby, it will st
 If you don't want this to happen you will have to make sure you don't query for those fields.
 
 :point_left: [Back to Features](./index.md)
+
+## Referencing static file public URL's
+
+If you want to use image/file url's directly instead of (or in addition) to using Gatsby Image, you can query for the `WpMediaItem.localFile.publicURL` field in GraphQL.
+However, for this field to be available you'll need to first install and configure `gatsby-source-filesystem` and point it at atleast 1 local file.
+
+You can install it in your project with `npm install gatsby-source-filesystem` or `yarn add gatsby-source-filesystem`. Once you do that you can add it to your `gatsby-config.js` like this:
+
+```js
+module.exports = {
+  plugins: [
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `assets`,
+        path: `${__dirname}/content/assets`, // this needs to include a path with atleast 1 file
+      },
+    },
+  ],
+}
+```
+
+Now when you run `gatsby develop`, you should be able to query for the public URL of any local file node in WP.
+This is mostly useful for when you need a direct file link to a PDF or other asset that you want your users to be able to download.
+
+```graphql
+query {
+  allWpPost {
+    nodes {
+      featuredImage {
+        node {
+          localFile {
+            publicURL
+          }
+        }
+      }
+    }
+  }
+}
+```
