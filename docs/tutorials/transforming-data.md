@@ -86,7 +86,7 @@ export const menuBeforeChangeNode = async (api) => {
 
 Here we're finding all child MenuItem's on the MenuItem being deleted and then deleting those items. We do this as a performance optimization. In WP if a Menu is deleted, the child MenuItem's are also deleted. Instead of sending an event for each item and needing Gatsby to fetch all of them, we know that when we receive an event to delete a Menu, we can safely delete its child MenuItem's.
 
-# Cancelling an update
+## Cancelling an update
 
 There may be cases where you want to cancel a node create/update/delete before it happens. You can do that by adding `cancelUpdate: true` to the object you return to this API. A common use-case for doing this is when you have a multi-lingual site split across multiple domains where each language has a separate Gatsby build process.
 
