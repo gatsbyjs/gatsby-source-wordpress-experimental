@@ -8,14 +8,10 @@ A good example on how to use this API is by referencing internal uses of it. In 
 
 ```js
 const defaultPluginOptions = {
-    // ...
+  // ...
   type: {
     MediaItem: {
-      beforeChangeNode: async ({
-        remoteNode,
-        actionType,
-        typeSettings,
-      }) => {
+      beforeChangeNode: async ({ remoteNode, actionType, typeSettings }) => {
         // we fetch lazy nodes files in resolvers, no need to fetch them here.
         if (typeSettings.lazyNodes) {
           return {
@@ -64,25 +60,25 @@ A good example of why you might want to perform some side effects before a node 
 export const menuBeforeChangeNode = async (api) => {
   if (api.remoteNode && api.actionType === `DELETE`) {
     const {
-        pluginOptions,
-        helpers: { getNodesByType, actions },
+      pluginOptions,
+      helpers: { getNodesByType, actions },
     } = api.helpers
 
     // get all existing MenuItem nodes
     const allMenuItems = getNodesByType(
-        `${pluginOptions.schema.typePrefix}MenuItem`
+      `${pluginOptions.schema.typePrefix}MenuItem`
     )
 
     // find the nodes that are children of the current menu
     const allMenuItemsNodesWithThisMenuIdAsAParent = allMenuItems.filter(
-        (menuItemNode) => menuItemNode.menu.node.id === api.remoteNode.id
+      (menuItemNode) => menuItemNode.menu.node.id === api.remoteNode.id
     )
 
     // delete each child menu item
     allMenuItemsNodesWithThisMenuIdAsAParent?.forEach((menuItemNode) =>
-        actions.deleteNode({
-            node: menuItemNode,
-        })
+      actions.deleteNode({
+        node: menuItemNode,
+      })
     )
   }
 }
@@ -96,14 +92,14 @@ There may be cases where you want to cancel a node create/update/delete before i
 
 ```js
 const beforeChangeNodePage = ({ remoteNode, actionType }) => {
-    if (
-        [`CREATE`, `CREATE_ALL`, `UPDATE`].includes(actionType) &&
-        remoteNode.language !== process.env.BUILD_LANGUAGE
-    ) {
-        return {
-            cancelUpdate: true
-        }
+  if (
+    [`CREATE`, `CREATE_ALL`, `UPDATE`].includes(actionType) &&
+    remoteNode.language !== process.env.BUILD_LANGUAGE
+  ) {
+    return {
+      cancelUpdate: true,
     }
+  }
 }
 ```
 
