@@ -58,23 +58,6 @@ module.exports = {
     `gatsby-plugin-react-helmet`,
 
     /**
-     * We're including this plugin because it allows us to query for File.publicURL
-     * so that we can query the public url of static files in GraphQL.
-     * This is mostly useful for PDF's and other files that you want users to be
-     * able to click and download.
-     *
-     * See https://www.gatsbyjs.com/plugins/gatsby-source-filesystem/?=gatsby-source-filesystem
-     *
-     */
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `assets`,
-        path: `${__dirname}/content/assets`,
-      },
-    },
-
-    /**
      * this (optional) plugin enables Progressive Web App + Offline functionality
      * To learn more, visit: https://gatsby.dev/offline
      */
