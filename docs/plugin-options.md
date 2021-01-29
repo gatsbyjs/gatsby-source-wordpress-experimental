@@ -46,6 +46,7 @@
   - [html.createStaticFiles](#htmlcreatestaticfiles)
 - [type](#type)
   - [type.\_\_all](#type__all)
+    - [type.\_\_all.where](#type__allwhere)
     - [type.\_\_all.exclude](#type__allexclude)
     - [type.\_\_all.limit](#type__alllimit)
     - [type.\_\_all.excludeFieldNames](#type__allexcludefieldnames)
@@ -927,6 +928,24 @@ A special type setting which is applied to all types in the ingested schema.
       __all: {
         limit: 10,
       },
+    },
+  },
+}
+
+```
+
+#### type.\_\_all.where
+
+This string is passed as the WPGraphQL "where" arguments in the GraphQL queries that are made while initially sourcing all data from WPGraphQL into Gatsby during an uncached build. A common use-case for this is only fetching posts of a specific language. It's often used in conjunction with the beforeChangeNode type option as "where" only affects the initial data sync from WP to Gatsby while beforeChangeNode will also run when syncing individual updates from WP to Gatsby.
+
+**Field type**: `String`
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+  options: {
+    schema: {
+      where: `language: ${process.env.GATSBY_ACTIVE_LANGUAGE}`,
     },
   },
 }

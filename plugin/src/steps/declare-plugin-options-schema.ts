@@ -17,6 +17,19 @@ const wrapOptions = (innerOptions) =>
 export function pluginOptionsSchema({ Joi }: { Joi: Root }): SchemaLike {
   const getTypeOptions = () =>
     Joi.object({
+      where: Joi.string()
+        .allow(null)
+        .allow(false)
+        .meta({
+          example: wrapOptions(`
+              schema: {
+                where: \`language: \${process.env.GATSBY_ACTIVE_LANGUAGE}\`
+              }
+            `),
+        })
+        .description(
+          `This string is passed as the WPGraphQL "where" arguments in the GraphQL queries that are made while initially sourcing all data from WPGraphQL into Gatsby during an uncached build. A common use-case for this is only fetching posts of a specific language. It's often used in conjunction with the beforeChangeNode type option as "where" only affects the initial data sync from WP to Gatsby while beforeChangeNode will also run when syncing individual updates from WP to Gatsby.`
+        ),
       exclude: Joi.boolean()
         .allow(null)
         .description(

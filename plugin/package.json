@@ -53,6 +53,7 @@
     "@babel/core": "^7.6.4",
     "@babel/plugin-proposal-class-properties": "^7.10.1",
     "@babel/plugin-proposal-private-methods": "^7.10.1",
+    "@types/hapi__joi": "^17.1.6",
     "@types/semver": "^7.3.4",
     "babel-jest": "^25.1.0",
     "babel-plugin-import-globals": "^2.0.0",
