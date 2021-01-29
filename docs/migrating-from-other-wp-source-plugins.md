@@ -4,6 +4,8 @@ From what we've seen migrating is a fairly painless process as the GraphQL schem
 
 ## Migrating from `gatsby-source-wordpress@v3`
 
+**Note**: If you're using Gatsby Cloud and you have `gatsby-source-wordpress@v3` and `gatsby-source-wordpress-experimental` installed in the same site, only the experimental plugin will receive webhook updates when updating content.
+
 [Graphiql](https://www.gatsbyjs.org/docs/running-queries-with-graphiql/) is your best friend when migrating from the last major version of this plugin. Run `gatsby develop` and visit `http://localhost:8000/___graphiql`
 
 Any node list queries such as `allWordpressPage { nodes { title } }` will need to be updated to match the new WordPress types in the Gatsby schema. The new pattern for type names is `Wp` and then the capitalized type such as `Page`. So to replace the node list query above, you would write `allWpPage { nodes { title } }`.
