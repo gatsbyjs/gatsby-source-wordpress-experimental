@@ -203,7 +203,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 }
 ```
 
-### Building the Page Template
+## Building the Page Template
 
 Now that we have a page being built at `/templates/WpPost.js`, let's take a look at how we can build
 a specific page.
@@ -233,7 +233,7 @@ Our template right now simply returns an `<h1>` with the words "My Template...".
 
 We would be able to visit any of the uri's of the posts in WordPress and see the template.
 
-#### Page Queries
+### Page Queries
 
 Of course, we don't actually want to have "My Template..." output, we want real data.
 
@@ -295,7 +295,7 @@ At this point, we now should be able to visit the same uri and see the template 
 
 ![Template with Data](../../docs/assets/gatsby-source-wordpress-template-with-data.png)
 
-#### GraphQL Fragments
+### GraphQL Fragments
 
 Now that we're getting WordPress data into our Template, let's look at how we can use GraphQL Fragments
 to break our pages into smaller Components.
@@ -416,7 +416,7 @@ And now we have a template that looks like the following:
 
 ![Template with Data and Author](../../docs/assets/gatsby-source-wordpress-template-with-author.png)
 
-### Conditional Templates / Template Hierarchy
+## Conditional Templates / Template Hierarchy
 
 At this point, we've used GraphQL to query WordPress Posts from Gatsby's GraphQL API, and used that
 data to create pages.
