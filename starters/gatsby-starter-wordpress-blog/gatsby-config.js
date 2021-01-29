@@ -28,7 +28,7 @@ module.exports = {
         // the only required plugin option for WordPress is the GraphQL url.
         url:
           process.env.WPGRAPHQL_URL ||
-          `https://wpgatsbydemo.wpengine.com/graphql`,
+          `http://acf2.local/graphql`,
       },
     },
 
@@ -56,23 +56,6 @@ module.exports = {
 
     // See https://www.gatsbyjs.com/plugins/gatsby-plugin-react-helmet/?=gatsby-plugin-react-helmet
     `gatsby-plugin-react-helmet`,
-
-    /**
-     * We're including this plugin because it allows us to query for File.publicURL
-     * so that we can query the public url of static files in GraphQL.
-     * This is mostly useful for PDF's and other files that you want users to be
-     * able to click and download.
-     *
-     * See https://www.gatsbyjs.com/plugins/gatsby-source-filesystem/?=gatsby-source-filesystem
-     *
-     */
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `assets`,
-        path: `${__dirname}/content/assets`,
-      },
-    },
 
     /**
      * this (optional) plugin enables Progressive Web App + Offline functionality
