@@ -23,7 +23,7 @@ First you'll need to ensure you have npm, Gatsby, and Nodejs installed on your c
 You're super close to being able to run your new Gatsby/WP site now!
 
 1. In a terminal, `cd` (navigate) to the directory you want your Gatsby site to live in.
-2. To create a new site using the official WP Gatsby starter, run `gatsby new my-wordpress-gatsby-site https://github.com/gatsbyjs/gatsby-starter-wordpress-blog`. That will fetch [this starter](https://github.com/gatsbyjs/gatsby-starter-wordpress-blog) and put it in a new directory called `my-wordpress-gatsby-site` and run `npm install`. 
+2. To create a new site using the official WP Gatsby starter, run `gatsby new my-wordpress-gatsby-site https://github.com/gatsbyjs/gatsby-starter-wordpress-blog`. That will fetch [this starter](https://github.com/gatsbyjs/gatsby-starter-wordpress-blog) and put it in a new directory called `my-wordpress-gatsby-site` and run `npm install`.
 
 Now that you have a local Gatsby site installed, open it in your favourite IDE or text editor and open up the `gatsby-config.js` file.
 At the top of the `plugins` array you'll see the following code:
@@ -108,7 +108,7 @@ This option will limit the total number of nodes fetched per-type. In this examp
     },
 ```
 
-Note that `process.env.NODE_ENV === "development" ? 50 : null`  will apply this limit only during development while `limit: 50` will apply a limit during development and in production builds.
+Note that `process.env.NODE_ENV === "development" ? 50 : null` will apply this limit only during development while `limit: 50` will apply a limit during development and in production builds.
 
 ### Hard caching MediaItem local files in development using the `options.develop.hardCacheMediaFiles` option
 
