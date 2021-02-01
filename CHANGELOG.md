@@ -1,5 +1,9 @@
 # Change Log
 
+## 7.0.4
+
+Upgraded `axios` to v0.21.0 because older versions were susceptible to SSRF attacks. https://www.npmjs.com/advisories/1594
+
 ## 7.0.3
 
 ### Bug Fixes
