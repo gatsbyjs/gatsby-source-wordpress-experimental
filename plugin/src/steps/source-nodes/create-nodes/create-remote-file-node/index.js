@@ -1,5 +1,6 @@
 const fs = require(`fs-extra`)
 import btoa from "btoa"
+const urlParse = require(`url`).parse
 const { remoteFileDownloaderBarPromise } = require(`./progress-bar-promise`)
 const got = require(`got`)
 const { createContentDigest } = require(`gatsby-core-utils`)
@@ -387,13 +388,9 @@ module.exports = ({
     clearTimeout(doneQueueTimeout)
   }
 
-  // if the url isn't already encoded
-  // so decoding it doesn't do anything
-  if (decodeURI(url) === url) {
-    // encode the uri
-    // this accounts for special characters in filenames
-    url = encodeURI(url)
-  }
+  // urlParse parses, validates, encodes, and reconstructs the url as href
+  // this accounts for special characters in filenames
+  url = urlParse(url).href
 
   // validation of the input
   // without this it's notoriously easy to pass in the wrong `createNodeId`
