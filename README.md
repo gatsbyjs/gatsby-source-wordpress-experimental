@@ -23,9 +23,22 @@
   </a>
 </p>
 
-# gatsby-source-wordpress@v4 BETA
+# This package is now published as `gatsby-source-wordpress`
 
-This plugin is the official recommended way to use WordPress with Gatsby. We're currently publishing on a separate package to make migrating from `gatsby-source-wordpress@v3` easier. If you're coming from `v3` ​this allows you to activate the new version of the plugin alongside `gatsby-source-wordpress` and migrate your codebase one piece at a time ⭐️
+**This page has moved to the [Gatsby monorepo!](https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-source-wordpress/README.md)**
+
+Hi there! 👋 thank you so much for being a beta/alpha tester of this plugin!
+You've helped us bring a much more stable WordPress integration to Gatsby and we're very thankful for that!
+
+We've shipped this plugin as `gatsby-source-wordpress@4.0.0`.
+`gatsby-source-wordpress-experimental` is now deprecated.
+Please upgrade by npm/yarn installing the latest version of the stable plugin and updating your gatsby-config.js to include the stable plugin name.
+
+We've chosen this point to release this plugin as a stable release not because there are no bugs (all software has some bugs), but because this plugin is far more stable than the last major version of `gatsby-source-wordpress`.
+
+Note that we will continue fixing Github issues you've opened in the -experimental repo - those are not forgotten and will be transferred to the Gatsby monorepo.
+
+Thank you! 💜
 
 ## Overview 🌞
 

@@ -1,6 +1,8 @@
 import url from "url"
 import Range from "semver/classes/range"
 
+import deprecationNotice from "../../deprecation-notice.json"
+
 import type { NodePluginArgs } from "gatsby"
 import fetch from "node-fetch"
 
@@ -15,6 +17,7 @@ import {
   supportedWpPluginVersions,
   genericDownloadMessage,
 } from "~/supported-remote-plugin-versions"
+import chalk from "chalk"
 
 const parseRange = (range: string) => {
   const {
@@ -275,6 +278,14 @@ const ensurePluginRequirementsAreMet = async (
   if (helpers.traceId === `refresh-createSchemaCustomization`) {
     return
   }
+
+  helpers.reporter.log(
+    formatLogMessage(`
+
+${chalk.bold(`Upgrade/deprecation notice:`)}
+
+${deprecationNotice}`)
+  )
 
   const activity = helpers.reporter.activityTimer(
     formatLogMessage(`ensuring plugin requirements are met`)

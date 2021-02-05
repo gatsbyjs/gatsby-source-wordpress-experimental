@@ -1,3 +1,20 @@
+**This page has moved to the [Gatsby monorepo!](https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-source-wordpress/docs/tutorials/transforming-data.md)**
+
+Hi there! 👋 thank you so much for being a beta/alpha tester of this plugin!
+You've helped us bring a much more stable WordPress integration to Gatsby and we're very thankful for that!
+
+We've shipped this plugin as `gatsby-source-wordpress@4.0.0`.
+`gatsby-source-wordpress-experimental` is now deprecated.
+Please upgrade by npm/yarn installing the latest version of the stable plugin and updating your gatsby-config.js to include the stable plugin name.
+
+We've chosen this point to release this plugin as a stable release not because there are no bugs (all software has some bugs), but because this plugin is far more stable than the last major version of `gatsby-source-wordpress`.
+
+Note that we will continue fixing Github issues you've opened in the -experimental repo - those are not forgotten and will be transferred to the Gatsby monorepo.
+
+Thank you! 💜
+
+
+
 # Transforming Data
 
 There are some cases where you may want to modify data as it's fetched from WPGraphQL but before it's stored in Gatsby. This source plugin does that quite a bit itself for html transformations and image processing. Because it's such a common need for implementing advanced use cases like automatic image optimization and building transformer plugins, we have a built in API for this (`options.type.[typename].beforeChangeNode`). This API is called before any node is created, updated, or deleted.
