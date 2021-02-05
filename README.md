@@ -43,13 +43,12 @@ Developer & Content Creator experience are some of our main focuses with this in
 - 🐾 [Features](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/features/index.md)
 - 🔌 [Plugin options](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/plugin-options.md)
 - ⛵️ [Migrating from other WP source plugins](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/migrating-from-other-wp-source-plugins.md)
-- 💻 [Using Data](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/using-data.md)
 - 🏠 [Hosting WordPress](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/hosting.md)
 - 👟 [Themes, Starters, and Examples](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/themes-starters-examples.md)
 - 🏅 [Usage with popular WPGraphQL extensions](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/usage-with-popular-wp-graphql-extensions.md)
 - 🛠 [Debugging and troubleshooting](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/debugging-and-troubleshooting.md)
 - 🏞 [Community and Support](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/community-and-support.md)
-- 💡 [Contribution](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/contribution.md)
+- 💡 [Test suites](https://github.com/gatsbyjs/gatsby-source-wordpress-experimental/blob/master/docs/tests.md)
 
 ## Relevant Links 🔗
 

@@ -46,6 +46,7 @@
   - [html.createStaticFiles](#htmlcreatestaticfiles)
 - [type](#type)
   - [type.\_\_all](#type__all)
+    - [type.\_\_all.where](#type__allwhere)
     - [type.\_\_all.exclude](#type__allexclude)
     - [type.\_\_all.limit](#type__alllimit)
     - [type.\_\_all.excludeFieldNames](#type__allexcludefieldnames)
@@ -68,8 +69,6 @@
 This is the only plugin option which is required for the plugin to work properly.
 
 This should be the full url of your GraphQL endpoint.
-
-**Required:** yes
 
 **Field type**: `String`
 
@@ -935,6 +934,26 @@ A special type setting which is applied to all types in the ingested schema.
 
 ```
 
+#### type.\_\_all.where
+
+This string is passed as the WPGraphQL "where" arguments in the GraphQL queries that are made while initially sourcing all data from WPGraphQL into Gatsby during an uncached build. A common use-case for this is only fetching posts of a specific language. It's often used in conjunction with the beforeChangeNode type option as "where" only affects the initial data sync from WP to Gatsby while beforeChangeNode will also run when syncing individual updates from WP to Gatsby.
+
+**Field type**: `String`
+
+```js
+{
+  resolve: `gatsby-source-wordpress-experimental`,
+  options: {
+    type: {
+      Page: {
+        where: `language: ${process.env.GATSBY_ACTIVE_LANGUAGE}`,
+      },
+    },
+  },
+}
+
+```
+
 #### type.\_\_all.exclude
 
 Completely excludes a type from node sourcing and from the ingested schema.
@@ -1149,7 +1168,7 @@ Amount of images to download concurrently. Try lowering this if wordpress server
 
 ## presets
 
-A preset of plugin options to be applied under some circumstance determined by the useIf function property.
+An array of plugin options presets that are applied if the useIf function on each returns true. The default includes an optimization for when in Gatsby Preview mode.
 
 **Field type**: `Array`
 
@@ -1263,7 +1282,6 @@ Any valid options except for `url` and `presets`.
 # Up Next :point_right:
 
 - :boat: [Migrating from other WP source plugins](./migrating-from-other-wp-source-plugins.md)
-- :computer: [Using Data](./using-data.md)
 - :house: [Hosting WordPress](./hosting.md)
 - :athletic_shoe: [Themes, Starters, and Examples](./themes-starters-examples.md)
 - :medal_sports: [Usage with popular WPGraphQL extensions](./usage-with-popular-wp-graphql-extensions.md)
