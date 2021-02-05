@@ -13,8 +13,7 @@ const globby = require(`globby`)
 
     const newFileContents = `**${hasMovedToMessage}**\n\n${deprecationNotice}\n\n${fileContents}`
 
-    console.log(relativePath)
     await fs.writeFile(mdPath, newFileContents, { encoding: `utf8` })
-    process.exit()
+    console.log(`Deprecated ${relativePath}`)
   }
 })()
