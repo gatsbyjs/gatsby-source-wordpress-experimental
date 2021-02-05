@@ -1,5 +1,9 @@
 # Change Log
 
+## 7.0.6
+
+Added a deprecation notice to the terminal output and to all docs pages as we've now published this package as `gatsby-source-wordpress@v4.0.0`. Thank you so much to everyone who used this plugin while it was in alpha and beta. We appreciate you!
+
 ## 7.0.5
 
 Bumped the compatibility API to allow for ^1.0.0 versions of WPGatsby as WPGatsby is moving into v1.0.0
