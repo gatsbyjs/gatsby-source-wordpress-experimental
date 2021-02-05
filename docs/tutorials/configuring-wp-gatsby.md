@@ -13,8 +13,6 @@ Note that we will continue fixing Github issues you've opened in the -experiment
 
 Thank you! 💜
 
-
-
 # Configuring WPGatsby
 
 WPGatsby is a required plugin which modifies WPGraphQL and WordPress to work with Gatsby. It enables builds and previews. See [Installation](../getting-started.md#required-wordpress-dependencies) for more info about WPGatsby.

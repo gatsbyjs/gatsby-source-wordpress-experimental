@@ -13,8 +13,6 @@ Note that we will continue fixing Github issues you've opened in the -experiment
 
 Thank you! 💜
 
-
-
 # Transforming Data
 
 There are some cases where you may want to modify data as it's fetched from WPGraphQL but before it's stored in Gatsby. This source plugin does that quite a bit itself for html transformations and image processing. Because it's such a common need for implementing advanced use cases like automatic image optimization and building transformer plugins, we have a built in API for this (`options.type.[typename].beforeChangeNode`). This API is called before any node is created, updated, or deleted.

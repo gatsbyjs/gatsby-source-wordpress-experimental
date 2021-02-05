@@ -13,8 +13,6 @@ Note that we will continue fixing Github issues you've opened in the -experiment
 
 Thank you! 💜
 
-
-
 # Creating a new site from scratch
 
 ## What this tutorial covers:

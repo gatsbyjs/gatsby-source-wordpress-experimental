@@ -13,8 +13,6 @@ Note that we will continue fixing Github issues you've opened in the -experiment
 
 Thank you! 💜
 
-
-
 # GraphQL, WordPress and Gatsby
 
 This document is intended to provide more information on how GraphQL to allow WordPress to be a

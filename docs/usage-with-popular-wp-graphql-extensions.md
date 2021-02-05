@@ -13,8 +13,6 @@ Note that we will continue fixing Github issues you've opened in the -experiment
 
 Thank you! 💜
 
-
-
 # Usage with popular WPGraphQL extensions
 
 An ideal for this source plugin is for any WPGraphQL extension to become a Gatsby plugin. In practise we haven't yet had time to thoroughly test that all extensions work.

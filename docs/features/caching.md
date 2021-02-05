@@ -13,8 +13,6 @@ Note that we will continue fixing Github issues you've opened in the -experiment
 
 Thank you! 💜
 
-
-
 # Build Caching :ballot_box:
 
 Due to our [WPGatsby](https://github.com/gatsbyjs/wp-gatsby) WordPress plugin which tracks data changes in WordPress, we can do very aggressive caching.

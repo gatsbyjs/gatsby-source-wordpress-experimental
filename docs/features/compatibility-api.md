@@ -13,8 +13,6 @@ Note that we will continue fixing Github issues you've opened in the -experiment
 
 Thank you! 💜
 
-
-
 # Compatibility API
 
 Because we have so many remote depencies (WordPress, WPGraphQL, and WPGatsby), we've baked a remote compatibility API into this plugin.

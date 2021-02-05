@@ -13,8 +13,6 @@ Note that we will continue fixing Github issues you've opened in the -experiment
 
 Thank you! 💜
 
-
-
 # Creating a new site from a starter
 
 This is the recommended way to build new sites so that you start with good best practises and don't need to re-implement everything yourself.

@@ -13,8 +13,6 @@ Note that we will continue fixing Github issues you've opened in the -experiment
 
 Thank you! 💜
 
-
-
 # Limit nodes during development
 
 For very large sites it may take quite a while to start `gatsby develop` when you start working on a project. To mitigate this annoyance, we've added a plugin option to limit the number of nodes that will be pulled on any type.

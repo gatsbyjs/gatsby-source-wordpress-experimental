@@ -13,8 +13,6 @@ Note that we will continue fixing Github issues you've opened in the -experiment
 
 Thank you! 💜
 
-
-
 # Image/File Processing & Handling
 
 ## Only referenced media items are sourced

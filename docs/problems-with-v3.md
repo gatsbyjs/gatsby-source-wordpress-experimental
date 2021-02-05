@@ -13,8 +13,6 @@ Note that we will continue fixing Github issues you've opened in the -experiment
 
 Thank you! 💜
 
-
-
 # Problems with Gatsby Source WordPress v3 :broken_heart:
 
 `gatsby-source-wordpress@v3`, the last major version of this plugin, utilized the [WP REST API](https://developer.wordpress.org/rest-api/) for sourcing WP data into Gatsby. This worked but was problematic for a few reasons.

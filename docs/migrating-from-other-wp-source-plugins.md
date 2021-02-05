@@ -13,8 +13,6 @@ Note that we will continue fixing Github issues you've opened in the -experiment
 
 Thank you! 💜
 
-
-
 # Migrating from Other WP Source Plugins :bird:
 
 From what we've seen migrating is a fairly painless process as the GraphQL schema structure is not too different from older Gatsby WordPress source plugins.

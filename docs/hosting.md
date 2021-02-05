@@ -13,8 +13,6 @@ Note that we will continue fixing Github issues you've opened in the -experiment
 
 Thank you! 💜
 
-
-
 # Hosting WordPress :house:
 
 Any mid-to-high performance WordPress host will work great. You may also have success on low performance WordPress hosts for smaller or medium sized sites, but a better server is recommended.

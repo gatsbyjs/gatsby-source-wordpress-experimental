@@ -13,8 +13,6 @@ Note that we will continue fixing Github issues you've opened in the -experiment
 
 Thank you! 💜
 
-
-
 # Community & Support
 
 Fortunately there are very strong WPGraphQL and Gatsby communities!

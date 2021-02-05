@@ -13,8 +13,6 @@ Note that we will continue fixing Github issues you've opened in the -experiment
 
 Thank you! 💜
 
-
-
 # Why use this plugin?
 
 - [Why use this plugin?](#why-use-this-plugin)

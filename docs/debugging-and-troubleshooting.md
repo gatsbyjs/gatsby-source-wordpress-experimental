@@ -13,8 +13,6 @@ Note that we will continue fixing Github issues you've opened in the -experiment
 
 Thank you! 💜
 
-
-
 # Debugging and Troubleshooting
 
 - [Debugging and Troubleshooting](#debugging-and-troubleshooting)

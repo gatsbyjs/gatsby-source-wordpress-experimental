@@ -13,8 +13,6 @@ Note that we will continue fixing Github issues you've opened in the -experiment
 
 Thank you! 💜
 
-
-
 # Installation & Getting Started :baby_chick:
 
 If you've had previous experience with Gatsby or you like to move fast, you can use the quick start steps below to get up and running quickly. If you'd like to take a step back and learn more first, head over to our [tutorials](./tutorials/index.md) :footprints:

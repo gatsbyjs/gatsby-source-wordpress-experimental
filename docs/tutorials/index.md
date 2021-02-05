@@ -13,8 +13,6 @@ Note that we will continue fixing Github issues you've opened in the -experiment
 
 Thank you! 💜
 
-
-
 # Tutorials
 
 1. [Creating a new site using a starter (recommended)](./creating-a-new-site-from-a-starter.md)
