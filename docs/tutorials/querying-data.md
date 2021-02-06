@@ -87,7 +87,7 @@ We can add this to our previous snippet, so it will become the following:
 
 ```js
 exports.createPages = async ({ actions, graphql, reporter }) => {
-  const result = graphql(`
+  const result = await graphql(`
     {
       allWpPost {
         nodes {
@@ -186,7 +186,7 @@ The full snippet should now look like the following:
 
 ```js
 exports.createPages = async ({ actions, graphql, reporter }) => {
-  const result = graphql(`
+  const result = await graphql(`
     {
       allWpPost {
         nodes {
